@@ -12,9 +12,9 @@ tags:
 - 包管理器
 ---
 
-[SAP/openui5-sample-app](https://github.com/SAP/openui5-sample-app)是使用[npm](https://www.npmjs.com/)下载依赖的开发模块的，使用[bower](https://bower.io/)下载依赖的openui5库。
+[SAP/openui5-sample-app](https://github.com/SAP/openui5-sample-app)是使用[npm](https://www.npmjs.com/)下载依赖的后端开发和构建模块，使用[bower](https://bower.io/)下载依赖的前端openui5库。
 在npm install的过程中提示"npm WARN deprecated bower@1.8.4: We don't recommend using Bower for new projects. Please consider Yarn and Webpack or Parcel. You can read how to migrate legacy project here: https://bower.io/blog/2017/how-to-migrate-away-from-bower/"。
-自己感觉仅仅使用[bower](https://bower.io/)下载依赖的openui5库，SAP这个示例对包管理器的使用确实有点浪费！对于所有的以来模块，可以要么使用[npm](https://www.npmjs.com/)，要么使用[yarn](https://yarnpkg.com/en/)。
+对于SAP这个小示例，区分前端和后端使用包管理器有点浪费！对于所有的依赖模块，可以要么使用[npm](https://www.npmjs.com/)，要么使用[yarn](https://yarnpkg.com/en/)。
 
 1. 删除bower_components和dist目录
 
