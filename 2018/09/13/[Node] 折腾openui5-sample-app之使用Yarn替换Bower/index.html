@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="SAP/openui5-sample-app是使用npm下载依赖的后端开发和构建模块，使用bower下载依赖的前端openui5库。在npm install的过程中提示”npm WARN deprecated bower@1.8.4: We don’t recommend using Bower for new projects. Please consider Yarn and Webpack">
+<meta name="keywords" content="build,nodejs,npm,yarn,bower,包管理器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="折腾openui5-sample-app之使用Yarn替换Bower">
+<meta property="og:url" content="http://yoursite.com/2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/index.html">
+<meta property="og:site_name" content="Mryqu&#39;s Notes">
+<meta property="og:description" content="SAP/openui5-sample-app是使用npm下载依赖的后端开发和构建模块，使用bower下载依赖的前端openui5库。在npm install的过程中提示”npm WARN deprecated bower@1.8.4: We don’t recommend using Bower for new projects. Please consider Yarn and Webpack">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/09/openui5-sample-app-yarn-package.png">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/09/openui5-sample-app-yarn-gruntfile.png">
+<meta property="og:updated_time" content="2018-11-12T13:53:56.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="折腾openui5-sample-app之使用Yarn替换Bower">
+<meta name="twitter:description" content="SAP/openui5-sample-app是使用npm下载依赖的后端开发和构建模块，使用bower下载依赖的前端openui5库。在npm install的过程中提示”npm WARN deprecated bower@1.8.4: We don’t recommend using Bower for new projects. Please consider Yarn and Webpack">
+<meta name="twitter:image" content="http://yoursite.com/content/images/2018/09/openui5-sample-app-yarn-package.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>折腾openui5-sample-app之使用Yarn替换Bower | Mryqu's Notes</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mryqu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mryqu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mryqu's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">折腾openui5-sample-app之使用Yarn替换Bower
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2018-09-13 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-13T00:00:00+08:00">2018-09-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2018-11-12 21:53:56" itemprop="dateModified" datetime="2018-11-12T21:53:56+08:00">2018-11-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/SAP/openui5-sample-app" target="_blank" rel="noopener">SAP/openui5-sample-app</a>是使用<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>下载依赖的后端开发和构建模块，使用<a href="https://bower.io/" target="_blank" rel="noopener">bower</a>下载依赖的前端openui5库。<br>在npm install的过程中提示”npm WARN deprecated <a href="mailto:bower@1.8.4" target="_blank" rel="noopener">bower@1.8.4</a>: We don’t recommend using Bower for new projects. Please consider Yarn and Webpack or Parcel. You can read how to migrate legacy project here: <a href="https://bower.io/blog/2017/how-to-migrate-away-from-bower/&quot;。" target="_blank" rel="noopener">https://bower.io/blog/2017/how-to-migrate-away-from-bower/&quot;。</a><br>对于SAP这个小示例，区分前端和后端使用包管理器有点浪费！对于所有的依赖模块，可以要么使用<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>，要么使用<a href="https://yarnpkg.com/en/" target="_blank" rel="noopener">yarn</a>。</p>
+<ol>
+<li><p>删除bower_components和dist目录</p>
+</li>
+<li><p>安装yarn：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install yarn -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>去掉<a href="https://github.com/SAP/openui5-sample-app/blob/master/bower.json" target="_blank" rel="noopener">bower.json</a><br>不过其中依赖的<a href="https://github.com/openui5/packaged-sap.ui.core" target="_blank" rel="noopener">openui5/packaged-sap.ui.core</a>、<a href="https://github.com/openui5/packaged-sap.m" target="_blank" rel="noopener">openui5/packaged-sap.m</a>、<a href="https://github.com/openui5/packaged-themelib_sap_belize" target="_blank" rel="noopener">openui5/packaged-themelib_sap_belize</a>仅仅<a href="https://bower.io/" target="_blank" rel="noopener">bower</a>能够获取，在<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>仓库里是找不到的。</p>
+</li>
+<li><p>修改package.json</p>
+</li>
+</ol>
+<ul>
+<li>去除bower模块</li>
+<li>去除postinstall脚本</li>
+<li>增加@openui5/sap.m依赖</li>
+<li>增加@openui5/sap.ui.core依赖</li>
+<li>增加@openui5/themelib_sap_belize依赖<br><img src="/content/images/2018/09/openui5-sample-app-yarn-package.png" alt="package.json改动"></li>
+</ul>
+<ol start="5">
+<li>修改Gruntfile.js<br><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>仓库里的@openui5/sap.m、@openui5/sap.ui.core、@openui5/themelib_sap_belize仅包含<a href="https://github.com/openui5/packaged-sap.ui.core" target="_blank" rel="noopener">openui5/packaged-sap.ui.core</a>、<a href="https://github.com/openui5/packaged-sap.m" target="_blank" rel="noopener">openui5/packaged-sap.m</a>、<a href="https://github.com/openui5/packaged-themelib_sap_belize" target="_blank" rel="noopener">openui5/packaged-themelib_sap_belize</a>中resources的部分，而不包含test-resources的部分。<br>对于openui5_connect任务，我认为无需test-resources部分即可。</li>
+</ol>
+<ul>
+<li>将openui5库的定位从bower_components目录下改为node_modules目录下的相应位置<br><img src="/content/images/2018/09/openui5-sample-app-yarn-gruntfile.png" alt="Gruntfile.js改动"></li>
+</ul>
+<ol start="6">
+<li>构建测试<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn</span><br><span class="line">grunt build</span><br><span class="line">grunt serve</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><hr>
+<p><a href="https://github.com/SAP/grunt-openui5" target="_blank" rel="noopener">SAP/grunt-openui5</a><br><a href="https://www.jb51.net/article/99536.htm" target="_blank" rel="noopener">JS新包管理工具yarn和npm的对比与使用入门</a>  </p>
+
+      
+    </div>
+
+    
+    
+    <div>    
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>�������ߣ�</strong>mryqu
+          </li>
+          <li class="post-copyright-link">
+            <strong>�������ӣ�</strong>
+            <a href="/2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/" title="折腾openui5-sample-app之使用Yarn替换Bower">2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>��Ȩ������ </strong>
+            �������������³��ر������⣬������ <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> ����Э�顣ת����ע��������
+          </li>
+        </ul>
+      
+    </div>
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/build/" rel="tag"># build</a>
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/npm/" rel="tag"># npm</a>
+          
+            <a href="/tags/yarn/" rel="tag"># yarn</a>
+          
+            <a href="/tags/bower/" rel="tag"># bower</a>
+          
+            <a href="/tags/包管理器/" rel="tag"># 包管理器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/[Node] 折腾openui5-sample-app之使用npm镜像/" rel="next" title="折腾openui5-sample-app之使用npm镜像">
+                <i class="fa fa-chevron-left"></i> 折腾openui5-sample-app之使用npm镜像
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/12/README/" rel="prev" title="新博客mryqu.github.io开张！">
+                新博客mryqu.github.io开张！ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mryqu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">Tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/mryqu" title="GitHub &rarr; https://github.com/mryqu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/yandongqu" title="Twitter &rarr; https://twitter.com/yandongqu" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/yandongqu" title="FB Page &rarr; https://www.facebook.com/yandongqu" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mryqu</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.5.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://mryqu.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/';
+        this.page.identifier = '2018/09/13/[Node] 折腾openui5-sample-app之使用Yarn替换Bower/';
+        this.page.title = '折腾openui5-sample-app之使用Yarn替换Bower';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://mryqu.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
