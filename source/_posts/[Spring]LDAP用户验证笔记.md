@@ -2,7 +2,8 @@
 title: '[Spring] LDAP用户验证笔记'
 date: 2018-08-13 10:25:53
 categories: 
-- java
+- Service及JavaEE
+- Spring
 tags: 
 - JavaEE
 - spring
