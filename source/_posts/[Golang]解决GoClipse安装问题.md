@@ -16,7 +16,7 @@ tags:
 
 ### 安装gocode、guru、godef
 
-gocode在安装LiteIDE时已经安装。GoClipse下载guru会执行“go get -u golang.org/x/tools/cmd/guru”，其结果是网站不响应该请求。
+gocode在安装LiteIDE时已经安装。GoClipse下载guru会执行`go get -u golang.org/x/tools/cmd/guru` ，其结果是网站不响应该请求。
 ```
 go get -u github.com/nsf/gocode
 go get -u github.com/rogpeppe/godef

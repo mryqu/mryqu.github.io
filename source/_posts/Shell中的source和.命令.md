@@ -8,7 +8,7 @@ tags:
 - nix
 - shell
 - source
-- .
+- .命令
 - command
 ---
 source是csh(C Shell)的内置命令: 标识读入并执行文件中的命令。
