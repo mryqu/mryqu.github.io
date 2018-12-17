@@ -2,6 +2,7 @@
 title: '又被Mining Massive Datasets的老师伤了！'
 date: 2014-11-07 20:42:31
 categories: 
+- DataScience
 tags: 
 - 大数据挖掘
 - kmeans
@@ -11,7 +12,7 @@ Mining Massive Datasets这周的课讲聚类和计算广告学：二分图匹配
 
 其中有一道题是这个样子：
 We wish to cluster the following set of points:
-![又被Mining Massive Datasets的老师伤了！](/content/images/2014/11/0026uWfMgy6Nsr7vVg864)
+![又被Mining Massive Datasets的老师伤了！](/content/images/2014/11/0026uWfMgy6Nsr7vVg864.png)
 into 10 clusters. We initially choose each of the green points(25,125), (44,105), (29,97), (35,63), (55,63), (42,57), (23,40),(64,37), (33,22), and (55,20) as a centroid. Assign each of thegold points to their nearest centroid. (Note: the scales of thehorizontal and vertical axes differ, so you really need to applythe formula for distance of points; you can't just "eyeball" it.)Then, recompute the centroids of each of the clusters. Do any ofthe points then get reassigned to a new cluster on the next round?Identify the true statement in the list below. Each statementrefers either to a centroid AFTER recomputation of centroids(precise to one decimal place) or to a point that getsreclassified.
 
 第一个念头就是用R捯饬：
