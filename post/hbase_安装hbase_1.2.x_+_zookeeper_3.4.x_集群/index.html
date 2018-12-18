@@ -488,10 +488,13 @@ stop-yarn.sh
 </div>
 <aside id="sidebar" class="sidebar">
   <div class="sidebar-inner"> 
-yqu1:&amp;hugolib.fileInfo{bundleTp:0, ReadableFile:(*source.FileInfo)(0xc0003b5860), basePather:(*hugofs.LanguageFileInfo)(0xc0009d4c80), overriddenLang:&#34;&#34;, disabled:false}  
-yqu2:&#34;post/&#34;  
 
-    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
       <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
         src="/img/author.jpg"
@@ -560,6 +563,60 @@ yqu2:&#34;post/&#34;
 
     </section>
     
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#集群规划">集群规划</a></li>
+<li><a href="#zookeeper在hbase集群中的作用">ZooKeeper在HBase集群中的作用</a></li>
+<li><a href="#zookeeper安装">Zookeeper安装</a>
+<ul>
+<li><a href="#在node50064上-下载并配置zookeeper">（在node50064上）下载并配置ZooKeeper</a></li>
+<li><a href="#从node50064复制zookeeper到其他机器">从node50064复制ZooKeeper到其他机器</a></li>
+<li><a href="#在node50069和上node51054配置zookeeper">在node50069和上node51054配置ZooKeeper</a></li>
+</ul></li>
+<li><a href="#hbase安装">HBase安装</a>
+<ul>
+<li><a href="#在node50064上-下载并解压缩hbase">（在node50064上）下载并解压缩HBase</a></li>
+<li><a href="#conf-hbase-env-sh">conf/hbase-env.sh</a></li>
+<li><a href="#conf-hbase-site-xml">conf/hbase-site.xml</a></li>
+<li><a href="#conf-regionservers">conf/regionservers</a></li>
+<li><a href="#从node50064复制hbase到其他机器">从node50064复制HBase到其他机器</a></li>
+<li><a href="#在node50069和上node51054配置hbase">在node50069和上node51054配置HBase</a></li>
+</ul></li>
+<li><a href="#在全部机器上-环境变量设置">（在全部机器上）环境变量设置</a></li>
+<li><a href="#hadoop安装">Hadoop安装</a></li>
+<li><a href="#启动">启动</a>
+<ul>
+<li><a href="#在所有机器上-启动zookeeper">（在所有机器上）启动ZooKeeper</a></li>
+<li><a href="#在node50064上-启动hadoop">（在node50064上）启动Hadoop</a></li>
+<li><a href="#在node50064和node50069上-启动hbase">（在node50064和node50069上）启动HBase</a></li>
+</ul></li>
+<li><a href="#检验安装结果">检验安装结果</a>
+<ul>
+<li><a href="#查看jvm进程状态">查看JVM进程状态</a></li>
+<li><a href="#测试hbase-shell">测试HBase Shell</a></li>
+<li><a href="#查看hbase-master-web-ui">查看HBase Master web UI</a></li>
+<li><a href="#查看hbase-regionserver-web-ui">查看HBase RegionServer web UI</a></li>
+<li><a href="#使用命令查看zookeeper信息">使用命令查看ZooKeeper信息</a></li>
+</ul></li>
+<li><a href="#关闭">关闭</a>
+<ul>
+<li><a href="#在node50064上-关闭hbase-hadoopr">（在node50064上）关闭HBase、Hadoopr</a></li>
+<li><a href="#在所有机器上-关闭zookeeper">（在所有机器上）关闭ZooKeeper</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
   </div>
 </aside>
 

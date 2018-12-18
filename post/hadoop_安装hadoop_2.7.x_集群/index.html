@@ -458,10 +458,13 @@ stop-yarn.sh
 </div>
 <aside id="sidebar" class="sidebar">
   <div class="sidebar-inner"> 
-yqu1:&amp;hugolib.fileInfo{bundleTp:0, ReadableFile:(*source.FileInfo)(0xc0008c72c0), basePather:(*hugofs.LanguageFileInfo)(0xc000a79e00), overriddenLang:&#34;&#34;, disabled:false}  
-yqu2:&#34;post/&#34;  
 
-    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
       <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
         src="/img/author.jpg"
@@ -530,6 +533,59 @@ yqu2:&#34;post/&#34;
 
     </section>
     
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#集群规划">集群规划</a></li>
+<li><a href="#准备工作">准备工作</a>
+<ul>
+<li><a href="#在全部机器上-创建hadoop用户">（在全部机器上）创建hadoop用户</a></li>
+<li><a href="#在全部机器上-配置-etc-hosts">（在全部机器上）配置/etc/hosts</a></li>
+<li><a href="#在全部机器上-禁止掉ipv6">（在全部机器上）禁止掉IPv6</a></li>
+<li><a href="#在全部机器上-关闭防火墙">（在全部机器上）关闭防火墙</a></li>
+<li><a href="#在全部机器上-安装并配置java-jdk">（在全部机器上）安装并配置Java JDK</a></li>
+<li><a href="#设置无密码ssh登录">设置无密码SSH登录</a></li>
+</ul></li>
+<li><a href="#在node50064上-安装hadoop">（在node50064上）安装Hadoop</a>
+<ul>
+<li><a href="#下载并解压缩hadoop">下载并解压缩Hadoop</a></li>
+<li><a href="#配置环境变量">配置环境变量</a></li>
+</ul></li>
+<li><a href="#配置hadoop">配置Hadoop</a>
+<ul>
+<li><a href="#etc-hadoop-hadoop-env-sh">etc/hadoop/hadoop-env.sh</a></li>
+<li><a href="#etc-hadoop-core-site-xml-https-hadoop-apache-org-docs-r2-7-0-hadoop-project-dist-hadoop-common-core-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-common/core-default.xml">core-site.xml</a></a></li>
+<li><a href="#etc-hadoop-hdfs-site-xml-http-hadoop-apache-org-docs-r2-7-0-hadoop-project-dist-hadoop-hdfs-hdfs-default-xml">etc/hadoop/<a href="http://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml">hdfs-site.xml</a></a></li>
+<li><a href="#etc-hadoop-yarn-site-xml-https-hadoop-apache-org-docs-r2-7-0-hadoop-yarn-hadoop-yarn-common-yarn-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-yarn/hadoop-yarn-common/yarn-default.xml">yarn-site.xml</a></a></li>
+<li><a href="#etc-hadoop-mapred-site-xml-https-hadoop-apache-org-docs-current-hadoop-mapreduce-client-hadoop-mapreduce-client-core-mapred-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml">mapred-site.xml</a></a></li>
+<li><a href="#etc-hadoop-masters">etc/hadoop/masters</a></li>
+<li><a href="#etc-hadoop-slaves">etc/hadoop/slaves</a></li>
+</ul></li>
+<li><a href="#复制hadoop及配置到其他主机">复制Hadoop及配置到其他主机</a></li>
+<li><a href="#在node50064上-启动hadoop">（在node50064上）启动Hadoop</a></li>
+<li><a href="#检验安装结果">检验安装结果</a>
+<ul>
+<li><a href="#查看jvm进程状态">查看JVM进程状态</a></li>
+<li><a href="#运行hadoop范例">运行Hadoop范例</a></li>
+<li><a href="#查看hdfs-web-ui">查看HDFS Web UI</a></li>
+<li><a href="#查看yarn资管管理器web-ui">查看YARN资管管理器Web UI</a></li>
+<li><a href="#查看mapreduce作业历史">查看MapReduce作业历史</a></li>
+</ul></li>
+<li><a href="#在node50064上-关闭hadoop">（在node50064上）关闭Hadoop</a></li>
+<li><a href="#附注">附注</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
   </div>
 </aside>
 
