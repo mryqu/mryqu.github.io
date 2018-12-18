@@ -14,7 +14,7 @@ script:
 
 after_script:
   - rm -rf deployment
-  - git clone -b master ${GH_REF} deployment
+  - git clone -b master "https://${GH_TOKEN}@${GH_REF}" deployment
   - rsync -av --delete --exclude ".git" public/ deployment   
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
