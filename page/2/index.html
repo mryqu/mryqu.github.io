@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/" itemprop="url">
+        [Spark] 使用Spark的REST服务Livy
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-07-17">
+    2018-07-17
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spark" itemprop="url" rel="index">
+        <span itemprop="name">Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">634 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Apache Livy简介 Apache Livy是由Cloudera Labs贡献的基于Apache Spark的开源REST服务，它不仅以REST的方式代替了Spark传统的处理交互方式，同时也提供企业应用中不可忽视的多用户，安全，以及容错的支持。其功能如下：- 拥有可用于多Spark作业或多客户端长时间运行的SparkContext； - 同时管理多个SparkContext，并在集群（YARN / Mesos）而不是Livy服务器上运行它们，以实现良好的容错性和并发性； - 可以通过预先编译好的JAR、代码片段或是java/scala客户端API将Spark作业提交到远端的Spark集群上执行。
+建立测试环境 今天在GitHub: mryqu/vagrant-hadoop-hive-spark提交了add livy support，因此可以在Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中使用Livy 0.5.0服务。 使用Livy的REST API 创建交互式会话 curl -X POST -d '{&quot;kind&quot;: &quot;spark&quot;}' -H &quot;Content-Type: application/json&quot; http://10.211.55.101:8998/sessions { &quot;id&quot;:0, &quot;appId&quot;:null, &quot;owner&quot;:null, &quot;proxyUser&quot;:null, &quot;state&quot;:&quot;starting&quot;, &quot;kind&quot;:&quot;spark&quot;, &quot;appInfo&quot;:{ &quot;driverLogUrl&quot;:null, &quot;sparkUiUrl&quot;:null }, &quot;log&quot;:[ &quot;stdout: &quot;, &quot; stderr: &quot; ] }  成功创建会话0，kind指定为spark，如果之后提交的代码中没有指定kind，则使用此处的会话默认kind。
+查询交互式会话列表 curl http://10.211.55.101:8998/sessions { &quot;from&quot;:0, &quot;total&quot;:1, &quot;sessions&quot;:[ { &quot;id&quot;:0, &quot;appId&quot;:null, &quot;owner&quot;:null, &quot;proxyUser&quot;:null, &quot;state&quot;:&quot;idle&quot;, &quot;kind&quot;:&quot;spark&quot;, &quot;appInfo&quot;:{ &quot;driverLogUrl&quot;:null, &quot;sparkUiUrl&quot;:null }, &quot;log&quot;:[ &quot;2018-07-18 03:19:16 INFO BlockManager:54 - Using org.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/" itemprop="url">
         [Spark] SparkCatalogAPI使用
         </a>
@@ -719,74 +787,6 @@ C:\&gt;pip install awscli Collecting awscli Downloading https://files.pythonhost
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consuldns%E6%8E%A5%E5%8F%A3/" itemprop="url">
-        使用Consul DNS接口
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-06-21">
-    2018-06-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/consul" itemprop="url" rel="index">
-        <span itemprop="name">Consul</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">665 字 ~4分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Consul提供了两个查询接口：HTTP和DNS。DNS接口允许应用程序在没有与consul高度集成的情况下使用服务发现。 以下面这个小Consul集群为例：
-root@consul:/# /usr/bin/consul members Node Address Status Type Build Protocol DC configuration 172.17.0.7:8301 alive client X.Y.Z 2 dc1 consul 172.17.0.2:8301 alive server X.Y.Z 2 dc1 httpd 172.17.0.4:8301 alive client X.Y.Z 2 dc1 logon 172.17.0.8:8301 alive client X.Y.Z 2 dc1 postgres 172.17.0.3:8301 alive client X.Y.Z 2 dc1 rabbitmq 172.17.0.6:8301 alive client X.Y.Z 2 dc1  可以通过DNS接口以&lt;dnode&gt;.node[.datacenter].&lt;domain&gt;的形式查询节点地址，也可以[tag.]&lt;dservice&gt;.service[.datacenter].&lt;domain&gt;的形式查询服务地址。
-root@httpd:/# dig @127.0.0.1 -p53 postgres.node.consul ANY ; &lt;&lt;&gt;&gt; DiG 9.9.5-9-Debian &lt;&lt;&gt;&gt; @127.0.0.1 -p53 postgres.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consuldns%E6%8E%A5%E5%8F%A3/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -983,7 +983,7 @@ root@httpd:/# dig @127.0.0.1 -p53 postgres.node.consul ANY ; &lt;&lt;&gt;&gt; Di
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-count">693</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -1000,7 +1000,7 @@ root@httpd:/# dig @127.0.0.1 -p53 postgres.node.consul ANY ; &lt;&lt;&gt;&gt; Di
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1491</span>
+        <span class="site-state-item-count">1493</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

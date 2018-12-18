@@ -113,6 +113,68 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/golang_win10%E4%B8%8Bglide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" itemprop="url">
+        [Golang] Win10下Glide的安装和使用
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-16">
+    2017-10-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/golang" itemprop="url" rel="index">
+        <span itemprop="name">Golang</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">110 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    不论是开发Java还是你正在学习的Golang，都会遇到依赖管理问题。Java有牛逼轰轰的Maven和Gradle。 Golang亦有Godep、Govendor、Glide、dep等等。本文主要给大家介绍Glide。 Glide是Golang的包管理工具，是为了解决Golang依赖问题的。 为什么需要Glide？ 原因很简单，Go语言原生包管理的缺陷。罗列一下Golang的get子命令管理依赖有很多大缺陷： * 能拉取源码的平台很有限，绝大多数依赖的是 github.com * 不能区分版本，以至于令开发者以最后一项包名作为版本划分 * 依赖 列表/关系 无法持久化到本地，需要找出所有依赖包然后一个个 go get * 只能依赖本地全局仓库（GOPATH/GOROOT），无法将库放置于项目局部仓库（$PROJECT_HOME/vendor）
+Glide是有下列几大主要功能： * 持久化依赖列表至配置文件中，包括依赖版本（支持范围限定）以及私人仓库等 * 持久化关系树至 lock 文件中（类似于 yarn 和 cargo），以重复拉取相同版本依赖 * 兼容 go get 所支持的版本控制系统：Git, Bzr, HG, and SVN * 支持 GO15VENDOREXPERIMENT 特性，使得不同项目可以依赖相同项目的不同版本 * 可以导入其他工具配置，例如： Godep, GPM, Gom, and GB
+Glide在Mac或Linux上是很容易安装的，但是在Win10 x64上据说最新版有问题。详见https://github.com/Masterminds/glide/issues/873。 想多了没用，还是实干吧。从https://github.com/Masterminds/glide/releases上下载了glide-v0.13.0-windows-amd64.zip，里面就一个glide.exe。 将glide.exe放入%GOPATH%/bin下，然后将%GOPATH%/bin加入环境变量Path中，由于我的Go版本是1.9所以GO15VENDOREXPERIMENT环境变量就不用管了。执行glide --version ，开头没问题呀！ 进入我的项目目录%GOPATH%/src/helloglide，执行下列命令：
+glide create #创建新的工作空间，生成glide.yaml glide get github.com/pborman/uuid #获取uui包 glide install #建立glide.lock版本 go build #构建项目 glide list #列举项目导入的所有包 INSTALLED packages: github.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/golang_win10%E4%B8%8Bglide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/golang_%E8%A7%A3%E5%86%B3goclipse%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" itemprop="url">
         [Golang] 解决GoClipse安装问题
         </a>
@@ -680,73 +742,6 @@ GeoEnrichment API资费 在Esri GeoEnrichment Service提到了资费列表：
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9arcgis_rest_api/" itemprop="url">
-        玩玩ArcGIS REST API
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-05-19">
-    2017-05-19
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">151 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    了解Esri和ArcGIS 美国环境系统研究所公司（Environmental Systems Research Institute, Inc. 简称Esri公司）成立于1969年，总部设在美国加利福利亚州雷德兰兹市，是世界最大的地理信息系统技术提供商。 ArcGIS是Esri公司集40余年地理信息系统（GIS）咨询和研发经验，奉献给用户的一套完整的GIS平台产品，具有强大的地图制作、空间数据管理、空间分析、空间信息整合、发布与共享的能力。
-ArcGIS REST API ArcGIS REST API可用于包括ArcGIS Online在内的ArcGIS平台，包括： * Maps—随时可用的底图、参考层等。可用于快速为您的本地或全球数据添加上下文或背景。一些ArcGIS Online地图有页面主题，可以提供出你的应用所需的全部信息。 * World Geocoding Service—通过文本地址、商业名等查找位置，该服务也提供反向服务：通过地理坐标查找最近的地址。 * Directions and Routing Service (Network Analysis Service)—解决各种路线规划问题，例如简单的点到点路由、复杂的船舶航线规划、及行驶时间分析。 * GeoEnrichment Service—GeoEnrichment 服务借助本地化的人口、场所以及商业信息丰富了用户的地理数据。提交某个点、面、地址或地名后，可通过该服务了解该地区居民的生活习惯和生活方式、附近的商业类型以及区域邮政编码等信息。 * Spatial Analysis Service—各种可用于执行通用GIS分析的任务。传统上，包括查找热点和对周边汇总在内的许多任务都需要深度学习和专业知识才能运行。而这些空间分析任务仅包含少量需要研究的参数，也能获得相当不错的结果。 * Elevation Analysis service—高程分析服务允许您执行高程分析（轮廓，视角，总结高程）和水文分析（流域和跟踪下游）的各种操作。这些服务参考的数据由Esri托管和策划。
-ArcGIS REST API有些是免费的，有些是付费。付费操作需要订阅ArcGIS Online，并减扣账户积分。 使用需付费API时，需要在请求中通过token参数指定访问令牌。获取ArcGIS REST API所需访问令牌的方法，请参见前一博文ArcGIS认证和登录。
-响应数据格式 对于ArcGIS REST API，有些响应支持JSON、PJSON（个人理解就是完美打印版的JSON）、XML和BIN格式中的一种或多种。可在请求时通过f参数指定。
-使用GeoEnrichment API GeoEnrichment服务能力、属性和限制可以通过下列请求获得：
-http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/?f=pjson  由响应可知，GeoEnrichment端点支持Enrich、CreateReport、Reports、Countries、DataCollections、StandardGeographyLevels这几种操作。
-Countries操作 首先试一下国家列表：
-http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/Countries?f=pjson  当然Countries操作也可用于获取单个国家信息： StandardGeographyLevels操作 StandardGeographyLevels服务返回有效地理数据层列表。服务结果是BAIDNamePairs数组，包含数据层ID及相应名称。这些ID可被用于在其他分析中指定数据层。 下面的请求示例列举CN的有效地理数据层列表：
-http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/StandardGeographyLevels/CN?f=pjson  DataCollections操作 GeoEnrichment服务使用数据集合的概念定义服务返回的属性。更具体地说，数据集合是用于丰富输入特性的预先组合的属性列表。作为输入特性，集合属性可以描述所提交位置或区域的各种类型信息，例如人口特征和地理上下文。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9arcgis_rest_api/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -940,7 +935,7 @@ http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoen
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-count">693</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -957,7 +952,7 @@ http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoen
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1491</span>
+        <span class="site-state-item-count">1493</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
