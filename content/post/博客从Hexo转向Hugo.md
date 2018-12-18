@@ -132,7 +132,7 @@ title = "Mryqu's Notes"
 theme = "next"
 
 [Author]
-  Name = "mryqu"
+  DisplayName = "mryqu"
 ```
 
 ## 修改Markdown文件
