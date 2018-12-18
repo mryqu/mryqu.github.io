@@ -15,11 +15,10 @@ script:
 after_script:
   - rm -rf deployment
   - git clone -b master ${GH_REF} deployment
-  - git init
+  - rsync -av --delete --exclude ".git" public/ deployment   
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
   - git config --global push.default simple
-  - rsync -av --delete --exclude ".git" public/ deployment
   - cd deployment
   - git add -A
   - git commit -m "rebuilding site on `date`, commit ${TRAVIS_COMMIT} and job ${TRAVIS_JOB_NUMBER}" || true
