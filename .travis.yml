@@ -12,9 +12,21 @@ install:
 script:
   - hugo
 
-deploy:
-  - provider: script
-    script: ./deploy.sh
-    skip_cleanup: true
-    on:
-      branch: hugo
+after_script:
+  - rm -rf deployment
+  - git clone -b master ${GH_REF} deployment
+  - git init
+  - git config user.name "${U_NAME}"
+  - git config user.email "${U_EMAIL}"
+  - git config --global push.default simple
+  - rsync -av --delete --exclude ".git" public/ deployment
+  - cd deployment
+  - git add -A
+  - git commit -m "rebuilding site on `date`, commit ${TRAVIS_COMMIT} and job ${TRAVIS_JOB_NUMBER}" || true
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+  - cd ..
+  - rm -rf deployment
+
+branches:
+  only:
+    - hugo
