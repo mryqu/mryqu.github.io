@@ -1,0 +1,492 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[社交网络分析课] 随机网络模型 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[社交网络分析课] 随机网络模型">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[社交网络分析课] 随机网络模型 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90_%E9%9A%8F%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/" itemprop="url">
+        [社交网络分析课] 随机网络模型
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-10-21">
+    2014-10-21
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">114 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>本文为Social NetworkAnalysis学习笔记，课程地址为<a href="https://www.coursera.org/course/sna。">https://www.coursera.org/course/sna。</a></p>
+
+<h3 id="网络模型">网络模型</h3>
+
+<p>为什么建立网络模型？
+- 复杂网络的简单表达
+- 可以通过数学推导出属性
+- 可以预测属性和输出
+- 可以对比真实网络与假设模型的不同之处，从中获得顿悟</p>
+
+<h3 id="随机图模型-erdös-renyi模型">随机图模型：Erdös-Renyi模型</h3>
+
+<p><img src="/images/2014/10/0026uWfMzy6OCbCij9a74.png" alt="社交网络分析：随机网络模型" /></p>
+
+<h4 id="假设">假设</h4>
+
+<ul>
+<li>节点随机连接</li>
+<li>网络是无向网络</li>
+</ul>
+
+<h4 id="除了节点数n之外的关键参数-p或m">除了节点数N之外的关键参数：p或M</h4>
+
+<ul>
+<li>p=任意两个节点连接的概率</li>
+<li>M=图中边的总数</li>
+</ul>
+
+<h4 id="度分布">度分布</h4>
+
+<p>(N,p)模型：对每个潜在的边，概率p添加边，概率(1-p)不添加边。
+<img src="/images/2014/10/0026uWfMzy6OCcho6Vz59.png" alt="社交网络分析：随机网络模型" /></p>
+
+<h4 id="每节点边数">每节点边数</h4>
+
+<p>每个节点最多可能（N-1）条边，每条边以概率p的可能性存在。二项分布提供了节点具有度K的概率：
+<img src="/images/2014/10/0026uWfMzy6OCgk8tA0ac.png" alt="社交网络分析：随机网络模型" />度的平均数为：z = (n-1)*p度的方差为：s2=(n-1)<em>p</em>(1-p)近似值：<img src="/images/2014/10/0026uWfMzy6OCgUrFST17.png" alt="社交网络分析：随机网络模型" /></p>
+
+<h3 id="er图模型认知">ER图模型认知</h3>
+
+<h4 id="社交中心-hub">社交中心(hub)</h4>
+
+<p>该模型下无法获得大的社交中心。</p>
+
+<h4 id="巨分量">巨分量</h4>
+
+<p><img src="/images/2014/10/0026uWfMgy6ODGdM9eg68.png" alt="社交网络分析：随机网络模型" />
+上述实验中，每个点有可变的概率P表示渗透。当P等于1/2的时候，图中会出现一个明显的巨分量。</p>
+
+<h4 id="平均最短路径">平均最短路径</h4>
+
+<p>每对节点的平均跳数是多少？假如你的朋友与z（=度平均值）个你的其他朋友相连，忽略回路的话与你距离l跳的人有zl个。
+<img src="/images/2014/10/0026uWfMgy6ODI87oO004.png" alt="社交网络分析：随机网络模型" /><img src="/images/2014/10/0026uWfMgy6ODIwCMeD5b.png" alt="社交网络分析：随机网络模型" /></p>
+
+<h3 id="介绍模型-introduction-model">介绍模型(Introduction Model)</h3>
+
+<p>任意两个节点连接的概率prob-link仍然是p，此外增加了连接邻居节点的邻居节点概率prob-intro，不再完全随机。
+<img src="/images/2014/10/0026uWfMgy6ODNe2YUq0a.png" alt="社交网络分析：随机网络模型" />
+与ER模型相比，介绍模型具有：
+- 更多的闭三点组（朋友将他的朋友介绍给你）
+- 更长的平均最短距离（边更局部连接）
+- 更多不均匀的度分布（有更多连接的节点更容易增加边）
+- 低概率p的情况更小的巨分量</p>
+
+<h3 id="静态地理模型-static-geographical-model">静态地理模型(Static Geographical model)</h3>
+
+<p>每个节点与最接近的节点中的num-neighbors个相连。
+<img src="/images/2014/10/0026uWfMgy6ODNX5mTY0e.png" alt="社交网络分析：随机网络模型" />
+与ER模型相比，静态地理模型具有：
+- 更窄的度分布(每个节点邻居节点目标一样，num-neighbors)
+- 更长的平均最短距离（地理局部连接）
+- 更小的巨分量(更少的机会进行随机连接)</p>
+
+<h3 id="随机遭遇模型-random-encounter">随机遭遇模型(Random encounter)</h3>
+
+<p>节点随机移动，与偶遇的节点相连。
+<img src="/images/2014/10/0026uWfMgy6OEvVtPb240.png" alt="社交网络分析：随机网络模型" />
+与ER模型相比，随机遭遇模型具有：
+- 更长的平均最短距离
+- 更小的巨分量
+- 更多的闭三点组</p>
+
+<h3 id="生长模型-growth-model">生长模型(Growth model)</h3>
+
+<p>不是一开始就是固定数目节点，节点数随着时间增加。
+<img src="/images/2014/10/0026uWfMgy6OEEyg8UG7a.jpg" alt="社交网络分析：随机网络模型" />
+与ER模型相比，生长模型具有：
+- 很多节点度为1
+- 没有很多闭三点组
+- 更小的巨分量
+- 老节点比新节点有更多的边</p>
+
+<h3 id="真实网络度分布">真实网络度分布</h3>
+
+<p><img src="/images/2014/10/0026uWfMgy6OEI9UkpBd3.jpg" alt="社交网络分析：随机网络模型" /></p>
+
+<h3 id="幂律分布分布">幂律分布分布</h3>
+
+<p><img src="/images/2014/10/0026uWfMgy6OEIrUjcSda.jpg" alt="社交网络分析：随机网络模型" />
+度值为k的概率：p(k)= C * k ^ (-α)。C是标准化常数以使所有k的概率和为1。log(p(k)) = c - α *log(k)。</p>
+
+<h3 id="泊松分布">泊松分布</h3>
+
+<p><img src="/images/2014/10/0026uWfMgy6OEIBTnEp3d.jpg" alt="社交网络分析：随机网络模型" /></p>
+
+<h3 id="偏好性连接模型-preferential-attachment">偏好性连接模型（preferential attachment）</h3>
+
+<p>节点更倾向与有更多边的节点连接，也被称为积累优势、富者愈富、马太效应。偏好性连接加剧了度分布的偏斜，使其具有幂律特性，指数α =2+1/m</p>
+
+<h3 id="barabasi-albert模型">Barabasi-Albert模型</h3>
+
+<p>开始用于描述万维网倾斜度分布。每个节点同其他节点以和对方度正比的概率相连。
+- 该过程起始有某个初始子图
+- 每个新节点将会有m个边
+- 连接节点i的概率结果是幂律分布其指数α =3</p>
+
+<h3 id="ba模型属性">BA模型属性</h3>
+
+<ul>
+<li>分布是尺度无关的，其指数α =3P(k) = 2 m2/k3</li>
+<li>图是连通的。一开始的图是连通的，</li>
+<li>新节点一出现就会有一到数个边（取决于m），它会同老节点相连，同时也会通过介绍与其他节点相连</li>
+<li>老节点更富有节点随着时间积累连接，从而使老节点更有优势，因为新节点偏好性连接而老节点会有更高的度值。</li>
+</ul>
+
+<h3 id="ba模型中新老节点的对比">BA模型中新老节点的对比</h3>
+
+<p><img src="/images/2014/10/0026uWfMgy6OEKbhynb8d.jpg" alt="社交网络分析：随机网络模型" /></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[社交网络分析课] 随机网络模型
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/%e7%a4%be%e4%ba%a4%e7%bd%91%e7%bb%9c%e5%88%86%e6%9e%90" rel="tag" title="社交网络分析">#社交网络分析#</a>
+    
+    <a href="/tags/sna" rel="tag" title="sna">#sna#</a>
+    
+    <a href="/tags/coursera" rel="tag" title="coursera">#coursera#</a>
+    
+    <a href="/tags/%e7%ac%94%e8%ae%b0" rel="tag" title="笔记">#笔记#</a>
+    
+    <a href="/tags/%e9%9a%8f%e6%9c%ba%e7%bd%91%e7%bb%9c%e6%a8%a1%e5%9e%8b" rel="tag" title="随机网络模型">#随机网络模型#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="next" title="[数据分析与统计推断] 线性回归">
+        <i class="fa fa-chevron-left"></i> [数据分析与统计推断] 线性回归
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E5%88%9B%E5%BB%BAmysql%E8%A1%A8%E5%A4%B1%E8%B4%A5show_tables%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E8%A1%A8%E5%AD%98%E5%9C%A8%E5%8D%B4%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4/" rel="prev" title="创建MySQL表失败，“show tables”命令显示表存在却无法删除">
+        创建MySQL表失败，“show tables”命令显示表存在却无法删除 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

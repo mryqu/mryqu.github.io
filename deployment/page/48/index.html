@@ -1,0 +1,982 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta name="generator" content="Hugo 0.52" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Mryqu&#39;s Notes - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Mryqu&#39;s Notes">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Mryqu&#39;s Notes - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    <link rel="alternate" href="https://mryqu.github.io/index.xml" title="Mryqu&#39;s Notes" type="application/rss+xml" />
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: false, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item menu-item-active">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+    
+ <section id="posts" class="posts-expand">
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/sql%E4%B8%AD%E7%9A%84%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/" itemprop="url">
+        SQL中的（稀疏）矩阵运算
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-07-07">
+    2014-07-07
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db/nosql" itemprop="url" rel="index">
+        <span itemprop="name">DB/NoSQL</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">12 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    前两天在一门课上看到SQL中（稀疏）矩阵的乘法，找到两篇相关帖子，介绍了SQL中的（稀疏）矩阵运算，包含矩阵相等判别、加法、乘法、转置。
+Matrix Math in SQLMAD skills: new analysis practices for big data
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/" itemprop="url">
+        通过Java反射操作注解
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-29">
+    2014-06-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">469 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。
+MyAnnotation.java package com.yqu.reflection.annotation; import java.lang.annotation.ElementType; import java.lang.annotation.Retention; import java.lang.annotation.RetentionPolicy; import java.lang.annotation.Target; @Retention(RetentionPolicy.RUNTIME) //@Target(ElementType.TYPE) public @interface MyAnnotation { public String name() default &quot;[unknown name]&quot;; public String value() default &quot;[unassigned value]&quot;; }  定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。 @Target指定此注解的作用域： - TYPE：用于类、接口、注解类和枚举 - CONSTRUCTOR：用于构造方法 - LOCAL_VARIABLE：用于本地变量 - FIELD：用于类的属性(包括枚举常量) - METHOD：用于方法 - PACKAGE：用于包 - PARAMETER：用于方法的参数 - ANNOTATION_TYPE：用于注解类 - TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前 - TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期： - SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。 - CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。 - RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。
+TheClass.java package com.yqu.reflection.annotation; import java.lang.annotation.Annotation; import java.lang.reflect.Field; import java.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/lxml.md.soupparser%E5%BC%95%E5%85%A5beautifulsoup_4%E7%9A%84work-around/" itemprop="url">
+        lxml.html.soupparser引入BeautifulSoup 4的work-around
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-22">
+    2014-06-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/python" itemprop="url" rel="index">
+        <span itemprop="name">Python</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">39 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    想用一下python的xpath功能分析一个html文件，lxml是比较不错的xml/html解析库，lxml功能强大，性能也不错，此外也包含了ElementTree，html5lib ，beautfulsoup 等库。 可惜我的html文件格式不是很严谨，lxml的ElementTree处理不了，就转而想用lxml的beautfulsoup来处理。 结果lxml找不到BeautifulSoup库。
+查了一下Anaconda装的库里面明明有Beautiful Soup 4.3.1，感觉很奇怪！! lxml.html.soupparser引入BeautifulSoup 4的work-around 原来Beautiful Soup 3目前已经停止开发，Beautiful Soup 4移植到了BS4。
+下面的语句就可以引入Beautiful Soup 4了，可是lxml还是无法引入beautfulsoup。
+from bs4 import BeautifulSoup  stackoverflow有一个帖子import error due to bs4 vs BeautifulSoup讲了一个work-around，可以欺骗lxml从而引入beautfulsoup。测试一下，果然工作正常了。
+import sys, bs4 sys.modules['BeautifulSoup'] = bs4 import lxml.html.soupparser as soupparser  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/pythonxy%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" itemprop="url">
+        Python(x,y)功能实现思维导图
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-21">
+    2014-06-21
+</time>
+</span> 
+      
+
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    今天浏览Python(x,y)时，发现一个介绍其功能实现的思维导图。对Python(x,y)所实现的功能一目了然，感觉很棒。思维导图在整理自己思绪、知识图谱时用了一些，还没用到项目策划上，以后会督促自己多用多思考。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%80%89%E6%8B%A9python%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%8F%91%E8%A1%8C%E7%89%88/" itemprop="url">
+        选择Python科学计算发行版
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-21">
+    2014-06-21
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/python" itemprop="url" rel="index">
+        <span itemprop="name">Python</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">50 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    最近重装Python，看了一下Python科学计算发行版，打算多玩一下数据处理和数值计算。
+Python用于科学计算的一些常用工具和库  IPython-增强的交互环境：支持变量自动补全，自动缩进，支持 bash shell命令，内置了许多很有用的功能和函数 Spyder、Wing IDE或Eclipse/Pydev：集成开发环境 NumPy-数学计算基础库：N维数组、线性代数计算、傅立叶变换、随机数等。 SciPy-数值计算库：线性代数、拟合与优化、插值、数值积分、稀疏矩阵、图像处理、统计等。 SymPy-符号运算 Pandas-数据分析库：数据导入、整理、处理、分析等。 matplotlib-会图库：绘制二维图形和图表 Chaco-交互式图表 OpenCV-计算机视觉库 TVTK-数据的三维可视化 Cython-Python转C的编译器：编写高效运算扩展库的首选工具 BioPython-生物科学  Python科学计算发行版  Python(x,y)当前最新版本:2.7.6.1 (05/30/2014)，支持Windows和Python2.7.6。其库索引列出了所支持的170+Python27库。 WinPython当前最新版本:2.7.6.4和3.3.5.0 (04/2014)，支持Windows和Python2.7.6、3.3.5。其库索引列出了所支持的60+Python27库。其库索引列出了所支持的60+Python33库。 Enthought Canopy（Enthought Python Distribution）当前最新版本:1.4.1 (06/11/2014)，支持Linux, Windows,Mac平台和Python2.7.6。其库索引列出了所支持的150+测试过的Python库。 Anaconda当前最新版本:2.0.1 (06/12/2014)，支持Linux, Windows, Mac平台和Python2.6、2.7、3.3、3.4。其库索引列出了所支持的195+流行Python库。  Sage不是Python发行版，而是一个由Python和Cython实现的开源数学软件系统，将很多已有的（C、C++、Fortran和Python编写的）数学软件包集成到一个通用接口（记事本文档接口和IPython命令行界面），用户只需了解Python，就可以通过接口或包装器(wrapper)使用NumPy、SciPy、matplotlib、Sympy、Maxima、GAP、FLINT、R和其他已有软件包（具体信息见组件列表），完成代数、组合数学、计算数学和微积分等计算。其最初的目标是创造一个“Magma、Maple、Mathematica和MATLAB的开源替代品”。当前最新版本:6.3(08/10/2014)，支持Linux, Windows, Mac平台和Python2.x。
+我的选择和推荐 Python(x,y)和WinPython都是开源项目，其项目负责人都是PierreRaybaut。按Pierre自己的说法是“WinPython不是试图取替Python(x,y)，而是出于不同动机和理念：更灵活、易于维护、可移动、对操作系统侵略性更小，但是用户友好性更差、包更少、没有同Windows资源管理器集成。”。参考1里面说Python(x,y)不是很稳定，此外看它目前的更新不是很频繁，确实有可能Pierre后来的工作重心放在WinPython上了。 Canopy和Anaconda是公司推的，带免费版和商业版/插件。这两款发行版也牵扯到一个人，那就是Travis Oliphant。Travis是SciPy的原始作者，同时也是NumPy的贡献者。Travis在2008年以副总裁身份加入Enthought，2012年以总裁的身份离开，创立了一个新公司continuum.io，并推出了Python的科学计算平台Anaconda。Anaconda相对Canopy支持Python的版本更多，对Python新版本支持跟的很紧（Sage不支持Python3.x的理由是因为其依赖的SciPy还不支持Python3，而Anaconda却实现了支持Python3.3和3.4，这就说明问题了），此外其在Linux平台下（通过conda管理）安装更方便。 不言而喻，我最后选择了安装科学计算发行版Anaconda:)
+参考 目前比较流行的Python科学计算发行版
+《Python科学计算》 清华大学出版社
+Re-packaged Python
+Scientific computing with Python
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" itemprop="url">
+        [Hadoop] 使用MRUnit进行MapReduce单元测试
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-15">
+    2014-06-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">16 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    MRUnit介绍 MRUnit是一个用于帮助开发者进行HadoopMapReduce作业单元测试的Java库。它是JUnit架构扩展，无需将代码运行在集群上即可在开发环境测试Mapper和Reducer类的功能。MRUnit由Cloudera开发，并在2012年成为Apache基金会顶级项目。 MRUnit使用LocalJobRunner使用样本数据集模拟一次Mapper/Reducer执行过程。通过定义一或多个输入记录，使用LocalJobRunner运行测试代码，判定是否与期望输出相符。如相符，则安静退出；否则，默认抛出异常。
+测试代码 本测试代码基于MRUnit指南中示例代码修改而成，使用junit:junit:4.11和org.apache.mrunit:mrunit:1.1.0:hadoop2两个Java库进行编译和测试。
+SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试演示 为了演示测试失败情况，我将testReducer方法中期望值改为错误值123。 参考 Apache MRUnit
+MRUnit Tutorial
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84%E5%92%8C%E5%9B%BE%E4%B9%A6/" itemprop="url">
+        数据科学：学习路径和图书
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-06">
+    2014-06-06
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    转发网上的两个图片，时时对照学习。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/slidify/" itemprop="url">
+        slidify
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-03">
+    2014-06-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">23 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Slidify是使用RMarkdown创建、定制和发布（用于可重复性研究的）HTML幻灯片的工具包。 Slidify支持多种生成框架和主题：
+|幻灯片生成框架|主题 |&mdash;&ndash; |io2012|&nbsp; |html5slides|default, uulm |html5rocks|&nbsp; |deck.js|web2.0, swiss, neon |dzslides|&nbsp; |landslide|default, tango, clean |shower|ribbon |slidy|&nbsp; |slideous|&nbsp; |beamer|&nbsp; |showoff|&nbsp;
+生成的幻灯片可以发布到Github、Dropbox和Rpubs上。命令集成了一些底层操作，所以很简单。见http://slidify.org/publish.html 前一段发布一个幻灯片碰到些麻烦，只好采用git命令行这种老方式。操作步骤参考如下链接： https://github.com/ramnathv/slidify/wiki/Publishing
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/cran%E4%BB%BB%E5%8A%A1%E8%A7%86%E5%9B%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A02014-05-31%E7%89%88/" itemprop="url">
+        CRAN任务视图：机器学习与统计学习（2014-05-31版）
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-03">
+    2014-06-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">228 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    我在CRAN任务视图使用一帖中学习CRAN中当前所有的任务视图，本帖学习机器学习与统计学习的任务视图，其原链接如下：http://cran.r-project.org/web/views/MachineLearning.html 机器学习是计算机科学和统计学的边缘交叉领域，R关于机器学习的扩展包大概包括以下几个方面： - 神经网络(Neural Networks) : 单隐含层神经网络在nnet 包(与R基础包一同发布)中实现。RSNNS 包提供斯图加特神经网络仿真软件(SNNS)的使用接口。 - 递归拆分（Recursive Partitioning） : 根据CART书中算法完成的用于回归、分类和生存分析的树形结构模型在rpart 包(与R基础包一同发布)和tree包中实现。rpart包推荐用于计算与分类回归树相类似的树结构。 Weka 拥有很多拆分算法的工具包，RWeka提供了Weka的C4.5（J4.8变种）和M5实现的使用接口。Cubist包通过在叶端使用线性回归模型、基于实例修正、boosting拟合基于规则的模型（与树类似）。C50包可以拟合C5.0分类树和基于规则的模型及其boosting版本。party包有两个带有无偏变量选择和统计停止准则的递归拆分算法实现。ctree()函数基于非参数条件推理过程，用于测试响应变量和每个输入变量的无关性；而mob()函数能用于拆分参数模型。party包也提供了用于可视化二叉树和响应变量节点分布的可扩展工具。用于多元响应变量的rpart改进版本在mvpart包提供。对于二元输入变量问题，LogicReg包实现了逻辑回归。maptree包提供了树的可视化工具。用于通过随机效应对纵向数据进行建模的树由REEMtree包提供。RPMM提供了对混合模型(Beta和高斯混合)的拆分。用于表达树的计算基础架构、预测和可视化的统一方法在partykit包内实现。oblique.tree包提供了用于分类数据的斜树。 - 随机森林（Random Forests） : randomForest包提供了用于回归和分类的随机森林算法参考实现。ipred包提供了用于回归、分类和生存分析的bagging（bootstrapaggregating的缩写）算法及通过集成学习对多个模型进行组合的bundling算法。此外，基于条件推断决策树（conditional inferencetree）的随机森林变体（其响应变量可以以任意比例估量）在party包中实现。randomSurvivalForest包提供用于删失数据的随机生存森林算法。分位数回归森林 quantregForest通过随机森林方式对探索变量的数值响应变量分位数进行回归。varSelRF和Boruta包专注于通过随机森林进行变量选择。对于大数据集，bigrf包以并行方式计算随机森林并使用大的内存对象存储数据。 - 正规化和收缩方法（Regularized and ShrinkageMethods） : 参数评估受限的回归模型可以使用lasso2和lars包进行拟合。grplasso包提供了群体LASSO（LeastAbsolute Shrinkage and Selection Operator）惩罚模型; grpreg包实现了一些其他群体惩罚模型，例如群体MCP（MinimaxConcave Penalty）和群体SCAD（Smoothly Clipped Absolute DeviationPenalty）。用于广义线性模型和Cox模型的L1正规化路径可以通过glmpath包里的函数获得，用于线性回归、逻辑回归和多项式回归模型的整个lasso或elastic-net正规化路径（也存在于elasticnet)可以通过glmnet包获得。penalized包提供了lasso(L1)和ridge (L2)惩罚回归模型(支持广义线性模型和Cox模型)的另一个替代实现。RXshrink包能用于标识和显示特定收缩路径的跟踪信息、判断合适的收缩程度。 使用lasso惩罚的半参数加法风险模型由ahaz包提供。一种用于线性回归的广义lasso收缩技术，relaxedlasso，由relaxo包提供。penalizedLDA包实现使用（可选的）LASSO惩罚的费舍尔线性判别分析，用于特征值p远大于观测值n的高维数据。pamr包实现了用于基因表达分析的缩小重心分类法和工具。earth包提供了一个多元自适应样条回归实现。penalizedSVM包提供了使用惩罚功能(SCAD或L1惩罚)的变量选择支持向量机。 各种惩罚判别分析在hda、rda、sda和SDDA包内实现。LiblineaR包提供了LIBLINEAR库的接口。ncvreg包使用坐标下降算法进行SCAD和MCP逻辑惩罚来拟合线性和逻辑回归模型。 bigRR包关注于高吞吐量岭回归(例如，对很多预测变量进行惩罚)和异方差效应模型。 bmrm包提供了一个用于正规化风险最小化的束方法实现。 - Boosting : 各种形式的梯度boosting在gbm包 (基于树的功能性梯度下降boosting)内实现。由boosting优化的Hinge-loss实现在bst包内. GAMBoost包可用于通过boosting算法拟合广义加法模型。mboost包提供一个用于广义线性、加法和非参数模型的可扩展boosting框架。 基于似然估计的boosting实现，用于Cox模型的在CoxBoost包内提供，用于混合模型的在GMMBoost包内提供。GAMLSS模型可以使用gamboostLSS提供的boosting进行拟合。 - 支持向量机（Support Vector Machines and KernelMethods） : e1071包中的svm()函数提供LIBSVM库的接口，包kernlab 为核学习（包括SVM、RVM和其他核学习算法）提供了一个灵活的框架。 klaR 包提供了用于SVMlight实现（仅one-against-all多类分类）的接口。 核特征空间的关联维可以使用rdetools包进行估计，rdetools也提供了用于模型选择和预测的程序。 - 贝叶斯方法（BayesianMethods） : tgp包提供了贝叶斯非稳半参数非线性回归和基于树的高斯过程（包括贝叶斯线性模型、分类和回归树、基于树的线性模型）设计. - 基于遗传算法的优化（Optimization using GeneticAlgorithms） : rgp和rgenoud包提供基于遗传算法的最优化程序。Rmalschains包实现了基于局部搜索链的模因算法（memeticalgorithm），该算法为一种特俗的演化算法类型，是稳态基因算法和用于实数参数优化的局部搜索的结合体。模因算法，又译为文化基因算法，全局搜索策略可以采用遗传算法、进化策略、进化规划等;局部搜索策略可以采用爬山搜索、模拟退火、贪婪算法、禁忌搜索等。 - 关联规则（Association Rules） arules包提供了有效处理稀疏二元数据的数据结构，以及为用于挖掘频繁项集、最大频繁项集、闭频繁项集和关联规则的Apriori和Eclat算法实现提供接口。 - _基于规则的_模糊系统（Fuzzy Rule-based Systems） :frbs包实现了许多用于回归和分类、从数据中学习模糊规则系统的标准方法。RoughSets包提供了粗糙集理论（RST）和模糊粗糙集理论（FRST）的完整实现。 - 模型选择和验证（Model selection andvalidation） :e1071包中用于超参数调优的tune()函数和ipred包中的errorest() 函数可被用于错误率估计。svmpath 包里的函数可用来选取支持向量机的代价参数C。ROCR 包提供了函数用于ROC分析和其他用于对比候选分类器的可视化技术。caret 包供了各种建立预测模型的函数，包括参数调优和变量重要性量度。这些包可被用于各种并行实现（例如MPI、NWS等）。 - 统计学习基础（Elements of StatisticalLearning） :《The Elements of Statistical Learning: Data Mining, Inference, and Prediction 》一书中的数据集、函数、例子都被打包放在ElemStatLearn包中。 - rattle 是R中用于数据挖掘的图形用户界面。CORElearn 包实现了很多机器学习算法，例如最近邻域算法、树、随机森林和一些特征选择方法。与之类似，rminer 包可以使用其他包的许多学习算法并计算多种性能度量。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/cran%E4%BB%BB%E5%8A%A1%E8%A7%86%E5%9B%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A02014-05-31%E7%89%88/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/shiny%E7%BB%83%E4%B9%A0/" itemprop="url">
+        shiny练习
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-02">
+    2014-06-02
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">14 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Shiny是RStudio公司开发的新包，有了它，无需web开发就可以用R语言轻松开发交互式web应用。
+我参加数据科学专业课学习，使用shiny完成一个作业，虽然初学乍练，也能感觉到开发起来很快速。 参考 shiny tutorialshiny examplesLinear Regressions and Linear Models using the Iris Data
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+<nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+    <a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
+</nav>
+
+
+
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+<div class="feed-link motion-element">
+<a href="https://mryqu.github.io/index.xml" rel="alternate" type="application/rss+xml" target="_blank">
+    <i class="fa fa-rss"></i>
+    RSS 订阅
+</a>
+</div>
+
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" id="motion.page.archive">
+  $('.archive-year').velocity('transition.slideLeftIn');
+</script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

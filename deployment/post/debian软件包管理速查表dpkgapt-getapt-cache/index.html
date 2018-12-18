@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Debian软件包管理速查表：dpkg、apt-get、apt-cache - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Debian软件包管理速查表：dpkg、apt-get、apt-cache">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Debian软件包管理速查表：dpkg、apt-get、apt-cache - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/" itemprop="url">
+        Debian软件包管理速查表：dpkg、apt-get、apt-cache
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-18">
+    2013-10-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">194 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>dpkg是Debian系统底层包管理器，apt-get是高层包管理工具，apt-cache是高层包查询工具。</p>
+
+<h3 id="dpkg速查表">dpkg速查表</h3>
+
+<p>dpkg是Debian Linux用于安装/管理单个软件包的命令行工具：</p>
+
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#60834A" width="100%" style="font-family: arial, helvetica, sans-serif; border-collapse: collapse; background-color: rgb(255, 255, 255);"><tbody><tr align="center"><th width="33%"><b>语法</b></th><th width="33%"><b>描述</b></th><th width="34%"><b>示例</b></th></tr><tr><td>dpkg -i {.deb package}</td><td>安装软件包</td><td>dpkg -i zip_2.31-3_i386.deb</td></tr><tr><td>dpkg -i {.deb package}</td><td>安装新的软件包。如果软件包已安装则尝试更新到最新版本</td><td>dpkg -i zip_2.31-3_i386.deb</td></tr><tr><td>dpkg -R {Directory-name}</td><td>递归地安装目录下所有软件包</td><td>dpkg -R /tmp/downloads</td></tr><tr><td>dpkg -r {package}</td><td>移除一个已安装的软件包，保留配置文件</td><td>dpkg -r zip</td></tr><tr><td>dpkg -P {package}</td><td>移除一个已安装的软件包及配置</td><td>dpkg -P apache-perl</td></tr>
+<tr><td>dpkg -l</td><td>列举所有安装的软件包、及包版本和简短描述</td><td><pre style="margin:0; padding:0; white-space: pre-wrap; word-wrap: break-word;">dpkg -l
+dokg -l | less
+dpkg -l '*apache*'
+dpkg -l | grep -i 'sudo'</pre></td></tr><tr><td>dpkg -l {package}</td><td>列举单个安装的软件包、及包版本和简短描述</td><td>dpkg -l apache-perl</td></tr><tr><td>dpkg -L {package}</td><td>找出安装的软件包所提供的文件，例如列出安装的文件</td><td><pre style="margin:0; padding:0; white-space: pre-wrap; word-wrap: break-word;">dpkg -L apache-perl
+dpkg -L perl</pre></td></tr><tr><td>dpkg -c {.Deb package}</td><td>列出软件包所提供的文件，例如deb包文件内的所有文件，这对找出将要安装什么文件非常有帮助</td><td>dpkg -c dc_1.06-19_i386.deb</td></tr><tr><td>dpkg -S {/path/to/file}</td><td>找出拥有该文件的包，例如找出该文件归属的包</td><td>dpkg -S /bin/netstat<br>dpkg -S /sbin/ippool</td></tr><tr><td>dpkg -p {package}</td><td>显示包的详细信息，包组、版本、维护者、架构、依赖包、描述等</td><td>dpkg -p lsof</td></tr><tr><td>dpkg -s {package} | grep Status</td><td>找出Debian包是否安装(状态)</td><td>dpkg -s lsof | grep Status</td></tr></tbody></table>
+
+<h3 id="apt-get速查表">apt-get速查表</h3>
+
+<p>apt-get是Debian Linux用于管理软件包的命令行工具：</p>
+
+<ul>
+<li>安装/管理单个软件包</li>
+<li>升级软件包</li>
+<li>打安全补丁</li>
+<li>使Debian系统更新到最新状态</li>
+<li>下载源.deb文件</li>
+<li>前端有很多GUI和应用</li>
+</ul>
+
+<p>|语法|描述|示例
+|&mdash;
+|apt-get install {package}|安装新的软件包。如果软件包已安装则尝试更新到最新版本|apt-get install zipapt-get install lsof samba mysql-client
+|apt-get remove {package}|移除一个已安装的软件包，保留配置文件|apt-get remove zip
+|apt-get &ndash;purge remove {package}|移除一个已安装的软件包及配置|apt-get &ndash;purge remove mysql-server
+|apt-get updateapt-get upgrade|重新同步包索引文件并升级Debian Linux系统及安全更新 (需要访问因特网)|apt-get updateapt-get upgrade
+|apt-get updateapt-get dist-upgrade|经常用于升级Debian分发。例如Woody升级到Sarge，&rsquo;dist-upgrade&rsquo;除了执行升级功能，也只能处理包新版本改变了的依赖关系；apt-get具有&rdquo;智能&rdquo;冲突解决系统，在必要时会试图以重要性较小的包为代价升级最重要的包。|apt-get updateapt-get dist-upgrade</p>
+
+<h3 id="apt-cache速查表">apt-cache速查表</h3>
+
+<p>|语法|描述|示例
+|&mdash;
+|apt-cache pkgnames|列举所有有效包|
+|apt-cache depends {package}|检查包的依赖|apt-cache depends lsofapt-cache depends mysql-server
+|apt-cache search {progname}|通过关键字搜索包列表|apt-cache search mysqlapt-cache search &ldquo;Network Security&rdquo;
+|apt-cache show {package}|显示包的信息|apt-cache show screen</p>
+
+<p>此外，也可以使用下列GUI工具：
+- aptitude：Debian GNU/Linux包系统基于文本的界面接口。<img src="/images/2013/10/0026uWfMgy6VWKqNWlv75.jpg" alt="Debian软件包管理速查表：dpkg、apt-get、apt-cache" />
+- synaptic：APT的前端基于图形的界面接口。<img src="/images/2013/10/0026uWfMgy6VWKs2ggh21.jpg" alt="Debian软件包管理速查表：dpkg、apt-get、apt-cache" /></p>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="http://manpages.debian.org/cgi-bin/man.cgi?query=dpkg">dpkg Man Page</a><br />
+<a href="http://manpages.debian.org/cgi-bin/man.cgi?query=apt-get">apt-get Man Page</a><br />
+<a href="http://manpages.debian.org/cgi-bin/man.cgi?query=apt-cache">apt-cache Man Page</a><br />
+<a href="http://manpages.debian.org/cgi-bin/man.cgi?query=aptitude">aptitude Man Page</a><br />
+<a href="http://manpages.debian.org/cgi-bin/man.cgi?query=synaptic">synaptic Man Page</a><br />
+<a href="http://www.cyberciti.biz/howto/question/linux/dpkg-cheat-sheet.php">dpkg command cheat sheet for Debian Linux</a><br />
+<a href="http://www.cyberciti.biz/howto/question/linux/apt-get-cheat-sheet.php">apt-get command cheat sheet for Debian Linux</a><br />
+<a href="http://www.oxer.com.au/cheatsheet/apt">Jon&rsquo;s Apt-Get Cheat Sheet</a><br />
+<a href="https://mhvlug.org/sites/default/files/Advanced_ubuntu_sheet.pdf">Ubuntu Cheat Sheet - Package Management</a><br />
+[](<a href="http://blog.packagecloud.io/eng/2015/03/30/apt-cheat-sheet/">http://blog.packagecloud.io/eng/2015/03/30/apt-cheat-sheet/</a>)</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Debian软件包管理速查表：dpkg、apt-get、apt-cache
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/dpkg" rel="tag" title="dpkg">#dpkg#</a>
+    
+    <a href="/tags/apt-get" rel="tag" title="apt-get">#apt-get#</a>
+    
+    <a href="/tags/apt-cache" rel="tag" title="apt-cache">#apt-cache#</a>
+    
+    <a href="/tags/aptitude" rel="tag" title="aptitude">#aptitude#</a>
+    
+    <a href="/tags/synaptic" rel="tag" title="synaptic">#synaptic#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/" rel="next" title="Linux包管理速查表">
+        <i class="fa fa-chevron-left"></i> Linux包管理速查表
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/" rel="prev" title="FilenameFilter和FileFilter介绍">
+        FilenameFilter和FileFilter介绍 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

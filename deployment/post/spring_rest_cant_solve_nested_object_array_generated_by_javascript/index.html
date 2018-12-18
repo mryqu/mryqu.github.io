@@ -1,0 +1,622 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Spring REST can&#39;t solve nested object array generated by JavaScript - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Spring REST can&#39;t solve nested object array generated by JavaScript">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Spring REST can&#39;t solve nested object array generated by JavaScript - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/" itemprop="url">
+        Spring REST can&#39;t solve nested object array generated by JavaScript
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-01-15">
+    2015-01-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spring" itemprop="url" rel="index">
+        <span itemprop="name">Spring</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">511 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>最近遭遇SpringREST无法解析嵌套对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。</p>
+
+<h3 id="所操作的复杂对象">所操作的复杂对象</h3>
+
+<p><img src="/images/2015/1/0026uWfMgy6SPjKDVO20a.jpg" alt="Spring REST can't solve nested object array generated by JavaScript" /></p>
+
+<h3 id="客户端post响应">客户端POST响应</h3>
+
+<p><img src="/images/2015/1/0026uWfMgy6SPMJGnGxe9.jpg" alt="Spring REST can't solve nested object array generated by JavaScript" /><img src="/images/2015/1/0026uWfMgy6SPMJJgbC38.jpg" alt="Spring REST can't solve nested object array generated by JavaScript" /></p>
+
+<h3 id="中间层代码">中间层代码</h3>
+
+<pre><code>package com.yqu.rest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+public class ConfigurationController {
+  @RequestMapping(value = &quot;/&quot;, method = RequestMethod.GET)
+  public ModelAndView home(Model m){
+    System.out.println(&quot;home&quot;);
+    return new ModelAndView(&quot;index&quot;);
+  }
+
+  @RequestMapping(value = &quot;/configure&quot;, method = RequestMethod.GET)
+  public @ResponseBody
+  SheetVO getConfiguration() {
+    List columns = new ArrayList();
+    columns.add(new ColumnVO(&quot;id&quot;,&quot;The Id&quot;,1));
+    columns.add(new ColumnVO(&quot;name&quot;,&quot;The Name&quot;,2));
+    columns.add(new ColumnVO(&quot;age&quot;,&quot;The Age&quot;,3));
+
+    SheetVO metadata = new SheetVO(SheetVO.TITLE_MATCHING, 1,0, columns);
+    System.out.println(&quot;getConfiguration:&quot;+metadata);
+    return metadata;
+  }
+
+  @RequestMapping(value = &quot;/configure&quot;, method = RequestMethod.POST)
+  public @ResponseBody
+  SheetVO setConfiguration(@ModelAttribute(&quot;metadata&quot;) SheetVO metadata) {
+    System.out.println(metadata);
+    return metadata;
+  }
+}
+</code></pre>
+
+<h3 id="中间层异常">中间层异常</h3>
+
+<pre><code>org.springframework.beans.InvalidPropertyException: Invalid property 'columns[0][varIndex]' of bean class [com.yqu.rest.SheetVO]: Property referenced in indexed property path 'columns[0][varIndex]' is neither an array nor a List nor a Map; returned value was [1]
+  at org.springframework.beans.BeanWrapperImpl.setPropertyValue(BeanWrapperImpl.java:1058)
+  at org.springframework.beans.BeanWrapperImpl.setPropertyValue(BeanWrapperImpl.java:927)
+  at org.springframework.beans.AbstractPropertyAccessor.setPropertyValues(AbstractPropertyAccessor.java:95)
+  at org.springframework.validation.DataBinder.applyPropertyValues(DataBinder.java:749)
+  at org.springframework.validation.DataBinder.doBind(DataBinder.java:645)
+  at org.springframework.web.bind.WebDataBinder.doBind(WebDataBinder.java:189)
+  at org.springframework.web.bind.ServletRequestDataBinder.bind(ServletRequestDataBinder.java:106)
+  at org.springframework.web.servlet.mvc.method.annotation.ServletModelAttributeMethodProcessor.bindRequestParameters(ServletModelAttributeMethodProcessor.java:150)
+  at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.resolveArgument(ModelAttributeMethodProcessor.java:110)
+  at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:77)
+  at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:162)
+  at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:129)
+  at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+  at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+  at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+  at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+  at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+  at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+  at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+  at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:868)
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:644)
+  at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:725)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration$ApplicationContextHeaderFilter.doFilterInternal(EndpointWebMvcAutoConfiguration.java:291)
+  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.springframework.boot.actuate.trace.WebRequestTraceFilter.doFilterInternal(WebRequestTraceFilter.java:102)
+  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration$MetricsFilter.doFilterInternal(MetricFilterAutoConfiguration.java:90)
+  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+  at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+  at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+  at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+  at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+  at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+  at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+  at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+  at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+  at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:516)
+  at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1086)
+  at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:659)
+  at org.apache.coyote.http11.Http11NioProtocol$Http11ConnectionHandler.process(Http11NioProtocol.java:223)
+  at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1558)
+  at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1515)
+  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+  at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+  at java.lang.Thread.run(Thread.java:745)
+</code></pre>
+
+<h3 id="问题原因">问题原因</h3>
+
+<p>通过阅读两篇参考帖子，可知对于下列对象：</p>
+
+<pre><code>{ 
+  &quot;columnMatchMethod&quot;: 2,
+  &quot;ignoredHeaderCount&quot;: 1,
+  &quot;ignoredFooterCount&quot;: 0,
+  &quot;columns&quot;: [{
+      &quot;varName&quot;: &quot;id&quot;,
+      &quot;varTitle&quot;: &quot;The Id&quot;,
+      &quot;varIndex&quot;: 1
+    }, {
+      &quot;varName&quot;: &quot;name&quot;,
+      &quot;varTitle&quot;: &quot;The Name&quot;,
+      &quot;varIndex&quot;: 2
+    }, {
+      &quot;varName&quot;: &quot;age&quot;,
+      &quot;varTitle&quot;: &quot;The Age&quot;,
+      &quot;varIndex&quot;: 3
+    }
+  ]
+}
+</code></pre>
+
+<p>JQuery是进行如下：</p>
+
+<pre><code>columnMatchMethod: 2,
+ignoredHeaderCount: 1,
+ignoredFooterCount: 0,
+columns[0][varName]: &quot;id&quot;,
+columns[0][varTitle]: &quot;The Id&quot;,
+columns[0][varIndex]: 1
+columns[1][varName]: &quot;name&quot;,
+columns[1][varTitle]: &quot;The Name&quot;,
+columns[1][varIndex]: 2
+columns[2][varName]: &quot;age&quot;,
+columns[2][varTitle]: &quot;The Age&quot;,
+columns[2][varIndex]: 3
+</code></pre>
+
+<p>但是Spring MVC期望的是如下参数格式：
+````
+columnMatchMethod: 2,
+ignoredHeaderCount: 1,
+ignoredFooterCount: 0,
+columns[0].varName: &ldquo;id&rdquo;,
+columns[0].varTitle: &ldquo;The Id&rdquo;,
+columns[0].varIndex: 1
+columns[1].varName: &ldquo;name&rdquo;,
+columns[1].varTitle: &ldquo;The Name&rdquo;,
+columns[1].varIndex: 2
+columns[2].varName: &ldquo;age&rdquo;,
+columns[2].varTitle: &ldquo;The Age&rdquo;,
+columns[2].varIndex: 3</p>
+
+<pre><code>
+### 解决方案
+
+通过资料查找，采用参考帖子中的第二种方案解决问题。
+- 客户端代码：
+</code></pre>
+
+<p>setConf = function (event) {
+    $.ajax({
+      url: &ldquo;configure&rdquo;,
+      type: &ldquo;POST&rdquo;,
+      data: <strong>JSON.stringify(metadata)</strong>,
+      <strong>dataType: &ldquo;json&rdquo;,
+      contentType: &ldquo;application/json&rdquo;,</strong>
+      success: function (res) {
+        $(&lsquo;#cfgContent&rsquo;).text(JSON.stringify(res));
+        $(&lsquo;#cfgError&rsquo;).text(&ldquo;&rdquo;);
+      },
+      error: function (res) {
+        $(&lsquo;#cfgContent&rsquo;).text(&ldquo;&rdquo;);
+        $(&lsquo;#cfgError&rsquo;).text(res.responseText);
+      }
+    });
+  };</p>
+
+<pre><code>- 中间层代码：
+</code></pre>
+
+<p>package com.yqu.rest;</p>
+
+<p>import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.http.HttpStatus;
+   import org.springframework.ui.Model;
+   import org.springframework.web.bind.annotation.*;
+   import org.springframework.web.servlet.ModelAndView;</p>
+
+<p>import java.util.ArrayList;
+   import java.util.List;</p>
+
+<p>@RestController
+   public class ConfigurationController {
+     @RequestMapping(value = &rdquo;/&ldquo;, method = RequestMethod.GET)
+     public ModelAndView home(Model m){
+       System.out.println(&ldquo;home&rdquo;);
+       return new ModelAndView(&ldquo;index&rdquo;);
+     }</p>
+
+<p>  @RequestMapping(value = &rdquo;/configure&rdquo;, method = RequestMethod.GET)
+     public @ResponseBody
+     SheetVO getConfiguration() {
+       List columns = new ArrayList();
+       columns.add(new ColumnVO(&ldquo;id&rdquo;,&ldquo;The Id&rdquo;,1));
+       columns.add(new ColumnVO(&ldquo;name&rdquo;,&ldquo;The Name&rdquo;,2));
+       columns.add(new ColumnVO(&ldquo;age&rdquo;,&ldquo;The Age&rdquo;,3));</p>
+
+<p>    SheetVO metadata = new SheetVO(SheetVO.TITLE_MATCHING, 1,0, columns);
+       System.out.println(&ldquo;getConfiguration:&ldquo;+metadata);
+       return metadata;
+     }</p>
+
+<p>  @RequestMapping(value = &rdquo;/configure&rdquo;, method = RequestMethod.POST)
+     public @ResponseBody
+     SheetVO setConfiguration(<strong>@RequestBody</strong> SheetVO metadata) {
+       System.out.println(metadata);
+       return metadata;
+     }
+   }
+   ```</p>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="http://www.bmchild.com/2014/02/spring-mvc-3-property-referenced-in.html">Spring MVC 3: Property referenced in indexed property path is neither an array nor a List nor a Map</a><br />
+<a href="http://stackoverflow.com/questions/5900840/post-nested-object-to-spring-mvc-controller-using-json">Post Nested Object to Spring MVC controller using JSON</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Spring REST can&#39;t solve nested object array generated by JavaScript
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/spring" rel="tag" title="spring">#spring#</a>
+    
+    <a href="/tags/rest" rel="tag" title="rest">#rest#</a>
+    
+    <a href="/tags/javascript" rel="tag" title="javascript">#javascript#</a>
+    
+    <a href="/tags/json" rel="tag" title="json">#json#</a>
+    
+    <a href="/tags/%e8%a7%a3%e6%9e%90" rel="tag" title="解析">#解析#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/" rel="next" title="Spring3 REST can&#39;t solve list of object generated by Javascript">
+        <i class="fa fa-chevron-left"></i> Spring3 REST can&#39;t solve list of object generated by Javascript
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_open_dialog_which_content_is_a_form_defined_in_another_view/" rel="prev" title="[OpenUI5] 示例: open dialog which content is a form defined in another view">
+        [OpenUI5] 示例: open dialog which content is a form defined in another view <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

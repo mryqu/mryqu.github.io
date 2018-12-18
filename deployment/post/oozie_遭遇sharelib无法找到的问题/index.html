@@ -1,0 +1,494 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[Oozie] 遭遇ShareLib无法找到的问题 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[Oozie] 遭遇ShareLib无法找到的问题">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[Oozie] 遭遇ShareLib无法找到的问题 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" itemprop="url">
+        [Oozie] 遭遇ShareLib无法找到的问题
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-07-13">
+    2018-07-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/oozie" itemprop="url" rel="index">
+        <span itemprop="name">Oozie</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">357 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>折腾几天，终于装好了Oozie 5.0.0，并且启动了Oozie守护进程。</p>
+
+<pre><code>vagrant@node1:~$ oozie admin -oozie http://10.211.55.101:11000/oozie -status
+log4j:WARN No appenders could be found for logger (org.apache.hadoop.security.authentication.client.KerberosAuthenticator).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+System mode: NORMAL
+</code></pre>
+
+<p><img src="/images/2018/07/oozie.png" alt="oozie" /></p>
+
+<p>不过运行MapReduce demo总是出错，找不到Oozie的共享库，日志如下：</p>
+
+<pre><code>2018-07-12 04:45:50,228  WARN ActionStartXCommand:523 - SERVER[node1] USER[vagrant] GROUP[-] TOKEN[] APP[map-reduce-wf] JOB[0000001-XXXXXXXXXXXXXXX-oozie-root-W] ACTION[0000001-XXXXXXXXXXXXXXX-oozie-root-W@mr-node] Error starting action [mr-node]. ErrorType [FAILED], ErrorCode [It should never happen], Message [File /user/root/share/lib does not exist]
+org.apache.oozie.action.ActionExecutorException: File /user/root/share/lib does not exist
+        at org.apache.oozie.action.hadoop.jaxaActionExecutor.addSystemShareLibForAction(JaxaActionExecutor.jaxa:646)
+        at org.apache.oozie.action.hadoop.JaxaActionExecutor.addAllShareLibs(JaxaActionExecutor.jaxa:760)
+        at org.apache.oozie.action.hadoop.JaxaActionExecutor.setLibFilesArchives(JaxaActionExecutor.jaxa:746)
+        at org.apache.oozie.action.hadoop.JaxaActionExecutor.submitLauncher(JaxaActionExecutor.jaxa:984)
+        at org.apache.oozie.action.hadoop.JaxaActionExecutor.start(JaxaActionExecutor.jaxa:1512)
+        at org.apache.oozie.command.wf.ActionStartXCommand.execute(ActionStartXCommand.jaxa:243)
+        at org.apache.oozie.command.wf.ActionStartXCommand.execute(ActionStartXCommand.jaxa:68)
+        at org.apache.oozie.command.XCommand.call(XCommand.jaxa:290)
+        at org.apache.oozie.service.CallableQueueService$CompositeCallable.call(CallableQueueService.jaxa:334)
+        at org.apache.oozie.service.CallableQueueService$CompositeCallable.call(CallableQueueService.jaxa:263)
+        at Jaxa.util.concurrent.FutureTask.run(FutureTask.jaxa:266)
+        at org.apache.oozie.service.CallableQueueService$CallableWrapper.run(CallableQueueService.jaxa:181)
+        at Jaxa.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.jaxa:1149)
+        at Jaxa.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.jaxa:624)
+        at Jaxa.lang.Thread.run(Thread.jaxa:748) 
+</code></pre>
+
+<p>折腾了无数次oozie-setup.sh sharelib命令，root和vagrant用户都试过。还在oozie-site.xml中指定了oozie.service.WorkflowAppService.system.libpath属性。结果统统失败。</p>
+
+<pre><code>vagrant@node1:~$ sudo -sE
+root@node1:~#/usr/local/oozie/bin/oozie-setup.sh sharelib create -fs hdfs://10.211.55.101 -locallib /usr/local/oozie/oozie-sharelib-5.0.0.tar.gz
+root@node1:~#/usr/local/oozie/bin/oozied.sh start
+root@node1:~#exit
+vagrant@node1:~$ oozie admin -configuration | grep oozie.service.WorkflowAppService.system.libpath
+oozie.service.WorkflowAppService.system.libpath : /user/root/share/lib
+vagrant@node1:~$ oozie admin -shareliblist -oozie http://localhost:11000/oozie
+[Available ShareLib]
+</code></pre>
+
+<p>之后找到了<a href="https://issues.apache.org/jira/browse/OOZIE-3208">Oozie/OOZIE-3208 &ldquo;It should never happen&rdquo; error messages should be more specific to root cause</a>，不过就是改善一下错误消息并且在5.1.0里发布，还是没找到问题所在。</p>
+
+<p>再之后发现自Oozie4.2.0开始oozie.service.WorkflowAppService.system.libpath的默认值变了：
+<img src="/images/2018/07/oozie-default.png" alt="oozie-default" /></p>
+
+<p>将oozie-site.xml中oozie.service.WorkflowAppService.system.libpath属性值改为hdfs://10.211.55.101/user/root/share/lib，结果出错信息变成了&rdquo;IllegalArgumentException: Wrong FS: hdfs://10.211.55.101/user/root/share/lib, expected: file:///&ldquo;。</p>
+
+<pre><code>2018-07-12 08:20:29,526 ERROR ShareLibService:517 - SERVER[node1] org.apache.oozie.service.ServiceException: E0104: Could not fully initialize service [org.apache.oozie.service.ShareLibService], Not able to cache sharelib. An Admin needs to install the sharelib with oozie-setup.sh and issue the 'oozie admin' CLI command to update the sharelib
+org.apache.oozie.service.ServiceException: E0104: Could not fully initialize service [org.apache.oozie.service.ShareLibService], Not able to cache sharelib. An Admin needs to install the sharelib with oozie-setup.sh and issue the 'oozie admin' CLI command to update the sharelib
+        at org.apache.oozie.service.ShareLibService.init(ShareLibService.jaxa:148)
+        at org.apache.oozie.service.Services.setServiceInternal(Services.jaxa:386)
+        at org.apache.oozie.service.Services.setService(Services.jaxa:372)
+        at org.apache.oozie.service.Services.loadServices(Services.jaxa:304)
+        at org.apache.oozie.service.Services.init(Services.jaxa:212)
+        at org.apache.oozie.server.guice.ServicesProvider.get(ServicesProvider.jaxa:31)
+        at org.apache.oozie.server.guice.ServicesProvider.get(ServicesProvider.jaxa:25)
+        at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.jaxa:55)
+        at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.jaxa:46)
+        at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.jaxa:1031)
+        at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.jaxa:40)
+        at com.google.inject.Scopes$1$1.get(Scopes.jaxa:65)
+        at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.jaxa:40)
+        at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.jaxa:38)
+        at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.jaxa:62)
+        at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.jaxa:84)
+        at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.jaxa:254)
+        at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.jaxa:53)
+        at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.jaxa:46)
+        at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.jaxa:1031)
+        at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.jaxa:40)
+        at com.google.inject.Scopes$1$1.get(Scopes.jaxa:65)
+        at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.jaxa:40)
+        at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.jaxa:38)
+        at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.jaxa:62)
+        at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.jaxa:84)
+        at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.jaxa:254)
+        at com.google.inject.internal.InjectorImpl$4$1.call(InjectorImpl.jaxa:978)
+        at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.jaxa:1024)
+        at com.google.inject.internal.InjectorImpl$4.get(InjectorImpl.jaxa:974)
+        at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.jaxa:1013)
+        at org.apache.oozie.server.EmbeddedOozieServer.main(EmbeddedOozieServer.jaxa:255)
+Caused by: java.lang.IllegalArgumentException: Wrong FS: hdfs://10.211.55.101/user/root/share/lib, expected: file:///
+        at org.apache.hadoop.fs.FileSystem.checkPath(FileSystem.jaxa:648)
+        at org.apache.hadoop.fs.RawLocalFileSystem.pathToFile(RawLocalFileSystem.jaxa:82)
+        at org.apache.hadoop.fs.RawLocalFileSystem.listStatus(RawLocalFileSystem.jaxa:427)
+        at org.apache.hadoop.fs.FileSystem.listStatus(FileSystem.jaxa:1516)
+        at org.apache.hadoop.fs.FileSystem.listStatus(FileSystem.jaxa:1556)
+        at org.apache.hadoop.fs.ChecksumFileSystem.listStatus(ChecksumFileSystem.jaxa:674)
+        at org.apache.hadoop.fs.FileSystem.listStatus(FileSystem.jaxa:1516)
+        at org.apache.hadoop.fs.FileSystem.listStatus(FileSystem.jaxa:1556)
+        at org.apache.oozie.service.ShareLibService.getLatestLibPath(ShareLibService.jaxa:734)
+        at org.apache.oozie.service.ShareLibService.updateShareLib(ShareLibService.jaxa:597)
+        at org.apache.oozie.service.ShareLibService.init(ShareLibService.jaxa:138)
+        ... 31 more
+</code></pre>
+
+<p>最后在oozie-site.xml添加了oozie.service.HadoopAccessorService.hadoop.configurations属性值*=/usr/local/hadoop/etc/hadoop/，终于可以找到共享库了：</p>
+
+<pre><code>vagrant@node1:~$ oozie admin -shareliblist
+[Available ShareLib]
+hive
+distcp
+mapreduce-streaming
+spark
+oozie
+hcatalog
+hive2
+sqoop
+pig
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
+<hr />
+
+<p><a href="http://oozie.apache.org/docs/5.0.0/DG_QuickStart.html">Oozie Quick Start</a><br />
+<a href="http://oozie.apache.org/docs/5.0.0/DG_CommandLineTool.html">Oozie Command Line Interface Utilities</a><br />
+<a href="http://oozie.apache.org/docs/5.0.0/DG_Examples.html">Oozie Examples</a><br />
+<a href="http://hadooptutorial.info/oozie-share-lib-does-not-exist-error/">Oozie Share Lib does not exist error</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[Oozie] 遭遇ShareLib无法找到的问题
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/oozie" rel="tag" title="oozie">#oozie#</a>
+    
+    <a href="/tags/setup" rel="tag" title="setup">#setup#</a>
+    
+    <a href="/tags/sharelib" rel="tag" title="sharelib">#sharelib#</a>
+    
+    <a href="/tags/hadoop" rel="tag" title="hadoop">#hadoop#</a>
+    
+    <a href="/tags/5.0.0" rel="tag" title="5.0.0">#5.0.0#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/" rel="next" title="[Spark] SparkCatalogAPI使用">
+        <i class="fa fa-chevron-left"></i> [Spark] SparkCatalogAPI使用
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/" rel="prev" title="[Spark] Spark读取HBase">
+        [Spark] Spark读取HBase <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

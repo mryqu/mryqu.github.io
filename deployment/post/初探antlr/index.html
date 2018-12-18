@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>初探ANTLR - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="初探ANTLR">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="初探ANTLR - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/" itemprop="url">
+        初探ANTLR
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-03">
+    2013-07-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tech" itemprop="url" rel="index">
+        <span itemprop="name">Tech</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">111 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>当前的项目是基于多维数据集市的RTOLAP财务系统，其中的公式使用<a href="http://www.antlr3.org/">ANTLR 3</a>进行语法解析和编译。
+此外看Hibernate源码的时候也接触到ANTLR，Hibernate使用ANTLR产生查询分析器。</p>
+
+<h3 id="antlr简介">ANTLR简介</h3>
+
+<p>ANTLR的全称是ANother Tool for LanguageRecognition，其前身是PCCTS，和YACC、LEX、JavaCC、Coco/R等工具一样，都是编译器的编译程序。
+ANTLR对语法树构造、遍历和转换、错误修复和报告提供出色的支持，它为包括Java，C++，C#和Python在内的语言提供了一个通过语法描述来自动构造自定义语言的识别器、解析器、编译器和转换器的框架。
+ANTLR可以通过断言（Predicate）解决识别冲突；支持动作（Action）和返回值（ReturnValue）来；更棒的是，它可以根据输入自动生成语法树并可视化的显示出来。由此，计算机语言的翻译变成了一项普通的任务。
+ANTLR是由旧金山大学的Terence Parr博士领导下完成的，最新版本为<a href="http://www.antlr4.org/">4.1</a>。</p>
+
+<p>编译器工作主要分有词法分析，语法分析，代码生成三个步骤。ANTLR分别提供了三个东西:
+1. 词法分析器（Lexer）
+   词法分析器又称为Scanner，Lexicalanalyser和Tokenizer。程序设计语言通常由关键字和严格定义的语法结构组成。编译的最终目的是将程序设计语言的高层指令翻译成物理机器或虚拟机可以执行的指令。词法分析器的工作是分析量化那些本来毫无意义的字符流，将他们翻译成离散的字符组（也就是一个一个的Token），包括关键字、标识符、符号和操作符供语法分析器使用。
+1. 语法分析器（Parser）
+   编译器又称为Syntacticalanalyser。在分析字符流的时候，Lexer不关心所生成的单个Token的语法意义及其与上下文之间的关系，而这就是Parser的工作。语法分析器将收到的Tokens组织起来，并转换成为目标语言语法定义所允许的序列。
+   无论是Lexer还是Parser都是一种识别器，Lexer是字符序列识别器而Parser是Token序列识别器。他们在本质上是类似的东西，而只是在分工上有所不同而已。
+1. 抽象语法树遍历器 (Tree walker)
+   树分析器可以用于对语法分析生成的抽象语法树进行遍历，并能执行一些相关的操作，可以进行语义匹配生成代码。</p>
+
+<h3 id="antlr-3的eclipse插件">ANTLR 3的Eclipse插件</h3>
+
+<p><a href="antlrv3ide.sourceforge.net">ANTLR IDE</a>用于ANTLR3的一个Eclipse插件。
+- 支持ANTLR 3.0、3.1、3.2、3.3和3.4。
+- ANTLR启动器和调试器(仅限Java)
+- ANTLR内建解析器。
+- 代码格式化工具(Ctrl+Shift+F)
+- 语法图（铁路图）
+- 定制目标
+- 自动生成资源
+- 对语法文件中错误和告警自动标注
+- 高级文本编辑器、代码选择(F3)和代码补全(Ctrl+Space)
+- 对（Java、C#、Python和C等）目标语言自动语法高亮
+- 标注生成的资源
+- 高级字符串模板(StringTemplate)编辑器(*.st and <em>.stg)
+- 高级语法单元测试(gUnit)编辑器(</em>.gunit and *.testsuite)<img src="/images/2013/7/72ef7beatx6BjAsZSo747.jpg" alt="初探ANTLR" /></p>
+
+<h3 id="使用antlr生成代码的ant设置">使用ANTLR生成代码的ANT设置</h3>
+
+<pre><code>&lt;property name=&quot;lib.dir&quot; value=&quot;lib&quot; /&gt;
+&lt;property name=&quot;gensrc.dir&quot; value=&quot;gen-source/Java&quot; /&gt;
+&lt;property name=&quot;parser.dir&quot; value=&quot;/com/sas/yourgramarpackage&quot;/&gt;
+&lt;target name=&quot;gen-source&quot;&gt;
+    &lt;mkdir dir=&quot;${gensrc.dir}/${parser.dir}&quot; /&gt;
+&lt;antlr:antlr3 xmlns:antlr=&quot;antlib:org/apache/tools/ant/antlr&quot;
+    target=&quot;${src.dir}/${parser.dir}/YourGrammar.g&quot;
+    outputdirectory=&quot;${gensrc.dir}/${parser.dir}&quot;&gt;
+  &lt;classpath&gt;
+     &lt;fileset dir=&quot;${lib.dir}&quot;&gt;
+         &lt;include name=&quot;*.jar&quot; /&gt;
+     &lt;/fileset&gt;
+  &lt;/classpath&gt;
+&lt;/antlr:antlr3&gt;
+&lt;/target&gt;
+</code></pre>
+
+<h3 id="使用antlr生成代码的maven设置">使用ANTLR生成代码的Maven设置</h3>
+
+<pre><code>&lt;build&gt;
+   &lt;plugins&gt;
+      &lt;plugin&gt;
+         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+         &lt;artifactId&gt;maven-antlr-plugin&lt;/artifactId&gt;
+         &lt;configuration&gt;
+            &lt;grammars&gt;com/yqu/yourgramarpackage/yourgrammar.g&lt;/grammars&gt;
+            &lt;sourceDirectory&gt;Source/Java&lt;/sourceDirectory&gt;
+            &lt;outputDirectory&gt;target/generated/antlr/Source/Java&lt;/outputDirectory&gt;
+         &lt;/configuration&gt;
+         &lt;executions&gt;
+            &lt;execution&gt;
+               &lt;goals&gt;
+                  &lt;goal&gt;generate&lt;/goal&gt;
+               &lt;/goals&gt;
+            &lt;/execution&gt;
+         &lt;/executions&gt;
+      &lt;/plugin&gt;
+   &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：初探ANTLR
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/antlr" rel="tag" title="antlr">#antlr#</a>
+    
+    <a href="/tags/eclipse" rel="tag" title="eclipse">#eclipse#</a>
+    
+    <a href="/tags/ant" rel="tag" title="ant">#ant#</a>
+    
+    <a href="/tags/maven" rel="tag" title="maven">#maven#</a>
+    
+    <a href="/tags/%e7%bc%96%e8%af%91%e5%99%a8" rel="tag" title="编译器">#编译器#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E5%8A%A8%E6%80%81gemfire_region%E4%BD%BF%E7%94%A8%E5%B1%80%E9%99%90/" rel="next" title="动态GemFire Region使用局限">
+        <i class="fa fa-chevron-left"></i> 动态GemFire Region使用局限
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%90%9C%E7%B4%A2%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="prev" title="博客链接（搜索、统计、数据挖掘）">
+        博客链接（搜索、统计、数据挖掘） <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

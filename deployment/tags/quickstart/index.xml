@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quickstart on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/quickstart/</link>
+    <description>Recent content in Quickstart on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 04 Oct 2016 05:53:29 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/quickstart/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello Dropbox API</title>
+      <link>https://mryqu.github.io/post/hello_dropbox_api/</link>
+      <pubDate>Tue, 04 Oct 2016 05:53:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_dropbox_api/</guid>
+      <description>本博文用来记录一下粗略体验Dropbox关于用户、文件、共享三方面API的过程。
+准备环境 还是用我私人的Dropbox做测试，所以只显示Public目录下的东东了。 用户类API测试 方法get_current_account测试 方法get_account测试 方法get_space_usage测试 文件类API测试 方法list_folder测试 方法list_folder其实是列举文件和目录，而且是分层的。如果path没设，则显示根目录下的元素。
+方法get_metadata测试 方法get_metadata用于获取一个元素（文件/目录）的元数据。
+方法create_folder测试 方法get_preview测试 方法get_preview仅支持 .doc、 .docx、 .docm、 .ppt、 .pps、 .ppsx、 .ppsm、.pptx、.pptm、 .xls、 .xlsx、 .xlsm、.rtf文件类型。就我的测试而言，没看出跟下面的download方法有多大区别。
+这里尝试了一下path的其他使用方式。除了最常规的文件路径外，path参数还可以使用id或rev。
+方法download测试 方法search测试 方法upload测试 方法delete测试 方法delete用于删除一个元素（文件/目录）。
+方法permanently_delete测试 方法permanently_delete是支持Dropbox商业应用，而我的是开发应用，因而测试失败。
+共享类API测试 方法share_folder测试 方法list_folders测试 方法unshare_folder测试 方法unshare_folder使用的是异步任务的方式，需要通过下列的方法check_job_status查询任务进度及结果。
+方法check_job_status测试 方法create_share_link测试 share_folder可以通过邮件或Dropbox账户的方式分享给其他Dropbox用户，而share_link甚至可以共享给没有安装Dropbox的使用者。
+方法get_share_links测试 方法get_shared_link_file测试 方法revoke_shared_link测试 revoke_shared_link竟然不返回结果，查证文档后确实如此。
+学习总结 Dropbox关于文件共享方面的API占比相对OneDrive、Google Drive要多一些。 Dropbox API相对OneDrive、GoogleDrive而言，成熟度更低。按照REST的Richardson成熟度模型来说仅在2-级别，它的REST资源还是动词，例如get_metadata、check_job_status。
+参考 Dropbox
+Dropbox API v2 for HTTP Developers
+Dropbox API Explorer</description>
+    </item>
+    
+  </channel>
+</rss>

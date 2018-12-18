@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/categories/java/</link>
+    <description>Recent content in Java on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 27 Dec 2016 05:46:09 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>学习Java Annotation</title>
+      <link>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</link>
+      <pubDate>Tue, 27 Dec 2016 05:46:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</guid>
+      <description>以前看过Java Annotation，走马观花，现在印象已经不深刻了。这次好好看一下Java Annotation和Spring Annotation。
+阅读列表： The Java Tutorials - Annotations
+Java Annotation认知(包括框架图、详细介绍、示例说明)
+Annotations Gotchas and Best Practices
+Annotations: Don&amp;rsquo;t Mess with Java
+Java Annotations Are a Big Mistake
+Spring Annotation-based container configuration
+Spring Framework Annotations cheat sheet
+Spring Without XML: The Basics of Spring Annotations vs. Spring XML Files
+Spring Annotation Tutorial
+Spring Annotations [ Quick Reference ]</description>
+    </item>
+    
+    <item>
+      <title>使用Jacoco</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8jacoco/</link>
+      <pubDate>Thu, 16 Jun 2016 05:41:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8jacoco/</guid>
+      <description>在以前的项目都是用Cobertura做代码覆盖率测试的，这次有机会接触了一下另一个代码覆盖率Java库JaCoco。 JaCoCo拥有友好的授权形式。JaCoCo使用了Eclipse PublicLicense，方便个人用户和商业用户使用。JaCoCo/EclEmma项目除了提供JaCoCo库之外，还提供了Ant任务、Maven插件及EclEmmaEclipse插件，也可以使用JavaAgent技术监控Java程序。很多第三方的工具提供了对Jacoco的集成，如SonarQube、Jenkins、Netbeans、IntelliJIDEA、Gradle等。 JaCoCo包含多种级别的覆盖率计数器，包含指令级覆盖(Instructions，C0coverage)，分支（Branches，C1coverage）、圈复杂度(CyclomaticComplexity)、行覆盖(Lines)、方法覆盖(non-abstractmethods)、类覆盖(classes)。 - 指令覆盖：计数单元是单个java字节码指令，指令覆盖率提供了代码是否被执行的信息，该指标完全独立与源码格式。 - 分支覆盖率：度量if和switch语句的分支覆盖情况，计算一个方法里面的总分支数，确定执行和不执行的分支数量。 - 圈复杂度：在（线性）组合中，计算在一个方法里面所有可能路径的最小数目，缺失的复杂度同样表示测试案例没有完全覆盖到这个模块。 - 行覆盖率：度量被测程序的每行代码是否被执行，判断标准行中是否至少有一个指令被执行。 - 方法覆盖率：度量被测程序的方法执行情况，是否执行取决于方法中是否有至少一个指令被执行。 - 类覆盖率：度量计算class类文件是否被执行。
+JaCoCo的一个主要优点是使用Java代理，可以动态（on-the-fly）对类进行插桩。这样代码覆盖率分析简化了预插桩过程，也无需考虑classpath的设置。但是还存在如下不适合动态插桩的情况，需要线下对字节码进行预插桩： - 运行环境不支持java agent。 - 部署环境不允许设置JVM参数。 - 字节码需要被转换成其他的虚拟机如Android Dalvik VM。 - 动态修改字节码过程中和其他agent冲突。
+示例 我这个懒人还是在Building a Hypermedia-Driven RESTful Web Service示例的基础上稍作修改，熟悉一下JaCoCo的使用。
+build.gradle buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;quot;org.springframework.boot:spring-boot-gradle-plugin:1.X.Y.RELEASE&amp;quot;) } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; apply plugin: &#39;spring-boot&#39; apply plugin: &#39;jacoco&#39; jar { baseName = &#39;hello-jacoco&#39; version = &#39;0.</description>
+    </item>
+    
+    <item>
+      <title>了解Objenesis</title>
+      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3objenesis/</link>
+      <pubDate>Wed, 12 Aug 2015 06:04:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3objenesis/</guid>
+      <description>Objenesis是一个很小的Java库，作用是绕过构造器创建一个实例。Java已经支持通过Class.newInstance()动态实例化Java类，但是这需要Java类有个适当的构造器。很多时候一个Java类无法通过这种途径创建，例如： - 构造器需要参数 - 构造器有副作用 - 构造器会抛出异常
+Objenesis可以绕过上述限制。它一般用于： - 序列化、远程处理和持久化：无需调用代码即可将Java类实例化并存储特定状态。 - 代理、AOP库和Mock对象：可以创建特定Java类的子类而无需考虑super()构造器。 - 容器框架：可以用非标准方式动态实例化Java类。例如Spring引入Objenesis后，Bean不再必须提供无参构造器了。
+Objenesis内部提供了多个不同JVM上的解决方案：参考 Objenesis项目官网
+GitHub：Objenesis</description>
+    </item>
+    
+    <item>
+      <title>Java Mail</title>
+      <link>https://mryqu.github.io/post/java_mail/</link>
+      <pubDate>Sun, 02 Aug 2015 09:22:37 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java_mail/</guid>
+      <description>JavaMail API JavaMail最新版本为1.5.4。 支持的邮件协议有： - SMTP：简单邮件传输协议（Simple Mail Transfer Protocol），由RFC 821 定义，定义了发送电子邮件的机制。在JavaMailAPI环境中，基于JavaMail的程序将和公司或因特网服务供应商的SMTP服务器通信。SMTP 服务器会中转消息给接收方 SMTP服务器以便最终让用户经由 POP 或 IMAP 获得。这不是要求SMTP服务器成为开放的中继，尽管SMTP服务器支持身份验证，不过还是得确保它的配置正确。JavaMailAPI不支持像配置服务器来中继消息或添加/删除邮件账号这类任务的实现。 - POP：邮局协议（Post Office Protocol）。目前用的是版本 3，也称POP3，由RFC 1939定义。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。POP协议支持“离线”邮件处理。其具体过程是：邮件发送到服务器上，电子邮件客户端调用邮件客户机程序以连接服务器，并下载所有未阅读的电子邮件。使用POP时，用户熟悉的许多性能并不是由POP协议支持的，如查看有几封新邮件消息这一性能。这些性能内建于如Eudora或Microsoft Outlook之类的程序中，它们能记住一些事，诸如最近一次收到的邮件，还能计算出有多少是新的。所以当使用JavaMailAPI时，如果您想要这类信息，您就必须自己算。 - IMAP： 因特网消息访问协议（Internet Message Access Protocol）。目前用的是版本 4，也称IMAP4。由RFC 2060定义，是更高级的用于接收消息的协议。它与POP3协议的主要区别是用户可以不用把所有的邮件全部下载，可以通过客户端直接对服务器上的邮件进行操作。IMAP4改进了POP3的不足，用户可以通过浏览信件头来决定是否收取、删除和检索邮件的特定部分，还可以在服务器上创建或更改文件夹或邮箱。它除了支持POP3协议的脱机操作模式外，还支持联机操作和断连接操作。它为用户提供了有选择的从邮件服务器接收邮件的功能、基于服务器的信息处理功能和共享信箱功能。IMAP4的脱机模式不同于POP3，它不会自动删除在邮件服务器上已取出的邮件，其联机模式和断连接模式也是将邮件服务器作为“远程文件服务器”进行访问，更加灵活方便。IMAP4支持多个邮箱。
+MIME：多用途因特网邮件扩展标准（Multipurpose Internet MailExtensions）。它不是邮件传输协议。但对传输内容的消息、附件及其它的内容定义了格式。这里有很多不同的有效文档：RFC 822、RFC 2045、RFC 2046 和 RFC 2047。作为一个 JavaMailAPI的用户，您通常不必对这些格式操心。无论如何，一定存在这些格式而且程序会用到它。
+JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参考设计，其中包括SMTP、IMAP和POP3协议提供者。 JavaMail API 类包: - javax.mail： The JavaMailTM API提供为邮件系统建模的类。 - javax.mail.event： 用于JavaMail API的监听器和事件。 - javax.mail.internet：特定互联网邮件系统的类。 - javax.mail.search：用于JavaMail API的消息搜索术语。 - javax.mail.util： JavaMail API工具类。Sun参考设计的类包: - com.sun.mail.dsn：支持创建和解析传递状态通知。 - com.</description>
+    </item>
+    
+    <item>
+      <title>ICU4J介绍</title>
+      <link>https://mryqu.github.io/post/icu4j%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Thu, 02 Jul 2015 00:08:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/icu4j%E4%BB%8B%E7%BB%8D/</guid>
+      <description>ICU (International Components for Unicode)是为软件应用提供Unicode和全球化支持的一套成熟、广泛使用的C/C++和Java类库集，可在所有平台的C/C++和Java软件上获得一致的结果。 ICU首先是由Taligent公司开发的，Taligent公司被合并为IBM公司全球化认证中心的Unicode研究组后，ICU由IBM和开源组织合作继续开发。开始ICU只有Java平台的版本，后来这个平台下的ICU类被吸纳入SUN公司开发的JDK1.1，并在JDK以后的版本中不断改进。 C++和C平台下的ICU是由JAVA平台下的ICU移植过来的，移植过的版本被称为ICU4C，来支持这C/C++两个平台下的国际化应用。ICU4J和ICU4C区别不大，但由于ICU4C是开源的，并且紧密跟进Unicode标准，ICU4C支持的Unicode标准总是最新的；同时，因为JAVA平台的ICU4J的发布需要和JDK绑定，ICU4C支持Unicode标准改变的速度要比ICU4J快的多。 ICU的功能主要有: - 代码页转换:对文本数据进行Unicode、几乎任何其他字符集或编码的相互转换。ICU的转化表基于IBM过去几十年收集的字符集数据，在世界各地都是最完整的。 - 排序规则（Collation）:根据特定语言、区域或国家的管理和标准比较字数串。ICU的排序规则基于Unicode排序规则算法加上来自公共区域性数据仓库（Commonlocale data repository）的区域特定比较规则。 - 格式化:根据所选区域设置的惯例，实现对数字、货币、时间、日期、和利率的格式化。包括将月和日名称转换成所选语言、选择适当缩写、正确对字段进行排序等。这些数据也取自公共区域性数据仓库。 - 时间计算: 在传统格里历基础上提供多种历法。提供一整套时区计算API。 - Unicode支持:ICU紧密跟进Unicode标准，通过它可以很容易地访问Unicode标准制定的很多Unicode字符属性、Unicode规范化、大小写转换和其他基础操作。 - 正则表达式: ICU的正则表达式全面支持Unicode并且性能极具竞争力。 - Bidi: 支持不同文字书写顺序混合文字（例如从左到右书写的英语，或者从右到左书写的阿拉伯文和希伯来文）的处理。 - 文本边界: 在一段文本内定位词、句或段落位置、或标识最适合显示文本的自动换行位置。
+下面的示例是使用ICU4J检测文本编码：
+package com.yqu.icu4j; import java.io.IOException; import java.nio.file.Files; import java.nio.file.Path; import java.nio.file.Paths; import com.ibm.icu.text.CharsetDetector; import com.ibm.icu.text.CharsetMatch; public class EncodingDetector { public static void tryEncoding(String fileName) throws IOException { System.out.println(&amp;quot;===Getting encoding of &amp;quot; + fileName); Path path = Paths.get(fileName); byte[] data = Files.</description>
+    </item>
+    
+    <item>
+      <title>Java解析YAML</title>
+      <link>https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/</link>
+      <pubDate>Wed, 01 Jul 2015 05:37:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/</guid>
+      <description>继前博文YAML介绍了YAML语法，本文将着重研究Java解析YAML。当前还在维护的YAML解析器/生成器有： - SnakeYAML - 完整的YAML 1.1解析器，尤其是SnakeYAML能够分析来自于规范的所有示例 - 支持Unicode，包括UTF-8/UTF-16的输入/输出 - 为序列化和反序列化本地的Java对象提供了高级API - 支持YAML类型库中的所有类型 - 比较理性的错误信息 - YamlBeans：支持YAML 1.0和1.1 - FasterXML/jackson-dataformat-yaml：处于原型阶段
+SnakeYAML和YamlBeans都在GoogleCode仓库时，SnakeYAML的使用人数和提交者均优于YamlBeans。目前大多数帖子还是推荐选用SnakeYAML，而SpringBoot读取YAML配置采用的就是SnakeYAML。为了测试SnakeYAML，我首先创建了一个HelloSnakeYAML项目。
+conf.yaml spring: application: name: cruncher datasource: driverClassName: com.mysql.jdbc.Driver url: jdbc:mysql://localhost/test server: port: 9000  Contact.java package com.yqu.yaml; import java.util.List; public class Contact { private String name; private int age; private List phoneNumbers; public Contact(String name, int age, List phoneNumbers) { this.name = name; this.age = age; this.phoneNumbers = phoneNumbers; } public String getName() { return name; } public void setName(String name) { this.</description>
+    </item>
+    
+    <item>
+      <title>Java的Base64编解码</title>
+      <link>https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/</link>
+      <pubDate>Thu, 01 Jan 2015 11:30:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/</guid>
+      <description>Base64编码是网络上最常见的用于传输8Bit字节代码的编码方式之一，用基于64个可打印字符[大小写字母52个字符、数字10个字符、+和/2个字符(对于URL为-和_)，补全用=]来表示二进制数据的一种表示方法。相关协议可见：
+ RFC4648 The Base16, Base32, and Base64 Data Encodings RFC2045 MIME Part One: Format of Internet Message Bodies RFC2046 MIME Part Two: Media Types RFC2047 MIME Part Three: Message Header Extensions for Non-ASCII Text RFC2048 MIME Part Four: Registration Procedures RFC2049 MIME Part Five: Conformance Criteria and Examples  因为有些网络传送渠道不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。通过Base64编码可以把不可打印的字符也能用可打印字符来表示。
+Java6之前 在Java6之前，JDK核心类一直没有Base64的实现类。除了使用Sun内部实现sun.misc.BASE64Encoder、sun.misc.BASE64Decoder或com.sun.org.apache.xerces.internal.impl.dv.util.Base64外，就需要使用第三方类库了。 Java6 Java6中添加了Base64的实现：javax.xml.bind.DatatypeConverter两个静态方法parseBase64Binary和 printBase64Binary。
+import javax.xml.bind.DatatypeConverter; public class HelloBase64 { public static void main(String[] args) { String me = &amp;quot;blog.</description>
+    </item>
+    
+    <item>
+      <title>[Swing]图片叠加效果</title>
+      <link>https://mryqu.github.io/post/swing_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Thu, 25 Dec 2014 08:20:49 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/swing_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</guid>
+      <description>玩一下使用Java做图片叠加效果。 代码如下：
+package com.yqu.swing.img; import java.awt.Component; import java.awt.Graphics; import java.awt.image.BufferedImage; import java.io.File; import java.io.IOException; import java.util.ArrayList; import java.util.List; import javax.imageio.ImageIO; import javax.swing.GrayFilter; import javax.swing.Icon; import javax.swing.ImageIcon; public class OverlayIcon implements Icon{ private int maxWidth = -1, maxHeight = -1; private List icons; public OverlayIcon(String[] iconPaths) { if(iconPaths != null &amp;amp;&amp;amp; iconPaths.length &amp;gt;0) { icons = new ArrayList(iconPaths.length); for (String iconPath : iconPaths) { Icon icon = makeIcon(iconPath, false); icons.add(icon); int width = icon.</description>
+    </item>
+    
+    <item>
+      <title>通过Java反射操作注解</title>
+      <link>https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/</link>
+      <pubDate>Sun, 29 Jun 2014 09:47:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/</guid>
+      <description>注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。
+MyAnnotation.java package com.yqu.reflection.annotation; import java.lang.annotation.ElementType; import java.lang.annotation.Retention; import java.lang.annotation.RetentionPolicy; import java.lang.annotation.Target; @Retention(RetentionPolicy.RUNTIME) //@Target(ElementType.TYPE) public @interface MyAnnotation { public String name() default &amp;quot;[unknown name]&amp;quot;; public String value() default &amp;quot;[unassigned value]&amp;quot;; }  定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。 @Target指定此注解的作用域： - TYPE：用于类、接口、注解类和枚举 - CONSTRUCTOR：用于构造方法 - LOCAL_VARIABLE：用于本地变量 - FIELD：用于类的属性(包括枚举常量) - METHOD：用于方法 - PACKAGE：用于包 - PARAMETER：用于方法的参数 - ANNOTATION_TYPE：用于注解类 - TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前 - TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期： - SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。 - CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。 - RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。
+TheClass.java package com.yqu.reflection.annotation; import java.lang.annotation.Annotation; import java.lang.reflect.Field; import java.</description>
+    </item>
+    
+    <item>
+      <title>玩一下LineNumberReader</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/</link>
+      <pubDate>Wed, 26 Mar 2014 19:37:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/</guid>
+      <description>找资料的副产品就是发现了LineNumberReader这个类，跟它的父类BufferedReader相比多了计算文件行数的功能。记不得以前是否用过了，这里记录一下备用。
+import java.io.BufferedReader; import java.io.FileReader; import java.io.IOException; import java.io.LineNumberReader; public class TestFileLineNum { public static int countLinesV1(String flName) throws IOException { BufferedReader reader = new BufferedReader(new FileReader(flName)); int cnt = 0; while (reader.readLine() != null) { cnt++ ; } reader.close(); return cnt; } public static int countLinesV2(String flName) throws IOException { LineNumberReader reader = new LineNumberReader(new FileReader(flName)); while (reader.readLine() != null) { } int cnt = reader.getLineNumber(); reader.close(); return cnt; } public static void main(String[] args) throws IOException { for(int i=0;i&amp;lt;4;i ) { String flName = &amp;quot;test&amp;quot; + i + &amp;quot;.</description>
+    </item>
+    
+    <item>
+      <title>Joda-Time笔记</title>
+      <link>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 01 Dec 2013 00:31:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</guid>
+      <description>Joda简介 Joda项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目： - Joda-Time -日期和时间库 - Joda-Money -货币库 - Joda-Beans -下一代JavaBeans - Joda-Convert -字符串与对象转换库 - Joda-Collect - 提供JDK或Google Guava没有的集合数据类型 - Joda-Primitives -提供原始数据类型集合
+Joda-Time简介 其中Joda-Time由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。Joda-Time在JavaSE8将融入JDK API内，使用者可以使用java.time (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(现行公历、格里历)、Julian(儒略历)、Buddhist(佛历)、Coptic(科普特历)、Ethiopic(埃塞俄比亚历)和Islamic(伊斯兰历)历法系统。 为什么要使用Joda-Time（以下简称Joda）？考虑创建一个用时间表示的某个随意的时刻，例如2000年1月1日0时0分。如何创建一个用时间表示这个瞬间的JDK对象？使用java.util.Date？事实上这是行不通的，因为自JDK1.1 之后的每个 Java 版本的 Javadoc 都声明应当使用java.util.Calendar。Date中Date(intyear, int month, int date) 、Date(int year, int month, int date, inthrs, int min)、Date(int year, int month, int date, int hrs, int min,int sec)已经废弃、不建议使用，严重限制了您创建此类对象的途径。然而，Date确实有一个构造函数Date(long date)，您可以用来创建用时间表示某个瞬间的对象（除“当前时间”以外）。该方法使用距离1970年1月1日子时格林威治标准时间（也称为_epoch_）以来的毫秒数作为一个参数，对时区进行校正。 那么Calendar又如何呢？可以使用下面的方式创建必需的实例：
+Calendar calendar = Calendar.getInstance(); calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);  使用Joda，代码应该类似如下所示：</description>
+    </item>
+    
+    <item>
+      <title>切记：Java中long字面量以L结尾</title>
+      <link>https://mryqu.github.io/post/%E5%88%87%E8%AE%B0java%E4%B8%ADlong%E5%AD%97%E9%9D%A2%E9%87%8F%E4%BB%A5l%E7%BB%93%E5%B0%BE/</link>
+      <pubDate>Sat, 26 Oct 2013 10:30:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%87%E8%AE%B0java%E4%B8%ADlong%E5%AD%97%E9%9D%A2%E9%87%8F%E4%BB%A5l%E7%BB%93%E5%B0%BE/</guid>
+      <description>最近碰到一个问题，输入是int，要求按无符号整数使用。为了实现要求，升级成long然后与上0xffffffff，结果不正常。问了几个基友，都有点茫然。 问题出在0xffffffff上了，现在就操练一下。
+将0xffffffff赋给一个long变量，它的值是多少？
+long n = 0xffffffff; System.out.println(Long.toHexString(n));  结果是0xffffffffffffffff呦！
+ffffffffffffffff  将0x000000008fffffff赋给一个long变量，它的值是多少？
+long = 0x000000008fffffff; System.out.println(Long.toHexString(n));  结果是0xffffffff8fffffff呦！！！
+ffffffff8fffffff  int转换成long的规则是，一个负的int数，会自动扩展符号位，升级成负的long数的。 正确的用法是0xffffffffL，字面量表明是long类型，所以头32位才会全是0。
+long = 0xffffffffL; System.out.println(Long.toHexString(n));  输出结果：
+ffffffff  </description>
+    </item>
+    
+    <item>
+      <title>批处理：搜索Jar包中的类文件</title>
+      <link>https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 20 Oct 2013 15:55:59 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</guid>
+      <description>网上转载的很多，原文出处不详。
+批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
+@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in (&#39;dir /A:-D /S /B *.jar&#39;) do 7z l %%i | findstr %WHICH_CLASS% &amp;amp;&amp;amp; echo %WHICH_CLASS% found in: &amp;quot;%%i&amp;quot; echo &amp;quot;Finished class finding...&amp;quot; echo &amp;quot;======================================&amp;quot; ENDLOCAL  命令运行格式：
+findclass com\\yqu\\kxmt\\TestFindClass.class  </description>
+    </item>
+    
+    <item>
+      <title>FilenameFilter和FileFilter介绍</title>
+      <link>https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Fri, 18 Oct 2013 19:26:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/</guid>
+      <description>FilenameFilter和FileFilter说明 java.io.File类提供了四个方法用于列举某个路径下的文件和目录，但不会递归列举子目录下的内容。其中两个是列举路径下的所有文件和目录。 - String[] list() - File[] listFiles()另外两个是列举路径满足指定过滤器的文件和目录。 - String[] list(FilenameFilter filter) - File[] listFiles(FileFilter filter)
+示例 要求：返回当前目录下所有以yqu开头且以.tmp结尾的文件和目录。
+代码 package com.yqu.file; import java.io.File; import java.io.FileFilter; import java.io.FilenameFilter; public class HelloFileListing { public static void main(String[] args) { File f = new File(&amp;quot;c:/test&amp;quot;); System.out.println(&amp;quot;\n====Method listFiles() example====&amp;quot;); File[] files = f.listFiles(); for (File fl : files) { String type = fl.isFile() ? &amp;quot;File: &amp;quot; : &amp;quot;Directory: &amp;quot;; try { System.out.println(type + fl.</description>
+    </item>
+    
+    <item>
+      <title>JDK7中的双端队列Deque实现</title>
+      <link>https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 08 Aug 2013 20:12:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/</guid>
+      <description>双端队列Deque（全名double-endedqueue）是一种数据结构，可在双端队列的两端插入、获取或删除元素。队列和栈可以认为是双端队列的特列。 Deque常用的方法： First Element (Head)Last Element (Tail)Throws exceptionSpecial valueThrows exceptionSpecial valueInsertaddFirst(e)offerFirst(e)addLast(e)offerLast(e)RemoveremoveFirst()pollFirst()removeLast()pollLast()ExaminegetFirst()peekFirst()getLast()peekLast()
+Deque扩展了Queue接口，当Deque用作FIFO队列时，元素从双端队列队尾加入，从队首移出。从Queue接口继承的方法等同于Deque如下方法： Queue&amp;nbsp;MethodEquivalent&amp;nbsp;Deque&amp;nbsp;Methodadd(e)addLast(e)offer(e)offerLast(e)remove()removeFirst()poll()pollFirst()element()getFirst()peek()peekFirst()
+Deques也可作为LIFO栈。该接口应该优先于遗留的Stack类使用。当双端队列用作栈时，元素从队首入栈和出栈。Stack方法等同与Deque如下方法： Stack MethodEquivalent&amp;nbsp;Deque&amp;nbsp;Methodpush(e)addFirst(e)pop()removeFirst()peek()peekFirst() 注意：当deque用作队列或堆栈时，peek方法也可正常工作，都从deque起始位置移除元素。
+JDK6加入的Deque实现 LinkedList: 一个基于链接节点实现的无界双端队列。允许null元素。 ArrayDeque: 一个基于可变长度数组实现的无界双端队列。不允许null元素。
+就效率而言，ArrayDeque在两端添加或删除元素时比LinkedList更高效。ArrayDeque用作栈时比Stack更快，用作队列时比LinkedList更快。 LinkedList实现比ArrayDeque实现更复杂，耗费更多的内存。当遍历双端列表时删除当前元素，LinkedList比ArrayDeque更高效。 继承BlockingQueue的BlockingDeque接口及其实现LinkedBlockingDeque：一个基于链接节点实现的可选有界双端队列。如果LinkedBlockingDeque在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。 LinkedBlockingDeque实现采用一个独占锁，所有对队列的操作都进行了锁保护，因而很好的支持双向阻塞的特性。缺点是由于独占锁，所以不能同时进行两个操作，这样性能上就大打折扣。 LinkedBlockingDeque实现具有显对低的开销及相对低的可扩展性。如果仅需要FIFO队列功能，最好使用LinkedBlockingQueue，LinkedBlockingQueue具有相同的开销但是有更好的伸缩性(例如很多线程竞争时保持更好的性能)。 深入浅出 Java Concurrency (24): 并发容器 part 9 双向队列集合 Deque
+深入浅出 Java Concurrency (25): 并发容器 part 10 双向并发阻塞队列 BlockingDeque
+JDK7加入的Deque实现 ConcurrentLinkedDeque：一个基于链接节点实现的无界无阻塞双端队列。收集关于队列大小的信息会很慢，需要遍历队列。 ConcurrentLinkedDeque具有跟LinkedBlockingDeque相反的表现：相对高的开销及很好的可伸缩性（使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈）。 [concurrency-interest] BlockingDeque and revised Deque
+Deque应用：回文（Palindrome）检查 Deque的应用不是很多，很容易使用双端队列解决的一个有趣问题是经典的回文问题。回文是正着读和倒着读都一样的字符串，例如radar、toot和madam。 回文检查方案是采用Deque存储字符串的字符，将字符串中的字符从左到右插入Deque尾部，则deque头部将持有字符串的首字符，deque尾部将持有字符串的末字符。然后从Deque两端移出字符进行比较，直到Deque内字符数为0或1为止。 public class PalindromeChecker { public static boolean palchecker(String str) { if(str==null || str.isEmpty()) return false; ArrayDeque aDeque = new ArrayDeque (str.</description>
+    </item>
+    
+    <item>
+      <title>序列化压缩实现及对比测试</title>
+      <link>https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Thu, 08 Aug 2013 07:13:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/</guid>
+      <description>网上介绍序列化压缩的用gzip比较多。写个测试代码，测试一下四种序列化方式： - 无压缩 - zlib压缩 - gzip压缩 - zip压缩
+测例结果显示压缩效果：gzip压缩 &amp;gt; zlib压缩 &amp;gt; zip压缩&amp;gt; 无压缩 测例结果显示压缩速度：zlib压缩&amp;gt; gzip压缩&amp;gt; zip压缩 = 无压缩 确实用gzip性价比比较高！
+### zlib介绍
+zlib是一个开源库，提供了在内存中压缩和解压的函数。zlib它的设计目标是处理单纯的数据（而不管数据的来源是什么）。
+### gzip介绍
+gzip是UNIX下的一种数据格式(.tar.gz)。gzip是在zlib之上，包了一层，在头和尾添加了一些额外的信息。 gzip是一种文件压缩工具（或该压缩工具产生的压缩文件格式），它的设计目标是处理单个的文件。gzip在压缩文件中的数据时使用的就是zlib。为了保存与文件属性有关的信息，gzip需要在压缩文件（.gz）中保存更多的头信息内容，而zlib不用考虑这一点。但gzip只适用于单个文件，所以我们在UNIX/Linux上经常看到的压缩包后缀都是.tar.gz或*.tgz，也就是先用tar把多个文件打包成单个文件，再用gzip压缩的结果。
+### zip介绍
+zip只是一种数据结构，跟rar同级别的。zip是适用于压缩多个文件的格式（相应的工具有PkZip和WinZip等），因此，zip文件还要进一步包含文件目录结构的信息，比gzip的头信息更多。但需要注意，zip格式可采用多种压缩算法，我们常见的zip文件大多不是用zlib的算法压缩的，其压缩数据的格式与gzip大不一样。 Java SDK提供了对上述三种压缩技术的支持：Inflater类和Deflater类直接用zlib库对数据压缩/解压缩，GZIPInputStream类和GZIPOutputStream类提供了对gzip格式的支持，ZipFile、ZipInputStream、ZipOutputStream则用于处理zip格式的文件。 所以，你应当根据你的具体需求，选择不同的压缩技术：如果只需要压缩/解压缩数据，你可以直接用zlib实现，如果需要生成gzip格式的文件或解压其他工具的压缩结果，你就必须用gzip或zip等相关的类来处理了。
+测试代码 import java.io.ByteArrayInputStream; import java.io.ByteArrayOutputStream; import java.io.File; import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.IOException; import java.io.ObjectInputStream; import java.io.ObjectOutputStream; import java.io.Serializable; import java.util.Arrays; import java.util.zip.DataFormatException; import java.util.zip.Deflater; import java.util.zip.GZIPInputStream; import java.util.zip.GZIPOutputStream; import java.util.zip.Inflater; import java.util.zip.ZipEntry; import java.util.zip.ZipInputStream; import java.</description>
+    </item>
+    
+    <item>
+      <title>JDK7中的队列实现</title>
+      <link>https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 07 Aug 2013 20:02:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/</guid>
+      <description>JDK7之前已有的队列实现 JDK7之前已有的队列实现分为两类：用于一般用途的实现和用于并发的实现。
+用于一般用途的队列实现 LinkedList实现了Queue接口，为offer、poll等方法提供了先入先出队列操作。 PriorityQueue类是基于堆（数据结构）的优先队列。如果PriorityQueue在构造时指定比较器Comparator，则用比较器对元素排序，否则使用元素的自然排序（通过其java.util.Comparable实现）。队列的取操作（poll、remove、peek和element）访问队列头部的元素。队列头部是顺序上最小的元素或具有相同最小值的元素之一。PriorityQueue的iterator方法提供的爹抬起不保证按特定顺序遍历PriorityQueue中的元素。
+并发队列实现 java.util.concurrent包下包含一系列同步的Queue接口和类。 ConcurrentLinkedQueue基于链接节点的、线程安全的队列。并发访问不需要同步。因为它在队列的尾部添加元素并从头部删除它们，所以只要不需要知道队列的大小。ConcurrentLinkedQueue对公共集合的共享访问就可以工作得很好。收集关于队列大小的信息会很慢，需要遍历队列。 http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html JDK5加入了BlockingQueue接口和五个阻塞队列类。阻塞队列BlockingQueue扩展了Queue的操作，元素添加操作会在没有空间可用时阻塞，而元素获取操作会在队列中没有任何东西时阻塞。 五个队列所提供的各有不同： - ArrayBlockingQueue：一个基于数组实现的有界（大小有限）队列。 - LinkedBlockingQueue：一个基于链接节点实现的可选有界队列。如果LinkedBlockingQueue在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。 - PriorityBlockingQueue：一个基于堆实现的无界优先级队列。 - DelayQueue：一个基于堆实现的、基于时间的调度队列。 - SynchronousQueue：一个利用BlockingQueue接口的会合（rendezvous）机制。它没有内部容量。它就像线程之间的手递手机制，类似于生活中一手交钱一手交货这种情况。在队列中加入一个元素的生产者会等待另一个线程的消费者。当这个消费者出现时，这个元素就直接在消费者和生产者之间传递，永远不会加入到阻塞队列中。公平模式下等待线程按照FIFO顺序访问队列，非公平模式下等待线程访问顺序不定。
+JDK7的TransferQueue JDK7加入了继承自BlockingQueue的TransferQueue接口和及其实现LinkedTransferQueue：一个基于链接节点实现的无界TransferQueue。 TransferQueue可以让使用者决定使用正常的BlockingQueue语义还是有保障的手递手机制，因而比SynchronousQueue更通用和有效。当队列内已经存在元素时，调用transfer会确保所有已有元素在此传递元素之前被处理。DougLea称之为容量智能化，LinkedTransferQueue实际上是ConcurrentLinkedQueue,(在公平模式下)SynchronousQueue, 无界的LinkedBlockingQueues等的超集。 TransferQueue混合了若干高级特性的同时，也提供了更高的性能。LinkedTransferQueue相比不公平模式SynchronousQueue，性能超过3倍；相比公平模式SynchronousQueue，性能超过14倍。SynchronousQueueJDK5实现是使用两个队列（用于等待生产者和等待消费者）,用一个锁保护这两个队列。而LinkedTransferQueue实现使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈。 获得TransferQueue队列大小会很慢，需要遍历队列。 http://tech.puredanger.com/2009/02/28/java-7-transferqueue/
+http://www.blogjava.net/yongboy/archive/2012/02/04/369575.html</description>
+    </item>
+    
+    <item>
+      <title>JDK7的Fork/Join并发框架</title>
+      <link>https://mryqu.github.io/post/jdk7%E7%9A%84forkjoin%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Tue, 06 Aug 2013 20:02:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/jdk7%E7%9A%84forkjoin%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/</guid>
+      <description>硬件的发展趋势非常清晰；Moore定律表明不会出现更高的时钟频率，但是每个芯片上会集成更多的内核。很容易想象让十几个处理器繁忙地处理一个粗粒度的任务边界（比如一个用户请求），但是这项技术不会扩大到数千个处理器——在这种环境下短时间内流量可能会呈指数级增长，但最终硬件趋势将会占上风。当跨入多内核时代时，我们需要找到更细粒度的并行性，否则将面临即便有许多工作需要去做而处理器却仍处于空闲的风险。如果希望跟上技术发展的脚步，软件平台也必须配合主流硬件平台的转变。最终，Java7包含的一种框架，用于表示某种更细粒度级别的并行算法：Fork/Join框架。 Fork/Join融合了分而治之（divide-and-conquer）编程技术；获取问题后，递归地将它分成多个子问题，直到每个子问题都足够小，以至于可以高效地串行地解决它们。递归的过程将会把问题分成两个或者多个子问题，然后把这些问题放入队列中等待处理（fork步骤），接下来等待所有子问题的结果（join步骤），把多个结果合并到一起。 假如充分分解任务的大小，那么创建一个线程的开销有可能超出执行该任务的开销。因此，fork/join框架使用与可用核数相匹配的适当大小的线程池，以减少这种频繁交换的开销。为避免线程空闲，框架包含了一个工作窃取方法，该方法可以使空闲线程从一个执行较慢的线程中窃取等待其处理的工作。 Java教程 - Fork/Join
+分解和合并：Java 也擅长轻松的并行编程！
+JDK 7 中的 Fork/Join 模式
+Doug Lea： &amp;ldquo;A Java Fork/Join Framework&amp;ldquo;：了解 Fork/Join 模式的实现机制和执行性能。 InfoQ: Doug Lea谈Fork/Join框架</description>
+    </item>
+    
+    <item>
+      <title>Java NaN小结</title>
+      <link>https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Mon, 05 Aug 2013 23:14:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/</guid>
+      <description> Double.NAN介绍 Double类有个NaN常量，是Not a Number的缩写，其值等于Double.longBitsToDouble(0x7ff8000000000000L) ，用于表示非数值。NaN必须使用isNaN(double)方法来判断，NaN与任何double数值进行加减乘除等数学运算后的结果仍然是NaN，且NaN使用==运算符与自身进行判断返回结果为false。测试代码如下：测试结果如下：
+Double.NaN==Double.NaN :false Double.isNaN(Double.NaN*0) :true Double.NaN*0==0 :false Double.isNaN(Double.NaN/0) :true Double.NaN/0==0 :false Double.isNaN(0/Double.NaN) :true 0/Double.NaN==0 :false Double.isNaN(Double.NaN+0) :true Double.NaN+0==0 :false Double.isNaN(Double.NaN-0) :true Double.NaN-0==0 :false Double.isNaN(Double.NaN*Double.NaN) :true Double.NaN*Double.NaN==0 :false  自定义NAN介绍 Double.NaN可以用来表示计算结果发生异常，但是无法获知异常原因。我们可以通过自定义NAN来解决这一问题。使用Double类的isNaN(double)方法判断自定义NAN，其返回结果为true，我们可以通过自己的方法判决到底是那种NaN。测试代码如下：测试结果如下：
+Double.isNaN(Double.NaN) :true MyNaN.isMyNaN(Double.NaN) :false Double.isNaN(MyNaN.INVALID_PARAMETER_NAN) :true MyNaN.isMyNaN(MyNaN.INVALID_PARAMETER_NAN) :true Double.isNaN(Double.longBitsToDouble(0xffff000000000123L)) :true MyNaN.isMyNaN(Double.longBitsToDouble(0xffff000000000123L)) :false  </description>
+    </item>
+    
+    <item>
+      <title>Java线程是否会被垃圾回收？</title>
+      <link>https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
+      <pubDate>Tue, 30 Jul 2013 20:33:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
+      <description>如果将线程启动后，然后线程变量置空，线程会怎么样？
+import java.lang.ref.WeakReference; public class TestThread { public static void testUnreferencedThread() { // anonymous class extends Thread Thread t = new Thread() { public void run() { // infinite loop while (true) { try { Thread.sleep(1000); } catch (InterruptedException e) {} // as long as this line printed out, you know it is alive. System.out.println(&amp;quot;thread is running...&amp;quot;); } } }; t.start(); WeakReference&amp;lt;Thread&amp;gt; wr = new WeakReference&amp;lt;Thread&amp;gt;(t); t = null; // no more references for Thread t // another infinite loop while (true) { try { Thread.</description>
+    </item>
+    
+    <item>
+      <title>显示jar文件中某个类的公开方法</title>
+      <link>https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 26 Jul 2013 20:58:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/</guid>
+      <description>使用jar命令显示jar文件的内容 C:\&amp;gt;jar tvf log4j.jar 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/ 262 Sat Aug 25 00:29:44GMT+08:00 2007 META-INF/MANIFEST.MF 0 SatAug 25 00:10:04 GMT+08:00 2007 org/ 0 SatAug 25 00:10:04 GMT+08:00 2007 org/apache/ 0 SatAug 25 00:10:06 GMT+08:00 2007 org/apache/log4j/ ................. 676 Sat Aug 25 00:10:04GMT+08:00 2007 org/apache/log4j/Appender.class 2567 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Logger.class 1038 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Layout.class ................. 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/log4j/ 17780 Sat Aug 25 00:09:44 GMT+08:00 2007META-INF/maven/log4j/log4j/pom.</description>
+    </item>
+    
+    <item>
+      <title>Eclipse RCP资料</title>
+      <link>https://mryqu.github.io/post/eclipse_rcp%E8%B5%84%E6%96%99/</link>
+      <pubDate>Thu, 11 Jul 2013 23:14:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/eclipse_rcp%E8%B5%84%E6%96%99/</guid>
+      <description>Lubos: Eclipse plugin and RCP development notes</description>
+    </item>
+    
+    <item>
+      <title>小玩Java序列化</title>
+      <link>https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Mon, 08 Jul 2013 21:17:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>折腾GemFire，免不了要折腾序列化和发序列化。GemFire支持Java的序列化，同时也有自己的DataSerializable接口实现自己的序列化，此外还有Delta接口支持数据同步时仅传送上一次数据同步后的更新。 今天测试的实现先用Java的序列化，一开始玩java.io.Serializable接口，后来玩writeObject()和readObject()方法。顺便看看有writeObject方法后ObjectOutputStream调用堆栈与原有分支的不同。
+private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &amp;lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push(&amp;quot;custom writeObject data (class \&amp;quot;&amp;quot; + slotDesc.getName() + &amp;quot;\&amp;quot;)&amp;quot;); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.</description>
+    </item>
+    
+    <item>
+      <title>Java对象的内存使用量分析</title>
+      <link>https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 19 Jun 2013 09:17:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/</guid>
+      <description>前段时间做GemFire中对象的内存使用量分析时，学习了一下Java对象的内存使用量分析。 如果不知道一个没有变量的空对象占8字节，空数组占12字节，空字符串对象占40字节的话，有必要看一下下面的链接进行学习。 Memory usage of Java Strings and string-related objects
+Determining Memory Usage in Java
+Java对象内存结构
+主题：如何获取一个对象的在内存中的大小？
+JAVA Objects Memory Size Reference</description>
+    </item>
+    
+    <item>
+      <title>多维数据遍历</title>
+      <link>https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/</link>
+      <pubDate>Fri, 31 May 2013 12:21:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/</guid>
+      <description>在联机分析处理（OLAP）系统中，需要对存储在数据库或数据仓库中的数据提供分析。由于数据维数不定，无法采用多重for循环进行数据遍历。我在开发过程中一般使用扁平化下标对多维数据进行遍历，今天尝试了一下递归方式，效率更高一些，但是对栈的消耗也更多一些。下面的代码示例使用两种不同的方式对多维数据进行遍历： - 递归 - 采用扁平化下标
+示例代码 package com.yqu.collection; import java.util.ArrayList; import java.util.List; public class MultipleDimensionTraveling &amp;lt;T&amp;gt;{ private List&amp;lt;List&amp;lt;T&amp;gt;&amp;gt; mdList; public MultipleDimensionTraveling(){ mdList = new ArrayList&amp;lt;List&amp;lt;T&amp;gt;&amp;gt;(); } public MultipleDimensionTraveling(List&amp;lt;List&amp;lt;T&amp;gt;&amp;gt; mdList){ this.mdList = mdList; } public void addDimension(List&amp;lt;T&amp;gt; dim){ mdList.add(dim); } public void travelByRecursion(){ if(!mdList.isEmpty()) travelByRecursion(0, new ArrayList&amp;lt;T&amp;gt;(mdList.size())); } private void travelByRecursion(int dimIdx, List&amp;lt;T&amp;gt; crossing){ for(int i=0;i&amp;lt;mdList.get(dimIdx).size();i++){ if(crossing.size()&amp;lt;mdList.size()) crossing.add(dimIdx, mdList.get(dimIdx).get(i)); else crossing.set(dimIdx, mdList.get(dimIdx).get(i)); if(dimIdx==mdList.size()-1){ System.out.println(crossing.toString()); } else { travelByRecursion(dimIdx+1, crossing); } } } public void travelByFlatIndice(){ if(!</description>
+    </item>
+    
+    <item>
+      <title>JavaSE 新增特性</title>
+      <link>https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</link>
+      <pubDate>Wed, 22 May 2013 22:09:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</guid>
+      <description>参考 Wiki：Java version history
+JDK各版本很cool的特性
+JDK6中httpserver实例
+IBM developerWorks：JDK 7 新特性 - 总览
+Try-with-resources in Java 7
+Java 7 的新特性一览表
+编程没有银弹：探讨 Java 8 新增特性的优缺点
+IBM developerWorks：Java 8 新特性概述
+Java 8 的新特性和改进总览
+Java 8 正式发布，新特性全搜罗</description>
+    </item>
+    
+    <item>
+      <title>尝试了一下jacob</title>
+      <link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/</link>
+      <pubDate>Mon, 18 Feb 2013 12:49:30 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/</guid>
+      <description>JACOB开源项目 Jacob是Java与COM组件桥接的缩写，即JAVA-COMBridge。通过使用Jacob类库，我们可以很方便地在Java程序中使用JNI来进行本地调用COM库。它可运行在x86和（支持32位和64位Java虚拟机的）X64环境。Jacob最初是由美国人DanAlder在Inventure公司担任CTO时编写的，目的是为了方便众多的程序员在Java2虚拟机上，调用Win32平台上COM自动化服务器中的组件。当Jacob项目以开源的方式在网络上公布以后，越来越多的人开始参与项目的研发与改进中去。
+JACOB 相关博文： Jacob的简单介绍
+Jacob使用入门及问题解析</description>
+    </item>
+    
+    <item>
+      <title>解：failed to create task or type cobertura-instrument</title>
+      <link>https://mryqu.github.io/post/%E8%A7%A3failed_to_create_task_or_type_cobertura-instrument/</link>
+      <pubDate>Mon, 07 Nov 2011 19:50:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%A7%A3failed_to_create_task_or_type_cobertura-instrument/</guid>
+      <description>由于项目需要，学习使用cobertura检查junit测试覆盖率。 结果ant总是报错：
+BUILD FAILEDbuild.xml:54: Problem: failed to create task or typecobertura-instrumentCause: The name is undefined.Action: Check the spelling.Action: Check that any custom tasks/types have been declared.Action: Check that any&amp;lt;presetdef&amp;gt;/&amp;lt;macrodef&amp;gt;declarations have taken place.  搜了一些文章，都无解，最后看cobertura的example，找到病根。 解决方法： 将改成就好了。</description>
+    </item>
+    
+    <item>
+      <title>周末看JMF</title>
+      <link>https://mryqu.github.io/post/%E5%91%A8%E6%9C%AB%E7%9C%8Bjmf/</link>
+      <pubDate>Sat, 07 Mar 2009 20:24:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%91%A8%E6%9C%AB%E7%9C%8Bjmf/</guid>
+      <description>继续hello之旅。
+JavaTM Media FrameworkAPI Guide http://java.sun.com/javase/technologies/desktop/media/jmf/2.1.1/guide/index.html
+JMF开发指南1.0 中文版 http://hi.baidu.com/bigbigant/blog/item/43021ad8f240123033fa1ce8.html/cmtid/916ed31677780f11972b430a</description>
+    </item>
+    
+  </channel>
+</rss>

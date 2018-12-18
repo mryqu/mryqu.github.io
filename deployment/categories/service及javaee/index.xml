@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Service及javaee on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/categories/service%E5%8F%8Ajavaee/</link>
+    <description>Recent content in Service及javaee on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 13 Aug 2018 10:25:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/categories/service%E5%8F%8Ajavaee/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Spring] LDAP用户验证笔记</title>
+      <link>https://mryqu.github.io/post/spring_ldap%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 13 Aug 2018 10:25:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_ldap%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81%E7%AC%94%E8%AE%B0/</guid>
+      <description>对Spring LDAP用户验证进行了学习，制作了时序图： LDAP身份验证的步骤为： - 从客户端登录页面获得用户名和密码。 - 匿名或使用管理DN/密码绑定到LDAP服务器，通过登录用户名查询用户DN，如失败则报用户不存在。 - 使用用户DN和密码再次绑定到LDAP服务器，如果能成功绑定则验证成功，否则报用户密码错误。
+参考 Spring Security Architecture Spring Security Reference Spring Security Project GETTING STARTED: Authenticating a User with LDAP GitHub: spring-guides/gs-authenticating-ldap</description>
+    </item>
+    
+    <item>
+      <title>服务发现产品对比</title>
+      <link>https://mryqu.github.io/post/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%BA%A7%E5%93%81%E5%AF%B9%E6%AF%94/</link>
+      <pubDate>Tue, 29 May 2018 05:56:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%BA%A7%E5%93%81%E5%AF%B9%E6%AF%94/</guid>
+      <description>首先就一些常见的服务发现产品进行下对比: 对比项Consul GitHubZookeeper GitHubEtcd GitHubEuerka GitHubKubernetes GitHub服务健康检查客户端可绑定 任意多个服务或 节点健康检查 (内存、磁盘)CS之间长连接 +连接心跳; SS之间TCP KeepAlive连接心跳连接心跳注册、 其他可配支持多数据中心内置WAN方案支持中央Zookeeper集群, 通过Observer有限支持————KV存储限制上百MB上百MB （有时支持上GB）上GB——线性化读取 原子读取是否是——事务字段比较、 锁、读、写版本审查、 写字段比较、 读、写——多版本并发控制 MVCC————支持——watch支持/ 变化通知针对KV对、键前缀、 服务成员、服务实例、 节点列表、健康检查、 自定义用户事件等针对当前KV或目录; 单次针对过去或当前的键区间针对app、 vipAddress 或实例一致性协议RaftZab（≈Paxos）Raft——CAPCPCPCPAP成员动态更新支持&amp;gt;3.5.0支持支持支持接口HTTP和DNS客户端HTTP和gRPCHTTP (Sidecar)性能指标监控Metrics—— (可通过命令行 或JMX监控， 但没有Metrics)MetricsMetrics用户权限ACLsACLs基于Role——安全TLS / HTTPSSSLTLS / HTTPSHTTPSWeb管理界面支持支持—— （有第三方支持， 例如soyking/e3w）支持Spring Cloud集成Spring Cloud ConsulSpring Cloud ZookeeperSpring Cloud Etcd （孵化状态）Spring Cloud NetflixSpring Cloud Kubernetes （孵化状态）实现语言GoJavaGoJavaGo用户未提及用户列表用户列表除了Netflix自用 未提及其他用户合作方列表
+此外，Airbnb开源了由Ruby语言实现的自动服务发现和注册框架SmartStack，它由nerve、 synapse、Zookeeper和HAProxy组成。ZooKeeper负责维护集群状态；nerve负责针对服务进行健康检查及向Zookeeper注册；synapse负责为服务提供者查询Zookeeper并动态配置HAProxy。客户端与HAProxy交互，HAProxy负责健康检查及在针对服务提供者进行负载均衡。 注：对Kubernetes的对比在后继学习之后再补上。
+参考 Consul vs. ZooKeeper, doozerd, etcd
+Consul vs. SmartStack
+Consul vs. Eureka
+etcd versus other key-value stores</description>
+    </item>
+    
+    <item>
+      <title>试试swagger-codegen的invokerPackage和basePackage</title>
+      <link>https://mryqu.github.io/post/%E8%AF%95%E8%AF%95swagger-codegen%E7%9A%84invokerpackage%E5%92%8Cbasepackage/</link>
+      <pubDate>Mon, 24 Jul 2017 05:42:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%AF%95%E8%AF%95swagger-codegen%E7%9A%84invokerpackage%E5%92%8Cbasepackage/</guid>
+      <description>环境 mryqu@mryqu MINGW64 /c/playground/helloSwaggerCodegen $ ls config.json swagger.json swagger.yaml swagger-codegen-cli-2.2.3.jar mryqu@mryqu MINGW64 /c/playground/helloSwaggerCodegen $ cat swagger.yaml swagger: &#39;2.0&#39; info: description: Just a SpringFox demo version: &#39;2.0&#39; title: mryqu&#39;s REST API Demo contact: name: mryqu license: name: Apache License Version 2.0 url: https://github.com/mryqu/ host: localhost:8080 basePath: &amp;quot;/hellospringfox&amp;quot; tags: - name: greeting-controller description: Greeting Controller paths: &amp;quot;/greeting{?name}&amp;quot;: get: tags: - greeting-controller summary: Get greeting information operationId: greeting consumes: - application/json produces: - application/json - &amp;quot;*/*&amp;quot; parameters: - name: name in: query description: User Name required: true type: string default: World responses: &#39;200&#39;: description: OK schema: &amp;quot;$ref&amp;quot;: &amp;quot;#/definitions/Greeting&amp;quot; &#39;204&#39;: description: No Content &#39;401&#39;: description: Unauthorized &#39;403&#39;: description: Forbidden definitions: Greeting: type: object properties: content: type: string links: type: array items: &amp;quot;$ref&amp;quot;: &amp;quot;#/definitions/Link&amp;quot; Link: type: object properties: href: type: string rel: type: string templated: type: boolean mryqu@mryqu MINGW64 /c/playground/helloSwaggerCodegen $ cat config.</description>
+    </item>
+    
+    <item>
+      <title>swagger-codegen 2.2.3与2.1.5区别</title>
+      <link>https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Sun, 23 Jul 2017 06:13:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/</guid>
+      <description>支持的语法 $ java -jar swagger-codegen-cli-2.1.6.jar langs Available languages: [android, aspnet5, async-scala, csharp, dart, flash, python-flask, go, java, jaxrs, jaxrs-cxf, jaxrs-resteasy, inflector, javascript, javascript-closure-angular, jmeter, nodejs-server, objc, perl, php, python, qt5cpp, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring-mvc, dynamic-html, html, swagger, swagger-yaml, swift, tizen, typescript-angular, typescript-node, akka-scala, CsharpDotNet2, clojure, haskell-servant] $ java -jar swagger-codegen-cli-2.2.3.jar langs Available languages: [akka-scala, android, apache2, apex, aspnet5, aspnetcore, async-scala, bash, csharp, clojure, cwiki, cpprest, CsharpDotNet2, dart, elixir, eiffel, erlang-server, finch, flash, python-flask, go, go-server, groovy, haskell, jmeter, jaxrs-cxf-client, jaxrs-cxf, java, inflector, jaxrs-cxf-cdi, jaxrs-spec, jaxrs, msf4j, java-play-framework, jaxrs-resteasy-eap, jaxrs-resteasy, javascript, javascript-closure-angular, java-vertx, kotlin, lumen, nancyfx, nodejs-server, objc, perl, php, php-symfony, powershell, pistache-server, python, qt5cpp, rails5, restbed, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring, dynamic-html, html2, html, swagger, swagger-yaml, swift4, swift3, swift, tizen, typescript-angular2, typescript-angular, typescript-fetch, typescript-jquery, typescript-node, undertow, ze-ph]  swagger-codegen 2.</description>
+    </item>
+    
+    <item>
+      <title>Ribbon和Spring Cloud Consul</title>
+      <link>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</link>
+      <pubDate>Thu, 29 Jun 2017 05:45:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</guid>
+      <description>学习一下Client Side Load Balancing with Ribbon and Spring Cloud快速入门指南，这里的客户端负载平衡是借助Netflix Ribbon实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。
+@RibbonClient和@LoadBalanced的区别 Difference between @RibbonClient and @LoadBalanced讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。
+restTemplate.getForObject(&amp;quot;http://some-service-name/user/{id}&amp;quot;, String.class, 1);  @RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。 在下列两种情况下需要使用@RibbonClient注解： * 需要对特定Robbon客户端使用定制Ribbon设置 * 没有使用任何服务发现
+定制Robbon设置：
+@Configuration @RibbonClient(name = &amp;quot;foo&amp;quot;, configuration = FooConfiguration.class) public class TestConfiguration { }  注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。
+Spring Cloud Consul和Ribbon 在没用使用任何服务发现时，Ribbon从listOfServers配置里的服务器列表进行选择的。偶在项目中是用Consul的，它主业就是干服务发现的工作，而且还支持Netflix Ribbon。 网上有现成的Spring Cloud Consul和Ribbon示例spring-boot-consul-demo-tax和spring-boot-consul-demo-invoice。使用默认Ribbon设置，所以bootstrap.yml/application.yml里没有Ribbon设置，代码也没有使用@RibbonClient。 启动两个spring-boot-consul-demo-tax微服务实例和一个spring-boot-consul-demo-invoice微服务实例，在浏览器访问spring-boot-consul-demo-invoice微服务，就会发现spring-boot-consul-demo-invoice微服务实例以RoundRobin轮询方式调用两个spring-boot-consul-demo-tax微服务实例了。
+Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包含的几个重要组件/属性，正是这几个组件为Ribbon的功能提供支持:
+| 组件 | 描述 | | - | - | |Rule | 负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。| |Ping | 判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。| |ServerList | 服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。| |LoadBalancerStats | 负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。|</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud Consul Config</title>
+      <link>https://mryqu.github.io/post/spring_cloud_consul_config/</link>
+      <pubDate>Fri, 23 Jun 2017 05:40:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_cloud_consul_config/</guid>
+      <description>Spring Cloud是在Spring Boot的基础上构建的，用于简化分布式系统构建的工具集，为开发人员提供快速建立分布式系统中的一些常见的模式。例如：分布式版本可控配置(Distributed/versioned configuration)，服务注册与发现(Service registration and discovery)、智能路由(intelligent routing)、服务间调用、负载均衡、断路器(circuit breakers)、微代理(micro-proxy)、控制总线(control bus)、一次性令牌(one-time tokens)、全局锁(global locks)、领导选举和集群状态(leadership election and cluster state)、分布式消息、分布式会话等。 Spring Cloud Config项目快速入门示例展示了用于分布式系统中由Git仓库支持的中央外部配置。但是偶在项目中是用Consul的，而Spring Cloud Consul项目的快速入门示例并没有展示如何使用Consul进行配置管理，所以还是自己攒一下吧。
+Spring Cloud Consul简介 HashiCorp公司的Consul是用于基础架构中服务发现和配置的工具，支持服务发现、健康检查、用于不同用途的键值对存储、多数据中心支持。 Spring Cloud Consul通过自动配置及Spring环境和其他Spring编程模型进行绑定实现Cosul与Spring Boot应用的集成。通过一些简单的注释，即可激活应用内的通用模式，使用Hashicorp的Consul构建大型分布式系统。其功能如下： * 服务发现: 实例可以向Consul agent注册，客户端可以使用Spring管理的bean发现这些实例 * 支持Ribbon: 通过Spring Cloud Netflix提供的客户端负载均衡 * 支持Zuul: 通过Spring Cloud Netflix提供的动态路由和过滤 * 分布式配置: 使用Consul键值对存储 * 控制总线: 使用Consul事件的分布式控制事件
+安装并启动Consul 每个集群需要最少三台Consul server，以建立仲裁(quorum)，每个机器上必须运行一个consul agent。 Consul Agent: - 健康检查
+- 转发查询
+Consul Server: - 存储数据
+- 响应查询
+- 领导选举
+根据参考二Consul安装指南，可以很轻松地在本机安装Consul。用于开发环境启动本地单Consul实例的脚本可以使用参考一Spring Cloud Consul指南中所提到的src/main/bash/local_run_consul.</description>
+    </item>
+    
+    <item>
+      <title>[Maven] 构建多模块项目</title>
+      <link>https://mryqu.github.io/post/maven_%E6%9E%84%E5%BB%BA%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE/</link>
+      <pubDate>Sat, 03 Sep 2016 07:07:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/maven_%E6%9E%84%E5%BB%BA%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE/</guid>
+      <description> 在前一篇博文[Gradle] 将多项目转换成Maven项目中利用Gradle转换成Maven构建脚本，将朋友糊弄过去了。后来想想，还是给他做一个重头搭建多模块Maven项目的演示吧。
+创建根（父）项目 下列脚本可以创建一个包含pom.xml的yqu-ts-parent目录：
+mvn archetype:generate -DgroupId=com.yqu.ts -DartifactId=yqu-ts-parent -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false  测试结果： 进入yqu-ts-parent目录，删除src子目录，然后将pom.xml文件中packaging节点内容由jar改为pom。pom表示它是一个被继承的模块
+创建子项目 在yqu-ts-parent目录中运行下列脚本可以创建两个包含pom.xml文件的子目录yqu-ts-service和yqu-ts-webapp：
+mvn archetype:generate -DgroupId=com.yqu.ts -DartifactId=yqu-ts-service -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false mvn archetype:generate -DgroupId=com.yqu.ts -DartifactId=yqu-ts-webapp -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false  测试结果： 这两个命令会修改yqu-ts-parent项目的pom.xml，增加了两个子模块yqu-ts-service和yqu-ts-webapp。对于两个字模块的pom.xml，增加packaging节点，由于这两个子模块将用SpringBoot实现因而内容都为jar。
+确认项目/模块的pom.xml yqu-ts-parent项目的pom.xml yqu-ts-service模块的pom.xml yqu-ts-webapp模块的pom.xml </description>
+    </item>
+    
+    <item>
+      <title>Hello UnRAVL</title>
+      <link>https://mryqu.github.io/post/hello_unravl/</link>
+      <pubDate>Thu, 18 Aug 2016 05:47:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_unravl/</guid>
+      <description>UnRAVL介绍 UnRAVL（Uniform REST API ValidationLanguage）是用于验证REST应用编程接口的JSON领域特定语言。UnRAVL由SAS架构师DavidBiesack实现，并作为SAS开源软件在GitHub上发布。UnRAVL脚本包含一个REST API调用的JSON描述: - HTTP方法（GET、POST、PUT、DELETE、HEAD、PATCH） - URI - (可选的)HTTP头 - (可选的)请求消息体 - (可选的)认证
+对于每个API调用，一个UnRAVL脚本可以包含用于验证结果的一或多个断言。某些断言可以表达为前置条件，即在进行API调用之前必须为真。下列内容可以断言： - 结果消息体匹配期望的JSON、文本或其他数据 - 存在带有特定值的特定头 - HTTP状态码为特定值或在特定集合内 - 响应消息体匹配基准（benchmark） - 通过Groovy表达式测试响应或环境变量中的元素为真 - 一个环境变量已赋值
+UnRAVL也支持从RESTAPI调用结果中抽取数据、与环境变量进行数据绑定并用于之后的API调用验证。例如，将一个创建资源的POST 调用响应的Location 头进行保存，并将此URL用于后继GET 、PUT 、DELETE 调用。 模板功能提供了可重用的API验证构建能力。
+UnRAVL示例 build.gradle buildscript { repositories { mavenCentral() } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; jar { baseName = &#39;HelloUnRAVL&#39; version = &#39;0.1.0&#39; } repositories { mavenCentral() } sourceCompatibility = 1.</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] AutorecoveringConnection在连接恢复后才调用ShutdownListener</title>
+      <link>https://mryqu.github.io/post/rabbitmq_autorecoveringconnection%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E8%B0%83%E7%94%A8shutdownlistener/</link>
+      <pubDate>Sat, 13 Aug 2016 06:00:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_autorecoveringconnection%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E8%B0%83%E7%94%A8shutdownlistener/</guid>
+      <description>想玩一玩RabbitMQ中的ShutdownListener和RecoveryListener，又不想写自己的重连接逻辑，所以使用了ConnectionFactory类的setAutomaticRecoveryEnabled方法让其自动恢复连接。代码如下：
+package com.yqu.rabbitmq; import com.rabbitmq.client.*; import java.io.IOException; public class AutoRecoveryRecv { private final static String QUEUE_NAME = &amp;quot;hello&amp;quot;; public static void main(String[] argv) throws Exception { try { ConnectionFactory factory = new ConnectionFactory(); factory.setHost(ConnectionFactoryConfiguration.HOST); factory.setUsername(ConnectionFactoryConfiguration.USERNAME); factory.setPassword(ConnectionFactoryConfiguration.PASSWORD); factory.setAutomaticRecoveryEnabled(true); factory.setNetworkRecoveryInterval(10000); Connection connection = factory.newConnection(); connection.addShutdownListener(new ShutdownListener() { @Override public void shutdownCompleted(ShutdownSignalException cause) { String hardError = &amp;quot;&amp;quot;; String applInit = &amp;quot;&amp;quot;; if (cause.isHardError()) { hardError = &amp;quot;connection&amp;quot;; } else { hardError = &amp;quot;channel&amp;quot;; } if (cause.</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] 了解多个同名rabbitmq-server文件</title>
+      <link>https://mryqu.github.io/post/rabbitmq_%E4%BA%86%E8%A7%A3%E5%A4%9A%E4%B8%AA%E5%90%8C%E5%90%8Drabbitmq-server%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Fri, 12 Aug 2016 06:13:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_%E4%BA%86%E8%A7%A3%E5%A4%9A%E4%B8%AA%E5%90%8C%E5%90%8Drabbitmq-server%E6%96%87%E4%BB%B6/</guid>
+      <description>安装完RabbitMQ后，查了查机器中多了六个rabbitmq-server文件，除了两个位于/usr/lib/rabbitmq目录下的可以不理，其他都有什么区别呢？ 下面针对这四个文件进行一下介绍： - /etc/init.d/rabbitmq-server： RabbitMQ服务器的开机自启动脚本 - /usr/sbin/rabbitmq-server： init脚本所启动的主服务器程序脚本 - /etc/logrotate.d/rabbitmq-server：logrotate是个十分有用的工具，它可以自动对日志进行截断（或轮循）、压缩以及删除旧的日志文件。该文件是针对rabbitmq-server的logrotate配置，默认情况下logrotate每周对/var/log/rabbitmq/下的log文件进行处理。 - /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server：OCF指开放集群框架（Open Clustering Framework）。当使用pacemaker配置RabbitMQHA时，作为OCF 资源代理脚本，用于操作和监控RabbitMQ节点。OCF 规范（尤其是与资源代理相关的部分）详见在Open Clustering Framework Resource Agent API。</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] 强制杀死RabbitMQ进程</title>
+      <link>https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/</link>
+      <pubDate>Thu, 11 Aug 2016 05:10:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/</guid>
+      <description> 首先，尝试使用init.d脚本优雅关闭RabbitMQ  sudo /etc/init.d/rabbitmq-server stop  如果不成功的话，使用  ps -eaf | grep erl  查看进程及父进程ID。输出第三列为父进程ID。找到仍是erlang进程（而不是启动进程的shell脚本）的第一个祖先进程，杀死它，这会同样终止其他子进程。上述示例中进程1301为&amp;rdquo;/bin/sh -e/usr/lib/rabbitmq/bin/rabbitmq-server&amp;rdquo;，已经不是erlang进程了，所以杀死进程1587就可以了。对于目前的RabbitMQ版本，可直接使用：  sudo pkill beam.smp   </description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] Hello RabbitMQ Clustering</title>
+      <link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/</link>
+      <pubDate>Mon, 08 Aug 2016 05:58:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/</guid>
+      <description>RabbitMQ集群文档的介绍是： 一个RabbitMQ代理（broker）是一或多个Erlang节点的逻辑组合，每个节点运行RabbitMQ应用并共享用户、虚拟主机、队列、交换器、绑定和运行时参数。有时我们将节点集合称之为集群。 对RabbitMQ代理操作所需的所有数据/状态都会在所有节点上复制。唯一的例外是消息队列，默认存在于创建队列的节点上，但是对所有其他节点可见并可访问。集群内节点通过主机名互相通信，所以这些主机名必须能被集群内所有节点解析。
+在Ubuntu上安装RabbitMQ 我在三台Ubuntu服务器上安装了RabbitMQ，分别是node50064，node50069和node51054。
+ 执行下列命令将APT仓库添加到/etc/apt/sources.list.d:  echo &#39;deb http://www.rabbitmq.com/debian/ testing main&#39; | sudo tee /etc/apt/sources.list.d/rabbitmq.list  (可选地)为了避免未签名包告警，使用 apt-key将RabbitMQ网站的公钥添加到信赖密钥列表：  wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -  执行下列命令更新包列表：  sudo apt-get update  安装rabbitmq-server包：  sudo apt-get install rabbitmq-server   配置RabbitMQ - 修改/etc/rabbitmq/enabled_plugins使能管理插件：
+ [rabbitmq_management].   修改/etc/default/rabbitmq-server，增大每用户可打开文件数（我的系统不使用systemd，无需修改/etc/systemd/system/rabbitmq-server.service.d/limits.conf）：  ulimit -S -n 4096  修改/etc/rabbitmq/rabbitmq-env.conf，激活长主机名并使用每个主机的完整域名作为本地节点名：  USE_LONGNAME=true NODENAME=rabbit@`env hostname -f`   关闭RabbitMQ：
+sudo /etc/init.d/rabbitmq-server stop  配置RabbitMQ集群 首先启动node50064上的RabbitMQ（注：会有告警，可忽略。-detached选项就会导致PID不写入PID文件。）：</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] Hello RabbitMQ</title>
+      <link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</link>
+      <pubDate>Sun, 07 Aug 2016 05:54:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</guid>
+      <description>为了快速入门RabbitMQ，我主要学习了下列参考中的两个链接：RabbitMQ教程和SpringAMQP范例。这里对所学教程做一个小笔记。
+准备工作 由于我不打算跑本机上的RabbitMQ服务器，所有对代码稍有修改。
+TutorialConfiguration.java public class TutorialConfiguration { public static final String HOST = &amp;quot;mryqu-rabbitmq-server&amp;quot;; public static final String USERNAME = &amp;quot;mryqu&amp;quot;; public static final String PASSWORD = &amp;quot;mryqu-pwd&amp;quot;; }  对原有代码进行修改 // factory.setHost(&amp;quot;localhost&amp;quot;); factory.setHost(TutorialConfiguration.HOST); factory.setUsername(TutorialConfiguration.USERNAME); factory.setPassword(TutorialConfiguration.PASSWORD); }  RabbitMQ函数 发布方和消费方首先要创建连接，通过连接创建通道。通过通道也可以声明交换器，也可以直接声明队列。 - 函数Exchange.DeclareOk exchangeDeclare(String exchange, Stringtype, boolean durable, boolean autoDelete, boolean internal, Maparguments)用于声明交换器。其中exchange为队列名；type为交换器类型，例如fanout、direct、header和topic，注意无法改变已存在交换器的类型；durable为true时为持久交换器，在服务器重启后仍将存在，默认为false；autoDelete为true时，当所有的消费者使用完交换器后，服务器会自动删除交换器。服务器必须为判断交换器未使用提供一个合理时延，起码允许客户端能够创建一个代理并将其与队列绑定。默认为false；internal为true时为内部交换器，客户端不能直接向其发布消息，默认为false。 - 函数Queue.DeclareOk queueDeclare(String queue, boolean durable,boolean exclusive, boolean autoDelete, Map arguments)用于声明队列，其中queue为队列名；durable为true时为持久队列，在服务器重启后仍将存在。默认为false；exclusive为true时为私有队列，仅在当前连接中可以访问队列，当连接关闭时删除该队列。默认为true；autoDelete为true时，当所有的消费者使用完队列后，服务器会自动删除队列。最后一个消费者可被显式取消或由于通道关闭而取消。如果队列从没有消费者，队列将不会被删除。应用可以像对普通队列一样使用Delete方法显式删除自动删除队列。默认为true。 函数Queue.BindOk queueBind(String queue, String exchange, StringroutingKey, Map arguments)用于通过路由关键字将队列与交换器进行绑定。</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] 在Widnows平台安装配置RabbitMQ</title>
+      <link>https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/</link>
+      <pubDate>Sat, 06 Aug 2016 05:29:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/</guid>
+      <description>RabbitMQ介绍 RabbitMQ是基于高级消息队列协议的消息代理软件。RabiitMQ服务器由Erlang语言开发，客户端支持多种主流编程语言。 RabbitMQ由LShift和CohesiveFT合营公司Rabbit技术有限公司开发，在2010年4月被SpringSource收购，2013年5月归入Pivotal软件。 RabbitMQ项目包括： - RabbitMQ交换服务器自身 - 用于HTTP、流文本定向消息协议(STOMP)和消息队列遥测传输协议(MQTT)的网关 - Java、.NET Framework和Erlang语言的AMQP客户端库 - 支持定制插件的插件平台，内建插件集合为: - Shovel插件，负责从一个消息代理（broker）向另一个移动/复制消息。 - Federation插件，在消息代理之间有效共享消息(基于exchange这一级) - Management插件，监控和管理消息代理 - STOMP插件，提供STOMP协议支持 - MQTT插件，提供MQTT协议支持 - LDAP插件，RabbitMQ通过外部LDAP服务器进行认证和授权
+在Widnows平台安装RabbitMQ 根据http://www.rabbitmq.com/install-windows.html安装Erlang和RabbitMQ服务器，运行RabbitMQ安装程序时需要选择“Runas Administrator”，否则事后需要执行下列命令修正.erlang.cookie位置错误。
+copy /Y %SystemRoot%\.erlang.cookie %HOMEDRIVE%%HOMEPATH%  设置环境变量（及安装并启动RabbitMQ服务）
+SET　ERLANG_HOME=C:\tools\erl8.0 SET RABBITMQ_SERVER＝C:\tools\RabbitMQ_Server\rabbitmq_server-3.6.5 SET　RABBITMQ_BASE=C:\rabbitmq-data ECHO []. &amp;gt; C:\rabbitmq-data\rabbitmq.config %RABBITMQ_SERVER%\sbin\rabbitmq-service.bat install %RABBITMQ_SERVER%\sbin\rabbitmq-service.bat start  安装管理插件 rabbitmq-management插件提供用于管理和监控RabbitMQ服务器的基于HTTP的API，以及基于浏览器的界面和一个控制台工具rabbitmqadmin。功能包括： - 声明、列举和删除exchange、queue、binding、用户、虚拟主机和权限。 - 监控队列长度、消息总速率和每通道速率、连接数据速率等。 - 发送和接受消息。 - 监控Erlang进程、文件描述符和内存使用。 - 导出/导入对象定义到JSON格式 - 强制关闭连接、清除队列。重启RabbitMQ后登录http://guest:guest@localhost:15672/，即可见到管理页面。 rabbitmqctl 通过rabbitmqctl创建一个管理员用户admin和一个对虚拟主机有读写权限的普通用户mryqu： 自建管理员用户admin的默认用户guest的区别在于：guest仅能本机访问RabbitMQ，除非在rabbitmq.config增加loopback_users设置。
+使用HTTP管理API 将配置导出成JSON格式：
+curl -i -u guest:guest http://localhost:15672/api/definitions  激活其他插件 例如激活shovel插件：</description>
+    </item>
+    
+    <item>
+      <title>使用SpringFox自动生成Swagger文档</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Thu, 28 Apr 2016 06:03:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/</guid>
+      <description>前面的博文Swagger实践和总结总体上探索了一下Swagger，这里着重研究Springfox。 Springfox Java库源自MartyPitt创建的swagger-springmvc项目。Swagger是一系列对RESTful接口进行规范描述和页面展示的工具，而通过Springfox将Swagger与Spring-MVC整合,可以将代码中的注解转换为符合Swagger开放API声明(OpenAPI Specification，OAS)的swagger.json文件,springfox-swagger-ui提供了将swagger.json转换为html页面的服务。
+HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但是对于一个写程序的人来说，不亲自写一遍，总觉得可能会有陷阱和漏洞，缺乏那么一点点自信。 我的示例是以Building a Hypermedia-Driven RESTful Web Service为基础修改的，懒人总是要找个肩膀。build.gradle jar { baseName = &#39;hello-springfox&#39; version = &#39;0.1.0&#39; } dependencies { compile(&amp;quot;org.springframework.boot:spring-boot-starter-actuator&amp;quot;) compile(&amp;quot;org.springframework.boot:spring-boot-starter-web&amp;quot;) compile(&amp;quot;org.springframework.boot:spring-boot-starter-hateoas&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger2:${springfoxVersion}&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger1:${springfoxVersion}&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger-ui:${springfoxVersion}&amp;quot;) testCompile(&amp;quot;com.jayway.jsonpath:json-path&amp;quot;) testCompile(&amp;quot;org.springframework.boot:spring-boot-starter-test&amp;quot;) }  Application.java package com.yqu.hellospringfox; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  Greeting.java package com.yqu.hellospringfox; import org.springframework.hateoas.ResourceSupport; import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.JsonProperty; public class Greeting extends ResourceSupport { private final String content; @JsonCreator public Greeting(@JsonProperty(&amp;quot;content&amp;quot;) String content) { this.</description>
+    </item>
+    
+    <item>
+      <title>FileUpload Streaming</title>
+      <link>https://mryqu.github.io/post/fileupload_streaming/</link>
+      <pubDate>Sun, 13 Dec 2015 06:02:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/fileupload_streaming/</guid>
+      <description>最近看一下org.apache.tomcat.util.http.fileupload，这个包是从commons-fileupload和commons-io复制而来，为了避免冲突而改名。 Apache Commons FileUpload是用于servlet和web应用的健壮、高性能文件上传库，它支持 RFC 1867和RFC2047。 传统的文件上传API假设文件在被用户访问前必须存储在某处，这种途径便捷、易于访问，但是消耗内存和耗时。流处理API允许在高性能和低内存配置之间做一点折中。 首先，需要确保请求是一个文件上传请求。这通过与传统API相同的静态方法实现：
+// Check that we have a file upload request boolean isMultipart = ServletFileUpload.isMultipartContent(request);  现在需要解析请求获取成分项： ``` // Create a new file upload handler ServletFileUpload upload = new ServletFileUpload();
+// Parse the request FileItemIterator iter = upload.getItemIterator(request); while (iter.hasNext()) { FileItemStream item = iter.next(); if (!item.isFormField()) { String name = item.getFieldName(); if(name==null) continue; InputStream stream = item.openStream(); System.out.println(&amp;ldquo;File field &amp;rdquo; + name + &amp;ldquo; with file name &amp;ldquo; + item.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 让非Spring管理的类获得一个Bean</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E8%AE%A9%E9%9D%9Espring%E7%AE%A1%E7%90%86%E7%9A%84%E7%B1%BB%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AAbean/</link>
+      <pubDate>Fri, 04 Dec 2015 06:08:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E8%AE%A9%E9%9D%9Espring%E7%AE%A1%E7%90%86%E7%9A%84%E7%B1%BB%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AAbean/</guid>
+      <description> 我有一个工具类，它既会被SpringBean调用，也会被非Spring管理的类调用。我想在这个工具类里获得Spring注入了拦截器的RestTemplate。一开始考虑了ApplicationContextAware、ContextLoaderListener和ContextLoaderServlet，最后采用了下面这种改动最小的解决方案。
+示例代码 Application.java @SpringBootApplication public class Application{ public static void main(String[] args) { final ApplicationContext applicationContext = SpringApplication.run(Application.class, args); MyUtil.setApplicationContext(applicationContext); } @Bean public RestTemplate restTemplate() { return new RestTemplate(); } }  MyUtil.java public class MyUtil { private static ApplicationContext applicationContext; public static void setApplicationContext(ApplicationContext context) { applicationContext = context; } public static void doSomething() { RestTemplate _restTemplate = applicationContext.getBean(RestTemplate.class); ........ } }  </description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping</title>
+      <link>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</link>
+      <pubDate>Thu, 03 Dec 2015 06:38:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</guid>
+      <description>简介 SpringMVC的URL映射有一个控制路径匹配的参数alwaysUseFullPath。当它被设置为true后，总是使用当前servlet上下文中的全路径进行URL查找，否则使用当前servlet映射内的路径。默认为false。下面示例一下当一个请求的全路径通过servlet映射找到所服务的RequestDispatcherservelet后alwaysUseFullPath为false时URL映射表现：
+         servlet mapping = &amp;ldquo;/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test&amp;rdquo;; request URI = &amp;ldquo;/test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;   servlet mapping = &amp;ldquo;/*.test&amp;rdquo;; request URI = &amp;ldquo;/a.test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;    从org.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Hello MethodInvokingFactoryBean and MethodInvokingBean</title>
+      <link>https://mryqu.github.io/post/spring_boot_hello_methodinvokingfactorybean_and_methodinvokingbean/</link>
+      <pubDate>Thu, 05 Nov 2015 05:58:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_hello_methodinvokingfactorybean_and_methodinvokingbean/</guid>
+      <description>简介 在用spring管理我们的类的时候有时候希望有些属性值是来源于一些配置文件，系统属性，或者一些方法调用的结果，对于前两种使用方式可以使用spring的PropertyPlaceholderConfigurer类来注入，对于后一种则可以使用org.springframework.beans.factory.config.MethodInvokingFactoryBean类来生成需要注入的bean的属性。
+通过MethodInvokingFactory Bean类，可注入方法返回值。MethodInvokingFactoryBean用来获得某个方法的返回值，该方法既可以是静态方法，也可以是实例方法。该方法的返回值可以注入bean实例属性，也可以直接定义成bean实例。
+MethodInvokingBean是MethodInvokingFactoryBean的父类，更为简单。跟MethodInvokingFactoryBean相比，不会对容器返回任何值。
+类层次关系 示例代码： package com.yqu.methodinvoker; import java.util.Arrays; import java.util.Properties; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.beans.factory.config.MethodInvokingBean; import org.springframework.beans.factory.config.MethodInvokingFactoryBean; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); log.info(&amp;quot;sysProp http.proxyHost:&amp;quot;+System.getProperty(&amp;quot;http.proxyHost&amp;quot;)); log.info(&amp;quot;sysProp http.proxyPort:&amp;quot;+System.getProperty(&amp;quot;http.proxyPort&amp;quot;)); } @Bean public MethodInvokingFactoryBean methodInvokingFactoryBean() { MethodInvokingFactoryBean mfBean = new MethodInvokingFactoryBean(); mfBean.setStaticMethod(&amp;quot;java.lang.System.setProperties&amp;quot;); Properties props = System.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 使用多个Servlet</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/</link>
+      <pubDate>Wed, 28 Oct 2015 06:07:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/</guid>
+      <description>当使用Spring boot的嵌入式servlet容器时，可以通过Springbean或扫描Servlet组件的方式注册Servlet、Filter和Servlet规范的所有监听器(例如HttpSessionListener)。 - 当urlMapping不是很复杂时，可以通过ServletRegistrationBean、FilterRegistrationBean和ServletListenerRegistrationBean获得完整控制。如果bean实现了ServletContextInitializer接口的话则可以直接注册。 - 当使用@ServletComponentScan扫描Servlet组件时，Servlet、过滤器和监听器可以是通过@WebServlet、@WebFilter和@WebListener自动注册
+示例代码 Application.java package com.yqu.multiservlet; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.boot.context.embedded.ServletRegistrationBean; import org.springframework.context.annotation.Bean; import org.springframework.web.servlet.DispatcherServlet; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } @Bean public ServletRegistrationBean dispatcherRegistration( DispatcherServlet dispatcherServlet) { ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet); registration.addUrlMappings(&amp;quot;/hirest/*&amp;quot;); printStacks(); return registration; } @Bean public ServletRegistrationBean servletRegistrationBean() { printStacks(); return new ServletRegistrationBean( new SigninServlet(), &amp;quot;/signin&amp;quot;); } private void printStacks() { StackTraceElement[] elements = Thread.</description>
+    </item>
+    
+    <item>
+      <title>Spring 框架: @RestController vs @Controller</title>
+      <link>https://mryqu.github.io/post/spring%E6%A1%86%E6%9E%B6_restcontroller_vs_controller/</link>
+      <pubDate>Fri, 23 Oct 2015 05:57:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring%E6%A1%86%E6%9E%B6_restcontroller_vs_controller/</guid>
+      <description>今天扫了一眼RestController注解的实现，它是@Controller和@ResponseBody的合体。
+@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME) @Documented @Controller @ResponseBody public @interface RestController { String value() default &amp;quot;&amp;quot;; }  至于@RestController与@Controller的所有区别，还不是完全明了。看了Srivatsan Sundararajan和Swapna Sagi的大作Spring Framework: @RestController vs @Controller，感觉豁然开朗。
+Spring MVC框架和REST Spring基于MVC框架的注解简化了创建RESTful web服务流程。传统MVS控制器和RESTfulweb服务控制器关键区别在于HTTP响应体创建方式。传统MVC控制器依赖试图技术，而RESTfulweb服务控制器仅仅返回对象并将对象数据作为JSON/XML直接写到HTTP响应中。关于使用Spring框架创建RESTfulWEB服务的技术细节，点击这里。 图1: Spring MVC传统工作流
+Spring MVC REST工作流 传统Spring MVC REST工作流步骤如下: - 客户端以URI形式向web服务发送一个请求。The client sends a request to a webservice in URI form. - 请求被DispatcherServlet拦截用于查找处理器映射（Handler Mappings）及类型。 - 在应用上下文文件中定义的处理器映射会告知DispatcherServlet用于基于请求查找控制器的策略。 - Spring MVC支持三种类型的请求URI与控制器间的映射：注解、名称转换和显式映射。 - 请求由控制器处理后，响应返回给DispatcherServlet后分发给视图。
+在图1中，注意在传统工作流中ModelAndView对象由控制器转发给客户端。在方法上使用@ResponseBody注解，Spring可让应用直接从控制器返回数据，不再查找视图。从第4版起，引入@RestController注解进一步简化处理流程。两种使用方式解释如下。
+使用@ResponseBody注解 当对一个方法使用@ResponseBody注解后，Spring将返回值进行转换并自动写入Http响应中。控制器类的每个方法必须使用@ResponseBody进行注解。 图2: Spring 3.x MVC RESTful web服务工作流
+幕后工作 Spring在幕后注册了一系列HttpMessageConverters。HTTPMessageConverter负责根据预先定义的MIME类型将请求体转换成特定类及将特定类转换成响应体。每次一个请求匹配上@ResponseBody，Spring遍历所有已注册的HTTPMessageConverter，查找到第一个匹配上给定MIME类型和类的HTTPMessageConverter用之进行实际转换。</description>
+    </item>
+    
+    <item>
+      <title>遭遇“GsonFactory cannot be resolved”</title>
+      <link>https://mryqu.github.io/post/%E9%81%AD%E9%81%87gsonfactory_cannot_be_resolved/</link>
+      <pubDate>Fri, 18 Sep 2015 05:07:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%81%AD%E9%81%87gsonfactory_cannot_be_resolved/</guid>
+      <description>遭遇GsonFactory无法解析的错误：
+...\HelloAnalytics.java:7: error: package com.google.api.client.json.gson does not exist import com.google.api.client.json.gson.GsonFactory; ^ ...\HelloAnalytics.java:28: error: cannot find symbol private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance(); ^ symbol: variable GsonFactory location: class HelloAnalytics 2 errors :compileJava FAILED  解决方案为在_gradle.build_中添加：
+compile &#39;com.google.api-client:google-api-client-gson:1.20.0&#39; exclude module: &#39;httpclient&#39;  参考 GsonFactory cannot be found</description>
+    </item>
+    
+    <item>
+      <title>从Gradle bootRun任务向Spring Boot应用传递环境变量</title>
+      <link>https://mryqu.github.io/post/%E4%BB%8Egradle_bootrun%E4%BB%BB%E5%8A%A1%E5%90%91spring_boot%E5%BA%94%E7%94%A8%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Tue, 08 Sep 2015 06:32:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BB%8Egradle_bootrun%E4%BB%BB%E5%8A%A1%E5%90%91spring_boot%E5%BA%94%E7%94%A8%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</guid>
+      <description>尝试了从Gradle bootRun任务中传递环境变量给Spring Boot应用，下面是示例代码和演示。
+示例代码 Application.java package com.yqu.gradlesysprop; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;quot;mryqu.prop.test=&amp;quot;+ System.getProperty(&amp;quot;mryqu.prop.test&amp;quot;)); }; } }  build.gradle buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;quot;org.</description>
+    </item>
+    
+    <item>
+      <title>[Hibernate Tools] 通过数据库表生成JPA Entity类</title>
+      <link>https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%94%9F%E6%88%90jpa_entity%E7%B1%BB/</link>
+      <pubDate>Sun, 30 Aug 2015 08:56:57 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%94%9F%E6%88%90jpa_entity%E7%B1%BB/</guid>
+      <description>本文与前一博文[Hibernate Tools] 通过JPA Entity类生成数据库表 正好相反，实践一下如何通过数据库表生成JPA Entity类。
+在Eclipse中安装JBoss Tools中的Hibernate Tools插件 创建JPA项目PetStoreDemo 使用向导创建JPA项目 项目基本设置 设置JPA Facet 此处选用了Generatic 2.1平台，用户库HIBERNATE_JPA包含如下jar文件： - hibernate-commons-annotations.jar - hibernate-core.jar - hibernate-jpa-2.1-api.jar
+通过数据库表生成JPA Entity类 执行“Generate Entities from Tables” 选择库表 设置库表关联关系 定制生成Entity的默认行为 设置单个Entity 生成结果 下面以Item为例，展示生成结果。
+package com.yqu.jpetstore; import java.io.Serializable; import javax.persistence.*; import java.math.BigDecimal; @Entity @Table(name=&amp;quot;item&amp;quot;) @NamedQuery(name=&amp;quot;Item.findAll&amp;quot;, query=&amp;quot;SELECT i FROM Item i&amp;quot;) public class Item implements Serializable { private static final long serialVersionUID = 1L; private String itemid; private String attr1; private String attr2; private String attr3; private String attr4; private String attr5; private BigDecimal listprice; private String status; private BigDecimal unitcost; private Product product; private Supplier supplierBean; public Item() { } @Id @GeneratedValue(strategy=GenerationType.</description>
+    </item>
+    
+    <item>
+      <title>[Hibernate Tools] 通过JPA Entity类生成数据库表</title>
+      <link>https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87jpa_entity%E7%B1%BB%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8/</link>
+      <pubDate>Sat, 29 Aug 2015 07:19:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87jpa_entity%E7%B1%BB%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8/</guid>
+      <description>以前用过hbm2ddlAnt任务通过Hibernate映射文件生成数据库DDL。现在使用JPA后，不知道还有没有标准工具了。找了一圈，还是HibernateTools。
+在Eclipse中安装JBoss Tools中的Hibernate Tools插件 创建JPA项目CustomerDemo 使用向导创建JPA项目 项目基本设置 设置JPA Facet 此处选用了EclipseLink 2.5.x平台。如选择Generatic2.1平台，在生成数据库Schema时会报“Generate Tables from Entities is notsupported by the Generic Platform”。 用户库ECLIPSELINK_JPA包含如下jar文件： - eclipselink.jar - javax.persistence.jar - org.eclipse.persistence.jpa.modelgen.jar - org.eclipse.persistence.jpars.jar
+Entity类代码及设置 Customer类 package hello; import javax.persistence.*; @Entity @Table(name=&amp;quot;CUSTOMER&amp;quot;) public class Customer { @Id @Column(name=&amp;quot;CUSTOMER_ID&amp;quot;, nullable=false, updatable=false, unique=true) @GeneratedValue(strategy=GenerationType.AUTO) private Long id; @Column(name = &amp;quot;CUSTOMER_FNAME&amp;quot;) private String firstName; @Column(name = &amp;quot;CUSTOMER_LNAME&amp;quot;) private String lastName; protected Customer() {} public Customer(String firstName, String lastName) { this.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 创建超媒体驱动的Mail服务</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Mon, 03 Aug 2015 06:46:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/</guid>
+      <description>Spring与Mail的集成 Spring框架为邮件发送提供了一个有用的工具库，可为用户屏蔽底层邮件系统细节，并负责代表客户端负责低层资源处理。 org.springframework.mail包是Spring框架邮件支持的根级包。发送邮件的核心接口是MailSender 接口；封装了简单邮件_from_和_to_等属性的简单对象类是 SimpleMailMessage 。该包也包含对底层邮件系统进行更高级抽象的分层检查异常，其根异常为MailException。 org.springframework.mail.javamail.JavaMailSender 接口MailSender为添加了专业的_JavaMail_ 功能，例如MIME消息支持。JavaMailSender 也为JavaMailMIME消息提供了回调接口org.springframework.mail.javamail.MimeMessagePreparator。
+Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体即应用状态引擎)是REST应用架构的一个约束。Spring HATEOAS是一个用于支持实现超媒体驱动的RESTWeb服务的开发库。它提供一些API用于同Spring特别是SpringMVC一起使用时轻松创建遵循HATEOAS原则的REST表述，其试图解决的核心问题是链接创建和表述装配。功能： - 用于链接、资源表述模型的模型类 - 用于指向Spring MVC控制器方法的链接建造者API - 对HAL之类的多媒体格式的支持
+示例 Application.java package com.yqu.mail; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  MailServerVO.java package com.yqu.mail; import org.springframework.hateoas.ResourceSupport; import java.io.Serializable; import java.util.Properties; public class MailServerVO extends ResourceSupport implements Serializable { private String host; private Integer port; private String userName; private String password; private String defaultEncoding; private Properties properties; public MailServerVO() {} public MailServerVO( String host, Integer port, String userName, String password, String defaultEncoding, Properties properties) { this.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 监控和管理Spring Boot应用</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 11 Jul 2015 06:53:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/</guid>
+      <description>本博文在[Spring Boot] Hello Spring LDAP 基础上稍作修改，尝试一下监控和管理Spring Boot应用。
+application.properties改动 server.context-path=/HelloSpringLdapOdm server.port=8080 spring.profiles.active=test,dev # spring.dao.exceptiontranslation.enabled=false yqu.ldap.url=ldap://127.0.0.1:18880 yqu.ldap.userDN=uid=admin,ou=system yqu.ldap.password=secret yqu.ldap.base=dc=jayway,dc=se yqu.ldap.clean=true management.port=8081 management.address=127.0.0.1 endpoints.shutdown.enabled=true applicationDefaultJvmArgs: [ &amp;quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=55558&amp;quot; ]  测试  autoconfig: Displays an auto-configuration report showing allauto-configuration candidates and the reason why they ‘were’ or‘were not’ applied. beans: Displays a complete list of all the Spring beans in yourapplication. configprops: Displays a collated list of all@ConfigurationProperties. dump: Performs a thread dump. env: Exposes properties from Spring’sConfigurableEnvironment.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Hello CommandLineRunner</title>
+      <link>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</link>
+      <pubDate>Wed, 08 Jul 2015 06:02:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</guid>
+      <description>通过CommandLineRunner，可在所有Spring Bean和ApplicationContext被创建后执行一些可以访问命令行参数的任务。如想指定多个CommandLineRunnerBean的执行顺序，可以实现org.springframework.core.Ordered接口或添加org.springframework.core.annotation.Order注解。
+示例代码 Application.java package com.yqu.cmdlinerunner; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.Banner; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.DependsOn; import org.springframework.core.annotation.Order; import org.springframework.core.annotation.OrderUtils; import java.util.Arrays; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean(name=&amp;quot;demo1&amp;quot;) @DependsOn(&amp;quot;demo2&amp;quot;) @Order(8) public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;quot;demo1:order=&amp;quot;+ OrderUtils.getOrder(this.getClass())+ &amp;quot;:args=&amp;quot;+Arrays.toString(args)); //log.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Hello Spring LDAP</title>
+      <link>https://mryqu.github.io/post/spring_boot_hello_spring_ldap/</link>
+      <pubDate>Mon, 06 Jul 2015 06:20:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_hello_spring_ldap/</guid>
+      <description>这个帖子设定了标题后，一直忙于其他事情，拖延了两个月终于能够结贴了。
+部分示例代码 LdapConfiugration.java package com.yqu.ldap.odm; import com.yqu.ldap.odm.dao.*; import org.apache.commons.logging.Log; import org.apache.commons.logging.LogFactory; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.context.annotation.*; import org.springframework.core.env.Environment; import org.springframework.ldap.core.LdapTemplate; import org.springframework.ldap.core.support.LdapContextSource; import javax.annotation.PostConstruct; @Configuration @ComponentScan(basePackages={&amp;quot;com.yqu.ldap.odm&amp;quot;}) public class LdapConfiugration { @Autowired private Environment _environment; private static Log log = LogFactory.getLog(LdapConfiugration.class); @PostConstruct private void init() { log.debug(&amp;quot;environment: yqu.ldap.url:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.url&amp;quot;)); log.debug(&amp;quot;environment: yqu.ldap.userDN:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.userDN&amp;quot;)); log.debug(&amp;quot;environment: yqu.ldap.password:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.password&amp;quot;)); log.debug(&amp;quot;environment: yqu.ldap.base:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.base&amp;quot;)); } @Bean(name=&amp;quot;ldapContextSource&amp;quot;) public LdapContextSource ldapContextSource() { String url = _environment.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Data] 调试H2数据库</title>
+      <link>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Sun, 28 Jun 2015 01:00:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>我将Spring的两个入门指南Building a RESTful Web Service和Accessing Data with JPA融到一起，测试成功。那接下来的一个问题就是怎么查看H2数据库内容并进行调试？
+配置H2 Web控制台 为了解决这个问题，我首先增加了src/resources/application.properties配置文件，内容如下：
+spring.profiles.active=dev spring.h2.console.enabled=true  在H2 Web控制台上操作 启动Spring Boot应用，在浏览器中进入http://localhost:8080/h2_console/即可进入H2数据库的Web控制台了。 配置IDEA IntelliJ数据源 如果不使用H2 Web控制台的话，在IDEA IntelliJ集成开发环境中也可以通过配置H2数据源进行数据库操作。 解决数据库表不存在问题 上面的玩法有个问题，那就是没看到Accessing Data with JPA里面创建的CUSTOMER表，对不对？为了解决这个问题，在src/resources/application.properties配置文件增加如下内容：
+spring.profiles.active=dev spring.h2.console.enabled=true spring.datasource.url=jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE spring.datasource.driverClassName=org.h2.Driver spring.datasource.username=sa spring.datasource.password=  搞定，收工！
+参考 Using H2’s web console in Spring Boot
+Common application properties for Spring Boot
+H2 Console</description>
+    </item>
+    
+    <item>
+      <title>Spring FileUpload限制调整笔记</title>
+      <link>https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 08 Jun 2015 06:42:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/</guid>
+      <description>Tomcat配置 HTTP Connector - maxPostSize配置 maxPostSize: 在POST请求中容器FORMURL参数解析所能处理的最大字节数。该参数可以通过设置为小于零的负值禁掉该限制。如果没有设置，该属性为2097152(2M字节)。 该配置可在$CATALINA_BASE/conf/server.xml内修改: Tomcat 7.0.63之前maxPostSzie=&amp;ldquo;0&amp;rdquo;视为禁掉该限制。
+multipart-config配置 max-file-size: 单个上传文件允许的最大字节数。默认-1，无限制。 max-request-size: 真个请求允许的最大字节数。默认-1，无限制。
+这两个配置可在web.xml内修改： 如果上传文件超过限制，则会抛出Exception。示例：
+org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (61198097) exceeds the configured maximum (20971520) at org.apache.tomcat.util.http.fileupload.FileUploadBase$FileItemIteratorImpl.(FileUploadBase.java:811) at org.apache.tomcat.util.http.fileupload.FileUploadBase.getItemIterator(FileUploadBase.java:256) at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:280) at org.apache.catalina.connector.Request.parseParts(Request.java:2730) at org.apache.catalina.connector.Request.parseParameters(Request.java:3064) at org.apache.catalina.connector.Request.getParameter(Request.java:1093) at org.apache.catalina.connector.RequestFacade.getParameter(RequestFacade.java:380) at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:70) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.boot.actuate.autoconfigure.MetricsFilter.doFilterInternal(MetricsFilter.java:68) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot Example：Rest Exception Handling</title>
+      <link>https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/</link>
+      <pubDate>Tue, 02 Jun 2015 00:14:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/</guid>
+      <description>要给同事做个Rest异常处理的演示，顺便用用Spring Boot和Gradle构建。 首先新建一个项目：rest-exception-handling。
+rest-exception-handling/src/main/java/com/yqu/rest目录 Application.java package com.yqu.rest; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  GreetingController.java package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; @RestController public class GreetingController { @Autowired private GreetingService service; @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/greeting&amp;quot;, method = RequestMethod.</description>
+    </item>
+    
+    <item>
+      <title>Swagger实践和总结</title>
+      <link>https://mryqu.github.io/post/swagger%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 11 May 2015 05:54:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/swagger%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%80%BB%E7%BB%93/</guid>
+      <description>Swagger学习和实践 最近安装并使用了一下Swagger-ui、Swagger-editor和Swagger-codegen，感觉还不错。 Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web服务。Swagger的目标是对RESTAPI定义一个标准的和语言无关的接口，可让人和计算机无需访问源码、文档或网络流量监测就可以发现和理解服务的能力。当通过Swagger进行正确定义，用户可以理解远程服务并使用最少实现逻辑与远程服务进行交互。与为底层编程所实现的接口类似，Swagger消除了调用服务时可能会有的猜测。 Swagger是一组开源项目，其中主要要项目如下： - Swagger-tools:提供各种与Swagger进行集成和交互的工具。例如模式检验、Swagger1.2文档转换成Swagger 2.0文档等功能。 - Swagger-core:用于、Servlets和Play框架进行集成。 - Swagger-js:用于JavaScript的Swagger实现。 - Swagger-node-express:Swagger模块，用于node.js的Express web应用框架。 - Swagger-ui：一个无依赖的HTML、JS和CSS集合，可以为Swagger兼容API动态生成优雅文档。 - Swagger-codegen：一个模板驱动引擎，通过分析用户Swagger资源声明以各种语言生成客户端代码。
+ C:\tools\swagger-codegen&amp;gt;mvn package C:\tools\swagger-codegen\modules\swagger-codegen-cli&amp;gt;mvn package C:\tools\swagger-codegen\modules\swagger-generator&amp;gt;mvn package C:\tools\swagger-codegen&amp;gt;java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i http://petstore.swagger.io/v2/swagger.json -l spring-mvc -o yqu/petstore/spring-mvc C:\tools\swagger-codegen\yqu\petstore\spring-mvc&amp;gt;mvn package  上述操作通过底层使用SpringFox库，会创建带有Swagger注释的SpringMVC框架代码，包括Controller和DTO类。这样将Swagger-ui部署到Web应用内，就可以通过http://server:8002/v2/sdoc.jsp 在线访问API文档了。 - Swagger-editor：可让使用者在浏览器里以YAML格式编辑SwaggerAPI规范并实时预览文档。可以生成有效的SwaggerJSON描述，并用于所有Swagger工具（代码生成、文档等等）中。 除了Swagger项目自身支持的Java、Scala和JavaScript语言，Swagger社区中还提供了很多支持其他语言的第三方工具，覆盖了Clojure、ColdFusion/ CFML、Eiffel、Go、Groovy、.Net、Perl、PHP、Python、Ruby等各种编程语言。
+Swagger总结 Swagger这类API文档工具可以满足下列需求： - 支持API自动生成同步的在线文档 - 这些文档可用于项目内部API审核 - 方便测试人员了解API - 这些文档可作为客户产品文档的一部分进行发布 - 支持API规范生成代码，生成的客户端和服务器端骨架代码可以加速开发和测试速度
+跟下列其他API文档工具相比，Swagger各有优缺点，但它功能最多、也是最流行的。 - RESTful API Modeling Language (RAML) - apiary的API Blueprint - I/O Docs - Web Application Description Language (WADL)</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 访问JSP</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E8%AE%BF%E9%97%AEjsp/</link>
+      <pubDate>Fri, 08 May 2015 05:53:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E8%AE%BF%E9%97%AEjsp/</guid>
+      <description> 需求 我的Spring Boot web应用中用到了JSP，可是访问始终404。
+@Controller public class TestController { @RequestMapping(&amp;quot;/test&amp;quot;) public String webapp(Map model) { return &amp;quot;WEB-INF/index.jsp&amp;quot;; } }  解决方案是增加tomcat-embed-jasper依赖，此外可选性地增加了jstl依赖。
+Gradle dependencies { ...... // jsps providedRuntime (&#39;org.apache.tomcat.embed:tomcat-embed-jasper&#39;) }  Maven </description>
+    </item>
+    
+    <item>
+      <title>Spring3 REST can&#39;t solve list of object generated by Javascript</title>
+      <link>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</link>
+      <pubDate>Fri, 16 Jan 2015 21:21:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</guid>
+      <description>最近遭遇Spring3REST无法解析对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+客户端代码 var meatadata=&#39;[{&amp;quot;varName&amp;quot;:&amp;quot;id&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Id&amp;quot;,&amp;quot;varIndex&amp;quot;:1},{&amp;quot;varName&amp;quot;:&amp;quot;name&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Name&amp;quot;,&amp;quot;varIndex&amp;quot;:2},{&amp;quot;varName&amp;quot;:&amp;quot;age&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Age&amp;quot;,&amp;quot;varIndex&amp;quot;:3}]&#39;; $.ajax({ url: &amp;quot;configure&amp;quot;, type: &amp;quot;POST&amp;quot;, data: metadata, dataType: &amp;quot;json&amp;quot;, contentType: &amp;quot;application/json&amp;quot;, success: function (res) { $(&#39;#cfgContent&#39;).text(JSON.stringify(res)); $(&#39;#cfgError&#39;).text(&amp;quot;&amp;quot;); }, error: function (res) { $(&#39;#cfgContent&#39;).text(&amp;quot;&amp;quot;); $(&#39;#cfgError&#39;).text(res.responseText); } });  中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.</description>
+    </item>
+    
+    <item>
+      <title>Spring REST can&#39;t solve nested object array generated by JavaScript</title>
+      <link>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</link>
+      <pubDate>Thu, 15 Jan 2015 21:27:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</guid>
+      <description>最近遭遇SpringREST无法解析嵌套对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+所操作的复杂对象 客户端POST响应 中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/configure&amp;quot;, method = RequestMethod.GET) public @ResponseBody SheetVO getConfiguration() { List columns = new ArrayList(); columns.add(new ColumnVO(&amp;quot;id&amp;quot;,&amp;quot;The Id&amp;quot;,1)); columns.add(new ColumnVO(&amp;quot;name&amp;quot;,&amp;quot;The Name&amp;quot;,2)); columns.add(new ColumnVO(&amp;quot;age&amp;quot;,&amp;quot;The Age&amp;quot;,3)); SheetVO metadata = new SheetVO(SheetVO.</description>
+    </item>
+    
+    <item>
+      <title>Web调试工具:Fiddler</title>
+      <link>https://mryqu.github.io/post/web%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7fiddler/</link>
+      <pubDate>Sun, 14 Dec 2014 21:08:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/web%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7fiddler/</guid>
+      <description>今天看网上有介绍Web调试工具Fiddler的，顺风搂一眼。比我原来用wireshark调试客户端与服务器端web通信强，值得学习。 Fiddler是最强大最好用的Web调试工具之一，它能记录所有客户端和服务器的http和https请求，允许你监视，设置断点，甚至修改输入输出数据.使用Fiddler无论对开发还是测试来说，都有很大的帮助。
+资料： 慕课网：Fiddler工具使用
+Fiddler 教程
+Fiddler Script 用法
+Fiddler Composer创建和发送HTTP Request
+Fiddler 实现手机的抓包</description>
+    </item>
+    
+    <item>
+      <title>Web安全</title>
+      <link>https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Tue, 11 Nov 2014 21:11:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/</guid>
+      <description>学习OpenUI5程序员指南里关于Web安全的章节，在网上也搜了一下资料，下面是这次的学习笔记。
+浏览器安全 跨站脚本攻击（Cross-Site Scripting， XSS） XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意用户的特殊目的。例如，如果某些无需登录即可访问的公共页面区域有提交表单，攻击者可以在提交内容里面注入恶意javascript脚本（原理类似与SQL注入攻击），提交后的页面内容可能就含有这样的可执行恶意脚本。当其他登录用户访问这个页面后，就有可能泄漏自己的会话cookie信息。一般的防御手段是使用HTMLSanitization工具对用户输入信息做检查，过滤其提交内容；或者cookie记录登录ip，仅允许该ip使用此cookie。
+点击劫持（clickjacking） 点击劫持指的是通过欺骗用户点击看似正常的恶意网页来获得机密信息或远程控制其电脑。例如，攻击者想要攻击某网页，可以发布一个网址与原网址及其近似的恶意网页，恶意网页通过iframe嵌入原网页。当用户被欺骗到恶意网页，界面和操作都与原网页一模一样，但操作实际上是与恶意网页交互。另外一个例子是攻击者发布一个恶意flash游戏，当用户玩游戏时，点击会被引导到恶意链接上，进而控制用户的摄像头和麦克风，用户的个人隐私遭到泄漏。一般的防御手段是Framebusting：正常网页中添加X-FRAME-OPTIONS=DENY(拒绝任何域加载)的http头，以及通过javascript脚本判别顶级frame是否被修改并将覆盖在自身上面的&amp;rdquo;恶意&amp;rdquo;frame重新定向会self.location。
+HTML5 localStorage 所有浏览器都提供本地存储API，可用于存储有限数量的数据。仅运行在与存储数据相同域上的JavaScript代码可被执行进行数据访问。浏览器的本地存储不是安全存储，所以仅能用于存储静态数据，不应该存储应用数据。
+WEBGL 越来越多的浏览器默认支持WEBG，WEBG允许访问计算机的底层图形API，这可能导致底层漏洞。
+WebSockets WebSockets为web应用的客户端/服务器通信提供了新的方式，但很多浏览器厂商的第一版WebSockets实现就暴露了很多安全问题。RGC6455中的WebSockets标准化已经稳定，并且Chrome16、Firefox 11和IE10都实现了WebSockets。即使浏览器自身的WebSockets实现被证明是安全的，使用WebSockets时客户端仍需要额外的安全措施。
+Postmessage/Onmessage postMessage允许浏览器窗口之间的跨域通信，这可能会导致安全问题。应用程序应该检查消息的发送域并仅处理来自受信域的消息。
+会话安全 HTTP通信是无状态的和非加密的，客户端和服务器之间的数据传输是不安全的，因此有必要使用SSL进行加密，并使用cookie或URL地址重写进行会话处理。即使使用SSL对数据传输进行加密，仍有可能发生会话劫持。跨域请求伪造和会话固定攻击就是这类攻击中突出的两个例子。
+WEB认证基础知识  用户访问需要认证的网站。 用户提供一个用户名和口令进行验证。 网站验证用户口令，如果通过，则准许用户登录进入，并将一个cookie提供给用户的浏览器。此cookie用于唯一的标识会话。 用户继续访问网站。在用户请求一个新网页时，浏览器都会发送cookie和用户请求，提醒Web服务器：该请求是前面的认证连接的一部分。在多数情况下，Web开发人员和网站管理员都会使用HTTPS加密来保护这个过程的第二步，他们都知道如果其它人员能够访问其他用户的用户名和口令，就可以轻易地获得访问权。在许多情况下，他们会转而使用一个不加密的HTTP连接，以便于实现Web通信的其余部分，其中也包括cookie的交换。  火羊（Firesheep） Firesheep是一个火狐（Firefox）插件，它在不安全的无线网络中自动操作会话劫持攻击。这个插件（plug-in）本质上是一个数据包嗅探器，它监测并分析Wi-Fi上终端用户之间的流量，并获取正在交换的cookie。西雅图的软件开发工程师EricButler研发了Firesheep并在2010年10月的ToorCon黑客会议上宣布了它的发行。Firesheep非常容易使用，下载插件，登陆公用的WIFI点，按一下按钮就可以获取网络中各种人的用户名和图像（例如：Facebook、Twitter、Flickr、bit.ly、Google和Amazon），双击图像攻击者就可以用受害人的身份登陆了。一般的防御手段是仅允许通过SSL来发送cookie；要限制能够利用cookie的应用程序；限制cookies仅能使用HTTPS。
+跨域请求伪造(Cross-site request forgery, CSRF或XSRF) 跨域请求伪造指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，在用户毫不知情的情况下以用户名义伪造请求发送给受攻击站点，从而在并未授权的情况下执行在权限保护之下的操作。例如，恶意网页中有转账请求的恶意链接，当有用户被骗访问网站并点击了带有恶意链接的图片或广告，该请求会附带用户浏览器的cookie一起发往银行。大多数情况下，该请求会失败，因为它要求用户的认证信息。但是如果用户当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的会话尚未过期，浏览器的cookie之中含有用户的认证信息。这时，转账请求就被处理。一般的防御手段是验证HTTP的Referer字段；在所有页面加入同步令牌模式(Synchronizer tokenpattern)并要求在请求地址中添加令牌并验证；在强调安全的操作前重复用户认证。
+会话固定攻击(session fixation) 会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人。例如，攻击者访问http://vulnerable.example.com/ ，并从服务器响应(Set-Cookie:SID=0D6441FEA4496C2)获得会话ID，他发送给受害者一个链接http://vulnerable.example.com/?SID=0D6441FEA4496C2。受害者登录的话，会使用这个固定会话标识符SID=0D6441FEA4496C2。攻击者这时访问http://vulnerable.example.com/?SID=0D6441FEA4496C2就可以不受限地访问受害者的账户了。一般的防御手段是用户登录后更改会话ID；仅接受服务器生成的会话ID；超时或退出登录后删除会话；强调安全的操作使用SSL会话ID；每次请求更新会话ID。
+参考  Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites
+ 使用 HTML5 WebSocket 构建实时 Web 应用
+ 应用 HTML5 的 WebSocket 实现 BiDirection 数据交换
+ HTML5 postMessage 和 onmessage API 详细应用</description>
+    </item>
+    
+    <item>
+      <title>消息队列技术选型资料</title>
+      <link>https://mryqu.github.io/post/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B%E8%B5%84%E6%96%99/</link>
+      <pubDate>Sat, 02 Aug 2014 21:27:49 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B%E8%B5%84%E6%96%99/</guid>
+      <description>Message Queue Evaluation Notes（10/01/12）
+消息队列软件产品大比拼（11/05/16）
+RabbitMQ / ActiveMQ or Redis for over 250,000 msg/s（11/09/27）
+消息中间件的技术选型心得－RabbitMQ、ActiveMQ和ZeroMQ（13/01/07）
+消息队列中间件技术选型分析（13/05/24）
+谁才是最快的消息队列:ActiveMQ, RabbitMQ, HornetQ, QPID&amp;hellip;（13/12/22）
+activemq-or-rabbitmq-or-zeromq-or（14/02/27）
+Alibaba： 消息队列中间件调研文档（14/07/01）
+Alibaba：RocketMQ 性能测试报告（14/07/01）
+消息中间件选型（15/01/20）
+RabbitMq、ActiveMq、ZeroMq、kafka之间的比较,资料汇总（15/08/19）
+开源 VS 商业，消息中间件你不知道的那些事（15/11/25）
+MQ产品比较-ActiveMQ-RocketMQ（16/03/07）</description>
+    </item>
+    
+    <item>
+      <title>JDBC连接池的testQuery/validationQuery设置</title>
+      <link>https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Wed, 07 May 2014 21:20:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/</guid>
+      <description>在《Tomcat中使用Connector/J连接MySQL的超时问题》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？ 原来这跟连接池的实现有关：
+|连接池实现|该功能属性名 |&amp;mdash;&amp;ndash; |The Tomcat JDBC Connection Pool|validationQuery |The Apache Commons DBCP Connection Pool|validationQuery |c3p0 - JDBC3 Connection and Statement Pooling|preferredTestQuery |Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration
+分析Atomikos数据连接池源码，弄清testQuery|testQuery
+此外，测试/验证连接池连接的SQL语句也因数据库而异： Efficient SQL test query or validation query that will work across all (or most) databases DBCP - validationQuery for different Databases
+综合上述两个帖子，汇总结果如下：
+|数据库|测试/验证查询 |&amp;mdash;&amp;ndash; |MySQL|SELECT 1 |PostgreSQL|SELECT 1 |Microsoft SQL Server|SELECT 1 |SQLite|SELECT 1 |H2|SELECT 1 |Ingres|SELECT 1 |Oracle|select 1 from dual |DB2|select 1 from sysibm.</description>
+    </item>
+    
+    <item>
+      <title>Tomcat中使用Connector/J连接MySQL的超时问题</title>
+      <link>https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 05 May 2014 20:58:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</guid>
+      <description>最近玩的一个Web项目，上一个晚上做一些操作，第二天超时需要再登陆，却总是报密码不正确。需要重启tomcat才能解决。异常如下：
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 442,814,107 milliseconds ago. The last packet sent successfully to the server was 442,814,107 milliseconds ago. is longer than the server configured value of &#39;wait_timeout&#39;. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Co nnector/J connection property &#39;autoReconnect=true&#39; to avoid this problem.</description>
+    </item>
+    
+    <item>
+      <title>差一点搞混了Transactional注解</title>
+      <link>https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/</link>
+      <pubDate>Tue, 01 Apr 2014 20:03:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/</guid>
+      <description>今天给我的Srping业务层加如下Service和Transactional注解：
+@Service @Scope(BeanDefinition.SCOPE_SINGLETON) @Transactional(propagation=Propagation.REQUIRED, timeout=600, rollbackFor=Exception.class)  结果总是不认propagation、timeout和rollbackFor，后来才发现我引入类定义错了，本来应该用Spring的org.springframework.transaction.annotation.Transactional，可是引入了JavaEE用于CDI(Contextsand Dependency Injection for the Java EEplatform，上下文和依赖注入)bean的javax.transaction.Transactional,不注意还真容易混淆。</description>
+    </item>
+    
+    <item>
+      <title>处理注解@RequestParam的&#34;Required String parameter is not present&#34;</title>
+      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/</link>
+      <pubDate>Tue, 04 Feb 2014 10:04:20 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/</guid>
+      <description>最近玩一下SpringMVC，代码如下：
+@Controller @RequestMapping(&amp;quot;/test.do&amp;quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(&amp;quot;fid&amp;quot;) String fid, @RequestParam(&amp;quot;sid&amp;quot;) String sid) throws Exception { if(fid==null || sid==null) { m.addAttribute(&amp;quot;file&amp;quot;, new FileMetaDAO()); return new ModelAndView(ViewProvider.UPLOAD); } else { m.addAttribute(&amp;quot;sync&amp;quot;, new SyncDAO()); return new ModelAndView(ViewProvider.HR_SYNC); } } }  访问http://localhost:8080/hellorest/test.do 时发生如下问题：查了一下Annotation Type RequestParam的javadoc，加上可选参数required解决战斗。
+@Controller @RequestMapping(&amp;quot;/test.do&amp;quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(value=&amp;quot;fid&amp;quot;, required = false) String fid, @RequestParam(value=&amp;quot;sid&amp;quot;, required = false) String sid) throws Exception { if(fid==null || sid==null) { m.</description>
+    </item>
+    
+    <item>
+      <title>使用Spring MVC下载Excel文件</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8spring_mvc%E4%B8%8B%E8%BD%BDexcel%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 20 Jan 2014 21:29:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8spring_mvc%E4%B8%8B%E8%BD%BDexcel%E6%96%87%E4%BB%B6/</guid>
+      <description> 想使用Spring MVC下载Excel文件，照着下面的样例，很容易就实现了。 Spring MVC with Excel View Example (Apache POI and JExcelApi)
+Spring MVC and Excel file via AbstractExcelView
+问题一：数据仅能生成xls，不能生成xlsx 通过org.springframework.web.servlet.view.document.AbstractExcelView源代码可知，Spring的AbstractExcelView仅支持HSSFWorkbook，不支持XSSFWorkbook。这一问题可以通过Github上的hmkcode/Spring-Framework来解决。 com.hmkcode.view.abstractview.AbstractExcelView
+com.hmkcode.view.ExcelView
+问题二：下载的文件是我配置的视图路径export.do，而不是Excel后缀 通过在Rest Controller里添加如下代码解决：
+SimpleDateFormat myFmt=new SimpleDateFormat(&amp;quot;yyyyMMdd_HHmmss&amp;quot;); response.setHeader(&amp;quot;Pragma&amp;quot;, &amp;quot;public&amp;quot;); response.setHeader(&amp;quot;Cache-Control&amp;quot;, &amp;quot;max-age=0&amp;quot;); if(excelVersion.equals(&amp;quot;xlsx&amp;quot;)){ response.setContentType(&amp;quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&amp;quot;); response.setHeader(&amp;quot;Content-Disposition&amp;quot;, &amp;quot;attachment; filename=test&amp;quot;+myFmt.format(new Date())+&amp;quot;.xlsx&amp;quot;); }else{ response.setContentType(&amp;quot;application/vnd.ms-excel&amp;quot;); response.setHeader(&amp;quot;Content-Disposition&amp;quot;, &amp;quot;attachment; filename=\&amp;quot;test&amp;quot;+myFmt.format(new Date())+&amp;quot;.xls\&amp;quot;&amp;quot;); }  </description>
+    </item>
+    
+    <item>
+      <title>数据源/Hibernate配置明文密码加密思考</title>
+      <link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E6%BA%90hibernate%E9%85%8D%E7%BD%AE%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%80%9D%E8%80%83/</link>
+      <pubDate>Wed, 01 Jan 2014 17:48:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E6%BA%90hibernate%E9%85%8D%E7%BD%AE%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%80%9D%E8%80%83/</guid>
+      <description>无论是Web应用服务器数据源配置还是Hibernate配置，一般数据库用户和密码都是明文的，感觉很不安全。上网搜了一圈，博客帖子还不少，不过都跟Web应用服务器官方文档差不太多。 Tomcat坚持明文，理由是最终需要用原始用户名和密码去连接数据库，而Tomcat是开源的，攻击者很容易找到加密/解密方法，所以也得不到真正的保护。 另一方就是用AES/DES/3DES等密钥算法对明文密码进行加密，然后在程序某处进行解密，例如使用Tomcat连接池时用org.apache.tomcat.jdbc.pool.DataSourceFactory继承子类实现自己的数据源工厂时进行解密，使用Srping时用LocalSessionFactoryBean继承子类读取配置进行解密然后将其写回运行态的配置。这种方式说白了，如果程序不是很大，使用JAD等工具对程序进行反编译，找到如何加解密的算法还是不难的。 我个人认为，真正的Web应用实施肯定是要设置服务器访问权限及服务器内目录的访问权限的，一般人不应该能访问到Web服务器程序及配置，这样即使使用明文密码也能保证相同的安全等级。当然，如果开发一个不严肃的小项目，并且部署在一个公共访问机器上，做做障眼法瞒瞒那些不是码农的人也是可以的。
+Web应用服务器文档： - Tomcat Wiki：FAQ/Password - JBoss：Encrypting Data Source Passwords - JBoss EAP：Encrypting Data Source Passwords - TomEE：DataSource Password Encryption博客： - Encrypting passwords in Tomcat - Hibernate的配置文件中用户和密码的加密 - hibernate配置文件中数据库密码加密,该如何解决 - Hibernate的验证，而不存储在纯文本密码 - 如何给工程中的配置文件加密 解密 - 通过spring对hibernate/ibatis的配置文件加密 - jndi 数据源配置密码加密 - spring 属性文件加密码及解密 - 怎么实现数据库连接的密码加密 - Jboss数据源密码加密 - Tomcat数据源连接池加密 - 使用 Jasypt 保护数据库配置 - spring datasource 密码加密后运行时解密的解决办法</description>
+    </item>
+    
+    <item>
+      <title>Tomcat的会话持久化</title>
+      <link>https://mryqu.github.io/post/tomcat%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+      <pubDate>Fri, 08 Nov 2013 20:17:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tomcat%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+      <description>《玩玩HTTP servlet和session资源监控器》提到我hello的一个web项目，刚开始我只是用监视器清除了Tomcat容器外部的文件资源，以为会话失效后Tomcat会自己清除会话属性，但后来发现想的太简单了。不但会话失效，并且重启Tomcat服务器，服务器端原来的会话及其属性都在,如果客户端浏览器的会话没有丢的话，刷新页面仍然可以获得以前的信息。原来Tomcat（起码5.x之后的版本）在默认的情况下提供了会话持久化这项功能，见$TOMCAT_HOME$/conf/context.xml：Tomcat的默认会话管理器是标准会话管理器(StandardManager)，用于非集群环境中对单个处于运行状态的Tomcat实例会话进行管理。当Tomcat关闭时，这些会话相关的数据会被写入磁盘上的一个名叫SESSION.ser的文件，并在Tomcat下次启动时读取此文件。 - 默认只有在Tomcat正常关闭时才会保存完整的用户会话信息 - 默认保存于$CATALINA_HOME$/work/Catalina/[host]/[webapp]/下的SESSIONS.ser文件中 - 若是自定义的虚拟主机则保存在$CATALINAHOME/work/Catalina/[host]//下的SESSIONS.ser文件中
+如果不想再获得失效会话属性的话，解决办法为： - 关闭Tomcat会话持久化功能。去掉context.xml中那句注释即可。 - HttpSessionListener实现类的sessionDestroyed方法删除该会话所有属性。
+参考 Apache Tomcat 5.5 Configuration ReferenceTomcat会话管理</description>
+    </item>
+    
+    <item>
+      <title>玩玩HTTP servlet和session资源监控器</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9http_servlet%E5%92%8Csession%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E5%99%A8/</link>
+      <pubDate>Thu, 07 Nov 2013 22:40:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9http_servlet%E5%92%8Csession%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E5%99%A8/</guid>
+      <description>WebListener是Servlet的监视器，它可以监听Http请求、会话生命周期事件等。其中包含如下接口： - ServletContextListener:监视servlet上下文的初始化(启动Web应用的初始化过程)、销毁（关闭Web应用）。 - ServletContextAttributeListener:监视servlet上下文属性的添加、删除和替换。 - ServletRequestListener:监视Http请求的初始化（进入第一个servlet或过滤器）、Web应用对请求处理结束（离开最后一个servlet或过滤器）。 - ServletRequestAttributeListener:监视Http请求属性的添加、删除和替换。 - HttpSessionListener:监视Http会话创建和失效操作。 - HttpSessionAttributeListener:监视Http会话属性的添加、删除和替换。最近hello一个Web项目，其中有个向导上传文件进行处理，文件被保存在tomcat的临时目录，处理后再删除。过段时间发现临时目录里有一些未删除的临时文件，应该是上传文件后，在处理结束前有一段时间未进行操作，会话失效，临时文件没有被删除。后来添加了一个MyResourceMonitorListener完成这些未处理临时文件的删除操作，解决了这个问题。代码如下：
+MyResourceMonitorListener package com.yqu.http.session; import javax.servlet.ServletContextEvent; import javax.servlet.ServletContextListener; import javax.servlet.http.HttpSession; import javax.servlet.http.HttpSessionEvent; import javax.servlet.http.HttpSessionListener; public class MyResourceMonitorListener implements ServletContextListener, HttpSessionListener { @Override public void sessionCreated(HttpSessionEvent event) { trace(&amp;quot;sessionCreated!&amp;quot;); } @Override public void sessionDestroyed(HttpSessionEvent event) { HttpSession session = event.getSession(); if (session != null) { String sessionId = session.getId(); trace(&amp;quot;sessionDestroyed with sessionId=&amp;quot; + sessionId + &amp;quot;!&amp;quot;); MyUtil.cleanSessionResources(session); } } @Override public void contextDestroyed(ServletContextEvent event) { MyUtil.</description>
+    </item>
+    
+    <item>
+      <title>事务管理器同步机制应用</title>
+      <link>https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 27 Oct 2013 14:28:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/</guid>
+      <description>在我目前的项目中，缓存管理器需要根据事务提交状态对应用缓存进行管理。这里对其机制应用做一个小总结。
+事务管理器 javax.transaction.TransactionManager接口定义一些方法以便应用服务器管理事务边界，比如获取与当前线程绑定的事务、对事务执行resume和suspend方法。
+事务 javax.transaction.Transaction接口允许对目标事务对象执行相关的事务操作。在每个全局事务创建时，Transaction对象也对应的创建出来。 事务对象可以被用来做资源获取(resource enlistment)、同步器注册(synchronizationregistration)、事务结束(transaction completion)和状态查询(statusquery)操作。
+事务同步机制 事务管理器通过javax.transaction.Synchronization接口支持一种同步机制。通过对当前事务的目标Transaction对象调用registerSynchronization方法，应用服务器为该事务注册一个Synchronization对象。 事务管理器在启动2PC事务提交过程时,回调Synchronization对象的beforeCompletion方法通知有关部分事务将要被提交；事务管理器在事务已经提交或回滚后,回调Synchronization对象的afterCompletion方法通知有关部分事务的结束状态。 应用一般很少使用beforeCompletion方法，afterCompletion方法使用比较多。在我目前的项目中，就是使用afterCompletion方法来通知缓存管理器对缓存进行更新操作。
+实例代码 package com.yqu.transaction; import java.lang.reflect.Method; import javax.naming.InitialContext; import javax.transaction.RollbackException; import javax.transaction.Synchronization; import javax.transaction.SystemException; import javax.transaction.Transaction; import javax.transaction.TransactionManager; public class SynchronizationSample implements Synchronization { private static int wepsphereVer; private static final String WEBSPHERE_TM_FACTORY51 = &amp;quot;com.ibm.ws.Transaction.TransactionManagerFactory&amp;quot;; private static final String WEBSPHERE_TM_FACTORY50 = &amp;quot;com.ibm.ejs.jts.jta.TransactionManagerFactory&amp;quot;; private static final String WEBSPHERE_TM_FACTORY4 = &amp;quot;com.ibm.ejs.jts.jta.JTSXA&amp;quot;; private static final String WEBLOGIC_TM_OBJNAME = &amp;quot;javax.transaction.TransactionManager&amp;quot;; private static final String JBOSS_TM_OBJNAME = &amp;quot;java:/TransactionManager&amp;quot;; private static final String TOMCAT_TM_OBJNAME = &amp;quot;java:comp/env/TransactionManager&amp;quot;; private static final String WEBSPHERE_RECOG_CLASS = &amp;quot;com.</description>
+    </item>
+    
+    <item>
+      <title>REST的Richardson成熟度模型</title>
+      <link>https://mryqu.github.io/post/rest%E7%9A%84richardson%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sat, 19 Oct 2013 10:59:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rest%E7%9A%84richardson%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/</guid>
+      <description>一个web服务有多么的&amp;rdquo;restful&amp;rdquo;，最有名的就是《RESTful Web Services》的合著者Leonard Richardson提出的REST 成熟度模型，简称Richardson成熟度模型。 - 第0级：使用HTTP作为传输方式；一个URI，一个HTTP方法。SOAP、XML-RPM都属于这一级别，仅是来回传送&amp;rdquo;Plain OldXML&amp;rdquo;(POX)。即使没有显式调用RPC接口（SOAP、XML-RPM），通常会调用服务器端的一个处理过程。一个接口会有一个端点，文档的内容会被解析用还判断所要调用的处理过程及其参数。这种做法相当于把HTTP 这个应用层协议降级为传输层协议用。HTTP 头和有效载荷是完全隔离的，HTTP头只用于保证传输，不涉及业务逻辑；有效载荷包含全部业务逻辑，因此 API 可以无视 HTTP 头中的任何信息。 - 第1级：引入了资源的概念，每个资源有对应的标识符和表达；多个URI，一个HTTP方法。这些资源仍是被&amp;rdquo;GETful&amp;rdquo;接口操作而不是HTTP动词，但服务基本上提供和操作资源。例如： - GET http://example.com/app/createUser - GET http://example.com/app/getUser?id=123 - GEThttp://example.com/app/changeUser?id=123&amp;amp;field=value - GET http://example.com/app/deleteUser?id=123 - 第2级：根据语义使用HTTP动词，适当处理HTTP响应状态码；多个URI，多个HTTP方法。 - GET用于查询资源； - HEAD用于查询资源是否存在； - POST创建新资源； - PUT更新已存在的资源； - PATCH部分更新已存在的资源； - DELETE删除已存在的资源。在这一级别，资源名称为基URI的一部分，而不是查询参数。 - 第3级：使用超媒体作为应用状态引擎（HATEOAS）；多个URI，多个HTTP方法。在资源的表达中包含了链接信息。客户端可以根据链接来发现可以执行的动作。链接推荐使用ATOM (RFC4287)中的显式语义。
+当然围绕这一模型，争论很多，Martin Fowler、Rest之父Roy Fielding、《RESTful WebServices Cookbook》作者Subbu Allamaraju都有不同的见解。
+参考 Leonard Richardson：REST 成熟度模型
+Martin Fowler：Richardson Maturity Model
+Roy Fielding：REST APIs must be hypertext-driven
+Subbu Allamaraju：Measuring REST
+如何度量应用的RESTful成熟度？</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（三）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/</link>
+      <pubDate>Sat, 19 Oct 2013 09:08:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/</guid>
+      <description>杂项 为了复制资源而不泄漏服务器实现细节，可以设计一个用于复制的控制器资源。客户端向控制器发送POST请求复制资源。为了实现条件POST，可以提供一次性URI。控制器创建副本后，返回状态码201 (Created)及Location头带有副本URI。 为了合并两个或多个资源，可以设计一个用于合并的应用程序特定控制器资源。客户端想控制器发送GET请求，其查询参数包含待合并资源的URI或标识符。服务器返回Last-Modified、ETag头和包含待合并资源摘要的表述体。ETag由时戳和随机数连接串构成。为了验证摘要，客户端向同一地址发送带有If-Unmodified-Since和If-Match头的POST请求发起合并。服务器合并后在事务日志中保留If-Match头的值并返回状态码201 (Created)及含有合并后资源URI的Location头。如果客户端再发送相同If-Match头的POST请求，服务器返回状态码412 (Preconditon Failed)。 为了移动资源，服务器会提供负责移动资源控制器的链接或链接模板以使客户端可以发送POST请求，并在完成请求后根据输出返回状态码201 (Created)或303 (See Other)。 WebDAV （RFC 4918）是用于资源分布式创作和版本管理的HTTP扩展，它扩展了一些HTTP方法和头用于管理文件和文档。当Web服务是内容创作应用且服务器支持WebDAV时使用WebDAV特定方法，避免对其他类型应用使用WebDAV。
+|方法|介绍 |&amp;mdash;&amp;ndash; |PROPFIND|WebDAV中的文档具有属性，客户端可用此方法获得属性 |PROPPATCH|客户端用此方法设置、添加或修改资源属性 |MKCOL|WebDAV可以将文档放入集合（文件夹），客户端可用此方法创建集合 |COPY|客户端可用此方法复制资源 |MOVE|客户端可用此方法移动资源 |LOCK|客户端可用此方法对给定文档加锁，以支持悲观并发控制 |UNLOCK|客户端可用此方法对给定文档去锁
+为了支持跨服务器边界的操作（例如，将用户配置从一个应用移植到另一个应用，将文档从草稿服务器发布到生产服务器），需要服务器之间彼此就数据格式、后台接口、并发控制、数据加载、范式化和存储等方面协作、设计和实现设计跨服务器操作。 wiki的网页都会维护当前和过去的修订历史，以便客户可以获取、比较和评估页面改变。为了支持资源以往历史快照，服务器在收到客户端PUT请求更新资源时，在更新资源之前会默认创建快照（资源副本），并在更新后的资源表述中包含快照链接，快照表述中包含更新后资源链接。当用户发送DELETE请求，删除资源及所有快照。 提供用于撤销操作的控制器资源。当客户端发送POST请求进行撤销操作，在事务日志中记录资源当前状态以用于审计。服务器将资源状态恢复到上一快照并将客户端重定向到资源URI。 当资源很大而改动很小时，发送GET请求获取整个表述、进行小的修改、发送PUT请求将整个表述传回服务器进行更新很费时费带宽。为了支持对资源进行部分更新，可以将可修改的资源部分封装为一个新资源。客户端通过PUT请求更新该新资源，等效于部分更新原来的资源。 HTTP PUT方法用于对资源的整个更新或替换，PATCH方法（RFC 5789）用于支持部分更新。PATCH方法不是安全和幂等的，请求体是一系列对资源进行改变的表述。当收到请求，服务器将整个补丁原子性地施加于资源，并返回响应码 200 (OK)或204 (No Content)。如果服务器无法将整体补丁施加于资源，就不会做任何局部修改。可以通过请求中包含If-Unmodified-Since和/或If-Match头支持条件PATCH请求，如果不匹配则返回状态码412 (Precondition Failed)。建议在OPTIONS响应的Allow头支持PATCH，并在PTACH方法包含Accept-Patch头，其值为支持的媒体类型。 当客户端需要为不同资源提交若干类似请求时，只要对每个资源的操作是相同的且资源是类似的，可以将这些操作组合成一个针对集合资源的单个操作。使用POST请求和集合资源一次性批量创建若干资源。服务器为集合资源分配一个URI，并使用状态码303 (See Other)重定向到该集合资源，集合资源表述包含所有新创建资源的链接。使用PUT请求更新或DELETE请求删除若干资源与创建过程类似，以上操作必须是原子化的。 客户端需要执行批量作业的用例不是少数。例如，为前一天销售订单做汇总、将一个或多个文档打包、批准选择的购买订单集合等等都需要批量执行。服务器需要设计一个控制器资源用于执行批量操作。如果客户端需要跟踪操作或客户端需要提交大量用于操作的数据，返回状态码202 (Accepted)以进行异步操作，否则返回200 (OK)或204 (No Content)。 将几个HTTP组合成一个HTTP请求以支持批量处理的用例不是少数。下面列举了一些通常使用的技术实现： - 客户端将几个HTTP请求序列化到一个JSON对象、或一个XML文档、或multipart/mixed消息的一部分。 - 客户端创建一个信封跟是将多个请求组合进入一个消息。 - 客户端向服务器的分批终点（batch end point）资源发送POST请求。 - 服务器接收到消息，打开信封，重构多个HTTP请求并分发到服务器的相关URI。或者服务器绕过HTTP将请求直接派发到能处理这种请求的代码。 - 服务器收集每个请求的响应并序列化为一个消息返回到客户端。 - 客户端打开信封并处理每个响应消息。
+避免这种将多个HTTP请求封装入一个POST请求隧道的做法。因为通常隧道方案有以下不利之处：
+|特性|介绍 |&amp;mdash;&amp;ndash; |并发|HTTP通过Last-Modified和ETag头来实现乐观并发检查。将多个HTTP请求封装进一个HTTP请求隧道的批量操作使并发检查变得困难，因为服务器需要为批量操作中每一个任务进行并发检查。 |原子性|HTTP请求是原子性的。每个请求执行单个任务，服务器在错误发生时确保数据的原子性和一致性。将多个任务混入一个请求、尤其是某些操作依赖于同一请求的前一操作是否成功的批量操作使Web服务很难确保原子性和进行错误恢复。 |可见性|将多个操作封装到一个HTTP请求隧道使中间节点无法对批量处理内的操作响应可见。此外检测请求防止拒绝攻击的典型安全方法几乎不可能捕捉到批量操作中的可疑请求，因此可能导致拒绝服务攻击。 |错误处理|用于批量操作的错误处理和报告更为复杂。单个批量请求的结构可能混杂成功和失败响应。 |可扩展性|一般用于批量操作的理由依赖批量处理比执行每个单个请求更可扩展这样的假设。当单个服务器收到非常多的批量处理，请求会降低服务器的响应能力。发送很多批量客户端处理到单个服务器的应用比不支持批量处理的相同应用性能可能更低。
+分析导致促成使用隧道技术的用例，设计应用特有的控制器资源支持相同需求。由于请求使用的是处理请求资源的单个URI，所以请求可见。由于仅返回一个状态码，所以响应可见。 RESTful web服务在下列场景可能会需要处理事务： - 客户端执行操作流的一些列步骤。客户端在取消操作流时要撤销所有已完成的数据变动。 - 客户端同若干服务器顺序交互以实现应用操作流，客户端可能希望恢复任何状态改变或持久化存储状态。</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（二）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Sat, 19 Oct 2013 08:32:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
+      <description>Atom和AtomPub Atom聚合格式（RFC 4287）和Atom发布协议（也称为AtomPub，RFC5023）定义了条目和种子等资源及其表述和操作协议。Atom主要用于基于文本的、意图让人们去阅读的博客、讨论论坛、评论系统等资源。AtomPub描述了允许客户端创建和修改Atom格式资源的语义，并引入有助于应用程序发现的服务和分类资源。 Atom和AtomPub被用于很多应用场景。尽管Atom通常用于博客种子，也能进行格式扩展以用于用户简介、搜索结果、相簿等应用数据。 下面列举了Atom条目和种子内的一些元素。Atom条目和种子都是可扩展的，也可以引入新的属性和元素。
+|元素|描述 |&amp;mdash;&amp;ndash; |atom:author|存在于atom:feed和atom:entry内，表现创建条目/种子的作者，包含至少一个atom:name及可选的atom:uri和atom:email子元素 |atom:content|存在于atom:entry内，提供普通文本、HTML或XHTML条目内容或带媒体类型的其他内容，使用src和type属性链接到任意媒体 |atom:summary|存在于atom:entry内，提供条目摘要或描述。与atom:tile相似，提供type属性。 |atom:id|存在于atom:entry内，包含条目的URN格式的全局唯一标识符（例如urn:guid:550e8400-e29b-41d4-a716-446655440123）。其值在条目/种子更新或移动后必须改变。 |atom:link|存在于atom:feed和atom:entry内，每个条目/种子必须包含一个rel值为self的atom:link元素，可以包含relf值为alternate的多个type和hreflang属性唯一的atom:link元素组合，也可以包含链接关联资源的其他atom:link元素。 |atom:title|存在于atom:feed、atom:entry和atom:source内，包含条目/种子的文本标题表述。支持type属性，值为text（默认）、thml或xhtml。 |atom:update|存在于atom:feed和atom:entry内，包含条目/种子的最新更新时间。 |atom:category|存在于atom:feed和atom:entry内，对条目和种子进行分类。 |atom:contributor|每个Atom条目可以包含一个或多个atom:contributor元素。 |atom:generator|存在于atom:entry和atom:source内，指示生成种子的软件或条目来源。 |atom:icon|存在于atom:feed内，每个种子可以包含一个atom:icon元素。 |atom:logo|存在于atom:feed内，每个种子可以包含一个atom:logo元素。 |atom:published|存在于atom:entry内，每个条目可以包含一个atom:published元素，用于指示条目第一次发布的时间。 |atom:rights|存在于atom:entry内，每个条目可以包含一个atom:rights元素，描述权利例如著作权。 |atom:subtitle|存在于atom:feed和atom:source内，每个条目/源可以包含一个atom:subtitle元素。
+使用Atom的好处在于互通性。为了使用Atom，将资源建模成条目，集合建模成种子。这些元素在http://www.w3.org/2005/Atom命名空间下定义，该命名空间常用的前缀为atom。 Atom种子和条目的默认内容模型包括文本、HTML或XHTML内容和摘要、标识符、链接、作者、分类等。该内容模型最适合发布和聚合作为种子的信息片。然而，由于其格式获取的基本概念对大多数应用程序有益，可被用于各种场景而不是仅仅用于内容种子。 当资源的信息模型或元数据与Atom种子和条目的语法和语义自然匹配时使用Atom。即使资源的信息模型无法匹配Atom，考虑为其提供由短文本、HTML或XHTML资源摘要和链接。用户可以通过种子阅读器等工具了解资源。 AtomPub引入了服务文档和媒体资源等额外资源，服务文档有助于客户端发现Web服务提供的集合。服务器能够使用媒体资源将语音、视频、图像媒体或任意文档与Atom条目进行关联。 使用服务文档资源将集合汇入工作空间。该资源表述是XML文档，定义在http://www.w3.org/2007/app命名空间的service是文档的根节点。该命名空间常用的前缀为app。表述的媒体类型是application/atomsvc+xml。服务（app:service）包含一个或多个工作空间（app:workspace）。每个工作空间包含多个的集合（app:collection），列举了所有种子URI、可接受媒体类型（app:accept）和分类（app:category）。 分类资源列举了集合内资源的分类，表述是category作为根节点的XML文档，有atom:category元素组成。表述的媒体类型是application/atomcat+xml。 AtomPub是修改Atom文档的应用协议。它描述如何创建、更新和删除Atom条目，也支持编辑诸如图片、打包文件等关联的非文本媒体。如果正在使用Atom格式发布可编辑资源，考虑支持AtomPub。 允许客户端通过提交消息体为Atom条目文档的POST请求来创建新资源。客户端可以接下来对edit关系类型的链接用PUT方法修改或用DELETE方法删除资源。 当表述是Atom条目文档时在媒体类型上添加参数type=entry。 AtomPub引入的资源类型之一是媒体资源。媒体资源是除了Atom条目文档之外的其他资源，可用于表现文档、图片、音频和视频文件等。由于媒体资源不是Atom条目文档且可能是二进制资源，AtomPub对每个媒体资源关联一个媒体链接资源（描述并链接媒体资源的Atom条目）。 客户端通过发送POST请求来创建媒体资源。服务器创建媒体资源和媒体链接资源，并在响应的通过Location头返回媒体链接资源的URI。在媒体链接资源表述中，通过atom:conteng元素的src属性提供新创建的媒体资源URI。
+内容协商 内容协商有时也称以为conneg，是当多种表述（/变体）可用时为客户端选择资源的最佳表述。尽管内容协商经常与指示媒体类型优先级相关，它也能用于指示语言本地化、字符编码和压缩编码的优先级。HTTP指定了两种内容协商：服务器驱动协商和代理驱动协商。服务器驱动协商使用request头选择一种变体，代理驱动协商为每一种变体使用不同URI。 当实现一个客户端时，对客户端来说向服务器指示自身能够处理的表述格式、语言、字符编码和压缩编码偏好和能力是非常重要的。即使能够通过带外了解响应中上诉信息，清楚指示客户端的偏好和能力有助于客户端面对变化。否则，当服务器决定提供资源的替换表述，HTTP库的任何默认偏好可能提示服务器返回了不同的表述并中断客户端。 在发送请求时，添加一个Accept头，包含逗号分隔的媒体类型优先级列表。如果媒体类型优先级不一样，对每个媒体类型添加一个q参数，以表示相关优先级（1.0～0.0，优先级越高值越大）。如果客户端仅能处理特定格式，在Accept头添加*;q=0.0以表明无法处理Accept头媒体列表之外的媒体。 如果客户端仅能处理特定字符编码，添加带有偏好字符集的Accept-Charset头，否则避免添加Accept-Charset头。为表述的偏好语言添加Accept-Language头。如果客户端能够解压缩诸如gzip、compress或deflate编码的表述，添加带有支持的压缩编码的Accept-Encoding头，否则，不要使用该头。
+# Request headers Accept: application/atom+xml;q=1.0, application/xml;q=0.6, **;q=0.0 # Response HTTP/1.1 200 OK Content-Language: en Vary: Accept-Language ... # Request for German representation GET /status HTTP/1.1 Host: www.example.org Accept-Language: de;q=1.0,**;q=0.0  当服务器无法满足客户端偏好且客户端显式包含**;q=0.8。这样很难在浏览器获得内容协商的表述。 代理驱动协商当客户端无法使用Accept-*头来表示偏好时很有效，它通过为每个变体提供不同URI，客户端使用URI来选择期望的表述。在代理驱动协商中，客户端通过从服务器获得的带外信息判断要使用的URI。如果表述存在，服务器返回表述，否则，返回404(Not Found)状态码。尽管所有Accept-*头内要协商的信息都可在代理驱动协商中实现，通常用于媒体类型和语言类型。下面是代理驱动协商的常用做法： - 查询参数，例如http://www.</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（一）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Sat, 19 Oct 2013 08:10:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
+      <description>使用统一接口 HTTP是一种应用层协议，它定义了客户端与服务器之间的转移操作的表述形式。在此协议中，诸如GET，POST和DELETE之类的方法是对资源的操作。有了它，无须创造createOrder,getOrder,updateOrder等应用程序特定的操作了。 作为应用协议，HTTP的设计目标是在客户端和服务器之间保持对库、服务器、代理、缓存和其他工具的可见性。可见性是HTTP的一个核心特征。 一旦识别并设计资源，就可以使用GET方法获取资源的表述，使用PUT方法更新资源，使用DELETE方法删除资源，以及使用POST方法执行各种不安全和非幂等的操作。可以添加适当的HTTP标头来描述请求和相应。 以下特性完全取决于保持请求和相应的可见性： - 缓存：缓存响应内容，并在资源修改时使缓存自动失效。 - 乐观并发控制：检测并发写入，并在操作过期的表述时防止资源发生变更。 - 内容协商：在给定资源的多个可用表述中，选择合适的表述。 - 安全性和幂等性：确保客户端可以重复或重试特定的HTTP请求。
+HTTP通过以下途径来实现可见性： - HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和响应的意义，而无须关联过去和将来的请求和响应。 - HTTP使用一个统一接口，包括有OPTIONS，GET，HEAD，POST，DELETE和TRACE方法。接口中的每一个方法操作一个且仅一个资源。每个方法的语法和含义不会因应用程序和资源的不同而发生改变。 - HTTP使用一种与MIME类似的信封格式进行表述编码。这种格式明确区分标头和内容。标头是可见的，除了创建、处理消息的部分，软件的其他部分都可以不用关心消息的内容。
+保持可见性的另一方面是使用适当的状态码和状态消息，以便代理、缓冲和客户端可以决定请求的结果。 在某些情况下，可能需要权衡其他特性，如网络效率、客户端的便利性以及分离关注点，为此放弃可见性。当进行这种权衡时，应仔细分析对缓存、幂等性、安全性等特性的影响。 当有多个共享数据的资源，或一个操作修改多个资源时，需要权衡是否降低可见性（例如是否禁止缓存）以便获得更好的信息抽象、更松散的耦合程度、更好地网络效率、更好地资源粒度，或纯粹为了方便客户端使用。 可以通过带有应用程序状态的URI链接来保持应用程序状态而无需依赖服务器中内存中的会话。 安全性和幂等性是服务器要实现的HTTP方法的特征。当客户端发送GET、HEAD、OPTIONS、PUT或DELETE请求时，如果没有使用并发条件限制时，确保服务器提供相同响应。
+|方法|是否安全?|是否幂等? |&amp;mdash;&amp;ndash; |GET|是|是 |HEAD|是|是 |OPTIONS|是|是 |PUT|否|是 |DELETE|否|是 |POST|否|否
+客户端通过下列方法实现幂等的/安全的HTTP请求： - 将GET、OPTIONS和HEAD视为只读操作，可按需随时可发送请求。 - 在网络或软件异常的情况下，通过If-Unmodified-Since/If-Match条件标头重发GET、PUT和DELETE请求。 - 不要重发POST请求，除非客户端（通过服务器文档）知道对特定资源的POST实现是幂等的。
+Web基础设施严重依赖于GET方法的幂等性和安全性。客户端期望能够重复发起GET请求，而不必担心造成副作用。缓存依赖于不需访问源服务器就能提供已缓存表述的能力。 不要把GET方法用于不安全和非幂等操作。因为这样做可能造成永久性的、意想不到的、不符合需要的资源改变。 可以使用POST方法或PUT方法创建新资源。只有在客户端可以决定资源的URI时才使用PUT方法创建新资源；否则使用POST，由服务器决定新创建资源的URI（客户端请求可以使用Slug头建议新资源的URI）。 在以下场合中使用POST方法： - 创建新的资源，把资源作为一个工厂 - 通过一个控制器资源来修改一个或多个资源 - 执行需要大数据输入的查询 - 在其他HTTP方法看上去不合适时，执行不安全或非幂等的操作。（缓存不会缓存这一方法的响应）
+使用POST方式实现异步任务：服务器在接受到POST请求时，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，如服务器还在执行中，返回响应码200（OK）及包含当前状态的任务资源表述；如服务器成功完成，返回响应码303（SeeOther）以及包含新资源URL的Location头；如服务器任务失败，返回响应码200（OK）及任务失败的表述。 使用DELETE方法实现异步请求：服务器在收到DELETE请求，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，服务器返回响应码200（OK）及包含当前状态的任务资源表述。 避免使用非标准的自定义HTTP方法。当前比较有名的自定义方法包括WebDAV定义的方法、PATCH和MERGE。 HTTP服务器可能会使用自定义HTTP标头，比较有名的自定义HTTP包括X-Powered-By、X-Cache、X-Pingback、X-Forwarded-For及X-HTTP-Method-Override。实现客户端和服务器时，要让他们在没有发现需要的自定义标头时也不会失败。避免使用自定义HTTP标头改变HTTP方法的行为。
+识别资源 从领域名词中识别资源。 直接将领域实体映射为资源可能导致资源效率低下且难以使用，可以通过网络效率、表述的多少以及客户端的应用程度来帮助确定资源的粒度。 粗粒度设计便于富客户端应用程序，更精细的资源颗粒可以更好地忙族缓存的要求。因此，应从客户端和网络的角度确定资源的粒度。下列原书可能会进一步影响资源粒度： - 可缓存性 - 修改频率 - 可变性
+仔细设计资源粒度，以确保使用更多缓存，减少修改频率，或将不可变数据从使用缓存较少、修改频率更高或可变数据分离出来，这样可以改善客户端和服务器端的效率。 基于应用程序特有的条件来识别相似的资源（例如共享同一数据库schema的资源，有相同特性或属性的资源），可以将这些有共性的资源组织成为集合。 基于客户端的使用模式、性能和延时要求，确定一些新的聚合其他资源的复合资源，来减少客户端与服务器的交互。 符合资源降低了统一接口的可见性，应为它们的表述中包含了和其他资源相重叠的资源。因此，在提供复合资源前,需要考虑一下几点： - 如果在应用程序的请求很少，那么它可能不是一个好的选择。依赖缓存代理，从缓存中获取这些资源，也许能让客户端收益匪浅。 - 另一个因素是网络开销&amp;ndash;客户端与服务器之间的网络开销，服务区和后端服务或他所依赖的数据存储之间的网络开销。如果后者开销很大，那获取大量数据并在服务器上将他们组合成复合资源可能会增加客户端的延时，降低服务器的吞吐量。 - 想要改善延时，可以在客户端和服务器之间增加一个缓存层，并避免复合资源，进行一些负载测试来验证复合资源是否能起到改善作用。</description>
+    </item>
+    
+    <item>
+      <title>vFabric Web Server配置：多tc Server负载均衡</title>
+      <link>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</link>
+      <pubDate>Wed, 16 Oct 2013 22:03:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</guid>
+      <description>HTTP请求需要分发到tc Server集群成员。为了实现这一目的，可以采用硬件负载均衡硬件或软件(Apache HTTP Server、vFabric Web Server和Microsoft IIS)。本文介绍用vFabric Web Server的mod_proxy模块实现tcServer负载均衡。
+vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对下列行进行添加或去除注释: LoadModule proxy_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy.so&amp;quot; LoadModule proxy_http_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_http.so&amp;quot; LoadModule proxy_balancer_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_balancer.so&amp;quot;  vFabric Web Server:创建额外的配置文件 在vFabric Web Server实例的conf目录创建mod_proxy.conf: # Enable capturing of proxy statistics ProxyStatus on SetHandler balancer-manager Order Deny,Allow Deny from all Allow from 127.0.0.1 # These apps aren&#39;t clustered -- requests go to dedicated server ProxyPass /my-app1 balancer://my-standalone/my-app1 ProxyPass /my-app2 balancer://my-standalone/my-app2 # Clustered apps get directed to loadbalanced worker ProxyPass /my-app3 balancer://my-balancer/my-app3 ProxyPass /my-app4 balancer://my-balancer/my-app4 # Standalone &amp;quot;balancer&amp;quot; for standalone apps that aren&#39;t clustered BalancerMember http://MYSERVER1:8080 # Load balanced &amp;quot;balancer&amp;quot; for clustered apps BalancerMember http://MYSERVER1:8080 route=aGVsbG8gcWUh_MyServer1_1 loadfactor=1 BalancerMember http://MYSERVER1:8180 route=aGVsbG8gcWUh_MyServer1_2 loadfactor=2 ProxySet lbmethod=byrequests stickysession=aGVsbG8gcWUh_Cluster1|aGVsbG8gcWUh_cluster1 # Configure cache timeouts for static content AddType text/javascript .</description>
+    </item>
+    
+    <item>
+      <title>vFabric Web Server 5.2模块和库</title>
+      <link>https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/</link>
+      <pubDate>Wed, 16 Oct 2013 20:55:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/</guid>
+      <description>vFabric Web Server 是VMware的vFabric套件中的Web服务器和负载均衡组件。vFabric WebServer 5.2基于Apache HTTP Server 2.2版本。 其大部分模块可见链接
+核心功能和多处理模块 |模块|介绍 |&amp;mdash;&amp;ndash; |core|Apache HTTP服务器核心提供的功能，始终有效。 |mpm_common|收集了被多个多路处理模块(MPM)实现的公共指令。 |beos|专门针对BeOS优化过的多路处理模块(MPM) |event|一个标准workerMPM的实验性变种。 |mpm_netware|专门为Novell NetWare优化的线程化的多路处理模块(MPM) |mpmt_os2|专门针对OS/2优化过的混合多进程多线程多路处理模块(MPM) |prefork|一个非线程型的、预派生的MPM |mpm_winnt|用于Windows NT/2000/XP/2003 系列的MPM |worker|线程型的MPM，实现了一个混合的多线程多处理MPM，允许一个子进程中包含多个线程。
+其它普通模块 |模块|介绍 |&amp;mdash;&amp;ndash; |mod_actions|根据特定的媒体类型或请求方法，激活特定的CGI脚本 |mod_alias|提供从文件系统的不同部分到文档树的映射和URL重定向 |mod_asis|发送自己包含HTTP头内容的文件 |mod_auth_basic|使用基本认证 |mod_auth_digest|使用MD5摘要认证(更安全，但是只有最新的浏览器才支持) |mod_authn_alias|基于实际认证支持者创建扩展的认证支持者，并为它起一个别名以便于引用 |mod_authn_anon|提供匿名用户认证支持 |mod_authn_dbd|使用SQL数据库为认证提供支持 |mod_authn_dbm|使用DBM数据库为认证提供支持 |mod_authn_default|在未正确配置认证模块的情况下简单拒绝一切认证信息 |mod_authn_file|使用纯文本文件为认证提供支持 |mod_authnz_ldap|允许使用一个LDAP目录存储用户名和密码数据库来执行基本认证和授权 |mod_authz_dbm|使用DBM数据库文件为组提供授权支持 |mod_authz_default|在未正确配置授权支持模块的情况下简单拒绝一切授权请求 |mod_authz_groupfile|使用纯文本文件为组提供授权支持 |mod_authz_host|供基于主机名、IP地址、请求特征的访问控制 |mod_authz_owner|基于文件的所有者进行授权 |mod_authz_user|基于每个用户提供授权支持 |mod_autoindex|自动对目录中的内容生成列表，类似于&amp;rdquo;ls&amp;rdquo;或&amp;rdquo;dir&amp;rdquo;命令 |mod_cache|基于URI键的内容动态缓冲(内存或磁盘) |mod_cern_meta|允许Apache使用CERN httpd元文件，从而可以在发送文件时对头进行修改 |mod_cgi|在非线程型MPM(prefork)上提供对CGI脚本执行的支持 |mod_cgid|在线程型MPM(worker)上用一个外部CGI守护进程执行CGI脚本 |mod_charset_lite|允许对页面进行字符集转换 |mod_dav|允许Apache提供DAV协议支持 |mod_dav_fs|为mod_dav访问服务器上的文件系统提供支持 |mod_dav_lock|为mod_dav锁定服务器上的文件提供支持 |mod_dbd|管理SQL数据库连接，为需要数据库功能的模块提供支持 |mod_deflate|压缩发送给客户端的内容 |mod_dir|指定目录索引文件以及为目录提供&amp;rdquo;尾斜杠&amp;rdquo;重定向 |mod_disk_cache|基于磁盘的缓冲管理器 |mod_dumpio|将所有I/O操作转储到错误日志中 |mod_echo|一个很简单的协议演示模块 |mod_env|允许Apache修改或清除传送到CGI脚本和SSI页面的环境变量 |mod_example|一个很简单的Apache模块API演示模块 |mod_expires|允许通过配置文件控制HTTP的&amp;rdquo;Expires:&amp;ldquo;和&amp;rdquo;Cache-Control:&amp;ldquo;头内容 |mod_ext_filter|使用外部程序作为过滤器 |mod_file_cache|提供文件描述符缓存支持，从而提高Apache性能 |mod_filter|根据上下文实际情况对输出过滤器进行动态配置 |mod_headers|允许通过配置文件控制任意的HTTP请求和应答头信息 |mod_ident|实现RFC1413规定的ident查找 |mod_imagemap|处理服务器端图像映射 |mod_include|实现服务端包含文档(SSI)处理 |mod_info|生成Apache配置情况的Web页面 |mod_isapi|仅限于在Windows平台上实现ISAPI扩展 |mod_ldap|为其它LDAP模块提供LDAP连接池和结果缓冲服务 |mod_log_config|允许记录日志和定制日志文件格式 |mod_log_forensic|实现&amp;rdquo;对比日志&amp;rdquo;，即在请求被处理之前和处理完成之后进行两次记录 |mod_logio|对每个请求的输入/输出字节数以及HTTP头进行日志记录 |mod_mem_cache|基于内存的缓冲管理器 |mod_mime|根据文件扩展名决定应答的行为(处理器/过滤器)和内容(MIME类型/语言/字符集/编码) |mod_mime_magic|通过读取部分文件内容自动猜测文件的MIME类型 |mod_negotiation|提供内容协商支持 |mod_nw_ssl|仅限于在NetWare平台上实现SSL加密支持 |mod_proxy|提供HTTP/1.</description>
+    </item>
+    
+    <item>
+      <title>vFabric Web Server控制台命令</title>
+      <link>https://mryqu.github.io/post/vfabric_web_server%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 16 Oct 2013 19:28:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vfabric_web_server%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4/</guid>
+      <description>检查并设置PowerShell 在Windows中，vFabric WebServer控制台命令需要在PowerShell下执行。默认状态下，PowerShell的脚本处理是被禁止的。 通过如下命令检查当前的PowerShell设置:
+PS prompt&amp;gt; Get-ExecutionPolicy  如果命令返回Restricted,这意味着PowerShell还没有使能。通过执行如下命令使它允许最低限度执行本地脚本：
+PS prompt&amp;gt; Set-ExecutionPolicy RemoteSigned  按照需要设置不同的执行策略并使用组和用户策略使能PowerShell。通常，仅有管理员使用vFabric WebServer脚本，因此RemoteSigned执行策略在大多情况下是足够的。
+通过执行如下命令设置编码为UTF-8，以便更好地显示httpctl输出、更容易检查日志文件。
+PS prompt&amp;gt; chcp 65001  使用vFabric Web Server控制台 可以使用httpdctl 脚本控制vFabric Web Server实例，其命令如下:
+|命令|描述 |&amp;mdash;&amp;ndash; |start|启动vFabric Web Server实例。如果实例已启动，该命令返回错误。 |stop|强制停止vFabric Web Server实例。当前所有打开的连接将中断。 |gracefulstop|优雅停止vFabric Web Server实例，脚本会等到所有打开的连接关闭后才停止vFabric Web Server实例。 |restart|重启实例。如果实例之前没有启动，脚本会启动实例，此外也会在启动实例前运行configtest。 |graceful|优雅重启实例。与restart命令的区别在于当前打开的连接不会中断，副作用就是老的日志文件不会立即关闭。 |status|显示实例状态信息，例如是否运行中、运行中的进程标识符 (PID)。 |install|安装实例成Windows或UNIX服务。服务可以用Windows服务控制台、sc命令手动启动或停止，或随Windows自动启动或停止。
+install命令可用参数：
+服务名: vFabrichttpd_实例名_ 例子: vFabrichttpdmyserver显示名: vFabric httpd 实例名
+例子: vFabric httpd myserverUnix下，实例安装成/etc/init.d目录下名为vFabric-httpd-&amp;lt;实例名&amp;gt;的脚本文件。服务随Unix自动启动或停止。 |uninstall|卸载作为Windows或UNIX服务的实例。Windows下，实例会从服务注册表中删除。Unix下，命令会删除/etc/init.d/vFabric-httpd-_instance-name_脚本文件。 |configtest|对例如conf/httpd.conf之类的配置文件运行语法检查。脚本解析配置文件，如果语法正确返回OK，否则返回特定语法错误的详细信息。
+示例如下：
+PS C:\sas\Config\Lev1\Web\WebServer\bin&amp;gt; .\httpdctl.ps1 status httpdctl.ps1 - manage the SAS [Config-Lev1] httpd - WebServer server instance Copyright c 2012 VMware, Inc.</description>
+    </item>
+    
+    <item>
+      <title>开源事务管理器列表</title>
+      <link>https://mryqu.github.io/post/%E5%BC%80%E6%BA%90%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%88%97%E8%A1%A8/</link>
+      <pubDate>Tue, 15 Oct 2013 20:04:34 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%BC%80%E6%BA%90%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%88%97%E8%A1%A8/</guid>
+      <description>WebLogic、WebSphere和JBoss这些Web应用服务器都自带事务管理器，而Tomcat和tcServer需要额外使用第三方事务管理器。公司选择了AtomikosTransactionEssentials作为JTA/XA提供者，这里列一下当前使用较多的开源事务管理器。
+|事务管理器|开源许可证|当前版本|介绍 |&amp;mdash;&amp;ndash; |JOTM|BSD样式|2.1.9 (2010-1-14)|JOTM(Java Open TransactionManager)是由ObjectWeb协会开发的功能完整的且资源开放的独立的事务管理器。 它提供了JAVA 应用程序的事务支持，而且与JTA（JAVA事务API）兼容。
+JOTM内嵌了一些开源项目。例如CAROL用于事务上下文传播；XAPool是一个XA兼容的JDBC连接池；HOWL是用于事务恢复的日志。 |Bitronix JTA Transaction Manager|LGPL|2.1.4 (2013-9-15)|Bitronix Transaction Manager (BTM)是JTA 1.1 API的一个简单但完整的实现。 |SimpleJTA|Apache 2.0|2.02 (2007-4-10)|SimpleJTA实现了一个单独的JTA兼容事务处理器，仅支持Oracle 9i和ApacheDerby数据库，不支持JTS。 |Atomikos TransactionsEssentials|Apache 2.0|3.9.0.M1 (2013-6-8)|Atomikos分两个：一个是开源的TransactionEssentials，一个是商业的ExtremeTransactions。（功能对比）
+Atomikos TransactionsEssentials是对JDBC/XA池,JMS/XA池和JTA/XA提供基本支持的开源事务处理系统。 |Narayana(JBossTS)|LGPL v2.1|5.0.0.M6 (2013-10-11)|Narayana（JBossTS）前身是最初纽卡斯尔大学在1986到1995开发的Arjuna系统，后由JBoss从Arjuna和HP手中收购并开源的。
+它支持下列事务处理协议标准:JTA、JTS、Web服务事务、REST事务、STM、XATMI/TX
+Stack Overflow有一篇文章对上面的一些事务管理器进行了对比： - JOTM 用户抱怨的比较多 - GeronimoTM/Jencks(Jencks是Apache Geronimo中使用的JCA容器，并使用ApacheGeronimo的事务管理器) 缺乏文档。 - SimpleJTA 没有实现JTS (Java Transaction Service)而且不是活跃的。 - Bitronix 有不错的文档但是不提供技术支持。 - Atomikos 是一个另人钦佩的产品。有丰富的文档，而且提供技术支持。 - JBossTS 从收购通告可见肯定是一个成熟的产品，而且提供技术支持。</description>
+    </item>
+    
+    <item>
+      <title>Servlet URL映射模式</title>
+      <link>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 13 Oct 2013 20:56:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</guid>
+      <description>Servlet 2.5规范中的映射规则:  完全匹配URL 匹配通配符路径 匹配扩展名 匹配默认servlet  特殊URL模式: url-pattern:/* servlet上的/* 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将/* 用于过滤器。它能通过调用FilterChain#doFilter()让请求继续由监听另外一个特定URL模式的任何servlet处理。
+url-pattern:/ / 不会压制其他servlet。它仅会替换servlet容器内建的默认servlet，用于无法匹配任何已注册servlet的所有请求。一般仅调用在静态资源(CSS/JS/image/etc)和列举目录上。servlet容器内建默认servlet也能处理HTTP缓存请求、媒体（音视频）流和文件重新下载。由于必须负责默认servlet的所有任务，工作量不小，通常不会想要替换默认servlet。这也是一种不好的URL模式。关于为什么JSP页面不会调用这个servlet，是因为servlet容器的内建JSPservlet默认映射到*.jsp并被调用。
+url-pattern: 这也有一个空字符串URL模式。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.</description>
+    </item>
+    
+    <item>
+      <title>tc Server与Atomikos集成</title>
+      <link>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</link>
+      <pubDate>Sun, 13 Oct 2013 17:15:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</guid>
+      <description>tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
+Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录： - atomikos-util.jar - transactions.jar - transactions-api.jar - transactions-jdbc.jar - transactions-jdbc-deprecated.jar - transactions-jms.jar - transactions-jms-deprecated.jar - transactions-jta.jar - transactions-osgi.jar - geronimo-jms_1.1_spec.jar - geronimo-jta_1.0.1B_spec.jar - JDBC驱动 - 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar
+复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
+com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false  复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
+package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.</description>
+    </item>
+    
+    <item>
+      <title>获取Tomcat版本的简单办法</title>
+      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Sun, 29 Sep 2013 21:28:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/</guid>
+      <description>[Tomcat]\bin\version.bat可以用来查看Tomcat版本。
+C:\tomcat6\bin&amp;gt;version.bat Using CATALINA_BASE: &amp;quot;C:\tomcat6&amp;quot; Using CATALINA_HOME: &amp;quot;C:\tomcat6&amp;quot; Using CATALINA_TMPDIR: &amp;quot;C:\tomcat6\temp&amp;quot; Using JRE_HOME: &amp;quot;C:\Program Files\Java\jdk1.6.0_45&amp;quot; Using CLASSPATH: &amp;quot;C:\tomcat6\bin\bootstrap.jar&amp;quot; Server version: Apache Tomcat/6.0.37 Server built: Apr 29 2013 11:34:47 Server number: 6.0.0.37 OS Name: Windows Server 2008 R2 OS Version: 6.1 Architecture: x86 JVM Version: 1.6.0_45-b06 JVM Vendor: Sun Microsystems Inc.  </description>
+    </item>
+    
+    <item>
+      <title>尝试Protocol Buffers支持的各种数据类型</title>
+      <link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sun, 22 Sep 2013 22:45:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>Protocol Buffers(即protobuf)是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。它很适合做数据存储或RPC的数据交换格式，常用作通信协议、数据存储等领域。 相比于常见的XML格式，ProtocolBuffers官方网站这样描述它的优点： - 平台无关、语言无关； - 高性能； - 体积小； - 使用简单； - 兼容性好。
+现在尝试一下Protocol Buffers支持的各种数据类型。
+test.proto package com.yqu.proto; option java_package = &amp;quot;com.yqu.proto&amp;quot;; option java_outer_classname=&amp;quot;TestProtos&amp;quot;; message Test { required double doubleVar = 1; required float floatVar = 2; required int32 int32Var = 3; required int64 int64Var = 4; required uint32 uint32Var = 5; required uint64 uint64Var = 6; required sint32 sint32Var = 7; required sint64 sint64Var = 8; required fixed32 fixed32Var = 9; required fixed64 fixed64Var = 10; required sfixed32 sfixed32Var = 11; required sfixed64 sfixed64Var = 12; required bool booleanVar = 13; required string stringVar = 14; required bytes bytesVar = 15; enum Suit { SPADES = 0; HEARTS = 1; DIAMONDS = 2; CLUBS = 3; } required Suit enumVar = 16 [default = HEARTS]; repeated int32 int32ArrayVar = 17; repeated uint32 uint32ArrayVar = 18 [packed=true]; repeated string stringArrayVar = 19; message MsgVar { required string url = 1; optional string title = 2; } repeated MsgVar msgVar = 20; }  使用Google提供的Protocol Buffers编译器生成Java语言：</description>
+    </item>
+    
+    <item>
+      <title>Java RMI 客户端回调（callback）</title>
+      <link>https://mryqu.github.io/post/java_rmi_%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E8%B0%83callback/</link>
+      <pubDate>Fri, 26 Jul 2013 19:40:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java_rmi_%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E8%B0%83callback/</guid>
+      <description>项目的代码用到了Java RMI 客户端回调，了解一下这方面资料。 http://docs.oracle.com/cd/E13211_01/wle/rmi/callbak.htm
+http://blog.sina.com.cn/s/blog_6a1928130100mmk5.html</description>
+    </item>
+    
+    <item>
+      <title>ActiveMQ集群</title>
+      <link>https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Wed, 24 Jul 2013 21:24:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/</guid>
+      <description>ActiveMQ Introduction ActiveMQ is an open source (Apache 2.0 licensed) message brokerwhich fully implements the Java Message Service 1.1. It providesadvanced features like clustering, multiple message stores, andability to use file systems, and databases as a JMS persistenceprovider.
+ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages on a queue across consumers. If a consumer dies, anyunacknowledged messages are redelivered to other consumers on thequeue. If one consumer is faster than the others it gets moremessages etc.</description>
+    </item>
+    
+    <item>
+      <title>Hibernate shards数据库分片</title>
+      <link>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</link>
+      <pubDate>Fri, 19 Jul 2013 07:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</guid>
+      <description>简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
+Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。 - 标准Hibernate编程模型 - 灵活的分片策略 - 支持虚拟分片 - 免费/开源
+实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
+|Hibernate Core接口|Hibernate Shards实现 |&amp;mdash;&amp;ndash; |org.hibernate.Session|org.hibernate.shards.session.ShardedSession |org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory |org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria |org.hibernate.Query|org.hibernate.shards.query.ShardedQuery
+唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。 首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。
+气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM(&#39;AFRICA&#39;, &#39;ANTARCTICA&#39;, &#39;ASIA&#39;, &#39;AUSTRALIA&#39;, &#39;EUROPE&#39;, &#39;NORTH AMERICA&#39;, &#39;SOUTH AMERICA&#39;), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP );  气象报告对象模型 @Entity @Table(name=&amp;quot;WEATHER_REPORT&amp;quot;) public class WeatherReport { @Id @GeneratedValue(generator=&amp;quot;WeatherReportIdGenerator&amp;quot;) @GenericGenerator(name=&amp;quot;WeatherReportIdGenerator&amp;quot;, strategy=&amp;quot;org.</description>
+    </item>
+    
+    <item>
+      <title>分布式事务处理</title>
+      <link>https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/</link>
+      <pubDate>Thu, 11 Jul 2013 22:49:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/</guid>
+      <description>事务 概念 企业级应用程序经常需要访问多个组件共享的分布式数据并执行操作。这些程序应该在下列情况下保持（由应用程序商业规则所定义的）数据完整性： - 分布式访问单个数据资源 - 从单个应用组件访问分布式资源
+在这种情况下，对（分布式）资源上的一组操作可能需要被作为一个工作单元来对待。在一个工作单元中的所有操作必须全部成功或在失败时一起回滚到之前的状态。
+下列情况下情况会更加复杂，需要应用程序维护工作单元的成功或失败信息： - 在一组分布式组件上实现的工作单元对多个资源上的数据进行操作 - 串行或在并行线程中执行的操作需要协调或同步
+事务(Transaction)以及事务管理器（或事务处理服务）降低了企业级分布式应用程序构建难度，维护了数据的完整性。
+特性 事务是恢复和并发控制的基本单位。 事务应该具有4个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为ACID特性。 - 原子性（atomicity）。一个事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做。当任一操作失败，事务中的所有操作需要撤销，数据恢复到之前的状态。 - 一致性（consistency）。事务必须保持定义在数据上的不变属性（例如完整性约束）。在事务成功结束后，数据必须处于一致状态。换句话说，事务必须是使资源从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。 - 隔离性（isolation）。一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰。这需要：在事务执行期间，数据的（可能不一致的）中间状态不会暴露给其他事务；两个并发事务不能对同一数据进行操作。数据库管理系统通常使用锁机制实现这一功能。 - 持久性（durability）。持续性也称永久性（permanence），指一个事务一旦提交，它对资源中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。
+嵌套事务 事务处理组件 应用程序组件 应用程序组件是事务型资源的客户端，包含商业事务程序。在事务管理器的帮助下，这些组件创建全局事务并划分事务界限，在必要时传播事务上下文，在事务范围内通过资源管理器对事务型资源进行操作。这些组件不负责实现事务语义。然而，作为应用逻辑的一部分，这些组件通常决定是否提交还是回滚事务。
+资源管理器 资源管理器是管理持久化和稳定数据存储系统的组件，并同事务管理器一起参与两阶段提交和恢复协议。 资源管理器通常是稳定数据存储系统的驱动或者包装器，提供两套接口接口：一套接口用于应用程序组件获得连接并操作数据、另一套接口用于事务管理器参与两阶段提交和恢复协议。该组件可能也直接或间接向事务管理器注册资源，以便事务管理器能够跟踪所有参与事务的资源。该过程称之为资源征集（enlistment）。为了实现两阶段提交和恢复协议，资源管理器应该实现辅助机制用于事务恢复。
+事务管理器 事务管理器是事务处理环境中的核心组件。主要职责是应应用程序组件请求创建事务、允许资源征集（enlistment）和遣散（delistment）、同资源管理器一起实施两阶段提交和恢复协议。 一个典型事务型应用程序发起事务，向事务管理器发出请求初始化一个事务。作为应答，事务管理器启动一个事务并与当前线程关联。事务管理器也会创建一个事务上下文。所有参与事务的应用程序组件/线程共享事务上下文。发起事务的线程或其他线程在事务管理器允许的情况下通过发出提交或回滚请求来终止事务。 在事务终止之前，任意数量的组件或线程可在事务管理器已知的任意数量事务型资源上执行事务型操作。在资源管理器允许的情况下，事务在最终终止之前可以被挂起或恢复。 一旦应用程序发出提交请求，事务管理器（通过投票）准备用于提交操作的所有资源，并基于是否所有资源准备好提交向所有资源发出提交或回滚请求。在两阶段提交和恢复协议处理过程前后调用应用程序组件synchronization回调。
+两阶段提交（2PC） 两阶段提交分为两个阶段：投票阶段和决策阶段。 - 在投票（或准备）阶段，事务管理器会询问每个资源管理器是否同意成功执行。资源管理器有可能返回否定应答，例如当超时导致数据库回滚。如果资源管理器做肯定应答的话，它应该确信它始终可以将工作持久化（这暗示它不会应为内部超时取消工作）， - 事务管理器接收到所有应答（也称之为选票），会对事务结果作出全局决策。该决策取决于收集的应答: - 如果所有应答都是肯定的（意味着每个稳定数据存储系统都可以将工作持久化），事务管理器会指示每个资源管理器进行提交。 - 如果有一个应答是否定的（或丢失），则回滚决策会发给剩余的资源，剩余资源取消该事务中的工作。
+有两件事需要注意: - 每个资源必须有能力理解两阶段提交：它需要回复来自事务管理器的准备请求，并能在事务管理器决定回滚时取消工作。 - 如果资源在准备阶段投肯定票之后跟事务管理器联系中断（例如事务管理器崩溃），它将不知道如何去做。由于两阶段提交协议规则它不能自己取消，因此它需要无期限地记着这个事务。此外，这限制了其他事务的并发访问。在这种情况下，该资源被称为不确定的。 资源处于不确定状态并限制并发访问令很多厂商烦恼。为了减少限制，两阶段提交协议的实践变种包含一种叫做试探性决策：太长时间处于不确定状态的资源会决定单方面回滚（或提交）事务，有可能导致违背全部接受或全部不接受的特性。
+事务处理标准和技术 X/Open 分布式事务处理(DTP)模型是厂商协会OpenGroup提出的一个分布式处理模型，在事务处理和数据库领域中多数商业厂商间的一个标准。 对象事务服务(OTS)是由对象管理组织(OMG)规定的分布式事务处理服务。这个规范扩展了 CORBA 模型并定义了一系列跨越多个CORBA 对象完成事务处理的接口。 JTA和JTS是Sun提出的事务处理和事务服务的Java规范。 微软事务服务器（MTS）是一个基于构件的事务服务器，它的构件基于微软的构件对象模型(COM)。MTS编程模型为建造事务性COM构件提供接口，而MTS运行环境提供一个部署和管理这些构件和管理事务的方法。使用了MTS，由多个COM构件做的工作可被组合在一个单一的事务中。 企业级Java Beans (EJB)是Sun提出的一个技术规范。它规定了一个建造基于构件的分布式应用的框架。
+JTA 概念 JTA是Java事务API的缩写，定义了在事务管理器与分布式事务系统的资源管理器、应用服务器、事务型应用程序之间的标准Java接口，包括javax.transaction和javax.transaction.xa包。在实际系统中还需要厂商专有的JTA实现。JTA是JavaEE平台的标准部分和每个EJB应用服务器都包含了JTA实现。
+JTA组件 JTA的主要组件为：</description>
+    </item>
+    
+    <item>
+      <title>动态GemFire Region使用局限</title>
+      <link>https://mryqu.github.io/post/%E5%8A%A8%E6%80%81gemfire_region%E4%BD%BF%E7%94%A8%E5%B1%80%E9%99%90/</link>
+      <pubDate>Fri, 05 Jul 2013 21:23:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%8A%A8%E6%80%81gemfire_region%E4%BD%BF%E7%94%A8%E5%B1%80%E9%99%90/</guid>
+      <description> 介绍 当前项目原有设计使用了嵌套的Map作为缓存。我在使用GemFire产品时使用普通region替代外层map，使用动态region替代内层map。
+对于&amp;rdquo;/outer_region/Dimension&amp;rdquo;region中的条目，键是维ID（例如5），值是动态region&amp;rdquo;/inter_region/Dimension/5&amp;rdquo;. &amp;ldquo;/outer_region/Dimension&amp;rdquo; region的容量是256个条目，动态region&amp;rdquo;/inter_region/Dimension/5&amp;rdquo;的容量是10个条目。 当维#5被删除，&amp;rdquo;/outer_region/Dimension&amp;rdquo;相应条目应该删除，而动态region&amp;rdquo;/inter/Dimension/5&amp;rdquo;应该被销毁。
+测试发现，当GemFire节点通过API创建了动态region后，它会将动态region列表发送给其他节点，此后的GemFire节点在创建Cache会失败。通过异常日志可知动态region会在Cache创建过程中被创建，但后继GemFire节点无法找到父region (在该节点创建Cache之前根本没机会创建region!),这是导致失败的原因。
+如果对cache使用cache-xml-file， GemFire会先创建普通region之后创建动态region。这需要将一个cache下所有region定义都放到cache-xml-file里，上述问题可能会被避免。但是一个cache被多个项目共享，所有项目的region定义放在一起的话，配置耦合度很高，对于产品的灵活性和扩展性很不利。
+日志 Caused by: com.gemstone.gemfire.cache.RegionDestroyedException: Error -- Could not find a region named: &#39;/inter_region/Dimension&#39; at com.gemstone.gemfire.cache.DynamicRegionFactory.createDynamicRegionImpl(DynamicRegionFactory.java) at com.gemstone.gemfire.cache.DynamicRegionFactory.createDefinedDynamicRegions(DynamicRegionFactory.java) at com.gemstone.gemfire.cache.DynamicRegionFactory._internalInit(DynamicRegionFactory.java) at com.gemstone.gemfire.internal.cache.DynamicRegionFactoryImpl.internalInit(DynamicRegionFactoryImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.readyDynamicRegionFactory(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.initializeDeclarativeCache(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.init(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.create(GemFireCacheImpl.java) at com.gemstone.gemfire.cache.CacheFactory.create(CacheFactory.java) at com.gemstone.gemfire.cache.CacheFactory.create(CacheFactory.java) at org.springframework.data.gemfire.CacheFactoryBean.createCache(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.init(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.getObject(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.getObject(CacheFactoryBean.java) at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.doGetObjectFromFactoryBean(FactoryBeanRegistrySupport.java) ... 34 more  </description>
+    </item>
+    
+    <item>
+      <title>嵌套的动态GemFire region研究</title>
+      <link>https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/</link>
+      <pubDate>Fri, 28 Jun 2013 16:16:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/</guid>
+      <description>研究目的和结论  研究多级动态region是否可行，结论可行 研究嵌套region(一个region是另一个region的值)是否可行，结论可行  Java代码 import java.util.Set; import com.gemstone.gemfire.cache.Cache; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.DynamicRegionFactory; import com.gemstone.gemfire.cache.Region; public class EmbededDynamicRegion { public static void main(String[] args) { System.out.println(&amp;quot;\nConnecting to the distributed system and creating the cache.&amp;quot;); Cache cache = null; try { // Create the cache which causes the cache-xml-file to be parsed cache = new CacheFactory().set(&amp;quot;name&amp;quot;, &amp;quot;yqu_test_cache&amp;quot;) .set(&amp;quot;cache-xml-file&amp;quot;, &amp;quot;xml/YquTest.xml&amp;quot;).create(); // Get the exampleRegion Region yquRegion = cache.getRegion(&amp;quot;yqu_region&amp;quot;); printRegionFullPath(yquRegion); DynamicRegionFactory dynRegFactory = DynamicRegionFactory.</description>
+    </item>
+    
+    <item>
+      <title>发现Hibernate 3.2.6统计中一个bug</title>
+      <link>https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/</link>
+      <pubDate>Tue, 18 Jun 2013 17:13:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/</guid>
+      <description>今天使用Hibernate的统计类，分析一下结果。结果发现了一个bug，不能获得查询缓存中的查询语句。 这个bug倒在3.6.8已经修改了，不过还是影响我的工作。
+Statistics stat = sessionFactory.getStatistics(); logger.info(&amp;quot;isStatisticsEnabled:&amp;quot;+stat.isStatisticsEnabled()); logger.info(&amp;quot;stat=&amp;quot;+stat.toString()); logger.info(&amp;quot;queries=&amp;quot;+Arrays.toString(stat.getQueries()));  org.hibernate.stat.StatisticsImpl.java
+public String[] getQueries() { return ArrayHelper.toStringArray( queryStatistics.keySet()); }  org.hibernate.util.ArrayHelper.java (Hibernate 3.2.6)
+public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray(EMPTY_STRING_ARRAY); }  org.hibernate.util.ArrayHelper.java (Hibernate3.6.8)
+public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray( new String[coll.size()]); }  </description>
+    </item>
+    
+    <item>
+      <title>用GemFire做Hibernate二级缓存</title>
+      <link>https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Sun, 16 Jun 2013 11:13:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</guid>
+      <description>打开二级缓存 &amp;lt;property name=&amp;quot;hibernate.cache.use_second_level_cache&amp;quot;&amp;gt;true&amp;lt;/property&amp;gt;  为查询缓存设置Cache Factory &amp;lt;property name=&amp;quot;hibernate.cache.region.factory_class&amp;quot;&amp;gt; com.gemstone.gemfire.modules.hibernate.GemFireRegionFactory &amp;lt;/property&amp;gt;  共享缓存模式 ENABLE_SELECTIVE|DISABLE_SELECTIVE|ALL|NONE  ENABLE_SELECTIVE (默认值及推荐值): 仅标注为可缓存的实体会被缓存。 DISABLE_SELECTIVE: 仅标注为不可缓存的实体才不会被缓存。 ALL: 即使实体标为不可缓存也会被缓存。 NONE: 即使实体标为可缓存也不会被缓存。该选项意味着完全禁止二级缓存。
+GemFire相关配置 设置GemFire缓存属性
+&amp;lt;property name=&amp;quot;gemfire.PROPERTY_NAME&amp;quot;&amp;gt;PROPERTY_VALUE&amp;lt;/property&amp;gt;  设置GemFire缓存默认region类型
+&amp;lt;property name=&amp;quot;gemfire.default-region-attributes-id&amp;quot;&amp;gt; REGION_ATTRIBUTE &amp;lt;/property&amp;gt;  REGION_ATTRIBUTE是预定义region类型快捷定义中的任一个。默认为REPLICATE_HEAP_LRU。其他有效region快捷定义包括:REPLICATE、 REPLICATE_PERSISTENT、 PARTITION、 PARTITION_PERSISTENT、PARTITION_REDUNDANT、 PARTITION_REDUNDANT_PERSISTENT。
+设置特定GemFire缓存region属性
+&amp;lt;property name=&amp;quot;gemfire.region-attributes-for: com.foo.Bar&amp;quot;&amp;gt; REGION_ATTRIBUTE &amp;lt;/property&amp;gt;  缓存映射 @Cache ( CacheConcurrencyStrategy usage(); String region() default &amp;quot;&amp;quot;; String include() default &amp;quot;all&amp;quot;; )  usage: 缓存并发策略(NONE, READ_ONLY, NONSTRICT_READ_WRITE, READ_WRITE,TRANSACTIONAL) region (可选项，默认为实体类的全类名或集合的全类名加属性名):缓存region名 include (选项项，默认为all): all则缓存所有实体属性，non-lazy仅缓存非懒惰加载的实体属性。</description>
+    </item>
+    
+    <item>
+      <title>Hibernate3 HQL: ClassCastException解决办法</title>
+      <link>https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Tue, 11 Jun 2013 18:06:03 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>下面的示例代码跑在Hibernate 3.6.8，会抛出异常java.lang.ClassCastException:[Ljava.lang.Object 无法转换成实体对象。通过调试可知返回的仍然是标量字段对象数组，而不是实体对象。
+public class DemoEntity { public static final String DEMO_ENTITY_ID = &amp;quot;demoEntityID&amp;quot;; public static final String USER_ID = &amp;quot;userID&amp;quot;; public static final String OFFICE_ID = &amp;quot;officeID&amp;quot;; private Integer demoEntityID; private String userID; private Integer officeID; private String subjectTxt; public List findDemoEntitys(int startID, int limit, boolean includeStartIdInResults) { try { StringBuilder querySb = new StringBuilder(); querySb.append(&amp;quot;select demo.&amp;quot;).append(DemoEntity.DEMO_ENTITY_ID); querySb.append(&amp;quot;, demo.&amp;quot;).append(DemoEntity.USER_ID); querySb.append(&amp;quot;, demo.&amp;quot;).append(DemoEntity.OFFICE_ID); querySb.append(&amp;quot; from DemoEntity demo where demo.&amp;quot;).append(DemoEntity.DEMO_ENTITY_ID); if (includeStartIdInResults) { querySb.</description>
+    </item>
+    
+    <item>
+      <title>Hibernate3.X升级到4.X实践</title>
+      <link>https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Fri, 07 Jun 2013 22:49:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/</guid>
+      <description>Jar调查 |jar文件|Hibernate 4.2.2|当前的Hibernate|操作 |&amp;mdash; |antlr.jar|required, 2.7.7|3.2.0|无需改变。 |dom4j.jar|required, 1.6.1|1.6.1|无需改变。 |hibernate-commons-annotations.jar|required, 4.0.2|3.3.1|替换。 |hibernate-corel.jar|required, 4.2.2|3.2.6|替换。 |hibernate-jpa-2.0-api.jar|required, 1.0.1||增加。 |javassist.jar|required, 3.15.0|3.15.0|无需改变。 |jboss-logging.jar|required, 3.1.0||增加。 |jboss-transaction-api_1.1_specl.jar|required, 1.0.1||一开始增加，后来去掉了。 |hibernate-annotations.jar|null|3.3.1|去掉。从Hibernate3.6.0开始hibernate-annotations被合并到hibernate-core。 |hibernate-entitymanager.jar|jpa, 4.2.2|3.2.2|替换。
+修改HibernateUtil 将AnnotationConfiguration替换成Configuration； 在使用ServiceRegistry;
+Configuration config = new Configuration().configure(); ServiceRegistry serviceRegistry = newServiceRegistryBuilder() .applySettings(config.getProperties()).buildServiceRegistry(); sessionFactory = config.buildSessionFactory(serviceRegistry);  Hibernate4不支持Ant HibernateToolTask。 使用Hibernate3和HibernateToolTask创建hibernate.cfg.xml 使用Hibernate4编译。 https://community.jboss.org/thread/177200
+修改Web容器下的jar文件  替换hibernate3.jar为hibernate-core.jar 替换hibernate-commons-annotations.jar 删除ejb3-persistence.jar 删除hibernate-annotations.jar 复制hibernate-entitymanager.jar 复制hibernate-jpa-2.0-api.jar 复制jboss-logging.jar 复制jboss-transaction-api_1.1_spec.jar （最终没有复制）  通过删除jboss-transaction-api_1.1_spec.jar解决TransactionManager冲突 org.springframework.jndi.TypeMismatchNamingException: Objectof type [class com.atomikos.icatch.jta.J2eeTransactionManager]available at JNDI location [java:comp/env/TransactionManager] isnot assignable to [javax.</description>
+    </item>
+    
+    <item>
+      <title>Servlet</title>
+      <link>https://mryqu.github.io/post/servlet/</link>
+      <pubDate>Wed, 29 May 2013 09:58:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/servlet/</guid>
+      <description>现在用的VFabric tc Server 2.8.0基于Apache的Tomcat7.0.3版本，支持Servlet3.0和JSP 2.2规范。 Java Servlet3.1规范这周可以下载了，目前正在学习当中。将Servlet的不同版本的资料汇总一下，利人利己。 JSR 340：Java Servlet 3.1 Specification
+JSR 315：Java Servlet 3.0 Specification
+JSR 154：Java Servlet 2.4 Specification
+JSR 53：Java Servlet 2.3 and JavaServer Pages 1.2 Specification
+Servlet API 2.2 的新特性
+Servlet 3.0 新特性详解</description>
+    </item>
+    
+    <item>
+      <title>Hibernate缓存</title>
+      <link>https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Sat, 25 May 2013 09:40:06 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/</guid>
+      <description>Hibernate缓存 Hibernate带有三种不同缓存机制：一级缓存、二级缓存和查询缓存。
+SessionFactory和Session SessionFactory(在JEE中叫做EntityManager)的用途是创建会话，初始化JDBC链接并（使用例如C3P0之类的可插拔provider）进行池化。SessionFactory是非可变的，通过hibernate.cfg.cml文件或Springbean配置中提供的匹配信息、缓存信息等配置进行创建。会话是最低级的工作单元，对应一个数据库事物。当会话创建后并对Hibernate实体机型一些操作，比如设置实体的一个属性，Hibernate不会立即更新底层数据库表。相反Hibernate记录实体的状态（是否为脏数据），并在会话最终刷新更新到数据库。这就是Hibernate所谓的一级缓存。
+一级缓存 一级缓存是Hibernate记录正在进行的会话加载和接触的实体有可能的脏数据状态。正在进行的会话代表工作单元，始终使用，无法关闭。一级缓存的用途是隐藏对数据库许多SQL查询或更新，并在会话最终批量一起执行。当想起一级缓存的时候就应该想到会话。
+二级缓存 二级缓存是进程范围内的缓存，与一个SessionFactory绑定。二级缓存可被相同（通常一个应用程序仅一个）SessionFactory的所有会话共享。默认二级缓存没有使能。二级缓存不存储任何实体实例，而是存储“脱水”状态，即字符串或整形数组代表实体的属性，一个实体id指向“脱水”的实体。概念上可以认为它是一个映射，id作为键，数组作为值。或像下面用于缓存region的这些东西：
+public class Person { private Person parent; private Set&amp;lt;Person&amp;gt; children; public void setParent(Person p) { parent = p; } public void setChildren(Set&amp;lt;Person&amp;gt; set) { children = set; } public Set&amp;lt;Person&amp;gt; getChildren() { return children; } public Person getParent() { return parent; } }  Hibernate映射配置如下:
+&amp;lt;class name=&amp;quot;org.javalobby.tnt.hibernate.Person&amp;quot;&amp;gt; &amp;lt;cache usage=&amp;quot;read-write&amp;quot;/&amp;gt; &amp;lt;id name=&amp;quot;id&amp;quot; column=&amp;quot;id&amp;quot; type=&amp;quot;long&amp;quot;&amp;gt; &amp;lt;generator class=&amp;quot;identity&amp;quot;/&amp;gt; &amp;lt;/id&amp;gt; &amp;lt;property name=&amp;quot;firstName&amp;quot; type=&amp;quot;string&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;middleInitial&amp;quot; type=&amp;quot;string&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;lastName&amp;quot; type=&amp;quot;string&amp;quot;/&amp;gt; &amp;lt;many-to-one name=&amp;quot;parent&amp;quot; column=&amp;quot;parent_id&amp;quot; class=&amp;quot;Person&amp;quot;/&amp;gt; &amp;lt;set name=&amp;quot;children&amp;quot;&amp;gt; &amp;lt;key column=&amp;quot;parent_id&amp;quot;/&amp;gt; &amp;lt;one-to-many class=&amp;quot;Person&amp;quot;/&amp;gt; &amp;lt;/set&amp;gt; &amp;lt;/class&amp;gt;  Hibernate概念上为此类持有如下记录:</description>
+    </item>
+    
+    <item>
+      <title>用GemFire做Mybatis二级缓存</title>
+      <link>https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Wed, 22 May 2013 09:12:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</guid>
+      <description>MyBatis支持第三方二级缓存实现，目前支持Ehcache、Hazelcast和OSCache。 GemFire不在支持的范围，但是可以通过实现org.apache.ibatis.cache.Cache接口来使用。
+MyBatis的Cache配置及实现  设置MyBatis的Cache全局使用开关：默认是true，如果它配成false，其余各个MapperXML文件配成支持cache也没用。  &amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;quot;cacheEnabled&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt; &amp;lt;/settings&amp;gt;  各个Mapper XML文件，默认是不采用cache。在配置文件加一行就可以支持cache：  &amp;lt;cache /&amp;gt;  实现GemfireCache
+package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.AttributesFactory; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.Region; import java.util.concurrent.locks.ReadWriteLock; import java.util.concurrent.locks.ReentrantReadWriteLock; import org.apache.ibatis.cache.Cache; import org.apache.ibatis.cache.CacheException; public final class GemfireCache implements Cache { private static Region&amp;lt;object&amp;gt; mybatis_region = null; private Region&amp;lt;object&amp;gt; region = null; private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); private String id; public void setId(String id) { this.id = id; } public void setRegion(Region&amp;lt;object&amp;gt; region) { this.</description>
+    </item>
+    
+    <item>
+      <title>Java缓存规范JCache API(JSR107)</title>
+      <link>https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/</link>
+      <pubDate>Wed, 22 May 2013 07:13:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/</guid>
+      <description>今天看了一下Java缓存规范JCacheAPI（JSR107），它对Java对象缓存进行标准化，方便高效开发，让程序员摆脱实现缓存有效期、互斥、假脱机（spooling）和缓存一致性等负担。该规范提供了API、RI（参考实现）和TCK（技术兼容性套件）。 从设计的角度看，基本组成部分有一个CacheManager，用来持有、控制缓存集合。缓存里存放键值对条目。 整个规范包括了如下内容： - 支持原子操作的缓存读写 - 缓存事件监听器 - 统计 - 事务 - 注解
+JSR107从2001年开始，中间搁置了一段时间，后来Terracotta（产品：EhCache）和Oracle（产品：Coherence）在2010年加强了对JSR-107的投入，原本有望放入JAVAEE7(JSR342)中，可惜在期限内完不成，直到2012年底才推出了草案。 我更关注数据网格（JSR347），那个是JSR107的超集，关注缓存的逐出、复制和分布化，以及事务。可惜连草案也还没影呢。 http://jcp.org/en/jsr/detail?id=107
+http://jcp.org/en/jsr/detail?id=347</description>
+    </item>
+    
+    <item>
+      <title>GemFire 数据逐出和持久化</title>
+      <link>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+      <pubDate>Fri, 17 May 2013 15:48:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+      <description>为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
+数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。 - 条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 - Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。
+对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作： - Region.containsKey - Region.containsValue - Region.getEntry
+当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
+分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行: - 对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 - 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。
+动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
+| |数据无持久化|数据持久化 |&amp;mdash;&amp;ndash; |EvictionAction.NONE|条目将在内存中一直保存。|条目将在内存和磁盘中一直保存。 |EvictionAction.LOCAL_DESTROY|条目（键和值两部分）将从内存中释放。仅当被逐出数据可从外部数据源加载时可用。| |EvictionAction.OVERFLOW_TO_DISK|条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。|条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。
+磁盘存储文件名和扩展名 磁盘存储文件包括存储管理、访问控制文件和操作日志（oplog，记录了删除和其他所有操作）。下面的表描述了文件名和扩展名及示例。
+文件名 文件名包括三部分:
+第一部分: 使用标识 |值|用途|示例 |&amp;mdash;&amp;ndash; |OVERFLOW|仅为溢出region和队列的操作日志数据。|OVERFLOWoverflowDS1_1.crf |BACKUP|持久化、持久化+溢出rgion和队列操作日志数据。|BACKUPoverflowDS1.if, BACKUPDEFAULT.if |DRLK_IF|访问控制 - 对磁盘存储上锁。|DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk
+第二部分: 磁盘存储名 |值|用途|示例 |&amp;mdash;&amp;ndash; |&amp;lt;磁盘存储名&amp;gt;|非默认磁盘存储。|name=&amp;ldquo;overflowDS1&amp;rdquo; DRLK_IFoverflowDS1.lk,
+name=&amp;ldquo;persistDS1&amp;rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf
+第三部分: 操作日志序列号 |值|用途|示例 |&amp;mdash;&amp;ndash; |序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf</description>
+    </item>
+    
+    <item>
+      <title>GemFire查询</title>
+      <link>https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/</link>
+      <pubDate>Wed, 15 May 2013 07:30:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/</guid>
+      <description>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。
+Region存储示例 本文的查询示例基于类Porfolio和Positon的对象。
+Portfolio.java package query; import java.io.DataInput; import java.io.DataOutput; import java.io.IOException; import java.io.Serializable; import java.util.HashMap; import java.util.Iterator; import java.util.Map; import com.gemstone.gemfire.DataSerializable; import com.gemstone.gemfire.DataSerializer; public class Portfolio implements Serializable, DataSerializable { private int ID; public String pkid; public Position position1; public Position position2; public String description; public HashMap positions = new HashMap(); String type; public String status; public String [] names={&amp;quot;aaa&amp;quot;,&amp;quot;bbb&amp;quot;,&amp;quot;ccc&amp;quot;,&amp;quot;ddd&amp;quot;}; public int getID() { return ID; } public String getPk() { return pkid; } public HashMap getPositions() { return positions; } public Position getP1() { return position1; } public Position getP2() { return position2; } public boolean isActive() { return status.</description>
+    </item>
+    
+    <item>
+      <title>GemFire Region分类</title>
+      <link>https://mryqu.github.io/post/gemfire_region%E5%88%86%E7%B1%BB/</link>
+      <pubDate>Wed, 15 May 2013 07:28:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gemfire_region%E5%88%86%E7%B1%BB/</guid>
+      <description>GemFire开发指南6.5的第4.2节仅列举了分区、复制（分布式）、分布式（非复制）和本地四种Region类型，但RegionShortcut类却定义了23个快捷预定义属性Region。Region的主要行为取决于数据策略、关注策略、范围、本地最大内存和冗余拷贝数（仅用于分区Region）、逐出算法和动作。
+Region快捷预定义属性数据策略范围本地
+最大
+内存
+注1冗余
+拷贝
+数
+注1逐出算法逐出动作LOCALNORMALLOCAL    LOCAL_HEAP_LRUNORMALLOCAL  LRU_HEAPLOCAL_DESTROYLOCAL_OVERFLOWNORMALLOCAL  LRU_HEAPOVERFLOW_TO_DISKLOCAL_PERSISTENTPERSISTENT_REPLICATELOCAL    LOCAL_PERSISTENT_OVERFLOWPERSISTENT_REPLICATELOCAL  LRU_HEAPOVERFLOW_TO_DISKPARTITIONPARTITION     PARTITION_HEAP_LRUPARTITION   LRU_HEAPLOCAL_DESTROYPARTITION_OVERFLOWPARTITION   LRU_HEAPOVERFLOW_TO_DISKPARTITION_PERSISTENTPERSISTENT_PARTITION     PARTITION_PERSISTENT_OVERFLOWPERSISTENT_PARTITION   LRU_HEAPOVERFLOW_TO_DISKPARTITION_PROXYPARTITION 0   PARTITION_PROXY_REDUNDANTPARTITION 01  PARTITION_REDUNDANTPARTITION  1  PARTITION_REDUNDANT_HEAP_LRUPARTITION  1LRU_HEAPLOCAL_DESTROYPARTITION_REDUNDANT_OVERFLOWPARTITION  1LRU_HEAPOVERFLOW_TO_DISKPARTITION_REDUNDANT_PERSISTENTPERSISTENT_PARTITION  1  PARTITION_REDUNDANT_
+PERSISTENT_OVERFLOWPERSISTENT_PARTITION  1LRU_HEAPOVERFLOW_TO_DISKREPLICATEREPLICATEDISTRIBUTED_ACK    REPLICATE_HEAP_LRUPRELOADDISTRIBUTED_ACK  LRU_HEAPLOCAL_DESTROYREPLICATE_OVERFLOWREPLICATEDISTRIBUTED_ACK  LRU_HEAPOVERFLOW_TO_DISKREPLICATE_PERSISTENTPERSISTENT_REPLICATEDISTRIBUTED_ACK    REPLICATE_PERSISTENT_OVERFLOWPERSISTENT_REPLICATEDISTRIBUTED_ACK  LRU_HEAPOVERFLOW_TO_DISKREPLICATE_PROXYEMPTYDISTRIBUTED_ACK     注1：仅用于分区region http://www.</description>
+    </item>
+    
+    <item>
+      <title>Tomcat JNDI 数据源配置</title>
+      <link>https://mryqu.github.io/post/tomcat_jndi_%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 22 Aug 2012 09:19:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tomcat_jndi_%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/</guid>
+      <description>学写一下Tomcat:JNDI Datasource HOW-TO，JNDI数据源可以配置到两个位置。Tomcat详细介绍了第二种方式，我目前的项目使用的是第一种方式。第一种方式的好处是，多个Web应用程序可以共享Tomcat全局命名空间里的资源。 - Tomcat全局命名空间 $CATALINA_HOME$/conf/server.xml $CATALINA_HOME$/conf/localhost/javatest.xml - Web应用程序环境(Context)</description>
+    </item>
+    
+  </channel>
+</rss>

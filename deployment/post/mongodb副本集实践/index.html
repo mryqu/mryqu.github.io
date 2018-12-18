@@ -1,0 +1,497 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>MongoDB副本集实践 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="MongoDB副本集实践">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="MongoDB副本集实践 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        MongoDB副本集实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-05">
+    2014-04-05
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db/nosql" itemprop="url" rel="index">
+        <span itemprop="name">DB/NoSQL</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">425 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>副本集（ReplicaSet）就是有自动故障恢复功能的主从集群。副本集和主从集群最为明显的区别就是副本集没有固定的“主节点”：整个集群会选取出一个“主节点”，当其不能工作时则变更到其他节点。然而，两者看上去非常相似：副本集总会有一个活跃节点（primary）和一个或多个备份节点（secondary）。<img src="/images/2014/4/0026uWfMgy6Rb7v5majff.jpg" alt="MongoDB副本集实践" />
+副本集中可以有以下类型的节点：
+- 常规节点（standard）：存储一份完整的数据副本，参与选举投票，有可能成为活跃节点。
+- 被动节点（passive）：存储完整的数据副本，参与投票，不能成为活跃节点。
+- 仲裁节点（arbiter）：仅参与投票，不接受复制的数据，也不能成为活跃节点。</p>
+
+<p>副本集对数据库管理员和开发者都是非常友好的。副本集的管理是自动化的，无需数据库管理员频繁监控和干预，可以自动提升备份节点成为活跃节点，以确保运转正常。对于开发者而言，仅需为副本集指定一下服务器，驱动程序就会自动找到副本集的节点集群。
+每个参与节点（非仲裁节点）都有一个权重，权重值取值范围0-1000，默认值为1。权重为0的节点不能成为活跃节点。活跃节点选举根据高优先级优先、优先级相同时数据较新优先的原则进行比较。应用仅能向活跃节点进行写操作。默认情况下，应用会向活跃节点进行读操作也获取最新数据。如果无需获得最新数据时，可以为了提高读操作吞吐量或减少应用延迟而向备份节点进行读操作。读操作偏好模式如下：
+- primary
+- primaryPreferred
+- secondary
+- secondaryPreferred
+- nearestMongoDB命令行提供了下列关于副本集的指令：</p>
+
+<pre><code>&gt; rs.help()
+  rs.status()                     { replSetGetStatus : 1 } checks repl set status
+  rs.initiate()                   { replSetInitiate : null } initiates set with default settings
+  rs.initiate(cfg)                { replSetInitiate : cfg } initiates set with configuration cfg
+  rs.conf()                       get the current configuration object from local.system.replset
+  rs.reconfig(cfg)                updates the configuration of a running replica set with cfg (disconnects)
+  rs.add(hostportstr)             add a new member to the set with default attributes (disconnects)
+  rs.add(membercfgobj)            add a new member to the set with extra attributes (disconnects)
+  rs.addArb(hostportstr)          add a new member which is arbiterOnly:true (disconnects)
+  rs.stepDown([secs])             step down as primary (momentarily) (disconnects)
+  rs.syncFrom(hostportstr)        make a secondary to sync from the given member
+  rs.freeze(secs)                 make a node ineligible to become primary for the time specified
+  rs.remove(hostportstr)          remove a host from the replica set (disconnects)
+  rs.slaveOk()                    shorthand for db.getMongo().setSlaveOk()
+
+  rs.printReplicationInfo()       check oplog size and time range
+  rs.printSlaveReplicationInfo()  check replica set members and replication lag
+  db.isMaster()                   check who is primary
+
+  reconfiguration helpers disconnect from the database so the shell will display an error, even if the command succeeds.
+  see also http://[mongod_host]:28017/_replSet for additional diagnostic info
+</code></pre>
+
+<h3 id="实验环境">实验环境</h3>
+
+<p>机器：
+- 10.120.8.231
+- 10.120.5.131
+- 10.120.8.165</p>
+
+<p>三个节点中，MongoDB都安装在c:\mongodb目录下且MongoDB配置文件（c:\mongodb\etc\mongo.conf）均为：</p>
+
+<pre><code>systemLog:
+   destination: file
+   path: C:/mongodb/log/mongo.log
+   logAppend: true
+storage:
+   dbPath: C:/mongodb/data/db
+   journal:
+      enabled: false
+net:
+   http:
+      enabled: true
+      RESTInterfaceEnabled: true
+</code></pre>
+
+<h3 id="启动mongodb">启动MongoDB</h3>
+
+<p>分别在上面三个节点启动如下命令：</p>
+
+<pre><code>c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf  --replSet rs0
+</code></pre>
+
+<p>在任一节点进去MongoDB命令行初始化副本集：</p>
+
+<pre><code>rs.initiate({
+&quot;_id&quot; : &quot;rs0&quot;,
+&quot;members&quot; : [
+{&quot;_id&quot; : 1, &quot;host&quot; : &quot;10.120.8.231:27017&quot;, &quot;priority&quot;: 8},
+{&quot;_id&quot; : 2, &quot;host&quot; : &quot;10.120.5.131:27017&quot;, &quot;priority&quot;: 6},
+{&quot;_id&quot; : 3, &quot;host&quot; : &quot;10.120.8.165:27017&quot;, &quot;arbiterOnly&quot;: true},
+]
+});
+</code></pre>
+
+<p>下列结果显示副本集部署成功：<img src="/images/2014/4/0026uWfMgy6RbcEHyng12.png" alt="MongoDB副本集实践" /></p>
+
+<h3 id="故障切换测试">故障切换测试</h3>
+
+<p>客户端使用Python MongoDB驱动pymongo，下载链接为<a href="https://pypi.python.org/pypi/pymongo/2.7">https://pypi.python.org/pypi/pymongo/2.7</a>。测试代码如下：</p>
+
+<pre><code>&gt;&gt;&gt; import pymongo
+&gt;&gt;&gt; client = pymongo.MongoClient('mongodb://10.120.8.231,10.120.5.131,10.120.8.165/?replicaSet=rs0')
+&gt;&gt;&gt; print client
+MongoClient([u'10.120.8.231:27017', u'10.120.5.131:27017'])
+&gt;&gt;&gt; db = client.test
+&gt;&gt;&gt; db.name
+u'test'
+&gt;&gt;&gt; db.mycoll.save({&quot;Name&quot;:&quot;Thanks&quot;, &quot;Count&quot;:123})
+ObjectId('533f7ae2f6adc81bb87f418a')
+&gt;&gt;&gt; db.mycoll.find_one()
+{u'Count': 123, u'_id': ObjectId('533f7ae2f6adc81bb87f418a'), u'Name': u'Thanks'}
+&gt;&gt;&gt; db.connection.host
+'10.120.8.231'
+&gt;&gt;&gt; db.connection.port
+27017
+&gt;&gt;&gt; print 'shutdown 10.120.8.231 now'
+shutdown 10.120.8.231 now
+&gt;&gt;&gt; 
+&gt;&gt;&gt; db.mycoll.find_one()
+
+Traceback (most recent call last):
+  File &quot;&quot;, line 1, in 
+    db.mycoll.find_one()
+  File &quot;C:\Python27\lib\site-packages\pymongo\collection.py&quot;, line 713, in find_one
+    for result in cursor.limit(-1):
+  File &quot;C:\Python27\lib\site-packages\pymongo\cursor.py&quot;, line 1038, in next
+    if len(self.__data) or self._refresh():
+  File &quot;C:\Python27\lib\site-packages\pymongo\cursor.py&quot;, line 982, in _refresh
+    self.__uuid_subtype))
+  File &quot;C:\Python27\lib\site-packages\pymongo\cursor.py&quot;, line 906, in __send_message
+    res = client._send_message_with_response(message, **kwargs)
+  File &quot;C:\Python27\lib\site-packages\pymongo\mongo_client.py&quot;, line 1186, in _send_message_with_response
+    sock_info = self.__socket(member)
+  File &quot;C:\Python27\lib\site-packages\pymongo\mongo_client.py&quot;, line 913, in __socket
+    &quot;%s %s&quot; % (host_details, str(why)))
+AutoReconnect: could not connect to 10.120.8.231:27017: [Errno 10061] No connection could be made because the target machine actively refused it
+&gt;&gt;&gt; db.mycoll.find_one()
+{u'Count': 123, u'_id': ObjectId('533f7ae2f6adc81bb87f418a'), u'Name': u'Thanks'}
+&gt;&gt;&gt; db.connection.host
+u'10.120.5.131'
+&gt;&gt;&gt; db.connection.port
+27017
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="http://docs.mongodb.org/manual/replication/">MongoDB Manual: Replication</a><br />
+<a href="http://api.mongodb.org/python/current/examples/high_availability.html"> MongoDB Doc: High Availability and PyMongo</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：MongoDB副本集实践
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/mongodb" rel="tag" title="mongodb">#mongodb#</a>
+    
+    <a href="/tags/nosql" rel="tag" title="nosql">#nosql#</a>
+    
+    <a href="/tags/replica_set" rel="tag" title="replica_set">#replica_set#</a>
+    
+    <a href="/tags/high_availablity" rel="tag" title="high_availablity">#high_availablity#</a>
+    
+    <a href="/tags/%e5%89%af%e6%9c%ac%e9%9b%86" rel="tag" title="副本集">#副本集#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/outlook2013%E4%B8%AD%E6%97%A5%E5%8E%86%E7%9A%84%E5%A4%A9%E6%B0%94%E8%AE%BE%E7%BD%AE/" rel="next" title="Outlook2013中日历的天气设置">
+        <i class="fa fa-chevron-left"></i> Outlook2013中日历的天气设置
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/" rel="prev" title="MongoDB主从复制实践">
+        MongoDB主从复制实践 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

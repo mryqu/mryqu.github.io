@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>副本集 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E5%89%AF%E6%9C%AC%E9%9B%86/</link>
+    <description>Recent content in 副本集 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 05 Apr 2014 08:18:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E5%89%AF%E6%9C%AC%E9%9B%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MongoDB副本集实践</title>
+      <link>https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Sat, 05 Apr 2014 08:18:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/</guid>
+      <description>副本集（ReplicaSet）就是有自动故障恢复功能的主从集群。副本集和主从集群最为明显的区别就是副本集没有固定的“主节点”：整个集群会选取出一个“主节点”，当其不能工作时则变更到其他节点。然而，两者看上去非常相似：副本集总会有一个活跃节点（primary）和一个或多个备份节点（secondary）。副本集中可以有以下类型的节点： - 常规节点（standard）：存储一份完整的数据副本，参与选举投票，有可能成为活跃节点。 - 被动节点（passive）：存储完整的数据副本，参与投票，不能成为活跃节点。 - 仲裁节点（arbiter）：仅参与投票，不接受复制的数据，也不能成为活跃节点。
+副本集对数据库管理员和开发者都是非常友好的。副本集的管理是自动化的，无需数据库管理员频繁监控和干预，可以自动提升备份节点成为活跃节点，以确保运转正常。对于开发者而言，仅需为副本集指定一下服务器，驱动程序就会自动找到副本集的节点集群。 每个参与节点（非仲裁节点）都有一个权重，权重值取值范围0-1000，默认值为1。权重为0的节点不能成为活跃节点。活跃节点选举根据高优先级优先、优先级相同时数据较新优先的原则进行比较。应用仅能向活跃节点进行写操作。默认情况下，应用会向活跃节点进行读操作也获取最新数据。如果无需获得最新数据时，可以为了提高读操作吞吐量或减少应用延迟而向备份节点进行读操作。读操作偏好模式如下： - primary - primaryPreferred - secondary - secondaryPreferred - nearestMongoDB命令行提供了下列关于副本集的指令：
+&amp;gt; rs.help() rs.status() { replSetGetStatus : 1 } checks repl set status rs.initiate() { replSetInitiate : null } initiates set with default settings rs.initiate(cfg) { replSetInitiate : cfg } initiates set with configuration cfg rs.conf() get the current configuration object from local.system.replset rs.reconfig(cfg) updates the configuration of a running replica set with cfg (disconnects) rs.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,462 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[算法] 汉明重量（Hamming Weight） - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[算法] 汉明重量（Hamming Weight）">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[算法] 汉明重量（Hamming Weight） - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8Fhamming_weight/" itemprop="url">
+        [算法] 汉明重量（Hamming Weight）
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-01-16">
+    2016-01-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/algorithm.datastruct" itemprop="url" rel="index">
+        <span itemprop="name">Algorithm.DataStruct</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">283 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>LeetCode题191是算整数中比特1的个数，即汉明重量或汉明权重。</p>
+
+<h3 id="汉明重量">汉明重量</h3>
+
+<p>汉明重量是一串符号中非零符号的个数。因此它等同于同样长度的全零符号串的汉明距离。在最为常见的数据位符号串中，它是1的个数。
+汉明重量是以理查德·卫斯里·汉明的名字命名的，它在包括信息论、编码理论、密码学等多个领域都有应用。</p>
+
+<h3 id="算法">算法</h3>
+
+<h4 id="位移实现">位移实现</h4>
+
+<p>我自己的实现就是这种。通过判别n是否为0作为循环退出条件，如果n为0x1的话就位移一次，可是n为0x80000000还是需要位移32次。</p>
+
+<pre><code>public int hammingWeight(int n) {
+  int res = 0;
+  while(n!=0) {
+    res+= (n &amp; 0x1);
+    n &gt;&gt;&gt;=1;
+  }
+  return res;
+}
+</code></pre>
+
+<h4 id="n-n-1-实现">n &amp; (n-1)实现</h4>
+
+<pre><code>public int hammingWeight(int n) {
+  int res = 0;
+  for(;n!=0;n = n &amp; (n-1)) {
+    res++;
+  }
+  return res;
+}
+</code></pre>
+
+<p>减1操作将最右边的符号从0变到1，从1变到0，与操作将会移除最右端的1。如果最初n有X个1，那么经过X次这样的迭代运算，n将减到0。n&amp; (n-1)实现在大多数比特为0的情况下是效率最高的。
+此外n &amp; (n-1)常用于判断数是否为2的幂数（LeetCode题231）：</p>
+
+<pre><code>     ----- binary ----
+ n      n    n-1   n&amp;(n-1)
+--   ----   ----   -------
+ 0   0000   0111    0000 *
+ 1   0001   0000    0000 *
+ 2   0010   0001    0000 *
+ 3   0011   0010    0010
+ 4   0100   0011    0000 *
+ 5   0101   0100    0100
+ 6   0110   0101    0100
+ 7   0111   0110    0110
+ 8   1000   0111    0000 *
+ 9   1001   1000    1000
+10   1010   1001    1000
+11   1011   1010    1010
+12   1100   1011    1000
+13   1101   1100    1100
+14   1110   1101    1100
+15   1111   1110    1110
+</code></pre>
+
+<h4 id="jdk实现">JDK实现</h4>
+
+<p>java.lang.Integer类中bitCount函数实现：</p>
+
+<pre><code>public static int bitCount(int i) {
+  // HD, Figure 5-2
+  i = i - ((i &gt;&gt;&gt; 1) &amp; 0x55555555);
+  i = (i &amp; 0x33333333) + ((i &gt;&gt;&gt; 2) &amp; 0x33333333);
+  i = (i + (i &gt;&gt;&gt; 4)) &amp; 0x0f0f0f0f;
+  i = i + (i &gt;&gt;&gt; 8);
+  i = i + (i &gt;&gt;&gt; 16);
+  return i &amp; 0x3f;
+}
+</code></pre>
+
+<p>算法分析如下：
+- 对位长为2的数计算比特1的个数：
+  nn&gt;&gt;&gt;1比特1计数 n-(n&gt;&gt;&gt;1)000000010001100101110110
+  这样，对位长为2的数进行如上计算后，2位数内存放的就是原来比特1的个数了。一个整数为32位，按2位分成16组，对于i&gt;&gt;&gt;1操作，前一组末位为1的话就会串入后一组，所以要对每组同0x01相与，对于整个32位整数即与0x55555555相与。
+- 上一步中对一个整数比特1的计数是分散到16组位长为2的数内了，这一步是收缩到8组位长为4的数内。位长为4的数，如果想计算前两位和后两位的和，可以通过(i&amp;0x3) +((i&gt;&gt;&gt;2)&amp;0x3)实现。0x3对应上一步的16组位长为2的数，而对整数而言即与0x33333333相与。
+- 这一步是将上一步的结果收缩到4组位长为8的数内位长为8的数，如果想计算前四位和后四位的和，可以通过(i+(i&gt;&gt;&gt;4))&amp;0xf实现（注：位长为8的数最多有8个比特1，所以先对两部分用0xf，还是最后对结果用0xf无所谓）。0xf对应上一步的8组位长为4的数，而对整数而言即与0x0f0f0f0f相与。
+- 这一步是将上一步的结果收缩到2组位长为16的数内
+- 这一步是将上一步的结果收缩到1组位长为32的数内
+- 一个整数最多32个比特1，32为0b00100000，所以最后用0x3f（即0b00111111）过滤一下。而Long类中用0x7f过滤。像WIKI中popcount_1实现每一步都过滤到位，最后就无需过滤，每一步的中间结果更加清晰、易于理解。</p>
+
+<pre><code>  public static int popcount_1(int i) {
+    i = (i  &amp; 0x55555555) + ((i &gt;&gt;&gt; 1) &amp; 0x55555555);
+    i = (i &amp; 0x33333333) + ((i &gt;&gt;&gt; 2) &amp; 0x33333333);
+    i = (i + (i &gt;&gt;&gt; 4)) &amp; 0x0f0f0f0f;
+    i = (i + (i &gt;&gt;&gt; 8)) &amp; 0x00ff00ff;
+    i = i + (i &gt;&gt;&gt; 16) &amp; 0x0000ffff;
+    return i;
+  }
+</code></pre>
+
+<h3 id="资料">资料</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Hamming_weight">WIKI: Hamming weight</a><br />
+<a href="http://aggregate.ee.engr.uky.edu/MAGIC/#Population%20Count%20(Ones%20Count)">Aggregate Magic Algorithms</a> 优化汉明重量算法及其它算法解释（附源代码）<br />
+<a href="https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel">Bit Twiddling Hacks</a> 带有源代码的几种汉明重量计算方法</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[算法] 汉明重量（Hamming Weight）
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/algrithm" rel="tag" title="algrithm">#algrithm#</a>
+    
+    <a href="/tags/hamming" rel="tag" title="hamming">#hamming#</a>
+    
+    <a href="/tags/weight" rel="tag" title="weight">#weight#</a>
+    
+    <a href="/tags/bitcount" rel="tag" title="bitcount">#bitcount#</a>
+    
+    <a href="/tags/nn-1" rel="tag" title="n&amp;(n-1)">#n&amp;(n-1)#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3html5_data_adapter_for_sash54s/" rel="next" title="了解HTML5 Data Adapter for SAS®（h54s）">
+        <i class="fa fa-chevron-left"></i> 了解HTML5 Data Adapter for SAS®（h54s）
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8facebook_graph_api%E4%B8%AD%E7%9A%84fields%E5%8F%82%E6%95%B0/" rel="prev" title="使用Facebook Graph API中的fields参数">
+        使用Facebook Graph API中的fields参数 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前缀树 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E5%89%8D%E7%BC%80%E6%A0%91/</link>
+    <description>Recent content in 前缀树 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 Sep 2013 21:06:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E5%89%8D%E7%BC%80%E6%A0%91/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[算法] Trie（数字树、字典树、前缀树）</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/</link>
+      <pubDate>Wed, 18 Sep 2013 21:06:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/</guid>
+      <description>术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。 与二叉查找树不同，树中节点不存储与节点关联的键，而是通过树中的位置定义键。一个节点的所有子孙节点拥有与该节点相同的字符串前缀，根节点与空字符串相关联。并不是每个节点都与值关联，仅叶节点和部分内部节点与值关联。 含有键为&amp;rdquo;A&amp;rdquo;、&amp;rdquo;to&amp;rdquo;、&amp;rdquo;tea&amp;rdquo;、&amp;rdquo;ted&amp;rdquo;、&amp;rdquo;ten&amp;rdquo;、&amp;rdquo;i&amp;rdquo;、&amp;rdquo;in&amp;rdquo;和&amp;rdquo;inn&amp;rdquo;的trie示例。 trie 中的键通常是字符串，但也可以是其它的结构。trie的算法可以很容易地修改为处理其它结构的有序序列，比如一串数字或者形状的排列。比如，bitwise trie中的键是一串位元，可以用于表示整数或者内存地址。
+性质  根节点不包含字符，除根节点外每一个节点都只包含一个字符； 从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串； 每个节点的所有子节点包含的字符都不相同。  应用 替代其他数据结构 trie较二叉查找树有很多优点，trie可用于替代哈希表，优点如下： - trie数据查找与不完美哈希表（链表实现，完美哈希表为数组实现）在最差情况下更快：对于trie，最差情况为O(m)，m为查找字符串的长度；对于不完美哈希表，会有键冲突（不同键哈希相同），最差情况为O(N)，N为全部字符产集合个数。典型情况下是O(m)用于哈希计算、O(1)用于数据查找。 - trie中不同键没有冲突 - trie的桶与哈希表用于存储键冲突的桶类似，仅在单个键与多个值关联时需要 - 当更多的键加入trie，无需提供哈希方法或改变哈希方法 - tire通过键为条目提供了字母顺序Trie也有一些缺点： - trie数据查找在某些情况下（尤其当数据直接从磁盘或随机访问时间远远高于主内存的辅助存储设备时）比哈希表慢 - 当键为某些类型时（例如浮点数）之类的键，前缀链很长且前缀不是特别有意义。然而bitwisetrie能够处理标注IEEE单精度和双精度浮点数。 - 一些trie会比哈希表消耗更多空间：对于trie，每个字符串的每个字符都可能需要分配内存；对于大多数哈希表，为整个条目分配一块内存。
+字典表示 典型应用是预测文本排序（常被搜索引擎系统用于文本词频统计）、字典自动完成、字符串近似匹配（拼写检查、断字）。
+实现 trie基本操作有：查找、插入和删除。 trie数据查找的方法为 - 从根结点开始一次搜索； - 取得要查找关键词的第一个字母，并根据该字母选择对应的子树并转到该子树继续进行检索； - 在相应的子树上，取得要查找关键词的第二个字母,并进一步选择对应的子树进行检索。 - 迭代过程…… - 在某个结点处，关键词的所有字母已被取出，则读取附在该结点上的信息，即完成查找。
+public class Trie { private Node root = new Node(&amp;quot;&amp;quot;); public Trie() {} public Trie(List argInitialWords) { for (String word:argInitialWords) { addWord(word); } } public void addWord(String argWord) { char argChars[] = argWord.</description>
+    </item>
+    
+  </channel>
+</rss>

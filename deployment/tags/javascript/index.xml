@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/javascript/</link>
+    <description>Recent content in Javascript on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 09 Aug 2018 14:25:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[JS] 导出数据到CSV文件</title>
+      <link>https://mryqu.github.io/post/js_%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0csv%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Thu, 09 Aug 2018 14:25:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/js_%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0csv%E6%96%87%E4%BB%B6/</guid>
+      <description> 项目有可能要在HTML客户端上导出数据到CSV文件，先找找方案。
+JS/jQuery方案  Export to CSV using jQuery and html Demo for StackOverflow Answer to the question: Export to CSV using jQuery and html 使用javascript下载页面中的表格数据 Exporting data from a web browser to a csv file using javascript.  OpenUI5方案  GitHub: OpenUI5 Export Test Download the Model Data to a CSV/Excel file in UI5 Export sap.ui.table.Table as CSV Export To Excel customization in UI5  </description>
+    </item>
+    
+    <item>
+      <title>使用Fetch_API</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8fetch_api/</link>
+      <pubDate>Fri, 09 Mar 2018 05:50:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8fetch_api/</guid>
+      <description>今天又学了一招在Chrome developer tool中通过Fetch_API发起HTTP请求。 代码示例：
+fetch(&#39;https://jsonplaceholder.typicode.com/posts/1&#39;) .then(response =&amp;gt; response.json()) .then(json =&amp;gt; console.log(json))  </description>
+    </item>
+    
+    <item>
+      <title>[JS] 鼠标点的screenX/Y、clientX/Y、pageX/Y和offsetX/Y</title>
+      <link>https://mryqu.github.io/post/js_%E9%BC%A0%E6%A0%87%E7%82%B9%E7%9A%84screenxyclientxypagexy%E5%92%8Coffsetxy/</link>
+      <pubDate>Tue, 09 Jan 2018 05:55:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/js_%E9%BC%A0%E6%A0%87%E7%82%B9%E7%9A%84screenxyclientxypagexy%E5%92%8Coffsetxy/</guid>
+      <description>理解  clientX/Y：鼠标点相对浏览器窗口内容区域（viewport）左上角的偏移量。
+桌面浏览器基本支持，移动浏览器有可能不支持。 pageX/Y：鼠标点相对浏览器所有渲染内容区域（viewport）左上角的偏移量。(滚动后，文档左上角有可能不在浏览器窗口中，仍旧从文档左上角算起)
+桌面浏览器基本支持，移动浏览器有可能不支持。 screenX/Y：鼠标点相对物理显示器左上角的偏移量。
+当浏览器换了位置或屏幕分辨率改了，即使clientX/Y不变，screenX/Y值都有可能变动。
+桌面和移动浏览器都基本支持。 offsetX/offsetY：鼠标点相对事件目标左上角的偏移量。
+实验性质技术，桌面浏览器基本支持，移动浏览器有可能不支持。  代码示例 测试 做了两次测试：第一次测试没有滚动浏览器，第二次测试滚动了浏览器。
+两次点击的clientY都是22；
+两次点击的screenY都是225；
+两次点击的pageY分别是22和428（整个文档渲染区域左上角滚动后没有出现在浏览器内）；
+两次点击的offsetY分别是6和413（段落渲染区域左上角滚动后没有出现在浏览器内）。
+参考 What is the difference between screenX/Y, clientX/Y and pageX/Y?
+getMousePosition.js
+MDN: MouseEvent.screenX
+MDN: MouseEvent.clientX
+MDN: MouseEvent.pageX
+MDN: MouseEvent.offsetX</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] Theme加载</title>
+      <link>https://mryqu.github.io/post/openui5_theme%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Thu, 28 Dec 2017 05:37:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_theme%E5%8A%A0%E8%BD%BD/</guid>
+      <description>瞄了一下OpenUI5中UI主题加载，关键点在sap.ui.core.Core.includeLibraryTheme方法。其调用者主要为： - sap.ui.core.Core._boot：启动OpenUI5核心时加载必要的主题 - sap.ui.core.Core.initLibrary：加载某个库时会尝试加载其主题 假定config.js内容如下：
+window[&#39;sap-ui-config&#39;] = { bindingSyntax: &#39;complex&#39;, modules: [ &amp;quot;sap.m.library&amp;quot;, &amp;quot;sap.ui.commons.library&amp;quot;, &amp;quot;sap.ui.table.library&amp;quot;, &amp;quot;sap.ui.layout.library&amp;quot;, &amp;quot;yqu.ui.kexiao.library&amp;quot; ] } };  OpenUI5在加载yqu.ui.kexiao.library库时会尝试加载其主题。
+Core.includeLibraryTheme (Core.js?eval:xxxx) Core.initLibrary (Core.js?eval:xxxx) (anonymous) (Interface.js?eval:xx) (anonymous) (library.js?eval:xx) evalModuleStr (sap-ui-core-dbg.js:xxxxx) execModule (sap-ui-core-dbg.js:xxxxx) requireModule (sap-ui-core-dbg.js:xxxxx) jQuery.sap.require (sap-ui-core-dbg.js:xxxxx) Core.loadLibrary (Core.js?eval:xxxx) .............  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 在XMLView中使用带有参数的I18N消息</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</link>
+      <pubDate>Wed, 01 Mar 2017 06:14:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</guid>
+      <description>在做的一个新项目中，美国团队那边齐刷刷地一色用XMLView而不是JSView，碰到一个小问题：那就是怎么在XMLView中设置带有参数的I18N消息。
+参考Passing parameters to i18n model within XML view帖子中的方案，基本搞定：
+&amp;lt;Input id=&amp;quot;myInput&amp;quot; type=&amp;quot;Text&amp;quot; required=&amp;quot;true&amp;quot; value=&amp;quot;{myyquInput}&amp;quot; placeholder=&amp;quot;{parts:[&#39;i18n&amp;gt;myKey.txt&#39;, &#39;myModel&amp;gt;myProp&#39;], formatter: &#39;jQuery.sap.formatMessage&#39;}&amp;quot; change=&amp;quot;.handleChangeForMyInput&amp;quot;&amp;gt; &amp;lt;layoutData&amp;gt; &amp;lt;l:GridData span=&amp;quot;L6 M8 S9&amp;quot; /&amp;gt; &amp;lt;/layoutData&amp;gt; &amp;lt;/Input&amp;gt;  messagebundle.properties：
+myKey.txt=&amp;quot;(Example: {0})&amp;quot;  使用sap.ui.model.CompositeBinding可以通过XMLView中的parts加载多个参数，达到我的目的。缺点就是每个参数只能是model/path组合，或者省略model的path。我没有找到直接输入参数值的便捷方法。 阅读sap.ui.base.ManagedObject的bindProperty方法可知，它对part中每一元素查找是否有“&amp;gt;”，有则认为是model/path组合，否则即为path。
+ManagedObject.prototype.bindProperty = function(sName, oBindingInfo, _vFormat, _sMode) { var iSeparatorPos, bAvailable = true, oProperty = this.getMetadata().getPropertyLikeSetting(sName); // check whether property or alternative type on aggregation exists if (!oProperty) { throw new Error(&amp;quot;Property \&amp;quot;&amp;quot; + sName + &amp;quot;\&amp;quot; does not exist in &amp;quot; + this); } // old API compatibility (sName, sPath, _vFormat, _sMode) if (typeof oBindingInfo == &amp;quot;string&amp;quot;) { oBindingInfo = { parts: [ { path: oBindingInfo, type: _vFormat instanceof Type ?</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 折腾了一下JSView转换XMLView</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</link>
+      <pubDate>Tue, 21 Feb 2017 05:49:10 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</guid>
+      <description>根据OpenUI5 Developer Guide - Diagnostics Window中的介绍，尝试一下XML View Conversion。
+ Many code samples are written in JavaScript. To facilitate the conversion of these code samples into XML, OpenUI5 provides a generic conversion tool. To run the tool, proceed as follows: 1. Run the OpenUI5 app in your browser, for example, open a page in the test suite. 2. Open the support tool by choosing CTRL+ALT+SHIFT+S. 3. Open the Control Tree panel. 4.</description>
+    </item>
+    
+    <item>
+      <title>TypeScript初体验</title>
+      <link>https://mryqu.github.io/post/typescript%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+      <pubDate>Wed, 08 Feb 2017 05:59:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/typescript%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+      <description>TypeScript介绍 鉴于JavaScript这种脚本语言很难应用于大规模Web应用的开发，微软公司在2012年推出了新的开源编程语言——TypeScript。作为Object Pascal和C#之父Anders Hejisberg的又一作品，TypeScript是JavaScript的超集，但完全兼容JavaScript。相比于JavaScript，TypeScript增加了可选类型、类和模块，扩展了原有的语法，使得代码组织和复用变得更加有序，方便进行大型Web应用的开发。
+安装 TypeScript可通过npm进行安装：
+npm install -g typescript  查看TypeScript版本：
+C:\quTemp&amp;gt;tsc -v Version 2.1.6  我开发主要使用IntelliJ IDEA，它可以很好的编辑TypeScript文件。不过对于一些小练习，还是安装Sublime的TypeScript插件好了：初体验 menu.ts源文件（来自参看一）：编译：
+tsc menu.ts  执行：编译结果menu.js：测试：下一步计划 学习一下《TypeScript Essentials》和《Mastering TypeScript》这两本书。
+参考 Learn TypeScript in 30 Minutes
+Learn TypeScript in Y minutes</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 复习Controller lifecycle</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/</link>
+      <pubDate>Fri, 27 May 2016 05:36:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/</guid>
+      <description>昨天看到有同事添加了几个Controller的回调，对其中的onBeforeExit、beforeExit没一点印象。
+sap.ui.controller(&amp;quot;kx123.foo&amp;quot;, { onInit: function () { console.info(&amp;quot;foo onInit called&amp;quot;); }, onBeforeExit: function(){ console.info(&amp;quot;foo onBeforeExit called&amp;quot;) ; } , beforeExit: function() { console.info(&amp;quot;foo beforeExit called&amp;quot;) ; }, onBeforeRendering: function() { console.info(&amp;quot;foo onBeforeRendering called&amp;quot;); }, onExit: function() { console.info(&amp;quot;foo onExit called&amp;quot;); } });  查了一下如下OpenUI5开发指南 MVC中关于Controllers的介绍。 &amp;gt; SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event handlers or other functions tothe controller and the controller can fire events, for which othercontrollers or entities can register.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.model.SimpleType及其子类中的约束</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</link>
+      <pubDate>Tue, 12 Apr 2016 05:57:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</guid>
+      <description>对OpenUI5模型中的数据项如何设置类型，如何设置最大最小值等约束呢？这一切可以通过研究sap.ui.model.SimpleType及其子类获得答案。
+sap.ui.model.SimpleType类图 SimpleType子类Integer约束测试 下面的示例中有两个sap.m.Input控件，第一个为文本类型输入没有约束，第二个整数类型输入有约束：
+that.oNameInput = new Input({ id: sFormId+&amp;quot;-name&amp;quot;, type: sap.m.InputType.Text, value: &amp;quot;{/name}&amp;quot;, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) }); that.oCountInput = new Input({ id: sFormId+&amp;quot;-count&amp;quot;, type: sap.m.InputType.Number, value: { path:&#39;/count&#39;, type: &#39;sap.ui.model.type.Integer&#39;, constraints: { minimum : 1, maximum : 50 } }, placeholder: &amp;quot;(1-50)&amp;quot;, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) });  完整示例代码：二者调试信息的差异：一个仅指定了映射路径；另一个除了指定映射路径外，明确指定了模型数据项类型及约束。
+测试结果 that.oCountInput施加了范围1到50的约束。如果输入值在范围内，则界面和模型中的count值都会改变；如果输入值不再范围内，则模型中的count值保留上一有效值，而界面发生改变且无告警。 调试堆栈如下：
+PropertyBinding.setExternalValue (sap-ui-core-dbg.js:57174) ManagedObject.updateModelProperty (sap-ui-core-dbg.js:34286) ManagedObject.setProperty (sap-ui-core-dbg.js:32531) InputBase.setProperty (InputBase-dbg.js:690) InputBase.setValue (InputBase-dbg.js:1007) Input.setValue (Input-dbg.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 使用DateRangeSelection</title>
+      <link>https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/</link>
+      <pubDate>Mon, 11 Apr 2016 05:58:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/</guid>
+      <description>今天使用了DateRangeSelection来选择日期范围。 DateRangeSelection范例
+sap.m.DateRangeSelection jsDoc
+DateRangeSelection源代码
+sap.ui.core.format.DateFormat jsDoc
+Working with Dates in Sapui5
+sap.ui.core.format.DateFormat
+通过阅读上述资料，DateRangeSelection内存储的起始、结束时间为Date类。可以通过设置displayFormat和delimiter来改变界面上日期的表现形式；不支持valueFormat，因此只能通过getDateValue()、getSecondDateValue()获取Date对象，然后通过DateFormat获得相应格式化的日期字符串。 DateRangeSelection最新版代码提供了setMinDate()和setMaxDate()函数，但是jsDoc还没有体现，我司目前所用的OpenUI5版本还不支持。</description>
+    </item>
+    
+    <item>
+      <title>一张图学习一门语言</title>
+      <link>https://mryqu.github.io/post/%E4%B8%80%E5%BC%A0%E5%9B%BE%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Thu, 10 Sep 2015 05:58:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%B8%80%E5%BC%A0%E5%9B%BE%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E8%AF%AD%E8%A8%80/</guid>
+      <description>今天看到两个不错的图： - Javascript in one pic - Python3 in one pic</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.define源码分析</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 23 Aug 2015 06:35:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>jQuery.sap.define通过名字、依赖、模块值或工厂定义一个Javascript模块。
+jQuery.sap.define函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
+通过判断jQuery.sap.define的sModuleName参数类型是否为string类型，获得参数实际对应使用用途，通过移换参数获得真实的sResourceName（js文件路径）、vFactory（模块工厂）、aDependencies（依赖模块）及bExport。
+通过[OpenUI5] jQuery.sap.declare源码分析里介绍过的declareModule函数宣称当前模块已存在，通过[OpenUI5] jQuery.sap.require源码分析里介绍过的requireModule函数解析当前模块的每一个依赖。
+sap.ui.define = function(sModuleName, aDependencies, vFactory, bExport) { var sResourceName, i; // optional id if ( typeof sModuleName === &#39;string&#39; ) { sResourceName = sModuleName + &#39;.js&#39;; } else { // shift parameters bExport = vFactory; vFactory = aDependencies; aDependencies = sModuleName; sResourceName = _execStack[_execStack.length - 1]; } // convert module name to UI5 module name syntax (might fail!) sModuleName = urnToUI5(sResourceName); // optional array of dependencies if ( !</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] jQuery.sap.declare源码分析</title>
+      <link>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 23 Aug 2015 00:03:20 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>jQuery.sap.declare用于宣称一个模块已存在。
+在OpenUI5开发指南&amp;ndash;精粹&amp;ndash;优化应用&amp;ndash;模块化和依赖管理中对declare介绍是:
+ Modules can declare themselves by calling the static jQuery.sap.declare functionwith their name. This helpsSAPUI5tocheck at runtime whether a loaded module contains the expectedcontent by comparing the required name against the declared name.As a side effect,jQuery.sap.declare ensures that the parent namespace of the module name exists in the currentglobal namespace (window).Formore information, see jQuery.sap.declare.
+For modules without declaration, the framework assumes that themodule has the expected content and declares it with the name thatwas used for loading.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] jQuery.sap.require源码分析</title>
+      <link>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 22 Aug 2015 07:32:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>jQuery.sap.require用于解析一个或多个模块依赖。
+jQuery.sap.require函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
+通过下面的源代码可知，jQuery.sap.require首先通过ui5ToRJS将javascript类名转换为js文件名，例如sap.m.Dialog转换为sap/m/Dialog.js，然后执行requireModule函数。
+requireModule函数查找该模块在sap.ui.core.Core对象的mModules中是否存在，不存在则添加并设为INITIAL状态，判断模块是否已经被加载、执行过，如果没有则设为LOADING状态并通过ajax以同步方式加载代码（如果当前是debug模式则选择-dbg版本的js文件URL），加载失败设为FAILED状态，加载成功则设为LOADED状态并执行代码，执行失败设为FAILED状态，执行成功设为READY状态。
+jQuery.sap.require = function(vModuleName, fnCallback) { if ( arguments.length &amp;gt; 1 ) { // legacy mode with multiple arguments, each representing a dependency for (var i = 0; i &amp;lt; arguments.length; i++) { jQuery.sap.require(arguments[i]); } return this; } // check for an object as parameter for sModuleName // in case of this the object contains the module name and the type // which could be {modName: &amp;quot;sap.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 加载时替换JavaScript源文件</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9B%BF%E6%8D%A2javascript%E6%BA%90%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 16 Aug 2015 07:22:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9B%BF%E6%8D%A2javascript%E6%BA%90%E6%96%87%E4%BB%B6/</guid>
+      <description>我有一些自己定制的OpenUI5控件，有时会修改某个方法内的逻辑，这个好处理，在ChromedevTool直接修改加载后JS代码并保存就可以直接调试。如果修改了property、aggregation或者init方法内的逻辑的话，由于错过了初始化就不灵了，而重新加载的话又丢失了自己新加的调试代码。
+我的解决方法如下： - 清除Chrome缓存 - 在sap-ui-core-dbg.js里requireModule方法内设置断点，设置断点条件为response.indexOf(&amp;ldquo;Dialog.extend(\&amp;ldquo;mryqu.test.control.KexiaoDialog&amp;rdquo;)&amp;gt;0这样当OpenUI5加载KexiaoDialog.js文件时就会触发断点。 - 重新加载我的OpenUI5项目：http://www.mryqu.com/test123/?sap-ui-debug=true&amp;amp;sap-ui-preload=false - 当断点被触发时，在Console执行：
+ response=&#39;(function ()\n\ {\n\ &amp;quot;use strict&amp;quot;;\n\ \n\ jQuery.sap.require(&amp;quot;sap.m.Button&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.Dialog&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.HBox&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.Input&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.RadioButton&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.VBox&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.Text&amp;quot;);\n\ \n\ var Button = sap.m.Button;\n\ var Dialog = sap.m.Dialog;\n\ var HBox = sap.m.HBox;\n\ var Icon = sap.ui.core.Icon;\n\ var Input = sap.m.Input;\n\ var RadioButton = sap.m.RadioButton;\n\ var Text = sap.m.Text;\n\ var VBox = sap.m.VBox;\n\ \n\ Dialog.extend(&amp;quot;mryqu.test.control.KexiaoDialog&amp;quot;, {\n\ metadata: {\n\ properties: {\n\ &amp;quot;tableName&amp;quot; : {type : &amp;quot;string&amp;quot;, defaultValue : &amp;quot;&amp;quot;},\n\ },\n\ associations: {\n\ invoker: {type: &amp;quot;sap.</description>
+    </item>
+    
+    <item>
+      <title>在jQuery AJAX中使用statusCode</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/</link>
+      <pubDate>Wed, 05 Aug 2015 05:49:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/</guid>
+      <description>jQuery.ajax中提供了statusCode设置，以便根据响应状态值进行相应处理。
+var data = JSON.stringify({ name: &amp;quot;mryqu&amp;quot;, count: 123 }); $.ajax({ //cache: false, url: &amp;quot;/test&amp;quot;, type: &amp;quot;post&amp;quot;, contentType: &amp;quot;application/json&amp;quot;, dataType: &amp;quot;json&amp;quot;, data: data, beforeSend: function (xhr) { console.log(&amp;quot;beforeSend called&amp;quot;); }, statusCode: { 401: function() { console.log(&amp;quot;statusCode 401 called&amp;quot;); }, 449: function() { console.log(&amp;quot;statusCode 449 called&amp;quot;); } }, error: function (oResult, textStatus, errorThrown) { if (oResult.status !==401 &amp;amp;&amp;amp; oResult.status !==449) { console.log(&amp;quot;error called&amp;quot;); } }, success: function (oResult) { console.log(&amp;quot;success called&amp;quot;); } });  有时候发现statusCode不被调用，所以我更喜欢用下面这种更保险的方式。</description>
+    </item>
+    
+    <item>
+      <title>如何链接并执行GitHub上的JavaScript文件</title>
+      <link>https://mryqu.github.io/post/%E5%A6%82%E4%BD%95%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%89%A7%E8%A1%8Cgithub%E4%B8%8A%E7%9A%84javascript%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Fri, 10 Jul 2015 00:28:30 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A6%82%E4%BD%95%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%89%A7%E8%A1%8Cgithub%E4%B8%8A%E7%9A%84javascript%E6%96%87%E4%BB%B6/</guid>
+      <description>想要玩一下jquery-mockjax，其原始文件为https://raw.githubusercontent.com/jakerella/jquery-mockjax/master/dist/jquery.mockjax.js ，加入我的html文件进行测试。结果却遇到下列问题：
+Refused to execute script from ... because its MIME type (text/plain) is not executable, and strict MIME type checking is enabled.  查到了StackOverflow上的一个帖子Link and execute external JavaScript file hosted on GitHub ，原来GitHub开始使用X-Content-Type-Options:nosniff以令更多的现代浏览器执行严格MIME类型检查，之后返回原始文件的MIME类型故意让浏览器不能使用。帖子中提到的临时解决方法是将raw.githubusercontent.com替换为rawgit.com。我将上一链接替换成https://rawgit.com/jakerella/jquery-mockjax/master/dist/jquery.mockjax.js ，解决问题！</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.core.ResizeHandler</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/</link>
+      <pubDate>Sun, 14 Jun 2015 09:10:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/</guid>
+      <description>OpenUI5里窗口大小放生变化，各个控件如何收到通知跟着相应变化的呢？
+sap.ui.core.Core 首先我们看一下sap.ui.core.Core的源代码：
+Core._I_INTERVAL = 200; ResizeHandler.prototype.I_INTERVAL = Core._I_INTERVAL; Core.prototype.attachIntervalTimer = function(fnFunction, oListener) { if (!this.oTimedTrigger) { var IntervalTrigger = sap.ui.requireSync(&amp;quot;sap/ui/core/IntervalTrigger&amp;quot;); this.oTimedTrigger = new IntervalTrigger(Core._I_INTERVAL); } this.oTimedTrigger.addListener(fnFunction, oListener); };  sap.ui.core.Core里面会起一个定时器，以200毫秒间隔周期触发。
+sap.ui.core.ResizeHandler 接下来我们看一下sap.ui.core.ResizeHandler的源代码：
+function initListener(){ if (!this.bRegistered &amp;amp;&amp;amp; this.aResizeListeners.length &amp;gt; 0) { this.bRegistered = true; sap.ui.getCore().attachIntervalTimer(this.checkSizes, this); } } ResizeHandler.prototype.checkSizes = function() { var bDebug = log.isLoggable(); if ( bDebug ) { log.debug(&amp;quot;checkSizes:&amp;quot;); } jQuery.each(this.aResizeListeners, function(index, oResizeListener){ if (oResizeListener) { var bCtrl = !</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 自定义控件示例</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Fri, 05 Jun 2015 05:42:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/</guid>
+      <description>最近在写一个OpenUI5自定义控件，参考了如下文章，搞定。
+需要注意的是，控件内的property在init函数内不会获得构造函数的属性值。通过源码可知，EventProvider.extend.constructor内先回调用init函数，然后再调用applySettings将构造函数内的属性设置进去。
+constructor : function(sId, mSettings, oScope) { EventProvider.call(this); // no use to pass our arguments if (typeof (sId) != &amp;quot;string&amp;quot; &amp;amp;&amp;amp; arguments.length &amp;gt; 0) { // shift arguments in case sId was missing, but mSettings was given oScope = mSettings; mSettings = sId; if (mSettings &amp;amp;&amp;amp; mSettings.id) { sId = mSettings[&amp;quot;id&amp;quot;]; } else { sId = null; } } if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.m.Input的change回调</title>
+      <link>https://mryqu.github.io/post/openui5_sap.m.input%E7%9A%84change%E5%9B%9E%E8%B0%83/</link>
+      <pubDate>Tue, 26 May 2015 05:27:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.m.input%E7%9A%84change%E5%9B%9E%E8%B0%83/</guid>
+      <description>用sap.m.Input的change回调，当值在输入界面被修改后就会调用。今天试了一下，如果通过Model设置改变值的话，其change回调不会被调用。
+这种特性正好用于判断是否为界面手工修改。在我的用例中，有一个表名和一个表表述。如果改动表名，表描述跟着相应更新；但是一旦用户手工输入表描述后，上述规则不再生效。</description>
+    </item>
+    
+    <item>
+      <title>JS 库/UI 积累贴</title>
+      <link>https://mryqu.github.io/post/js_%E5%BA%93ui_%E7%A7%AF%E7%B4%AF%E8%B4%B4/</link>
+      <pubDate>Tue, 19 May 2015 06:10:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/js_%E5%BA%93ui_%E7%A7%AF%E7%B4%AF%E8%B4%B4/</guid>
+      <description>Bootstrap库： jQuery File Upload Demo
+Bootstrap table：示例不错
+UI： codrops/TooltipStylesInspiration：工具提示做的很炫
+OpenUI5： Welcome to 30 Days of UI5!
+UI Framework related</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 示例：Accordion with all initial collapsed sections</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8Baccordion_with_all_initial_collapsed_sections/</link>
+      <pubDate>Mon, 04 May 2015 00:01:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8Baccordion_with_all_initial_collapsed_sections/</guid>
+      <description>sap.ui.commons.Accordion会设置一个默认展开的section。
+sap.ui.commons.Accordion.prototype.addSection = function(oSection) { this.addAggregation(&amp;quot;sections&amp;quot;, oSection); //Add a default opened section id if ( (this.getOpenedSectionsId() == null || this.getOpenedSectionsId() == &amp;quot;&amp;quot; ) &amp;amp;&amp;amp; oSection.getEnabled()){ this.setOpenedSectionsId(oSection.getId()); } this.aSectionTitles.push(oSection.getTitle()); };  如果想让初始化所有section为折叠的，只要将openedSectionsId设为“-1”就可以了。 示例位置: http://jsbin.com/sajoba/1/edit?html,output </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 控件ID实践与总结</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 03 May 2015 06:53:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+      <description>显式定义而不是自生成OpenUI5控件ID 为了便于开发和测试，为控件设置一个便于理解的ID尤为重要。我的博文《快速定位OpenUI5问题的一个方法》中的工具函数就是利用控件ID快速定位故障控件的。 在OpenUI5中，可在创建控件实例时使用JSON对象作为控件构造器参数。其中一个可选属性就是&amp;rdquo;id&amp;rdquo;，OpenUI5不仅用它（在&amp;rdquo;注册信息&amp;rdquo;中）追踪控件，也用在渲染控件的DOM输出。 如果没有显式指定一个控件的ID，OpenUI5框架就会使用基于实例数量的算法自生成控件ID。 自生成ID有两个缺点： - 调试的时候，不容易定位使用控件的代码位置。例如，异常跟某个控件相关，如果该类型控件实例很多，很难定位该控件定义在那个视图里。 - 测试代码相对显式定义ID更加难写。如果对控件使用显式定义ID，相应的测试代码可以很容易通过该ID进行控件查找或验证。
+控件ID命名惯例 使用驼峰式写法、有意义且语法正确的ID来反映控件的本质。 例如： - 一个表单上的提交按钮，其id=&amp;ldquo;submit&amp;rdquo; - 到不同图形设置的导航控件，其id=&amp;ldquo;graphNav&amp;rdquo;
+OpenUI5控件ID内幕 sap.ui.base.ManagedObject是OpenUI5框架包括控件在内的大部分类的父类，它的构造器里有对ID的处理：
+if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject._fnIdPreprocessor; sId = (preprocessor ? preprocessor.call(this, sId) : sId); var oType = DataType.getType(&amp;quot;sap.ui.core.ID&amp;quot;); if (!oType.isValid(sId)) { throw new Error(&amp;quot;\&amp;quot;&amp;quot; + sId + &amp;quot;\&amp;quot; is not a valid ID.&amp;quot;); } } this.sId = sId;  sap.ui.base.ManagedObjectMetadata的ID生成代码：
+(function() { var mUIDCounts = {}; function uid(sId) { jQuery.</description>
+    </item>
+    
+    <item>
+      <title>GoJS中的类</title>
+      <link>https://mryqu.github.io/post/gojs%E4%B8%AD%E7%9A%84%E7%B1%BB/</link>
+      <pubDate>Thu, 09 Apr 2015 06:06:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gojs%E4%B8%AD%E7%9A%84%E7%B1%BB/</guid>
+      <description> GoJS中的类 GoJS API文档介绍了GoJS中的类，不过在调试GoJS时发现有3个类不是通过go对象访问的。此外有14个类有介绍，但没有显示在左侧导航栏里。GoJS的很多类、方法和属性名都是经过混淆的，不过起码这一层还是很好对上号的。 Diagram ClassesAdornmentAdornmentAnimationManager&amp;nbsp;CommandHandlerCommandHandlerDiagramDiagramDiagramEventDiagramEventGraphObjectGraphObjectGroupGroupInputEventInputEventLayerLayerLinkLinkNodeNodeOverviewOverviewPalettePalettePanelPanelPartPartPicturePicturePlaceholderPlaceholderRowColumnDefinitionRowColumnDefinitionShapeShapeTextBlockTextBlockGeometry ClassesBrushBrushGeometryGeometryMarginMarginPathFigurePathFigurePathSegmentPathSegmentPointPointRectRectSizeSizeSpotSpotModel ClassesBindingBindingChangedEventChangedEventGraphLinksModelGraphLinksModelModelModelTransactionTransactionTreeModelTreeModelUndoManagerUndoManagerLayout ClassesCircularLayoutCircularLayoutCircularNetworkCircularVertexCircularEdgeForceDirectedLayoutForceDirectedLayoutForceDirectedNetworkForceDirectedVertexForceDirectedEdgeGridLayoutGridLayoutLayeredDigraphLayoutLayeredDigraphLayoutLayeredDigraphNetworkLayeredDigraphVertexLayeredDigraphEdgeLayoutLayoutLayoutNetworkLayoutNetworkLayoutVertexLayoutEdgeTreeLayoutTreeLayoutTreeNetworkTreeVertexTreeEdgeTool ClassesActionToolActionToolClickCreatingToolClickCreatingToolClickSelectingToolClickSelectingToolContextMenuToolContextMenuToolDraggingToolDraggingToolDragSelectingToolDragSelectingToolLinkingBaseToolLinkingBaseToolLinkingToolLinkingToolLinkReshapingToolLinkReshapingToolPanningToolPanningToolRelinkingToolRelinkingToolResizingToolResizingToolRotatingToolRotatingToolTextEditingToolTextEditingToolToolToolToolManagerToolManagerCollection ClassesIterableIteratorListListMapMapSetSet
+GoJS类图 </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.core.format.DateFormat使用</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.core.format.dateformat%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 15 Mar 2015 17:02:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.core.format.dateformat%E4%BD%BF%E7%94%A8/</guid>
+      <description>使用javascript的Date类型，想要输出国际化的字符串，可以使用toLocaleString函数，但是需要自己往里设locale，并且输出结果随操作系统和浏览器不同而变化。
+最后还是用OpenUI5的DateFormat，既可以固定格式有可以自动国际化。
+var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({ pattern: &amp;quot;EEEE, MMMM d, yyyy HH:mm:ss a z&amp;quot; }); oDateFormat.format(new Date());  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 将布尔型数据在数据表中显示为checkbox</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%B0%86%E5%B8%83%E5%B0%94%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%9C%A8%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E4%B8%BAcheckbox/</link>
+      <pubDate>Sat, 14 Mar 2015 18:09:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%B0%86%E5%B8%83%E5%B0%94%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%9C%A8%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E4%B8%BAcheckbox/</guid>
+      <description>看了一下OpenUI5、Datatables和Vaadin中将布尔型数据在数据表中显示为checkbox的示例： OpenUI5 example: DataTable
+Datatables example: Always shown checkbox Vaadin table: How to display Boolean as checkboxes with editable=false
+感觉还是OpenUI5更灵活，不过小项目用OpenUI5又太重了！</description>
+    </item>
+    
+    <item>
+      <title>GoJS BPMN元素界面实现分析</title>
+      <link>https://mryqu.github.io/post/gojs_bpmn%E5%85%83%E7%B4%A0%E7%95%8C%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 11 Mar 2015 20:10:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gojs_bpmn%E5%85%83%E7%B4%A0%E7%95%8C%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90/</guid>
+      <description>GoJS BPMN里面的BPMN元素采用过不是PNG/JPEG这样的静态图标，而是通过GoJS在Cavas绘出来的。 由BPMN.js可知，一个BPMN元素是一个go.Node，内部大致包含go.Panel、go.Shape、go.TextBlock等对象，用于绘制外层的正方形、填充内部颜色、添加图标和文字。 如果创建自己定制的BPMN元素，最麻烦的就是图标了。现在我来看一下GoJS BPMN扩展里面的图标是怎么保存和绘制的。 GoJS BPMN扩展里面大部分的图标都已经在go.js里面以源代码的形式定义了，只有四个是在BPMN.js里面通过go.Shape.defineFigureGenerator方法定制的，分别是Empty、Annotation、BpmnTaskManual和BpmnTaskService。这四个图标的内容是GoJS geometry的格式保存的。 所有这些图标可以通过与go.Shape的figure进行绑定，由GoJS驱动完成底层绘制。我自己做了一个简单样例，对这些内嵌图标和BPMN定制图标稍微玩了点花样 http://jsfiddle.net/mryqu/mywy0nhz/ 显示效果如下： </description>
+    </item>
+    
+    <item>
+      <title>浏览器的本地存储在GoJS BPMN样例中的使用</title>
+      <link>https://mryqu.github.io/post/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E5%9C%A8gojs_bpmn%E6%A0%B7%E4%BE%8B%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 02 Mar 2015 20:06:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E5%9C%A8gojs_bpmn%E6%A0%B7%E4%BE%8B%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>GoJS BPMN样例中可以存储BPMN模型，它采用的存储媒体是浏览器的本地存储。Web Storage(W3C WebApps Working Group)中定义了如下的Storage接口：
+interface Storage { readonly attribute unsigned long length; DOMString key(unsigned long index); getter DOMString getItem(DOMString key); setter creator void setItem(DOMString key, DOMString value); deleter void removeItem(DOMString key); void clear(); };  GoJS BPMN样例采用的方法如下：
+function checkLocalStorage() { return (typeof (Storage) !== &amp;quot;undefined&amp;quot;) &amp;amp;&amp;amp; (window.localStorage !== undefined); } window.localStorage.setItem(key, value) window.localStorage.getItem(key) window.localStorage.removeItem(key)  我的测试是存储一个名为yqu_GoJSBPMN_Samp1的模型。 如果想清除我的小测试所用的本地存储，可以通过chrome://settings/cookies#cont页面来完成： 参考 MDN：DOM Storage guide
+DOM Storage</description>
+    </item>
+    
+    <item>
+      <title>试用GoJS BPMN生成Activiti支持的process.bpmn.xml</title>
+      <link>https://mryqu.github.io/post/%E8%AF%95%E7%94%A8gojs_bpmn%E7%94%9F%E6%88%90activiti%E6%94%AF%E6%8C%81%E7%9A%84process.bpmn.xml/</link>
+      <pubDate>Thu, 26 Feb 2015 16:37:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%AF%95%E7%94%A8gojs_bpmn%E7%94%9F%E6%88%90activiti%E6%94%AF%E6%8C%81%E7%9A%84process.bpmn.xml/</guid>
+      <description>我在Activiti中建立一个简单的仅有startEvent、userTask和endEvent的BPMN模型，导出的process.bpmn.xml内容如下： 前一博文玩玩GoJS BPMN样例中我给出了类似 BPMN模型的JSON数据。通过分析可知，除了两者的ID生成机制不同（GoJSBPMN生成的ID太简单，很容易重复），完全可以通过GoJS的JSON数据构造上面的process.bpmn.xml文件内容。 试了一下在Javascript中生成上面的process.bpmn.xml文档，大致可行。从MDN查到的资料可知，仅支持IE9+浏览器。不支持低版本IE浏览器，估计现在不算什么问题。目前生成的XML文档有些瑕疵，第一个使用createElement_x方法创建的节点会自动添加命名空间xmlns=http://www.w3.org/1999/xhtml，但是应该可以避免。
+|Chrome|Firefox (Gecko)|Internet Explorer|Opera|Safari |&amp;mdash;&amp;ndash; |(Yes)|1.0 (1.7 or earlier)|9.0|(Yes)|(Yes)
+JS代码如下： </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 第三方JavaScript库加载</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%AC%AC%E4%B8%89%E6%96%B9javascript%E5%BA%93%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Fri, 06 Feb 2015 20:28:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%AC%AC%E4%B8%89%E6%96%B9javascript%E5%BA%93%E5%8A%A0%E8%BD%BD/</guid>
+      <description>SAP often put 3rd JavaScript libraries at \resources\sap\ui\thirdparty, then load as below:
+jQuery.sap.require(&amp;quot;sap/ui/thirdparty/d3&amp;quot;);  样例： OpenUI5: D3.js based custom control and table
+Custom SAPUI5 Visualization Controls with D3.js</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] Open/SaveAs File</title>
+      <link>https://mryqu.github.io/post/javascript_%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%92%8C%E5%8F%A6%E5%AD%98%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sat, 31 Jan 2015 12:42:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%92%8C%E5%8F%A6%E5%AD%98%E6%96%87%E4%BB%B6/</guid>
+      <description>看了一下HTML5应用中如何打开文件或另存文件。与Swing/EclipseRCP应用不同，有些操作由于安全的原因无法在HTML5应用内使用，而是浏览器与客户交互。例如HTML5应用往本地写文件。下面的显示了在新窗口打开文件、在当前窗口打开文件以及a标签的download属性。 学习了下面链接中的代码和文章，其中FileSaver.js是一个跨浏览器的JS库，但是在各个浏览器上保存文件的用户体验却不相同。目前为止，我还没发现更好的跨浏览器/设备的另存文件解决方案。 Google HTML5 Download Demo
+An HTML5 saveAs() FileSaver implementation
+New HTML5 Attributes for Hyperlinks: download, media, and ping
+Save files on disk using JavaScript or JQuery!
+JavaScript Question:Opening Save As Dialog
+Internet media type</description>
+    </item>
+    
+    <item>
+      <title>WebDAV Javascript库</title>
+      <link>https://mryqu.github.io/post/webdav_javascript%E5%BA%93/</link>
+      <pubDate>Tue, 20 Jan 2015 08:57:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/webdav_javascript%E5%BA%93/</guid>
+      <description>需要用JS库对WebDAV进行CRUD操作，找了一堆备选JS库。 - IT Hit WebDAV Ajax Library：http://www.webdavsystem.com/ajax/programming - https://github.com/sandro-pasquali/jquery.dav - https://github.com/evert/davclient.js - https://github.com/matthewp/webdav - https://github.com/aslakhellesoy/webdavjs - https://github.com/dom111/webdav-js - https://github.com/sara-nl/js-webdav-client</description>
+    </item>
+    
+    <item>
+      <title>Spring3 REST can&#39;t solve list of object generated by Javascript</title>
+      <link>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</link>
+      <pubDate>Fri, 16 Jan 2015 21:21:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</guid>
+      <description>最近遭遇Spring3REST无法解析对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+客户端代码 var meatadata=&#39;[{&amp;quot;varName&amp;quot;:&amp;quot;id&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Id&amp;quot;,&amp;quot;varIndex&amp;quot;:1},{&amp;quot;varName&amp;quot;:&amp;quot;name&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Name&amp;quot;,&amp;quot;varIndex&amp;quot;:2},{&amp;quot;varName&amp;quot;:&amp;quot;age&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Age&amp;quot;,&amp;quot;varIndex&amp;quot;:3}]&#39;; $.ajax({ url: &amp;quot;configure&amp;quot;, type: &amp;quot;POST&amp;quot;, data: metadata, dataType: &amp;quot;json&amp;quot;, contentType: &amp;quot;application/json&amp;quot;, success: function (res) { $(&#39;#cfgContent&#39;).text(JSON.stringify(res)); $(&#39;#cfgError&#39;).text(&amp;quot;&amp;quot;); }, error: function (res) { $(&#39;#cfgContent&#39;).text(&amp;quot;&amp;quot;); $(&#39;#cfgError&#39;).text(res.responseText); } });  中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.</description>
+    </item>
+    
+    <item>
+      <title>Spring REST can&#39;t solve nested object array generated by JavaScript</title>
+      <link>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</link>
+      <pubDate>Thu, 15 Jan 2015 21:27:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</guid>
+      <description>最近遭遇SpringREST无法解析嵌套对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+所操作的复杂对象 客户端POST响应 中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/configure&amp;quot;, method = RequestMethod.GET) public @ResponseBody SheetVO getConfiguration() { List columns = new ArrayList(); columns.add(new ColumnVO(&amp;quot;id&amp;quot;,&amp;quot;The Id&amp;quot;,1)); columns.add(new ColumnVO(&amp;quot;name&amp;quot;,&amp;quot;The Name&amp;quot;,2)); columns.add(new ColumnVO(&amp;quot;age&amp;quot;,&amp;quot;The Age&amp;quot;,3)); SheetVO metadata = new SheetVO(SheetVO.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 示例: open dialog which content is a form defined in another view</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_open_dialog_which_content_is_a_form_defined_in_another_view/</link>
+      <pubDate>Sun, 11 Jan 2015 21:11:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_open_dialog_which_content_is_a_form_defined_in_another_view/</guid>
+      <description>使用OpenUI5做了一个例子，在一个JSVIEW中定义的dialog的内容是另外一个JSVIEW中定义的form。 示例位置: http://jsbin.com/fotepu/1/edit?html,output 此外，通过学习http://stackoverflow.com/questions/25510090/sapui5-attach-chart-to-dialog ，了解到dialog内容为图表时有可能需要使用invalidate()函数。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 获得当前页面语言</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%8E%B7%E5%BE%97%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 10 Jan 2015 15:33:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%8E%B7%E5%BE%97%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E8%AF%AD%E8%A8%80/</guid>
+      <description>获得当前页面语言的方法：
+ javascript:document.getElementsByTagName(&#39;html&#39;)[0].getAttribute(&#39;lang&#39;) jQuery: $(&#39;html&#39;).attr(&#39;lang&#39;) OpenUI5: sap.ui.getCore().getConfiguration().getLanguage()  示例： </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 快速定位OpenUI5问题的一个方法</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 09 Jan 2015 16:30:12 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</guid>
+      <description>sap.ui.base.Object是所有OpenUI5对象的父类，它的某些方法对快速定位OpenUI5问题很有帮助。我写了一个小函数通过OpenUI5对象的元数据获得类名，并且获得OpenUI5对象的ID信息。
+ traceUI5Object: function(obj) { if(obj instanceof sap.ui.base.Object) console.log(obj.getMetadata().getName()+&amp;quot;{id:\&#39;&amp;quot;+obj.getId()+&amp;quot;\&#39;}&amp;quot;); } traceUI5EventProviders: function(obj) { var that = obj; while (that &amp;amp;&amp;amp; that instanceof sap.ui.base.EventProvider) { console.log(that.getMetadata().getName()+&amp;quot;{id:\&#39;&amp;quot;+that.getId()+&amp;quot;\&#39;}&amp;quot;); that = that.getEventingParent(); } }  traceUI5EventProviders函数运行结果示例： sap.ui.commons.CheckBox{id:&#39;check1&#39;} sap.ui.commons.Panel{id:&#39;panel1&#39;} sap.ui.core.mvc.JSView{id:&#39;leftView&#39;} sap.ui.commons.Splitter{id:&#39;Splitter1&#39;} sap.ui.core.mvc.JSView{id:&#39;__jsview0&#39;} sap.ui.core.UIArea{id:&#39;content&#39;}  在编写和调试OpenUI5时，有时会有Exception抛出。 假定上面图中代码会抛出Exception，通过this我们看到的的是一个Factory，通过sId我们可以找到发生问题的定义了ID的控件。但是如果控件ID是自生成的，就不太容易了。我们可以通过监视表达式获取（组件链上所有的）组件类名及ID，这样就可以更快定位导致抛出Exception的OpenUI5视图/控件了。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 调节元素间距</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%B0%83%E8%8A%82%E5%85%83%E7%B4%A0%E9%97%B4%E8%B7%9D/</link>
+      <pubDate>Mon, 05 Jan 2015 20:31:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%B0%83%E8%8A%82%E5%85%83%E7%B4%A0%E9%97%B4%E8%B7%9D/</guid>
+      <description>在使用OpenUI5时，有时两个元素间距不合预期，我大体可用两种方式进行改进：
+ 一种方式是添加自己定制的CSS类，然后通过addStyleClass方法对控件设置自己定制的CSS类 ​另一种方法土点，就是对需要调整间距的两个元素上增加一个HBox/VBox控件，然后在两个之间加一个定宽/高的控件调节间距。 //在oControl1和oControl2之间增加15px的间距 new VBox({ items: [ oControl1, new HBox({ height: &amp;quot;15px&amp;quot;, fitContainer: true }), oControl2 ] })  ​  </description>
+    </item>
+    
+    <item>
+      <title>调试Javascript</title>
+      <link>https://mryqu.github.io/post/%E8%B0%83%E8%AF%95javascript/</link>
+      <pubDate>Fri, 12 Dec 2014 23:30:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%B0%83%E8%AF%95javascript/</guid>
+      <description>为了调试Javascript，下载了Firefox developer edition，但是没感觉有什么不同，接着下载Firebug，使用感觉有点说不出来的别扭。 还是接着用Chrome调试吧，感觉挺好的，这次conditional break出了不少力！ https://developer.chrome.com/devtools/docs/javascript-debugging </description>
+    </item>
+    
+    <item>
+      <title>[IntelliJ] Javascript code inspection</title>
+      <link>https://mryqu.github.io/post/intellij_javascript_code_inspection/</link>
+      <pubDate>Wed, 10 Dec 2014 19:34:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/intellij_javascript_code_inspection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] logging</title>
+      <link>https://mryqu.github.io/post/openui5_logging/</link>
+      <pubDate>Sun, 16 Nov 2014 09:21:34 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_logging/</guid>
+      <description>jQuery.sap.log是客户端Javascript日志API。 通过上图可知，其日志级别分别为ALL、DEBUG、ERROR、FATAL、INFO、NONE、TRACE和WARNING，默认日志级别为ERROR。
+如果要显示所有日志信息，可以执行:
+jQuery.sap.log.setLevel(6)  </description>
+    </item>
+    
+    <item>
+      <title>了解Google Closure Tools</title>
+      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3google_closure_tools/</link>
+      <pubDate>Sat, 15 Nov 2014 09:48:03 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3google_closure_tools/</guid>
+      <description>hello一个html5-openui5项目，公司的编译系统在googlecc.xml（ant脚本）报了一个错，用googlecc做关键词搜了半天没弄清是什么东西，后来才发现是GoogleClosure Compiler。 不同于个人的小项目，企业级Web应用里面可能存在大量的Javascript代码。JS文件很多，文件块头还不小。不管是静态引入还是GoogleClosureLibrary/require.js这种模块化动态异步加载，下载时间长了，都会给Web用户带来不好的感知性能体验。很多Javascript压缩工具可以帮助减小JS文件大小，GoogleClosure Compiler就是其中一款。 谷歌2009年开源了其内部使用的JavaScript开发工具，Google Closure Tools，希望帮助程序员更高效地开发出富客户端Web应用程序。该工具集由如下工具组成： - Closure Compiler:该优化器将JavaScript优化成紧凑、高性能的代码。它通过去除无用死代码、空格和注释、缩短长的局部变量名等方法压缩代码，检查语法、变量引用和变量类型，并对常见的JavaScript陷阱给出警告。 - Closure Library：功能广泛的，经过良好测试的，模块化的，跨浏览器的JavaScript库 - Closure Templates：客户端和服务器端模板系统，可以有助于动态生成可重用的HTML和UI元素。ClosureTemplates摒弃了一个页面使用一个(大)模板，而是针对单个小组件使用(小)模板，以便复用。该模板可生成JavaScript或Java代码，因此同一模板可在客户端或者服务端使用。 - Closure Linter：按照《谷歌JavaScript编程风格指南》 里面的指导方针对JavaScript代码进行编程风格检查和修复的工具 - Closure Stylesheets：支持很多谷歌扩展的增强格式表语言系统。可以定义和使用变量、函数、条件，以使格式表可读性增强、更易于维护。内建的工具可以将其编译成标准CSS。
+阅读列表： 闭包：权威指南(Closure：The Definitive Guide) 部分翻译 前言 1 2 3 4 5
+Google Closure Compiler &amp;ndash;js压缩优化
+Closure Compiler vs. YUICompressor
+应用 closure compiler 高级模式
+Closure Compiler 高级模式及更多思考
+知乎为什么要选择 Closure Library 来作为 JavaScript 库，而不选择更流行的 jQuery 之流呢？
+Google Closure Library介绍</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] JSView的createContent和Controller的onInit孰先孰后？</title>
+      <link>https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/</link>
+      <pubDate>Fri, 14 Nov 2014 20:06:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/</guid>
+      <description>首先在这个两个函数设置断点，很容易知道JSView的createContent先于Controller的onInit被调用。 通过sap.ui.core.mvc.View源码片段可知，View的_initCompositeSupport函数中首先调用createAndConnectController函数创建Controller,之后调用的onControllerConnected函数会调用createContent函数，最后调用的fireAfterInit函数会触发Controller的onInit函数回调。
+View.prototype._initCompositeSupport = function(mSettings) { // init View with constructor settings // (e.g. parse XML or identify default controller) // make user specific data available during view instantiation this.oViewData = mSettings.viewData; // remember the name of this View this.sViewName = mSettings.viewName; // remember the preprocessors this.mPreprocessors = mSettings.preprocessors || {}; //check if there are custom properties configured for this view, //and only if there are, create a settings preprocessor applying these if (sap.</description>
+    </item>
+    
+    <item>
+      <title>开玩OpenUI5</title>
+      <link>https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/</link>
+      <pubDate>Sun, 09 Nov 2014 14:43:58 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/</guid>
+      <description>OpenUI5是SAP推出的开源HTML5Javascript用户界面库，网址为http://sap.github.io/openui5/index.html 前不久SAP宣布我司成了签署OpenUI5企业贡献者许可协议的第一个组织(BjornGoerkee的Tweet)，从此我司产品中的Flex就要纷纷下岗，让位HTML5了。 据说SAP在UI框架上的选择纠结了十多年了，甚至投奔过微软的silverlight，后来才成为HTML5的拥拓。 我司的富客户端技术用过Swing，中间打算换成Eclipse RCP，再后来决定全面采用Flex技术，兜了一圈又一圈，花了时间费了钱，最后决定采用HTML5。 虽然各浏览器厂商还在HTML5上进行利益博弈，W3C与WHATWG分道扬镳，Facebook和Linkedin抛弃HTML5转投原生App应用，但是为了将我司的产品转向云应用，HTML5对于我们这种企业级应用来说还算是很靠谱的了。 今天下载了openui5-sdk-1.24.3.zip，直接解压到Tomcat的webapps目录下，开始学文档做demo。 </description>
+    </item>
+    
+    <item>
+      <title>JavaScript中的点符号和方括号符号</title>
+      <link>https://mryqu.github.io/post/javascript%E4%B8%AD%E7%9A%84%E7%82%B9%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%96%B9%E6%8B%AC%E5%8F%B7%E7%AC%A6%E5%8F%B7/</link>
+      <pubDate>Sat, 08 Nov 2014 09:18:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript%E4%B8%AD%E7%9A%84%E7%82%B9%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%96%B9%E6%8B%AC%E5%8F%B7%E7%AC%A6%E5%8F%B7/</guid>
+      <description>JavaScript中对象可以通过点符号(dot notation)或方括号符号(square bracketnotation)访问属性。
+a = {}; b = function() { alert(&amp;quot;Thanks!&amp;quot;); }; c = function() { alert(&amp;quot;Bye!&amp;quot;); }; a[&amp;quot;Hello&amp;quot;] = b; a.bye = c; a.hello(); a.bye();  两者相同之处: 当属性不存在时返回undefined。两者的区别是: - 点符号访问方式更快，代码阅读起来更清晰。 - 方括号符号访问方式可以访问包含特殊字符的属性，属性选择可以使用变量。JSLint会对方括号符号访问进行告警。</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 继承</title>
+      <link>https://mryqu.github.io/post/javascript_%E7%BB%A7%E6%89%BF/</link>
+      <pubDate>Wed, 27 Aug 2014 20:41:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E7%BB%A7%E6%89%BF/</guid>
+      <description>示例：
+function BaseClass() {}; BaseClass.prototype.method1 = function() { console.log(&amp;quot;BaseClass#method1&amp;quot;) }; BaseClass.prototype.method2 = function() { console.log(&amp;quot;BaseClass#method2&amp;quot;) }; BaseClass.prototype.method3 = function() { return &amp;quot;BaseClass#method3&amp;quot;; }; ChildClass.prototype = new BaseClass(); function ChildClass() { //BaseClass.call(this); }; ChildClass.prototype.method2 = function() { console.log(&amp;quot;ChildClass#method2&amp;quot;) }; ChildClass.prototype.method3 = function() { console.log(BaseClass.prototype.method3.call(this)+&amp;quot; by ChildClass!&amp;quot;); }; ChildClass.prototype.method4 = function() { console.log(&amp;quot;ChildClass#method4&amp;quot;) }; var myobj = new ChildClass(); myobj.method1(); myobj.method2(); myobj.method3(); myobj.method4();  测试： 注解：
+Javascript的继承要在原型链上进行，没有super()可以调用父类，覆盖父类函数时只能通过父类原型以call或apply函数的形式调用父类的方法。</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 字符串与JSON数据互转</title>
+      <link>https://mryqu.github.io/post/javascript_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ejson%E6%95%B0%E6%8D%AE%E4%BA%92%E8%BD%AC/</link>
+      <pubDate>Tue, 26 Aug 2014 06:06:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ejson%E6%95%B0%E6%8D%AE%E4%BA%92%E8%BD%AC/</guid>
+      <description>字符串-&amp;gt;JSON 转换方法有3种:
+使用浏览器内置window.JSON.parse方法 原生方法，速度最快，首选方案。老版本浏览器不支持。
+|浏览器|支持版本 |&amp;mdash; |Chrome|(Yes) |Firefox (Gecko)|3.5 (1.9.1) |Internet Explorer|8.0 |Opera|10.5 |Safari|4.0 |Android|(Yes) |Chrome for Android|(Yes) |Firefox Mobile (Gecko)|1.0 (1.0) |IE Mobile|(Yes) ||Opera Mobile|(Yes) |Safari Mobile|(Yes)
+使用Funtion()构造函数 较eval_r()快
+使用 eval_r() 函数 功能强大，能解析任何JS代码,但是执行效率和安全性都不好示例代码：
+var jsonStr = &#39;{&amp;quot;name&amp;quot;:&amp;quot;kxeg&amp;quot;,&amp;quot;data&amp;quot;:[{&amp;quot;key&amp;quot;:&amp;quot;Alpha&amp;quot;,&amp;quot;color&amp;quot;:&amp;quot;lightblue&amp;quot;},{&amp;quot;key&amp;quot;:&amp;quot;Beta&amp;quot;,&amp;quot;color&amp;quot;:&amp;quot;orange&amp;quot;}]}&#39;; //JSON.parse() if (window &amp;amp;&amp;amp; window.JSON &amp;amp;&amp;amp; window.JSON.parse) jsonObj1 = window.JSON.parse(jsonStr); //Function 创建一个闭包,返回一个json数据对象 jsonObj2 = (new Function(&#39;return&#39;+jsonStr))(); //eval_r() jsonObj3 = eval_r(&#39;(&#39;+jsonStr+&#39;)&#39;);  JSON-&amp;gt;字符串 使用浏览器内置window.JSON.stringify方法
+参考 js中字符串数据转为json对象的方法
+MDN：JSON</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 函数的prototype对象属性</title>
+      <link>https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84prototype%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Fri, 22 Aug 2014 21:44:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84prototype%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/</guid>
+      <description>原型（prototype） JavaScript 不包含传统的类继承模型，而是使用原型模型。继承方面，JavaScript中的每个对象都有一个内部私有的链接指向另一个对象，这个对象就是该对象的原型。这个原型对象也有自己的原型，直到对象的原型为 null为止（也就是没有原型）。这种一级一级的链结构就称为原型链。Function.prototype.toString() toString()方法返回表示函数源代码的字符串。Function.prototype.bind() 对于给定函数，bind()方法创建具有与原始函数相同主体的绑定函数。 在绑定函数中，this对象将解析为传入的对象。绑定函数具有指定的初始参数。
+fun.bind(thisArg[, arg1[, arg2[, ...]]])  JavaScript bind 方法具有几种用法。 通常，它用于为在其他上下文中执行的函数保留执行上下文。
+Function.prototype.call()和Function.prototype.apply() call()和apply()方法都是调用一个对象的方法，用另一个对象上下文替换当前对象上下文。两者仅在定义参数方式有所区别：call传递的是参数列表，apply传递的是数组或arguments对象。
+fun.call(thisArg[, arg1[, arg2[, ...]]])  应用call和apply还有一个技巧，就是call和apply应用另外一个函数以后，当前函数就具备了另外一个函数的方法和属性，这也可以称之为“继承”。通过上例可知，extend调用call方法后就继承到了base的方法和属性。
+参考 JavaScript函数的Arguments对象属性
+Javascript继承机制的设计思想
+深入理解JavaScript系列（5）：强大的原型和原型链
+Function.prototype.apply()
+Function.prototype.call()
+Function.prototype.bind()
+Function.prototype.toString()
+Functional JavaScript, Part 3: .apply(), .call(), and the arguments object
+Bind, Call and Apply in JavaScript</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 函数的Arguments对象属性</title>
+      <link>https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84arguments%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Thu, 21 Aug 2014 20:53:34 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84arguments%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/</guid>
+      <description>arguments对象 每个函数表达式在其作用域内都可以访问一个特殊的本地变量：arguments，它是跟数组很类似的对象，同样可以通过下标访问，例如arguments[0]和arguments[1]&amp;hellip;。arguments.length 传递给函数的参数个数。
+arguments.callee 返回当前正在调用的函数。callee属性是arguments对象的一个成员，它表示对函数对象自身的引用，有利于匿名函数的递归或者保证函数的封装性，上例中的sumV2仅调用局部变量arguments的callee属性，较sumV1需要调用全局变量sumV1，封装性更好。值得注意的是，callee也拥有一个length属性。通过上例可知arguments.length反映的是函数的实参长度，arguments.callee.length反映的是函数的形参长度。
+arguments.caller (已废弃) arguments.caller并属于标准，且已被废弃。可以使用同样不属于标准但被大多数主流浏览器支持的Function.caller获得调用当前函数的函数。参考 Arguments object
+arguments.callee
+arguments.caller
+Why was the arguments.callee.caller property deprecated in JavaScript?
+Function caller</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] retrieve data table</title>
+      <link>https://mryqu.github.io/post/javascript_retrieve_data_table/</link>
+      <pubDate>Wed, 20 Aug 2014 22:06:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_retrieve_data_table/</guid>
+      <description>想学学怎么提交一个Form中的Table，放狗出去，结果不够给力。 曾经有很多年Table标签被用作格式对齐的工具，这使搜出来的页面很少讲的是数据表格。 看了看DataTables这个JQuery插件，可以加载和更新数据，但是没有找到存储所有表格数据的功能。 看了看ajaxsubmit，必须有formcontent，此外可以有可选的data。由于表格里有很多行，没想好path的设置问题。 最后还是用JS提取所有表格数据，生成JS数组，通过AJAX post函数发送给服务器侧。 JS侧的代码示例：http://jsfiddle.net/mryqu/d7rubzut/ 服务器侧的用于REST的Spring控制器代码如下：
+@RequestMapping(params=&amp;quot;action=test&amp;quot;, method = RequestMethod.POST) public @ResponseBody TestResultVO test(HttpServletRequest request, @ModelAttribute(&amp;quot;tqs&amp;quot;)ArrayList tqs) throws Exception { ...... }  运行结果正常</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] JQuery AJAX在HTTP响应200OK时却调用了errorcallback</title>
+      <link>https://mryqu.github.io/post/javascript_jquery_ajax%E5%9C%A8http%E5%93%8D%E5%BA%94200ok%E6%97%B6%E5%8D%B4%E8%B0%83%E7%94%A8%E4%BA%86errorcallback/</link>
+      <pubDate>Sun, 25 May 2014 08:02:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_jquery_ajax%E5%9C%A8http%E5%93%8D%E5%BA%94200ok%E6%97%B6%E5%8D%B4%E8%B0%83%E7%94%A8%E4%BA%86errorcallback/</guid>
+      <description>运行如下代码时，从结果看操作成功，但是总是调用错误处理回调。
+myTest = function(server, lib, table, reqParam, reqInfo, successCallback, errorCallback) { var url = &amp;quot;http://localhost/mytest/&amp;quot; + encodeURIComponent(server) + &amp;quot;/libs/&amp;quot; + encodeURIComponent(lib) + &amp;quot;/tables/&amp;quot; + encodeURIComponent(table); if (reqParam!=undefined &amp;amp;&amp;amp; reqParam) { url += &amp;quot;?reqParam=&amp;quot; + encodeURIComponent(reqParam); } $.ajax({ cache: false, url: url, type: &amp;quot;PUT&amp;quot;, data: JSON.stringify(reqInfo), contentType: &amp;quot;application/json&amp;quot;, success: function (data) { if (successCallback!==undefined &amp;amp;&amp;amp; successCallback) { successCallback(data); } else { console.log(&amp;quot;success:&amp;quot;+JSON.stringify(data)); } }, error: function (xhr, status, error) { if (errorCallback!</description>
+    </item>
+    
+    <item>
+      <title>在chrome控制台中加载Javascript文件</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8chrome%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E5%8A%A0%E8%BD%BDjavascript%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 02 Feb 2014 20:49:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8chrome%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E5%8A%A0%E8%BD%BDjavascript%E6%96%87%E4%BB%B6/</guid>
+      <description>Include javascript file in chrome console里面介绍了几种在Chrome控制台加载Javascript文件的方法，对我来说使用JQuery是最方便的做法。
+$.getScript(&#39;script.js&#39;);  </description>
+    </item>
+    
+    <item>
+      <title>用JS处理粘贴而来的HTML表单</title>
+      <link>https://mryqu.github.io/post/%E7%94%A8js%E5%A4%84%E7%90%86%E7%B2%98%E8%B4%B4%E8%80%8C%E6%9D%A5%E7%9A%84html%E8%A1%A8%E5%8D%95/</link>
+      <pubDate>Sun, 12 Jan 2014 22:03:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%94%A8js%E5%A4%84%E7%90%86%E7%B2%98%E8%B4%B4%E8%80%8C%E6%9D%A5%E7%9A%84html%E8%A1%A8%E5%8D%95/</guid>
+      <description>今天用Javascript处理粘贴而来的HTML表单，代码如下：某日又写了一小段，代码如下：</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 调试及console.log</title>
+      <link>https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/</link>
+      <pubDate>Sat, 21 Dec 2013 11:49:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/</guid>
+      <description>最近玩一下javascipt，在回调里碰到一个问题，需要调试。加入了console.log函数打印日志，在我的chrome浏览器按Ctrl+Shift+J快捷键调出DevTool并显示控制台来查找问题。结合Wireshark，最后才发现对Json数据解析错误。下面介绍一下console.log的使用。javascript的代码示例如下：
+$(function () { $(&#39;#fileupload&#39;).fileupload({ url: url, dataType: &#39;json&#39;, done: function (e, data) { $.each(data.result.files, function (index, file) { $(&#39;&#39;).text(file.name).appendTo(&#39;#files&#39;); }); }, progressall: function (e, data) { var progress = parseInt(data.loaded / data.total * 100, 10); console.log(&amp;quot;complete:&amp;quot;+progress); $(&#39;#progress .progress-bar&#39;).css( &#39;width&#39;, progress + &#39;%&#39; ); } }).prop(&#39;disabled&#39;, !$.support.fileInput) .parent().addClass($.support.fileInput ? undefined : &#39;disabled&#39;); });  浏览器控制台使用 Firefox http://getfirebug.com/ (可以使用Firefox内建的开发工具Ctrl+Shift+J (Tools &amp;gt; Web Developer &amp;gt;Error Console)，但是Firebug更出色；建议使用Firebug)
+Safari和Chrome 使用方法基本相同。 https://developer.chrome.com/devtools/index https://developer.apple.com/technologies/safari/developer-tools.html
+Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模式。 http://msdn.</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 逻辑操作符的特殊行为</title>
+      <link>https://mryqu.github.io/post/javascript_%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E7%89%B9%E6%AE%8A%E8%A1%8C%E4%B8%BA/</link>
+      <pubDate>Sat, 07 Dec 2013 14:47:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E7%89%B9%E6%AE%8A%E8%A1%8C%E4%B8%BA/</guid>
+      <description>Javascript中并不要求逻辑运算的两个操作数为布尔类型，并且返回值也不一定为布尔类型。&amp;amp;&amp;amp;操作符，如果第一个操作表达式能被转换成false，返回第一个操作表达式；否则返回第二个操作表达式。当用于两个布尔类型值时，两个值都为true时返回ture，否则返回false。||操作符，如果第一个操作表达式能被转换成true，返回第一个操作表达式；否则返回第二个操作表达式。当用于两个布尔类型值时，任一个值为true时返回ture，否则返回false。示例：参考 MDN：Logical operators</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 原始数据类型</title>
+      <link>https://mryqu.github.io/post/javascript_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 07 Dec 2013 10:09:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>原始数据类型 JavaScript共有5种原始数据类型：
+|原始数据类型|包装对象|介绍 |&amp;mdash;&amp;ndash; |string|String|字符串遇到加号之外的计算操作符，会转换成数值。内容为不为数值的字符串转换成NaN。当用比较操作符比较两个字符串时，比较的是第一个字母的unicode。 |number|Number|十进制数：123八进制数：0123十六进制数：0x123指数：1e1、1E+1、2E-3无穷：Infinity、-Infinity非数字：NaN |Boolean|Boolean| |null||与undefined的区别在于，已定义但没有值 |undefined||
+typeof操作符 typeof的返回值有六种可能：number、string、boolean、object、function、undefined。条件判断或3元条件运算符(?:)判断 |值|Boolean结果 |&amp;mdash;&amp;ndash; |undefined|false |null|false |number|0和NaN为false，其他为true |string|空字符串&amp;rdquo;&amp;ldquo;为false，其他为true |对象|不为null的对象始终为true
+参考 MDN：Primitive data type
+MDN：typeof operator</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] === 与 == 操作符的区别</title>
+      <link>https://mryqu.github.io/post/javascript_%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Fri, 08 Nov 2013 19:07:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>JavaScript中有两个等值比较操作符：严格相等===和宽松相等==。很多JavaScript指南都建议避免使用宽松相等，而是使用严格相等。 - ===：只有在两个操作数的数据类型和值都相等的情况下才为true - ==：用于比较两个操作数是否相等，这两个操作数的数据类型不一定要相等，只要进行数据类型转换后相等即为true
+严格相等=== （严格不相等!==） 规则如下： - 如果类型不同，就[不相等] - 如果两个都是数值原始类型，并且是同一个值，那么[相等]；(！例外)的是，如果其中至少一个是NaN，那么[不相等]。（判断一个值是否是NaN，只能用isNaN()来判断） - 如果两个都是字符串原始类型，每个位置的字符都一样，那么[相等]；否则[不相等]。 - 如果两个都是布尔原始类型，两个值值都是true，或者都是false，那么[相等]。 - 如果两个原始类型值都是null，或者都是undefined，那么[相等]。 - 如果两个值都引用同一个对象（含数组和函数），那么[相等]；否则[不相等]。示例：宽松相等== （宽松不相等!=） 规则如下： - 如果两个值类型相同，进行 === 比较。 - 如果两个值类型不同，他们可能相等。根据下面规则进行类型转换再比较： - null与undefined是[相等]的。 - 如果字符串原始类型和数值原始类型进行比较，把字符串转换成数值再进行比较。 - 如果Boolean对象与其他类型进行比较，Boolean对象会转换成数值(true:1,false:0)再进行比较。 - 如果一个是对象，另一个是数值或字符串原始类型，把对象转换成原始类型的值再比较。对象利用它的toString或者valueOf方法转换成原始类型。JavaScript内置核心对象(例如Array、Boolean、Function、Math、Number、RegExp和String)，会尝试valueOf先于toString；例外的是Date，Date利用的是toString转换。如果类型转换失败，则会产生一个runtime错误。 - 对象和原始类型比较，对象才会转换成原始类型。两个对象比较，如果两个值都引用同一个对象（含数组和函数），那么[相等]；否则[不相等]。示例：参考 MDN：Comparison Operators</description>
+    </item>
+    
+    <item>
+      <title>关于JavaScript框架</title>
+      <link>https://mryqu.github.io/post/%E5%85%B3%E4%BA%8Ejavascript%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Wed, 04 Feb 2009 00:11:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%85%B3%E4%BA%8Ejavascript%E6%A1%86%E6%9E%B6/</guid>
+      <description>JS库一览 http://www.slideshare.net/jeresig/javascript-library-overview
+http://www.webjx.com/javascript/jsajax-8545.html
+JS库评估 http://wiki.freaks-unidos.net/javascript-libraries
+为什么选择DOJO？ 原文版 http://dojotoolkit.org/book/dojo-book-0-9/introduction/why-dojo
+中文版 http://bigqiangbigqiang.spaces.live.com/blog/cns!64A5E0FB4DFCD63F!606.entry
+http://bigqiangbigqiang.spaces.live.com/blog/cns!64A5E0FB4DFCD63F!607.entry
+为什么选择mootools,抛弃了prototype http://www.javaeye.com/topic/122425
+不要使用ExtJS http://pablotron.org/?cid=1556
+ExtJS源自YUI，功能更强，许可更苛刻。</description>
+    </item>
+    
+    <item>
+      <title>JavaScript编辑器</title>
+      <link>https://mryqu.github.io/post/javascript%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+      <pubDate>Mon, 24 Dec 2007 23:59:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+      <description>Antechnus公司的javascript editor http://www.c-point.com/index.html InterAKTonline公司的JSEclipse http://www.interaktonline.com/Products/Eclipse/JSEclipse/Overview/ Teniga 据说这个最强，下次有空试试 https://sourceforge.net/projects/teniga  放弃自己搜索了，这个强帖太厉害http://blog.csdn.net/holym/archive/2007/09/29/1805887.aspx</description>
+    </item>
+    
+  </channel>
+</rss>

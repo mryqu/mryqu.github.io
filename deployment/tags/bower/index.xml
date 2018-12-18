@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bower on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/bower/</link>
+    <description>Recent content in Bower on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 13 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/bower/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>折腾openui5-sample-app之使用Yarn替换Bower</title>
+      <link>https://mryqu.github.io/post/node_%E6%8A%98%E8%85%BEopenui5-sample-app%E4%B9%8B%E4%BD%BF%E7%94%A8yarn%E6%9B%BF%E6%8D%A2bower/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/node_%E6%8A%98%E8%85%BEopenui5-sample-app%E4%B9%8B%E4%BD%BF%E7%94%A8yarn%E6%9B%BF%E6%8D%A2bower/</guid>
+      <description>SAP/openui5-sample-app是使用npm下载依赖的后端开发和构建模块，使用bower下载依赖的前端openui5库。 在npm install的过程中提示&amp;rdquo;npm WARN deprecated bower@1.8.4: We don&amp;rsquo;t recommend using Bower for new projects. Please consider Yarn and Webpack or Parcel. You can read how to migrate legacy project here: https://bower.io/blog/2017/how-to-migrate-away-from-bower/&amp;quot;。 对于SAP这个小示例，区分前端和后端使用包管理器有点浪费！对于所有的依赖模块，可以要么使用npm，要么使用yarn。
+ 删除bower_components和dist目录
+ 安装yarn：
+npm install yarn -g  去掉bower.json 不过其中依赖的openui5/packaged-sap.ui.core、openui5/packaged-sap.m、openui5/packaged-themelib_sap_belize仅仅bower能够获取，在npm仓库里是找不到的。
+ 修改package.json
+ 去除bower模块
+ 去除postinstall脚本
+ 增加@openui5/sap.m依赖
+ 增加@openui5/sap.ui.core依赖
+ 增加@openui5/themelib_sap_belize依赖  修改Gruntfile.js npm仓库里的@openui5/sap.m、@openui5/sap.ui.core、@openui5/themelib_sap_belize仅包含openui5/packaged-sap.ui.core、openui5/packaged-sap.m、openui5/packaged-themelib_sap_belize中resources的部分，而不包含test-resources的部分。 对于openui5_connect任务，我认为无需test-resources部分即可。
+ 将openui5库的定位从bower_components目录下改为node_modules目录下的相应位置  构建测试
+yarn grunt build grunt serve   参考 SAP/grunt-openui5</description>
+    </item>
+    
+  </channel>
+</rss>

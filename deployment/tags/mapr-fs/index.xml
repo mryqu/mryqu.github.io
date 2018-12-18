@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mapr Fs on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/mapr-fs/</link>
+    <description>Recent content in Mapr Fs on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 25 Nov 2015 06:23:37 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/mapr-fs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[MapR培训笔记]Hadoop基础</title>
+      <link>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 25 Nov 2015 06:23:37 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/</guid>
+      <description>学习目标  大数据介绍: 理解大数据定义，判断是否存在大数据问题，描述如何用Hadoop解决大数据问题； Hadoop核心元素:描述分布式文件系统如何工作，map/reduce如何在分布式文件系统上处理数据； Hadoop工具生态系统: 了解Hadoop相关工具及其作用； 解决大数据用例: 描述Hadoop生态系统如何协同解决各种大数据用例，如何在不同场景下选择工具。  第一课 数据如何变大 学习目标  定义大数据及大数据问题 描述Hadoop主要部件  大数据 差不多是4V中的前三个,以及使数据难于描述、存储或处理的一些其他特性 - Volume（大量）:太大以至于系统无法处理 - Variety（多样）: 太多不同种类的数据，无法简单描述 - Velocity（高速）: 数据产生太快以至于系统无法处理 - Value（价值）:
+Hadoop主要部件 Google收到大数据挑战后，认识到无法用传统关系型数据库解决，创建了GFS+BigTabel+Map/Reduce。 - GFS将文件分割成块，分布在集群的节点上。文件块在不同节点进行复制，以防止节点故障导致的数据丢失。 - BigTable是使用GFS存储和获取数据的（分布式、多级）数据库系统。BigTable使用行键、列键和时戳映射到所存储的数据，可以不重写已有数据在不同时间对相同信息进行采集。行被分片为称之为Tablet的子表，分布到集群内。BigTable被设计成可以处理大量数据，可以无需重新配置已有文件的情况下向集群添加新的节点。 - 并行处理范式map/reduce被用于处理存储在GPS上的数据。map/reduce代表处理的两个步骤。在mapping阶段，所有数据在逻辑上分割，map函数应用于所有割片以生成键值对。框架对所有来自mapper的键值对进行排序然后在reducer之间分片。在reduce阶段，reduce函数应用于所有分片。map/reduce是一种分而治之的方式，将单个庞大的作业分解成一系列小的可管理的任务。
+Google实验多年后发表了论文阐述了他们的大数据解决方案。DougCutting以此在Yahoo开发一个项目，后来开源成Apache基金会项目下的Hadoop（Cutting儿子玩具象的名字）。 Mapr利用Hadoop理念，开发了更快、更稳定的企业版Hadoop。
+第二课 Hadoop核心 学习目标  本地&amp;amp;分布式文件系统 MapR-FS中的数据管理 （使用命令行）执行数据管理 Map Reduce范式  本地文件系统 HFS/NTFS（读写）和CDFS（只读）都是本地文件系统。文件系统中每个文件都由一个iNode和一系列数据块构成。iNode存储文件元数据，例如文件类型、权限、所有者、文件名和最后一次修改时间等信息，它还存储文件所存储的数据块的指针。数据块用于存储文件的实际内容。 本地文件系统的常见问题 - 硬盘故障：本地硬盘镜像（RAID-1） - 丢失：云镜像 - 人为失误 - 误删：定期增量备份 - 空间不足：增加硬盘、硬盘阵列（RAID-0）
+分布式文件系统 分布式文件系统行为与RAID-0类似，但硬盘分布在多个服务器上。由Sun微系统公司开发的网络文件系统NFS仍广泛用于在网络内存储和获取数据。 分布式文件系统当处理数据时致力于透明性，即对于客户端程序来说，文件系统与本地文件系统类似，分布式文件系统不可见。由于数据在网络内多个机器内分布，分布式文件系统使用数据定位器存储数据位置信息。与本地文件系统中的iNode类似，数据定位器只想数据在分布式文件系统中存储的位置。
+MapR-FS存储 MapRFS是分布式文件系统，是Hadoop的MapR分发版的底层文件系统。它支持所有前面提到的本地文件系统特性，包括读写访问、本地或远程镜像，及在联机时对文件系统扩容的能力。此外，MapR文件系统可以加载并直接处理已有HDFS或NFS文件系统中的数据。
+物理存储 集群是一组使用分布文件系统（例如MapR-FS）的计算机。集群中每个计算机称为一个节点，每个节点有一或多个物理硬盘。 在MapR-FS中，硬盘组合成组，称为存储池（storagepool）。默认一个存储池有三块硬盘组成。当数据写往存储池，数据在三个磁盘拆分写入，增加写速度。每个节点包含一或多个存储池，所有节点上的所有存储池构成了MapR-FS上的全部可用存储。</description>
+    </item>
+    
+  </channel>
+</rss>

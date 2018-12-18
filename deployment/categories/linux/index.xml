@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 05 Aug 2016 05:53:58 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在Ubuntu中识别当前Init系统</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Fri, 05 Aug 2016 05:53:58 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/</guid>
+      <description>Ubuntu 14.04 首先用uname命令查看一下系统信息：
+ubuntu@node50069:~$ uname -a Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是init：可以下面几个命令查看init进程所用的命令信息： - ps -efa|grep init - type init - sudo stat /proc/1/exe
+最终通过&amp;rdquo;sudo init &amp;ndash;version&amp;rdquo;可知当前的Init系统为upstart：Ubuntu 15.04 首先查看一下系统信息：
+vagrant@vagrant-ubuntu-trusty:~$ uname -a Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是systemd：参考 WIKI：init</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu中安装rpm包</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</link>
+      <pubDate>Fri, 07 Aug 2015 05:46:42 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</guid>
+      <description>RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。 APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。 Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。 Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用sudo apt-get install alien命令进行安装。
+Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统直接安装rpm：sudo alien -i --script(filename).rpm - deb转rpm：sudo alien --to-rpm (filename).deb - tar.gz转deb：sudo alien -k (filename).tar.gz - tar.bz2转deb：sudo alien -d (filename).tar.bz2 - tgz转deb：sudo alien --to-deb ~/(filename).tgz
+由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。</description>
+    </item>
+    
+    <item>
+      <title>Apt-get代理配置</title>
+      <link>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 20 May 2015 00:03:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+      <description>在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
+DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子： - Docker apt-get update fails - Docker - Network calls fail during image build on corporate network - How do I set my DNS on Ubuntu 14.04?
+检查我ubuntu配置：
+ cat /etc/resolv.conf  确认DNS没有问题。
+Ubuntu官方服务器？ 是不是我的机器连不上欧美的Ubuntu官方服务器，换成中国服务器试试。尝试了Ubuntu 14.04服务器列表上的中国服务器还是不成。
+Apt-get代理？ 照着how to install packages with apt-get on a system connected via proxy?设置一番，成功了
+设置/etc/apt/apt.conf：
+Acquire::http::proxy &amp;quot;http://yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourServer:yourPort/&amp;quot;;  如需用户名、密码，则作如下修改：
+Acquire::http::proxy &amp;quot;http://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;;  最好将上述配置也存入/etc/apt/apt.</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu中强制Apt-get使用IPv4或IPv6</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</link>
+      <pubDate>Mon, 18 May 2015 06:14:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</guid>
+      <description>快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
+apt-get --version  结果近似于:
+apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14  版本核实后，可以通过如下命令强制使用IPv4:
+apt-get -o Acquire::ForceIPv4=true update  或IPv6:
+apt-get -o Acquire::ForceIPv6=true update  这会将_sources.list_中的URL仅解析成IPv4并更新仓库。
+持久化的选项 为了让设置持久化，在/etc/apt/apt.conf.d/下创建99force-ipv4文件。
+sudoedit /etc/apt/apt.conf.d/99force-ipv4  在该文件放入如下内容：
+Acquire::ForceIPv4 &amp;quot;true&amp;quot;;  保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的4改成6即可。
+原文: https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu中禁掉IPv6</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</link>
+      <pubDate>Fri, 20 Mar 2015 08:38:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</guid>
+      <description>为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p  之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 </description>
+    </item>
+    
+    <item>
+      <title>ClusterShell实践</title>
+      <link>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Tue, 07 Jan 2014 20:47:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</guid>
+      <description>ClusterShell介绍 ClusterShell提供了一个轻量级、统一和健壮的命令执行Python框架，非常适于减轻Linux集群日常管理任务负担。ClusterShell的好处如下： - 提供高效、并行和高可扩展的Python命令执行引擎。 - 提供统一节点组语法和对外部组的访问 - 当使用clush和nodeset等工具可有效提升集群创建和日常管理任务的效率
+ClusterShell实践 安装 首先在集群内节点配置无密钥ssh访问。然后在主/工作节点上安装ClusterShell。
+apt-get install clustershell  配置和实践 ClusterShell工具 ClusterShell包含如下工具： - clush帮助文档 - clubak帮助文档 - nodesetcluset帮助文档
+ClusterShell在线文档为http://clustershell.readthedocs.io/。</description>
+    </item>
+    
+    <item>
+      <title>*nux中的Here documents和Here strings</title>
+      <link>https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/</link>
+      <pubDate>Wed, 01 Jan 2014 21:09:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/</guid>
+      <description>介绍 here document(又称之为here-document、here-text、heredoc、hereis、here-string或here-script)，是shell中的一种特殊重定向方式，用来将输入重定向到一个交互式的shell脚本或程序。格式如下：
+command &amp;lt;&amp;lt; [-]delimiter here-document delimiter  here documents始于Unixshell的最通用语法，在&amp;lt;&amp;lt;紧跟一个分割标识符（通常为EOF或END），跟随一堆多行字符，最后一行用分割标识符收尾。
+注意： - 结尾的分割标识符一定要顶格写，前后不能有任何字符，包括空格和tab缩进。 - 开始的分割标识符前后的空格会被省略掉。 - 开始的分割标识符前如果使用-的话，内容部分每行前面的 tab (制表符)将会被删除掉。这种用法是为了编写HereDocument的时候可以将内容部分进行缩进，方便代码阅读。
+here strings语法跟here documents类似。格式如下：
+command &amp;lt;&amp;lt;&amp;lt; word  实践及测试 Here documents简单测试 Here documents中变量替换和执行命令测试 通常，Heredocuments中内容会进行变量替换，反勾号中的命令也会执行。可以通过在开始的分割标识符上加单引号禁掉这种行为。 Here string简单测试 在shell文件中使用Here documents 参考 Here document
+Bash Reference Manual - Here Documents
+Bash Reference Manual - Here Strings
+Java 的多行字符串 Here Document 的实现
+[](http://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash)</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu Linux上安装netstat</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</link>
+      <pubDate>Wed, 01 Jan 2014 13:52:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</guid>
+      <description>在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools。net-tools是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
+apt-get install net-tools  </description>
+    </item>
+    
+    <item>
+      <title>nohup命令笔记</title>
+      <link>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sat, 26 Oct 2013 11:24:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
+      <description>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
+/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp;  但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &amp;amp;结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
+nohup COMMAND [ARG]...  nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&amp;amp;到命令的尾部。
+如果不将 nohup 命令的输出重定向，输出将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
+nohup command &amp;gt; myout.file 2&amp;gt;&amp;amp;1  该命令返回下列出口值：
+ 126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。  </description>
+    </item>
+    
+    <item>
+      <title>*nux下导出文件16进制内容的命令xxd</title>
+      <link>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</link>
+      <pubDate>Thu, 24 Oct 2013 19:16:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</guid>
+      <description>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page
+5 Unix Commands I Wish I’d Discovered Years Earlier</description>
+    </item>
+    
+    <item>
+      <title>cut命令笔记</title>
+      <link>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 22 Oct 2013 23:22:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
+      <description> cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
+命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号(&#39;-&#39;)，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（&#39;-&#39;）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成&#39;&#39;name:shell&#39;&#39;对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38  个人体会  cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&amp;ndash;output-delimiter=STRING选项控制输出字符分隔符。  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下显示本机IP</title>
+      <link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</link>
+      <pubDate>Sun, 20 Oct 2013 12:05:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</guid>
+      <description>命令为：ip addr show 感觉比ifconfig eth0更通用些！</description>
+    </item>
+    
+    <item>
+      <title>在Vi中搜索多字节unicode字符</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</link>
+      <pubDate>Sun, 20 Oct 2013 09:00:49 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</guid>
+      <description>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
+\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678)  为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值： </description>
+    </item>
+    
+    <item>
+      <title>Linux包管理速查表</title>
+      <link>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</link>
+      <pubDate>Fri, 18 Oct 2013 20:14:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid>
+      <description>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
+搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</description>
+    </item>
+    
+    <item>
+      <title>Debian软件包管理速查表：dpkg、apt-get、apt-cache</title>
+      <link>https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/</link>
+      <pubDate>Fri, 18 Oct 2013 19:54:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/</guid>
+      <description>dpkg是Debian系统底层包管理器，apt-get是高层包管理工具，apt-cache是高层包查询工具。
+dpkg速查表 dpkg是Debian Linux用于安装/管理单个软件包的命令行工具：
+语法描述示例dpkg -i {.deb package}安装软件包dpkg -i zip_2.31-3_i386.debdpkg -i {.deb package}安装新的软件包。如果软件包已安装则尝试更新到最新版本dpkg -i zip_2.31-3_i386.debdpkg -R {Directory-name}递归地安装目录下所有软件包dpkg -R /tmp/downloadsdpkg -r {package}移除一个已安装的软件包，保留配置文件dpkg -r zipdpkg -P {package}移除一个已安装的软件包及配置dpkg -P apache-perl dpkg -l列举所有安装的软件包、及包版本和简短描述dpkg -l dokg -l | less dpkg -l &#39;*apache*&#39; dpkg -l | grep -i &#39;sudo&#39;dpkg -l {package}列举单个安装的软件包、及包版本和简短描述dpkg -l apache-perldpkg -L {package}找出安装的软件包所提供的文件，例如列出安装的文件dpkg -L apache-perl dpkg -L perldpkg -c {.Deb package}列出软件包所提供的文件，例如deb包文件内的所有文件，这对找出将要安装什么文件非常有帮助dpkg -c dc_1.06-19_i386.debdpkg -S {/path/to/file}找出拥有该文件的包，例如找出该文件归属的包dpkg -S /bin/netstat
+dpkg -S /sbin/ippooldpkg -p {package}显示包的详细信息，包组、版本、维护者、架构、依赖包、描述等dpkg -p lsofdpkg -s {package} | grep Status找出Debian包是否安装(状态)dpkg -s lsof | grep Status apt-get速查表 apt-get是Debian Linux用于管理软件包的命令行工具：</description>
+    </item>
+    
+    <item>
+      <title>Shell中的source和.命令</title>
+      <link>https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Thu, 10 Oct 2013 23:11:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/</guid>
+      <description>source是csh(C Shell)的内置命令: 标识读入并执行文件中的命令。 这与执行shell脚本是不一样的./script.sh会启动一个新的shell并执行script.sh中的命令。
+source [-h] filename [arguments] The shell reads and executes commands from name. The commands are not placed on the history list. If any args are given, they are placed in argv. (+) source commands may be nested; if they are nested too deeply the shell may run out of file descriptors. An error in a source at any level terminates all nested source commands. With -h, commands are placed on the history list instead of being executed, much like `history -L&#39;.</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu上修改主机名</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</link>
+      <pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</guid>
+      <description> 显示主机名 hostname -s  更多细节见hostname帮助文档。
+修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  </description>
+    </item>
+    
+    <item>
+      <title>Shell参数扩展</title>
+      <link>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Sun, 23 Jun 2013 18:55:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</guid>
+      <description>在hadoop-env.sh中，有如下语句：
+export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-&amp;quot;/etc/hadoop&amp;quot;}  这种用法在Shell Parameter Expansion中进行了详尽的介绍，系统学习一下。 Bash中的$符号的作用是参数替换，将参数名替换为参数所代表的值。对于$来说，大括号是可选的，即$ABC和${ABC}代表同一个参数。但是它可以防止变量被错误解析，比如：${hello}world、${arr[1]}。 参数扩展 下列Bash对参数的测试项为未设置和null。如果略掉冒号，则仅测试未设置。
+|表达式|含义 |&amp;mdash;&amp;ndash; |${parameter:-word}|如果parameter没有被声明或者其值为空的话，则表达式替换成word；否则替换成parameter的值。 |${parameter:=word}|如果parameter没有被声明或者其值为空的话，则parameter设为word之后表达式返回parameter的值；否则替换成parameter的值。 |${parameter?word}|如果parameter没有被声明或者其值为空的话，则word被写往标准错误输出和Shell，非可交互的情况下退出；否则替换成parameter的值。 |${parameter:+word}|如果parameter没有被声明或者其值为空的话，则不进行替换；否则替换成parameter的值。 |${!varprefix}
+${!varprefix@}|匹配之前所有以varprefix开头进行声明的变量 |${!name[@]}
+${!name[]}|如果name是数组对象，返回数组下标列表；如果name以设置但不为数组对象，返回0；否则返回null。
+字符串操作 |表达式|含义 |&amp;mdash;&amp;ndash; |${% raw %}{#{% endraw %}parameter}|parameter的长度。 |${parameter:offset}|在parameter中，从位置offset开始提取子串。 |${parameter:offset:length}|在parameter中，从位置offset开始提取长度为length的子串。 |${parameter#word}
+${parameter##word}|从头开始扫描parameter对应值，将匹配word正则表达式的字符删除掉#为最短匹配，##为最长匹配。 |${parameter%word}
+${parameter%%word}|从尾开始扫描parameter对应值，将匹配word正则表达式的字符删除掉%为最短匹配，%%为最长匹配。 |${parameter/pattern/string}
+${parameter//pattern/string}|将parameter对应值的pattern代替为string。/表示只替换一次，//表示全部替换。 |${parameter^pattern}
+${parameter^^pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为大写。^表示只转换匹配的首字母，^^表示全部转换。 |${parameter,pattern}
+${parameter,,pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为小写。,表示只转换匹配的首字母，,,表示全部转换。</description>
+    </item>
+    
+  </channel>
+</rss>

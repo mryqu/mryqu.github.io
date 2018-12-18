@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hive on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/categories/hive/</link>
+    <description>Recent content in Hive on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 20 Aug 2015 05:48:48 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/categories/hive/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Hive] Hive 表UDTF和汇聚UDAF学习</title>
+      <link>https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 20 Aug 2015 05:48:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/</guid>
+      <description>在之前的博文[Hive] Hive Macro和UDF实践中，我对Hive的宏和普通UDF进行学习并实践，这里将针对Hive表UDF（UDTF）和汇聚UDF（UDAF）进行学习。 普通UDF可以对一行表数据进行处理输出一个单元格数据；UDTF可以对一行表数据进行处理输出多列甚至多行数据；UDAF可以对整表数据进行处理输出某种汇聚结果。
+UDTF Hive支持的内建UDTF有explode()、json_tuple()和inline()等函数。
+查看UDTF介绍 选个好理解的explode函数吧。
+hive&amp;gt; describe function explode; OK explode(a) - separates the elements of array a into multiple rows, or the elements of a map into multiple rows and columns Time taken: 0.009 seconds, Fetched: 1 row(s)  测试内建UDTF 像inline函数需要根元素为ARRAY，第二层元素为STRUCT，搭建环境有点麻烦。所以还是接着擼explode函数吧。 上述命令将三行的列a中数组元素拆成7行字符串。那执行&amp;rdquo;select explode(a), b fromcomplex_datatypes_example;&amp;ldquo;会返回什么呢？结果是7行还是3行？ 谜底就是错误提示&amp;rdquo;Only a single exp.ression in the SELECT clause issupported with UDTF&amp;rsquo;s.&amp;ldquo;！
+UDTF实现 一个定制UDTF要继承GenericUDTF抽象类并实现initialize、process及close方法。Hive调用initialize方法以将参数类型通知给UDTF。UDTF必须返回UDTF之后产生的行对象相应的对象观察器。一旦initialize()被调用后，Hive将使用process()方法将行传递给UDTF。在process()方法中，UDTF生成行并调用forward()方法将行转给其他运算符。当所有的行都传递给UDTF后，Hive将最终调用close()方法。 通过FunctionRegistry类可知explode函数的实现类为GenericUDTFExplode。下面通过GenericUDTFExplode对照参考四Hive Developer Guide - UDTF学习一下UDTF实现。 - GenericUDTFExplode继承了抽象父类GenericUDTF - 在initialize方法中，GenericUDTFExplode检查输入列是否为ARRAY或MAP类型，不是的话抛出异常。如果输入列为ARRAY类型，则输出列名为col，类型为输入列数组中元素类型；如果输入列为MAP类型，则输出列名为key和value，类型分别为输入列MAP的键与值相应的类型； - 在process方法中，针对输入列ARRAY或MAP的每一个元素调用forward()方法将所生成的行转给其他运算符； - 在close()方法中，实现为空。</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive Macro和UDF实践</title>
+      <link>https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Tue, 18 Aug 2015 05:09:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/</guid>
+      <description>测试数据库 hive&amp;gt; describe empinfo; OK firstname string lastname string id int age int city string state string Time taken: 0.047 seconds, Fetched: 6 row(s) hive&amp;gt; select * from empinfo; OK John Jones 99980 45 Payson Arizona Mary Jones 99982 25 Payson Arizona Eric Edwards 88232 32 San Diego California Mary Ann Edwards 88233 32 Phoenix Arizona Ginger Howell 98002 42 Cottonwood Arizona Sebastian Smith 92001 23 Gila Bend Arizona Gus Gray 22322 35 Bagdad Arizona Mary Ann May 32326 52 Tucson Arizona Erica Williams 32327 60 Show Low Arizona Leroy Brown 32380 22 Pinetop Arizona Elroy Cleaver 32382 22 Globe Arizona Time taken: 0.</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive表文件存储格式</title>
+      <link>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Fri, 14 Aug 2015 06:25:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid>
+      <description>Hive支持的内建表文件存储格式如下：
+|存储格式|介绍 |&amp;mdash;&amp;ndash; |TEXTFILE|按照纯文本文件格式存储。如果配置hive.default.fileformat没有设置的话，TEXTFILE是默认文件格式。
+此存储格式下，数据不做压缩的话，磁盘开销大，数据解析开销大。使用Gzip、Bzip2、Snappy等进行压缩使用（系统自动检查，执行查询时自动解压）的话，Hive不能对数据进行切分，从而无法对数据进行并行操作。 |SEQUENCEFILE|按照压缩的Sequence File格式存储。
+SequenceFile一般是在HDFS FileSystem中生成，供map调用的原始文件。Hive中的SequenceFile继承自Hadoop API 的SequenceFile，不过它的key为空，使用value存放实际的值，这样是为了避免MR在运行map阶段的排序过程。 |RCFILE|按照RCFile (Record Columnar File)格式存储。
+在Hive0.6.0引入。RCFile是在计算机集群中判断如何存储关系型表的数据存放结构，是Facebook、俄亥俄州立大学、中科院计算所联合研究成果。FCFile结构是由数据存储格式、数据压缩方式、数据读取优化技术等多种模块的系统组合，可以实现数据存放的四个要求：(1)快速加载，(2) 快速处理查询，(3) 高效利用存储空间 (4) 非常适用于动态数据访问模式。
+它遵循“先按行划分，再垂直划分”的设计理念。当查询过程中，针对它并不关心的列时，它会在IO上跳过这些列。需要说明的是，RCFile在map阶段从远端拷贝仍然是拷贝整个数据块，并且拷贝到本地目录后RCFile并不是真正直接跳过不需要的列，并跳到需要读取的列，而是通过扫描每一个row group的头部定义来实现的，但是在整个HDFS Block 级别的头部并没有定义每个列从哪个rowgroup起始到哪个row group结束。所以在读取所有列的情况下，RCFile的性能反而没有SequenceFile高。 |ORC|在Hive 0.11.0引入。ORC(Optimized RowColumnar)存储源自于RCFile。FCFile把每列都当作二进制blob处理，而ORC存储列元数据，针对列类型使用特定的读写器。ORC支持ACID、内建索引和复杂类型。官网上介绍“其性能显著快于RCFile或Parquet”。Facebook和Yahoo等大公司都在使用。 |PARQUET|在Hive 0.13.0引入。Parquet源自于google Dremel系统。Parquet最初的设计动机是存储嵌套式数据，将这类数据存储成列式格式，以方便对其高效压缩和编码，且使用更少的IO操作取出需要的数据，这也是Parquet相比于ORC的优势，它能够透明地将Protobuf和thrift类型的数据进行列式存储，在Protobuf和thrift被广泛使用的今天，与parquet进行集成，是一件非容易和自然的事情。除了上述优势外，相比于ORC,Parquet没有太多其他可圈可点的地方，比如它不支持update操作（数据写成后不可修改），不支持ACID等。 |AVRO|在Hive 0.13.0引入。Avro是数据序列化系统，由Hadoop项目开发的。
+测试 $ echo -e &#39;1\x01foo&#39; &amp;gt; tabft.txt $ echo -e &#39;2\x01bar&#39; &amp;gt;&amp;gt; tabft.txt $ hive hive&amp;gt; create table tabft (id int, name string); hive&amp;gt; quit; $ hadoop fs -put tabft.txt /user/hive/warehouse/tabft $ hive hive&amp;gt; create table tabft_txt (id int, name string) STORED AS TEXTFILE; hive&amp;gt; insert into table tabft_txt select * from tabft; hive&amp;gt; create table tabft_seq (id int, name string) STORED AS SEQUENCEFILE; hive&amp;gt; insert into table tabft_seq select * from tabft; hive&amp;gt; create table tabft_rc (id int, name string) STORED AS RCFILE; hive&amp;gt; insert into table tabft_rc select * from tabft; hive&amp;gt; create table tabft_orc (id int, name string) STORED AS ORC; hive&amp;gt; insert into table tabft_orc select * from tabft; hive&amp;gt; create table tabft_parq (id int, name string) STORED AS PARQUET; hive&amp;gt; insert into table tabft_parq select * from tabft; hive&amp;gt; create table tabft_avro (id int, name string) STORED AS AVRO; hive&amp;gt; insert into table tabft_avro select * from tabft;  获取Sequence文件信息 在我的环境下，按照压缩的Sequence File格式存储后的文件是非压缩的。 获取ORC文件信息 参考 Hive 语言手册 - DDL</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive数据类型</title>
+      <link>https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Thu, 13 Aug 2015 06:14:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>Hive支持的数据类型 原始数据类型  TINYINT SMALLINT INT BIGINT BOOLEAN FLOAT DOUBLE STRING BINARY TIMESTAMP DECIMAL DECIMAL(precision, scale) DATE VARCHAR CHAR   复杂数据类型  array_type map_type struct_type union_type  原始数据类型 在理解原始数据类型时，耗时最多的是TIMESTAMP和BINARY，下文会着重介绍我对这两种类型的理解。 首先创建表primitive_dataytpes_example，字段之间的分隔符没有采用默认的ctrlA，而是使用逗号分隔：
+create table primitive_dataytpes_example ( a TINYINT, b SMALLINT, c INT, d BIGINT, e BOOLEAN, f FLOAT, g DOUBLE, h STRING, i BINARY, j TIMESTAMP, k DECIMAL, l DECIMAL (10,2), m DATE, n VARCHAR(20), o CHAR(20) ) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;,&#39; LINES TERMINATED BY &#39;\n&#39;;  接下来插入一条记录（dummy表的使用见参考三）：</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive UDF not supported in insert/values command</title>
+      <link>https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/</link>
+      <pubDate>Mon, 10 Aug 2015 05:58:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/</guid>
+      <description>创建一个带有timestamp字段的表，想要在insert/values语句中使用UDF，结果报错。
+hive&amp;gt; create table t2 (id int, time timestamp); OK Time taken: 0.045 seconds hive&amp;gt; insert into t2 values(1,current_timestamp()); FAILED: SemanticException [Error 10293]: Unable to create temp file for insert values Expr*ession of type TOK_FUNCTION not supported in insert/values  参考一中提到：”Hive does not support literals for complex types (array,map, struct, union), so it is not possible to use them in INSERTINTO&amp;hellip;VALUES clauses. This means that the user cannot insert datainto a complex datatype column using the INSERT INTO&amp;hellip;VALUESclause.</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive JDBC实践</title>
+      <link>https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Thu, 30 Jul 2015 05:35:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/</guid>
+      <description>HiveJdbcClient.java 使用参考一中的示例代码:
+import java.sql.SQLException; import java.sql.Connection; import java.sql.ResultSet; import java.sql.Statement; import java.sql.DriverManager; public class HiveJdbcClient { private static String driverName = &amp;quot;org.apache.hive.jdbc.HiveDriver&amp;quot;; public static void main(String[] args) throws SQLException { try { Class.forName(driverName); } catch (ClassNotFoundException e) { // TODO Auto-generated catch block e.printStackTrace(); System.exit(1); } //&amp;quot;hadoop&amp;quot; is the name of the user the queries should run as in my cluster. Connection con = DriverManager.getConnection( &amp;quot;jdbc:hive2://localhost:10000/default&amp;quot;, &amp;quot;hadoop&amp;quot;, &amp;quot;{PASSWORD_OF_USER_HADOOP}&amp;quot;); Statement stmt = con.</description>
+    </item>
+    
+    <item>
+      <title>[Hive] HCatalog和WebHCat学习</title>
+      <link>https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 29 Jul 2015 05:39:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/</guid>
+      <description>HCatalog 访问数据的常见方法之一是通过表抽象，该方法通常用于访问关系型数据库，并且为许多开发者所熟知(和广泛采用)。一些流行的Hadoop系统，例如Hive和Pig，也采用了这种方法。这种抽象解除了数据如何存储(HDFS文件、HBase表)与应用程序如何处理数据(表格式)之间的耦合。此外，它允许从较大的数据语料库中&amp;rdquo;过滤&amp;rdquo;感兴趣的数据。 Hadoop的元数据服务HCatalog扩展了Hive的元存储，同时保留了HiveDDL中用于表定义的组件。其结果是，Hive的表抽象(当使用了HCatalog时)可以用于Pig和MapReduce应用程序，这带来了以下一些主要优势：
+ 它使得数据消费者不必知道其数据存储的位置和方式。 它允许数据生产者修改物理数据存储和数据模型，同时仍然支持以旧格式存储的现有数据，从而数据消费者不需要修改他们的处理流程。 它为Pig、Hive和MapReduce提供了共享的结构和数据模型。  HCatalog支持读写任何SerDe支持的文件格式。默认情况下，HCatalog支持RCFile、CSV、JSON、SequenceFile和ORC文件格式。如果使用订制格式，必须提供InputFormat、OutputFormat和SerDe。 WebHCat WebHCat是WebHCat的REST API。这样应用无需使用Hadoop API就可以通过HTTP请求访问HadoopMapReduce (或YARN)、Pig、Hive及HCatalog DDL。WebHCat所使用的代码和数据必须存放在HDFS中。HCatalogDDL命令在请求后即直接执行，MapReduce、Pig和Hive作业则放置在WebHCat(Templeton)服务器的队列中，并监控进展过程或按需停止。程序员指定Pig、Hive和MapReduce结果存放的HDFS位置。 使用 HCatalog和WebHCat都已随Hive安装，所以可以直接使用
+使用HCatalog HCatalog CLI与Hive CLI功能大致一样：
+cd $HIVE_HOME ./hcatalog/bin/hcat  使用WebHCat 在.bashrc中添加PYTHON_CMD：
+export PYTHON_CMD=/usr/bin/python  启动WebHCat服务器：
+cd $HIVE_HOME ./hcatalog/sbin/webhcat_server.sh start  参考 HCatalog
+HCatalog CLI
+WebHCat
+GitHub: apache/hcatalog
+GitHub: apache/hive/hcatalog
+apache/hive/hcatalog/webhcat</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive CLI和Beeline学习</title>
+      <link>https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Tue, 28 Jul 2015 05:59:51 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/</guid>
+      <description>Hive CLI学习 Hive CLI使用手册很简单，但是看完了对有些参数还是不太理解，所以就翻翻Hive CLI源码对照学习吧。
+-f和-i选项的区别 Hive CLI使用手册说-i指定的是初始化SQL文件，-f指定的是SQL脚本文件。 通过阅读源码可知，所谓的初始化SQL文件就是你期望每次执行HiveCLI都要在其他操作之前运行的一些SQL命令。执行完初始化SQL，可以接着执行-e选项中的SQL命令、-f选项中的SQL脚本文件或交互输入的命令；而-f选项和-e选项二者只能存在其一，执行完-f选项后退出CLI。
+hiverc文件 当没有指定-i参数时，CLI会尝试加载$HIVE_HOME/bin/.hiverc、$HIVE_CONF_DIR/.hiverc和$HOME/.hiverc作为初始化文件。只要存在，这些.hiverc都会被加载执行。 通过CliDriver类的processInitFiles方法可知，执行初始化SQL时始终采用静默模式，即不显示执行进度信息，只显示最后结果；执行-f选项中SQL脚本时是否采用静默模式由-S选项控制。
+Hive CLI如何处理shell命令、Hive命令和SQL的？ HiveCLI既可以处理一个SQL脚本文件、也可以处理多个SQL命令。它通过处理多行命令，以&amp;rdquo;;&amp;ldquo;为分隔符，获取单个命令列表。一个单个命令，即可能是&amp;ndash;开头的注释行，也可能是!开头的shell命令，此外SQL命令和Hive自身支持的命令。 - 对于shell命令，Hive CLI是通过ShellCmdExecutor执行的； - 对于SQL命令，Hive CLI是通过org.apache.hadoop.hive.ql.Driver执行的； - 对于Hive命令，HiveCLI通过SetProcessor、ResetProcessor、DfsProcessor、AddResourceProcessor、ListResourceProcessor、DeleteResourceProcessor、CompileProcessor、ReloadProcessor、CryptoProcessor这些处理进行执行。
+&amp;ndash;hiveconf、&amp;ndash;define (-d)、&amp;ndash;hivevar之间的关系 首先我们看一下OptionsProcessor类，它通过Apache Commons CLI解析Hive CLI命令参数: - 其process_stage1方法将&amp;ndash;hiveconf参数置入系统属性中，将&amp;ndash;define和&amp;ndash;hivevar参数置入CliSessionState对象的hiveVariables字段 - 其process_stage2方法将&amp;ndash;hiveconf参数置入CliSessionState对象的cmdProperties字段
+接下来看一下CliSessionState对象的hiveVariables字段和cmdProperties字段使用情况: - CliDriver.run方法将CliSessionState对象的cmdProperties字段中的键值对覆盖HiveConf对象，然后置入CliSessionState对象的overriddenConfigurations字段 - CliSessionState对象的hiveVariables字段主要用于变量替换，包括替换提示符（CliDriver.run）、替换source命令所跟文件路径及shell命令（CliDriver.processCmd）、替换SQL（Driver.compile）、替换Hive命令（DfsProcessor.run、&amp;hellip;&amp;hellip;）
+总之： - &amp;ndash;hiveconf参数在命令行中设置Hive的运行时配置参数，优先级高于hive-site.xml,但低于Hive交互Shell中使用Set命令设置。 - &amp;ndash;define (-d)和&amp;ndash;hivevar没有区别，都是用于变量替换的。
+hivehistory文件 Hive CLI会创建$HOME/.hivehistory文件，并在其中记录命令历史记录。
+-v参数打印出的SQL语句是变量替换后的吗？ 不是，打印的是原始SQL语句。 看了Hive CLI源码后的疑惑  CliDriver类主函数实例化一个CliDriver对象，而在executeDriver方法中不用自身实例，偏偏又实例化一个CliDriver对象cli来，为啥？ &amp;ndash;hiveconf参数会被放入CliSessionState对象的cmdProperties字段和overriddenConfigurations字段，难道不能合并成一份么？  Hive Beeline学习 BeeLine类的dispatch负责将特定命令行分发给适合的CommandHandler。 - 其中以!起始的SQLLine命令由execCommandWithPrefix方法处理，具体实现见Commands类的同名方法。- 其他命令则由Commands类的sql方法处理
+参考 Hive LanguageManual CLI
+Hive LanguageManual VariableSubstitution
+Hive CLI source code</description>
+    </item>
+    
+    <item>
+      <title>[Hive] 遇到Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}</title>
+      <link>https://mryqu.github.io/post/hive_%E9%81%87%E5%88%B0relative_path_in_absolute_uri%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 25 Jul 2015 07:33:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_%E9%81%87%E5%88%B0relative_path_in_absolute_uri%E9%97%AE%E9%A2%98/</guid>
+      <description>安装问Hive，启动一下CLI试一下效果。结果直接崩了，错误提示：Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}。 Hive AdminManual Configuration里面的例子是将hive.exec.scratchdir设定为/tmp/mydir。即使按照示例来配置，还是会报hive.downloaded.resources.dir属性错误。后来看到网上有人说主要是Hadoop路径不支持带&amp;rdquo;:&amp;ldquo;，所以会报错。
+解决方法： - hive.exec.local.scratchdir: /tmp/${user.name} - hive.downloaded.resources.dir: /tmp/${user.name}_resources
+可以登入Hive Shell了！ </description>
+    </item>
+    
+    <item>
+      <title>[Hive] 安装Hive 1.2.x</title>
+      <link>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</link>
+      <pubDate>Fri, 24 Jul 2015 05:37:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</guid>
+      <description>我的Hadoop集群为node50064、node50069和node51054。本文的Hive和MySQL软件仅在node50064上安装。
+安装Hive-内嵌元数据存储模式 Hive驱动、元数据存储接口和数据库(derby)使用相同的JVM。元数据保持在内嵌的derby数据库，只允许一个会话连接到数据库。 下载并解压缩Hive wget http://apache.cs.utah.edu/hive/hive-1.2.x/apache-hive-1.2.x-bin.tar.gz tar -xzf apache-hive-1.2.x-bin.tar.gz sudo mv apache-hive-1.2.x-bin /usr/local/hive sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /usr/local/hive  环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;quot; export HIVE_HOME=/usr/local/hive export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$HIVE_HOME/bin  最后通过source~/.bashrc刷新配置文件。
+conf/hive-env.sh 首先通过cd $HIVE_HOME/conf;cp hive-env.sh.template hive-env.sh;chmod 774hive-env.sh创建并设置hive-env.sh执行权限。 修改后的主要部分内容如下：
+# Set HADOOP_HOME to point to a specific hadoop install directory export HADOOP_HOME=${HADOOP_HOME:-/usr/local/hadoop} # Hive Configuration Directory can be controlled by: export HIVE_CONF_DIR=/usr/local/hive/conf # Folder containing extra ibraries required for hive compilation/execution can be controlled by: export HIVE_AUX_JARS_PATH=/usr/local/hive/lib  conf/hive-site.</description>
+    </item>
+    
+  </channel>
+</rss>

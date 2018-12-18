@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Atomikos on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/atomikos/</link>
+    <description>Recent content in Atomikos on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 15 Oct 2013 20:04:34 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/atomikos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>开源事务管理器列表</title>
+      <link>https://mryqu.github.io/post/%E5%BC%80%E6%BA%90%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%88%97%E8%A1%A8/</link>
+      <pubDate>Tue, 15 Oct 2013 20:04:34 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%BC%80%E6%BA%90%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%88%97%E8%A1%A8/</guid>
+      <description>WebLogic、WebSphere和JBoss这些Web应用服务器都自带事务管理器，而Tomcat和tcServer需要额外使用第三方事务管理器。公司选择了AtomikosTransactionEssentials作为JTA/XA提供者，这里列一下当前使用较多的开源事务管理器。
+|事务管理器|开源许可证|当前版本|介绍 |&amp;mdash;&amp;ndash; |JOTM|BSD样式|2.1.9 (2010-1-14)|JOTM(Java Open TransactionManager)是由ObjectWeb协会开发的功能完整的且资源开放的独立的事务管理器。 它提供了JAVA 应用程序的事务支持，而且与JTA（JAVA事务API）兼容。
+JOTM内嵌了一些开源项目。例如CAROL用于事务上下文传播；XAPool是一个XA兼容的JDBC连接池；HOWL是用于事务恢复的日志。 |Bitronix JTA Transaction Manager|LGPL|2.1.4 (2013-9-15)|Bitronix Transaction Manager (BTM)是JTA 1.1 API的一个简单但完整的实现。 |SimpleJTA|Apache 2.0|2.02 (2007-4-10)|SimpleJTA实现了一个单独的JTA兼容事务处理器，仅支持Oracle 9i和ApacheDerby数据库，不支持JTS。 |Atomikos TransactionsEssentials|Apache 2.0|3.9.0.M1 (2013-6-8)|Atomikos分两个：一个是开源的TransactionEssentials，一个是商业的ExtremeTransactions。（功能对比）
+Atomikos TransactionsEssentials是对JDBC/XA池,JMS/XA池和JTA/XA提供基本支持的开源事务处理系统。 |Narayana(JBossTS)|LGPL v2.1|5.0.0.M6 (2013-10-11)|Narayana（JBossTS）前身是最初纽卡斯尔大学在1986到1995开发的Arjuna系统，后由JBoss从Arjuna和HP手中收购并开源的。
+它支持下列事务处理协议标准:JTA、JTS、Web服务事务、REST事务、STM、XATMI/TX
+Stack Overflow有一篇文章对上面的一些事务管理器进行了对比： - JOTM 用户抱怨的比较多 - GeronimoTM/Jencks(Jencks是Apache Geronimo中使用的JCA容器，并使用ApacheGeronimo的事务管理器) 缺乏文档。 - SimpleJTA 没有实现JTS (Java Transaction Service)而且不是活跃的。 - Bitronix 有不错的文档但是不提供技术支持。 - Atomikos 是一个另人钦佩的产品。有丰富的文档，而且提供技术支持。 - JBossTS 从收购通告可见肯定是一个成熟的产品，而且提供技术支持。</description>
+    </item>
+    
+    <item>
+      <title>tc Server与Atomikos集成</title>
+      <link>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</link>
+      <pubDate>Sun, 13 Oct 2013 17:15:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</guid>
+      <description>tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
+Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录： - atomikos-util.jar - transactions.jar - transactions-api.jar - transactions-jdbc.jar - transactions-jdbc-deprecated.jar - transactions-jms.jar - transactions-jms-deprecated.jar - transactions-jta.jar - transactions-osgi.jar - geronimo-jms_1.1_spec.jar - geronimo-jta_1.0.1B_spec.jar - JDBC驱动 - 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar
+复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
+com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false  复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
+package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.</description>
+    </item>
+    
+  </channel>
+</rss>

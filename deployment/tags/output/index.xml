@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Output on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/output/</link>
+    <description>Recent content in Output on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 16 Apr 2015 06:13:52 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/output/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Gradle] 输出依赖包</title>
+      <link>https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/</link>
+      <pubDate>Thu, 16 Apr 2015 06:13:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/</guid>
+      <description>下面我以https://spring.io/guides/gs/spring-boot/中的gs-spring-boot项目为例，使用Gradle输出依赖包。
+首先对build.gradle做如下修改：
+buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE&amp;quot;) } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; apply plugin: &#39;spring-boot&#39; jar { baseName = &#39;gs-spring-boot&#39; version = &#39;0.1.0&#39; } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 task copyToLib(type: Copy) { print configurations into &amp;quot;$buildDir/dep-libs&amp;quot; from configurations.runtime } build.dependsOn(copyToLib) dependencies { compile(&amp;quot;org.springframework.boot:spring-boot-starter-web&amp;quot;) // tag::actuator[] compile(&amp;quot;org.springframework.boot:spring-boot-starter-actuator&amp;quot;) // end::actuator[] // tag::tests[] testCompile(&amp;quot;org.springframework.boot:spring-boot-starter-test&amp;quot;) // end::tests[] }  首先可以在命令行中看到：  [configuration &amp;lsquo;:archives&amp;rsquo;, configuration &amp;lsquo;:compile&amp;rsquo;, configuration &amp;lsquo;:default&amp;rsquo;, configuration &amp;lsquo;:runtime&amp;rsquo;, configuration &amp;lsquo;:testCompile&amp;rsquo;, configur:clean&amp;rsquo;:testRuntime&amp;rsquo;, configuration &amp;lsquo;:versionManagement&amp;rsquo;]</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop] 压缩MapReduce的Mapper输出</title>
+      <link>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</link>
+      <pubDate>Mon, 03 Mar 2014 20:13:37 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</guid>
+      <description> 介绍 压缩map输出是以压缩和解压缩的CPU消耗为代价来减少磁盘和网络IO开销。Hadoop中，mapper的输出数据是写到Mapper所在的本地磁盘的，并以网络传输的方式传送到Reducer所在的节点上。mapreduce.map.output.compress默认为false，即不对map输出进行压缩。如果中间数据不是二进制的，通常建议使用map输出压缩。
+Hadoop支持的的内建压缩编码如下： 如果设置mapreduce.map.output.compress为true且没有设置mapreduce.map.output.compression.codec的话，默认使用org.apache.hadoop.io.compress.DefaultCodec。
+|压缩格式|算法|工具|默认扩展名|说明 |&amp;mdash;&amp;ndash; |DEFLATE|DEFLATE|N/A|.deflate|DEFLATE是一种压缩算法，标准实现是zlib，尚没有命令行工具支持。文件扩展名.deflate是一个Hadoop的约定。所有的压缩算法都存在空间与时间的权衡：更快的压缩速率和解压速率是以牺牲压缩率为代价的。org.apache.hadoop.io.compress.zlib.ZlibCompressor.CompressionLevel中定义了0~9压缩级别，0为无压缩，9为最佳压缩。支持Java实现和原生库实现。 |GZip|DEFLATE|gzip|.gz|GZip与DEFLATE使用同样的压缩算法，不过相对于DEFLATE压缩格式增加了额外的头部和尾部。GZip是一种常规的压缩工具，空间与时间得到很好的权衡。支持Java实现和原生库实现。 |BZip2|BZip2|BZip2|.bz2|BZip2压缩率高于GZip，但压缩速度较慢；解析速度优于它的压缩速度，但还是较其它压缩算法偏慢。由上图可知，BZip2是Hadoop内嵌压缩算法中唯一可以被分割的，这样一个输入文件可分成多个InputSplit，便于本地数据加载并被Mapper处理。相关技术可见处理跨块边界的InputSplit一文。支持Java实现和原生库实现。 |LZ4|LZ4|N/A|.lz4|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.Lz4Codec.isNativeCodeLoaded()用于检查是否加载原生库，其调用者在没有加载原生库时会抛异常。 |Snappy|Snappy|N/A|.snappy|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.SnappyCodec.checkNativeCodeLoaded()在没有加载原生库时会抛异常。
+如果使用原生库压缩编码，需配置LD_LIBRARY_PATH。默认情况下，Hadoop自动在本地库路径（java.library.path）下查询并加载合适的本地库实现。通过设置属性io.native.lib.available为false禁用原生库，此时内建的Java实现将被使用。
+Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Context)和org.apache.hadoop.mapred.ReduceTask.initCodec()方法中检查mapreduce.map.output.compress属性，如果为true，则加载mapreduce.map.output.compression.codec属性所设的压缩编解码器。 MapTask当将数据spill到硬盘时使用压缩编码器进行数据压缩。 ReduceTask在使用Shuffle结果是使用压缩解码器进行数据解压缩。
+使用map输出压缩的应用示例 </description>
+    </item>
+    
+    <item>
+      <title>[Hadoop] MapReduce输出SequenceFile实践</title>
+      <link>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 01 Jan 2014 23:19:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</guid>
+      <description> Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示： - NONE: 对记录不进行压缩; - RECORD: 仅压缩每一个记录中的值; - BLOCK: 将一个块中的所有记录压缩在一起;
+输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class);  输出SequenceFile示例 </description>
+    </item>
+    
+  </channel>
+</rss>

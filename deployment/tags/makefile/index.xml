@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Makefile on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/makefile/</link>
+    <description>Recent content in Makefile on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 Oct 2017 05:49:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Golang] 使用Makefile实现Go项目的跨平台构建</title>
+      <link>https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8makefile%E5%AE%9E%E7%8E%B0go%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Wed, 18 Oct 2017 05:49:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8makefile%E5%AE%9E%E7%8E%B0go%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9E%84%E5%BB%BA/</guid>
+      <description>通常编译go程序，都是用go build，对于小的示例代码还可以应付，对于稍大一点的项目就有点繁琐了。 上网调差了一下，发现很多人是通过Makefile的形式对Go项目进行可重现构建的。下面我将以hellomake项目这个小示例展示如何使用Makefile实现Go项目的跨平台构建。
+hellomake/Makefile BUILD_ENV := CGO_ENABLED=0 BUILD=`date +%FT%T%z` LDFLAGS=-ldflags &amp;quot;-w -s -X main.Version=${VERSION} -X main.Build=${BUILD}&amp;quot; TARGET_EXEC := hellomake .PHONY: all clean setup build-linux build-osx build-windows all: clean setup build-linux build-osx build-windows clean: rm -rf build setup: mkdir -p build/linux mkdir -p build/osx mkdir -p build/windows build-linux: setup ${BUILD_ENV} GOARCH=amd64 GOOS=linux go build ${LDFLAGS} -o build/linux/${TARGET_EXEC} build-osx: setup ${BUILD_ENV} GOARCH=amd64 GOOS=darwin go build ${LDFLAGS} -o build/osx/${TARGET_EXEC} build-windows: setup ${BUILD_ENV} GOARCH=amd64 GOOS=windows go build ${LDFLAGS} -o build/windows/${TARGET_EXEC}.</description>
+    </item>
+    
+  </channel>
+</rss>

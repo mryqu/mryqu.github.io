@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vfabric on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/vfabric/</link>
+    <description>Recent content in Vfabric on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 16 Oct 2013 22:03:02 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/vfabric/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vFabric Web Server配置：多tc Server负载均衡</title>
+      <link>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</link>
+      <pubDate>Wed, 16 Oct 2013 22:03:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</guid>
+      <description>HTTP请求需要分发到tc Server集群成员。为了实现这一目的，可以采用硬件负载均衡硬件或软件(Apache HTTP Server、vFabric Web Server和Microsoft IIS)。本文介绍用vFabric Web Server的mod_proxy模块实现tcServer负载均衡。
+vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对下列行进行添加或去除注释: LoadModule proxy_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy.so&amp;quot; LoadModule proxy_http_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_http.so&amp;quot; LoadModule proxy_balancer_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_balancer.so&amp;quot;  vFabric Web Server:创建额外的配置文件 在vFabric Web Server实例的conf目录创建mod_proxy.conf: # Enable capturing of proxy statistics ProxyStatus on SetHandler balancer-manager Order Deny,Allow Deny from all Allow from 127.0.0.1 # These apps aren&#39;t clustered -- requests go to dedicated server ProxyPass /my-app1 balancer://my-standalone/my-app1 ProxyPass /my-app2 balancer://my-standalone/my-app2 # Clustered apps get directed to loadbalanced worker ProxyPass /my-app3 balancer://my-balancer/my-app3 ProxyPass /my-app4 balancer://my-balancer/my-app4 # Standalone &amp;quot;balancer&amp;quot; for standalone apps that aren&#39;t clustered BalancerMember http://MYSERVER1:8080 # Load balanced &amp;quot;balancer&amp;quot; for clustered apps BalancerMember http://MYSERVER1:8080 route=aGVsbG8gcWUh_MyServer1_1 loadfactor=1 BalancerMember http://MYSERVER1:8180 route=aGVsbG8gcWUh_MyServer1_2 loadfactor=2 ProxySet lbmethod=byrequests stickysession=aGVsbG8gcWUh_Cluster1|aGVsbG8gcWUh_cluster1 # Configure cache timeouts for static content AddType text/javascript .</description>
+    </item>
+    
+    <item>
+      <title>vFabric Web Server 5.2模块和库</title>
+      <link>https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/</link>
+      <pubDate>Wed, 16 Oct 2013 20:55:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/</guid>
+      <description>vFabric Web Server 是VMware的vFabric套件中的Web服务器和负载均衡组件。vFabric WebServer 5.2基于Apache HTTP Server 2.2版本。 其大部分模块可见链接
+核心功能和多处理模块 |模块|介绍 |&amp;mdash;&amp;ndash; |core|Apache HTTP服务器核心提供的功能，始终有效。 |mpm_common|收集了被多个多路处理模块(MPM)实现的公共指令。 |beos|专门针对BeOS优化过的多路处理模块(MPM) |event|一个标准workerMPM的实验性变种。 |mpm_netware|专门为Novell NetWare优化的线程化的多路处理模块(MPM) |mpmt_os2|专门针对OS/2优化过的混合多进程多线程多路处理模块(MPM) |prefork|一个非线程型的、预派生的MPM |mpm_winnt|用于Windows NT/2000/XP/2003 系列的MPM |worker|线程型的MPM，实现了一个混合的多线程多处理MPM，允许一个子进程中包含多个线程。
+其它普通模块 |模块|介绍 |&amp;mdash;&amp;ndash; |mod_actions|根据特定的媒体类型或请求方法，激活特定的CGI脚本 |mod_alias|提供从文件系统的不同部分到文档树的映射和URL重定向 |mod_asis|发送自己包含HTTP头内容的文件 |mod_auth_basic|使用基本认证 |mod_auth_digest|使用MD5摘要认证(更安全，但是只有最新的浏览器才支持) |mod_authn_alias|基于实际认证支持者创建扩展的认证支持者，并为它起一个别名以便于引用 |mod_authn_anon|提供匿名用户认证支持 |mod_authn_dbd|使用SQL数据库为认证提供支持 |mod_authn_dbm|使用DBM数据库为认证提供支持 |mod_authn_default|在未正确配置认证模块的情况下简单拒绝一切认证信息 |mod_authn_file|使用纯文本文件为认证提供支持 |mod_authnz_ldap|允许使用一个LDAP目录存储用户名和密码数据库来执行基本认证和授权 |mod_authz_dbm|使用DBM数据库文件为组提供授权支持 |mod_authz_default|在未正确配置授权支持模块的情况下简单拒绝一切授权请求 |mod_authz_groupfile|使用纯文本文件为组提供授权支持 |mod_authz_host|供基于主机名、IP地址、请求特征的访问控制 |mod_authz_owner|基于文件的所有者进行授权 |mod_authz_user|基于每个用户提供授权支持 |mod_autoindex|自动对目录中的内容生成列表，类似于&amp;rdquo;ls&amp;rdquo;或&amp;rdquo;dir&amp;rdquo;命令 |mod_cache|基于URI键的内容动态缓冲(内存或磁盘) |mod_cern_meta|允许Apache使用CERN httpd元文件，从而可以在发送文件时对头进行修改 |mod_cgi|在非线程型MPM(prefork)上提供对CGI脚本执行的支持 |mod_cgid|在线程型MPM(worker)上用一个外部CGI守护进程执行CGI脚本 |mod_charset_lite|允许对页面进行字符集转换 |mod_dav|允许Apache提供DAV协议支持 |mod_dav_fs|为mod_dav访问服务器上的文件系统提供支持 |mod_dav_lock|为mod_dav锁定服务器上的文件提供支持 |mod_dbd|管理SQL数据库连接，为需要数据库功能的模块提供支持 |mod_deflate|压缩发送给客户端的内容 |mod_dir|指定目录索引文件以及为目录提供&amp;rdquo;尾斜杠&amp;rdquo;重定向 |mod_disk_cache|基于磁盘的缓冲管理器 |mod_dumpio|将所有I/O操作转储到错误日志中 |mod_echo|一个很简单的协议演示模块 |mod_env|允许Apache修改或清除传送到CGI脚本和SSI页面的环境变量 |mod_example|一个很简单的Apache模块API演示模块 |mod_expires|允许通过配置文件控制HTTP的&amp;rdquo;Expires:&amp;ldquo;和&amp;rdquo;Cache-Control:&amp;ldquo;头内容 |mod_ext_filter|使用外部程序作为过滤器 |mod_file_cache|提供文件描述符缓存支持，从而提高Apache性能 |mod_filter|根据上下文实际情况对输出过滤器进行动态配置 |mod_headers|允许通过配置文件控制任意的HTTP请求和应答头信息 |mod_ident|实现RFC1413规定的ident查找 |mod_imagemap|处理服务器端图像映射 |mod_include|实现服务端包含文档(SSI)处理 |mod_info|生成Apache配置情况的Web页面 |mod_isapi|仅限于在Windows平台上实现ISAPI扩展 |mod_ldap|为其它LDAP模块提供LDAP连接池和结果缓冲服务 |mod_log_config|允许记录日志和定制日志文件格式 |mod_log_forensic|实现&amp;rdquo;对比日志&amp;rdquo;，即在请求被处理之前和处理完成之后进行两次记录 |mod_logio|对每个请求的输入/输出字节数以及HTTP头进行日志记录 |mod_mem_cache|基于内存的缓冲管理器 |mod_mime|根据文件扩展名决定应答的行为(处理器/过滤器)和内容(MIME类型/语言/字符集/编码) |mod_mime_magic|通过读取部分文件内容自动猜测文件的MIME类型 |mod_negotiation|提供内容协商支持 |mod_nw_ssl|仅限于在NetWare平台上实现SSL加密支持 |mod_proxy|提供HTTP/1.</description>
+    </item>
+    
+    <item>
+      <title>vFabric Web Server控制台命令</title>
+      <link>https://mryqu.github.io/post/vfabric_web_server%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 16 Oct 2013 19:28:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vfabric_web_server%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4/</guid>
+      <description>检查并设置PowerShell 在Windows中，vFabric WebServer控制台命令需要在PowerShell下执行。默认状态下，PowerShell的脚本处理是被禁止的。 通过如下命令检查当前的PowerShell设置:
+PS prompt&amp;gt; Get-ExecutionPolicy  如果命令返回Restricted,这意味着PowerShell还没有使能。通过执行如下命令使它允许最低限度执行本地脚本：
+PS prompt&amp;gt; Set-ExecutionPolicy RemoteSigned  按照需要设置不同的执行策略并使用组和用户策略使能PowerShell。通常，仅有管理员使用vFabric WebServer脚本，因此RemoteSigned执行策略在大多情况下是足够的。
+通过执行如下命令设置编码为UTF-8，以便更好地显示httpctl输出、更容易检查日志文件。
+PS prompt&amp;gt; chcp 65001  使用vFabric Web Server控制台 可以使用httpdctl 脚本控制vFabric Web Server实例，其命令如下:
+|命令|描述 |&amp;mdash;&amp;ndash; |start|启动vFabric Web Server实例。如果实例已启动，该命令返回错误。 |stop|强制停止vFabric Web Server实例。当前所有打开的连接将中断。 |gracefulstop|优雅停止vFabric Web Server实例，脚本会等到所有打开的连接关闭后才停止vFabric Web Server实例。 |restart|重启实例。如果实例之前没有启动，脚本会启动实例，此外也会在启动实例前运行configtest。 |graceful|优雅重启实例。与restart命令的区别在于当前打开的连接不会中断，副作用就是老的日志文件不会立即关闭。 |status|显示实例状态信息，例如是否运行中、运行中的进程标识符 (PID)。 |install|安装实例成Windows或UNIX服务。服务可以用Windows服务控制台、sc命令手动启动或停止，或随Windows自动启动或停止。
+install命令可用参数：
+服务名: vFabrichttpd_实例名_ 例子: vFabrichttpdmyserver显示名: vFabric httpd 实例名
+例子: vFabric httpd myserverUnix下，实例安装成/etc/init.d目录下名为vFabric-httpd-&amp;lt;实例名&amp;gt;的脚本文件。服务随Unix自动启动或停止。 |uninstall|卸载作为Windows或UNIX服务的实例。Windows下，实例会从服务注册表中删除。Unix下，命令会删除/etc/init.d/vFabric-httpd-_instance-name_脚本文件。 |configtest|对例如conf/httpd.conf之类的配置文件运行语法检查。脚本解析配置文件，如果语法正确返回OK，否则返回特定语法错误的详细信息。
+示例如下：
+PS C:\sas\Config\Lev1\Web\WebServer\bin&amp;gt; .\httpdctl.ps1 status httpdctl.ps1 - manage the SAS [Config-Lev1] httpd - WebServer server instance Copyright c 2012 VMware, Inc.</description>
+    </item>
+    
+  </channel>
+</rss>

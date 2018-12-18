@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Id on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/id/</link>
+    <description>Recent content in Id on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 03 May 2015 06:53:44 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/id/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[OpenUI5] 控件ID实践与总结</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 03 May 2015 06:53:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+      <description>显式定义而不是自生成OpenUI5控件ID 为了便于开发和测试，为控件设置一个便于理解的ID尤为重要。我的博文《快速定位OpenUI5问题的一个方法》中的工具函数就是利用控件ID快速定位故障控件的。 在OpenUI5中，可在创建控件实例时使用JSON对象作为控件构造器参数。其中一个可选属性就是&amp;rdquo;id&amp;rdquo;，OpenUI5不仅用它（在&amp;rdquo;注册信息&amp;rdquo;中）追踪控件，也用在渲染控件的DOM输出。 如果没有显式指定一个控件的ID，OpenUI5框架就会使用基于实例数量的算法自生成控件ID。 自生成ID有两个缺点： - 调试的时候，不容易定位使用控件的代码位置。例如，异常跟某个控件相关，如果该类型控件实例很多，很难定位该控件定义在那个视图里。 - 测试代码相对显式定义ID更加难写。如果对控件使用显式定义ID，相应的测试代码可以很容易通过该ID进行控件查找或验证。
+控件ID命名惯例 使用驼峰式写法、有意义且语法正确的ID来反映控件的本质。 例如： - 一个表单上的提交按钮，其id=&amp;ldquo;submit&amp;rdquo; - 到不同图形设置的导航控件，其id=&amp;ldquo;graphNav&amp;rdquo;
+OpenUI5控件ID内幕 sap.ui.base.ManagedObject是OpenUI5框架包括控件在内的大部分类的父类，它的构造器里有对ID的处理：
+if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject._fnIdPreprocessor; sId = (preprocessor ? preprocessor.call(this, sId) : sId); var oType = DataType.getType(&amp;quot;sap.ui.core.ID&amp;quot;); if (!oType.isValid(sId)) { throw new Error(&amp;quot;\&amp;quot;&amp;quot; + sId + &amp;quot;\&amp;quot; is not a valid ID.&amp;quot;); } } this.sId = sId;  sap.ui.base.ManagedObjectMetadata的ID生成代码：
+(function() { var mUIDCounts = {}; function uid(sId) { jQuery.</description>
+    </item>
+    
+  </channel>
+</rss>

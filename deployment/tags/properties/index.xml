@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Properties on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/properties/</link>
+    <description>Recent content in Properties on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 21 Oct 2017 06:34:41 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/properties/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Golang] Go项目的国际化 </title>
+      <link>https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/</link>
+      <pubDate>Sat, 21 Oct 2017 06:34:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/</guid>
+      <description>因为我看的那些书里都没有提及Go项目的国际化实现，但在放狗搜索前，还是觉得跟Java/JS项目中的实践应该都差不多。搜了一下才发现自己Too young too simple！ 在Internationalization plan for Go中提到了Golang曾经的I18N路线图： * 对国际化文本提供全面支持 * 对国际化日期、时间等提供支持 * 对多语言消息提供支持
+这个2011年的讨论有人提及Golang已经支持UTF8/unicode，日期时间自己可以格式化，其他人纷纷表示不同意他的观点，然后就没有然后了。 Golang的标准库还有提供完整的I18N支持，所以还需要对众多的Golang I18N库进行技术选型。通过https://golanglibs.com/search?q=i18n可知go-i18n排名第一，而且使用者也比较多。i18n4go为大厂IBM的cloud CTO出品，从Cloud Foundary CLI中提取出来的，估计能遇到的坎都解决掉了，但是排名并不靠前。 最终决定开始我的go-18n学习之旅。
+通过go-bindata嵌入i18n properties文件 具体细节见之前的博文Go程序内嵌I18N properties文件。
+资源文件 i18n/resources/locale.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata-i18n example. mryqu.verinfo={{.Cli}} Version {{.Version}} (Build: {{.Build}})  i18n/resources/locale_en.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata-i18n example. mryqu.verinfo={{.Cli}} Version {{.Version}} (Build: {{.Build}})  i18n/resources/locale_zh-CN.properties mryqu.hello=欢迎来到Golang世界！ mryqu.intro=这是一个go-bindata-i18n示例。 mryqu.verinfo={{.Cli}} 版本 {{.Version}} (构建：{{.Build}})  其他源码 i18n/i18n.go 与之前的博文Go程序内嵌I18N properties文件相比，这里添加了下面内容： 1.</description>
+    </item>
+    
+    <item>
+      <title>[Golang] Go程序内嵌I18N properties文件</title>
+      <link>https://mryqu.github.io/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Thu, 19 Oct 2017 06:11:03 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6/</guid>
+      <description>本博文将介绍一下如何将I18N properties文件内嵌到Go程序中。一般来说，go-i18n等Go包官方示例使用JSON文件保存I18N消息，而我的示例还是采用properties文件。
+go-bindata go-bindata包可以将任何文件转换为可管理的Go源代码，在将二进制数据嵌入Go程序时是非常有帮助的。文件数据在转换成原始字节切片之前可做选择性的gzip压缩。 在我的示例中，我选择用go-bindata将i18n/resources下的i18n properties文件嵌入Go程序。
+安装 go get -u github.com/jteeuwen/go-bindata/...  地址最后的三个点 &amp;hellip;会分析所有子目录并下载依赖编译子目录内容，而go-bindata的命令行工具在子目录中。go-bindata命令行工具将被安装到$GOPATH/bin目录中。 资源文件 i18n/resources/locale.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata example.  i18n/resources/locale_en.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata example.  i18n/resources/locale_zh-Hans.properties mryqu.hello=欢迎来到Golang世界！ mryqu.intro=这是一个go-bindata示例。  操练 看了go-bindata的帮助后，感觉go-bindata简单易用。这里就探索一下nocompress选项吧。
+cd {MyPrj}/i18n go-bindata -pkg i18n -o resources.go resources/ go-bindata -pkg i18n -o resources-nocompress.go -nocompress resources/  通过对比resources.go和resources-nocompress.go可以看出，resources.go里面多引入了bytes、compress/gzip和io包，多生成了一个bindataRead函数用于读取gzip压缩后的数据。 在resources.go中的内嵌数据：
+var _resourcesLocaleProperties = []byte(&amp;quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xca\x2d\xaa\x2c\x2c\xd5\xcb\x48\xcd\xc9\xc9\xb7\x0d\x4f\xcd\x49\xce\xcf\x4d\x55\x28\xc9\x57\x70\xcf\xcf\x49\xcc\x4b\x57\x28\xcf\x2f\xca\x49\x51\xe4\xe5\x82\xa8\xca\xcc\x2b\x29\xca\xb7\x0d\xc9\xc8\x2c\x56\xc8\x2c\x56\x48\x54\x48\xcf\xd7\x4d\xca\xcc\x4b\x49\x2c\x49\x54\x48\xad\x48\xcc\x2d\xc8\x49\xd5\x03\x04\x00\x00\xff\xff\x45\xdc\x42\x7f\x4f\x00\x00\x00&amp;quot;) var _resourcesLocale_enProperties = []byte(&amp;quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xca\x2d\xaa\x2c\x2c\xd5\xcb\x48\xcd\xc9\xc9\xb7\x0d\x4f\xcd\x49\xce\xcf\x4d\x55\x28\xc9\x57\x70\xcf\xcf\x49\xcc\x4b\x57\x28\xcf\x2f\xca\x49\x51\xe4\xe5\x82\xa8\xca\xcc\x2b\x29\xca\xb7\x0d\xc9\xc8\x2c\x56\xc8\x2c\x56\x48\x54\x48\xcf\xd7\x4d\xca\xcc\x4b\x49\x2c\x49\x54\x48\xad\x48\xcc\x2d\xc8\x49\xd5\x03\x04\x00\x00\xff\xff\x45\xdc\x42\x7f\x4f\x00\x00\x00&amp;quot;) var _resourcesLocale_zhHansProperties = []byte(&amp;quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xca\x2d\xaa\x2c\x2c\xd5\xcb\x48\xcd\xc9\xc9\xb7\x7d\xb6\x66\xd1\x8b\xfd\x7d\xcf\xe6\x2e\x7d\xda\xb1\xc1\x3d\x3f\x27\x31\x2f\xfd\xc9\x8e\x69\xcf\xa7\xf6\xbc\xdf\xd3\xc8\xcb\x05\x51\x98\x99\x57\x52\x94\x6f\xfb\x62\xff\xcc\x67\x33\xd6\x3f\xd9\xd1\xf0\x64\xc7\xaa\xf4\x7c\xdd\xa4\xcc\xbc\x94\xc4\x92\xc4\xe7\x4b\x76\x3d\xd9\xd7\xfd\xb8\xa1\x09\x10\x00\x00\xff\xff\xf7\xd1\x50\xc9\x54\x00\x00\x00&amp;quot;)  在resources-nocompress.</description>
+    </item>
+    
+  </channel>
+</rss>

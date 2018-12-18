@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>调试 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E8%B0%83%E8%AF%95/</link>
+    <description>Recent content in 调试 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 30 Apr 2015 06:16:21 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E8%B0%83%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>cURL速查表</title>
+      <link>https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/</link>
+      <pubDate>Thu, 30 Apr 2015 06:16:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid>
+      <description>cURL是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。 cURL支持的通訊协议有FTP、FTPS、HTTP、HTTPS、TFTP、SFTP、Gopher、SCP、Telnet、DICT、FILE、LDAP、LDAPS、IMAP、POP3、SMTP和RTSP。
+请求多个资源curl http://api.test.com/pp/[123-321]
+curl http://api.test.com/pp/{abc,def,ghi}/status允许重定向-L如果服务器返回3XX响应，使用-L选项可以让curl向新新地址发送请求。Cookies-b --cookie {name=data}发送原始Cookies或文件中的Cookies
+范例：-b &#39;n1=v1; n2=v2&#39;-c / --cookie-jar {file name}将Cookies存入文件发送数据-d / --data {data}-d {data} 发送原始数据
+-d {@filename} 发送文件中的数据。
+如果不想对@进行解析，可以使用--data-raw。
+JSON范例：
+-d &#39;{&#34;firstName&#34;:&#34;yd&#34;, &#34;lastName&#34;:&#34;q&#34;}&#39;
+原始数据范例：
+-d &#39;name=yqu&#39; -d &#39;sex=male&#39;--data-ascii {data}等同于--data
+--data-raw {data}几乎等同于--data，除了不对@进行解析。--data-binary {data}--data-binary {data} 发送原始二进制数据
+--data-binary {@filename} 发送文件中的二进制数据。
+在发送前对数据不做任何处理。发送表单-F / --form {name=content}以Content-Type: multipart/form-data方式发送数据
+范例：
+curl -F password=@/etc/passwd www.mypasswords.com允许&#34;不安全&#34;SSL-k / --insecure所有的SSL连接使用默认安装的CA证书捆绑试图保障其安全。除非使用-k/--insecure，否则所有被认为是“不安全”的连接将会失败。认证-u / --user {user:password}服务器认证
+-U / --proxy-user {user:password}代理认证
+代理-x / --proxyHTTP方法-X / --request {request}可以指定的方法为：POST、HEAD、PUT、GET、DELETE输出至文件-o / --output {file}输出到文件而不是标准输出输出至与远端文件同名的本地文件-O / --remote-name上传文件-T / --upload-file {file}curl -T &#34;</description>
+    </item>
+    
+    <item>
+      <title>搭建Activiti的IntelliJ IDEA开发调试环境</title>
+      <link>https://mryqu.github.io/post/%E6%90%AD%E5%BB%BAactiviti%E7%9A%84intellij_idea%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Mon, 09 Feb 2015 20:03:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%90%AD%E5%BB%BAactiviti%E7%9A%84intellij_idea%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83/</guid>
+      <description> 准备工作 在搭建Activiti的IntelliJ IDEA开发调试环境前，确保下列软件已经安装： - JDK 1.6 - ant - Maven - IntelliJ IDEA
+导入Activiti Import Project 通过Activiti的Maven pom.xml导入IntelliJ IDEA项目。 Import Modules 导入IntelliJ IDEA项目后，仅有几个Activiti模块变成了IntelliJIDEA项目中的模块。为了可以调试所有模块，通过ProjectStructure菜单简单粗暴地将剩余的Activiti模块导入IntelliJ模块。 对每个手工导入的模块设置源代码、资源、测试代码和测试资源。 Frameworks Dection 手工导入所有模块后，重启IntelliJ IDEA，它会自动检测所有模块的类型，例如Spring、WEB、JPA和GWT等。 构建Activiti Activiti项目可以通过下面的ant命令构建：
+.....\wfgitws\Activiti\distro&amp;gt;ant -Dnodocs=true clean distro  也可以在IntelliJ IDEA IDE中构建： 本地调试 To make sure that the necessary application server plugin isenabled 本测试中使用Apache Tomcat服务器。 Defining application servers in IntelliJ IDEA Check and configure artifacts in IntelliJ IDEA Add run/local configuration in IntelliJ IDEA Run in IntelliJ IDEA Add Jetbrain IDE plugin in Chrome 远程调式 Remote Debugging Configuration 通过Run-Edit Configuration菜单命令，添加一个远程调试配置。 该调试配置需要同Tomcat保持一致 Remote Debugging 设置断点，在Activiti Explorer上的操作触发断点，该Activiti的IntelliJIDEA开发调试环境已经可以工作了。 </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 打开web应用调试模式的方法</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%89%93%E5%BC%80web%E5%BA%94%E7%94%A8%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 22 Dec 2014 23:27:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%89%93%E5%BC%80web%E5%BA%94%E7%94%A8%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>OpenUI5 web应用调试模式无需服务器端支持，完全可在浏览器上进行设置。下面列举了四种打开调试模式的方法： - URL指定参数sap-ui-debug=true例如：http://localhost:8080/fmwebstudio/?sap-ui-debug=true - 在浏览器控制台执行jQuery.sap.debug(true) - 在加载了OpenUI5 web应用页面执行CTRL-SHIFT-ALT-P快捷键调出技术信息进行设置。- 在加载了OpenUI5web应用页面执行CTRL-SHIFT-ALT-S快捷键调出OpenUI5诊断页面进行设置。</description>
+    </item>
+    
+    <item>
+      <title>Web调试工具:Fiddler</title>
+      <link>https://mryqu.github.io/post/web%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7fiddler/</link>
+      <pubDate>Sun, 14 Dec 2014 21:08:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/web%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7fiddler/</guid>
+      <description>今天看网上有介绍Web调试工具Fiddler的，顺风搂一眼。比我原来用wireshark调试客户端与服务器端web通信强，值得学习。 Fiddler是最强大最好用的Web调试工具之一，它能记录所有客户端和服务器的http和https请求，允许你监视，设置断点，甚至修改输入输出数据.使用Fiddler无论对开发还是测试来说，都有很大的帮助。
+资料： 慕课网：Fiddler工具使用
+Fiddler 教程
+Fiddler Script 用法
+Fiddler Composer创建和发送HTTP Request
+Fiddler 实现手机的抓包</description>
+    </item>
+    
+    <item>
+      <title>调试Javascript</title>
+      <link>https://mryqu.github.io/post/%E8%B0%83%E8%AF%95javascript/</link>
+      <pubDate>Fri, 12 Dec 2014 23:30:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%B0%83%E8%AF%95javascript/</guid>
+      <description>为了调试Javascript，下载了Firefox developer edition，但是没感觉有什么不同，接着下载Firebug，使用感觉有点说不出来的别扭。 还是接着用Chrome调试吧，感觉挺好的，这次conditional break出了不少力！ https://developer.chrome.com/devtools/docs/javascript-debugging </description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 调试及console.log</title>
+      <link>https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/</link>
+      <pubDate>Sat, 21 Dec 2013 11:49:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/</guid>
+      <description>最近玩一下javascipt，在回调里碰到一个问题，需要调试。加入了console.log函数打印日志，在我的chrome浏览器按Ctrl+Shift+J快捷键调出DevTool并显示控制台来查找问题。结合Wireshark，最后才发现对Json数据解析错误。下面介绍一下console.log的使用。javascript的代码示例如下：
+$(function () { $(&#39;#fileupload&#39;).fileupload({ url: url, dataType: &#39;json&#39;, done: function (e, data) { $.each(data.result.files, function (index, file) { $(&#39;&#39;).text(file.name).appendTo(&#39;#files&#39;); }); }, progressall: function (e, data) { var progress = parseInt(data.loaded / data.total * 100, 10); console.log(&amp;quot;complete:&amp;quot;+progress); $(&#39;#progress .progress-bar&#39;).css( &#39;width&#39;, progress + &#39;%&#39; ); } }).prop(&#39;disabled&#39;, !$.support.fileInput) .parent().addClass($.support.fileInput ? undefined : &#39;disabled&#39;); });  浏览器控制台使用 Firefox http://getfirebug.com/ (可以使用Firefox内建的开发工具Ctrl+Shift+J (Tools &amp;gt; Web Developer &amp;gt;Error Console)，但是Firebug更出色；建议使用Firebug)
+Safari和Chrome 使用方法基本相同。 https://developer.chrome.com/devtools/index https://developer.apple.com/technologies/safari/developer-tools.html
+Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模式。 http://msdn.</description>
+    </item>
+    
+  </channel>
+</rss>

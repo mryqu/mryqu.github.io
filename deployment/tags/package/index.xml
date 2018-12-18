@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Package on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/package/</link>
+    <description>Recent content in Package on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 22 Oct 2017 06:00:25 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/package/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Golang] 使用dep</title>
+      <link>https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8dep/</link>
+      <pubDate>Sun, 22 Oct 2017 06:00:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8dep/</guid>
+      <description>之前的博文[Golang]Win10下Glide的安装和使用记录了对Glide的学习，本博将记录对Golang包管理工具dep的学习使用。
+dep介绍 在2012年，go get成为获取依赖包的方式。dep的FAQ中有一段描述dep是否要取代go get的解答，一句话概括就是：依赖管理工具是为应用管理代码的，go get是为GOPATH管理代码的。go get仅仅支持获取master branch上的latest代码，没有指定version、branch或revision的能力。这不符合gopher对自己项目所依赖的第三方包受控的期望。 在2015年，Russ Cox在Go 1.5发布前期以一个experiment feature身份紧急加入vendor机制，vendor标准化了项目依赖的第三方库的存放位置，隔离不同项目依赖的同一个包的不同版本。 Golang的包管理一直没有官方统一的解决方案，因此也产生了很多非官方的包管理工具。这些工具很多都很不错，但是相互兼容性差。随着Go语言在全球范围内应用的愈加广泛，缺少官方包管理工具这一问题变得日益突出。2016年GopherCon大会后，由微服务框架go-kit作者Peter Bourgon牵头， 在Go官方的组织下，Go包管理委员会经过各种头脑风暴和讨论后发布了“包管理建议书”，并启动了最有可能被接纳为官方包管理工具的项目dep的设计和开发。当前主导dep开发的是Sam Boyer，Sam也是dep底层包依赖分析引擎-gps的作者。2017年年初，dep项目正式对外开放。
+安装 我的实验平台是Win10，所以无法通过brew或者shell脚本安装，只能通过go get安装：
+go get -u github.com/golang/dep/cmd/dep  安装完，执行dep命令，出现帮助代表安装成功。
+$ dep Dep is a tool for managing dependencies for Go projects Usage: &amp;quot;dep [command]&amp;quot; Commands: init Set up a new Go project, or migrate an existing one status Report the status of the project&#39;s dependencies ensure Ensure a dependency is safely vendored in the project prune Pruning is now performed automatically by dep ensure.</description>
+    </item>
+    
+    <item>
+      <title>[Golang] GOPATH和包导入</title>
+      <link>https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/</link>
+      <pubDate>Fri, 20 Oct 2017 05:43:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/</guid>
+      <description>才开始玩GoLang，碰到一些与包导入相关的问题： * go build没有找到vendor目录下的包 * local import &amp;ldquo;./XXX&amp;rdquo; in non-local package
+GoLang自定义包的特点  Go的package不局限于一个文件，可以由多个文件组成。组成一个package的多个文件，编译后实际上和一个文件类似，组成包的不同文件相互之间可以直接引用变量和函数，不论是否导出；因此，组成包的多个文件中不能有相同的全局变量和函数（这里有一个例外就是包的初始化函数：init函数） Go不要求package的名称和所在目录名相同，但是你最好保持相同，否则容易引起歧义。因为引入包的时候，go会使用子目录名作为包的路径，而你在代码中真正使用时，却要使用你package的名称。 每个子目录中只能存在一个package，否则编译时会报错。 Go的package是以绝对路径GOPATH来寻址的，不要用相对路径来导入  包的初始化函数init 包中可以有多个初始化函数init，每个初始化函数都会被调用，且顺序固定。 1. 对同一个Go文件的init()调用顺序是从上到下的 2. 对同一个package中不同文件是按文件名字符串比较“从小到大”顺序调用各文件中的init()函数。 3. 对于对不同的package，如果不相互依赖的话，按照main包中&amp;rdquo;先import的后调用&amp;rdquo;的顺序调用其包中的init() 4. 如果package存在依赖，则先调用最早被依赖的包中的init()
+GOPATH go命令依赖一个重要的环境变量：$GOPATH。从go 1.8开始，GOPATH环境变量现在有一个默认值，如果它没有被设置。 它在Unix上默认为$HOME/go,在Windows上默认为%USERPROFILE%/go。GOPATH支持多个目录。
+$GOPATH src |--github.com |-mryqu |-prj1 |-vendor |--prj2 |-vendor pkg |--相应平台 |-github.com |--mryqu |-prj1 |-XXX.a |-YYY.a |-ZZZ.a |-prj2 |-AAA.a |-BBB.a |-CCC.a  Go加载包时会从vendor tree、 $GOROOT下的src目录以及$GOPATH中的多目录下的src目录查找。
+相对路径导入 通过go build无法完成非本地导入（non-local imports），必须使用go build main.go。go install根本不支持非本地导入。 相对路径导入文档位于https://golang.org/cmd/go/#hdr-Relative_import_paths 更多细节见： * https://groups.google.com/forum/#!topic/golang-nuts/1XqcS8DuaNc/discussion * https://github.com/golang/go/issues/12502 * https://github.</description>
+    </item>
+    
+    <item>
+      <title>[Golang] UUID包</title>
+      <link>https://mryqu.github.io/post/golang_uuid%E5%8C%85/</link>
+      <pubDate>Tue, 17 Oct 2017 15:12:12 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_uuid%E5%8C%85/</guid>
+      <description>最早Google的Go UUID包位于https://code.google.com/archive/p/go-uuid/，后来移到了https://github.com/pborman/uuid。而https://github.com/google/uuid是基于pborman版的，区别于之前的实现在于用16字节数组取代了字节切片，缺点是无法表示无效UUID。上述UUID包采用BSD 3-Clause许可协议。 此外还有采用MIT协议的https://github.com/satori/go.uuid，它支持UUID版本1-5，与RFC 4122和DCE 1.1兼容。通过https://golanglibs.com/top?q=uuid可以看出，它是GitHub点星(star)最多的UUID包，远远超过了Google的。</description>
+    </item>
+    
+    <item>
+      <title>[Golang] Win10下Glide的安装和使用</title>
+      <link>https://mryqu.github.io/post/golang_win10%E4%B8%8Bglide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 16 Oct 2017 15:47:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_win10%E4%B8%8Bglide%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>不论是开发Java还是你正在学习的Golang，都会遇到依赖管理问题。Java有牛逼轰轰的Maven和Gradle。 Golang亦有Godep、Govendor、Glide、dep等等。本文主要给大家介绍Glide。 Glide是Golang的包管理工具，是为了解决Golang依赖问题的。 为什么需要Glide？ 原因很简单，Go语言原生包管理的缺陷。罗列一下Golang的get子命令管理依赖有很多大缺陷： * 能拉取源码的平台很有限，绝大多数依赖的是 github.com * 不能区分版本，以至于令开发者以最后一项包名作为版本划分 * 依赖 列表/关系 无法持久化到本地，需要找出所有依赖包然后一个个 go get * 只能依赖本地全局仓库（GOPATH/GOROOT），无法将库放置于项目局部仓库（$PROJECT_HOME/vendor）
+Glide是有下列几大主要功能： * 持久化依赖列表至配置文件中，包括依赖版本（支持范围限定）以及私人仓库等 * 持久化关系树至 lock 文件中（类似于 yarn 和 cargo），以重复拉取相同版本依赖 * 兼容 go get 所支持的版本控制系统：Git, Bzr, HG, and SVN * 支持 GO15VENDOREXPERIMENT 特性，使得不同项目可以依赖相同项目的不同版本 * 可以导入其他工具配置，例如： Godep, GPM, Gom, and GB
+Glide在Mac或Linux上是很容易安装的，但是在Win10 x64上据说最新版有问题。详见https://github.com/Masterminds/glide/issues/873。 想多了没用，还是实干吧。从https://github.com/Masterminds/glide/releases上下载了glide-v0.13.0-windows-amd64.zip，里面就一个glide.exe。 将glide.exe放入%GOPATH%/bin下，然后将%GOPATH%/bin加入环境变量Path中，由于我的Go版本是1.9所以GO15VENDOREXPERIMENT环境变量就不用管了。执行glide --version ，开头没问题呀！ 进入我的项目目录%GOPATH%/src/helloglide，执行下列命令：
+glide create #创建新的工作空间，生成glide.yaml glide get github.com/pborman/uuid #获取uui包 glide install #建立glide.lock版本 go build #构建项目 glide list #列举项目导入的所有包 INSTALLED packages: github.</description>
+    </item>
+    
+    <item>
+      <title>[Gradle] 在build.gradle中添加本地包依赖</title>
+      <link>https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/</link>
+      <pubDate>Wed, 16 Apr 2014 22:17:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/</guid>
+      <description>一直在Gradle中用的依赖包都是来自仓库，头一次添加本地包依赖。
+buildscript { repositories { mavenCentral() } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; jar { baseName = &#39;HelloAlgs&#39; version = &#39;0.1.0&#39; } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 dependencies { runtime files(&#39;libs/algs4.jar&#39;) } task wrapper(type: Wrapper) { gradleVersion = &#39;2.3&#39; }  </description>
+    </item>
+    
+    <item>
+      <title>Linux包管理速查表</title>
+      <link>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</link>
+      <pubDate>Fri, 18 Oct 2013 20:14:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid>
+      <description>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
+搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop] mapred和mapreduce包的区别</title>
+      <link>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Fri, 12 Jul 2013 16:55:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
+区别 本文将通过WordCount示例代码，介绍一下二者的区别。WordCount示例代码分别取自0.19和0.23.9版本的Hadoop源码。
+0.19版WordCount示例 0.23.9版WordCount示例 区别新API老API包新API位于org.apache.hadoop.mapreduce包内老API位于org.apache.hadoop.mapred.包内Mapper和Reducer类型新API使用Mapper和Reducer抽象类
+抽象类更容易扩展，Hadoop实现可以轻松向其抽象类中添加方法(用默认的实现)而不会对已有Hadoop应用造成影响老API使用Mapper和Reduceer接口使用对象新API使用Configuration和一些Helper类完成作业配置；
+新API使用Job完成作业控制；
+新API使用Context完成用户代码与MapReduce系统的通信。老API使用JobConf
+完成作业配置，它是Configuration子类；
+老API使用JobClient完成作业控制；
+老API使用OutputCollector和Reporter完成用户代码与MapReduce系统的通信。
+方法map() reduce() clearup() setup() run()；
+所有方法可抛IOException或InterruptedException；
+Reduce()输入值为java.lang.Iterable；键值对输出通过Context对象的write方法实现；
+map() reduce()；
+所有方法可抛IOException；
+Reduce()输入值为java.lang.Iterator；
+键值对输出通过OutputCollector对象的collect方法实现；输出文件part-m-nnnnn和part-r-nnnnn
+(nnnnn为从0开始的整数)part-nnnnn
+注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
+参考 Upgrading To The New Map Reduce API
+Difference between Hadoop OLD API and NEW API</description>
+    </item>
+    
+  </channel>
+</rss>

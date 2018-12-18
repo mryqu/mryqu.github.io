@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Time on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/time/</link>
+    <description>Recent content in Time on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Feb 2016 06:13:22 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/time/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C&#43;&#43;]获取Facebook帖子生成的SAS时间</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96facebook%E5%B8%96%E5%AD%90%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Sat, 20 Feb 2016 06:13:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96facebook%E5%B8%96%E5%AD%90%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</guid>
+      <description>写了一个小代码分析Facebook帖子生成时间字符串，将其解析成SAS时间。 简而言之，time_t存储的是距00:00:00, Jan 1, 1970 UTC的秒数（epoch），其中tm_year存储的是当前年数减去1900；而SAS时间起始点为00:00:00, Jan 1, 1960UTC；转换主要使用difftime获取两者的时间差。
+代码如下：参考 C++: time_t
+C++: time
+C++: gmtime</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;]获取推文生成的SAS时间</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96%E6%8E%A8%E6%96%87%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Fri, 19 Feb 2016 06:07:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96%E6%8E%A8%E6%96%87%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</guid>
+      <description>写了一个小代码分析推文生成时间字符串，将其解析成SAS时间。 简而言之，time_t存储的是距00:00:00, Jan 1, 1970 UTC的秒数（epoch），其中tm_year存储的是当前年数减去1900；而SAS时间起始点为00:00:00, Jan 1, 1960UTC；转换主要使用difftime获取两者的时间差。 代码如下：参考 C++: time_t
+C++: time
+C++: gmtime</description>
+    </item>
+    
+    <item>
+      <title>Joda-Time笔记</title>
+      <link>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 01 Dec 2013 00:31:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</guid>
+      <description>Joda简介 Joda项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目： - Joda-Time -日期和时间库 - Joda-Money -货币库 - Joda-Beans -下一代JavaBeans - Joda-Convert -字符串与对象转换库 - Joda-Collect - 提供JDK或Google Guava没有的集合数据类型 - Joda-Primitives -提供原始数据类型集合
+Joda-Time简介 其中Joda-Time由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。Joda-Time在JavaSE8将融入JDK API内，使用者可以使用java.time (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(现行公历、格里历)、Julian(儒略历)、Buddhist(佛历)、Coptic(科普特历)、Ethiopic(埃塞俄比亚历)和Islamic(伊斯兰历)历法系统。 为什么要使用Joda-Time（以下简称Joda）？考虑创建一个用时间表示的某个随意的时刻，例如2000年1月1日0时0分。如何创建一个用时间表示这个瞬间的JDK对象？使用java.util.Date？事实上这是行不通的，因为自JDK1.1 之后的每个 Java 版本的 Javadoc 都声明应当使用java.util.Calendar。Date中Date(intyear, int month, int date) 、Date(int year, int month, int date, inthrs, int min)、Date(int year, int month, int date, int hrs, int min,int sec)已经废弃、不建议使用，严重限制了您创建此类对象的途径。然而，Date确实有一个构造函数Date(long date)，您可以用来创建用时间表示某个瞬间的对象（除“当前时间”以外）。该方法使用距离1970年1月1日子时格林威治标准时间（也称为_epoch_）以来的毫秒数作为一个参数，对时区进行校正。 那么Calendar又如何呢？可以使用下面的方式创建必需的实例：
+Calendar calendar = Calendar.getInstance(); calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);  使用Joda，代码应该类似如下所示：</description>
+    </item>
+    
+  </channel>
+</rss>

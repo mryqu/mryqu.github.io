@@ -1,0 +1,483 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>函数式编程笔记 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="函数式编程笔记">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="函数式编程笔记 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url">
+        函数式编程笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-03-29">
+    2015-03-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tech" itemprop="url" rel="index">
+        <span itemprop="name">Tech</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">155 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h3 id="澄清概念">澄清概念</h3>
+
+<p>面向对象编程(OOP)对应的是面向过程编程(POP)。其区别在于模块化和如何对事物进行抽象：
+- POP中程序可被分解成函数，OOP中程序可被分解成对象；
+- POP侧重于过程及其执行顺序，OOP侧重于数据而不是过程；
+- POP自顶向下解决问题，OOP自底向上解决问题；
+- POP可以自由地在函数之间传递数据，OOP中对象需要通过成员方法传递数据和彼此通信；
+- OOP更容易添加新数据和函数，有POP所没有的（public、private、protected等）访问修饰符、数据隐藏、方法覆写等特性。</p>
+
+<p>函数式编程(Functional Programming)对应的是命令式编程(Imperativeprogramming)。</p>
+
+<p>普林斯顿的科学家阿隆左·丘奇（Alonzo Church）、阿兰·图灵（Alan Turing）、约翰·冯·诺依曼（Johnvon Neumann）和库尔特·冈特（KurtGodel）都对形式系统很感兴趣，致力于解决抽象的数学难题。这些难题的共同之处就是计算：如果计算机能有无限的计算能力，哪些问题可以被解决？哪些问题可以被自动解决？哪些问题依旧无法解决？为什么不能被解决？基于不同设计的各种计算机是否具有相同的计算能力？
+阿隆左·丘奇提出了一个被称为lambda演算的形式系统。这个系统本质上是一种程序设计语言。它可以运行在具有无限计算能力的机器上。lambda演算由一些函数构成，这些函数的输入输出也是函数。函数用希腊字母lambda标识，因此整个形式系统也叫lambda。通过这一形式系统，阿隆左就可以对上述诸多问题进行推理并给出结论性的答案。在同一时间，阿兰·图灵也在进行着相似的工作。他提出了一个完全不同的形式系统（现在被称为图灵机），并使用这一系统得出了和阿隆左相似的结论。事后证明，图灵机和lambda的演算能力是等价的。
+1949年，第一台电子计算机EDVAC被推出并获得了巨大的成功。这是冯·诺依曼架构的第一个具体实现，实际上也是图灵机的第一个实现。而与此同时，阿隆左·丘奇则没有那么幸运。直到二十世纪五十年代，一位MIT的教授JohnMcCarthy对阿隆左·丘奇的工作产生了兴趣。1958年，他发布了Lisp语言。Lisp的不同之处在于，它在冯·诺依曼计算机上实现了阿隆左·丘奇的lambda演算！很多计算机科学家开始意识到Lisp的表达能力。1973年，MIT人工智能实验室的一帮程序员开发了被称为Lisp机器的硬件，于是阿隆左的lambda演算系统终于在硬件上实现了！函数式编程更加现代一些的例子包括scheme、Haskell、Clean、Erlang和Miranda等。1980年代末期，集函数式编程研究成果于大成的Haskell发布。命令式编程是图灵机思想的一种实现，对应地函数式编程则是lambda演算思想的一种实现。但并非所有的lambda演算都被实现了，因为lambda演算原本不是为有物理限制的计算机设计的。</p>
+
+<p>|特征|命令式编程|函数式编程
+|&mdash;&ndash;
+|<strong>程序员关注点</strong>|任务（算法）如何被执行及状态变化如何被追踪|所要得到的信息及所需转换
+|<strong>状态变化</strong>|很重要|不存在状态变化
+|<strong>执行顺序</strong>|很重要|不是很重要
+|<strong>基本流控制</strong>|循环、条件分支和函数调用|包括递归在内的函数调用
+|<strong>基本操作单元</strong>|结构体或类的对象|作为头等对象的函数、数据集合</p>
+
+<h3 id="定义">定义</h3>
+
+<p>在维基百科中，已经对函数式编程有了很详细的介绍，其定义如下：</p>
+
+<pre><code>函数式编程或称函数程序设计，又称泛函编程，是一种编程范型，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变对象。函数编程语言最重要的基础是λ演算（lambda calculus）。而且λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。
+</code></pre>
+
+<h3 id="概念">概念</h3>
+
+<h4 id="支持闭包和高阶函数">支持闭包和高阶函数</h4>
+
+<p>函数在函数式编程中是所谓的&rdquo;头等公民&rdquo;，函数与其他数据类型一样处于平等地位，有时称为闭包或者仿函数（functor）对象。实质上，闭包是起函数的作用并可以像对象一样操作的对象。与此类似，函数式编程语言支持高阶函数。高阶函数可以用另一个函数（间接地，用一个表达式）作为其输入参数，在某些情况下，它甚至返回一个函数作为其输出参数。这两种结构结合在一起使得可以用优雅的方式进行模块化编程，这是使用函数式编程的最大好处。</p>
+
+<h4 id="纯函数">纯函数</h4>
+
+<p>所谓“纯”函数式(或表达式)就是实现了lambda演算并且不包含与Church范式矛盾的特性，它没有(内存或I/O)副作用。
+- 变量的不可变性：函数式编程的变量都是不可变的，函数保持独立，不能修改外部变量的值，所有功能就是返回一个新的值。在命令式编程中，变量往往用来保存&rdquo;状态&rdquo;（state）,变量会影响函数的输出。在函数式编程中，不能修改变量，意味着状态不能保存在变量中。函数式编程使用函数参数保存状态，函数参数是影响函数返回值的唯一途径。如果一个编程语言中变量都是不可变的好处是：
+  - 可以去掉很多情况的锁操作, 并发处理速度会更快.
+  - 可以简化垃圾回收GC
+- 函数的确定性或引用透明性（Referentialtransparency）：指的是函数的运行不依赖于外部变量或&rdquo;状态&rdquo;，只依赖于输入的参数，任何时候只要参数相同，引用函数所得到的返回值总是相同的。这使您可以从形式上推断程序行为，因为表达式的意义只取决于其子表达式而不是计算顺序或者其他表达式的副作用。这有助于验证正确性、简化算法，甚至有助于找出优化它的方法。</p>
+
+<h4 id="递归">递归</h4>
+
+<p>函数式编程还有一个特点是用递归做为控制流程的机制。递归最大的好处就简化代码，他可以把一个复杂的问题用很简单的代码描述出来。注意：递归的精髓是描述问题，而这正是函数式编程的精髓。</p>
+
+<h4 id="懒惰计算">懒惰计算</h4>
+
+<p>懒惰计算需要编译器的支持。表达式不是在绑定到变量时立即计算，而是在求值程序需要产生表达式的值时进行计算。延迟的计算使您可以编写可能潜在地生成无穷输出的函数。因为不会计算多于程序的其余部分所需要的值，所以不需要担心由无穷计算所导致的out-of-memory错误。一个懒惰计算的例子是生成无穷Fibonacci列表的函数，但是对第n个Fibonacci数的计算相当于只是从可能的无穷列表中提取一项。
+C类和ML类的语言都是非懒惰的（饥饿求值），而Haskell和Miranda都是懒惰的。OCaml是缺省非懒惰，但是在需要的时候支持懒惰的风格。</p>
+
+<h4 id="模式匹配">模式匹配</h4>
+
+<p>模式匹配不是什么新特性。事实上它和函数式编程的关系不大。为什么总是把它当做函数式编程的一个特性呢？这是因为函数式语言已经支持模式匹配一段时间了，而现代命令式语言还不行。
+用一个例子来进一步了解模式匹配。下面是Java实现的斐波那契函数：</p>
+
+<pre><code>int fib(int n) {
+ if(n == 0) return 1;
+ if(n == 1) return 1;
+
+ return fib(n - 2) + fib(n - 1);
+}
+</code></pre>
+
+<p>如果用我们上文构造的并且支持模式匹配的Java来写，实现如下</p>
+
+<pre><code>int fib(0) {
+ return 1;
+}
+ 
+int fib(1) {
+ return 1;
+}
+ 
+int fib(int n) {
+ return fib(n - 2) + fib(n - 1);
+}
+</code></pre>
+
+<p>两者有什么区别？编译器为我们实现了分支。</p>
+
+<h4 id="科里化-currying">科里化(currying)</h4>
+
+<p>把一个函数的多个参数分解成多个函数，然后把函数多层封装起来，每层函数都返回一个函数去接收下一个参数这样，可以简化函数的多个参数。
+这里有一个适配器模式的例子：</p>
+
+<pre><code>int pow(int i, int j);
+int square(int i) {
+ return pow(i, 2);
+}
+</code></pre>
+
+<p>上面的代码把一个整数幂运算接口转换成为了一个平方接口。在学术圈中，这样的用法被称之为currying（得名于逻辑学家HaskellCurry，他曾将相关的数学理论形式化）。因为在函数式编程中，函数而不是类作为参数进行传递，因此可以用currying把函数适配到其他接口。又因为函数的接口就是其参数列表，所以currying可以减少参数的数量(如上例所示)。
+因为函数式语言内建了这一技术，所以不用手动地创建一个包装了原函数的类。函数式语言会为你代劳。和之前一样，我们来扩展一下我们的语言来支持这个技术：</p>
+
+<pre><code>square = int pow(int i, 2);
+</code></pre>
+
+<h4 id="尾递归优化-tail-call-optimization">尾递归优化(tail call optimization)</h4>
+
+<p>传统地递归过程就是函数调用，涉及返回地址、函数参数、寄存器值等压栈（在x86-64上通常用寄存器保存函数参数），其缺点是
+- 效率低，占内存
+- 如果递归链过长，可能会堆栈溢出</p>
+
+<p>与普通递归相比，由于尾递归的调用处于方法的最后，因此方法之前所积累下的各种状态对于递归调用结果已经没有任何意义，因此完全可以把本次方法中留在堆栈中的数据完全清除，把空间让给最后的递归调用。这样的优化便使得递归不会在调用堆栈上产生堆积，意味着即时是“无限”递归也不会让堆栈溢出”。这其实才是尾递归的“正统”优化方式。
+因为Python、Java等无法在语言中实现尾递归优化，所以采用了循环迭代等方式代替递归的表述。</p>
+
+<h3 id="总结">总结</h3>
+
+<p>函数式编程在某些场景下比命令式编程具有优势。鼓吹函数式编程的人说函数式编程比命令式编程代码精简、表达直观，其实不能一概而论。此外要让函数式编程来做CRUD，来做我们传统的逻辑性很强的Web编程，就有些免为其难了。实用最好！</p>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80">WIKI：函数编程语言</a><br />
+<a href="http://blog.pengyifan.com/articles/functional-programming-for-the-rest-of-us/">函数式程序设计的另类指南</a><br />
+<a href="http://www.ruanyifeng.com/blog/2012/04/functional_programming.html">函数式编程初探</a><br />
+<a href="http://www.ibm.com/developerworks/cn/java/j-fp/">IBM developerWorks：Java 语言中的函数编程</a><br />
+<a href="https://msdn.microsoft.com/en-us/library/bb669144.aspx">MSDN: Functional Programming vs. Imperative Programming</a><br />
+<a href="http://coolshell.cn/articles/10822.html">函数式编程</a><br />
+<a href="http://www.yinwang.org/blog-cn/2015/04/03/paradigms/">编程的宗派</a><br />
+[](<a href="http://www.zhihu.com/question/19732025">http://www.zhihu.com/question/19732025</a>)</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：函数式编程笔记
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/%e5%87%bd%e6%95%b0%e5%bc%8f%e7%bc%96%e7%a8%8b" rel="tag" title="函数式编程">#函数式编程#</a>
+    
+    <a href="/tags/%e9%97%ad%e5%8c%85" rel="tag" title="闭包">#闭包#</a>
+    
+    <a href="/tags/lambda" rel="tag" title="lambda">#lambda#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E7%B2%97%E8%A7%88%E5%9F%BA%E4%BA%8Eeclipse_rcp%E6%9E%B6%E6%9E%84%E7%9A%84activiti_designer%E5%AE%9E%E7%8E%B0%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%89%88/" rel="next" title="粗览基于Eclipse RCP架构的Activiti Designer实现（思维导图版）">
+        <i class="fa fa-chevron-left"></i> 粗览基于Eclipse RCP架构的Activiti Designer实现（思维导图版）
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/activiti_designer%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="Activiti Designer开发环境配置">
+        Activiti Designer开发环境配置 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

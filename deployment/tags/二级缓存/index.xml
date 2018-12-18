@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>二级缓存 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</link>
+    <description>Recent content in 二级缓存 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 May 2013 09:40:06 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hibernate缓存</title>
+      <link>https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Sat, 25 May 2013 09:40:06 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/</guid>
+      <description>Hibernate缓存 Hibernate带有三种不同缓存机制：一级缓存、二级缓存和查询缓存。
+SessionFactory和Session SessionFactory(在JEE中叫做EntityManager)的用途是创建会话，初始化JDBC链接并（使用例如C3P0之类的可插拔provider）进行池化。SessionFactory是非可变的，通过hibernate.cfg.cml文件或Springbean配置中提供的匹配信息、缓存信息等配置进行创建。会话是最低级的工作单元，对应一个数据库事物。当会话创建后并对Hibernate实体机型一些操作，比如设置实体的一个属性，Hibernate不会立即更新底层数据库表。相反Hibernate记录实体的状态（是否为脏数据），并在会话最终刷新更新到数据库。这就是Hibernate所谓的一级缓存。
+一级缓存 一级缓存是Hibernate记录正在进行的会话加载和接触的实体有可能的脏数据状态。正在进行的会话代表工作单元，始终使用，无法关闭。一级缓存的用途是隐藏对数据库许多SQL查询或更新，并在会话最终批量一起执行。当想起一级缓存的时候就应该想到会话。
+二级缓存 二级缓存是进程范围内的缓存，与一个SessionFactory绑定。二级缓存可被相同（通常一个应用程序仅一个）SessionFactory的所有会话共享。默认二级缓存没有使能。二级缓存不存储任何实体实例，而是存储“脱水”状态，即字符串或整形数组代表实体的属性，一个实体id指向“脱水”的实体。概念上可以认为它是一个映射，id作为键，数组作为值。或像下面用于缓存region的这些东西：
+public class Person { private Person parent; private Set&amp;lt;Person&amp;gt; children; public void setParent(Person p) { parent = p; } public void setChildren(Set&amp;lt;Person&amp;gt; set) { children = set; } public Set&amp;lt;Person&amp;gt; getChildren() { return children; } public Person getParent() { return parent; } }  Hibernate映射配置如下:
+&amp;lt;class name=&amp;quot;org.javalobby.tnt.hibernate.Person&amp;quot;&amp;gt; &amp;lt;cache usage=&amp;quot;read-write&amp;quot;/&amp;gt; &amp;lt;id name=&amp;quot;id&amp;quot; column=&amp;quot;id&amp;quot; type=&amp;quot;long&amp;quot;&amp;gt; &amp;lt;generator class=&amp;quot;identity&amp;quot;/&amp;gt; &amp;lt;/id&amp;gt; &amp;lt;property name=&amp;quot;firstName&amp;quot; type=&amp;quot;string&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;middleInitial&amp;quot; type=&amp;quot;string&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;lastName&amp;quot; type=&amp;quot;string&amp;quot;/&amp;gt; &amp;lt;many-to-one name=&amp;quot;parent&amp;quot; column=&amp;quot;parent_id&amp;quot; class=&amp;quot;Person&amp;quot;/&amp;gt; &amp;lt;set name=&amp;quot;children&amp;quot;&amp;gt; &amp;lt;key column=&amp;quot;parent_id&amp;quot;/&amp;gt; &amp;lt;one-to-many class=&amp;quot;Person&amp;quot;/&amp;gt; &amp;lt;/set&amp;gt; &amp;lt;/class&amp;gt;  Hibernate概念上为此类持有如下记录:</description>
+    </item>
+    
+    <item>
+      <title>用GemFire做Mybatis二级缓存</title>
+      <link>https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Wed, 22 May 2013 09:12:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</guid>
+      <description>MyBatis支持第三方二级缓存实现，目前支持Ehcache、Hazelcast和OSCache。 GemFire不在支持的范围，但是可以通过实现org.apache.ibatis.cache.Cache接口来使用。
+MyBatis的Cache配置及实现  设置MyBatis的Cache全局使用开关：默认是true，如果它配成false，其余各个MapperXML文件配成支持cache也没用。  &amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;quot;cacheEnabled&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt; &amp;lt;/settings&amp;gt;  各个Mapper XML文件，默认是不采用cache。在配置文件加一行就可以支持cache：  &amp;lt;cache /&amp;gt;  实现GemfireCache
+package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.AttributesFactory; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.Region; import java.util.concurrent.locks.ReadWriteLock; import java.util.concurrent.locks.ReentrantReadWriteLock; import org.apache.ibatis.cache.Cache; import org.apache.ibatis.cache.CacheException; public final class GemfireCache implements Cache { private static Region&amp;lt;object&amp;gt; mybatis_region = null; private Region&amp;lt;object&amp;gt; region = null; private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); private String id; public void setId(String id) { this.id = id; } public void setRegion(Region&amp;lt;object&amp;gt; region) { this.</description>
+    </item>
+    
+  </channel>
+</rss>

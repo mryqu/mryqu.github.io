@@ -1,0 +1,1031 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>尝试Apache Avro支持的各种数据类型 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="尝试Apache Avro支持的各种数据类型">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="尝试Apache Avro支持的各种数据类型 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95apache_avro%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
+        尝试Apache Avro支持的各种数据类型
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-09-18">
+    2013-09-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1694 字 ~8分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>Apache Avro是一个独立与编程语言的数据序列化系统，该项目由Doug Cutting（Hadoop之父）牵头创建的。它可以提供：
+- 丰富的数据结构类型
+- 快速可压缩的二进制数据形式
+- 存储持久数据的文件容器
+- 远程过程调用（RPC）
+- 同动态语言的简单集成。读写数据文件和使用RPC协议都不需要生成代码，而代码生成作为一种可选的优化只值得在静态类型语言中实现。</p>
+
+<p>今天尝试一下Apache Avro支持的各种数据类型。</p>
+
+<h4 id="test-avsc">test.avsc</h4>
+
+<pre><code>{&quot;namespace&quot;: &quot;com.yqu.avro&quot;, 
+ &quot;type&quot;: &quot;record&quot;, 
+ &quot;name&quot;: &quot;Test&quot;, 
+ &quot;fields&quot;: [ 
+   {&quot;name&quot;: &quot;stringVar&quot;, &quot;type&quot;: &quot;string&quot;}, 
+   {&quot;name&quot;: &quot;bytesVar&quot;, &quot;type&quot;: [&quot;bytes&quot;, &quot;null&quot;]}, 
+   {&quot;name&quot;: &quot;booleanVar&quot;,  &quot;type&quot;: &quot;boolean&quot;}, 
+   {&quot;name&quot;: &quot;intVar&quot;,  &quot;type&quot;: &quot;int&quot;, &quot;order&quot;:&quot;descending&quot;}, 
+   {&quot;name&quot;: &quot;longVar&quot;,  &quot;type&quot;: [&quot;long&quot;, &quot;null&quot;], &quot;order&quot;:&quot;ascending&quot;}, 
+   {&quot;name&quot;: &quot;floatVar&quot;,  &quot;type&quot;: &quot;float&quot;}, 
+   {&quot;name&quot;: &quot;doubleVar&quot;,  &quot;type&quot;: &quot;double&quot;}, 
+   {&quot;name&quot;: &quot;enumVar&quot;,  &quot;type&quot;: {&quot;type&quot;: &quot;enum&quot;, &quot;name&quot;: &quot;Suit&quot;, &quot;symbols&quot; : [&quot;SPADES&quot;, &quot;HEARTS&quot;, &quot;DIAMONDS&quot;, &quot;CLUBS&quot;]}}, 
+   {&quot;name&quot;: &quot;strArrayVar&quot;, &quot;type&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: &quot;string&quot;}}, 
+   {&quot;name&quot;: &quot;intArrayVar&quot;, &quot;type&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: &quot;int&quot;}}, 
+   {&quot;name&quot;: &quot;mapVar&quot;, &quot;type&quot;: {&quot;type&quot;: &quot;map&quot;, &quot;values&quot;: &quot;long&quot;}}, 
+   {&quot;name&quot;: &quot;fixedVar&quot;, &quot;type&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;size&quot;: 16, &quot;name&quot;: &quot;md5&quot;}} 
+ ] 
+}
+</code></pre>
+
+<p>使用下列命令将schema编译成代码</p>
+
+<pre><code>java -jar avro-tools-1.7.5.jar compile schema test.avsc .
+</code></pre>
+
+<h4 id="test-java">Test.java</h4>
+
+<pre><code>package com.yqu.avro;  
+@SuppressWarnings(&quot;all&quot;)
+@org.apache.avro.specific.AvroGenerated
+public class Test extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
+  public static final org.apache.avro.Schema SCHEMA$ = 
+    new org.apache.avro.Schema.Parser().parse(
+    &quot;{&quot;type&quot;:&quot;record&quot;,&quot;name&quot;:&quot;Test&quot;,&quot;namespace&quot;:&quot;com.yqu.avro&quot;,&quot;fields&quot;:[{&quot;name&quot;:&quot;stringVar&quot;,&quot;type&quot;:&quot;string&quot;},{&quot;name&quot;:&quot;bytesVar&quot;,&quot;type&quot;:[&quot;bytes&quot;,&quot;null&quot;]},{&quot;name&quot;:&quot;booleanVar&quot;,&quot;type&quot;:&quot;boolean&quot;},{&quot;name&quot;:&quot;intVar&quot;,&quot;type&quot;:&quot;int&quot;,&quot;order&quot;:&quot;descending&quot;},{&quot;name&quot;:&quot;longVar&quot;,&quot;type&quot;:[&quot;long&quot;,&quot;null&quot;]},{&quot;name&quot;:&quot;floatVar&quot;,&quot;type&quot;:&quot;float&quot;},{&quot;name&quot;:&quot;doubleVar&quot;,&quot;type&quot;:&quot;double&quot;},{&quot;name&quot;:&quot;enumVar&quot;,&quot;type&quot;:{&quot;type&quot;:&quot;enum&quot;,&quot;name&quot;:&quot;Suit&quot;,&quot;symbols&quot;:[&quot;SPADES&quot;,&quot;HEARTS&quot;,&quot;DIAMONDS&quot;,&quot;CLUBS&quot;]}},{&quot;name&quot;:&quot;strArrayVar&quot;,&quot;type&quot;:{&quot;type&quot;:&quot;array&quot;,&quot;items&quot;:&quot;string&quot;}},{&quot;name&quot;:&quot;intArrayVar&quot;,&quot;type&quot;:{&quot;type&quot;:&quot;array&quot;,&quot;items&quot;:&quot;int&quot;}},{&quot;name&quot;:&quot;mapVar&quot;,&quot;type&quot;:{&quot;type&quot;:&quot;map&quot;,&quot;values&quot;:&quot;long&quot;}},{&quot;name&quot;:&quot;fixedVar&quot;,&quot;type&quot;:{&quot;type&quot;:&quot;fixed&quot;,&quot;name&quot;:&quot;md5&quot;,&quot;size&quot;:16}}]}&quot;);
+  public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
+  @Deprecated public java.lang.CharSequence stringVar;
+  @Deprecated public java.nio.ByteBuffer bytesVar;
+  @Deprecated public boolean booleanVar;
+  @Deprecated public int intVar;
+  @Deprecated public java.lang.Long longVar;
+  @Deprecated public float floatVar;
+  @Deprecated public double doubleVar;
+  @Deprecated public com.yqu.avro.Suit enumVar;
+  @Deprecated public java.util.List&lt;java.lang.charsequence&gt; strArrayVar;
+  @Deprecated public java.util.List&lt;java.lang.integer&gt; intArrayVar;
+  @Deprecated public java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; mapVar;
+  @Deprecated public com.yqu.avro.md5 fixedVar;
+  
+  public Test() {}
+  
+  public Test(java.lang.CharSequence stringVar, java.nio.ByteBuffer bytesVar, 
+    java.lang.Boolean booleanVar, java.lang.Integer intVar, java.lang.Long longVar, 
+    java.lang.Float floatVar, java.lang.Double doubleVar, com.yqu.avro.Suit enumVar,
+     java.util.List&lt;java.lang.charsequence&gt; strArrayVar, 
+     java.util.List&lt;java.lang.integer&gt; intArrayVar, 
+     java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; mapVar, 
+     com.yqu.avro.md5 fixedVar) {
+    this.stringVar = stringVar;
+    this.bytesVar = bytesVar;
+    this.booleanVar = booleanVar;
+    this.intVar = intVar;
+    this.longVar = longVar;
+    this.floatVar = floatVar;
+    this.doubleVar = doubleVar;
+    this.enumVar = enumVar;
+    this.strArrayVar = strArrayVar;
+    this.intArrayVar = intArrayVar;
+    this.mapVar = mapVar;
+    this.fixedVar = fixedVar;
+  }
+
+  public org.apache.avro.Schema getSchema() { return SCHEMA$; }
+  // Used by DatumWriter.  Applications should not call. 
+  public  {
+    switch (field$) {
+    case 0: return stringVar;
+    case 1: return bytesVar;
+    case 2: return booleanVar;
+    case 3: return intVar;
+    case 4: return longVar;
+    case 5: return floatVar;
+    case 6: return doubleVar;
+    case 7: return enumVar;
+    case 8: return strArrayVar;
+    case 9: return intArrayVar;
+    case 10: return mapVar;
+    case 11: return fixedVar;
+    default: throw new org.apache.avro.AvroRuntimeException(&quot;Bad index&quot;);
+    }
+  }
+  // Used by DatumReader.  Applications should not call. 
+  @SuppressWarnings(value=&quot;unchecked&quot;)
+  public void put(int field$,  {
+    switch (field$) {
+    case 0: stringVar = (value$; break;
+    case 1: bytesVar = (value$; break;
+    case 2: booleanVar = (value$; break;
+    case 3: intVar = (value$; break;
+    case 4: longVar = (value$; break;
+    case 5: floatVar = (value$; break;
+    case 6: doubleVar = (value$; break;
+    case 7: enumVar = (com.yqu.avro.Suit)value$; break;
+    case 8: strArrayVar = (value$; break;
+    case 9: intArrayVar = (value$; break;
+    case 10: mapVar = (value$; break;
+    case 11: fixedVar = (com.yqu.avro.md5)value$; break;
+    default: throw new org.apache.avro.AvroRuntimeException(&quot;Bad index&quot;);
+    }
+  }
+
+  public java.lang.CharSequence getStringVar() {
+    return stringVar;
+  }
+  
+  public void setStringVar(java.lang.CharSequence value) {
+    this.stringVar = value;
+  }
+
+  public java.nio.ByteBuffer getByteVar() {
+    return bytesVar;
+  }
+
+  public void setBytesVar(java.nio.ByteBuffer value) {
+    this.bytesVar = value;
+  }
+
+  public boolean getBooleanVar) {
+    return booleanVar;
+  }
+
+  public void setBooleanVar(boolean value) {
+    this.booleanVar = value;
+  }
+
+  public int getIntVar() {
+    return intVar;
+  }
+
+  public void setIntVar(int value) {
+    this.intVar = value;
+  }
+
+  public long getLongVar() {
+    return longVar;
+  }
+
+  public void setLongVar(long value) {
+    this.longVar = value;
+  }
+
+  public float getFloatVar() {
+    return floatVar;
+  }
+
+  public void setFloatVar(float value) {
+    this.floatVar = value;
+  }
+
+  public double getDoubleVar() {
+    return doubleVar;
+  }
+
+  public void setDoubleVar(double value) {
+    this.doubleVar = value;
+  }
+
+  public com.yqu.avro.Suit getEnumVar() {
+    return enumVar;
+  }
+
+  public void setEnumVar(com.yqu.avro.Suit value) {
+    this.enumVar = value;
+  }
+
+  public java.util.List&lt;java.lang.charsequence&gt; getStrArrayVar() {
+    return strArrayVar;
+  }
+  
+  public void setStrArrayVar(java.util.List&lt;java.lang.charsequence&gt; value) {
+    this.strArrayVar = value;
+  }
+
+  public public java.util.List&lt;java.lang.integer&gt; getIntArrayVar() {
+    return intArrayVar;
+  }
+
+  public void setIntArrayVar(java.util.List&lt;java.lang.integer&gt; value) {
+    this.intArrayVar = value;
+  }
+  
+  public java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; getMapVar() {
+    return mapVar;
+  }
+  
+  public void setMapVar(java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; value) {
+    this.mapVar = value;
+  }
+  
+  public com.yqu.avro.md5 getFixedVar() {
+    return fixedVar;
+  }
+  
+  public void setFixedVar(com.yqu.avro.md5 value) {
+    this.fixedVar = value;
+  }
+  
+  public static com.yqu.avro.Test.Builder newBuilder() {
+    return new com.yqu.avro.Test.Builder();
+  }
+  
+  public static com.yqu.avro.Test.Builder newBuilder(com.yqu.avro.Test.Builder other) {
+    return new com.yqu.avro.Test.Builder(other);
+  }
+  
+  public static com.yqu.avro.Test.Builder newBuilder(com.yqu.avro.Test other) {
+    return new com.yqu.avro.Test.Builder(other);
+  }  
+  
+  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase&lt;test&gt;
+    implements org.apache.avro.data.RecordBuilder&lt;test&gt; {
+
+    private java.lang.CharSequence stringVar;
+    private java.nio.ByteBuffer bytesVar;
+    private boolean booleanVar;
+    private int intVar;
+    private java.lang.Long longVar;
+    private float floatVar;
+    private double doubleVar;
+    private com.yqu.avro.Suit enumVar;
+    private java.util.List&lt;java.lang.charsequence&gt; strArrayVar;
+    private java.util.List&lt;java.lang.integer&gt; intArrayVar;
+    private java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; mapVar;
+    private com.yqu.avro.md5 fixedVar;
+    
+    private Builder() {
+      super(com.yqu.avro.Test.SCHEMA$);
+    }
+        
+    private Builder(com.yqu.avro.Test.Builder other) {
+      super(other);
+      if (isValidValue(fields()[0], other.stringVar)) {
+        this.stringVar = data().deepCopy(fields()[0].schema(), other.stringVar);
+        fieldSetFlags()[0] = true;
+      }
+      if (isValidValue(fields()[1], other.bytesVar)) {
+        this.bytesVar = data().deepCopy(fields()[1].schema(), other.bytesVar);
+        fieldSetFlags()[1] = true;
+      }
+      if (isValidValue(fields()[2], other.booleanVar)) {
+        this.booleanVar = data().deepCopy(fields()[2].schema(), other.booleanVar);
+        fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.intVar)) {
+        this.intVar = data().deepCopy(fields()[3].schema(), other.intVar);
+        fieldSetFlags()[3] = true;
+      }
+      if (isValidValue(fields()[4], other.longVar)) {
+        this.longVar = data().deepCopy(fields()[4].schema(), other.longVar);
+        fieldSetFlags()[4] = true;
+      }
+      if (isValidValue(fields()[5], other.floatVar)) {
+        this.floatVar = data().deepCopy(fields()[5].schema(), other.floatVar);
+        fieldSetFlags()[5] = true;
+      }
+      if (isValidValue(fields()[6], other.doubleVar)) {
+        this.doubleVar = data().deepCopy(fields()[6].schema(), other.doubleVar);
+        fieldSetFlags()[6] = true;
+      }
+      if (isValidValue(fields()[7], other.enumVar)) {
+        this.enumVar = data().deepCopy(fields()[7].schema(), other.enumVar);
+        fieldSetFlags()[7] = true;
+      }
+      if (isValidValue(fields()[8], other.strArrayVar)) {
+        this.strArrayVar = data().deepCopy(fields()[8].schema(), other.strArrayVar);
+        fieldSetFlags()[8] = true;
+      }
+      if (isValidValue(fields()[9], other.intArrayVar)) {
+        this.intArrayVar = data().deepCopy(fields()[9].schema(), other.intArrayVar);
+        fieldSetFlags()[9] = true;
+      }
+      if (isValidValue(fields()[10], other.mapVar)) {
+        this.mapVar = data().deepCopy(fields()[10].schema(), other.mapVar);
+        fieldSetFlags()[10] = true;
+      }
+      if (isValidValue(fields()[11], other.fixedVar)) {
+        this.fixedVar = data().deepCopy(fields()[11].schema(), other.fixedVar);
+        fieldSetFlags()[11] = true;
+      }
+    }
+        
+    private Builder(com.yqu.avro.Test other) {
+            super(com.yqu.avro.Test.SCHEMA$);
+      if (isValidValue(fields()[0], other.stringVar)) {
+        this.stringVar = data().deepCopy(fields()[0].schema(), other.stringVar);
+        fieldSetFlags()[0] = true;
+      }
+      if (isValidValue(fields()[1], other.bytesVar)) {
+        this.bytesVar = data().deepCopy(fields()[1].schema(), other.bytesVar);
+        fieldSetFlags()[1] = true;
+      }
+      if (isValidValue(fields()[2], other.booleanVar)) {
+        this.booleanVar = data().deepCopy(fields()[2].schema(), other.booleanVar);
+        fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.intVar)) {
+        this.intVar = data().deepCopy(fields()[3].schema(), other.intVar);
+        fieldSetFlags()[3] = true;
+      }
+      if (isValidValue(fields()[4], other.longVar)) {
+        this.longVar = data().deepCopy(fields()[4].schema(), other.longVar);
+        fieldSetFlags()[4] = true;
+      }
+      if (isValidValue(fields()[5], other.floatVar)) {
+        this.floatVar = data().deepCopy(fields()[5].schema(), other.floatVar);
+        fieldSetFlags()[5] = true;
+      }
+      if (isValidValue(fields()[6], other.doubleVar)) {
+        this.doubleVar = data().deepCopy(fields()[6].schema(), other.doubleVar);
+        fieldSetFlags()[6] = true;
+      }
+      if (isValidValue(fields()[7], other.enumVar)) {
+        this.enumVar = data().deepCopy(fields()[7].schema(), other.enumVar);
+        fieldSetFlags()[7] = true;
+      }
+      if (isValidValue(fields()[8], other.strArrayVar)) {
+        this.strArrayVar = data().deepCopy(fields()[8].schema(), other.strArrayVar);
+        fieldSetFlags()[8] = true;
+      }
+      if (isValidValue(fields()[9], other.intArrayVar)) {
+        this.intArrayVar = data().deepCopy(fields()[9].schema(), other.intArrayVar);
+        fieldSetFlags()[9] = true;
+      }
+      if (isValidValue(fields()[10], other.mapVar)) {
+        this.mapVar = data().deepCopy(fields()[10].schema(), other.mapVar);
+        fieldSetFlags()[10] = true;
+      }
+      if (isValidValue(fields()[11], other.fixedVar)) {
+        this.fixedVar = data().deepCopy(fields()[11].schema(), other.fixedVar);
+        fieldSetFlags()[11] = true;
+      }
+    }
+    
+    public java.lang.CharSequence getStringVar {
+      return stringVar;
+    }
+   
+    public com.yqu.avro.Test.Builder setStringVar(java.lang.CharSequence value) {
+      validate(fields()[0], value);
+      this.stringVar = value;
+      fieldSetFlags()[0] = true;
+      return this; 
+    }
+
+    public boolean hasStringVar() {
+      return fieldSetFlags()[0];
+    }
+        
+    public com.yqu.avro.Test.Builder clearStringVar() {
+      stringVar = null;
+      fieldSetFlags()[0] = false;
+      return this;
+    }
+
+    public java.nio.ByteBuffer getByteVar() {
+      return bytesVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setBytesVar(java.nio.ByteBuffer value) {
+      validate(fields()[1], value);
+      this.bytesVar = value;
+      fieldSetFlags()[1] = true;
+      return this; 
+    }
+    
+    public boolean hasBytesVar() {
+      return fieldSetFlags()[1];
+    }
+    
+    public com.yqu.avro.Test.Builder clearBytesVar() {
+      bytesVar = null;
+      fieldSetFlags()[1] = false;
+      return this;
+    }
+
+    public boolean getBooleanVar() {
+      return booleanVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setBooleanVar(boolean value) {
+      validate(fields()[2], value);
+      this.booleanVar = value;
+      fieldSetFlags()[2] = true;
+      return this; 
+    }
+    
+    public boolean hasBooleanVar() {
+      return fieldSetFlags()[2];
+    }
+
+    public com.yqu.avro.Test.Builder clearBooleanVar() {
+      fieldSetFlags()[2] = false;
+      return this;
+    }
+
+    public int getIntVar() {
+      return intVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setIntVar(int value) {
+      validate(fields()[3], value);
+      this.intVar = value;
+      fieldSetFlags()[3] = true;
+      return this; 
+    }
+    
+    public boolean hasIntVar() {
+      return fieldSetFlags()[3];
+    }
+
+    public com.yqu.avro.Test.Builder clearIntVar() {
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
+    public long getLongVar() {
+      return longVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setLongVar(long value) {
+      validate(fields()[4], value);
+      this.longVar = value;
+      fieldSetFlags()[4] = true;
+      return this; 
+    }
+
+    public boolean hasLongVar() {
+      return fieldSetFlags()[4];
+    }
+
+    public com.yqu.avro.Test.Builder clearLongVar() {
+      longVar = null;
+      fieldSetFlags()[4] = false;
+      return this;
+    }
+
+    public float getFloatVar() {
+      return floatVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setFloatVar(float value) {
+      validate(fields()[5], value);
+      this.floatVar = value;
+      fieldSetFlags()[5] = true;
+      return this; 
+    }
+
+    public boolean hasFloatVar() {
+      return fieldSetFlags()[5];
+    }
+
+    public com.yqu.avro.Test.Builder clearFloatVar() {
+      fieldSetFlags()[5] = false;
+      return this;
+    }
+
+    public double getDoubleVar() {
+      return doubleVar;
+    }
+
+    public com.yqu.avro.Test.Builder setDoubleVar(double value) {
+      validate(fields()[6], value);
+      this.doubleVar = value;
+      fieldSetFlags()[6] = true;
+      return this; 
+    }
+
+    public boolean hasDoubleVar() {
+      return fieldSetFlags()[6];
+    }
+
+    public com.yqu.avro.Test.Builder clearDoubleVar() {
+      fieldSetFlags()[6] = false;
+      return this;
+    }
+
+    public com.yqu.avro.Suit getEnumVar() {
+      return enumVar;
+    }
+
+    public com.yqu.avro.Test.Builder setEnumVar(com.yqu.avro.Suit value) {
+      validate(fields()[7], value);
+      this.enumVar = value;
+      fieldSetFlags()[7] = true;
+      return this; 
+    }
+
+    public boolean hasEnumVar() {
+      return fieldSetFlags()[7];
+    }
+
+    public com.yqu.avro.Test.Builder clearEnumVar() {
+      enumVar = null;
+      fieldSetFlags()[7] = false;
+      return this;
+    }
+
+    public java.util.List&lt;java.lang.charsequence&gt; getStrArrayVar() {
+      return strArrayVar;
+    }
+
+    public com.yqu.avro.Test.Builder setStrArrayVar(java.util.List&lt;java.lang.charsequence&gt; value) {
+      validate(fields()[8], value);
+      this.strArrayVar = value;
+      fieldSetFlags()[8] = true;
+      return this; 
+    }
+
+    public boolean hasStrArrayVar() {
+      return fieldSetFlags()[8];
+    }
+
+    public com.yqu.avro.Test.Builder clearStrArrayVar() {
+      strArrayVar = null;
+      fieldSetFlags()[8] = false;
+      return this;
+    }
+
+    public java.util.List&lt;java.lang.integer&gt; getIntArrayVar() {
+      return intArrayVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setIntArrayVar(java.util.List&lt;java.lang.integer&gt; value) {
+      validate(fields()[9], value);
+      this.intArrayVar = value;
+      fieldSetFlags()[9] = true;
+      return this; 
+    }
+
+    public boolean hasIntArrayVar() {
+      return fieldSetFlags()[9];
+    }
+
+    public com.yqu.avro.Test.Builder clearIntArrayVar() {
+      intArrayVar = null;
+      fieldSetFlags()[9] = false;
+      return this;
+    }
+
+    public java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; getMapVar() {
+      return mapVar;
+    }
+
+    public com.yqu.avro.Test.Builder setMapVar(java.util.Map&lt;java.lang.charsequence,java.lang.long&gt; value) {
+      validate(fields()[10], value);
+      this.mapVar = value;
+      fieldSetFlags()[10] = true;
+      return this; 
+    }
+
+    public boolean hasMapVar() {
+      return fieldSetFlags()[10];
+    }
+
+    public com.yqu.avro.Test.Builder clearMapVar() {
+      mapVar = null;
+      fieldSetFlags()[10] = false;
+      return this;
+    }
+
+    public com.yqu.avro.md5 getFixedVar() {
+      return fixedVar;
+    }
+    
+    public com.yqu.avro.Test.Builder setFixedVar(com.yqu.avro.md5 value) {
+      validate(fields()[11], value);
+      this.fixedVar = value;
+      fieldSetFlags()[11] = true;
+      return this; 
+    }
+
+    public boolean hasFixedVar() {
+      return fieldSetFlags()[11];
+    }
+
+    public com.yqu.avro.Test.Builder clearFixedVar() {
+      fixedVar = null;
+      fieldSetFlags()[11] = false;
+      return this;
+    }
+
+    @Override
+    public Test build() {
+      try {
+        Test record = new Test();
+        record.stringVar = fieldSetFlags()[0] ? this.stringVar : (;
+        record.bytesVar = fieldSetFlags()[1] ? this.bytesVar : (;
+        record.booleanVar = fieldSetFlags()[2] ? this.booleanVar : (;
+        record.intVar = fieldSetFlags()[3] ? this.intVar : (;
+        record.longVar = fieldSetFlags()[4] ? this.longVar : (;
+        record.floatVar = fieldSetFlags()[5] ? this.floatVar : (;
+        record.doubleVar = fieldSetFlags()[6] ? this.doubleVar : (;
+        record.enumVar = fieldSetFlags()[7] ? this.enumVar : (com.yqu.avro.Suit) defaultValue(fields()[7]);
+        record.strArrayVar = fieldSetFlags()[8] ? this.strArrayVar : (;
+        record.intArrayVar = fieldSetFlags()[9] ? this.intArrayVar : (;
+        record.mapVar = fieldSetFlags()[10] ? this.mapVar : (;
+        record.fixedVar = fieldSetFlags()[11] ? this.fixedVar : (com.yqu.avro.md5) defaultValue(fields()[11]);
+        return record;
+      } catch (Exception e) {
+        throw new org.apache.avro.AvroRuntimeException(e);
+      }
+    }
+  }
+}
+</code></pre>
+
+<h4 id="suit-java">Suit.java</h4>
+
+<pre><code>package com.yqu.avro;   
+@SuppressWarnings(&quot;all&quot;) 
+@org.apache.avro.specific.AvroGenerated 
+public enum Suit {  
+  SPADES, HEARTS, DIAMONDS, CLUBS  ; 
+  public static final org.apache.avro.Schema SCHEMA$ = 
+    new org.apache.avro.Schema.Parser().parse(
+      &quot;{&quot;type&quot;:&quot;enum&quot;,&quot;name&quot;:&quot;Suit&quot;,&quot;namespace&quot;:&quot;com.yqu.avro&quot;,&quot;symbols&quot;:[&quot;SPADES&quot;,&quot;HEARTS&quot;,&quot;DIAMONDS&quot;,&quot;CLUBS&quot;]}&quot;); 
+  public static org.apache.avro.Schema getClassSchema() {
+   return SCHEMA$; 
+  } 
+}
+</code></pre>
+
+<h4 id="md5-java">Md5.java</h4>
+
+<pre><code>package com.yqu.avro;   
+@SuppressWarnings(&quot;all&quot;) 
+@org.apache.avro.specific.FixedSize(16) 
+@org.apache.avro.specific.AvroGenerated 
+public class Md5 extends org.apache.avro.specific.SpecificFixed { 
+  public static final org.apache.avro.Schema SCHEMA$ = 
+    new org.apache.avro.Schema.Parser().parse(
+      &quot;{&quot;type&quot;:&quot;fixed&quot;,&quot;name&quot;:&quot;Md5&quot;,&quot;namespace&quot;:&quot;com.yqu.avro&quot;,&quot;size&quot;:16}&quot;); 
+  public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }   
+
+  public Md5() { 
+    super(); 
+  } 
+   
+  public Md5(byte[] bytes) { 
+    super(bytes); 
+  } 
+}
+</code></pre>
+
+<p>参考：</p>
+
+<p><a href="http://avro.apache.org/docs/current/spec.html">Apache Avro规范</a><br />
+<a href="http://www.tbdata.org/archives/1307">Apache Avro 与 Thrift 比较</a><br />
+<a href="http://langyu.iteye.com/blog/708568">Avro总结(RPC/序列化)</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：尝试Apache Avro支持的各种数据类型
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/apache" rel="tag" title="apache">#apache#</a>
+    
+    <a href="/tags/avro" rel="tag" title="avro">#avro#</a>
+    
+    <a href="/tags/%e5%ba%8f%e5%88%97%e5%8c%96" rel="tag" title="序列化">#序列化#</a>
+    
+    <a href="/tags/idl" rel="tag" title="idl">#idl#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/ssh_keys_for_git_system/" rel="next" title="SSH keys for Git System">
+        <i class="fa fa-chevron-left"></i> SSH keys for Git System
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/" rel="prev" title="[算法] Trie（数字树、字典树、前缀树）">
+        [算法] Trie（数字树、字典树、前缀树） <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

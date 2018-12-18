@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Upload file to Google Drive using LibCurl - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Upload file to Google Drive using LibCurl">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Upload file to Google Drive using LibCurl - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/" itemprop="url">
+        Upload file to Google Drive using LibCurl
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-01-06">
+    2017-01-06
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">2736 字 ~13分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>This is a sequel to my last blog &ldquo;<a href="/post/upload_file_to_google_drive_using_postman_and_curl">Upload file to Google Drive using Postman and cURL</a>&rdquo;.<br />
+I wrote C++ code using LibCurl to redo the three types of upload, and all of them work which shown in the below log snippet.</p>
+
+<h3 id="simple-upload">Simple upload</h3>
+
+<pre><code>=&gt; Send header, 0000000309 bytes (0x00000135)
+0000: 50 4f 53 54 20 2f 75 70 6c 6f 61 64 2f 64 72 69 POST /upload/dri
+0010: 76 65 2f 76 33 2f 66 69 6c 65 73 3f 75 70 6c 6f ve/v3/files?uplo
+0020: 61 64 54 79 70 65 3d 6d 65 64 69 61 26 61 63 63 adType=media&amp;acc
+0030: 65 73 73 5f 74 6f 6b 65 6e 3d 79 61 32 39 2e 47 ess_token=ya29.G
+######################################################################
+00b0: 6e 6c 4c 46 5f 4e 51 78 57 32 48 20 48 54 54 50 nlLF_NQxW2H HTTP
+00c0: 2f 31 2e 31 0d 0a 48 6f 73 74 3a 20 77 77 77 2e /1.1..Host: www.
+00d0: 67 6f 6f 67 6c 65 61 70 69 73 2e 63 6f 6d 0d 0a googleapis.com..
+00e0: 41 63 63 65 70 74 3a 20 2a 2f 2a 0d 0a 63 61 63 Accept: **.
+00f0: 0a 63 61 63 68 65 2d 63 6f 6e 74 72 6f 6c 3a 20 .cache-control: 
+0100: 6e 6f 2d 63 61 63 68 65 0d 0a 63 6f 6e 74 65 6e no-cache..conten
+0110: 74 2d 74 79 70 65 3a 20 61 70 70 6c 69 63 61 74 t-type: applicat
+0120: 69 6f 6e 2f 6a 73 6f 6e 3b 20 63 68 61 72 73 65 ion/json; charse
+0130: 74 3d 55 54 46 2d 38 0d 0a 58 2d 55 70 6c 6f 61 t=UTF-8..X-Uploa
+0140: 64 2d 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 74 d-Content-Type:t
+0150: 65 78 74 2f 63 73 76 0d 0a 58 2d 55 70 6c 6f 61 ext/csv..X-Uploa
+0160: 64 2d 43 6f 6e 74 65 6e 74 2d 4c 65 6e 67 74 68 d-Content-Length
+0170: 3a 38 33 38 31 39 33 35 0d 0a 43 6f 6e 74 65 6e :8381935..Conten
+0180: 74 2d 4c 65 6e 67 74 68 3a 20 33 32 0d 0a 0d 0a t-Length: 32....
+=&gt; Send data, 0000000032 bytes (0x00000020)
+0000: 7b 22 6e 61 6d 65 22 3a 22 6d 72 79 71 75 2d 63 {&quot;name&quot;:&quot;mryqu-c
+0010: 73 76 2d 72 75 70 6c 6f 61 64 2e 63 73 76 22 7d sv-rupload.csv&quot;}
+&lt;= Recv header, 0000000017 bytes (0x00000011)
+0000: 48 54 54 50 2f 31 2e 31 20 32 30 30 20 4f 4b 0d HTTP/1.1 200 OK.
+0010: 0a                                              .
+&lt;= Recv header, 0000000122 bytes (0x0000007a)
+0000: 58 2d 47 55 70 6c 6f 61 64 65 72 2d 55 70 6c 6f X-GUploader-Uplo
+0010: 61 64 49 44 3a 20 41 45 6e 42 32 55 6f 71 5a 33 adID: AEnB2UoqZ3
+0020: 6b 2d 35 66 2d 6a 43 55 39 68 47 59 77 47 42 79 k-5f-jCU9hGYwGBy
+0030: 4c 6e 55 66 2d 61 67 42 4f 49 66 45 46 4f 76 4e LnUf-agBOIfEFOvN
+0040: 6c 70 73 57 55 31 79 62 73 46 30 5f 35 64 66 45 lpsWU1ybsF0_5dfE
+0050: 57 78 6e 51 69 6a 50 6b 51 71 75 4b 43 50 7a 63 WxnQijPkQquKCPzc
+0060: 4d 55 35 63 70 5a 6a 44 55 36 38 51 4d 56 65 57 MU5cpZjDU68QMVeW
+0070: 44 42 7a 6f 79 37 62 77 0d 0a                   DBzoy7bw..
+&lt;= Recv header, 0000000333 bytes (0x0000014d)
+0000: 4c 6f 63 61 74 69 6f 6e 3a 20 68 74 74 70 73 3a Location: https:
+0010: 2f 2f 77 77 77 2e 67 6f 6f 67 6c 65 61 70 69 73 //www.googleapis
+0020: 2e 63 6f 6d 2f 75 70 6c 6f 61 64 2f 64 72 69 76 .com/upload/driv
+0030: 65 2f 76 33 2f 66 69 6c 65 73 3f 75 70 6c 6f 61 e/v3/files?uploa
+0040: 64 54 79 70 65 3d 72 65 73 75 6d 61 62 6c 65 26 dType=resumable&amp;
+0050: 61 63 63 65 73 73 5f 74 6f 6b 65 6e 3d 79 61 32 access_token=ya2
+######################################################################
+00d0: 6d 61 77 6e 6c 4c 46 5f 4e 51 78 57 32 48 26 75 mawnlLF_NQxW2H&amp;u
+00e0: 70 6c 6f 61 64 5f 69 64 3d 41 45 6e 42 32 55 6f pload_id=AEnB2Uo
+00f0: 71 5a 33 6b 2d 35 66 2d 6a 43 55 39 68 47 59 77 qZ3k-5f-jCU9hGYw
+0100: 47 42 79 4c 6e 55 66 2d 61 67 42 4f 49 66 45 46 GByLnUf-agBOIfEF
+0110: 4f 76 4e 6c 70 73 57 55 31 79 62 73 46 30 5f 35 OvNlpsWU1ybsF0_5
+0120: 64 66 45 57 78 6e 51 69 6a 50 6b 51 71 75 4b 43 dfEWxnQijPkQquKC
+0130: 50 7a 63 4d 55 35 63 70 5a 6a 44 55 36 38 51 4d PzcMU5cpZjDU68QM
+0140: 56 65 57 44 42 7a 6f 79 37 62 77 0d 0a          VeWDBzoy7bw..
+&lt;= Recv header, 0000000014 bytes (0x0000000e)
+0000: 56 61 72 79 3a 20 4f 72 69 67 69 6e 0d 0a       Vary: Origin..
+&lt;= Recv header, 0000000016 bytes (0x00000010)
+0000: 56 61 72 79 3a 20 58 2d 4f 72 69 67 69 6e 0d 0a Vary: X-Origin..
+&lt;= Recv header, 0000000063 bytes (0x0000003f)
+0000: 43 61 63 68 65 2d 43 6f 6e 74 72 6f 6c 3a 20 6e Cache-Control: n
+0010: 6f 2d 63 61 63 68 65 2c 20 6e 6f 2d 73 74 6f 72 o-cache, no-stor
+0020: 65 2c 20 6d 61 78 2d 61 67 65 3d 30 2c 20 6d 75 e, max-age=0, mu
+0030: 73 74 2d 72 65 76 61 6c 69 64 61 74 65 0d 0a    st-revalidate..
+&lt;= Recv header, 0000000018 bytes (0x00000012)
+0000: 50 72 61 67 6d 61 3a 20 6e 6f 2d 63 61 63 68 65 Pragma: no-cache
+0010: 0d 0a                                           ..
+&lt;= Recv header, 0000000040 bytes (0x00000028)
+0000: 45 78 70 69 72 65 73 3a 20 4d 6f 6e 2c 20 30 31 Expires: Mon, 01
+0010: 20 4a 61 6e 20 31 39 39 30 20 30 30 3a 30 30 3a  Jan 1990 00:00:
+0020: 30 30 20 47 4d 54 0d 0a                         00 GMT..
+&lt;= Recv header, 0000000037 bytes (0x00000025)
+0000: 44 61 74 65 3a 20 ############################################## 
+0020: 47 4d 54 0d 0a                                  GMT..
+&lt;= Recv header, 0000000019 bytes (0x00000013)
+0000: 43 6f 6e 74 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 Content-Length: 
+0010: 30 0d 0a                                        0..
+&lt;= Recv header, 0000000022 bytes (0x00000016)
+0000: 53 65 72 76 65 72 3a 20 55 70 6c 6f 61 64 53 65 Server: UploadSe
+0010: 72 76 65 72 0d 0a                               rver..
+&lt;= Recv header, 0000000040 bytes (0x00000028)
+0000: 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 20 74 65 Content-Type: te
+0010: 78 74 2f 68 74 6d 6c 3b 20 63 68 61 72 73 65 74 xt/html; charset
+0020: 3d 55 54 46 2d 38 0d 0a                         =UTF-8..
+&lt;= Recv header, 0000000045 bytes (0x0000002d)
+0000: 41 6c 74 2d 53 76 63 3a 20 71 75 69 63 3d 22 3a Alt-Svc: quic=&quot;:
+0010: 34 34 33 22 3b 20 6d 61 3d 32 35 39 32 30 30 30 443&quot;; ma=2592000
+0020: 3b 20 76 3d 22 33 35 2c 33 34 22 0d 0a          ; v=&quot;35,34&quot;..
+&lt;= Recv header, 0000000002 bytes (0x00000002)
+0000: 0d 0a                                           ..
+== Info: Connection #0 to host www.googleapis.com left intact
+
+=&gt; Send header, 0000000429 bytes (0x000001ad)
+0000: 50 4f 53 54 20 2f 75 70 6c 6f 61 64 2f 64 72 69 POST /upload/dri
+0010: 76 65 2f 76 33 2f 66 69 6c 65 73 3f 75 70 6c 6f ve/v3/files?uplo
+0020: 61 64 54 79 70 65 3d 72 65 73 75 6d 61 62 6c 65 adType=resumable
+0030: 26 61 63 63 65 73 73 5f 74 6f 6b 65 6e 3d 79 61 &amp;access_token=ya
+######################################################################
+00b0: 4e 6d 61 77 6e 6c 4c 46 5f 4e 51 78 57 32 48 26 NmawnlLF_NQxW2H&amp;
+00c0: 75 70 6c 6f 61 64 5f 69 64 3d 41 45 6e 42 32 55 upload_id=AEnB2U
+00d0: 6f 71 5a 33 6b 2d 35 66 2d 6a 43 55 39 68 47 59 oqZ3k-5f-jCU9hGY
+00e0: 77 47 42 79 4c 6e 55 66 2d 61 67 42 4f 49 66 45 wGByLnUf-agBOIfE
+00f0: 46 4f 76 4e 6c 70 73 57 55 31 79 62 73 46 30 5f FOvNlpsWU1ybsF0_
+0100: 35 64 66 45 57 78 6e 51 69 6a 50 6b 51 71 75 4b 5dfEWxnQijPkQquK
+0110: 43 50 7a 63 4d 55 35 63 70 5a 6a 44 55 36 38 51 CPzcMU5cpZjDU68Q
+0120: 4d 56 65 57 44 42 7a 6f 79 37 62 77 20 48 54 54 MVeWDBzoy7bw HTT
+0130: 50 2f 31 2e 31 0d 0a 48 6f 73 74 3a 20 77 77 77 P/1.1..Host: www
+0140: 2e 67 6f 6f 67 6c 65 61 70 69 73 2e 63 6f 6d 0d .googleapis.com.
+0150: 0a 41 63 63 65 70 74 3a 20 2a 2f 2a 0d 0a 54 72 .Accept: */*..Tr
+0160: 61 6e 73 66 65 72 2d 45 6e 63 6f 64 69 6e 67 3a ansfer-Encoding:
+0170: 20 63 68 75 6e 6b 65 64 0d 0a 63 61 63 68 65 2d  chunked..cache-
+0180: 63 6f 6e 74 72 6f 6c 3a 20 6e 6f 2d 63 61 63 68 control: no-cach
+0190: 65 0d 0a 63 6f 6e 74 65 6e 74 2d 74 79 70 65 3a e..content-type:
+01a0: 20 74 65 78 74 2f 63 73 76 0d 0a 0d 0a           text/csv....
+=&gt; Send data, 0000016380 bytes (0x00003ffc)
+0000: 33 66 66 34 0d 0a 43 4f 55 4e 54 52 59 2c 53 54 3ff4..COUNTRY,ST
+######################################################################
+3fe0: 55 2e 53 2e 41 2e 2c 43 61 6c 69 66 6f 72 6e 69 U.S.A.,Californi
+3ff0: 61 2c 2c 22 24 31 2c 30 33 37 0d 0a             a,,&quot;$1,037..
+=&gt; Send data, 0000016380 bytes (0x00003ffc)
+0000: 33 66 66 34 0d 0a 2e 30 30 20 22 2c 22 24 31 2c 3ff4...00 &quot;,&quot;$1,
+0010: 32 32 38 2e 30 30 20 22 2c 46 55 52 4e 49 54 55 228.00 &quot;,FURNITU
+######################################################################
+3fe0: 2c 37 33 34 2e 30 30 20 22 2c 46 55 52 4e 49 54 ,734.00 &quot;,FURNIT
+3ff0: 55 52 45 2c 42 45 44 2c 31 39 0d 0a             URE,BED,19..
+=&gt; Send data, 0000016380 bytes (0x00003ffc)
+0000: 33 66 66 34 0d 0a 39 37 2c 31 2c 46 65 62 2c 46 3ff4..97,1,Feb,F
+0010: 65 62 2d 39 37 2c 55 2e 53 2e 41 2e 2c 43 61 6c eb-97,U.S.A.,Cal
+######################################################################
+3fe0: 2c 43 61 6c 69 66 6f 72 6e 69 61 2c 2c 22 24 31 ,California,,&quot;$1
+3ff0: 2c 32 39 30 2e 33 30 20 22 2c 0d 0a             ,290.30 &quot;,..
+######################################################################
+######################################################################
+=&gt; Send data, 0000015851 bytes (0x00003deb)
+0000: 33 64 65 33 0d 0a 69 6e 67 74 6f 6e 2c 2c 22 24 3de3..ington,,&quot;$
+0010: 31 2c 38 33 34 2e 30 30 20 22 2c 22 24 31 2c 32 1,834.00 &quot;,&quot;$1,2
+######################################################################
+3dd0: 55 52 45 2c 42 45 44 2c 31 39 39 38 2c 32 2c 4d URE,BED,1998,2,M
+3de0: 61 79 2c 4d 61 79 2d 39 38 0d 0a                ay,May-98..
+=&gt; Send data, 0000000005 bytes (0x00000005)
+0000: 30 0d 0a 0d 0a                                  0....
+&lt;= Recv header, 0000000017 bytes (0x00000011)
+0000: 48 54 54 50 2f 31 2e 31 20 32 30 30 20 4f 4b 0d HTTP/1.1 200 OK.
+0010: 0a                                              .
+&lt;= Recv header, 0000000122 bytes (0x0000007a)
+0000: 58 2d 47 55 70 6c 6f 61 64 65 72 2d 55 70 6c 6f X-GUploader-Uplo
+0010: 61 64 49 44 3a 20 41 45 6e 42 32 55 6f 71 5a 33 adID: AEnB2UoqZ3
+0020: 6b 2d 35 66 2d 6a 43 55 39 68 47 59 77 47 42 79 k-5f-jCU9hGYwGBy
+0030: 4c 6e 55 66 2d 61 67 42 4f 49 66 45 46 4f 76 4e LnUf-agBOIfEFOvN
+0040: 6c 70 73 57 55 31 79 62 73 46 30 5f 35 64 66 45 lpsWU1ybsF0_5dfE
+0050: 57 78 6e 51 69 6a 50 6b 51 71 75 4b 43 50 7a 63 WxnQijPkQquKCPzc
+0060: 4d 55 35 63 70 5a 6a 44 55 36 38 51 4d 56 65 57 MU5cpZjDU68QMVeW
+0070: 44 42 7a 6f 79 37 62 77 0d 0a                   DBzoy7bw..
+&lt;= Recv header, 0000000014 bytes (0x0000000e)
+0000: 56 61 72 79 3a 20 4f 72 69 67 69 6e 0d 0a       Vary: Origin..
+&lt;= Recv header, 0000000016 bytes (0x00000010)
+0000: 56 61 72 79 3a 20 58 2d 4f 72 69 67 69 6e 0d 0a Vary: X-Origin..
+&lt;= Recv header, 0000000047 bytes (0x0000002f)
+0000: 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 20 61 70 Content-Type: ap
+0010: 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 3b 20 plication/json; 
+0020: 63 68 61 72 73 65 74 3d 55 54 46 2d 38 0d 0a    charset=UTF-8..
+&lt;= Recv header, 0000000063 bytes (0x0000003f)
+0000: 43 61 63 68 65 2d 43 6f 6e 74 72 6f 6c 3a 20 6e Cache-Control: n
+0010: 6f 2d 63 61 63 68 65 2c 20 6e 6f 2d 73 74 6f 72 o-cache, no-stor
+0020: 65 2c 20 6d 61 78 2d 61 67 65 3d 30 2c 20 6d 75 e, max-age=0, mu
+0030: 73 74 2d 72 65 76 61 6c 69 64 61 74 65 0d 0a    st-revalidate..
+&lt;= Recv header, 0000000018 bytes (0x00000012)
+0000: 50 72 61 67 6d 61 3a 20 6e 6f 2d 63 61 63 68 65 Pragma: no-cache
+0010: 0d 0a                                           ..
+&lt;= Recv header, 0000000040 bytes (0x00000028)
+0000: 45 78 70 69 72 65 73 3a 20 4d 6f 6e 2c 20 30 31 Expires: Mon, 01
+0010: 20 4a 61 6e 20 31 39 39 30 20 30 30 3a 30 30 3a  Jan 1990 00:00:
+0020: 30 30 20 47 4d 54 0d 0a                         00 GMT..
+&lt;= Recv header, 0000000037 bytes (0x00000025)
+0000: 44 61 74 65 3a 20 ############################################## 
+0020: 47 4d 54 0d 0a                                  GMT..
+&lt;= Recv header, 0000000021 bytes (0x00000015)
+0000: 43 6f 6e 74 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 Content-Length: 
+0010: 31 32 34 0d 0a                                  124..
+&lt;= Recv header, 0000000022 bytes (0x00000016)
+0000: 53 65 72 76 65 72 3a 20 55 70 6c 6f 61 64 53 65 Server: UploadSe
+0010: 72 76 65 72 0d 0a                               rver..
+&lt;= Recv header, 0000000045 bytes (0x0000002d)
+0000: 41 6c 74 2d 53 76 63 3a 20 71 75 69 63 3d 22 3a Alt-Svc: quic=&quot;:
+0010: 34 34 33 22 3b 20 6d 61 3d 32 35 39 32 30 30 30 443&quot;; ma=2592000
+0020: 3b 20 76 3d 22 33 35 2c 33 34 22 0d 0a          ; v=&quot;35,34&quot;..
+&lt;= Recv header, 0000000002 bytes (0x00000002)
+0000: 0d 0a                                           ..
+&lt;= Recv data, 0000000124 bytes (0x0000007c)
+0000: 7b 0a 20 22 6b 69 6e 64 22 3a 20 22 64 72 69 76 {. &quot;kind&quot;: &quot;driv
+0010: 65 23 66 69 6c 65 22 2c 0a 20 22 69 64 22 3a 20 e#file&quot;,. &quot;id&quot;: 
+0020: 22 30 42 35 56 45 56 7a 65 66 51 4c 47 78 61 33 &quot;0B5VEVzefQLGxa3
+0030: 68 54 4f 46 4d 77 62 30 35 4c 4c 54 41 22 2c 0a hTOFMwb05LLTA&quot;,.
+0040: 20 22 6e 61 6d 65 22 3a 20 22 6d 72 79 71 75 2d  &quot;name&quot;: &quot;mryqu-
+0050: 63 73 76 2d 72 75 70 6c 6f 61 64 2e 63 73 76 22 csv-rupload.csv&quot;
+0060: 2c 0a 20 22 6d 69 6d 65 54 79 70 65 22 3a 20 22 ,. &quot;mimeType&quot;: &quot;
+0070: 74 65 78 74 2f 63 73 76 22 0a 7d 0a             text/csv&quot;.}.
+</code></pre>
+
+<h3 id="reference">Reference</h3>
+
+<hr />
+
+<p><a href="https://developers.google.com/drive/v3/web/manage-uploads">Google Drive APIs - REST - Upload Files</a><br />
+<a href="https://curl.haxx.se/libcurl/c/fileupload.html">libcurl fileupload example</a><br />
+<a href="https://curl.haxx.se/libcurl/c/http2-upload.html">libcurl http2-upload example</a><br />
+<a href="https://curl.haxx.se/libcurl/c/postit2.html">libcurl postit2 example</a><br />
+<a href="https://curl.haxx.se/libcurl/c/multi-post.html">libcurl multi-post example</a><br />
+<a href="https://curl.haxx.se/libcurl/c/ftpuploadresume.html">libcurl ftpuploadresume example</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Upload file to Google Drive using LibCurl
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/upload" rel="tag" title="upload">#upload#</a>
+    
+    <a href="/tags/google-drive" rel="tag" title="google drive">#google drive#</a>
+    
+    <a href="/tags/api" rel="tag" title="api">#api#</a>
+    
+    <a href="/tags/libcurl" rel="tag" title="libcurl">#libcurl#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/typescript%E5%88%9D%E4%BD%93%E9%AA%8C/" rel="next" title="TypeScript初体验">
+        <i class="fa fa-chevron-left"></i> TypeScript初体验
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/get_facebook_reaction_data_using_graph_api/" rel="prev" title="Get Facebook Reaction data using Graph API">
+        Get Facebook Reaction data using Graph API <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

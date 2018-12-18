@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Service on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/service/</link>
+    <description>Recent content in Service on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 03 Mar 2016 05:43:11 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/service/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[HBase] 才发现HBase REST服务占用的是8080端口</title>
+      <link>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</link>
+      <pubDate>Thu, 03 Mar 2016 05:43:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</guid>
+      <description>今天用一下Tomcat，结果发现8080端口还被占了，谁呀？ 竟然是HBase REST服务占用的！！看了一下Ports Used by Components of CDH 5，发现ClouderaCDH里是这么用的： - 8080：Non- Cloudera Manager - managed HBase REST Service - 20550：Cloudera Manager - managed HBase REST Service - 8085：HBase REST UI
+8080端口还是留着吧，对hbase-site.xml做如下修改：重启HBase REST服务：
+hbase-daemon.sh stop rest hbase-daemon.sh start rest  通过HBase REST UI检查，REST服务端口改成了20550：另一种修改REST服务端口的方式是在启动HBase REST服务命令时通过-p选项直接指定端口。例如：
+hbase-daemon.sh start rest -p 20550  参考 Linux – Which application is using port 8080
+Configuring and Using the HBase REST API
+Ports Used by Components of CDH 5</description>
+    </item>
+    
+    <item>
+      <title>[Zookeeper] 运行Zookeeper REST服务实践</title>
+      <link>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 02 Mar 2016 05:57:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</guid>
+      <description>Zookeeper REST服务介绍 通常我们应该使用Java/C客户端绑定访问ZooKeeper服务器。不过由于大多数语言内建支持基于HTTP的协议，RESTZooKeeper网关还是很有用的。ZooKeeper REST实现使用Jersey JAX-RS，其REST绑定参考SPEC.txt。其中org.apache.zookeeper.server.jersey.resources.ZNodeResource是项目的核心类，提供Http请求方式对ZooKeeper节点的添加、修改、查询和删除功能，以xml方式返回数据；org.apache.zookeeper.server.jersey.RestMain提供主函数入口。
+以Ant脚本方式启动 这是GitHub：apache/zookeeper - REST implementation中介绍的方式。
+cd $ZOOPEEPER_HOME ant cd src/contrib/rest nohup ant run&amp;amp;  如果仅是临时运行一下REST服务，ant run即可。 通过nohug提交作业可以确保在退出控制台后ZookeeperREST服务仍在后台运行。当需要关闭时，通过jobs命令查找当前所有运行的作业，通过fg [job_spec]命令关闭作业。 以rest.sh方式启动 cd $ZOOKEEPER_HOME mkdir src/contrib/rest/lib cp build/contrib/rest/zookeeper-dev-rest.jar src/contrib/rest/lib/ cp build/contrib/rest/lib/*.jar src/contrib/rest/lib/ cp zookeeper-3.4.X.jar src/contrib/rest/lib/ cp src/java/lib/*.jar src/contrib/rest/lib/  启动
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh start  停止
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh stop  查看日志
+cd $ZOOKEEPER_HOME/src/contrib/rest tail -f zkrest.log  测试 将我的Zookeeper从node50064复制到node50069和node51054上，分别在三台机器上启动Zookeeper和ZookeeperREST服务。
+访问application.wadl 获取根节点数据 获取根节点的子节点 导出节点及znode层次数据 参考 GitHub：apache/zookeeper - REST implementation</description>
+    </item>
+    
+    <item>
+      <title>Consul服务设置实践</title>
+      <link>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Tue, 04 Aug 2015 05:54:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</guid>
+      <description>在向Consul注册/注销外部服务节点中，我实践对Consul节点注册和注销，本帖我实践一些对Consul服务的查看和注销。
+查看当前数据中心所有注册的服务：
+curl http://localhost:8500/v1/catalog/services  查看当前数据中心注册的服务foo的信息：
+curl http://localhost:8500/v1/catalog/service/foo  注销服务节点foo上关联的检查service:foo-192-168-0-123：
+curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;kexiao&amp;quot;, &amp;quot;CheckID&amp;quot;: &amp;quot;service:foo-192-168-0-123&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister  注销服务节点foo上关联的服务foo-192-168-0-123：
+curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;kexiao&amp;quot;, &amp;quot;ServiceID&amp;quot;: &amp;quot;foo-192-168-0-123&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister  参考 Consul - Catalog HTTP Endpoint</description>
+    </item>
+    
+    <item>
+      <title>向Consul注册/注销外部服务节点</title>
+      <link>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</link>
+      <pubDate>Sat, 01 Aug 2015 07:00:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</guid>
+      <description>已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
+docker-compose stop foo docker-compose rm foo curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;, &amp;quot;Address&amp;quot;: &amp;quot;foo.cluster.yqu.com&amp;quot;, &amp;quot;Service&amp;quot;: {&amp;quot;Service&amp;quot;:&amp;quot;foo&amp;quot;, &amp;quot;tags&amp;quot;: [&amp;quot;controller&amp;quot;], &amp;quot;port&amp;quot;: 12221}}&#39; http://localhost:8500/v1/catalog/register docker-compose restart consul  切换回系统内部过程的foo服务节点操作过程如下：
+curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul  注销foo服务节点操作过程如下：
+curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul  参考 Consul Guide：Registering An External Service</description>
+    </item>
+    
+    <item>
+      <title>了解Registrator</title>
+      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/</link>
+      <pubDate>Thu, 18 Jun 2015 05:50:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/</guid>
+      <description>支持 DNS和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。在使用Docker的场景里，有了Registrator的帮助，只需要很小的工作量就可以自动化地向Consul注册Docker容器，使得管理基于容器技术的配置更加容易。 Registrator通过检查Docker容器是否上线，自动为Docker容器注册/注销服务。Registrator支持可插拔服务注册中心，当前包括Consul、etcd和SkyDNS 2。
+用法  运行Consul容器  $ docker run -d --name=consul --net=host consul-server -bootstrap  运行Registrator容器 Registrator被设计为在每个主机运行一次。也可以在每个集群仅运行一个Registrator，但是通过确保Registrator运行在每个主机上可以获得更好的伸缩性和更简化的配置。假定使用某种程度的自动化，在所有地方都运行反而讽刺性地比某个地方运行更简单。  $ docker run -d \ --name=registrator \ --net=host \ --volume=/var/run/docker.sock:/tmp/docker.sock \ gliderlabs/registrator:latest \ consul://localhost:8500  &amp;ndash;volume=/var/run/docker.sock:/tmp/docker.sock可以让Registrator访问DockerAPI； &amp;ndash;net=host有助于Registrator获得主机级IP和主机名； consul://localhost:8500是服务注册中心URI。 运行其他服务的容器 $ docker run -d -P --name=redis redis Registrator通过Docker API可以监听Docker容器的启动/关闭，并自动注册/注销服务: ``` $ curl $(boot2docker ip):8500/v1/catalog/services {&amp;ldquo;consul&amp;rdquo;:[],&amp;ldquo;redis&amp;rdquo;:[]}   $ curl $(boot2docker ip):8500/v1/catalog/service/redis [{&amp;ldquo;Node&amp;rdquo;:&amp;ldquo;boot2docker&amp;rdquo;,&amp;ldquo;Address&amp;rdquo;:&amp;ldquo;10.0.2.15&amp;rdquo;,&amp;ldquo;ServiceID&amp;rdquo;:&amp;ldquo;boot2docker:redis:6379&amp;rdquo;,&amp;ldquo;ServiceName&amp;rdquo;:&amp;ldquo;redis&amp;rdquo;,&amp;ldquo;ServiceTags&amp;rdquo;:null,&amp;ldquo;ServiceAddress&amp;rdquo;:&amp;ldquo;&amp;rdquo;,&amp;ldquo;ServicePort&amp;rdquo;:32768}] ```
+参考 Github：gliderlabs/registrator
+Registrator Quickstart
+Docker Hub：gliderlabs/registrator
+Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</description>
+    </item>
+    
+  </channel>
+</rss>

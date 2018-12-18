@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Facebook on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/facebook/</link>
+    <description>Recent content in Facebook on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 30 Oct 2018 06:31:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/facebook/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Facebook的Page Access Token</title>
+      <link>https://mryqu.github.io/post/facebook%E7%9A%84pageaccesstoken/</link>
+      <pubDate>Tue, 30 Oct 2018 06:31:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook%E7%9A%84pageaccesstoken/</guid>
+      <description>忽然发现原本可用的Facebook App Access Token无法获取Page内容的，甚至是自己的主页，错误提示为： &amp;gt; &amp;ldquo;(#10) To use &amp;lsquo;Page Public Content Access&amp;rsquo;, your use of this endpoint must be reviewed and approved by Facebook. To submit this &amp;lsquo;Page Public Content Access&amp;rsquo; feature for review please read our documentation on reviewable features: https://developers.facebook.com/docs/apps/review.&amp;quot;。
+注：我的App yquTest当前App版本为2.8。祭出Access Token Tool武器，开始实验User Access Token。 发现结果如下： - 使用Facebook App Access Token无法读取自己或他人的主页内容 - 使用Facebook User Access Token可以读取自己主页内容，但无法读取他人的主页内容
+Facebook Page Access Token调查 获取自己多个主页的Page Access Toke 获取自己单个主页的Page Access Toke 使用Page Access Token获取自己的主页内容 尝试获取他人主页的Page Access Token 结果自然是嘿嘿嘿。</description>
+    </item>
+    
+    <item>
+      <title>Facebook根据请求API版本返回不同内容？</title>
+      <link>https://mryqu.github.io/post/facebook%E6%A0%B9%E6%8D%AE%E8%AF%B7%E6%B1%82api%E7%89%88%E6%9C%AC%E8%BF%94%E5%9B%9E%E4%B8%8D%E5%90%8C%E5%86%85%E5%AE%B9/</link>
+      <pubDate>Thu, 27 Apr 2017 06:10:12 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook%E6%A0%B9%E6%8D%AE%E8%AF%B7%E6%B1%82api%E7%89%88%E6%9C%AC%E8%BF%94%E5%9B%9E%E4%B8%8D%E5%90%8C%E5%86%85%E5%AE%B9/</guid>
+      <description>今天跟测试组同事研究Facebook返回内容时，发现一个奇怪现象：抓取湖南卫视的Page，当API版本为2.3至2.8时，返回结果内容为空；而API版本为2.9时，返回有内容的响应。 </description>
+    </item>
+    
+    <item>
+      <title>Making Nested Requests using Facebook Graph API</title>
+      <link>https://mryqu.github.io/post/making_nested_requests_using_facebook_graph_api/</link>
+      <pubDate>Thu, 13 Apr 2017 05:53:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/making_nested_requests_using_facebook_graph_api/</guid>
+      <description>今天又玩了一把Facebook Graph API。当我们抓取Page上的帖子后，之后会发起API请求获取帖子的评论及回复。
+获取Page SASsoftware（ID为193453547355388）下的帖子 https://graph.facebook.com/193453547355388/feed?fields=id,XXXX,likes.limit(0).summary(1),comments,XXXX,with_tags&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;access_token={YOUR_TOKEN}  获取帖子193453547355388_951786161522119的评论 https://graph.facebook.com/193453547355388_951786161522119/comments?fields=id,from,message,created_time,like_count&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;access_token={YOUR_TOKEN}  获取评论951786161522119_951787458188656的回复 https://graph.facebook.com/951786161522119_951787458188656/comments?fields=id,from,message,created_time,like_count&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;access_token={YOUR_TOKEN}  试用嵌套请求 https://graph.facebook.com/193453547355388/feed?fields=id,XXXX,likes.limit(0).summary(1),comments{id,from,message,type,created_time,like_count,comments{id,from,message,type,created_time,like_count}},XXXX,with_tags&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;access_token={YOUR_TOKEN}  这里的请求使用了两级嵌套请求，第一级获取帖子的评论，第二季获取评论的回复，那结果如何？ 一个API请求就能够获得了帖子、评论及回复的信息。但是，考虑到一个帖子的评论或一个评论的回复都可能很多，返回结果是第一个分页结果，还是需要通过/{object-id}/comments API 请求获取，考虑到设计复杂性和性价比，决定放弃这种方案。</description>
+    </item>
+    
+    <item>
+      <title>Get Facebook Reaction data using Graph API</title>
+      <link>https://mryqu.github.io/post/get_facebook_reaction_data_using_graph_api/</link>
+      <pubDate>Wed, 04 Jan 2017 05:54:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/get_facebook_reaction_data_using_graph_api/</guid>
+      <description>Facebook Enhances Everyone&amp;rsquo;s Like With Love, Haha, Wow, Sad, Angry Buttons. For example, there are two reactions in the post 778979332230227: Your can use Facebook Graph API - Reading Reactions to get the reactions data. Note: The API version must be 2.6 or higher. You also can get all reactions count of one post in single Graph API request: </description>
+    </item>
+    
+    <item>
+      <title>获取Facebook User Token</title>
+      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</link>
+      <pubDate>Tue, 09 Aug 2016 05:25:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</guid>
+      <description>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。 获取Facebook App Token一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。
+参考3 Facebook Login - Advance - Manually Build a Login Flow给出了如何构建一个signURL，RestFB的getLoginDialogUrl方法就实现了这样的功能。redirectUri一开始直接想用带外认证urn:ietf:wg:oauth:2.0:oob，可是Facebook不认呀。 Facebook Login - Advance - Manually Build a Login Flow已经提到了：对于桌面应用，redirectUri必须是https://www.facebook.com/connect/login_success.html 。
+获取Facebook User Token步骤 生成signURL 生成signURL并进行Get请求：
+curl &amp;quot;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;amp;response_type=token&amp;amp;scope=public_profile&amp;quot;  可以从返回的页面中获取登录表单：认证 使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：
+curl -X POST &amp;quot;{form-action}&amp;quot; -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; --data &amp;quot;lsd={lsd_value}&amp;amp;api_key={api_key_value}&amp;amp;cancel_url={cancel_rul_value}&amp;amp;isprivate={isprivate=_value}&amp;amp;legacy_return={legacy_return_value}&amp;amp;profile_selector_ids={profile_selector_ids_value}&amp;amp;return_session={return_session_value}&amp;amp;skip_api_login={skip_api_login_value}&amp;amp;signed_next={skip_api_login_value}&amp;amp;trynum={trynum_value}&amp;amp;timezone={timezone_value}&amp;amp;lgndim={lgndim_value}&amp;amp;lgnrnd={lgnrnd_value}&amp;amp;lgnjs={lgnjs_value}&amp;amp;email={your_facebook_account}&amp;amp;pass={your_facebook_password}&amp;amp;login={login_value}&amp;amp;persistent={persistent_value}&amp;amp;default_persistent={default_persistent_value}&amp;quot;  获取User Token Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。
+https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;amp;expires_in={expire}  参考 Facebook Login - Access Tokens
+Facebook Login - Access Tokens - App Access Tokens</description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之分享数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E5%88%86%E4%BA%AB%E6%95%B0/</link>
+      <pubDate>Fri, 13 May 2016 05:56:49 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E5%88%86%E4%BA%AB%E6%95%B0/</guid>
+      <description>现在Facebook帖子上有一个分享计数，下面这个湖南卫视的帖子可以看到总共有3个。 点进去可以查看这3个分享的具体情况： 使用Facebook Graph Explorer却可以得到分享数为7： 差4个分享，有点醉！ 其实我刚才刚刚用消息给朋友共享了这个帖子，由于是不是公开的，所以Facebook网页显示上是不计入的，但是API却是统计的。 </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之点赞数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E7%82%B9%E8%B5%9E%E6%95%B0/</link>
+      <pubDate>Thu, 12 May 2016 06:24:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E7%82%B9%E8%B5%9E%E6%95%B0/</guid>
+      <description>现在Facebook帖子上有一个心情计数，下面这个湖南卫视的帖子可以看到总共有293个。 通过Facebook Graph API获得的点赞数为275个。 示例里的帖子心情计数293包括点赞数275、大爱数13、笑趴数4、【未知表情计数】1。 这里可以看到点赞可以细分为点赞、大爱、笑趴、哇、心碎和怒这六种表情。 </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之主页名</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E4%B8%BB%E9%A1%B5%E5%90%8D/</link>
+      <pubDate>Mon, 09 May 2016 06:32:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E4%B8%BB%E9%A1%B5%E5%90%8D/</guid>
+      <description>今天Alisa同学说搜中国湖南卫视的主页报错，我一直都只是用SASsoftware和我的YquTest做的开发测试。赶紧赶过去看了一眼，实验证明搜hntvchina好使，搜中国湖南卫视就会出错。 感觉中国湖南卫视就像是hntvchina的显示名，而SASsoftware的显示名其实是SAS software。 又和小伙伴一起创建了一个主页玩玩，让我们输入的名字最后成了显示名，而真正生成的名字将空格用&amp;rdquo;-&amp;ldquo;代替然后又加了一串数字，感觉像防止主键冲突。</description>
+    </item>
+    
+    <item>
+      <title>Get comments count using Facebook Graph API</title>
+      <link>https://mryqu.github.io/post/get_comments_count_using_facebook_graph_api/</link>
+      <pubDate>Fri, 06 May 2016 05:50:38 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/get_comments_count_using_facebook_graph_api/</guid>
+      <description>通过fields参数获取评论/回复个数 通过预判评论/回复个数，以决定是否发起/{object-id}/commentsAPI请求，可以显著减少API请求个数。
+获取帖子的评论数 https://graph.facebook.com/{YOUR_PAGE_ID}/feed?fields=id,XXXX,likes.limit(0).summary(1),comments.limit(0).summary(1),XXXX,with_tags&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;include_hidden=true&amp;amp;access_token={YOUR_ACCESS_TOKEN}  获取评论的回复数 https://graph.facebook.com/{YOUR_POST_ID}/comments?fields=id,from,message,created_time,like_count,comments.limit(0).summary(1)&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;include_hidden=true&amp;amp;access_token={YOUR_ACCESS_TOKEN}  comments.summary.total_count解读 在Facebook Graph指南中/{object-id}/comments提到了total_count数值是随filter变动的。 - filter为stream，total_count为该节点下所有评论及其回复的总数； - filter为toplevel，total_count为该节点下顶层评论/回复的总数。
+由于在我的使用场景中为设置filter，而其默认值为toplevel，则total_count为该节点下顶层评论/回复的总数。</description>
+    </item>
+    
+    <item>
+      <title>Get likes count using fields parameters in Facebook Graph API</title>
+      <link>https://mryqu.github.io/post/get_likes_count_using_fields_parameters_in_facebook_graph_api/</link>
+      <pubDate>Thu, 05 May 2016 06:02:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/get_likes_count_using_fields_parameters_in_facebook_graph_api/</guid>
+      <description>原来获得Facebook帖子/评论的点赞数，需要额外单独发送一次API请求：通过对Facebook GraphAPI中fields参数添加likes.</description>
+    </item>
+    
+    <item>
+      <title>Use proxy on RestFB</title>
+      <link>https://mryqu.github.io/post/use_proxy_on_restfb/</link>
+      <pubDate>Mon, 04 Apr 2016 06:18:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/use_proxy_on_restfb/</guid>
+      <description>曾经有人向RestFB开过issue（https://github.com/restfb/restfb/issues/116）询问如何给其设置代理，issue里回复扩展DefaultWebRequestor。下面的代码基于该方案并测试通过。
+package com.yqu.restfb; import com.restfb.DefaultFacebookClient; import com.restfb.DefaultJsonMapper; import com.restfb.FacebookClient; import com.restfb.Version; import java.io.IOException; import java.net.HttpURLConnection; import java.net.InetSocketAddress; import java.net.Proxy; import java.net.URL; public class HelloRestFBWithProxy { private static class DefaultWebRequestor extends com.restfb.DefaultWebRequestor { protected HttpURLConnection openConnection(URL url) throws IOException { HttpURLConnection httpURLConnection = null; if (useProxyFlag.booleanValue()) { InetSocketAddress proxyLocation = new InetSocketAddress( hostName, port); Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyLocation); try { httpURLConnection = (HttpURLConnection) url .openConnection(proxy); return httpURLConnection; } catch (Exception e) { return (HttpURLConnection) url.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;]获取Facebook帖子生成的SAS时间</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96facebook%E5%B8%96%E5%AD%90%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Sat, 20 Feb 2016 06:13:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96facebook%E5%B8%96%E5%AD%90%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</guid>
+      <description>写了一个小代码分析Facebook帖子生成时间字符串，将其解析成SAS时间。 简而言之，time_t存储的是距00:00:00, Jan 1, 1970 UTC的秒数（epoch），其中tm_year存储的是当前年数减去1900；而SAS时间起始点为00:00:00, Jan 1, 1960UTC；转换主要使用difftime获取两者的时间差。
+代码如下：参考 C++: time_t
+C++: time
+C++: gmtime</description>
+    </item>
+    
+    <item>
+      <title>使用Facebook Graph API中的fields参数</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8facebook_graph_api%E4%B8%AD%E7%9A%84fields%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Fri, 15 Jan 2016 05:50:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8facebook_graph_api%E4%B8%AD%E7%9A%84fields%E5%8F%82%E6%95%B0/</guid>
+      <description>使用Facebook Graph API进行查询，v2.3和v2.4版返回结果截然不同。使用v2.3之前的FacebookGraph API获得的响应信息很详细，而使用v2.4及之后的Facebook Graph API获得的响应基本没什么信息！ 这可是相同的AccessToken呀。卖萌的话，可以说句“吓死宝宝了”。
+Using the Graph API提到可以使用fields参数选择所需字段，照着v2.3的加上了id、name、about、awards&amp;hellip;&amp;hellip; 失而复得，虚惊一场！！！
+Using the Graph API里不仅提到了选择参数，还提到可以使用字段表达式进行嵌套查询。 likes字段使用limit(1)限定其仅返回一个点赞数据，反正我还要使用GraphAPI对帖子点赞数据进行请求，返回一个点赞知道需不需要请求就好了。
+comments字段还制定了二级字段attachment、id和from。这样comments字段既不会漏了我需要的子字段，也不会多出来我不需要的字段。在上图GraphAPI Explorer中，左侧comments字段下面的”Search for afield“链接可以提示那些子字段可选，很方便。</description>
+    </item>
+    
+    <item>
+      <title>处理Facebook API访问速率超限错误</title>
+      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86facebook_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Tue, 12 Jan 2016 06:20:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86facebook_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</guid>
+      <description>对于下列Facebook通用错误，我个人觉的#2、#4、#9、#17、#18和#32错误都可以向客户端报告FacebookAPI访问速率超限，至于#5不确定。
+|Error number|PHP Constant name|Error description|Generated by methods |&amp;mdash;&amp;ndash; |2|API_EC_SERVICE|Service temporarily unavailable|(all) |4|API_EC_TOO_MANY_CALLS|Application request limit reached|(all) |5|API_EC_BAD_IP|Unauthorized source IP address|(all) |9|API_EC_RATE|User is performing too many actions| |17|API_EC_USER_TOO_MANY_CALLS|User request limit reached| |18|API_EC_REQUEST_RESOURCES_EXCEEDED|This API call could not be completed due to resourcelimits| |32||Page request limit reached|
+参考 Rate Limiting on the Facebook Graph API
+Facebook API Error Codes for Developers</description>
+    </item>
+    
+    <item>
+      <title>Facebook API Endpoint URL</title>
+      <link>https://mryqu.github.io/post/facebook_api_endpoint_url/</link>
+      <pubDate>Sat, 09 Jan 2016 05:44:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_api_endpoint_url/</guid>
+      <description>阅读com.restfb.DefaultFacebookClient中的createEndpointForApiCall方法，发现有四种端点URL。
+端点URL地址说明FACEBOOK_READ_ONLY_ENDPOINT_URL
+https://api-read.facebook.com/method从官方PHP客户端抓取的只读函数列表，当API请求为如下列表项，使用该只读端点URL。
+admin.getallocationadmin.getapppropertiesadmin.getbannedusersadmin.getlivestreamvialinkadmin.getmetricsadmin.getrestrictioninfoapplication.getpublicinfoauth.getapppublickeyauth.getsessionauth.getsignedpublicsessiondatacomments.getconnect.getunconnectedfriendscountdashboard.getactivitydashboard.getcountdashboard.getglobalnewsdashboard.getnewsdashboard.multigetcountdashboard.multigetnewsdata.getcookiesevents.getevents.getmembersfbml.getcustomtagsfeed.getappfriendstoriesfeed.getregisteredtemplatebundlebyidfeed.getregisteredtemplatebundlesfql.multiqueryfql.queryfriends.arefriendsfriends.getfriends.getappusersfriends.getlistsfriends.getmutualfriendsgifts.getgroups.getgroups.getmembersintl.gettranslationslinks.getnotes.getnotifications.getpages.getinfopages.isadminpages.isappaddedpages.isfanpermissions.checkavailableapiaccesspermissions.checkgrantedapiaccessphotos.getphotos.getalbumsphotos.gettagsprofile.getinfoprofile.getinfooptionsstream.getstream.getcommentsstream.getfiltersusers.getinfousers.getloggedinuserusers.getstandardinfousers.hasapppermissionusers.isappuserusers.isverifiedvideo.getuploadlimitsFACEBOOK_GRAPH_VIDEO_ENDPOINT_URL
+https://graph-video.facebook.comAPI请求以/video或/advideos结尾FACEBOOK_ENDPOINT_URL
+https://www.facebook.comAPI请求以logout.php结尾FACEBOOK_GRAPH_ENDPOINT_URL
+https://graph.facebook.com不满足上述三种的默认URL </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之我的常用URL笔记</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8url%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 08 Jan 2016 06:20:20 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8url%E7%AC%94%E8%AE%B0/</guid>
+      <description>获取Facebook主页Id https://graph.facebook.com/v2.5/SasSoftware?access_token={accessToken}&amp;amp;format=json 上面示例是通过主页名SasSoftware获取其主页Id。
+获取Facebook主页帖子  https://graph.facebook.com/v2.5/{pageId}/feed?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}&amp;amp;since=2015-01-01&amp;amp;util=2015-12-31
+ https://graph.facebook.com/{pageId}/feed?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}&amp;amp;since=1420041660&amp;amp;util=1422634320
+ https://graph.facebook.com/v2.0/{pageId}/feed?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}&amp;amp;since=1420041660&amp;amp;util=1422634320  通过Facebook Graph API 2.5或不带版本的API仅能获取帖子的Id、创建时间和帖子内容，而FacebookGraph API 2.0则可以获得更多内容。
+获取Facebook帖子的评论信息 https://graph.facebook.com/{postId}/comments?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}
+获取Facebook帖子的点赞信息 https://graph.facebook.com/{postId}/likes?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;summary=true&amp;amp;access_token={accessToken}</description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之message_tags</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8Bmessage_tags/</link>
+      <pubDate>Tue, 05 Jan 2016 06:38:10 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8Bmessage_tags/</guid>
+      <description>message_tag是Facebook帖子和评论中消息标记的设置档，包括标记ID、文本、类型、偏移和长度。 今天才注意到Facebook帖子（Post）中message_tag是一个JSON对象，而评论（Comment）中message_tag是一个JSON数组。
+帖子中的message_tag是这个样子的：
+&amp;quot;message_tags&amp;quot;: { &amp;quot;88&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;168597536563870&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;IBM&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 88, &amp;quot;length&amp;quot;: 3 } ], &amp;quot;93&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;241760048297&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Fidelity Investments&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 93, &amp;quot;length&amp;quot;: 20 } ], &amp;quot;115&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;145619362306025&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;ABB&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 115, &amp;quot;length&amp;quot;: 3 } ], &amp;quot;120&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;252467906271&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Quintiles&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 120, &amp;quot;length&amp;quot;: 9 } ], &amp;quot;131&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;193453547355388&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;SAS Software&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 131, &amp;quot;length&amp;quot;: 12 } ], &amp;quot;161&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;702317053131576&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Duke Energy&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 161, &amp;quot;length&amp;quot;: 11 } ], &amp;quot;174&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;313176732094295&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Toshiba Global Commerce Solutions&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 174, &amp;quot;length&amp;quot;: 33 } ], &amp;quot;209&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;20531316728&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Facebook&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 209, &amp;quot;length&amp;quot;: 8 } ] }  评论中的message_tag是这个样子的：</description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API获取帖子订阅信息之limit参数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E8%8E%B7%E5%8F%96%E5%B8%96%E5%AD%90%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF%E4%B9%8Blimit%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Mon, 04 Jan 2016 05:30:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E8%8E%B7%E5%8F%96%E5%B8%96%E5%AD%90%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF%E4%B9%8Blimit%E5%8F%82%E6%95%B0/</guid>
+      <description>不同版本Facebook Graph API对 获取帖子订阅信息中limit参数要求不同： - v2.0及以下版本没有说明 - v2.1、v2.2和v2.3版本上限为250 - v2.</description>
+    </item>
+    
+    <item>
+      <title>Spring Accessing Facebook Data Guide调试笔记</title>
+      <link>https://mryqu.github.io/post/spring_accessing_facebook_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 06 Nov 2015 05:45:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_accessing_facebook_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
+      <description>尝试Spring Accessing Facebook Data Guide时，除了要像Spring Accessing Twitter Data Guide调试笔记中那样设置代理，还碰到几个其他问题，这里记录一下。
+Null Pointer Exception 描述
+java.lang.NullPointerException: null at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51] at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51] at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:208) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at com.sun.proxy.$Proxy49.isAuthorized(Unknown Source) ~[na:na] at hello.HelloController.helloFacebook(HelloController.java:26) ~[bin/:na] at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51] at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51] at org.</description>
+    </item>
+    
+    <item>
+      <title>Hello RestFB</title>
+      <link>https://mryqu.github.io/post/hello_restfb/</link>
+      <pubDate>Wed, 21 Oct 2015 05:55:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_restfb/</guid>
+      <description>RestFB是一个简单灵活的Facebook图谱API和REST客户端Java库。本演示用它来获取一个Facebook主页下的帖子、评论及回复。
+获取Facebook AccessToken 示例代码 package com.yqu.restfb; import java.util.List; import com.restfb.Connection; import com.restfb.DefaultFacebookClient; import com.restfb.FacebookClient; import com.restfb.Parameter; import com.restfb.Version; import com.restfb.types.Comment; import com.restfb.types.Page; import com.restfb.types.Post; public class HelloRestFB { public static void main(String[] args) { FacebookClient facebookClient = new DefaultFacebookClient( MY_ACCESS_TOKEN, Version.VERSION_2_5); Page pageInfo = (Page) facebookClient.fetchObject(&amp;quot;YquTest&amp;quot;, Page.class, new Parameter[0]); Connection postConnection = facebookClient.fetchConnection( pageInfo.getId() + &amp;quot;/feed&amp;quot;, Post.class, new Parameter[] { Parameter.with(&amp;quot;limit&amp;quot;, 10), Parameter.with(&amp;quot;include_hidden&amp;quot;, &amp;quot;true&amp;quot;) }); if (postConnection.getData().size() &amp;lt;= 0) { System.</description>
+    </item>
+    
+    <item>
+      <title>获取Facebook App Token</title>
+      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_app_token/</link>
+      <pubDate>Thu, 08 Oct 2015 06:06:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_app_token/</guid>
+      <description>今天看了一下如何用Facebook的App Id和App Secret获取App Token。
+可以使用RestFB，一行搞定：
+FacebookClient.AccessToken ac = new DefaultFacebookClient(Version.LATEST) .obtainAppAccessToken(appId, appSecret);  curl命令也超简单：
+curl &amp;quot;https://graph.facebook.com/v2.5/oauth/access_token?client_id={appId}&amp;amp;client_secret={appSecret}&amp;amp;grant_type=client_credentials&amp;quot;  我的一个Facebook应用YquTest如下： 通过其App Id和App Secret进行实验，获得结果可以用上一篇博文Facebook开发调试工具提到的访问口令工具验证，完全一致！
+参考 Facebook Login - Access Tokens
+Facebook Login - Access Tokens - App Access Tokens</description>
+    </item>
+    
+    <item>
+      <title>Facebook开发调试工具</title>
+      <link>https://mryqu.github.io/post/facebook%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 07 Oct 2015 07:13:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</guid>
+      <description>Facebook开发调试工具大体位于https://developers.facebook.com/tools-and-support/下。 - 访问口令工具:这里所提供的用户口令便于测试应用，会过期。应用口令不会过期，应该秘密存储。- 图谱API探索工具:测试图谱API或FQL查询。- JS JDK控制台: 可以加载FacebookJS库，执行HTML代码- URL调试器:可以让Facebook的爬虫抓取你的网站，看看你的网站在Facebook被共享时的模样。这里面我用的最多的是图谱API探索工具，其次就是看图谱API参考文档了。</description>
+    </item>
+    
+    <item>
+      <title>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</title>
+      <link>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</link>
+      <pubDate>Mon, 14 Sep 2015 06:22:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</guid>
+      <description>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
+Facebook 通过curl命令获取访问密钥：
+curl &amp;quot;https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=client_credentials&amp;quot;  Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
+Google Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
+curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Youtube Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
+curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Google drive &amp;amp; sheets 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
+curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  DropBox 首先通过浏览器访问下列链接获取code：</description>
+    </item>
+    
+    <item>
+      <title>第三方开源Facebook Java API</title>
+      <link>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</link>
+      <pubDate>Sun, 13 Sep 2015 06:14:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</guid>
+      <description>|API|许可类型|活跃度|最后更新|文档|注释 |&amp;mdash;&amp;ndash; |SpringSocial|Apache 2.0|活跃||有|良好 |RestFB|MIT|活跃||有|良好 |BatchFB|MIT|一般||有|良好 |Facebook BlackBerry SDK|MIT|停止更新|2011-8-22|无|老项目，停止更新较早 |FB4J|GPLv2|停止更新|2010-02-14|无|老项目，停止更新较早 |FB Java API|MIT|项目宣布停止|2013-2-5|有|主页建议转到RestFB |JFALibrary|GPLv3|停止更新|2011-5-22|无|很少的提交，且停止更新较早 |Javabook|Apache 2.0|停止更新|2007-9-5|有一点|项目在停止更新前未完成</description>
+    </item>
+    
+  </channel>
+</rss>

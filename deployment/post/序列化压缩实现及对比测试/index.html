@@ -1,0 +1,693 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>序列化压缩实现及对比测试 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="序列化压缩实现及对比测试">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="序列化压缩实现及对比测试 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/" itemprop="url">
+        序列化压缩实现及对比测试
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-08-08">
+    2013-08-08
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">873 字 ~5分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>网上介绍序列化压缩的用gzip比较多。写个测试代码，测试一下四种序列化方式：
+- 无压缩
+- zlib压缩
+- gzip压缩
+- zip压缩</p>
+
+<p>测例结果显示压缩效果：gzip压缩 &gt; zlib压缩 &gt; zip压缩&gt; 无压缩
+测例结果显示压缩速度：zlib压缩&gt; gzip压缩&gt; zip压缩 = 无压缩
+确实用gzip性价比比较高！</p>
+
+<p>### zlib介绍</p>
+
+<p>zlib是一个开源库，提供了在内存中压缩和解压的函数。zlib它的设计目标是处理单纯的数据（而不管数据的来源是什么）。</p>
+
+<p>### gzip介绍</p>
+
+<p>gzip是UNIX下的一种数据格式(.tar.gz)。gzip是在zlib之上，包了一层，在头和尾添加了一些额外的信息。
+gzip是一种文件压缩工具（或该压缩工具产生的压缩文件格式），它的设计目标是处理单个的文件。gzip在压缩文件中的数据时使用的就是zlib。为了保存与文件属性有关的信息，gzip需要在压缩文件（<em>.gz）中保存更多的头信息内容，而zlib不用考虑这一点。但gzip只适用于单个文件，所以我们在UNIX/Linux上经常看到的压缩包后缀都是</em>.tar.gz或*.tgz，也就是先用tar把多个文件打包成单个文件，再用gzip压缩的结果。</p>
+
+<p>### zip介绍</p>
+
+<p>zip只是一种数据结构，跟rar同级别的。zip是适用于压缩多个文件的格式（相应的工具有PkZip和WinZip等），因此，zip文件还要进一步包含文件目录结构的信息，比gzip的头信息更多。但需要注意，zip格式可采用多种压缩算法，我们常见的zip文件大多不是用zlib的算法压缩的，其压缩数据的格式与gzip大不一样。
+Java SDK提供了对上述三种压缩技术的支持：Inflater类和Deflater类直接用zlib库对数据压缩/解压缩，GZIPInputStream类和GZIPOutputStream类提供了对gzip格式的支持，ZipFile、ZipInputStream、ZipOutputStream则用于处理zip格式的文件。
+所以，你应当根据你的具体需求，选择不同的压缩技术：如果只需要压缩/解压缩数据，你可以直接用zlib实现，如果需要生成gzip格式的文件或解压其他工具的压缩结果，你就必须用gzip或zip等相关的类来处理了。</p>
+
+<h3 id="测试代码">测试代码</h3>
+
+<pre><code>import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+import java.util.Arrays;
+
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
+import java.util.zip.Inflater;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+
+public class TestCompressedSerializaion {
+
+  public static BigObject createBigObject() {
+    final int SIZE = 1 &lt;&lt; 12;
+    int[] bigArray = new int[SIZE];
+    for (int i = 0; i &lt; SIZE; ++i) {
+      bigArray[i] = (int) (Math.random() * 100);
+    }
+    return new BigObject(bigArray);
+  }
+
+  public static void serializeObject(Object obj, String flName) {
+    FileOutputStream fileOut = null;
+    ObjectOutputStream out = null;
+    try {
+      fileOut = new FileOutputStream(flName);
+      out = new ObjectOutputStream(fileOut);
+      out.writeObject(obj);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      if (out != null) {
+        try {
+          out.close();
+        } catch (Exception e) {
+        }
+      }
+      if (fileOut != null) {
+        try {
+          fileOut.close();
+        } catch (Exception e) {
+        }
+      }
+    }
+  }
+
+  public static Object deserializeObject(String flName) {
+    FileInputStream fileIn = null;
+    ObjectInputStream in = null;
+    Object res = null;
+    try {
+      fileIn = new FileInputStream(flName);
+      in = new ObjectInputStream(fileIn);
+      res = in.readObject();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    } catch (ClassNotFoundException cnfe) {
+      cnfe.printStackTrace();
+    } finally {
+      if (in != null) {
+        try {
+          in.close();
+        } catch (Exception e) {
+        }
+      }
+      if (fileIn != null) {
+        try {
+          fileIn.close();
+        } catch (Exception e) {
+        }
+      }
+    }
+    return res;
+  }
+
+  public static void testCompressedSerializaion(CompressType compressType,
+      BigObject bigObj) {
+    CompressedSerializaion.compressType = compressType;
+    String flName = compressType.name() + &quot;.ser&quot;;
+    
+    long beginTime = System.currentTimeMillis();
+    serializeObject(new CompressedSerializaion(bigObj), flName);
+    CompressedSerializaion obj = (CompressedSerializaion) deserializeObject(flName);
+    long usedTime = System.currentTimeMillis()-beginTime;
+    System.out.println(flName + &quot; length:&quot; + new File(flName).length()
+        + &quot; usedTime:&quot;+usedTime
+        + &quot; serialization correctness:&quot;+ bigObj.equals(obj.getBigObj()));
+  }
+
+  public static void main(String[] args) {
+    BigObject bigObj = createBigObject();
+    testCompressedSerializaion(CompressType.UNCOMPRESSED, bigObj);
+    testCompressedSerializaion(CompressType.ZLIB, bigObj);
+    testCompressedSerializaion(CompressType.GZIP, bigObj);
+    testCompressedSerializaion(CompressType.ZIP, bigObj);
+  }
+}
+
+enum CompressType {
+  UNCOMPRESSED, ZLIB, GZIP, ZIP
+};
+
+@SuppressWarnings(&quot;serial&quot;)
+class BigObject implements Serializable {
+  private int[] bigArray;
+  public BigObject(int[] bigArray) {
+    this.bigArray = bigArray;
+  }
+  public int[] getBigArray() {
+    return bigArray;
+  }
+  public void setBigArray(int[] bigArray) {
+    this.bigArray = bigArray;
+  }
+  @Override
+  public int hashCode() {
+    return Arrays.hashCode(bigArray);
+  }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    BigObject other = (BigObject) obj;
+    if (!Arrays.equals(bigArray, other.bigArray))
+      return false;
+    return true;
+  }
+}
+
+@SuppressWarnings(&quot;serial&quot;)
+class CompressedSerializaion implements Serializable {
+  public static CompressType compressType = CompressType.UNCOMPRESSED; 
+  private BigObject bigObj;
+
+  public CompressedSerializaion(BigObject bigObj) {
+    this.bigObj = bigObj;
+  }
+
+  public BigObject getBigObj() {
+    return bigObj;
+  }
+
+  public void setBigObj(BigObject bigObj) {
+    this.bigObj = bigObj;
+  }
+
+  @Override
+  public int hashCode() {
+    return bigObj == null   0 : bigObj.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    CompressedSerializaion other = (CompressedSerializaion) obj;
+    if (!bigObj.equals(other.bigObj))
+      return false;
+    return true;
+  }
+
+  public void writeMyObject(ObjectOutputStream out) throws IOException {
+    out.writeObject(bigObj);
+  }
+
+  private void readMyObject(ObjectInputStream ois)
+      throws ClassNotFoundException, IOException {
+    bigObj = (BigObject) ois.readObject();
+  }
+
+  private void writeObject(ObjectOutputStream out) throws IOException {
+    if (compressType == CompressType.UNCOMPRESSED) {
+      writeMyObject(out);
+    } else if (compressType == CompressType.ZLIB) {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      ObjectOutputStream baOos = new ObjectOutputStream(baos);
+      writeMyObject(baOos);
+      baOos.flush();
+      baOos.close();
+      byte unCompressedBytes[] = baos.toByteArray();
+      baos.close();
+      Deflater compresser = new Deflater(Deflater.BEST_SPEED);
+      compresser.setInput(unCompressedBytes);
+      compresser.finish();
+      byte bytes[] = new byte[unCompressedBytes.length];
+      int nz = compresser.deflate(bytes);
+      out.writeInt(nz);
+      out.write(bytes, 0, nz);
+    } else {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      if (compressType == CompressType.GZIP) {
+        GZIPOutputStream gzos = new GZIPOutputStream(baos);
+        ObjectOutputStream gzOos = new ObjectOutputStream(gzos);
+        writeMyObject(gzOos);
+        gzOos.flush();
+        gzos.close();
+      } else {
+        ZipOutputStream zos = new ZipOutputStream(baos);
+        ZipEntry ze = new ZipEntry(&quot;testZipSerializaion&quot;);
+        zos.setLevel(Deflater.BEST_SPEED);
+        zos.putNextEntry(ze);
+        ObjectOutputStream zipOos = new ObjectOutputStream(zos);
+        writeMyObject(zipOos);
+        zipOos.flush();
+        zos.closeEntry();
+        zos.close();
+      }
+      byte bytes[] = baos.toByteArray();
+      int nz = baos.size();
+      baos.close();
+      out.writeInt(nz);
+      out.write(bytes, 0, nz);
+    }
+  }
+
+  private void readObject(ObjectInputStream ois)
+      throws ClassNotFoundException, IOException {
+    if (compressType == CompressType.UNCOMPRESSED) {
+      readMyObject(ois);
+    } else {
+      int nz = ois.readInt();
+      byte bytes[] = new byte[nz];
+      int totalSize = 0;
+      while (totalSize &lt; nz) {
+        // attempt to read the entire buffer in a single read
+        int bytesRead = ois.read(bytes, totalSize, (nz - totalSize));
+        if (bytesRead == -1) // EOF
+          break;
+        totalSize += bytesRead;
+      }
+      if (compressType == CompressType.ZLIB) {
+        Inflater decompresser = new Inflater();
+        decompresser.setInput(bytes, 0, nz);
+        byte[] unCompressedBytes;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+          byte[] buf = new byte[1024];
+          while (!decompresser.finished()) {
+            int i = decompresser.inflate(buf);
+            baos.write(buf, 0, i);
+          }
+          unCompressedBytes = baos.toByteArray();
+        } catch (DataFormatException e) {
+          throw new IOException(e);
+        } finally {
+          try {
+            baos.close();
+            decompresser.end();
+          } finally {
+          }
+        }
+        ByteArrayInputStream bais = new ByteArrayInputStream(
+            unCompressedBytes);
+        ObjectInputStream baOis = new ObjectInputStream(bais);
+        readMyObject(baOis);
+        bais.close();
+      } else if (compressType == CompressType.GZIP) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+        GZIPInputStream zis = new GZIPInputStream(bais);
+        ObjectInputStream zipOis = new ObjectInputStream(zis);
+        readMyObject(zipOis);
+        bais.close();
+      } else if (compressType == CompressType.ZIP) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+        ZipInputStream zis = new ZipInputStream(bais);
+        // open first zip file entry
+        ZipEntry ze = zis.getNextEntry();
+        ObjectInputStream zipOis = new ObjectInputStream(zis);
+        readMyObject(zipOis);
+        bais.close();
+      }
+    }
+  }
+}
+</code></pre>
+
+<h3 id="测试结果">测试结果</h3>
+
+<pre><code>UNCOMPRESSED.ser length:16582 usedTime:14 serialization correctness:true
+ZLIB.ser length:6108 usedTime:4 serialization correctness:true
+GZIP.ser length:5682 usedTime:5 serialization correctness:true
+ZIP.ser length:6254 usedTime:14 serialization correctness:true
+</code></pre>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：序列化压缩实现及对比测试
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/%e5%ba%8f%e5%88%97%e5%8c%96" rel="tag" title="序列化">#序列化#</a>
+    
+    <a href="/tags/%e5%8e%8b%e7%bc%a9" rel="tag" title="压缩">#压缩#</a>
+    
+    <a href="/tags/zlib" rel="tag" title="zlib">#zlib#</a>
+    
+    <a href="/tags/gzip" rel="tag" title="gzip">#gzip#</a>
+    
+    <a href="/tags/zip" rel="tag" title="zip">#zip#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/" rel="next" title="JDK7中的双端队列Deque实现">
+        <i class="fa fa-chevron-left"></i> JDK7中的双端队列Deque实现
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/" rel="prev" title="JDK7中的队列实现">
+        JDK7中的队列实现 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

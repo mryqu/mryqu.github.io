@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>持久化 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+    <description>Recent content in 持久化 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 17 May 2013 15:48:33 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GemFire 数据逐出和持久化</title>
+      <link>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+      <pubDate>Fri, 17 May 2013 15:48:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+      <description>为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
+数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。 - 条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 - Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。
+对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作： - Region.containsKey - Region.containsValue - Region.getEntry
+当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
+分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行: - 对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 - 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。
+动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
+| |数据无持久化|数据持久化 |&amp;mdash;&amp;ndash; |EvictionAction.NONE|条目将在内存中一直保存。|条目将在内存和磁盘中一直保存。 |EvictionAction.LOCAL_DESTROY|条目（键和值两部分）将从内存中释放。仅当被逐出数据可从外部数据源加载时可用。| |EvictionAction.OVERFLOW_TO_DISK|条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。|条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。
+磁盘存储文件名和扩展名 磁盘存储文件包括存储管理、访问控制文件和操作日志（oplog，记录了删除和其他所有操作）。下面的表描述了文件名和扩展名及示例。
+文件名 文件名包括三部分:
+第一部分: 使用标识 |值|用途|示例 |&amp;mdash;&amp;ndash; |OVERFLOW|仅为溢出region和队列的操作日志数据。|OVERFLOWoverflowDS1_1.crf |BACKUP|持久化、持久化+溢出rgion和队列操作日志数据。|BACKUPoverflowDS1.if, BACKUPDEFAULT.if |DRLK_IF|访问控制 - 对磁盘存储上锁。|DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk
+第二部分: 磁盘存储名 |值|用途|示例 |&amp;mdash;&amp;ndash; |&amp;lt;磁盘存储名&amp;gt;|非默认磁盘存储。|name=&amp;ldquo;overflowDS1&amp;rdquo; DRLK_IFoverflowDS1.lk,
+name=&amp;ldquo;persistDS1&amp;rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf
+第三部分: 操作日志序列号 |值|用途|示例 |&amp;mdash;&amp;ndash; |序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf</description>
+    </item>
+    
+  </channel>
+</rss>

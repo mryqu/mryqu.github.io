@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Benchmark on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/benchmark/</link>
+    <description>Recent content in Benchmark on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 25 May 2015 06:04:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Hadoop] 使用TeraSort测试集群性能</title>
+      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</link>
+      <pubDate>Mon, 25 May 2015 06:04:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</guid>
+      <description>Terasort是Hadoop自带的用于集群性能基准测试的工具，其源码位于https://github.com/apache/hadoop/tree/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/src/main/java/org/apache/hadoop/examples/terasort下。
+TeraSort用法 该性能基准测试工具针对Hadoop集群的HDFS和MapReduce层进行综合测试。完整的测试步骤为：
+ 使用TeraGen程序生成官方GraySort输入数据集。(注：SortBenchmark是JimGray自98年建立的一项排序竞技活动，其对排序的输入数据制定了详细规则，要求使用其提供的gensort工具生成输入数据。而Hadoop的TeraGen数据生成工具的算法与gensort一致。） 在输入数据上运行真正的TeraSort性能基准测试工具 通过TeraValidate程序验证排序后的输出数据  TeraGen程序生成数据的格式为（详见TeraSort.generateRecord方法实现）： - 10字节键：一个16字节随机数的高10字节 - 2字节常量：0x0011 - 32字节rowid - 4字节常量：0x8899AABB - 48字节填充：由一个16字节随机数的低48比特生成 - 4字节常量:0xCCDDEEFF
+也就是说TeraGen程序生成的一行数据有100字节。TeraGen程序参数需要指定行数，可指定单位： - t：1000,000,000,000 - b：1000,000,000 - m：1000,000 - k：1000
+TeraSort测试 依次运行teragen、terasort和teravalidate：
+hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar teragen 5m /user/hadoop/teragen-data hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.X.jar terasort /user/hadoop/teragen-data /user/hadoop/terasort-data 15/05/24 08:29:03 INFO terasort.TeraSort: starting 15/05/24 08:29:04 INFO input.FileInputFormat: Total input paths to process : 2 Spent 123ms computing base-splits. Spent 2ms computing TeraScheduler splits.</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop] 使用DFSIO测试集群I/O性能</title>
+      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/</link>
+      <pubDate>Sat, 23 May 2015 09:12:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/</guid>
+      <description>DFSIO是Hadoop自带的用于集群分布式I/O性能基准测试的工具，其源码为https://github.com/apache/hadoop/blob/trunk/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/src/test/java/org/apache/hadoop/fs/TestDFSIO.java。
+DFSIO 用法 hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO 15/05/22 19:50:22 INFO fs.TestDFSIO: TestDFSIO.1.8 Missing arguments. Usage: TestDFSIO [genericOptions] -read [-random | -backward | -skip [-skipSize Size]] | -write | -append | -truncate | -clean [-compression codecClassName] [-n rFiles N] [-size Size[B|KB|MB|GB|TB]] [-resFile resultFileName] [-bufferSize Bytes]  DFSIO可以测试写操作和读操作，以MapReduce作业的方式运行，返回整个集群的I/O性能报告。DFSIO读写测试的位置在hdfs://namendoe:8020/benchmarks/TestDFSIO/io_data，其中读测试不会自己产生数据，必须先执行DFSIO写测试。
+ -read：读测试，对每个文件读-size指定的字节数 -write：写测试，对每个文件写-size指定的字节数 -append：追加测试，对每个文件追加-size指定的字节数 -truncate：截断测试，对每个文件截断至-size指定的字节数 -clean：清除TestDFSIO在HDFS上生成数据 -n：文件个数 -size：每个文件的大小 -resFile：生成测试报告的本地文件路径 -bufferSize：每个mapper任务读写文件所用到的缓存区大小，默认为1000000字节。
+DFSIO测试  写10个100MB的文件 hadoop@node50064:~$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 100MB -resFile /tmp/DFSIO-write.</description>
+    </item>
+    
+    <item>
+      <title>使用YCSB测试MongoDB</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/</link>
+      <pubDate>Mon, 31 Mar 2014 20:29:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/</guid>
+      <description>YCSB介绍 YCSB（Yahoo! Cloud Serving Benchmark）是雅虎开源的一款用于测试各类云服务/NoSQL/键值对存储的性能基准测试工具。覆盖的测试对象有： - PNUTS - BigTable - HBase - Hypertable - Azure - Cassandra - CouchDB - Voldemort - MongoDB - OrientDB - Infinispan - Dynomite - Redis - GemFire - GigaSpaces XAP - DynamoDB
+YCSB项目的目标是提供一个标准的工具用来衡量不同键值对存储或云服务存储的性能。YCSB做了很多优化来提高客户端性能，例如在数据类型上用了最原始的比特数组以减少数据对象本身创建转换所需的时间等。YCSB的几大特性： - 支持常见的数据存储读写操作，如插入，修改，删除及读取 - 多线程支持。YCSB用Java实现，有很好的多线程支持。 - 灵活定义场景文件。可以通过参数灵活的指定测试场景，如100%插入， 50%读50%写等等 - 数据请求分布方式：支持随机，zipfian(只有小部分的数据得到大部分的访问请求）以及最新数据几种请求分布方式 - 可扩展性：可以通过扩展Workload的方式来修改或者扩展YCSB的功能
+使用YCSB测试MongoDB 初试YCSB 下载https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz 并解压缩。执行如下命令查看帮助：接下来开始使用YCSB测试MongoDB2.6，不过这其中遇到一些问题。期望YCSB的下一版本能够解决这些问题。
+解决java.lang.ClassNotFoundException:com.yahoo.ycsb.Client问题 执行测试失败： C:\ycsb-0.1.4&amp;gt;python bin/ycsb load mongodb -s -P workloads/workloada java -cp C:\ycsb-0.1.4\core\lib\core-0.1.4.jar:C:\ycsb-0.1.4\gemfire-binding\conf:C:\ycsb-0.1.4\hbase-binding\conf:C:\ycsb-0.1.4\infinispan-binding\conf:C:\ycsb-0.1.4\jdbc-binding\conf:C:\ycsb-0.1.4\mongodb-binding\lib\mongodb-binding-0.1.4.jar:C:\ycsb-0.1.4\nosqldb-binding\conf:C:\ycsb-0.1.4\voldemort-binding\conf com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.MongoDbClient -s -P workloads/workloada -load Exception in thread &amp;ldquo;main&amp;rdquo; java.</description>
+    </item>
+    
+  </channel>
+</rss>

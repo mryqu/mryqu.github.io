@@ -1,0 +1,634 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Hibernate shards数据库分片 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Hibernate shards数据库分片">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Hibernate shards数据库分片 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/" itemprop="url">
+        Hibernate shards数据库分片
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-19">
+    2013-07-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hibernate" itemprop="url" rel="index">
+        <span itemprop="name">Hibernate</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">480 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h2 id="简介">简介</h2>
+
+<p>Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。
+<a href="http://www.hibernate.org/subprojects/shards.html">http://www.hibernate.org/subprojects/shards.html</a>
+<a href="https://github.com/hibernate/hibernate-shards">https://github.com/hibernate/hibernate-shards</a></p>
+
+<p>Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
+- 标准Hibernate编程模型
+- 灵活的分片策略
+- 支持虚拟分片
+- 免费/开源</p>
+
+<h2 id="实现hibernate-shards">实现Hibernate Shards</h2>
+
+<p>Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。
+Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。</p>
+
+<p>|Hibernate Core接口|Hibernate Shards实现
+|&mdash;&ndash;
+|org.hibernate.Session|org.hibernate.shards.session.ShardedSession
+|org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory
+|org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria
+|org.hibernate.Query|org.hibernate.shards.query.ShardedQuery</p>
+
+<p>唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。
+首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。</p>
+
+<h3 id="气象报告数据库模式">气象报告数据库模式</h3>
+
+<pre><code>CREATE TABLE WEATHER_REPORT (
+    REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    CONTINENT ENUM('AFRICA', 'ANTARCTICA', 'ASIA', 'AUSTRALIA', 'EUROPE', 'NORTH AMERICA', 'SOUTH AMERICA'),
+    LATITUDE FLOAT,
+    LONGITUDE FLOAT,
+    TEMPERATURE INT,
+    REPORT_TIME TIMESTAMP
+);
+</code></pre>
+
+<h3 id="气象报告对象模型">气象报告对象模型</h3>
+
+<pre><code>@Entity
+@Table(name=&quot;WEATHER_REPORT&quot;)
+public class WeatherReport {
+
+  @Id @GeneratedValue(generator=&quot;WeatherReportIdGenerator&quot;)
+  @GenericGenerator(name=&quot;WeatherReportIdGenerator&quot;, strategy=&quot;org.hibernate.shards.id.ShardedUUIDGenerator&quot;)
+  @Column(name=&quot;REPORT_ID&quot;)
+  private Integer reportId;
+
+  @Column(name=&quot;CONTINENT&quot;)
+  private String continent;
+
+  @Column(name=&quot;LATITUDE&quot;)
+  private BigDecimal latitude;
+
+  @Column(name=&quot;LONGITUDE&quot;)
+  private BigDecimal longitude;
+
+  @Column(name=&quot;TEMPERATURE&quot;)
+  private int temperature;
+
+  @Column(name=&quot;REPORT_TIME&quot;)
+  private Date reportTime;
+
+  ... // getters and setters
+}
+</code></pre>
+
+<p>Hibernate分片支持任何ID生成策略，唯一的要求是对象ID必须在所有分片中是唯一的。下面是满足要求的一些简单ID生成策略：
+- Native ID生成 - 使用Hibernate的native ID生成策略，且配置数据库以便ID不冲突。例如，如果使用自增ID生成且分片有5个数据库分发数据，期望不会超过1百万记录，数据库#0返回的ID从0起始，数据库#1然会的ID从200000起始&hellip;只要对数据的假设正确，主键就不会冲突。
+- 应用级UUID生成 - 通过定义无需担心ID冲突，但是很可能需要为对象解决难处理的主键。
+   Hibernate Shards提供了一个简单的、分片感知的UUID生成器实现 - ShardedUUIDGenerator。
+- 分布式hilo生成 - 该思路是仅在一个分片上使用hilo表，其确保高/低位机制所生成的ID在所有分片内唯一。这种方式有两个缺陷：访问hilo表可能成为ID生成的并经；在单个数据库上存储hilo表会造成系统的单点失效。
+   Hibernate Shards提供了一个分布式hilo生成机制实现 - ShardedTableHiLoGenerator。 该实现基于org.hibernate.id.TableHiLoGenerator。
+   ID生成与分片解析紧密相关。分片解析是使用一个对象ID找到对象所在的分片。有两种方式完成这一目的：
+- 使用ShardResolutionStrategy
+- 在ID生成时将分片ID放入对象ID，并在分片解析时获得分片ID。其优势在于Hibernate Shards无需查找数据库表就可以更快速地从对象ID解析出分片ID。Hibernate Shards无需任何对分片ID编码/解码的特殊机制，只需要使用实现ShardEncodingIdentifierGenerator接口的ID生成器。Hibernate Shards所含有的两个ID生成器中，ShardedUUIDGenerator实现了该接口。</p>
+
+<h3 id="配置及加载">配置及加载</h3>
+
+<pre><code>&lt;!-- Contents of shard0.hibernate.cfg.xml --&gt;
+&lt;hibernate-configuration&gt;
+  &lt;session-factory name=&quot;HibernateSessionFactory0&quot;&gt; &lt;!-- note the different name --&gt;
+    &lt;property name=&quot;dialect&quot;&gt;org.hibernate.dialect.MySQLInnoDBDialect&lt;/property&gt;
+    &lt;property name=&quot;connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;
+    &lt;property name=&quot;connection.url&quot;&gt;jdbc:mysql://dbhost0:3306/mydb&lt;/property&gt;
+    &lt;property name=&quot;connection.username&quot;&gt;my_user&lt;/property&gt;
+    &lt;property name=&quot;connection.password&quot;&gt;my_password&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.shard_id&quot;&gt;0&lt;/property&gt; &lt;!-- new --&gt;
+    &lt;property name=&quot;hibernate.shard.enable_cross_shard_relationship_checks&quot;&gt;true&lt;/property&gt; &lt;!-- new --&gt;
+  &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;
+</code></pre>
+
+<pre><code>&lt;!-- Contents of shard1.hibernate.cfg.xml --&gt;
+&lt;hibernate-configuration&gt;
+  &lt;session-factory name=&quot;HibernateSessionFactory1&quot;&gt; &lt;!-- note the different name --&gt;
+    &lt;property name=&quot;dialect&quot;&gt;org.hibernate.dialect.MySQLInnoDBDialect&lt;/property&gt;
+    &lt;property name=&quot;connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;
+    &lt;property name=&quot;connection.url&quot;&gt;jdbc:mysql://dbhost1:3306/mydb&lt;/property&gt;
+    &lt;property name=&quot;connection.username&quot;&gt;my_user&lt;/property&gt;
+    &lt;property name=&quot;connection.password&quot;&gt;my_password&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.shard_id&quot;&gt;1&lt;/property&gt; &lt;!-- new --&gt;
+    &lt;property name=&quot;hibernate.shard.enable_cross_shard_relationship_checks&quot;&gt;true&lt;/property&gt; &lt;!-- new --&gt;
+  &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;
+</code></pre>
+
+<pre><code>public SessionFactory createSessionFactory() {
+  AnnotationConfiguration prototypeConfig = new AnnotationConfiguration().configure(&quot;shard0.hibernate.cfg.xml&quot;);
+  prototypeConfig.addAnnotatedClass(WeatherReport.class);
+  List shardConfigs = new ArrayList();
+  shardConfigs.add(buildShardConfig(&quot;shard0.hibernate.cfg.xml&quot;));
+  shardConfigs.add(buildShardConfig(&quot;shard1.hibernate.cfg.xml&quot;));
+  shardConfigs.add(buildShardConfig(&quot;shard2.hibernate.cfg.xml&quot;));
+  ShardStrategyFactory shardStrategyFactory = buildShardStrategyFactory();
+  ShardedConfiguration shardedConfig = new ShardedConfiguration(
+    prototypeConfig,
+    shardConfigs,
+    shardStrategyFactory);
+  return shardedConfig.buildShardedSessionFactory();
+}
+
+ShardStrategyFactory buildShardStrategyFactory() {
+  ShardStrategyFactory shardStrategyFactory = new ShardStrategyFactory() {
+    public ShardStrategy newShardStrategy(List shardIds) {
+      RoundRobinShardLoadBalancer loadBalancer = new RoundRobinShardLoadBalancer(shardIds);
+      ShardSelectionStrategy pss = new RoundRobinShardSelectionStrategy(loadBalancer);
+      ShardResolutionStrategy prs = new AllShardsShardResolutionStrategy(shardIds);
+      ShardAccessStrategy pas = new SequentialShardAccessStrategy();
+      return new ShardStrategyImpl(pss, prs, pas);
+    }
+  };
+  return shardStrategyFactory;
+}
+
+ShardConfiguration buildShardConfig(String configFile) {
+  Configuration config = new Configuration().configure(configFile);
+  return new ConfigurationToShardConfigurationAdapter(config);
+}
+</code></pre>
+
+<p>在上述示例中，一共分配了四个配置。第一个分配的配置是AnnotationConfiguration对象，用于构造与分片无关的信息；之后分配的三个配置是ShardConfiguration对象将仅用于构造分片特定的数据库url、数据库用户和密码、数据库标识符和缓存region前缀。
+因此shard1.hibernate.cfg.xml与shard1.hibernate.cfg.xml中与分片无关的信息将被忽略。</p>
+
+<h3 id="分片访问策略">分片访问策略</h3>
+
+<p>Hibernate Shards使用ShardAccessStrategy决定如何对多个分片实行数据库操作。Hibernate Shards 无需确定查询什么（这是 Hibernate Core 和基础数据库需要做的），但是它确实意识到，在获得答案之前可能需要对多个分片进行查询。因此，Hibernate Shards提供了两种极具创意的逻辑实现方法：一种方法是根据序列机制（一次一个）对切分进行查询，直到获得答案为止；另一种方法是并行访问策略，这种方法使用一个线程模型一次对所有分片进行查询。</p>
+
+<h4 id="顺序策略">顺序策略</h4>
+
+<p>SequentialShardAccessStrategy会让查询在分片上顺序执行。取决于所执行的查询类型，有可能因为它每次都按相同的顺序在分片执行查询避免使用这种实现。
+如果执行很多限制结果集行数、非排序的查询，就会导致分片上糟糕的使用率(排在前面的分片很忙，排在后面的分片很闲。在这种情况下，可以考虑使用LoadBalancedSequentialShardAccessStrategy，它会在每次调用后收到分片的轮询视图，因此可以平衡地分发查询负载。</p>
+
+<h4 id="并行策略">并行策略</h4>
+
+<p>ParallelShardAccessStrategy会让查询在分片上并行执行。当使用这种实现，需要提供适合应用程序性能和吞吐量的线程池执行器java.util.concurrent.ThreadPoolExecutor。 示例如下:</p>
+
+<pre><code>ThreadFactory factory = new ThreadFactory() {
+  public Thread newThread(Runnable r) {
+    Thread t = Executors.defaultThreadFactory().newThread(r);
+    t.setDaemon(true);
+    return t;
+  }
+};
+
+ThreadPoolExecutor exec =
+  new ThreadPoolExecutor(
+    10,
+    50,
+    60,
+    TimeUnit.SECONDS,
+    new SynchronousQueue(),
+    factory);
+
+return new ParallelShardAccessStrategy(exec);
+</code></pre>
+
+<h3 id="分片选择策略">分片选择策略</h3>
+
+<p>Hibernate Shards使用ShardSelectionStrategy判断新增对象应该存储到哪个分片。该接口的实现完全取决于开发者，Hibernate Shards默认提供了一个轮询选择策略RoundRobinShardSelectionStrategy,但一般不这样使用。
+通常采用基于属性的分片。一般是用户根据表自己实现一个基于对象属性分片的策略类ShardSelectionStrategy ，例如，以下WeatherReport基于“大陆”属性选择分区：</p>
+
+<pre><code>public class WeatherReportShardSelectionStrategy implements ShardSelectionStrategy {
+  public ShardId selectShardIdForNewObject(Object obj) {
+    if(obj instanceof WeatherReport) {
+      return ((WeatherReport)obj).getContinent().getShardId();
+    }
+    throw new IllegalArgumentException();
+  }
+}
+</code></pre>
+
+<p>使用Hibernate级联功能存储多级对象时，仅在存储顶级对象时考虑ShardSelectionStrategy。所有子对象自动存储在父对象所在的分片。
+如果阻止开发人员在对象层级超过一级之上创建新对象，ShardSelectionStrategy会更容易实现。实现方式为让ShardSelectionStrategy实现感知模型中的顶级对象，如果遇到一个对象不在顶级对象集合就抛出异常。
+如果不希望采用这个限制，需要记得对于基于对象属性分片选择，每个对象都必须存在用于选择分片的属性并传递给session.save()。</p>
+
+<h3 id="分片解析策略">分片解析策略</h3>
+
+<p>Hibernate Shards通过对象ID使用ShardResolutionStrategy判断对象所在的分片集合。对于气象报告应用程序，每个大陆关联一些ID。每当给WeatherReport分配ID，就会选取落入WeatherReport所属大陆的合法范围内的ID。ShardResolutionStrategy可以通过ID和上述信息识别WeatherReport所在的分片。</p>
+
+<pre><code>public class WeatherReportShardResolutionStrategy extends AllShardsShardResolutionStrategy {
+  public WeatherReportShardResolutionStrategy(List shardIds) {
+    super(shardIds);
+  }
+
+  public List selectShardIdsFromShardResolutionStrategyData(
+        ShardResolutionStrategyData srsd) {
+    if(srsd.getEntityName().equals(WeatherReport.class.getName())) {
+      return Continent.getContinentByReportId(srsd.getId()).getShardId();
+    }
+    return super.selectShardIdsFromShardResolutionStrategyData(srsd);
+  }
+}
+</code></pre>
+
+<p>值得指出的是当我们还没有实现对实体名/ID与分片进行映射的缓存，ShardResolutionStrategy是放入这一缓存的绝佳之所。
+分区解析与ID生成紧密绑定，如果选择的ID生成器(实现ShardEncodingIdentifierGenerator接口的生成器，例如Hibernate Shards提供的ShardedUUIDGenerator)生成的对象ID包含分片ID，则ShardResolutionStrategy将不被调用。
+Hibernate Shards提供的默认AllShardsShardResolutionStrategy，会返回所有分区ID。</p>
+
+<h2 id="重分片和虚拟分片">重分片和虚拟分片</h2>
+
+<p>当应用程序的数据集增长超出原先分配给应用程序的数据库能力，需要增加更多的数据库，通常（为了实现合适的负载均衡或满足应用程序不变性）也需要在分片上重新分布数据，这就是重分片。
+重分片是个复杂的问题，为了减轻重分片带来的痛苦，Hibernate Shards对虚拟分片提供支持。
+通常，每个对象存储在一个分片上，重分片包括两个任务：将对象移到另一个分片，并改变对象与分片的映射。对象与分片的映射可能是对象ID包含分片ID，或对象所使用的分片解析策略的内部逻辑。
+前者，重分片需要改变所有对象ID和外键。后者重分片需要需要改变给定分片解析策略的运行时配置来改变分片解析策略的机制。
+不幸的是，一旦我们考虑到Hibernate Shards不支持跨分片的关系，改变对象与分片的映射的问题会更加严重。这一限制让我们无法将对象图的子集从一个分片移到另一个分片。
+改变对象与分片的映射可以通过增加一层重定向来简化 - 每个对象存在于一个虚拟分片，每个虚拟分片映射到一个物理分片。开发人员在设计时必须决定应用程序所需的最大物理分片数。这个物理分片数将被用作虚拟分片的个数，然后虚拟分片映射到应用程序当前所需的物理分片。因为Hibernate Shards的分片选择策略、分片解析策略和ShardEncodingIdentifierGenerator都做用于虚拟分片，对象将在虚拟分片上正确分布。当重分片时，可以通过修改虚拟分片与物理分片的关系就很容易地改变对象与分片的映射。
+如果担心无法正确估计应用程序将来所需的最大物理分片数，可以尽量往高估。虚拟分片很廉价，这种方式比必须增加虚拟分片性价比高的多。
+为了使能虚拟分片，需要在创建ShardedConfiguration传入一个虚拟分片ID与物理分片ID的映射。下例是将4个虚拟分片映射到2个物理分片。</p>
+
+<pre><code>Map virtualShardMap = new HashMap();
+virtualShardMap.put(0, 0);
+virtualShardMap.put(1, 0);
+virtualShardMap.put(2, 1);
+virtualShardMap.put(3, 1);
+
+ShardedConfiguration shardedConfig =
+  new ShardedConfiguration(
+    prototypeConfiguration,
+    configurations,
+    strategyFactory,
+    virtualShardMap);
+
+return shardedConfig.buildShardedSessionFactory();
+</code></pre>
+
+<p>此后想要改变虚拟分片与物理分片的映射，仅需要改变传给此构造器的virtualShardToShardMap。
+我们提到在重分片的第二个任务是将数据从一个物理分片移到另一个。由于这是应用程序特定的、且随着应用程序热重分片、部署框架等潜在需求而复杂多变的，HibernateShards对比不提供支持。</p>
+
+<h2 id="限制">限制</h2>
+
+<ul>
+<li>通过JPA配置SessionFactory目前无法使用Hibernate Shards。</li>
+<li>不支持查询中的distinct、order-by和聚集函数</li>
+<li>对Hibernate API的不完全实现，一部分较少使用Hibernate API没有实现</li>
+<li>不支持跨分区的关系操作。无法创建存在于不同分片上对象A与B的绑定。</li>
+<li>不支持在非受管环境（例如Servlet容器，应用程序需要负责获得数据库的连接）下的分布事物。</li>
+<li>使用有状态拦截器org.hibernate.Interceptor需要更多处理。</li>
+<li>不支持ID为基本类型的实体对象。</li>
+<li>将复制数据（相同的数据存在于所有分片）与分片数据绑定可能会有问题，无法确保复制数据的分片与分片数据所在分片是同一分片。</li>
+</ul>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Hibernate shards数据库分片
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/hibernate" rel="tag" title="hibernate">#hibernate#</a>
+    
+    <a href="/tags/shards" rel="tag" title="shards">#shards#</a>
+    
+    <a href="/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" rel="tag" title="数据库">#数据库#</a>
+    
+    <a href="/tags/%e5%88%86%e7%89%87" rel="tag" title="分片">#分片#</a>
+    
+    <a href="/tags/%e6%b0%b4%e5%b9%b3%e5%88%86%e5%8c%ba" rel="tag" title="水平分区">#水平分区#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/" rel="next" title="PostgreSQL数据库分区的update操作">
+        <i class="fa fa-chevron-left"></i> PostgreSQL数据库分区的update操作
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/" rel="prev" title="PostgreSQL与MySQL数据库分区">
+        PostgreSQL与MySQL数据库分区 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

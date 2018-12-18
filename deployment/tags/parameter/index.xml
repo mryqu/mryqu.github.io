@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Parameter on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/parameter/</link>
+    <description>Recent content in Parameter on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 01 Mar 2017 06:14:39 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/parameter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[OpenUI5] 在XMLView中使用带有参数的I18N消息</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</link>
+      <pubDate>Wed, 01 Mar 2017 06:14:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</guid>
+      <description>在做的一个新项目中，美国团队那边齐刷刷地一色用XMLView而不是JSView，碰到一个小问题：那就是怎么在XMLView中设置带有参数的I18N消息。
+参考Passing parameters to i18n model within XML view帖子中的方案，基本搞定：
+&amp;lt;Input id=&amp;quot;myInput&amp;quot; type=&amp;quot;Text&amp;quot; required=&amp;quot;true&amp;quot; value=&amp;quot;{myyquInput}&amp;quot; placeholder=&amp;quot;{parts:[&#39;i18n&amp;gt;myKey.txt&#39;, &#39;myModel&amp;gt;myProp&#39;], formatter: &#39;jQuery.sap.formatMessage&#39;}&amp;quot; change=&amp;quot;.handleChangeForMyInput&amp;quot;&amp;gt; &amp;lt;layoutData&amp;gt; &amp;lt;l:GridData span=&amp;quot;L6 M8 S9&amp;quot; /&amp;gt; &amp;lt;/layoutData&amp;gt; &amp;lt;/Input&amp;gt;  messagebundle.properties：
+myKey.txt=&amp;quot;(Example: {0})&amp;quot;  使用sap.ui.model.CompositeBinding可以通过XMLView中的parts加载多个参数，达到我的目的。缺点就是每个参数只能是model/path组合，或者省略model的path。我没有找到直接输入参数值的便捷方法。 阅读sap.ui.base.ManagedObject的bindProperty方法可知，它对part中每一元素查找是否有“&amp;gt;”，有则认为是model/path组合，否则即为path。
+ManagedObject.prototype.bindProperty = function(sName, oBindingInfo, _vFormat, _sMode) { var iSeparatorPos, bAvailable = true, oProperty = this.getMetadata().getPropertyLikeSetting(sName); // check whether property or alternative type on aggregation exists if (!oProperty) { throw new Error(&amp;quot;Property \&amp;quot;&amp;quot; + sName + &amp;quot;\&amp;quot; does not exist in &amp;quot; + this); } // old API compatibility (sName, sPath, _vFormat, _sMode) if (typeof oBindingInfo == &amp;quot;string&amp;quot;) { oBindingInfo = { parts: [ { path: oBindingInfo, type: _vFormat instanceof Type ?</description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API获取帖子订阅信息之limit参数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E8%8E%B7%E5%8F%96%E5%B8%96%E5%AD%90%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF%E4%B9%8Blimit%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Mon, 04 Jan 2016 05:30:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E8%8E%B7%E5%8F%96%E5%B8%96%E5%AD%90%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF%E4%B9%8Blimit%E5%8F%82%E6%95%B0/</guid>
+      <description>不同版本Facebook Graph API对 获取帖子订阅信息中limit参数要求不同： - v2.0及以下版本没有说明 - v2.1、v2.2和v2.3版本上限为250 - v2.</description>
+    </item>
+    
+    <item>
+      <title>Shell参数扩展</title>
+      <link>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Sun, 23 Jun 2013 18:55:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</guid>
+      <description>在hadoop-env.sh中，有如下语句：
+export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-&amp;quot;/etc/hadoop&amp;quot;}  这种用法在Shell Parameter Expansion中进行了详尽的介绍，系统学习一下。 Bash中的$符号的作用是参数替换，将参数名替换为参数所代表的值。对于$来说，大括号是可选的，即$ABC和${ABC}代表同一个参数。但是它可以防止变量被错误解析，比如：${hello}world、${arr[1]}。 参数扩展 下列Bash对参数的测试项为未设置和null。如果略掉冒号，则仅测试未设置。
+|表达式|含义 |&amp;mdash;&amp;ndash; |${parameter:-word}|如果parameter没有被声明或者其值为空的话，则表达式替换成word；否则替换成parameter的值。 |${parameter:=word}|如果parameter没有被声明或者其值为空的话，则parameter设为word之后表达式返回parameter的值；否则替换成parameter的值。 |${parameter?word}|如果parameter没有被声明或者其值为空的话，则word被写往标准错误输出和Shell，非可交互的情况下退出；否则替换成parameter的值。 |${parameter:+word}|如果parameter没有被声明或者其值为空的话，则不进行替换；否则替换成parameter的值。 |${!varprefix}
+${!varprefix@}|匹配之前所有以varprefix开头进行声明的变量 |${!name[@]}
+${!name[]}|如果name是数组对象，返回数组下标列表；如果name以设置但不为数组对象，返回0；否则返回null。
+字符串操作 |表达式|含义 |&amp;mdash;&amp;ndash; |${% raw %}{#{% endraw %}parameter}|parameter的长度。 |${parameter:offset}|在parameter中，从位置offset开始提取子串。 |${parameter:offset:length}|在parameter中，从位置offset开始提取长度为length的子串。 |${parameter#word}
+${parameter##word}|从头开始扫描parameter对应值，将匹配word正则表达式的字符删除掉#为最短匹配，##为最长匹配。 |${parameter%word}
+${parameter%%word}|从尾开始扫描parameter对应值，将匹配word正则表达式的字符删除掉%为最短匹配，%%为最长匹配。 |${parameter/pattern/string}
+${parameter//pattern/string}|将parameter对应值的pattern代替为string。/表示只替换一次，//表示全部替换。 |${parameter^pattern}
+${parameter^^pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为大写。^表示只转换匹配的首字母，^^表示全部转换。 |${parameter,pattern}
+${parameter,,pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为小写。,表示只转换匹配的首字母，,,表示全部转换。</description>
+    </item>
+    
+  </channel>
+</rss>

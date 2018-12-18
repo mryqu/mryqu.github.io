@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/ubuntu/</link>
+    <description>Recent content in Ubuntu on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 02 Nov 2016 06:15:02 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>update-alternatives与JAVA_HOME</title>
+      <link>https://mryqu.github.io/post/update-alternatives%E4%B8%8Ejava_home/</link>
+      <pubDate>Wed, 02 Nov 2016 06:15:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/update-alternatives%E4%B8%8Ejava_home/</guid>
+      <description>测试 /etc/profile配置 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar export PATH=$PATH:$JAVA_HOME/bin  使用update-alternatives切换JAVA hadoop@note50064:~$ which java /usr/bin/java hadoop@note50064:~$ sudo update-alternatives --config java There are 2 choices for the alternative . Selection Path Priority Status ------------------------------------------------------------ 0 /usr/lib/jvm/java-7-oracle/jre/bin/java 1072 auto mode * 1 /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java 1071 manual mode 2 /usr/lib/jvm/java-7-oracle/jre/bin/java 1072 manual mode Press enter to keep the current choice[*], or type selection number: hadoop@note50064:~$ ls -l /usr/bin/java lrwxrwxrwx 1 root root 22 Nov 21 03:26 /usr/bin/java -&amp;gt; /etc/alternatives/java hadoop@note50064:~$ ls -l /etc/alternatives/java lrwxrwxrwx 1 root root 46 Nov 1 01:44 /etc/alternatives/java -&amp;gt; /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java hadoop@note50064:~$ java -version java version &amp;quot;1.</description>
+    </item>
+    
+    <item>
+      <title>[Spark]Spark2集群安装实践</title>
+      <link>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Thu, 28 Jul 2016 05:47:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</guid>
+      <description>从Spark2.0.0开始，Spark使用Scala2.11构建，不再对Java7和Python2.6进行支持。当然不编译Spark源码的话，无需安装Scala。
+Spark集群模型 Spark应用作为集群上一组独立进程运行，由你的主程序（即驱动程序）的SparkContext对象管理。为了在集群上运行，SparkContext可以与若干类型集群管理器（Spark自带的独立集群管理器、Mesos、YARN）连接，集群管理器为应用分配资源。Spark需要集群节点上的执行者（executor）为应用执行计算或存储数据。接下来，它将应用代码发送给执行者，最后SparkContext将人物发往执行者进行运行。准备工作 安装Scala # Scala Installation wget www.scala-lang.org/files/archive/scala-2.11.8.deb sudo dpkg -i scala-2.11.8.deb # sbt Installation echo &amp;quot;deb https://dl.bintray.com/sbt/debian /&amp;quot; | sudo tee -a /etc/apt/sources.list.d/sbt.list sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823 sudo apt-get update sudo apt-get install sbt  安装Java8 sudo apt-add-repository ppa:webupd8team/java -y sudo apt-get update -y sudo apt-get install oracle-java8-installer -y sudo apt-get install oracle-java8-set-default  环境变量设置 在~/.bashrc中添加：
+# Set SPARK_HOME export SPARK_HOME=/usr/local/spark export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin  最后通过source~/.</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu中安装rpm包</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</link>
+      <pubDate>Fri, 07 Aug 2015 05:46:42 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</guid>
+      <description>RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。 APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。 Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。 Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用sudo apt-get install alien命令进行安装。
+Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统直接安装rpm：sudo alien -i --script(filename).rpm - deb转rpm：sudo alien --to-rpm (filename).deb - tar.gz转deb：sudo alien -k (filename).tar.gz - tar.bz2转deb：sudo alien -d (filename).tar.bz2 - tgz转deb：sudo alien --to-deb ~/(filename).tgz
+由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。</description>
+    </item>
+    
+    <item>
+      <title>apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法</title>
+      <link>https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sun, 05 Jul 2015 21:32:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</guid>
+      <description>首先，在Ubuntu的Docker官方镜像中是没有缓存Apt的软件包列表的。因此在做其他任何基础软件的安装前，都需要至少先做一次apt-get update。 有时为了加快apt-get安装软件的速度，还需要修改Apt源的列表文件/etc/apt/sources.list。相应的操作用命令表示如下：
+# 使用Ubuntu官方的Apt源，也可以根据实际需要修改为国内源的地址 echo &amp;quot;deb http://archive.ubuntu.com/ubuntu trusty main universe\n&amp;quot; &amp;gt; /etc/apt/sources.list echo &amp;quot;deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n&amp;quot; &amp;gt;&amp;gt; /etc/apt/sources.list  在容器构建时，为了避免使用apt-get install安装基础软件的过程中需要进行的交互操作，使用-y参数来避免安装非必须的文件，从而减小镜像的体积。
+apt-get -y --no-install-recommends install  使用apt-get autoremove命令移除为了满足包依赖而安装的、但不再需要的包；使用apt-get clean命令清除所获得包文件的本地仓库。 DEBIAN_FRONTEND这个环境变量，告知操作系统应该从哪儿获得用户输入。如果设置为&amp;rdquo;noninteractive&amp;rdquo;，你就可以直接运行命令，而无需向用户请求输入（所有操作都是非交互式的）。这在运行apt-get命令的时候格外有用，因为它会不停的提示用户进行到了哪步并且需要不断确认。非交互模式会选择默认的选项并以最快的速度完成构建。请确保只在Dockerfile中调用的RUN命令中设置了该选项，而不是使用ENV命令进行全局的设置。因为ENV命令在整个容器运行过程中都会生效，所以当你通过BASH和容器进行交互时，如果进行了全局设置那就会出问题。
+# 正确的做法 - 只为这个命令设置ENV变量 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 # 错误地做法 - 为接下来的任何命令都设置ENV变量，包括正在运行地容器 ENV DEBIAN_FRONTEND noninteractive RUN apt-get install -y python3  我的示例如下：
+FROM ubuntu:trusty MAINTAINER mryqu RUN \ DEBIAN_FRONTEND=noninteractive apt-get update &amp;amp;&amp;amp; \ DEBIAN_FRONTEND=noninteractive apt-get -y install wget curl &amp;amp;&amp;amp; \ DEBIAN_FRONTEND=noninteractive apt-get -y autoremove &amp;amp;&amp;amp; \ DEBIAN_FRONTEND=noninteractive apt-get clean  参考 Ubuntu manuals: apt-get man page</description>
+    </item>
+    
+    <item>
+      <title>Vagrant base box列表</title>
+      <link>https://mryqu.github.io/post/vagrant_base_box%E5%88%97%E8%A1%A8/</link>
+      <pubDate>Thu, 28 May 2015 05:28:59 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/vagrant_base_box%E5%88%97%E8%A1%A8/</guid>
+      <description>Vagrant的basebox都是打包了最小安装版操作系统(仅有一些跟Vagrant通讯必需的工具)的虚拟机镜像。vagrantbox.es列出了很多Vagrant的basebox，其中既有官方的box也有很多非官方的box。 有的box名是lucid32.box、lucid64.box、precise32.box、precise64.box，一开始不明白怎么回事，后来知道用的是Ubuntu的英文代码。
+Ubuntu各种版本的英文代码 |版本|英文代号|中译 |&amp;mdash;&amp;ndash; |Ubuntu 4.10|Warty Warthog|多疣的疣猪 |Ubuntu 5.04|Hoary Hedgehog|白发的刺猬 |Ubuntu 5.10|Breezy Badger|活泼的獾 |Ubuntu 6.06|Dapper Drake|整洁的公鸭 |Ubuntu 6.10|Edgy Eft|尖利的小蜥蜴 |Ubuntu 7.04|Feisty Fawn|烦躁不安的鹿 |Ubuntu 7.10|Gutsy Gibbon|胆大的长臂猿 |Ubuntu 8.04|Hardy Heron|坚强的鹭 |Ubuntu 8.10|Intrepid Ibex|无畏的羱羊 |Ubuntu 9.04|Jaunty Jackalope|活泼的鹿角兔 |Ubuntu 9.10|Karmic Koala|幸运的树袋熊 |Ubuntu 10.04|Lucid Lynx|清醒的猞猁 |Ubuntu 10.10|Maverick Meerkat|标新立异的的狐獴 |Ubuntu 11.04|Natty Narwhal|敏捷的独角鲸 |Ubuntu 11.10|Oneiric Ocelot|有梦的虎猫 |Ubuntu 12.04|Precise Pangolin|精准的穿山甲 |Ubuntu 12.10|Quantal Quetzal|量子的格查尔鸟 |Ubuntu 13.04|Raring Ringtail|铆足了劲的环尾猫熊 |Ubuntu 13.10|Saucy Salamander|活泼的蝾螈 |Ubuntu 14.04|Trusty Tahr|可靠的塔尔羊 |Ubuntu 14.10|Utopic Unicorn|乌托邦的独角兽 |Ubuntu 15.</description>
+    </item>
+    
+    <item>
+      <title>Apt-get代理配置</title>
+      <link>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 20 May 2015 00:03:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+      <description>在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
+DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子： - Docker apt-get update fails - Docker - Network calls fail during image build on corporate network - How do I set my DNS on Ubuntu 14.04?
+检查我ubuntu配置：
+ cat /etc/resolv.conf  确认DNS没有问题。
+Ubuntu官方服务器？ 是不是我的机器连不上欧美的Ubuntu官方服务器，换成中国服务器试试。尝试了Ubuntu 14.04服务器列表上的中国服务器还是不成。
+Apt-get代理？ 照着how to install packages with apt-get on a system connected via proxy?设置一番，成功了
+设置/etc/apt/apt.conf：
+Acquire::http::proxy &amp;quot;http://yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourServer:yourPort/&amp;quot;;  如需用户名、密码，则作如下修改：
+Acquire::http::proxy &amp;quot;http://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;;  最好将上述配置也存入/etc/apt/apt.</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu中强制Apt-get使用IPv4或IPv6</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</link>
+      <pubDate>Mon, 18 May 2015 06:14:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</guid>
+      <description>快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
+apt-get --version  结果近似于:
+apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14  版本核实后，可以通过如下命令强制使用IPv4:
+apt-get -o Acquire::ForceIPv4=true update  或IPv6:
+apt-get -o Acquire::ForceIPv6=true update  这会将_sources.list_中的URL仅解析成IPv4并更新仓库。
+持久化的选项 为了让设置持久化，在/etc/apt/apt.conf.d/下创建99force-ipv4文件。
+sudoedit /etc/apt/apt.conf.d/99force-ipv4  在该文件放入如下内容：
+Acquire::ForceIPv4 &amp;quot;true&amp;quot;;  保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的4改成6即可。
+原文: https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu中禁掉IPv6</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</link>
+      <pubDate>Fri, 20 Mar 2015 08:38:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</guid>
+      <description>为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p  之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 </description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu Linux上安装netstat</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</link>
+      <pubDate>Wed, 01 Jan 2014 13:52:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</guid>
+      <description>在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools。net-tools是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
+apt-get install net-tools  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下显示本机IP</title>
+      <link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</link>
+      <pubDate>Sun, 20 Oct 2013 12:05:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</guid>
+      <description>命令为：ip addr show 感觉比ifconfig eth0更通用些！</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop] Ubuntu 13.10下构建Mahout项目</title>
+      <link>https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/</link>
+      <pubDate>Fri, 18 Oct 2013 20:58:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/</guid>
+      <description>JDK  在Oracle网站下载jdk-6u45-linux-i586.bin到/opt目录 进入/opt目录安装JDK:  chmod +x jdk-6u45-linux-i586.bin sudo ./jdk-6u45-linux-i586.bin  进入/etc目录配置profile文件: sudo vi profile 在文件末尾添加：  JAVA_HOME=/opt/jdk1.6.0_45 export JRE_HOME=$JAVA_HOME/jre export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH  运行source /etc/profile 使其生效。 运行java -version 检验:  java version &amp;quot;1.6.0_45&amp;quot;   Eclipse  在Eclipse网站下载eclipse-jee-juno-SR2-linux-gtk.tar.gz到/opt目录 进入/opt目录解压缩Eclipse:  $ sudo tar -zxvf eclipse-jee-juno-SR2-linux-gtk.tar.gz$ sudo rm ./eclipse-jee-juno-SR2-linux-gtk.tar.gz  创建Eclipse启动快捷方式： $ sudo gedit /usr/share/applications/eclipse.desktop  [Desktop Entry] Type=Application Name=Eclipse Comment=Eclipse IDE Icon=/opt/eclipse/icon.xpm Exec=/opt/eclipse/eclipse Terminal=false StartupNotify=true Type=Application Categories=Development;IDE;Java; Exec=env UBUNTU_MENUPROXY= /opt/eclipse/eclipse   m2eclipse  通过下列update site安装:http://download.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下安装部署MySQL数据库</title>
+      <link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Fri, 11 Oct 2013 21:52:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
+sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java  查看是否安装成功:
+sudo netstat -tap | grep mysql  查看上述软件包所提供的文件:
+dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev  通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
+MySQL服务操作 查看状态 - 使用service查看状态：sudo service mysql status - 使用mysql脚本查看状态：/etc/inint.d/mysql status - 使用mysqladmin查看状态：mysqladmin -u root -p status
+启动 - 使用service启动：sudo service mysql start - 使用mysql脚本启动：/etc/inint.d/mysql start - 使用mysqld_safe启动：mysqld_safe&amp;amp;</description>
+    </item>
+    
+    <item>
+      <title>安装Python的simplejson库</title>
+      <link>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85python%E7%9A%84simplejson%E5%BA%93/</link>
+      <pubDate>Tue, 24 Sep 2013 22:51:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85python%E7%9A%84simplejson%E5%BA%93/</guid>
+      <description>在Ubuntu下运行一个Python程序，遇到如下问题：ImportError: No module named simplejson。
+首先查看一下Python和pip的版本：
+python -V pip -V  竟然没有装pip，解决方案如下：
+sudo apt-get install python-pip pip2 install simplejson  </description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu上修改主机名</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</link>
+      <pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</guid>
+      <description> 显示主机名 hostname -s  更多细节见hostname帮助文档。
+修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  </description>
+    </item>
+    
+  </channel>
+</rss>

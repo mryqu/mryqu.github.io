@@ -1,0 +1,977 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[HBase] Shell命令 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[HBase] Shell命令">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[HBase] Shell命令 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/" itemprop="url">
+        [HBase] Shell命令
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-09-27">
+    2013-09-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hbase" itemprop="url" rel="index">
+        <span itemprop="name">HBase</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1020 字 ~5分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。</p>
+
+<h3 id="1-通用hbase命令">1) 通用HBase命令</h3>
+
+<h4 id="status">status</h4>
+
+<p>显示集群状态。可以为‘summary’、‘simple’或‘detailed’。默认为‘summary’。
+用法:</p>
+
+<pre><code>hbase&gt; status
+hbase&gt; status ‘simple’
+hbase&gt; status ‘summary’
+hbase&gt; status ‘detailed’
+</code></pre>
+
+<h4 id="version">version</h4>
+
+<p>输出HBase版本
+用法:</p>
+
+<pre><code>hbase&gt; version
+</code></pre>
+
+<h4 id="whoami">whoami</h4>
+
+<p>显示当前HBase用户。
+用法:</p>
+
+<pre><code>hbase&gt; whoami
+</code></pre>
+
+<h3 id="2-表管理命令">2) 表管理命令</h3>
+
+<h4 id="alter">alter</h4>
+
+<p>修改列族schema；提供表名和指定新列族schema的字典。字典必须包含所要修改的列族名。例如，</p>
+
+<p>对表‘t1’修改或添加列族‘f1’从当前值到最大版本5：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, NAME =&gt; ‘f1’, VERSIONS =&gt; 5
+</code></pre>
+
+<p>对多个列族进行操作:</p>
+
+<pre><code>hbase&gt; alter ‘t1’, ‘f1’, {NAME =&gt; ‘f2’, IN_MEMORY =&gt; true}, {NAME =&gt; ‘f3’, VERSIONS =&gt; 5}
+</code></pre>
+
+<p>删除表‘t1’中的列族‘f1’，使用下列方法之一：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, NAME =&gt; ‘f1’, METHOD =&gt; ‘delete’
+hbase&gt; alter ‘t1’, ‘delete’ =&gt; ‘f1’
+</code></pre>
+
+<p>也可以修改诸如MAX_FILESIZE、READONLY、MEMSTORE_FLUSHSIZE、DEFERRED_LOG_FLUSH等表属性，例如将region最大容量设为128MB：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, MAX_FILESIZE =&gt; ‘134217728’
+</code></pre>
+
+<p>可以通过设置表协处理器属性添加表协处理器：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, ‘coprocessor’=&gt;’hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2’
+</code></pre>
+
+<p>由于可以对一个表配置多个协处理器，一个序列号将自动附加到属性名后以唯一标识。为了理解如何加载协处理器类，协处理器属性必须匹配下列模式:</p>
+
+<pre><code>[coprocessor jar file location] | class name | [priority] | [arguments]
+</code></pre>
+
+<p>也可以设置表或列族特定配置：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, CONFIGURATION =&gt; {‘hbase.hregion.scan.loadColumnFamiliesOnDemand’ =&gt; ‘true’}
+hbase&gt; alter ‘t1’, {NAME =&gt; ‘f2’, CONFIGURATION =&gt; {‘hbase.hstore.blockingStoreFiles’ =&gt; ’10’}}
+</code></pre>
+
+<p>也可以移除表属性：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, METHOD =&gt; ‘table_att_unset’, NAME =&gt; ‘MAX_FILESIZE’
+hbase&gt; alter ‘t1’, METHOD =&gt; ‘table_att_unset’, NAME =&gt; ‘coprocessor$1’
+</code></pre>
+
+<p>上两个命令可以放在一个命令中：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, { NAME =&gt; ‘f1’, VERSIONS =&gt; 3 },{ MAX_FILESIZE =&gt; ‘134217728’ }, { METHOD =&gt; ‘delete’, NAME =&gt; ‘f2’ },OWNER =&gt; ‘johndoe’, METADATA =&gt; { ‘mykey’ =&gt; ‘myvalue’ }
+</code></pre>
+
+<h4 id="create">create</h4>
+
+<p>创建表。提供表明和针对每个列族的字典及一个表配置的可选字典。</p>
+
+<pre><code>hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’, VERSIONS =&gt; 5}
+hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’}, {NAME =&gt; ‘f2’}, {NAME =&gt; ‘f3’}
+hbase&gt; # 上一命令的缩写方法如下：
+hbase&gt; create ‘t1’, ‘f1’, ‘f2’, ‘f3’
+
+hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’, VERSIONS =&gt; 1, TTL =&gt; 2592000, BLOCKCACHE =&gt; true}
+hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’, CONFIGURATION =&gt; {‘hbase.hstore.blockingStoreFiles’ =&gt; ’10’}}
+</code></pre>
+
+<p>表配置选项可被放在参数的最后。</p>
+
+<h4 id="describe">describe</h4>
+
+<p>描述特定表。</p>
+
+<pre><code>hbase&gt; describe ‘t1’
+</code></pre>
+
+<h4 id="disable">disable</h4>
+
+<p>禁止特定表。</p>
+
+<pre><code>hbase&gt; disable ‘t1’
+</code></pre>
+
+<h4 id="disable-all">disable_all</h4>
+
+<p>禁止匹配给定正则表达式的所有表。</p>
+
+<pre><code>hbase&gt; disable_all ‘t.*’
+</code></pre>
+
+<h4 id="is-disabled">is_disabled</h4>
+
+<p>判断特定表是否被禁止。</p>
+
+<pre><code>hbase&gt; is_disabled ‘t1’
+</code></pre>
+
+<h4 id="drop">drop </h4>
+
+<p>删除特定表。表必须先被禁止。</p>
+
+<pre><code>hbase&gt; drop ‘t1’
+</code></pre>
+
+<h4 id="drop-all">drop_all</h4>
+
+<p>删除匹配给定正则表达式的所有表。</p>
+
+<pre><code>hbase&gt; drop_all ‘t.*’
+</code></pre>
+
+<h4 id="enable">enable</h4>
+
+<p>使能特定表。</p>
+
+<pre><code>hbase&gt; enable ‘t1’
+</code></pre>
+
+<h4 id="enable-all">enable_all</h4>
+
+<p>使能匹配给定正则表达式的所有表。</p>
+
+<pre><code>hbase&gt; enable_all ‘t.*’
+</code></pre>
+
+<h4 id="is-enabled">is_enabled</h4>
+
+<p>判断特定表是否使能。</p>
+
+<pre><code>hbase&gt; is_enabled ‘t1’
+</code></pre>
+
+<h4 id="exists">exists</h4>
+
+<p>判断特定表是否存在。</p>
+
+<pre><code>hbase&gt; exists ‘t1’
+</code></pre>
+
+<h4 id="list">list</h4>
+
+<p>列举HBase中所有表。可选的正则表达式参数可被用于过滤输出</p>
+
+<pre><code>hbase&gt; list
+hbase&gt; list ‘abc.*’
+</code></pre>
+
+<h4 id="show-filters">show_filters</h4>
+
+<p>显示HBase中所有过滤器。</p>
+
+<pre><code>hbase&gt; show_filters
+</code></pre>
+
+<h4 id="alter-status">alter_status</h4>
+
+<p>获得alter命令状态。提供一个表名参数，返回表中收到更新的schema的region数目。</p>
+
+<pre><code>hbase&gt; alter_status ‘t1’
+</code></pre>
+
+<h4 id="alter-async">alter_async</h4>
+
+<p>修改列族schema，不等待所有region收到schema变动。提供表名和指定新列族schema的字典。字典必须包含所要修改的列族名。</p>
+
+<p>对表‘t1’修改或添加列族‘f1’从当前值到最大版本5：</p>
+
+<pre><code>hbase&gt; alter_async ‘t1’, NAME =&gt; ‘f1’, VERSIONS =&gt; 5 删除表‘t1’中的列族‘f1’:
+hbase&gt; alter_async ‘t1’, NAME =&gt; ‘f1’, METHOD =&gt; ‘delete’or a shorter version:hbase&gt; alter_async ‘t1’, ‘delete’ =&gt; ‘f1’
+</code></pre>
+
+<p>也可以修改诸如MAX_FILESIZE、READONLY、MEMSTORE_FLUSHSIZE、DEFERRED_LOG_FLUSH等表属性，例如将region最大容量设为128MB：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, METHOD =&gt; ‘table_att’, MAX_FILESIZE =&gt; ‘134217728’
+</code></pre>
+
+<p>可以把多个命令换成一个命令中：</p>
+
+<pre><code>hbase&gt; alter ‘t1’, {NAME =&gt; ‘f1’}, {NAME =&gt; ‘f2’, METHOD =&gt; ‘delete’}
+</code></pre>
+
+<p>检查是否所有region已被更新，使用alter_status</p>
+
+<h3 id="3-数据操作命令">3) 数据操作命令</h3>
+
+<h4 id="count">count</h4>
+
+<p>获得表中行数。该操作可能会耗费很长时间。(运行 ‘$HADOOP_HOME/bin/hadoop jar hbase.jar rowcount’以执行一个计数mapreduce作业)。默认当前行数每1000行显示一次，计数间隔可选指定。行数扫描默认是能缓存扫描，默认缓存容龄为10行。如果你的行大小较小，可以增大概参数。例如：</p>
+
+<pre><code>hbase&gt; count ‘t1’
+hbase&gt; count ‘t1’, INTERVAL =&gt; 100000
+hbase&gt; count ‘t1’, CACHE =&gt; 1000
+hbase&gt; count ‘t1’, INTERVAL =&gt; 10, CACHE =&gt; 1000
+</code></pre>
+
+<p>相同的命令也可以运行在一个表引用上。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.count
+hbase&gt; t.count INTERVAL =&gt; 100000
+hbase&gt; t.count CACHE =&gt; 1000
+hbase&gt; t.count INTERVAL =&gt; 10, CACHE =&gt; 1000
+</code></pre>
+
+<h4 id="delete">delete</h4>
+
+<p>在特定表/行/列及可选的时戳坐标放置一个删除单元值。删除必须严格匹配被删除单元的标记。当扫描时，删除单元抑制更旧的版本。从表‘t1’的行‘r1’、列‘c1’删除一个单元并标识时间‘ts1’：</p>
+
+<pre><code>hbase&gt; delete ‘t1’, ‘r1’, ‘c1’, ts1 
+</code></pre>
+
+<p>相同的命令也可以运行在一个表引用上。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.delete ‘r1’, ‘c1’, ts1
+</code></pre>
+
+<h4 id="deleteall">deleteall</h4>
+
+<p>删除给定行的全部单元。提供表名、行、及可选的列和时戳。例如：</p>
+
+<pre><code>hbase&gt; deleteall ‘t1’, ‘r1’
+hbase&gt; deleteall ‘t1’, ‘r1’, ‘c1’
+hbase&gt; deleteall ‘t1’, ‘r1’, ‘c1’, ts1
+</code></pre>
+
+<p>相同的命令也可以运行在一个表引用上。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.deleteall ‘r1’
+hbase&gt; t.deleteall ‘r1’, ‘c1’
+hbase&gt; t.deleteall ‘r1’, ‘c1’, ts1
+</code></pre>
+
+<h4 id="get">get</h4>
+
+<p>获取行或单元内容。提供表名、行及可选的列、时戳、时间范围和版本的词典。例如</p>
+
+<pre><code>hbase&gt; get ‘t1’, ‘r1’
+hbase&gt; get ‘t1’, ‘r1’, {TIMERANGE =&gt; [ts1, ts2]}
+hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’}
+hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; [‘c1’, ‘c2’, ‘c3’]}
+hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1}
+hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’, TIMERANGE =&gt; [ts1, ts2], VERSIONS =&gt; 4}
+hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1, VERSIONS =&gt; 4}
+hbase&gt; get ‘t1’, ‘r1’, {FILTER =&gt; “ValueFilter(=, ‘binary:abc’)”}
+hbase&gt; get ‘t1’, ‘r1’, ‘c1’
+hbase&gt; get ‘t1’, ‘r1’, ‘c1’, ‘c2’
+hbase&gt; get ‘t1’, ‘r1’, [‘c1’, ‘c2’]
+</code></pre>
+
+<p>除了默认‘toStringBinary’格式，‘get’也支持基于列的定制格式。一个用户可在get规范中列名增加定义格式器。定义格式器方式如下：
+- 或者使用org.apache.hadoop.hbase.util.Bytes类中的方法名(例如toInt、toString)
+- 或者使用定制类及方法名: 例如‘c(MyFormatterClass).format’。</p>
+
+<p>将cf:qualifier1和cf:qualifier2都格式化为整数的示例如下：</p>
+
+<pre><code>hbase&gt; get ‘t1’, ‘r1’ {COLUMN =&gt; [‘cf:qualifier1:toInt’, ‘cf:qualifier2:c(org.apache.hadoop.hbase.util.Bytes).toInt’] }
+</code></pre>
+
+<p>注意，你仅可以对一个列(cf:qualifer)指定格式器，不能指定一个用于一个列族所有列的格式器。相同的命令也可以运行在一个表引用上（通过get_table或create_table获得）。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.get ‘r1’
+hbase&gt; t.get ‘r1’, {TIMERANGE =&gt; [ts1, ts2]}
+hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’}
+hbase&gt; t.get ‘r1’, {COLUMN =&gt; [‘c1’, ‘c2’, ‘c3’]}
+hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1}
+hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’, TIMERANGE =&gt; [ts1, ts2], VERSIONS =&gt; 4}
+hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1, VERSIONS =&gt; 4}
+hbase&gt; t.get ‘r1’, {FILTER =&gt; “ValueFilter(=, ‘binary:abc’)”}
+hbase&gt; t.get ‘r1’, ‘c1’
+hbase&gt; t.get ‘r1’, ‘c1’, ‘c2’
+hbase&gt; t.get ‘r1’, [‘c1’, ‘c2’]
+</code></pre>
+
+<h4 id="get-counter">get_counter</h4>
+
+<p>获取特定表/行/列坐标上计数器单元值。一个单元在HBase上可用原子增加函数管理且数据为二进制编码。例如：</p>
+
+<pre><code>hbase&gt; get_counter ‘t1’, ‘r1’, ‘c1’
+</code></pre>
+
+<p>相同的命令也可以运行在一个表引用上。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.get_counter ‘r1’, ‘c1’
+</code></pre>
+
+<h4 id="incr">incr</h4>
+
+<p>在特定表/行/列坐标对单元值增值。从表‘t1’的行‘r1’、列‘c1’对单元值增值1（默认，可略）或10：</p>
+
+<pre><code>hbase&gt; incr ‘t1’, ‘r1’, ‘c1’
+hbase&gt; incr ‘t1’, ‘r1’, ‘c1’, 1
+hbase&gt; incr ‘t1’, ‘r1’, ‘c1’, 10
+</code></pre>
+
+<p>相同的命令也可以运行在一个表引用上。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.incr ‘r1’, ‘c1’
+hbase&gt; t.incr ‘r1’, ‘c1’, 1
+hbase&gt; t.incr ‘r1’, ‘c1’, 10
+</code></pre>
+
+<h4 id="put">put</h4>
+
+<p>在特定表/行/列及可选的时戳坐标放置一个单元值。从表‘t1’的行‘r1’、列‘c1’放置一个单元值并标识时间‘ts1’：</p>
+
+<pre><code>hbase&gt; put ‘t1’, ‘r1’, ‘c1’, ‘value’, ts1
+</code></pre>
+
+<p>相同的命令也可以运行在一个表引用上。假设有对表‘t1’的的引用t，相应命令为：</p>
+
+<pre><code>hbase&gt; t.put ‘r1’, ‘c1’, ‘value’, ts1
+</code></pre>
+
+<h4 id="scan">scan</h4>
+
+<p>扫描一个表；提供表名和可选的扫描器规范词典。扫描器规范可能包含下列一或多个项:TIMERANGE、FILTER、LIMIT、STARTROW、STOPROW、TIMESTAMP、MAXLENGTH、COLUMNS、CACHE。</p>
+
+<p>如果没有指定列，所有列将被扫描。要扫描列族所有成员，将‘col_family:’中的限定符置空。过滤器可以两种方式指定：
+- 使用过滤器语句 - 更多信息见HBASE-4176 JIRA所附的过滤器语言文档
+- 使用过滤器的整个包名</p>
+
+<p>例如：</p>
+
+<pre><code>hbase&gt; scan ‘.META.’
+hbase&gt; scan ‘.META.’, {COLUMNS =&gt; ‘info:regioninfo’}
+hbase&gt; scan ‘t1’, {COLUMNS =&gt; [‘c1’, ‘c2’], LIMIT =&gt; 10, STARTROW =&gt; ‘xyz’}
+hbase&gt; scan ‘t1’, {COLUMNS =&gt; ‘c1’, TIMERANGE =&gt; [1303668804, 1303668904]}
+hbase&gt; scan ‘t1’, {FILTER =&gt; “(PrefixFilter (‘row2’) AND (QualifierFilter (&gt;=, ‘binary:xyz’))) AND (TimestampsFilter ( 123, 456))”}
+hbase&gt; scan ‘t1’, {FILTER =&gt; org.apache.hadoop.hbase.filter.ColumnPaginationFilter.new(1, 0)}
+</code></pre>
+
+<p>对于专家，有个用于开关扫描器块缓存的额外选项 — CACHE_BLOCKS, 默认为开。例如：</p>
+
+<pre><code>hbase&gt; scan ‘t1’, {COLUMNS =&gt; [‘c1’, ‘c2’], CACHE_BLOCKS =&gt; false}
+</code></pre>
+
+<p>此外对于专家，还有一个用于命令扫描器返回（包含删除标记和未分配删除单元）所有单元的高级选项 — RAW，默认为禁止。该选项不能与指定特定列的请求共用。例如：</p>
+
+<pre><code>hbase&gt; scan ‘t1’, {RAW =&gt; true, VERSIONS =&gt; 10}
+</code></pre>
+
+<p>除了默认‘toStringBinary’格式，‘get’也支持基于列的定制格式。一个用户可在get规范中列名增加定义格式器。定义格式器方式如下：
+- 或者使用org.apache.hadoop.hbase.util.Bytes类中的方法名(例如toInt、toString)
+- 或者使用定制类及方法名: 例如‘c(MyFormatterClass).format’。</p>
+
+<p>将cf:qualifier1和cf:qualifier2都格式化为整数的示例如下：</p>
+
+<pre><code>hbase&gt; get ‘t1’, ‘r1’ {COLUMN =&gt; [‘cf:qualifier1:toInt’, ‘cf:qualifier2:c(org.apache.hadoop.hbase.util.Bytes).toInt’] }
+</code></pre>
+
+<p>注意，你仅可以对一个列(cf:qualifer)指定格式器，不能指定一个用于一个列族所有列的格式器。
+相同的命令也可以运行在一个表引用上，首先需要获得表的引用，相应命令为：</p>
+
+<pre><code>hbase&gt; t = get_table ‘t’
+hbase&gt; t.scan
+</code></pre>
+
+<p>注意在使用表引用时，仍可以提供所有过滤器、列、选项等。</p>
+
+<h4 id="truncate">truncate</h4>
+
+<p>禁止、删除并重生特定表。例如：</p>
+
+<pre><code>hbase&gt;truncate ‘t1’
+</code></pre>
+
+<h3 id="4-hbase工具命令">4) HBase工具命令</h3>
+
+<h4 id="assign">assign</h4>
+
+<p>分配一个region。使用须注意。如果一个region已经被分配，该命令会强制重新分配。仅供专家使用。例如：</p>
+
+<pre><code>hbase&gt; assign ‘REGION_NAME’
+</code></pre>
+
+<h4 id="balancer">balancer</h4>
+
+<p>触发集群均衡器。
+如均衡器运行且能够让region服务器取消所有region以进行均衡（重新分配自身是异步的），则返回true。否则返回false（如果region处于状态变迁则不会运行）。
+例如：</p>
+
+<pre><code>hbase&gt; balancer
+</code></pre>
+
+<h4 id="balance-switch">balance_switch</h4>
+
+<p>使能/禁止均衡器。返回上一均衡器状态。例如：</p>
+
+<pre><code>hbase&gt; balance_switch true
+hbase&gt; balance_switch false
+</code></pre>
+
+<h4 id="close-region">close_region</h4>
+
+<p>关闭单个region。请求master将集群上一个region关闭。如果提供‘SERVER_NAME’的话，请求所在regionserver直接关闭region。关闭region，master期望‘REGIONNAME’是完全限定region名。当请求所在regionserver直接关闭一个region，仅能提供region的编码名。
+例如一个region名为TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396。
+编码的region名则为527db22f95c8a9e0116f0cc13c680396。服务器名是主机名、端口名及regionserver的启动代码。例如：host187.example.com,60020,1289493121758。例如：该命令以关闭运行在regionserver上region作为结束。该操作无需引入master（master不会了解该关闭）。一旦关闭，region将保持关闭状态。使用assign来重新打开/分配。使用unassign或move来分配集群内其他位置的region。使用须谨慎，仅供专家使用。
+例如：</p>
+
+<pre><code>hbase&gt; close_region ‘REGIONNAME’
+hbase&gt; close_region ‘REGIONNAME’, ‘SERVER_NAME’
+</code></pre>
+
+<h4 id="compact">compact</h4>
+
+<p>提供一个表参数压缩所有region，或提供一个region row参数压缩单个region。也可以压缩region内单个列族。例如：</p>
+
+<p>压缩一个表中所有region：</p>
+
+<pre><code>hbase&gt; compact ‘t1’
+</code></pre>
+
+<p>压缩整个region：</p>
+
+<pre><code>hbase&gt; compact ‘r1’
+</code></pre>
+
+<p>仅压缩一个region中一个列族：</p>
+
+<pre><code>hbase&gt; compact ‘r1’, ‘c1’
+</code></pre>
+
+<p>压缩一个表中一个列族：</p>
+
+<pre><code>hbase&gt; compact ‘t1’, ‘c1’
+</code></pre>
+
+<h4 id="flush">flush</h4>
+
+<p>提供一个表参数flush所有region，或提供一个region row参数flush单个region。例如：</p>
+
+<pre><code>hbase&gt; flush ‘TABLENAME’
+hbase&gt; flush ‘REGIONNAME’
+</code></pre>
+
+<h4 id="major-compact">major_compact</h4>
+
+<p>提供一个表参数重量级压缩所有region，或提供一个region row参数重量级压缩单个region。也可以重量级压缩region内单个列族。例如：</p>
+
+<p>压缩一个表中所有region:</p>
+
+<pre><code>hbase&gt; major_compact ‘t1’
+</code></pre>
+
+<p>压缩整个region:</p>
+
+<pre><code>hbase&gt; major_compact ‘r1’
+</code></pre>
+
+<p>压缩一个region内单个列族:</p>
+
+<pre><code>hbase&gt; major_compact ‘r1’, ‘c1’
+</code></pre>
+
+<p>压缩一个表内单个列族:</p>
+
+<pre><code>hbase&gt; major_compact ‘t1’, ‘c1’
+</code></pre>
+
+<h4 id="move">move</h4>
+
+<p>移动region。可以可选地指定目标regionserver或随机选择一个。注意：需要传递编码后的region名，而不是region名。因此这个命令与其他命令稍有不同。编码的region名是region名的哈希后缀。例如一个region名为TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396. 编码的region名则为527db22f95c8a9e0116f0cc13c680396。服务器名是主机名、端口名及regionserver的启动代码。例如：host187.example.com,60020,1289493121758。例如：</p>
+
+<pre><code>hbase&gt; move ‘ENCODED_REGIONNAME’
+hbase&gt; move ‘ENCODED_REGIONNAME’, ‘SERVER_NAME’
+</code></pre>
+
+<h4 id="split">split</h4>
+
+<p>分割整表或将一个region。使用第二个参数，可以为region显式指定分割键。例如：</p>
+
+<pre><code>split ‘tableName’
+split ‘regionName’ # format: ‘tableName,startKey,id’
+split ‘tableName’, ‘splitKey’
+split ‘regionName’, ‘splitKey’
+</code></pre>
+
+<h4 id="unassign">unassign</h4>
+
+<p>取消分配一个region。unassign将关闭当前位置的region，之后重新打开。传递true强制取消分配（‘强制’将在重新分配前清除其在master内存内的所有状态。如果导致双重分配，使用hbck-fix解决。） 使用须谨慎，仅供专家使用。例如：</p>
+
+<pre><code>hbase&gt; unassign ‘REGIONNAME’
+hbase&gt; unassign ‘REGIONNAME’, true
+</code></pre>
+
+<h4 id="hlog-roll">hlog_roll</h4>
+
+<p>滚动日志记录器。即开始向新文件写日志消息。regionserver应作为一个参数提供。服务器名是主机名、端口名及regionserver的启动代码。例如：host187.example.com,60020,1289493121758?(在masterui或shell中查询详细状态可获知服务器名)。</p>
+
+<pre><code>hbase&gt;hlog_roll
+</code></pre>
+
+<h4 id="zk-dump">zk_dump</h4>
+
+<p>导出ZooKeeper所见的HBase集群状态。例如：</p>
+
+<pre><code>hbase&gt;zk_dump
+</code></pre>
+
+<h3 id="5-集群复制命令">5) 集群复制命令</h3>
+
+<p>添加所要复制到的对端集群，集群键组成类似于：hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent，
+这提供了HBase连接其他集群的全路径。例如：</p>
+
+<pre><code>hbase&gt; add_peer ‘1’, “server1.mryqu.com:2181:/hbase”
+hbase&gt; add_peer ‘2’, “zk1,zk2,zk3:2182:/hbase-prod”
+</code></pre>
+
+<h4 id="remove-peer">remove_peer</h4>
+
+<p>停止特定复制流并删除所有元数据信息。例如：</p>
+
+<pre><code>hbase&gt; remove_peer ‘1’
+</code></pre>
+
+<h4 id="list-peers">list_peers</h4>
+
+<p>列举所有复制对端集群。</p>
+
+<pre><code>hbase&gt; list_peers
+</code></pre>
+
+<h4 id="enable-peer">enable_peer</h4>
+
+<p>重启已被禁止的向特定对端集群的复制。例如：</p>
+
+<pre><code>hbase&gt; enable_peer ‘1’
+</code></pre>
+
+<h4 id="disable-peer">disable_peer</h4>
+
+<p>停止向特定对端集群的复制，但是仍保留复制相关元数据。例如：</p>
+
+<pre><code>hbase&gt; disable_peer ‘1’
+</code></pre>
+
+<h4 id="start-replication">start_replication</h4>
+
+<p>重启所有复制功能。每个启动的流的状态不确定。
+警告：启动/停止复制仅在临界负荷情况下可能被使用。
+示例:</p>
+
+<pre><code>hbase&gt; start_replication
+</code></pre>
+
+<h4 id="stop-replication">stop_replication</h4>
+
+<p>停止所有复制功能。每个停掉的流的状态不确定。
+警告：启动/停止复制仅在临界负荷情况下可能被使用。
+示例:</p>
+
+<pre><code>hbase&gt; stop_replication
+</code></pre>
+
+<h3 id="6-安全命令">6) 安全命令</h3>
+
+<p>赋予用户特定权限。
+语法：所赋予的权限可以是“RWXCA”中零或多个字母。READ(‘R’), WRITE(‘W’), EXEC(‘X’), CREATE(‘C’), ADMIN(‘A’)</p>
+
+<pre><code>hbase&gt; grant ‘bobsmith’, ‘RW’, ‘t1’, ‘f1’, ‘col1’
+</code></pre>
+
+<p></tr>#### revoke
+取消一个用户访问权限。
+语法：revoke</p>
+
+<pre><code>hbase&gt; revoke ‘bobsmith’, ‘t1’, ‘f1’, ‘col1’
+</code></pre>
+
+<h4 id="user-permission">user_permission</h4>
+
+<p>显示特定用户的所有权限。
+语法：user_permission</p>
+
+<pre><code>hbase&gt; user_permission ‘table1’
+</code></pre>
+
+<p>英文原文：<a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/">HBase shell commands</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[HBase] Shell命令
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/hbase" rel="tag" title="hbase">#hbase#</a>
+    
+    <a href="/tags/shell" rel="tag" title="shell">#shell#</a>
+    
+    <a href="/tags/command" rel="tag" title="command">#command#</a>
+    
+    <a href="/tags/usage" rel="tag" title="usage">#usage#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E9%9D%9E%E6%A6%82%E7%8E%87%E6%8A%BD%E6%A0%B7/" rel="next" title="非概率抽样">
+        <i class="fa fa-chevron-left"></i> 非概率抽样
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E5%AE%89%E8%A3%85python%E7%9A%84simplejson%E5%BA%93/" rel="prev" title="安装Python的simplejson库">
+        安装Python的simplejson库 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

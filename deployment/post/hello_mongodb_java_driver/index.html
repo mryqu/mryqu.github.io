@@ -1,0 +1,609 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Hello MongoDB Java Driver - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Hello MongoDB Java Driver">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Hello MongoDB Java Driver - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hello_mongodb_java_driver/" itemprop="url">
+        Hello MongoDB Java Driver
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-30">
+    2014-03-30
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db/nosql" itemprop="url" rel="index">
+        <span itemprop="name">DB/NoSQL</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">900 字 ~5分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。
+<strong>Java代码如下：</strong></p>
+
+<pre><code>package com.yqu.mongodb;
+
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Set;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.MongoException;
+
+public class HelloMongoDB {
+
+  public static void main(String[] args) {
+    MongoClient mongoClient = null;
+    try {
+      
+      // Since 2.10.0, uses MongoClient
+      // mongoClient = new MongoClient(&quot;localhost&quot;, 27017);
+      String host = &quot;mongodb://localhost:27017&quot;;
+      mongoClient = new MongoClient(new MongoClientURI(host));
+
+      showdbs(mongoClient);
+
+      
+      // MongoDB will create it if database doesn't exists
+      DB db = mongoClient.getDB(&quot;hellodb&quot;);
+
+      System.out.println(&quot;\nget database 'hellodb'.&quot;);
+      showdbs(mongoClient);
+
+      showcollections(db);
+
+      
+      DBCollection coll = null;
+      // MongoDB will create it if collection doesn't exists
+      // There is a difference:
+      // showcollections display the new collection name when
+      // createCollection is used,
+      // but not before any document is inserted when 
+      // getCollection is used.
+      //
+      // coll = db.createCollection(&quot;helloCollection&quot;,
+      //       new BasicDBObject(&quot;capped&quot;, false));
+      coll = db.getCollection(&quot;helloCollection&quot;);
+      System.out.println(&quot;\nget collection 'helloCollection'.&quot;);
+      showcollections(db);
+
+      BasicDBObject doc, query;
+      
+      doc = new BasicDBObject(&quot;name&quot;, &quot;MongoDB&quot;)
+          .append(&quot;type&quot;, &quot;database&quot;)
+          .append(&quot;count&quot;, 1)
+          .append(&quot;info&quot;, new BasicDBObject(&quot;x&quot;, 123)
+                    .append(&quot;y&quot;, 321));
+      coll.insert(doc);
+
+      doc = new BasicDBObject(&quot;name&quot;, &quot;Java&quot;)
+          .append(&quot;type&quot;, &quot;language&quot;)
+          .append(&quot;count&quot;, 3)
+          .append(&quot;info&quot;, new BasicDBObject(&quot;x&quot;, 76)
+                    .append(&quot;y&quot;, 265));
+      coll.insert(doc);
+
+      doc = new BasicDBObject(&quot;name&quot;, &quot;Python&quot;)
+          .append(&quot;type&quot;, &quot;language&quot;)
+          .append(&quot;count&quot;, 5)
+          .append(&quot;info&quot;, new BasicDBObject(&quot;x&quot;, 2)
+                    .append(&quot;y&quot;, 2014));
+      coll.insert(doc);
+
+      coll.createIndex(new BasicDBObject(&quot;name&quot;, &quot;text&quot;));
+      coll.createIndex(new BasicDBObject(&quot;count&quot;, 1));
+
+      System.out.println(&quot;\nSome document are inserted.&quot;);
+      showdocuments(coll);
+
+      
+      searchdocuments(coll, new BasicDBObject(&quot;name&quot;, &quot;MongoDB&quot;));
+
+      searchdocuments(coll, new BasicDBObject(&quot;count&quot;, 
+          new BasicDBObject(&quot;$lt&quot;, 4)));
+
+      // The embedded document query example
+      searchdocuments(coll, new BasicDBObject(&quot;info.x&quot;,
+          new BasicDBObject(&quot;$lt&quot;, 100)));
+
+      
+      // update document which name is 'Java'
+      query = new BasicDBObject(&quot;name&quot;, &quot;Java&quot;);
+      BasicDBObject newDoc = new BasicDBObject(&quot;name&quot;, &quot;R&quot;);
+      BasicDBObject updateObj = new BasicDBObject(&quot;$set&quot;, newDoc);
+      coll.update(query, updateObj);
+
+      System.out.println(&quot;\nUpdate document which name is 'Java'&quot;);
+      showdocuments(coll);
+      showindexs(coll);
+
+      showcollections(db);
+
+      
+      mongoClient.dropDatabase(&quot;hellodb&quot;);
+      System.out.println(&quot;drop database 'hellodb'.&quot;);
+      showdbs(mongoClient);
+
+    } catch (UnknownHostException e) {
+      e.printStackTrace();
+    } catch (MongoException e) {
+      e.printStackTrace();
+    } finally {
+      if (mongoClient != null) {
+        mongoClient.close();
+      }
+    }
+  }
+
+  private static void showdbs(MongoClient mongoClient) {
+    System.out.println(&quot;\nCurrent databases:&quot;);
+    List dbs = mongoClient.getDatabaseNames();
+    if (dbs.isEmpty())
+      System.out.println();
+    else {
+      for (String s : dbs) {
+        System.out.println(&quot;  &quot; + s);
+      }
+    }
+  }
+
+  private static void showcollections(DB db) {
+    System.out.println(&quot;\nCurrent collections under &quot; + 
+        db.getName() + &quot;:&quot;);
+    Set collections = db.getCollectionNames();
+    if (collections.isEmpty())
+      System.out.println();
+    else {
+      for (String s : collections) {
+        System.out.println(&quot;  &quot; + s);
+      }
+    }
+  }
+
+  private static void showdocuments(DBCollection coll) {
+    System.out.println(&quot;\nCurrent documents under &quot; + 
+        coll.getName() + &quot;:&quot;);
+    DBCursor cur = coll.find();
+
+    while (cur.hasNext()) {
+      System.out.println(&quot;  &quot; + cur.next());
+    }
+  }
+
+  private static void showindexs(DBCollection coll) {
+    System.out.println(&quot;\nCurrent index info under &quot; + 
+        coll.getName() + &quot;:&quot;);
+    List list = coll.getIndexInfo();
+
+    for (DBObject o : list) {
+      System.out.println(o.get(&quot;key&quot;));
+    }
+  }
+
+  private static void searchdocuments(
+      DBCollection coll, BasicDBObject query) {
+    System.out.println(&quot;\nQuery &quot; + query +
+        &quot; for &quot; + coll.getName() + &quot;:&quot;);
+    DBCursor cur = coll.find(query);
+
+    while (cur.hasNext()) {
+      System.out.println(&quot;  &quot; + cur.next());
+    }
+  }
+}
+</code></pre>
+
+<p><strong>输出：</strong>
+<pre>
+Current databases:
+  local
+  admin
+  test</p>
+
+<p>get database &lsquo;hellodb&rsquo;.</p>
+
+<p>Current databases:
+  local
+  admin
+  test</p>
+
+<p>Current collections under hellodb:</p>
+
+<p>get collection &lsquo;helloCollection&rsquo;.</p>
+
+<p>Current collections under hellodb:</p>
+
+<p>Some document are inserted.</p>
+
+<p>Current documents under helloCollection:
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff8&rdquo;} , &ldquo;name&rdquo; : &ldquo;MongoDB&rdquo; , &ldquo;type&rdquo; : &ldquo;database&rdquo; , &ldquo;count&rdquo; : 1 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 123 , &ldquo;y&rdquo; : 321}}
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff9&rdquo;} , &ldquo;name&rdquo; : &ldquo;Java&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 3 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 76 , &ldquo;y&rdquo; : 265}}
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ffa&rdquo;} , &ldquo;name&rdquo; : &ldquo;Python&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 5 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 2 , &ldquo;y&rdquo; : 2014}}</p>
+
+<p>Query { &ldquo;name&rdquo; : &ldquo;MongoDB&rdquo;} for helloCollection:
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff8&rdquo;} , &ldquo;name&rdquo; : &ldquo;MongoDB&rdquo; , &ldquo;type&rdquo; : &ldquo;database&rdquo; , &ldquo;count&rdquo; : 1 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 123 , &ldquo;y&rdquo; : 321}}</p>
+
+<p>Query { &ldquo;count&rdquo; : { &ldquo;$lt&rdquo; : 4}} for helloCollection:
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff8&rdquo;} , &ldquo;name&rdquo; : &ldquo;MongoDB&rdquo; , &ldquo;type&rdquo; : &ldquo;database&rdquo; , &ldquo;count&rdquo; : 1 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 123 , &ldquo;y&rdquo; : 321}}
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff9&rdquo;} , &ldquo;name&rdquo; : &ldquo;Java&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 3 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 76 , &ldquo;y&rdquo; : 265}}</p>
+
+<p>Query { &ldquo;info.x&rdquo; : { &ldquo;$lt&rdquo; : 100}} for helloCollection:
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff9&rdquo;} , &ldquo;name&rdquo; : &ldquo;Java&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 3 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 76 , &ldquo;y&rdquo; : 265}}
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ffa&rdquo;} , &ldquo;name&rdquo; : &ldquo;Python&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 5 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 2 , &ldquo;y&rdquo; : 2014}}</p>
+
+<p>update document which name is &lsquo;Java&rsquo;</p>
+
+<p>Current documents under helloCollection:
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff8&rdquo;} , &ldquo;name&rdquo; : &ldquo;MongoDB&rdquo; , &ldquo;type&rdquo; : &ldquo;database&rdquo; , &ldquo;count&rdquo; : 1 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 123 , &ldquo;y&rdquo; : 321}}
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ff9&rdquo;} , &ldquo;name&rdquo; : &ldquo;R&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 3 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 76 , &ldquo;y&rdquo; : 265}}
+  { &ldquo;_id&rdquo; : { &ldquo;$oid&rdquo; : &ldquo;5336644eb767266396077ffa&rdquo;} , &ldquo;name&rdquo; : &ldquo;Python&rdquo; , &ldquo;type&rdquo; : &ldquo;language&rdquo; , &ldquo;count&rdquo; : 5 , &ldquo;info&rdquo; : { &ldquo;x&rdquo; : 2 , &ldquo;y&rdquo; : 2014}}</p>
+
+<p>Current index info under helloCollection:
+{ &ldquo;_id&rdquo; : 1}
+{ &ldquo;_fts&rdquo; : &ldquo;text&rdquo; , &ldquo;_ftsx&rdquo; : 1}
+{ &ldquo;count&rdquo; : 1}</p>
+
+<p>Current collections under hellodb:
+  helloCollection
+  system.indexes
+drop database &lsquo;hellodb&rsquo;.</p>
+
+<p>Current databases:
+  local
+  admin
+  test</pre></p>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="http://docs.mongodb.org/ecosystem/tutorial/getting-started-with-java-driver/"> Getting Started with Java Driver</a><br />
+<a href="http://docs.mongodb.org/ecosystem/drivers/">MongoDB Drivers</a><br />
+<a href="http://docs.mongodb.org/ecosystem/drivers/syntax-table/">MongoDB Driver Syntax Table</a><br />
+<a href="http://api.mongodb.org/java/index.html">MongoDB Java Driver API Document</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Hello MongoDB Java Driver
+        <br />作者：<a target="_blank" href="/"></a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/mongodb" rel="tag" title="mongodb">#mongodb#</a>
+    
+    <a href="/tags/java" rel="tag" title="java">#java#</a>
+    
+    <a href="/tags/driver" rel="tag" title="driver">#driver#</a>
+    
+    <a href="/tags/nosql" rel="tag" title="nosql">#nosql#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/" rel="next" title="使用YCSB测试MongoDB">
+        <i class="fa fa-chevron-left"></i> 使用YCSB测试MongoDB
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/windows%E4%B8%8Bmongodb%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="prev" title="Windows下MongoDB安装与配置">
+        Windows下MongoDB安装与配置 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+    <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="mryqu" />
+    <p class="site-author-name" itemprop="name">mryqu</p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">692</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">42</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1491</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5b4f2ucxar6&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2018</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

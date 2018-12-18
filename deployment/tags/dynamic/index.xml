@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dynamic on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/dynamic/</link>
+    <description>Recent content in Dynamic on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 02 Nov 2016 06:15:02 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/dynamic/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>update-alternatives与JAVA_HOME</title>
+      <link>https://mryqu.github.io/post/update-alternatives%E4%B8%8Ejava_home/</link>
+      <pubDate>Wed, 02 Nov 2016 06:15:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/update-alternatives%E4%B8%8Ejava_home/</guid>
+      <description>测试 /etc/profile配置 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar export PATH=$PATH:$JAVA_HOME/bin  使用update-alternatives切换JAVA hadoop@note50064:~$ which java /usr/bin/java hadoop@note50064:~$ sudo update-alternatives --config java There are 2 choices for the alternative . Selection Path Priority Status ------------------------------------------------------------ 0 /usr/lib/jvm/java-7-oracle/jre/bin/java 1072 auto mode * 1 /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java 1071 manual mode 2 /usr/lib/jvm/java-7-oracle/jre/bin/java 1072 manual mode Press enter to keep the current choice[*], or type selection number: hadoop@note50064:~$ ls -l /usr/bin/java lrwxrwxrwx 1 root root 22 Nov 21 03:26 /usr/bin/java -&amp;gt; /etc/alternatives/java hadoop@note50064:~$ ls -l /etc/alternatives/java lrwxrwxrwx 1 root root 46 Nov 1 01:44 /etc/alternatives/java -&amp;gt; /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java hadoop@note50064:~$ java -version java version &amp;quot;1.</description>
+    </item>
+    
+    <item>
+      <title>嵌套的动态GemFire region研究</title>
+      <link>https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/</link>
+      <pubDate>Fri, 28 Jun 2013 16:16:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/</guid>
+      <description>研究目的和结论  研究多级动态region是否可行，结论可行 研究嵌套region(一个region是另一个region的值)是否可行，结论可行  Java代码 import java.util.Set; import com.gemstone.gemfire.cache.Cache; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.DynamicRegionFactory; import com.gemstone.gemfire.cache.Region; public class EmbededDynamicRegion { public static void main(String[] args) { System.out.println(&amp;quot;\nConnecting to the distributed system and creating the cache.&amp;quot;); Cache cache = null; try { // Create the cache which causes the cache-xml-file to be parsed cache = new CacheFactory().set(&amp;quot;name&amp;quot;, &amp;quot;yqu_test_cache&amp;quot;) .set(&amp;quot;cache-xml-file&amp;quot;, &amp;quot;xml/YquTest.xml&amp;quot;).create(); // Get the exampleRegion Region yquRegion = cache.getRegion(&amp;quot;yqu_region&amp;quot;); printRegionFullPath(yquRegion); DynamicRegionFactory dynRegFactory = DynamicRegionFactory.</description>
+    </item>
+    
+  </channel>
+</rss>
