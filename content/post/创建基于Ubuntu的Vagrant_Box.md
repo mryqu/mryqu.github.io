@@ -20,7 +20,7 @@ tags:
 
 ### 创建虚拟机
 
-创建VirtualBox VM mryqu-ubuntu ![/images/2019/1/vagrantbox-newVM](vagrantbox-newVM.png)
+创建VirtualBox VM mryqu-ubuntu ![vagrantbox-newVM](/images/2019/1/vagrantbox-newVM.png)
 内存1024MB ![vagrantbox-VM-memory1024MB](/images/2019/1/vagrantbox-VM-memory1024MB.png)
 创建VMDK类型、自动分配的虚拟硬盘 ![vagrantbox-VM-disk20GB](/images/2019/1/vagrantbox-VM-disk20GB.png) 
 
