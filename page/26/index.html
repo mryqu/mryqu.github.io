@@ -113,6 +113,83 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/" itemprop="url">
+        [Hive] Hive CLI和Beeline学习
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-28">
+    2015-07-28
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hive" itemprop="url" rel="index">
+        <span itemprop="name">Hive</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">80 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Hive CLI学习 Hive CLI使用手册很简单，但是看完了对有些参数还是不太理解，所以就翻翻Hive CLI源码对照学习吧。
+-f和-i选项的区别 Hive CLI使用手册说-i指定的是初始化SQL文件，-f指定的是SQL脚本文件。 通过阅读源码可知，所谓的初始化SQL文件就是你期望每次执行HiveCLI都要在其他操作之前运行的一些SQL命令。执行完初始化SQL，可以接着执行-e选项中的SQL命令、-f选项中的SQL脚本文件或交互输入的命令；而-f选项和-e选项二者只能存在其一，执行完-f选项后退出CLI。
+hiverc文件 当没有指定-i参数时，CLI会尝试加载$HIVE_HOME/bin/.hiverc、$HIVE_CONF_DIR/.hiverc和$HOME/.hiverc作为初始化文件。只要存在，这些.hiverc都会被加载执行。 通过CliDriver类的processInitFiles方法可知，执行初始化SQL时始终采用静默模式，即不显示执行进度信息，只显示最后结果；执行-f选项中SQL脚本时是否采用静默模式由-S选项控制。
+Hive CLI如何处理shell命令、Hive命令和SQL的？ HiveCLI既可以处理一个SQL脚本文件、也可以处理多个SQL命令。它通过处理多行命令，以&rdquo;;&ldquo;为分隔符，获取单个命令列表。一个单个命令，即可能是&ndash;开头的注释行，也可能是!开头的shell命令，此外SQL命令和Hive自身支持的命令。 - 对于shell命令，Hive CLI是通过ShellCmdExecutor执行的； - 对于SQL命令，Hive CLI是通过org.apache.hadoop.hive.ql.Driver执行的； - 对于Hive命令，HiveCLI通过SetProcessor、ResetProcessor、DfsProcessor、AddResourceProcessor、ListResourceProcessor、DeleteResourceProcessor、CompileProcessor、ReloadProcessor、CryptoProcessor这些处理进行执行。
+&ndash;hiveconf、&ndash;define (-d)、&ndash;hivevar之间的关系 首先我们看一下OptionsProcessor类，它通过Apache Commons CLI解析Hive CLI命令参数: - 其process_stage1方法将&ndash;hiveconf参数置入系统属性中，将&ndash;define和&ndash;hivevar参数置入CliSessionState对象的hiveVariables字段 - 其process_stage2方法将&ndash;hiveconf参数置入CliSessionState对象的cmdProperties字段
+接下来看一下CliSessionState对象的hiveVariables字段和cmdProperties字段使用情况: - CliDriver.run方法将CliSessionState对象的cmdProperties字段中的键值对覆盖HiveConf对象，然后置入CliSessionState对象的overriddenConfigurations字段 - CliSessionState对象的hiveVariables字段主要用于变量替换，包括替换提示符（CliDriver.run）、替换source命令所跟文件路径及shell命令（CliDriver.processCmd）、替换SQL（Driver.compile）、替换Hive命令（DfsProcessor.run、&hellip;&hellip;）
+总之： - &ndash;hiveconf参数在命令行中设置Hive的运行时配置参数，优先级高于hive-site.xml,但低于Hive交互Shell中使用Set命令设置。 - &ndash;define (-d)和&ndash;hivevar没有区别，都是用于变量替换的。
+hivehistory文件 Hive CLI会创建$HOME/.hivehistory文件，并在其中记录命令历史记录。
+-v参数打印出的SQL语句是变量替换后的吗？ 不是，打印的是原始SQL语句。 看了Hive CLI源码后的疑惑  CliDriver类主函数实例化一个CliDriver对象，而在executeDriver方法中不用自身实例，偏偏又实例化一个CliDriver对象cli来，为啥？ &ndash;hiveconf参数会被放入CliSessionState对象的cmdProperties字段和overriddenConfigurations字段，难道不能合并成一份么？  Hive Beeline学习 BeeLine类的dispatch负责将特定命令行分发给适合的CommandHandler。 - 其中以!起始的SQLLine命令由execCommandWithPrefix方法处理，具体实现见Commands类的同名方法。- 其他命令则由Commands类的sql方法处理
+参考 Hive LanguageManual CLI
+Hive LanguageManual VariableSubstitution
+Hive CLI source code
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E5%88%97%E4%B8%BE%E6%8F%92%E4%BB%B6/" itemprop="url">
         [Gradle] 列举插件
         </a>
@@ -651,66 +728,6 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_docker_plugin%E4%BB%8B%E7%BB%8D/" itemprop="url">
-        Gradle Docker Plugin介绍
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-14">
-    2015-07-14
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gradle" itemprop="url" rel="index">
-        <span itemprop="name">Gradle</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">31 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    gradle-docker-plugin gradle-docker-plugin是由《Gradle实战》作者BenjaminMuschko实现的Gradle插件，用来管理Docker镜像和容器。gradle-docker-plugin实际上包括两个插件： - com.bmuschko.docker-remote-api:提供通过远程API与Docker进行交互的定制任务- com.bmuschko.docker-java-application:为Java应用创建和上传Docker镜像build.gradle buildscript { repositories { jcenter() } dependencies { classpath 'com.bmuschko:gradle-docker-plugin:2.4.1' } } apply plugin: 'java' apply plugin: 'application' apply plugin: 'com.bmuschko.docker-java-application' apply plugin: 'com.bmuschko.docker-remote-api'  参考 GitHub：bmuschko/gradle-docker-plugin
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -904,7 +921,7 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">693</span>
+        <span class="site-state-item-count">694</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -921,7 +938,7 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1493</span>
+        <span class="site-state-item-count">1494</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
@@ -978,7 +995,7 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
       <div class="footer-inner">
         <div class="copyright" >
   <span itemprop="copyrightYear">  &copy; 
-  2009 - 2018</span>
+  2009 - 2019</span>
   <span class="with-love"><i class="fa fa-heart"></i></span>
   <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
 </div>
