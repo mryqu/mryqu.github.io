@@ -117,3 +117,5 @@ history -c
 [Vagrant Boxes: Creating a Base Box](https://www.vagrantup.com/docs/boxes/base.html)  
 [Vagrant Provider VirtualBox: Creating a Base Box](https://www.vagrantup.com/docs/virtualbox/boxes.html)  
 [How to Create and Share a Vagrant Base Box](https://www.sitepoint.com/create-share-vagrant-base-box/)  
+[How to set up a self-hosted "vagrant cloud" with versioned, self-packaged vagrant boxes](https://github.com/hollodotme/Helpers/blob/master/Tutorials/vagrant/self-hosted-vagrant-boxes-with-versioning.md)  
+[GitHub: ebmeierj/local_vagrant_box_hosting](https://github.com/ebmeierj/local_vagrant_box_hosting)  
