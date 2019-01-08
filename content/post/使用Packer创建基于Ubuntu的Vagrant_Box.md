@@ -1,6 +1,6 @@
 ---
 title: '使用Packer创建基于Ubuntu的Vagrant Box'
-date: 2019-01-02 06:07:31
+date: 2019-01-04 06:07:31
 categories: 
 - Tool
 - Vagrant
