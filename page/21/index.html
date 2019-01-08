@@ -113,6 +113,61 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/use_proxy_on_google_analytics_api/" itemprop="url">
+        Use proxy on Google Analytics API
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-10-09">
+    2015-10-09
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">21 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    使用Google API创建HTTP传输层是这样子的，没有可以传入代理的地方。
+HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();  仔细研究一下com.google.api.client.googleapis.javanet.GoogleNetHttpTransport，发现其实现是使用com.google.api.client.http.javanet.NetHttpTransport.Builder生成一个com.google.api.client.http.javanet.NetHttpTransport对象。com.google.api.client.http.javanet.NetHttpTransport.Builder和com.google.api.client.http.javanet.NetHttpTransport是都支持代理的。不用GoogleNetHttpTransport这个封装，直接对com.google.api.client.http.javanet.NetHttpTransport.Builder设置代理即可生成使用代理的HttpTransport对象。
+Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(&quot;XXXX&quot;, 80)); HttpTransport httpTransport = new NetHttpTransport.Builder().setProxy(proxy). trustCertificates(GoogleUtils.getCertificateTrustStore()).build();  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_app_token/" itemprop="url">
         获取Facebook App Token
         </a>
@@ -637,62 +692,6 @@ LinkedIn User Agreement: https://www.linkedin.com/legal/user-agreement Privacy P
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api_sdk/" itemprop="url">
-        社交媒体API/SDK
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-09-25">
-    2015-09-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">63 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    社交媒体API编程平台/语言Facebook API:应用广告：提升应用安装量和使用率。Analytics for Apps：制定基于数据的客户和广告决策。匿名登录：用户无需分享自己的信息即可注册使用您的应用。应用邀请：方便用户直接与好友分享他们喜欢的应用。应用链接：应用间链接的开放式跨平台标准。应用盈利：Facebook 和 LiveRail 广告助您实现应用盈利。移动应用受众网络：Facebook 广告助您实现应用盈利。游戏：实现游戏跨平台，覆盖数百万Facebook玩家。Facebook 登录：方便用户跨设备注册您的应用。Messenger：扩大展示，帮助用户发现您的应用。Parse：更快速地构建强大的移动应用。分享：借助 Facebook，提升网站和应用内容的知名度。社交插件：让您的网站和应用更具社交性和吸引力的最简单方式。ThreatExchange：分享威胁信息，保障用户安全。官方:iOSAndroidUnityJavascriptPHP
-第三方:Cocos2d-xCFlashHTML5JavaJavaScriptLuaNode.jsObjective-CQtRubyUnityV-PlayWinJSTwitter API：TweetsUsersEntitiesPlaces官方:iOSAndroidOSXWebJava第三方:iOSAndroidJavaASPC++ClojureColdFusion.NETGoJavascript/node.jsLua/Corona SDKObjective-CPerlPHPPythonRubyGoogle Analytics Configuration APIs：自动执行帐户和用户配置。Management API：访问和管理帐户、媒体资源、数据视图等Google Analytics（分析）实体。Provision API：创建新的Google Analytics（分析）帐户。Google Analytics Reporting APIs：借助报告API，您可以自动化复杂的报告任务，进而节省时间。您还可以使用相应API将Google Analytics（分析）数据与您自己的业务数据整合在一起，从而获得更深入的分析数据。Core Reporting API：通过查询维度和指标来创建自定义报告。Multi-channel Funnels Reporting API：查看您用户的归因和转化路径数据。Real-time Reporting API：查看您的媒体资源上当前发生的活动。Embed API：几分钟内即可将信息中心嵌入第三方网站。Metadata API：查看 API 维度和指标列表以及属性。官方:JavaPythonPHPJavascriptLinkedIn SDK:登录LinkedIn在LinkedIn进行内容分享在用户档案上添加（学位、证书等）信息管理公司页官方:iOSAndroidJavascriptREST APIYouTube API：Youtube Play API：使用内嵌播放器在你的应用直接播放视频，定制回放体验。实际上YouTube提供的是IFRAME、Android API、iOS API、PLAYER PARAMETERS。Youtube Data API：搜索YouTube内容、上传视频、创建和管理播放列表等功能。Youtube Analytics and Reporting API：获取YouTube视频和频道的统计、流行指标等信息。Youtube Analytics API：支持生成定制YouTube分析报告的实时有针对性的查询。API提供过滤和排序参数，因此调用程序无需支持这些功能。每个API请求指定数据范围，也能获取每周和每月的数据集，调用程序无需存储获得的数据集，也无需跨数据范围汇总统计信息。Youtube Reporting API：为频道或内容所有人获取包含YouTube分析数据的一批报告。用于能够导入大数据集并进行过滤、排序、数据挖据的应用。每个报告包含预定义字段集合。开发者使用该API预定报表任务，每个任务标识YouTube所要生成的报告。YouTube生成可以异步下载的日报告。每个报告包含唯一的一天数据。YouTube Live Streaming API：预定YouTube现场直播，管理直播视频流。官方:JavaJavaScript.NETObjective-CPHPPythonDartGoNode.jsRuby微博API：粉丝服务微博评论用户关系账号收藏搜索提醒短链公共服务位置服务地理信息地图引擎支付OAuth 2.0授权官方:JavaPHPFlashPythonJavascriptC++AndroidiOSWP7Windows 8第三方:nodejsC#RubyDelphi微信移动开发微信登录微信智能接口微信支付接口接口微信网站开发微信登录微信智能接口微信公众平台：运营者通过公众号为微信用户提供资讯和服务的平台基础接口分享接口图像接口音频接口智能接口设备信息地理位置摇一摇周边界面操作微信扫一扫微信小店微信卡券微信支付数据统计接口官方:iOSAndroidWP8
-REST
-JS 在线文档/存储 API/SDK内容见在线文档/存储 API/SDK。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -886,7 +885,7 @@ JS 在线文档/存储 API/SDK内容见在线文档/存储 API/SDK。
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">694</span>
+        <span class="site-state-item-count">695</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -903,7 +902,7 @@ JS 在线文档/存储 API/SDK内容见在线文档/存储 API/SDK。
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1494</span>
+        <span class="site-state-item-count">1495</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

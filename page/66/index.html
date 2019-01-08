@@ -113,6 +113,72 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/" itemprop="url">
+        模型评估笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-16">
+    2013-06-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">262 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    模型评估简介 模型评估是模型开发过程的不可或缺的一部分。它有助于发现表达数据的最佳模型和所选模型将来工作的性能如何。在数据挖掘中，使用训练集中的数据评估模型性能是不可接受的，因为这易于生成过于乐观和过拟合的模型。数据挖掘中有两种方法评估模型，验证（Hold-Out）和交叉验证（Cross-Validation）。为了避免过拟合，这两种方法都使用（模型没有遇到过的）测试集来评估模型性能。
+验证（Hold-Out） 使用这种方法时，通常大的数据集会被_随机_分成三个子集： - 训练集：用于构建预测模型。 - 验证集：用于评估训练阶段所得模型的性能。它为模型参数优化和选择最优模型提供了测试平台。不是所有模型算法都需要验证机。 - 测试集或之前未遇到的样本用于评估模型未来可能的性能。如果模型与训练集拟合的好于测试集，有可能是过拟合所致。
+交叉验证（Cross-Validation） 当仅有有限数量的数据时，为了对模型性能进行无偏估计，我们可以使用_k_折交叉验证（k-foldcross-validation）。使用这种方法时，数据被分成_k_份数目相等的子集。我们构建_k_次模型，每次留一个子集做测试集，其他用作训练集。如果_k_等于样本大小，这也被称之为留一验证（leave-one-out）。
+分类模型评估 混淆矩阵（Confusion Matrix） 混淆矩阵显示了分类模型相对数据的真实输出（目标值）的正确预测和不正确预测数目。矩阵为_N_x_N_，其中_N_为目标值（类）数目。这类模型的性能通常使用矩阵中的数据评估。下表为两个类别（阳性和阴性）的2x2混淆矩阵。 混淆矩阵目标&nbsp;阳性阴性模型阳性TPFP阳性预测值
+TP/(TP+FP)阴性FNTN阴性预测值
+TN/(FN+TN)&nbsp;灵敏度特异度准确度&nbsp;=(TP+TN)/(TP+FP+FN+TN)
+TP/(TP+FN)TN/(FP+TN)
+术语： - 阳性 (P, positive) - 阴性 (N, Negative) - 真阳性 (TP, true positive)：正确的肯定。又称：命中 (hit) - 真阴性 (TN, true negative)：正确的否定。又称：正确拒绝 (correctrejection) - 伪阳性 (FP, false positive)：错误的肯定，又称：假警报 (falsealarm)、第二型错误 - 伪阴性 (FN, false negative)：错误的否定，又称：未命中(miss)、第一型错误 - 灵敏度(sensitivity)或真阳性率(TPR, true positive rate)：又称：召回率（recall）、命中率 (hit rate)在阳性值中实际被预测正确所占的比例。TPR = TP / P = TP / (TP+FN) - 伪阳性率(FPR, false positive rate)：又称：错误命中率，假警报率 (false alarm rate)FPR = FP / N = FP / (FP + TN) = 1-SPC - 特异度 (SPC, Specificity)或真阴性率(TNR, true negativerate)：在阴性值中实现被预测正确所占的比例。SPC = TN / N = TN / (FP+TN) = 1-FPR - 假发现率 (FDR, false discovery rate)：FDR = FP / (FP + TP) = 1-TPR - 准确度 (ACC, accuracy）：预测正确的数占样本数的比例。ACC = (TP + TN) / (P + N) - 阳性预测值 (PPV, positive predictive value)或精度(precision)：阳性预测值被预测正确的比例。PPV = TP / (TP + FP) - 阴性预测值 (NPV, negative predictive value)：阴性预测值被预测正确的比例。NPV = TN / (TN + FN) - F1评分：精度和灵敏度的调和平均数。F1 = 2 precision * recall / (precision+recall) =2TP/(2TP+FP+FN) - Matthews相关系数 (MCC)，即 Phi相关系数：(TP*TN - FP*FN)/ sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" itemprop="url">
         用GemFire做Hibernate二级缓存
         </a>
@@ -703,68 +769,6 @@ package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.Attrib
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/" itemprop="url">
-        Java缓存规范JCache API(JSR107)
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-22">
-    2013-05-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
-        <span itemprop="name">Service及JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/cache" itemprop="url" rel="index">
-        <span itemprop="name">Cache</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">17 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    今天看了一下Java缓存规范JCacheAPI（JSR107），它对Java对象缓存进行标准化，方便高效开发，让程序员摆脱实现缓存有效期、互斥、假脱机（spooling）和缓存一致性等负担。该规范提供了API、RI（参考实现）和TCK（技术兼容性套件）。 从设计的角度看，基本组成部分有一个CacheManager，用来持有、控制缓存集合。缓存里存放键值对条目。 整个规范包括了如下内容： - 支持原子操作的缓存读写 - 缓存事件监听器 - 统计 - 事务 - 注解
-JSR107从2001年开始，中间搁置了一段时间，后来Terracotta（产品：EhCache）和Oracle（产品：Coherence）在2010年加强了对JSR-107的投入，原本有望放入JAVAEE7(JSR342)中，可惜在期限内完不成，直到2012年底才推出了草案。 我更关注数据网格（JSR347），那个是JSR107的超集，关注缓存的逐出、复制和分布化，以及事务。可惜连草案也还没影呢。 http://jcp.org/en/jsr/detail?id=107
-http://jcp.org/en/jsr/detail?id=347
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -991,7 +995,7 @@ http://jcp.org/en/jsr/detail?id=347
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">694</span>
+        <span class="site-state-item-count">695</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -1008,7 +1012,7 @@ http://jcp.org/en/jsr/detail?id=347
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1494</span>
+        <span class="site-state-item-count">1495</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

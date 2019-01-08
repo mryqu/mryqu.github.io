@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/" itemprop="url">
+        [C&#43;&#43;] 重温函数隐藏和重写
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
+    2013-10-26
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">760 字 ~4分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    首先回顾一下C++的重载、隐藏和重写概念：
+ 在相同作用域中，同名不同参的函数称为重载，这是c++多态的一种表现。对相同名字的成员函数，编译器可以根据传递的参数类型调用相应的成员函数。同名不同参的全局函数和类成员函数由于作用域不同，不是重载。不能通过函数返回值进行重载。像int和float这样不同的参数类型，可能会由于隐式转换隐患而无法通过编译。 当派生类中的成员函数/变量和基类中的成员函数/变量同名时，会隐藏基类的成员函数/变量，也就是指在派生类调用这个同名的成员函数/变量，调用的是派生类的成员函数/变量，而不是基类的那个成员函数/变量。可以通过类名::成员函数/变量去访问基类中同名的成员函数/变量。 派生类中的成员函数与基类的成员函数同名同参，就称为重写。当直接访问成员函数调用的是在派生类中重写的函数而不是从基类继承下来的成员函数，如果要访问从基类继承下来的成员函数也是通过类名::成员函数这种方式去调用基类的成员函数。  下面的小示例testOverride.cpp用于测试添加virtual与否对重写的影响：
+class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } BaseClass(const BaseClass&amp;) { cout &lt;&lt; &quot;BaseClass(BaseClass) on &quot; &lt;&lt; this &lt;&lt; endl; } virtual void vfun1() { cout &lt;&lt; &quot;BaseClass:vfun1() on &quot; &lt;&lt; this &lt;&lt; endl; } virtual void vfun2() { cout &lt;&lt; &quot;BaseClass:vfun2() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; &quot;BaseClass:fun1() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; &quot;BaseClass:fun2() on &quot; &lt;&lt; this &lt;&lt; endl; } virtual ~BaseClass() { cout &lt;&lt; &quot;~BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string(&quot;NULL&quot;)) { cout &lt;&lt; &quot;DerivedClass() on &quot; &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string&amp; n):name(new string(n)) { cout &lt;&lt; &quot;DerivedClass(string) on &quot; &lt;&lt; this &lt;&lt; endl; } void vfun1() { cout &lt;&lt; &quot;DerivedClass:vfun1() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; &quot;DerivedClass:fun1() on &quot; &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; &quot;~DerivedClass(): name has been deleted on &quot; &lt;&lt; this &lt;&lt; endl; } private: void vfun2() { cout &lt;&lt; &quot;DerivedClass:vfun2() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; &quot;DerivedClass:fun2() on &quot; &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; &quot;=== test bo1 ===&quot; &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); bo1-&gt;vfun1(); bo1-&gt;vfun2(); bo1-&gt;fun1(); bo1-&gt;fun2(); delete bo1; cout &lt;&lt; &quot;=== test do1 ===&quot; &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); do1-&gt;vfun1(); // error: 'virtual void DerivedClass::vfun2()' is private // within this context // do1-&gt;vfun2(); do1-&gt;fun1(); // error: 'void DerivedClass::fun2()' is private // within this context // do1-&gt;fun2(); delete do1; cout &lt;&lt; &quot;=== test bo2 ===&quot; &lt;&lt; endl; BaseClass* bo2 = new DerivedClass(&quot;123&quot;); bo2-&gt;vfun1(); bo2-&gt;vfun2(); bo2-&gt;fun1(); bo2-&gt;fun2(); delete bo2; return 0; }  vfun2和fun2在BaseClass类中是public访问权限，而在DerivedClass类中是private访问权限。 - 对DerivedClass指针，vfun2和fun2无法访问，这个满足期望。 - 对于指向DerivedClass对象的BaseClass指针，vfun2和fun2仍然可以访问。我只能在心里留一个&rdquo;?
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/eclipse_find_the_override_method_implementation_in_subclasses/" itemprop="url">
         [Eclipse] Find the override method implementation in subclasses
         </a>
@@ -678,67 +739,6 @@ find . -name &quot;*.yqu&quot; | xargs grep -H &quot;123&quot;
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" itemprop="url">
-        cut命令笔记
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-22">
-    2013-10-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">77 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
-命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号('-')，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（'-'）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成''name:shell''对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38  个人体会  cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&ndash;output-delimiter=STRING选项控制输出字符分隔符。  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -932,7 +932,7 @@ find . -name &quot;*.yqu&quot; | xargs grep -H &quot;123&quot;
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">694</span>
+        <span class="site-state-item-count">695</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -949,7 +949,7 @@ find . -name &quot;*.yqu&quot; | xargs grep -H &quot;123&quot;
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1494</span>
+        <span class="site-state-item-count">1495</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

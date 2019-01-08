@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/" itemprop="url">
+        [RabbitMQ] Hello RabbitMQ
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-07">
+    2016-08-07
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/mq" itemprop="url" rel="index">
+        <span itemprop="name">MQ</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">226 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    为了快速入门RabbitMQ，我主要学习了下列参考中的两个链接：RabbitMQ教程和SpringAMQP范例。这里对所学教程做一个小笔记。
+准备工作 由于我不打算跑本机上的RabbitMQ服务器，所有对代码稍有修改。
+TutorialConfiguration.java public class TutorialConfiguration { public static final String HOST = &quot;mryqu-rabbitmq-server&quot;; public static final String USERNAME = &quot;mryqu&quot;; public static final String PASSWORD = &quot;mryqu-pwd&quot;; }  对原有代码进行修改 // factory.setHost(&quot;localhost&quot;); factory.setHost(TutorialConfiguration.HOST); factory.setUsername(TutorialConfiguration.USERNAME); factory.setPassword(TutorialConfiguration.PASSWORD); }  RabbitMQ函数 发布方和消费方首先要创建连接，通过连接创建通道。通过通道也可以声明交换器，也可以直接声明队列。 - 函数Exchange.DeclareOk exchangeDeclare(String exchange, Stringtype, boolean durable, boolean autoDelete, boolean internal, Maparguments)用于声明交换器。其中exchange为队列名；type为交换器类型，例如fanout、direct、header和topic，注意无法改变已存在交换器的类型；durable为true时为持久交换器，在服务器重启后仍将存在，默认为false；autoDelete为true时，当所有的消费者使用完交换器后，服务器会自动删除交换器。服务器必须为判断交换器未使用提供一个合理时延，起码允许客户端能够创建一个代理并将其与队列绑定。默认为false；internal为true时为内部交换器，客户端不能直接向其发布消息，默认为false。 - 函数Queue.DeclareOk queueDeclare(String queue, boolean durable,boolean exclusive, boolean autoDelete, Map arguments)用于声明队列，其中queue为队列名；durable为true时为持久队列，在服务器重启后仍将存在。默认为false；exclusive为true时为私有队列，仅在当前连接中可以访问队列，当连接关闭时删除该队列。默认为true；autoDelete为true时，当所有的消费者使用完队列后，服务器会自动删除队列。最后一个消费者可被显式取消或由于通道关闭而取消。如果队列从没有消费者，队列将不会被删除。应用可以像对普通队列一样使用Delete方法显式删除自动删除队列。默认为true。 函数Queue.BindOk queueBind(String queue, String exchange, StringroutingKey, Map arguments)用于通过路由关键字将队列与交换器进行绑定。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/" itemprop="url">
         [RabbitMQ] 在Widnows平台安装配置RabbitMQ
         </a>
@@ -678,68 +746,6 @@ HTTP请求消息体内容为：
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8jacoco/" itemprop="url">
-        使用Jacoco
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-06-16">
-    2016-06-16
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">106 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在以前的项目都是用Cobertura做代码覆盖率测试的，这次有机会接触了一下另一个代码覆盖率Java库JaCoco。 JaCoCo拥有友好的授权形式。JaCoCo使用了Eclipse PublicLicense，方便个人用户和商业用户使用。JaCoCo/EclEmma项目除了提供JaCoCo库之外，还提供了Ant任务、Maven插件及EclEmmaEclipse插件，也可以使用JavaAgent技术监控Java程序。很多第三方的工具提供了对Jacoco的集成，如SonarQube、Jenkins、Netbeans、IntelliJIDEA、Gradle等。 JaCoCo包含多种级别的覆盖率计数器，包含指令级覆盖(Instructions，C0coverage)，分支（Branches，C1coverage）、圈复杂度(CyclomaticComplexity)、行覆盖(Lines)、方法覆盖(non-abstractmethods)、类覆盖(classes)。 - 指令覆盖：计数单元是单个java字节码指令，指令覆盖率提供了代码是否被执行的信息，该指标完全独立与源码格式。 - 分支覆盖率：度量if和switch语句的分支覆盖情况，计算一个方法里面的总分支数，确定执行和不执行的分支数量。 - 圈复杂度：在（线性）组合中，计算在一个方法里面所有可能路径的最小数目，缺失的复杂度同样表示测试案例没有完全覆盖到这个模块。 - 行覆盖率：度量被测程序的每行代码是否被执行，判断标准行中是否至少有一个指令被执行。 - 方法覆盖率：度量被测程序的方法执行情况，是否执行取决于方法中是否有至少一个指令被执行。 - 类覆盖率：度量计算class类文件是否被执行。
-JaCoCo的一个主要优点是使用Java代理，可以动态（on-the-fly）对类进行插桩。这样代码覆盖率分析简化了预插桩过程，也无需考虑classpath的设置。但是还存在如下不适合动态插桩的情况，需要线下对字节码进行预插桩： - 运行环境不支持java agent。 - 部署环境不允许设置JVM参数。 - 字节码需要被转换成其他的虚拟机如Android Dalvik VM。 - 动态修改字节码过程中和其他agent冲突。
-示例 我这个懒人还是在Building a Hypermedia-Driven RESTful Web Service示例的基础上稍作修改，熟悉一下JaCoCo的使用。
-build.gradle buildscript { repositories { mavenCentral() } dependencies { classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.X.Y.RELEASE&quot;) } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: 'spring-boot' apply plugin: 'jacoco' jar { baseName = 'hello-jacoco' version = '0.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8jacoco/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -933,7 +939,7 @@ build.gradle buildscript { repositories { mavenCentral() } dependencies { classp
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">694</span>
+        <span class="site-state-item-count">695</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -950,7 +956,7 @@ build.gradle buildscript { repositories { mavenCentral() } dependencies { classp
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1494</span>
+        <span class="site-state-item-count">1495</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

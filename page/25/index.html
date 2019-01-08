@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/" itemprop="url">
+        [Hive] Hive UDF not supported in insert/values command
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-10">
+    2015-08-10
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hive" itemprop="url" rel="index">
+        <span itemprop="name">Hive</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">127 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    创建一个带有timestamp字段的表，想要在insert/values语句中使用UDF，结果报错。
+hive&gt; create table t2 (id int, time timestamp); OK Time taken: 0.045 seconds hive&gt; insert into t2 values(1,current_timestamp()); FAILED: SemanticException [Error 10293]: Unable to create temp file for insert values Expr*ession of type TOK_FUNCTION not supported in insert/values  参考一中提到：”Hive does not support literals for complex types (array,map, struct, union), so it is not possible to use them in INSERTINTO&hellip;VALUES clauses. This means that the user cannot insert datainto a complex datatype column using the INSERT INTO&hellip;VALUESclause.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E5%B1%9E%E6%80%A7%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
         [OpenUI5] 自定义控件属性支持的数据类型
         </a>
@@ -671,76 +738,6 @@ import java.sql.SQLException; import java.sql.Connection; import java.sql.Result
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/" itemprop="url">
-        [Hive] HCatalog和WebHCat学习
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-29">
-    2015-07-29
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop/Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hive" itemprop="url" rel="index">
-        <span itemprop="name">Hive</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">41 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    HCatalog 访问数据的常见方法之一是通过表抽象，该方法通常用于访问关系型数据库，并且为许多开发者所熟知(和广泛采用)。一些流行的Hadoop系统，例如Hive和Pig，也采用了这种方法。这种抽象解除了数据如何存储(HDFS文件、HBase表)与应用程序如何处理数据(表格式)之间的耦合。此外，它允许从较大的数据语料库中&rdquo;过滤&rdquo;感兴趣的数据。 Hadoop的元数据服务HCatalog扩展了Hive的元存储，同时保留了HiveDDL中用于表定义的组件。其结果是，Hive的表抽象(当使用了HCatalog时)可以用于Pig和MapReduce应用程序，这带来了以下一些主要优势：
- 它使得数据消费者不必知道其数据存储的位置和方式。 它允许数据生产者修改物理数据存储和数据模型，同时仍然支持以旧格式存储的现有数据，从而数据消费者不需要修改他们的处理流程。 它为Pig、Hive和MapReduce提供了共享的结构和数据模型。  HCatalog支持读写任何SerDe支持的文件格式。默认情况下，HCatalog支持RCFile、CSV、JSON、SequenceFile和ORC文件格式。如果使用订制格式，必须提供InputFormat、OutputFormat和SerDe。 WebHCat WebHCat是WebHCat的REST API。这样应用无需使用Hadoop API就可以通过HTTP请求访问HadoopMapReduce (或YARN)、Pig、Hive及HCatalog DDL。WebHCat所使用的代码和数据必须存放在HDFS中。HCatalogDDL命令在请求后即直接执行，MapReduce、Pig和Hive作业则放置在WebHCat(Templeton)服务器的队列中，并监控进展过程或按需停止。程序员指定Pig、Hive和MapReduce结果存放的HDFS位置。 使用 HCatalog和WebHCat都已随Hive安装，所以可以直接使用
-使用HCatalog HCatalog CLI与Hive CLI功能大致一样：
-cd $HIVE_HOME ./hcatalog/bin/hcat  使用WebHCat 在.bashrc中添加PYTHON_CMD：
-export PYTHON_CMD=/usr/bin/python  启动WebHCat服务器：
-cd $HIVE_HOME ./hcatalog/sbin/webhcat_server.sh start  参考 HCatalog
-HCatalog CLI
-WebHCat
-GitHub: apache/hcatalog
-GitHub: apache/hive/hcatalog
-apache/hive/hcatalog/webhcat
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -934,7 +931,7 @@ apache/hive/hcatalog/webhcat
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">694</span>
+        <span class="site-state-item-count">695</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -951,7 +948,7 @@ apache/hive/hcatalog/webhcat
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1494</span>
+        <span class="site-state-item-count">1495</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

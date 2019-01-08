@@ -113,6 +113,76 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/" itemprop="url">
+        [Hive] HCatalog和WebHCat学习
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-29">
+    2015-07-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hive" itemprop="url" rel="index">
+        <span itemprop="name">Hive</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">41 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    HCatalog 访问数据的常见方法之一是通过表抽象，该方法通常用于访问关系型数据库，并且为许多开发者所熟知(和广泛采用)。一些流行的Hadoop系统，例如Hive和Pig，也采用了这种方法。这种抽象解除了数据如何存储(HDFS文件、HBase表)与应用程序如何处理数据(表格式)之间的耦合。此外，它允许从较大的数据语料库中&rdquo;过滤&rdquo;感兴趣的数据。 Hadoop的元数据服务HCatalog扩展了Hive的元存储，同时保留了HiveDDL中用于表定义的组件。其结果是，Hive的表抽象(当使用了HCatalog时)可以用于Pig和MapReduce应用程序，这带来了以下一些主要优势：
+ 它使得数据消费者不必知道其数据存储的位置和方式。 它允许数据生产者修改物理数据存储和数据模型，同时仍然支持以旧格式存储的现有数据，从而数据消费者不需要修改他们的处理流程。 它为Pig、Hive和MapReduce提供了共享的结构和数据模型。  HCatalog支持读写任何SerDe支持的文件格式。默认情况下，HCatalog支持RCFile、CSV、JSON、SequenceFile和ORC文件格式。如果使用订制格式，必须提供InputFormat、OutputFormat和SerDe。 WebHCat WebHCat是WebHCat的REST API。这样应用无需使用Hadoop API就可以通过HTTP请求访问HadoopMapReduce (或YARN)、Pig、Hive及HCatalog DDL。WebHCat所使用的代码和数据必须存放在HDFS中。HCatalogDDL命令在请求后即直接执行，MapReduce、Pig和Hive作业则放置在WebHCat(Templeton)服务器的队列中，并监控进展过程或按需停止。程序员指定Pig、Hive和MapReduce结果存放的HDFS位置。 使用 HCatalog和WebHCat都已随Hive安装，所以可以直接使用
+使用HCatalog HCatalog CLI与Hive CLI功能大致一样：
+cd $HIVE_HOME ./hcatalog/bin/hcat  使用WebHCat 在.bashrc中添加PYTHON_CMD：
+export PYTHON_CMD=/usr/bin/python  启动WebHCat服务器：
+cd $HIVE_HOME ./hcatalog/sbin/webhcat_server.sh start  参考 HCatalog
+HCatalog CLI
+WebHCat
+GitHub: apache/hcatalog
+GitHub: apache/hive/hcatalog
+apache/hive/hcatalog/webhcat
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/" itemprop="url">
         [Hive] Hive CLI和Beeline学习
         </a>
@@ -674,60 +744,6 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%98%85%E8%AF%BB%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%B5%84%E6%BA%90%E6%8C%87%E5%8D%97/" itemprop="url">
-        阅读《微服务资源指南》
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-15">
-    2015-07-15
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tech" itemprop="url" rel="index">
-        <span itemprop="name">Tech</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">33 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Martin Fowler近日发布了《Microservices Resource Guide》，介绍的是Martin自己和别人的书/文章汇集，一开头回顾了微服务的特征，接着谈到了对微服务和单块架构的权衡，最后大篇幅列举了很多公司开发微服务的经验教训。
-微服务特征  通过服务进行组件化 围绕业务能力进行组织服务 团队为产品而不是项目工作 智能端点和哑管道：取其Unix思想，REST协议或消息总线仅仅是管道，服务才是智能的 去中心化治理 去中心化数据管理 基础设施自动化 故障设计：服务故障检测、自恢复 演进式设计  微服务与单块架构之间的权衡 微服务带来收益…  强模块边界: 微服务增强模块结构，这对大的团队尤为重要。  独立的部署: 简单服务更易于部署，由于它们都是自治的，服务出现问题不容易导致系统故障。  技术多样性: 使用微服务可以混合多种编程语言、开发框架和数据存储技术。  …也伴随着代价  分布: 由于远程调用慢并一直具有故障风险。很难开发分布式系统代码。  最终一致性: 对于分布式系统维护强一致性非常困难，这意味着必须管理最终一致性。  运维复杂: 需要一个成熟的运维团队来管理很多经常需要重新部署的服务。  微服务与单块架构的生产率 经验教训（略） 先看完《Build Microservices》，然后再读一遍所有列举资料，再单开新的博客帖子介绍吧。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -921,7 +937,7 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">694</span>
+        <span class="site-state-item-count">695</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -938,7 +954,7 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1494</span>
+        <span class="site-state-item-count">1495</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
