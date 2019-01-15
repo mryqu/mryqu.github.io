@@ -113,6 +113,70 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/" itemprop="url">
+        发现Hibernate 3.2.6统计中一个bug
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-18">
+    2013-06-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hibernate" itemprop="url" rel="index">
+        <span itemprop="name">Hibernate</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">45 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    今天使用Hibernate的统计类，分析一下结果。结果发现了一个bug，不能获得查询缓存中的查询语句。 这个bug倒在3.6.8已经修改了，不过还是影响我的工作。
+Statistics stat = sessionFactory.getStatistics(); logger.info(&quot;isStatisticsEnabled:&quot;+stat.isStatisticsEnabled()); logger.info(&quot;stat=&quot;+stat.toString()); logger.info(&quot;queries=&quot;+Arrays.toString(stat.getQueries()));  org.hibernate.stat.StatisticsImpl.java
+public String[] getQueries() { return ArrayHelper.toStringArray( queryStatistics.keySet()); }  org.hibernate.util.ArrayHelper.java (Hibernate 3.2.6)
+public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray(EMPTY_STRING_ARRAY); }  org.hibernate.util.ArrayHelper.java (Hibernate3.6.8)
+public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray( new String[coll.size()]); }  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/" itemprop="url">
         模型评估笔记
         </a>
@@ -694,81 +758,6 @@ Java 8 正式发布，新特性全搜罗
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" itemprop="url">
-        用GemFire做Mybatis二级缓存
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-22">
-    2013-05-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
-        <span itemprop="name">Service及JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/cache" itemprop="url" rel="index">
-        <span itemprop="name">Cache</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gemfire" itemprop="url" rel="index">
-        <span itemprop="name">GemFire</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">380 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    MyBatis支持第三方二级缓存实现，目前支持Ehcache、Hazelcast和OSCache。 GemFire不在支持的范围，但是可以通过实现org.apache.ibatis.cache.Cache接口来使用。
-MyBatis的Cache配置及实现  设置MyBatis的Cache全局使用开关：默认是true，如果它配成false，其余各个MapperXML文件配成支持cache也没用。  &lt;settings&gt; &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt; &lt;/settings&gt;  各个Mapper XML文件，默认是不采用cache。在配置文件加一行就可以支持cache：  &lt;cache /&gt;  实现GemfireCache
-package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.AttributesFactory; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.Region; import java.util.concurrent.locks.ReadWriteLock; import java.util.concurrent.locks.ReentrantReadWriteLock; import org.apache.ibatis.cache.Cache; import org.apache.ibatis.cache.CacheException; public final class GemfireCache implements Cache { private static Region&lt;object&gt; mybatis_region = null; private Region&lt;object&gt; region = null; private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); private String id; public void setId(String id) { this.id = id; } public void setRegion(Region&lt;object&gt; region) { this.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -995,14 +984,14 @@ package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.Attrib
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">695</span>
+        <span class="site-state-item-count">696</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -1012,7 +1001,7 @@ package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.Attrib
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1495</span>
+        <span class="site-state-item-count">1497</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

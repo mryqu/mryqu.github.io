@@ -113,6 +113,71 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/" itemprop="url">
+        了解Registrator
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-18">
+    2015-06-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/docker" itemprop="url" rel="index">
+        <span itemprop="name">Docker</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">72 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    支持 DNS和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。在使用Docker的场景里，有了Registrator的帮助，只需要很小的工作量就可以自动化地向Consul注册Docker容器，使得管理基于容器技术的配置更加容易。 Registrator通过检查Docker容器是否上线，自动为Docker容器注册/注销服务。Registrator支持可插拔服务注册中心，当前包括Consul、etcd和SkyDNS 2。
+用法  运行Consul容器  $ docker run -d --name=consul --net=host consul-server -bootstrap  运行Registrator容器 Registrator被设计为在每个主机运行一次。也可以在每个集群仅运行一个Registrator，但是通过确保Registrator运行在每个主机上可以获得更好的伸缩性和更简化的配置。假定使用某种程度的自动化，在所有地方都运行反而讽刺性地比某个地方运行更简单。  $ docker run -d \ --name=registrator \ --net=host \ --volume=/var/run/docker.sock:/tmp/docker.sock \ gliderlabs/registrator:latest \ consul://localhost:8500  &ndash;volume=/var/run/docker.sock:/tmp/docker.sock可以让Registrator访问DockerAPI； &ndash;net=host有助于Registrator获得主机级IP和主机名； consul://localhost:8500是服务注册中心URI。 运行其他服务的容器 $ docker run -d -P --name=redis redis Registrator通过Docker API可以监听Docker容器的启动/关闭，并自动注册/注销服务: ``` $ curl $(boot2docker ip):8500/v1/catalog/services {&ldquo;consul&rdquo;:[],&ldquo;redis&rdquo;:[]}   $ curl $(boot2docker ip):8500/v1/catalog/service/redis [{&ldquo;Node&rdquo;:&ldquo;boot2docker&rdquo;,&ldquo;Address&rdquo;:&ldquo;10.0.2.15&rdquo;,&ldquo;ServiceID&rdquo;:&ldquo;boot2docker:redis:6379&rdquo;,&ldquo;ServiceName&rdquo;:&ldquo;redis&rdquo;,&ldquo;ServiceTags&rdquo;:null,&ldquo;ServiceAddress&rdquo;:&ldquo;&rdquo;,&ldquo;ServicePort&rdquo;:32768}] ```
+参考 Github：gliderlabs/registrator
+Registrator Quickstart
+Docker Hub：gliderlabs/registrator
+Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3consul_template/" itemprop="url">
         了解Consul template
         </a>
@@ -687,69 +752,6 @@ config.vm.provider &quot;virtualbox&quot; do |v| v.memory = ENV.has_key?('VAGRAN
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/dockerui%E5%AE%9E%E8%B7%B5/" itemprop="url">
-        DockerUI实践
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-10">
-    2015-06-10
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/docker" itemprop="url" rel="index">
-        <span itemprop="name">Docker</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">27 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    DockerUI是Docker远程API的Web接口,它是由下列技术栈构成的纯客户端，因此很容易连接和管理Docker。 - Angular.js - Bootstrap - Gritter - Spin.js - Golang - Vis.js
-运行DockerUI容器 配置boot2docker与宿主机之间的端口转移 另一种方式是在启动容器之前执行：
-boot2docker ssh -L 9000:localhost:9000  查看DockerUI 直接使用Docker远程API 参考 GitHub：crosbymichael/dockerui
-Docker Remote API
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -943,14 +945,14 @@ Docker Remote API
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">695</span>
+        <span class="site-state-item-count">696</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -960,7 +962,7 @@ Docker Remote API
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1495</span>
+        <span class="site-state-item-count">1497</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

@@ -113,6 +113,76 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/" itemprop="url">
+        [RabbitMQ] Hello RabbitMQ Clustering
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-08">
+    2016-08-08
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/mq" itemprop="url" rel="index">
+        <span itemprop="name">MQ</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">98 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    RabbitMQ集群文档的介绍是： 一个RabbitMQ代理（broker）是一或多个Erlang节点的逻辑组合，每个节点运行RabbitMQ应用并共享用户、虚拟主机、队列、交换器、绑定和运行时参数。有时我们将节点集合称之为集群。 对RabbitMQ代理操作所需的所有数据/状态都会在所有节点上复制。唯一的例外是消息队列，默认存在于创建队列的节点上，但是对所有其他节点可见并可访问。集群内节点通过主机名互相通信，所以这些主机名必须能被集群内所有节点解析。
+在Ubuntu上安装RabbitMQ 我在三台Ubuntu服务器上安装了RabbitMQ，分别是node50064，node50069和node51054。
+ 执行下列命令将APT仓库添加到/etc/apt/sources.list.d:  echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list  (可选地)为了避免未签名包告警，使用 apt-key将RabbitMQ网站的公钥添加到信赖密钥列表：  wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -  执行下列命令更新包列表：  sudo apt-get update  安装rabbitmq-server包：  sudo apt-get install rabbitmq-server   配置RabbitMQ - 修改/etc/rabbitmq/enabled_plugins使能管理插件：
+ [rabbitmq_management].   修改/etc/default/rabbitmq-server，增大每用户可打开文件数（我的系统不使用systemd，无需修改/etc/systemd/system/rabbitmq-server.service.d/limits.conf）：  ulimit -S -n 4096  修改/etc/rabbitmq/rabbitmq-env.conf，激活长主机名并使用每个主机的完整域名作为本地节点名：  USE_LONGNAME=true NODENAME=rabbit@`env hostname -f`   关闭RabbitMQ：
+sudo /etc/init.d/rabbitmq-server stop  配置RabbitMQ集群 首先启动node50064上的RabbitMQ（注：会有告警，可忽略。-detached选项就会导致PID不写入PID文件。）：
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/" itemprop="url">
         [RabbitMQ] Hello RabbitMQ
         </a>
@@ -693,59 +763,6 @@ HTTP请求消息体内容为：
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%BE%AE%E4%BF%A1%E8%AF%AD%E9%9F%B3%E5%AF%BC%E5%87%BA%E5%92%8C%E8%BD%AC%E6%8D%A2/" itemprop="url">
-        微信语音导出和转换
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-06-18">
-    2016-06-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">5 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    用微信语音发送了一段儿子朗诵诗，想导出来做个念想，结果发现还挺麻烦。 - 在tencent/MicsoMsg目录下有名字很长的文件夹就是微信聊天记录存放的文件夹，每登陆一个微信就会产生一个名字很长的文件夹。在这个目下下有个Voice2目录，将下面的子目录按照日期排序缩小范围，查找疑似子目录下的amr文件，想办法拷贝到计算机中。 - 一开始我按照网上的攻略用格式工厂转换成mp3，报错。用Ultraedit打开文件，头部显示有silk_v3。SILKv3编码是Skype向第三方开发人员和硬件制造商提供免版税认证(RF)的Silk宽带音频编码器，Skype后来将其开源。在Github上找到了https://github.com/kn007/silk-v3-decoder，搞定！
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -939,14 +956,14 @@ HTTP请求消息体内容为：
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">695</span>
+        <span class="site-state-item-count">696</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -956,7 +973,7 @@ HTTP请求消息体内容为：
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1495</span>
+        <span class="site-state-item-count">1497</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

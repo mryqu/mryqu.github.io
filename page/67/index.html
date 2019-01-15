@@ -113,6 +113,81 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" itemprop="url">
+        用GemFire做Mybatis二级缓存
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-22">
+    2013-05-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/cache" itemprop="url" rel="index">
+        <span itemprop="name">Cache</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gemfire" itemprop="url" rel="index">
+        <span itemprop="name">GemFire</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">380 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    MyBatis支持第三方二级缓存实现，目前支持Ehcache、Hazelcast和OSCache。 GemFire不在支持的范围，但是可以通过实现org.apache.ibatis.cache.Cache接口来使用。
+MyBatis的Cache配置及实现  设置MyBatis的Cache全局使用开关：默认是true，如果它配成false，其余各个MapperXML文件配成支持cache也没用。  &lt;settings&gt; &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt; &lt;/settings&gt;  各个Mapper XML文件，默认是不采用cache。在配置文件加一行就可以支持cache：  &lt;cache /&gt;  实现GemfireCache
+package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.AttributesFactory; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.Region; import java.util.concurrent.locks.ReadWriteLock; import java.util.concurrent.locks.ReentrantReadWriteLock; import org.apache.ibatis.cache.Cache; import org.apache.ibatis.cache.CacheException; public final class GemfireCache implements Cache { private static Region&lt;object&gt; mybatis_region = null; private Region&lt;object&gt; region = null; private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); private String id; public void setId(String id) { this.id = id; } public void setRegion(Region&lt;object&gt; region) { this.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/" itemprop="url">
         Java缓存规范JCache API(JSR107)
         </a>
@@ -707,60 +782,6 @@ Jacob使用入门及问题解析
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/t%E5%88%86%E5%B8%83%E7%9A%84%E7%94%B1%E6%9D%A5/" itemprop="url">
-        t分布的由来
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2012-12-16">
-    2012-12-16
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/datascience" itemprop="url" rel="index">
-        <span itemprop="name">DataScience</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">3 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    一直对student分布的名字莫名其妙，搜了一下，原来t分布是由统计学家哥威廉·戈塞在都柏林的A.吉尼斯父子酿酒厂对小样本中平均数比例对其标准误差的分布所做的研究，由于吉尼斯酿酒厂的规定禁止戈塞发表关于酿酒过程变化性的研究成果，因此戈塞不得不于1908年，首次以“学生”(Student)为笔名，发表自己的研究成果。因此t分布又称为学生分布。 http://baike.baidu.com/view/1419652.htm
-http://baike.baidu.com/view/1332600.htm
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -983,14 +1004,14 @@ http://baike.baidu.com/view/1332600.htm
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">695</span>
+        <span class="site-state-item-count">696</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -1000,7 +1021,7 @@ http://baike.baidu.com/view/1332600.htm
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1495</span>
+        <span class="site-state-item-count">1497</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

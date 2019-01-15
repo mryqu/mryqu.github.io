@@ -113,6 +113,65 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/" itemprop="url">
+        PostgreSQL数据库分区的update操作
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-19">
+    2013-07-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db/nosql" itemprop="url" rel="index">
+        <span itemprop="name">DB/NoSQL</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">176 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    CREATE TABLE measurement ( city_id int not null, unitsales int ); CREATE TABLE measurement_1 ( CHECK (unitsales &lt; 100 ) ) INHERITS (measurement); CREATE TABLE measurement_2 ( CHECK (unitsales &gt;= 100 ) ) INHERITS (measurement); CREATE OR REPLACE FUNCTIONmeasurement_insert_trigger() RETURNS TRIGGER AS $$ BEGIN IF (NEW.unitsales &lt; 100) THEN INSERT INTO measurement_1 VALUES (NEW.*); ELSE INSERT INTO measurement_2 VALUES (NEW.*); END IF; RETURNNULL; END; $$ LANGUAGE plpgsql; CREATE TRIGGER insert_measurement_trigger BEFOREINSERT ON measurement FOR EACH ROWEXECUTE PROCEDURE measurement_insert_trigger(); INSERT INTO measurement VALUES (1, 1); INSERT INTO measurement VALUES (2, 2); INSERT INTO measurement VALUES (3, 300); INSERT INTO measurement VALUES (4, 400); mysdm=# select * from measurement_1; city_id | unitsales ---------+----------- 1| 1 2| 2 (2 rows) mysdm=# select * from measurement_2; city_id | unitsales ---------+----------- 3| 300 4| 400 (2 rows)  Postgres没有智能到在update时根据记录的新值变动分区，而是报错！
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/" itemprop="url">
         Hibernate shards数据库分片
         </a>
@@ -722,77 +781,6 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%8A%A8%E6%80%81gemfire_region%E4%BD%BF%E7%94%A8%E5%B1%80%E9%99%90/" itemprop="url">
-        动态GemFire Region使用局限
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-05">
-    2013-07-05
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
-        <span itemprop="name">Service及JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/cache" itemprop="url" rel="index">
-        <span itemprop="name">Cache</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gemfire" itemprop="url" rel="index">
-        <span itemprop="name">GemFire</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">56 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     介绍 当前项目原有设计使用了嵌套的Map作为缓存。我在使用GemFire产品时使用普通region替代外层map，使用动态region替代内层map。
-对于&rdquo;/outer_region/Dimension&rdquo;region中的条目，键是维ID（例如5），值是动态region&rdquo;/inter_region/Dimension/5&rdquo;. &ldquo;/outer_region/Dimension&rdquo; region的容量是256个条目，动态region&rdquo;/inter_region/Dimension/5&rdquo;的容量是10个条目。 当维#5被删除，&rdquo;/outer_region/Dimension&rdquo;相应条目应该删除，而动态region&rdquo;/inter/Dimension/5&rdquo;应该被销毁。
-测试发现，当GemFire节点通过API创建了动态region后，它会将动态region列表发送给其他节点，此后的GemFire节点在创建Cache会失败。通过异常日志可知动态region会在Cache创建过程中被创建，但后继GemFire节点无法找到父region (在该节点创建Cache之前根本没机会创建region!),这是导致失败的原因。
-如果对cache使用cache-xml-file， GemFire会先创建普通region之后创建动态region。这需要将一个cache下所有region定义都放到cache-xml-file里，上述问题可能会被避免。但是一个cache被多个项目共享，所有项目的region定义放在一起的话，配置耦合度很高，对于产品的灵活性和扩展性很不利。
-日志 Caused by: com.gemstone.gemfire.cache.RegionDestroyedException: Error -- Could not find a region named: '/inter_region/Dimension' at com.gemstone.gemfire.cache.DynamicRegionFactory.createDynamicRegionImpl(DynamicRegionFactory.java) at com.gemstone.gemfire.cache.DynamicRegionFactory.createDefinedDynamicRegions(DynamicRegionFactory.java) at com.gemstone.gemfire.cache.DynamicRegionFactory._internalInit(DynamicRegionFactory.java) at com.gemstone.gemfire.internal.cache.DynamicRegionFactoryImpl.internalInit(DynamicRegionFactoryImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.readyDynamicRegionFactory(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.initializeDeclarativeCache(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.init(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.create(GemFireCacheImpl.java) at com.gemstone.gemfire.cache.CacheFactory.create(CacheFactory.java) at com.gemstone.gemfire.cache.CacheFactory.create(CacheFactory.java) at org.springframework.data.gemfire.CacheFactoryBean.createCache(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.init(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.getObject(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.getObject(CacheFactoryBean.java) at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.doGetObjectFromFactoryBean(FactoryBeanRegistrySupport.java) ... 34 more  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1014,14 +1002,14 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">695</span>
+        <span class="site-state-item-count">696</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -1031,7 +1019,7 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1495</span>
+        <span class="site-state-item-count">1497</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

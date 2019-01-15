@@ -113,6 +113,63 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/" itemprop="url">
+        JDK7中的队列实现
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-08-07">
+    2013-08-07
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">29 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    JDK7之前已有的队列实现 JDK7之前已有的队列实现分为两类：用于一般用途的实现和用于并发的实现。
+用于一般用途的队列实现 LinkedList实现了Queue接口，为offer、poll等方法提供了先入先出队列操作。 PriorityQueue类是基于堆（数据结构）的优先队列。如果PriorityQueue在构造时指定比较器Comparator，则用比较器对元素排序，否则使用元素的自然排序（通过其java.util.Comparable实现）。队列的取操作（poll、remove、peek和element）访问队列头部的元素。队列头部是顺序上最小的元素或具有相同最小值的元素之一。PriorityQueue的iterator方法提供的爹抬起不保证按特定顺序遍历PriorityQueue中的元素。
+并发队列实现 java.util.concurrent包下包含一系列同步的Queue接口和类。 ConcurrentLinkedQueue基于链接节点的、线程安全的队列。并发访问不需要同步。因为它在队列的尾部添加元素并从头部删除它们，所以只要不需要知道队列的大小。ConcurrentLinkedQueue对公共集合的共享访问就可以工作得很好。收集关于队列大小的信息会很慢，需要遍历队列。 http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html JDK5加入了BlockingQueue接口和五个阻塞队列类。阻塞队列BlockingQueue扩展了Queue的操作，元素添加操作会在没有空间可用时阻塞，而元素获取操作会在队列中没有任何东西时阻塞。 五个队列所提供的各有不同： - ArrayBlockingQueue：一个基于数组实现的有界（大小有限）队列。 - LinkedBlockingQueue：一个基于链接节点实现的可选有界队列。如果LinkedBlockingQueue在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。 - PriorityBlockingQueue：一个基于堆实现的无界优先级队列。 - DelayQueue：一个基于堆实现的、基于时间的调度队列。 - SynchronousQueue：一个利用BlockingQueue接口的会合（rendezvous）机制。它没有内部容量。它就像线程之间的手递手机制，类似于生活中一手交钱一手交货这种情况。在队列中加入一个元素的生产者会等待另一个线程的消费者。当这个消费者出现时，这个元素就直接在消费者和生产者之间传递，永远不会加入到阻塞队列中。公平模式下等待线程按照FIFO顺序访问队列，非公平模式下等待线程访问顺序不定。
+JDK7的TransferQueue JDK7加入了继承自BlockingQueue的TransferQueue接口和及其实现LinkedTransferQueue：一个基于链接节点实现的无界TransferQueue。 TransferQueue可以让使用者决定使用正常的BlockingQueue语义还是有保障的手递手机制，因而比SynchronousQueue更通用和有效。当队列内已经存在元素时，调用transfer会确保所有已有元素在此传递元素之前被处理。DougLea称之为容量智能化，LinkedTransferQueue实际上是ConcurrentLinkedQueue,(在公平模式下)SynchronousQueue, 无界的LinkedBlockingQueues等的超集。 TransferQueue混合了若干高级特性的同时，也提供了更高的性能。LinkedTransferQueue相比不公平模式SynchronousQueue，性能超过3倍；相比公平模式SynchronousQueue，性能超过14倍。SynchronousQueueJDK5实现是使用两个队列（用于等待生产者和等待消费者）,用一个锁保护这两个队列。而LinkedTransferQueue实现使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈。 获得TransferQueue队列大小会很慢，需要遍历队列。 http://tech.puredanger.com/2009/02/28/java-7-transferqueue/
+http://www.blogjava.net/yongboy/archive/2012/02/04/369575.html
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/jdk7%E7%9A%84forkjoin%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" itemprop="url">
         JDK7的Fork/Join并发框架
         </a>
@@ -656,65 +713,6 @@ ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/" itemprop="url">
-        PostgreSQL数据库分区的update操作
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-19">
-    2013-07-19
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/db/nosql" itemprop="url" rel="index">
-        <span itemprop="name">DB/NoSQL</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">176 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    CREATE TABLE measurement ( city_id int not null, unitsales int ); CREATE TABLE measurement_1 ( CHECK (unitsales &lt; 100 ) ) INHERITS (measurement); CREATE TABLE measurement_2 ( CHECK (unitsales &gt;= 100 ) ) INHERITS (measurement); CREATE OR REPLACE FUNCTIONmeasurement_insert_trigger() RETURNS TRIGGER AS $$ BEGIN IF (NEW.unitsales &lt; 100) THEN INSERT INTO measurement_1 VALUES (NEW.*); ELSE INSERT INTO measurement_2 VALUES (NEW.*); END IF; RETURNNULL; END; $$ LANGUAGE plpgsql; CREATE TRIGGER insert_measurement_trigger BEFOREINSERT ON measurement FOR EACH ROWEXECUTE PROCEDURE measurement_insert_trigger(); INSERT INTO measurement VALUES (1, 1); INSERT INTO measurement VALUES (2, 2); INSERT INTO measurement VALUES (3, 300); INSERT INTO measurement VALUES (4, 400); mysdm=# select * from measurement_1; city_id | unitsales ---------+----------- 1| 1 2| 2 (2 rows) mysdm=# select * from measurement_2; city_id | unitsales ---------+----------- 3| 300 4| 400 (2 rows)  Postgres没有智能到在update时根据记录的新值变动分区，而是报错！
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -932,14 +930,14 @@ ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">695</span>
+        <span class="site-state-item-count">696</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -949,7 +947,7 @@ ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1495</span>
+        <span class="site-state-item-count">1497</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
