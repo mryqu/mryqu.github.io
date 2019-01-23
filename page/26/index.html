@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/" itemprop="url">
+        向Consul注册/注销外部服务节点
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-01">
+    2015-08-01
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/consul" itemprop="url" rel="index">
+        <span itemprop="name">Consul</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">70 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
+docker-compose stop foo docker-compose rm foo curl -X PUT -H 'application/json' -d '{&quot;Node&quot;: &quot;foo&quot;, &quot;Address&quot;: &quot;foo.cluster.yqu.com&quot;, &quot;Service&quot;: {&quot;Service&quot;:&quot;foo&quot;, &quot;tags&quot;: [&quot;controller&quot;], &quot;port&quot;: 12221}}' http://localhost:8500/v1/catalog/register docker-compose restart consul  切换回系统内部过程的foo服务节点操作过程如下：
+curl -X PUT -H 'application/json' -d '{&quot;Node&quot;: &quot;foo&quot;}' http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul  注销foo服务节点操作过程如下：
+curl -X PUT -H 'application/json' -d '{&quot;Node&quot;: &quot;foo&quot;}' http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul  参考 Consul Guide：Registering An External Service
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/" itemprop="url">
         [Hive] Hive JDBC实践
         </a>
@@ -695,60 +758,6 @@ conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%B8%BAartifactory%E8%AE%BE%E7%BD%AEproxy%E5%92%8Cremote_repository/" itemprop="url">
-        为Artifactory设置proxy和remote repository
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-19">
-    2015-07-19
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">16 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    设置proxy 我一上来先设置代理，否则连不上远程仓库呀。 设置remote repository 远程仓库已经默认设置了jcenter，估计很少需要其他仓库了。 但不管三七二十一，还是把mavenCentral和gradlePlugins加上吧。全部勾选了Suppress POMConsistency Checks，取消勾选Handle Snapshots。 - mavenCentral: http://repo1.maven.org/maven2/ - gradlePlugins: https://plugins.gradle.org/m2/
-测试结果显示，所需构件实际上都是从jcenter下载的，其他两个暂时还没用到。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -942,14 +951,14 @@ conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">696</span>
+        <span class="site-state-item-count">697</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -959,7 +968,7 @@ conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1497</span>
+        <span class="site-state-item-count">1500</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

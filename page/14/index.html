@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/" itemprop="url">
+        使用SpringFox自动生成Swagger文档
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-04-28">
+    2016-04-28
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/swagger" itemprop="url" rel="index">
+        <span itemprop="name">Swagger</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">312 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    前面的博文Swagger实践和总结总体上探索了一下Swagger，这里着重研究Springfox。 Springfox Java库源自MartyPitt创建的swagger-springmvc项目。Swagger是一系列对RESTful接口进行规范描述和页面展示的工具，而通过Springfox将Swagger与Spring-MVC整合,可以将代码中的注解转换为符合Swagger开放API声明(OpenAPI Specification，OAS)的swagger.json文件,springfox-swagger-ui提供了将swagger.json转换为html页面的服务。
+HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但是对于一个写程序的人来说，不亲自写一遍，总觉得可能会有陷阱和漏洞，缺乏那么一点点自信。 我的示例是以Building a Hypermedia-Driven RESTful Web Service为基础修改的，懒人总是要找个肩膀。build.gradle jar { baseName = 'hello-springfox' version = '0.1.0' } dependencies { compile(&quot;org.springframework.boot:spring-boot-starter-actuator&quot;) compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;) compile(&quot;org.springframework.boot:spring-boot-starter-hateoas&quot;) compile(&quot;io.springfox:springfox-swagger2:${springfoxVersion}&quot;) compile(&quot;io.springfox:springfox-swagger1:${springfoxVersion}&quot;) compile(&quot;io.springfox:springfox-swagger-ui:${springfoxVersion}&quot;) testCompile(&quot;com.jayway.jsonpath:json-path&quot;) testCompile(&quot;org.springframework.boot:spring-boot-starter-test&quot;) }  Application.java package com.yqu.hellospringfox; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  Greeting.java package com.yqu.hellospringfox; import org.springframework.hateoas.ResourceSupport; import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.JsonProperty; public class Greeting extends ResourceSupport { private final String content; @JsonCreator public Greeting(@JsonProperty(&quot;content&quot;) String content) { this.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3phantomjs/" itemprop="url">
         了解PhantomJS
         </a>
@@ -664,71 +731,6 @@ C:\foo&gt;vagrant up Bringing machine 'xfoo' up with 'virtualbox' provider... ==
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/" itemprop="url">
-        [HBase] 才发现HBase REST服务占用的是8080端口
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-03-03">
-    2016-03-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop/Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hbase" itemprop="url" rel="index">
-        <span itemprop="name">HBase</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">70 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    今天用一下Tomcat，结果发现8080端口还被占了，谁呀？ 竟然是HBase REST服务占用的！！看了一下Ports Used by Components of CDH 5，发现ClouderaCDH里是这么用的： - 8080：Non- Cloudera Manager - managed HBase REST Service - 20550：Cloudera Manager - managed HBase REST Service - 8085：HBase REST UI
-8080端口还是留着吧，对hbase-site.xml做如下修改：重启HBase REST服务：
-hbase-daemon.sh stop rest hbase-daemon.sh start rest  通过HBase REST UI检查，REST服务端口改成了20550：另一种修改REST服务端口的方式是在启动HBase REST服务命令时通过-p选项直接指定端口。例如：
-hbase-daemon.sh start rest -p 20550  参考 Linux – Which application is using port 8080
-Configuring and Using the HBase REST API
-Ports Used by Components of CDH 5
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -922,14 +924,14 @@ Ports Used by Components of CDH 5
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">696</span>
+        <span class="site-state-item-count">697</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -939,7 +941,7 @@ Ports Used by Components of CDH 5
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1497</span>
+        <span class="site-state-item-count">1500</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
