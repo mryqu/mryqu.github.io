@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/" itemprop="url">
+        差一点搞混了Transactional注解
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-01">
+    2014-04-01
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spring" itemprop="url" rel="index">
+        <span itemprop="name">Spring</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">13 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    今天给我的Srping业务层加如下Service和Transactional注解：
+@Service @Scope(BeanDefinition.SCOPE_SINGLETON) @Transactional(propagation=Propagation.REQUIRED, timeout=600, rollbackFor=Exception.class)  结果总是不认propagation、timeout和rollbackFor，后来才发现我引入类定义错了，本来应该用Spring的org.springframework.transaction.annotation.Transactional，可是引入了JavaEE用于CDI(Contextsand Dependency Injection for the Java EEplatform，上下文和依赖注入)bean的javax.transaction.Transactional,不注意还真容易混淆。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/" itemprop="url">
         使用YCSB测试MongoDB
         </a>
@@ -664,61 +725,6 @@ Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Cont
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%89%8B%E5%B7%A5%E4%BF%AE%E6%94%B9chrome%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" itemprop="url">
-        手工修改Chrome配置文件
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-02">
-    2014-03-02
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">12 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    当初装Chrome，g.cn上死活下载不了，随便装了一个澳洲版的。结果访问taobao、weibo被认成了澳洲用户，都被推到了海外入口。 一开始折腾Chrome的配置菜单，没找到。后来直接修改C:\Users\AppData\Local\Google\Chrome\UserData\Default\Preferences搞定了。 原始值：
- &quot;last_known_google_url&quot;: &quot;https://www.google.com.au/&quot;, &quot;last_prompted_google_url&quot;: &quot;https://www.google.com.au/&quot;,  修改后：
- &quot;last_known_google_url&quot;: &quot;https://www.google.com.hk/&quot;, &quot;last_prompted_google_url&quot;: &quot;https://www.google.com.hk/&quot;,  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -912,7 +918,7 @@ Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Cont
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">698</span>
+        <span class="site-state-item-count">699</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -929,7 +935,7 @@ Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Cont
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1500</span>
+        <span class="site-state-item-count">1502</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
