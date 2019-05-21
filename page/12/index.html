@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_autorecoveringconnection%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E8%B0%83%E7%94%A8shutdownlistener/" itemprop="url">
+        [RabbitMQ] AutorecoveringConnection在连接恢复后才调用ShutdownListener
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-13">
+    2016-08-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/mq" itemprop="url" rel="index">
+        <span itemprop="name">MQ</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">253 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    想玩一玩RabbitMQ中的ShutdownListener和RecoveryListener，又不想写自己的重连接逻辑，所以使用了ConnectionFactory类的setAutomaticRecoveryEnabled方法让其自动恢复连接。代码如下：
+package com.yqu.rabbitmq; import com.rabbitmq.client.*; import java.io.IOException; public class AutoRecoveryRecv { private final static String QUEUE_NAME = &quot;hello&quot;; public static void main(String[] argv) throws Exception { try { ConnectionFactory factory = new ConnectionFactory(); factory.setHost(ConnectionFactoryConfiguration.HOST); factory.setUsername(ConnectionFactoryConfiguration.USERNAME); factory.setPassword(ConnectionFactoryConfiguration.PASSWORD); factory.setAutomaticRecoveryEnabled(true); factory.setNetworkRecoveryInterval(10000); Connection connection = factory.newConnection(); connection.addShutdownListener(new ShutdownListener() { @Override public void shutdownCompleted(ShutdownSignalException cause) { String hardError = &quot;&quot;; String applInit = &quot;&quot;; if (cause.isHardError()) { hardError = &quot;connection&quot;; } else { hardError = &quot;channel&quot;; } if (cause.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/rabbitmq_autorecoveringconnection%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E8%B0%83%E7%94%A8shutdownlistener/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_%E4%BA%86%E8%A7%A3%E5%A4%9A%E4%B8%AA%E5%90%8C%E5%90%8Drabbitmq-server%E6%96%87%E4%BB%B6/" itemprop="url">
         [RabbitMQ] 了解多个同名rabbitmq-server文件
         </a>
@@ -697,68 +764,6 @@ hadoop@node50064:~$ hive hive&gt; use default; OK Time taken: 0.
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/spark_set_spark.yarn.archive/" itemprop="url">
-        [Spark] Set spark.yarn.archive
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-01">
-    2016-08-01
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop/Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spark" itemprop="url" rel="index">
-        <span itemprop="name">Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">55 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    提交Spark作业时，遇到没有设置spark.yarn.jars和spark.yarn.archive的告警：
-16/08/01 05:01:19 INFO yarn.Client: Preparing resources for our AM container 16/08/01 05:01:20 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME. 16/08/01 05:01:23 INFO yarn.Client: Uploading resource file:/tmp/spark-AA-BB-CC-DD-EE/__spark_libs__XXX.zip -&gt; hdfs://node50064.mryqu.com:9000/user/hadoop/.sparkStaging/application_1469998883123_0001/__spark_libs__XXX.zip  解决方案：
-cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archive.zip echo &quot;spark.yarn.archive=hdfs:///node50064.mryqu.com:9000/user/hadoop/spark-archive.zip&quot; &gt;&gt; conf/spark-defaults.conf  如系统没有安装zip，可执行sudoapt-get install zip进行安装。 这样就不用每次上传Spark的jar文件到HDFS，YARN会找到Spark的库以用于运行作业。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -952,7 +957,7 @@ cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archi
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">699</span>
+        <span class="site-state-item-count">700</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -969,7 +974,7 @@ cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archi
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1503</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

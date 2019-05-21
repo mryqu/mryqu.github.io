@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/" itemprop="url">
+        处理注解@RequestParam的&#34;Required String parameter is not present&#34;
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-02-04">
+    2014-02-04
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spring" itemprop="url" rel="index">
+        <span itemprop="name">Spring</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">99 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    最近玩一下SpringMVC，代码如下：
+@Controller @RequestMapping(&quot;/test.do&quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(&quot;fid&quot;) String fid, @RequestParam(&quot;sid&quot;) String sid) throws Exception { if(fid==null || sid==null) { m.addAttribute(&quot;file&quot;, new FileMetaDAO()); return new ModelAndView(ViewProvider.UPLOAD); } else { m.addAttribute(&quot;sync&quot;, new SyncDAO()); return new ModelAndView(ViewProvider.HR_SYNC); } } }  访问http://localhost:8080/hellorest/test.do 时发生如下问题：查了一下Annotation Type RequestParam的javadoc，加上可选参数required解决战斗。
+@Controller @RequestMapping(&quot;/test.do&quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(value=&quot;fid&quot;, required = false) String fid, @RequestParam(value=&quot;sid&quot;, required = false) String sid) throws Exception { if(fid==null || sid==null) { m.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8chrome%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E5%8A%A0%E8%BD%BDjavascript%E6%96%87%E4%BB%B6/" itemprop="url">
         在chrome控制台中加载Javascript文件
         </a>
@@ -629,64 +697,6 @@ grid_width=2 grid_height=2 def modify_grid(cells, row, col, val): cells[row][col
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_o0%E7%9A%84exch%E5%87%BD%E6%95%B0/" itemprop="url">
-        [算法] O(0)的exch函数
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-10">
-    2014-01-10
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/algorithm.datastruct" itemprop="url" rel="index">
-        <span itemprop="name">Algorithm.DataStruct</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">66 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    常用的exch函数：
-public static void exch(int[] nums, int i, int j) { int tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp; }  不使用辅助空间的exch函数：
-public static void exch(int[] nums, int i, int j) { nums[i] ^= nums[j]; nums[j] ^= nums[i]; nums[i] ^= nums[j]; }  控制流及nums[i]和nums[j]状态如下：
-|nums[i]|nums[j] |&mdash; |= nums[i] ^ nums[j]|/ |/|= nums[j] ^ (nums[i] ^ nums[j])
-= nums[i] |= (nums[i] ^ nums[j]) ^ nums[i]
-= nums[j]|/
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -880,7 +890,7 @@ public static void exch(int[] nums, int i, int j) { nums[i] ^= nums[j]; nums[j] 
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">699</span>
+        <span class="site-state-item-count">700</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -897,7 +907,7 @@ public static void exch(int[] nums, int i, int j) { nums[i] ^= nums[j]; nums[j] 
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1503</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
