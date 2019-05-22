@@ -6,10 +6,36 @@
     <description>Recent content in Api on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 17 May 2019 06:00:05 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2019 06:01:23 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>体验Salesforce API</title>
+      <link>https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/</link>
+      <pubDate>Tue, 21 May 2019 06:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/</guid>
+      <description>继前一博文Salesforce dataLoader一览，这次就开始体验一把Salesforce API了。
+准备工作  通过developer.salesforce.com/signup获得Salesforce开发版
+ 确保激活了API权限
+ 创建connected app：scnydqTest1
+ 获取scnydqTest1的sonsumer key和secret   OAuth鉴权 Salesforce的OAuth鉴权支持三种流程：
+* web服务器流程：适用于服务器可以保存consumer secret
+* 用户代理流程：适用于应用无法安全保存consumer secret
+* 用户密码流程：应用使用用户凭证直接访问
+OAuth鉴权之web服务器流程 验证按照Understanding the User-Agent OAuth Authentication Flow进行。
+https://login.salesforce.com/services/oauth2/authorize?response_type=code&amp;amp;client_id={scnydqTest1_appConsumerKey}&amp;amp;redirect_uri=https%3A%2F%2Flogin.salesforce.com%2Fservices%2Foauth2%2Fsuccess  鉴权：
+通过跳转URL获取code：
+通过code、consumer key和consumer secret获取access token：
+OAuth鉴权之用户代理流程 验证按照How Are Apps Authenticated with the Web Server OAuth Authentication Flow?进行。
+https://login.salesforce.com/services/oauth2/authorize?response_type=token&amp;amp;client_id={scnydqTest1_appConsumerKey}&amp;amp;redirect_uri=https%3A%2F%2Flogin.salesforce.com%2Fservices%2Foauth2%2Fsuccess  认证： 鉴权：
+通过跳转URL获取access_token：
+返回URL为：
+https://login.salesforce.com/services/oauth2/success#access_token=00D2v000000R9tt%21AXXXXXi.&amp;amp;instance_url=https%3A%2F%2Fap15.salesforce.com&amp;amp;id=https%3A%2F%2Flogin.salesforce.com%2Fid%2F00D2XXXXXC%2F005XXXXXL&amp;amp;issued_at=1558493245448&amp;amp;signature=iXXXXXI%3D&amp;amp;scope=id+api&amp;amp;token_type=Bearer  OAuth鉴权之用户密码流程 验证按照Understanding the Username-Password OAuth Authentication Flow进行。
+REST调用 此处走一下Salesforce官方的快速入门示例。</description>
+    </item>
     
     <item>
       <title>初探Salesforce API</title>

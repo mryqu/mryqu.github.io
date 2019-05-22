@@ -113,6 +113,76 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/node_%E6%8A%98%E8%85%BEopenui5-sample-app%E4%B9%8B%E4%BD%BF%E7%94%A8yarn%E6%9B%BF%E6%8D%A2bower/" itemprop="url">
+        折腾openui5-sample-app之使用Yarn替换Bower
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-09-13">
+    2018-09-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">59 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    SAP/openui5-sample-app是使用npm下载依赖的后端开发和构建模块，使用bower下载依赖的前端openui5库。 在npm install的过程中提示&rdquo;npm WARN deprecated bower@1.8.4: We don&rsquo;t recommend using Bower for new projects. Please consider Yarn and Webpack or Parcel. You can read how to migrate legacy project here: https://bower.io/blog/2017/how-to-migrate-away-from-bower/&quot;。 对于SAP这个小示例，区分前端和后端使用包管理器有点浪费！对于所有的依赖模块，可以要么使用npm，要么使用yarn。
+ 删除bower_components和dist目录
+ 安装yarn：
+npm install yarn -g  去掉bower.json 不过其中依赖的openui5/packaged-sap.ui.core、openui5/packaged-sap.m、openui5/packaged-themelib_sap_belize仅仅bower能够获取，在npm仓库里是找不到的。
+ 修改package.json
+ 去除bower模块
+ 去除postinstall脚本
+ 增加@openui5/sap.m依赖
+ 增加@openui5/sap.ui.core依赖
+ 增加@openui5/themelib_sap_belize依赖  修改Gruntfile.js npm仓库里的@openui5/sap.m、@openui5/sap.ui.core、@openui5/themelib_sap_belize仅包含openui5/packaged-sap.ui.core、openui5/packaged-sap.m、openui5/packaged-themelib_sap_belize中resources的部分，而不包含test-resources的部分。 对于openui5_connect任务，我认为无需test-resources部分即可。
+ 将openui5库的定位从bower_components目录下改为node_modules目录下的相应位置  构建测试
+yarn grunt build grunt serve   参考 SAP/grunt-openui5
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/node_%E6%8A%98%E8%85%BEopenui5-sample-app%E4%B9%8B%E4%BD%BF%E7%94%A8yarn%E6%9B%BF%E6%8D%A2bower/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/node_%E6%8A%98%E8%85%BEopenui5-sample-app%E4%B9%8B%E4%BD%BF%E7%94%A8npm%E9%95%9C%E5%83%8F/" itemprop="url">
         折腾openui5-sample-app之使用npm镜像
         </a>
@@ -625,74 +695,6 @@ Catalog API使用 查询数据库 scala&gt; spark.catalog.listDatabases.show(fal
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" itemprop="url">
-        [Oozie] 遭遇ShareLib无法找到的问题
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-07-13">
-    2018-07-13
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop/Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/oozie" itemprop="url" rel="index">
-        <span itemprop="name">Oozie</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">357 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    折腾几天，终于装好了Oozie 5.0.0，并且启动了Oozie守护进程。
-vagrant@node1:~$ oozie admin -oozie http://10.211.55.101:11000/oozie -status log4j:WARN No appenders could be found for logger (org.apache.hadoop.security.authentication.client.KerberosAuthenticator). log4j:WARN Please initialize the log4j system properly. log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info. System mode: NORMAL  不过运行MapReduce demo总是出错，找不到Oozie的共享库，日志如下：
-2018-07-12 04:45:50,228 WARN ActionStartXCommand:523 - SERVER[node1] USER[vagrant] GROUP[-] TOKEN[] APP[map-reduce-wf] JOB[0000001-XXXXXXXXXXXXXXX-oozie-root-W] ACTION[0000001-XXXXXXXXXXXXXXX-oozie-root-W@mr-node] Error starting action [mr-node]. ErrorType [FAILED], ErrorCode [It should never happen], Message [File /user/root/share/lib does not exist] org.apache.oozie.action.ActionExecutorException: File /user/root/share/lib does not exist at org.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -889,7 +891,7 @@ vagrant@node1:~$ oozie admin -oozie http://10.211.55.101:11000/oozie -status log
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">700</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

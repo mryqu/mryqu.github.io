@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" itemprop="url">
+        vFabric Web Server配置：多tc Server负载均衡
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-16">
+    2013-10-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
+        <span itemprop="name">Service及JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/web-application-server" itemprop="url" rel="index">
+        <span itemprop="name">Web Application Server</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">157 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    HTTP请求需要分发到tc Server集群成员。为了实现这一目的，可以采用硬件负载均衡硬件或软件(Apache HTTP Server、vFabric Web Server和Microsoft IIS)。本文介绍用vFabric Web Server的mod_proxy模块实现tcServer负载均衡。
+vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对下列行进行添加或去除注释: LoadModule proxy_module &quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy.so&quot; LoadModule proxy_http_module &quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_http.so&quot; LoadModule proxy_balancer_module &quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_balancer.so&quot;  vFabric Web Server:创建额外的配置文件 在vFabric Web Server实例的conf目录创建mod_proxy.conf: # Enable capturing of proxy statistics ProxyStatus on SetHandler balancer-manager Order Deny,Allow Deny from all Allow from 127.0.0.1 # These apps aren't clustered -- requests go to dedicated server ProxyPass /my-app1 balancer://my-standalone/my-app1 ProxyPass /my-app2 balancer://my-standalone/my-app2 # Clustered apps get directed to loadbalanced worker ProxyPass /my-app3 balancer://my-balancer/my-app3 ProxyPass /my-app4 balancer://my-balancer/my-app4 # Standalone &quot;balancer&quot; for standalone apps that aren't clustered BalancerMember http://MYSERVER1:8080 # Load balanced &quot;balancer&quot; for clustered apps BalancerMember http://MYSERVER1:8080 route=aGVsbG8gcWUh_MyServer1_1 loadfactor=1 BalancerMember http://MYSERVER1:8180 route=aGVsbG8gcWUh_MyServer1_2 loadfactor=2 ProxySet lbmethod=byrequests stickysession=aGVsbG8gcWUh_Cluster1|aGVsbG8gcWUh_cluster1 # Configure cache timeouts for static content AddType text/javascript .
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/" itemprop="url">
         vFabric Web Server 5.2模块和库
         </a>
@@ -687,73 +754,6 @@ https://docs.python.org/2/library/re.html
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/" itemprop="url">
-        Shell中的source和.命令
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-10">
-    2013-10-10
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">159 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    source是csh(C Shell)的内置命令: 标识读入并执行文件中的命令。 这与执行shell脚本是不一样的./script.sh会启动一个新的shell并执行script.sh中的命令。
-source [-h] filename [arguments] The shell reads and executes commands from name. The commands are not placed on the history list. If any args are given, they are placed in argv. (+) source commands may be nested; if they are nested too deeply the shell may run out of file descriptors. An error in a source at any level terminates all nested source commands. With -h, commands are placed on the history list instead of being executed, much like `history -L'.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -963,7 +963,7 @@ source [-h] filename [arguments] The shell reads and executes commands from name
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">700</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

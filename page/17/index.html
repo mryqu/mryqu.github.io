@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" itemprop="url">
+        cURL错误处理
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-01-07">
+    2016-01-07
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">59 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    cURL执行错误分为两种： - 通过curl_easy_perform函数执行请求结果，返回值不是CURLE_OK。错误信息除了可以对照CURLcode定义查看，也可以通过设置CURLOPT_ERRORBUFFER设置错误缓存区获得人类易读的错误文字信息。范例见https://curl.haxx.se/libcurl/c/CURLOPT_ERRORBUFFER.html
+ curl = curl_easy_init(); if(curl) { CURLcode res; char errbuf[CURL_ERROR_SIZE]; curl_easy_setopt(curl, CURLOPT_URL, &quot;http://example.com&quot;); curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf); errbuf[0] = 0; res = curl_easy_perform(curl); if(res != CURLE_OK) { size_t len = strlen(errbuf); fprintf(stderr, &quot;\nlibcurl: (%d) &quot;, res); if(len) fprintf(stderr, &quot;%s%s&quot;, errbuf, ((errbuf[len - 1] != '\n') ? &quot;\n&quot; : &quot;&quot;)); else fprintf(stderr, &quot;%s\n&quot;, curl_easy_strerror(res)); } }   另一种是curl_easy_perform返回CURLE_OK，但是HTTP响应代码为400及以上的整数。HTTP响应代码可以通过curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE,&amp;httpCode)获得错误消息需要通过curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,curlCallback)获得消息体后解析而得。  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/" itemprop="url">
         为cURL库设置HTTP代理的代码片段
         </a>
@@ -658,61 +719,6 @@ $ g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%81%AD%E9%81%87error_c2039_min__is_not_a_member_of_std/" itemprop="url">
-        [C&#43;&#43;]遭遇error C2039: &#39;min&#39; : is not a member of &#39;std&#39;
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-22">
-    2015-12-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">15 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    使用Visual Studio2013编译twitcurl遭遇下列错误：
-error C2039: 'min' : is not a member of 'std'  解决方法：
-#include &lt;algorithm&gt;  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -906,7 +912,7 @@ error C2039: 'min' : is not a member of 'std'  解决方法：
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">700</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

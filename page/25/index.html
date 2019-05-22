@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/" itemprop="url">
+        安装Gerrit的commit-msg钩子
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-19">
+    2015-08-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/git" itemprop="url" rel="index">
+        <span itemprop="name">Git</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">18 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    对Gerrit进行首次提交前需要安装commit-msg钩子，每次总忘，每次都总是搜邮件，还是记博客里方便些。
+gitdir=$(git rev-parse --git-dir); scp -p -P 29418 [your username]@[your Gerrit review server]:hooks/commit-msg {gitdir}/hooks/  参考
+Gerrit：commit-msg Hook
+Gerrit工作流
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/" itemprop="url">
         [Hive] Hive Macro和UDF实践
         </a>
@@ -676,66 +739,6 @@ if (window.jQuery) { jQuery().jquery; }  测试：
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/" itemprop="url">
-        在jQuery AJAX中使用statusCode
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-05">
-    2015-08-05
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">151 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    jQuery.ajax中提供了statusCode设置，以便根据响应状态值进行相应处理。
-var data = JSON.stringify({ name: &quot;mryqu&quot;, count: 123 }); $.ajax({ //cache: false, url: &quot;/test&quot;, type: &quot;post&quot;, contentType: &quot;application/json&quot;, dataType: &quot;json&quot;, data: data, beforeSend: function (xhr) { console.log(&quot;beforeSend called&quot;); }, statusCode: { 401: function() { console.log(&quot;statusCode 401 called&quot;); }, 449: function() { console.log(&quot;statusCode 449 called&quot;); } }, error: function (oResult, textStatus, errorThrown) { if (oResult.status !==401 &amp;&amp; oResult.status !==449) { console.log(&quot;error called&quot;); } }, success: function (oResult) { console.log(&quot;success called&quot;); } });  有时候发现statusCode不被调用，所以我更喜欢用下面这种更保险的方式。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -929,7 +932,7 @@ var data = JSON.stringify({ name: &quot;mryqu&quot;, count: 123 }); $.ajax({ //c
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">700</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
