@@ -95,8 +95,17 @@ https://login.salesforce.com/services/oauth2/success#access_token=00D2v000000R9t
 
 ![salesforce api: query](/images/2019/5/salesforce_rest_query.png)  
 
+### 限额
+
+
+REST API与SOAP API使用相同的数据模型和标准对象。REST API遵循[SOAP API的限额](https://developer.salesforce.com/docs/atlas.en-us.218.0.api.meta/api/implementation_considerations.htm?SearchType=Stem)。  
+获取[Limits信息](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_limits.htm)详见[Salesforce示例](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_limits.htm)。
+
+
 ### 参考
 
 [Salesforce SOAP API Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.218.0.api.meta/api/sforce_api_quickstart_intro.htm)  
 [Salesforce REST API Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm)   
 [SOQL and SOSL Reference](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_sosl_intro.htm)   
+[Salesforce Bulk API Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm)   
+[Enhance Salesforce with Code](https://help.salesforce.com/articleView?id=extend_code_overview.htm&type=5)   
