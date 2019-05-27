@@ -113,6 +113,61 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8google_api%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" itemprop="url">
+        在Google API中使用访问令牌的三种方式
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-09-29">
+    2016-09-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">31 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在Google Developers OAuth 2.0 playground 中设置OAuth2.0配置时，可以发现有一个访问令牌位置的选择框，其值为： - Authorization header w/ OAuth prefix - Authorization header w/ Bearer prefix - Access_token URL parameter
+按照前面博文《Google Sheets API认证和鉴权 》中的方法生成一个访问令牌。下面我就用这个访问令牌对这三种使用方式进行一下尝试。
+认证头使用OAuth前缀 认证头使用Bearer前缀 使用access_token URL参数 结论：这三种访问令牌位置的使用都工作正常，API结果相同！
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hello_google_sheets_api/" itemprop="url">
         Hello Google Sheets API
         </a>
@@ -629,73 +684,6 @@ Forbes: So Long Google Search Appliance
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/" itemprop="url">
-        搞清楚CONSUL_PORT_8500_TCP_ADDR
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-22">
-    2016-08-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/consul" itemprop="url" rel="index">
-        <span itemprop="name">Consul</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">223 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Consul集群里既有Server也有Client。那除了Consul serverleader，其他节点怎么加入这个Consul集群里呢？我目前看到的Docker方案是其他节点使用consul agent -join$CONSUL_PORT_8500_TCP_ADDR加入Consul集群的。那么CONSUL_PORT_8500_TCP_ADDR是怎么设置到其他容器节点的？
-root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGRANT_CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 HOSTNAME=httpd CONSUL_PORT_8301_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP_PORT=8302 VAGRANT_CONSUL_1_PORT_53_UDP_PROTO=udp CONSUL_1_PORT_8300_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_53_UDP=udp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PROTO=tcp APACHE_RUN_USER=www-data VAGRANT_CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8301_UDP=udp://172.17.0.2:8301 VAGRANT_CONSUL_1_PORT_8400_TCP_ADDR=172.17.0.2 CONSUL_PORT_53_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PORT=8301 CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PORT_START=8300 CONSUL_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP=tcp://172.17.0.2:8302 VAGRANT_CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_1_NAME=/vagrant_httpd_1/consul_1 CONSUL_1_PORT_8300_UDP_PORT_END=8302 VAGRANT_CONSUL_1_PORT_53_TCP_PROTO=tcp CONSUL_1_PORT_8500_TCP=tcp://172.17.0.2:8500 CONSUL_PORT_53_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP_PORT_START=8300 CONSUL_1_PORT_53_TCP_PORT=53 CONSUL_1_PORT_8302_UDP_PORT=8302 VAGRANT_CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_PORT_8302_UDP_PORT=8302 CONSUL_PORT_8302_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PROTO=udp CONSUL_1_PORT_8302_TCP_PORT=8302 CONSUL_1_PORT_8301_TCP=tcp://172.17.0.2:8301 CONSUL_ENV_CONSUL_OPTIONS=-bootstrap -client 0.0.0.0 VAGRANT_CONSUL_1_PORT_8302_UDP_PORT=8302 CONSUL_1_PORT_8302_UDP=udp://172.17.0.2:8302 CONSUL_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 CONSUL_PORT_8302_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8302_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8400_TCP=tcp://172.17.0.2:8400 VAGRANT_CONSUL_1_PORT_8500_TCP_PROTO=tcp CONSUL_PORT_8301_TCP_PORT=8301 VAGRANT_CONSUL_1_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8300_TCP_PROTO=tcp CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 APACHE_LOG_DIR=/var/log/apache2 CONSUL_PORT_53_TCP=tcp://172.17.0.2:53 VAGRANT_CONSUL_1_PORT_8301_TCP_PORT=8301 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin CONSUL_PORT_8500_TCP_ADDR=172.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -718,6 +706,8 @@ root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGR
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -889,7 +879,7 @@ root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGR
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">702</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

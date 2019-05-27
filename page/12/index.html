@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/" itemprop="url">
+        搞清楚CONSUL_PORT_8500_TCP_ADDR
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-22">
+    2016-08-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/consul" itemprop="url" rel="index">
+        <span itemprop="name">Consul</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">223 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Consul集群里既有Server也有Client。那除了Consul serverleader，其他节点怎么加入这个Consul集群里呢？我目前看到的Docker方案是其他节点使用consul agent -join$CONSUL_PORT_8500_TCP_ADDR加入Consul集群的。那么CONSUL_PORT_8500_TCP_ADDR是怎么设置到其他容器节点的？
+root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGRANT_CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 HOSTNAME=httpd CONSUL_PORT_8301_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP_PORT=8302 VAGRANT_CONSUL_1_PORT_53_UDP_PROTO=udp CONSUL_1_PORT_8300_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_53_UDP=udp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PROTO=tcp APACHE_RUN_USER=www-data VAGRANT_CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8301_UDP=udp://172.17.0.2:8301 VAGRANT_CONSUL_1_PORT_8400_TCP_ADDR=172.17.0.2 CONSUL_PORT_53_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PORT=8301 CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PORT_START=8300 CONSUL_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP=tcp://172.17.0.2:8302 VAGRANT_CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_1_NAME=/vagrant_httpd_1/consul_1 CONSUL_1_PORT_8300_UDP_PORT_END=8302 VAGRANT_CONSUL_1_PORT_53_TCP_PROTO=tcp CONSUL_1_PORT_8500_TCP=tcp://172.17.0.2:8500 CONSUL_PORT_53_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP_PORT_START=8300 CONSUL_1_PORT_53_TCP_PORT=53 CONSUL_1_PORT_8302_UDP_PORT=8302 VAGRANT_CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_PORT_8302_UDP_PORT=8302 CONSUL_PORT_8302_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PROTO=udp CONSUL_1_PORT_8302_TCP_PORT=8302 CONSUL_1_PORT_8301_TCP=tcp://172.17.0.2:8301 CONSUL_ENV_CONSUL_OPTIONS=-bootstrap -client 0.0.0.0 VAGRANT_CONSUL_1_PORT_8302_UDP_PORT=8302 CONSUL_1_PORT_8302_UDP=udp://172.17.0.2:8302 CONSUL_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 CONSUL_PORT_8302_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8302_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8400_TCP=tcp://172.17.0.2:8400 VAGRANT_CONSUL_1_PORT_8500_TCP_PROTO=tcp CONSUL_PORT_8301_TCP_PORT=8301 VAGRANT_CONSUL_1_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8300_TCP_PROTO=tcp CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 APACHE_LOG_DIR=/var/log/apache2 CONSUL_PORT_53_TCP=tcp://172.17.0.2:53 VAGRANT_CONSUL_1_PORT_8301_TCP_PORT=8301 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin CONSUL_PORT_8500_TCP_ADDR=172.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hello_unravl/" itemprop="url">
         Hello UnRAVL
         </a>
@@ -696,76 +763,6 @@ vagrant@vagrant-ubuntu-trusty:~$ uname -a Linux vagrant-ubuntu-trusty 3.19.0-15-
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/" itemprop="url">
-        [Spark]Spark和Hive集成
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-03">
-    2016-08-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop/Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spark" itemprop="url" rel="index">
-        <span itemprop="name">Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">318 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在前一博文[Spark] Spark2集群安装实践中安装了Spark后，发现和Hive还没有集成在一起，此外Hive自己也不好使了。
-hadoop@node50064:~$hive ls: cannot access /usr/local/spark/lib/spark-assembly-*.jar: No such file or directory .................  原来Spark assemblyjar在Spark2中已经不存在了，而Hive脚本判断系统存在Spark后仍要使用，需要将$HIVE_HOME/bin/hive中的这部分代码注释掉：
-# add Spark assembly jar to the classpath #if [[ -n &quot;$SPARK_HOME&quot; ]] #then # sparkAssemblyPath=`ls ${SPARK_HOME}/lib/spark-assembly-*.jar` # CLASSPATH=&quot;${CLASSPATH}:${sparkAssemblyPath}&quot; #fi  至此，Hive本身工作正常。下面开始Spark和Hive集成配置工作。 - Spark SQL CLI需要使用到Hive Metastore，因此需要在[Hive] 安装Hive 1.2.x的基础上继续修改$HIVE_HOME/conf/hive-site.xml：- 将$HIVE_HOME/conf/hive-site.xml软连接到$SPARK_HOME/conf目录中:
- cd $SPARK_HOME/conf ln -s $HIVE_HOME/conf/hive-site.xml   启动Hive Metastore和HiveServer2：  hive --service metastore &amp; hive --service hiveserver2 &amp;   下面进行验证工作：
-hadoop@node50064:~$ hive hive&gt; use default; OK Time taken: 0.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -788,6 +785,8 @@ hadoop@node50064:~$ hive hive&gt; use default; OK Time taken: 0.
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -959,7 +958,7 @@ hadoop@node50064:~$ hive hive&gt; use default; OK Time taken: 0.
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">702</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

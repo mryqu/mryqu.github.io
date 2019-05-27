@@ -113,6 +113,78 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/" itemprop="url">
+        [Hadoop] 通过MultipleInputs处理多输入文件
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-09-29">
+    2014-09-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop/spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop/Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">53 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+     一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
+MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3  locations.txt 1,China 2,USA 3,Canada 4,New Zealand  执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output  测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir
+示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class
+示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class
+示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+使用MultipleInputs的Driver APIJob属性MultipleInputs.addInputPathmapreduce.input.multipleinputs.dir.formats
+示例：/user/hadoop/mijoin/people.txt:o.a.h.m.l.i.TextInputFormat,
+/user/hadoop/mijoin/locations.txt:o.a.h.m.l.i.TextInputFormatmapreduce.input.multipleinputs.dir.mappers
+示例：/user/hadoop/mijoin/people.txt:MultipleInputsDemo.PersonMapper,
+/user/hadoop/mijoin/locations.txt:MultipleInputsDemo.LocationMappermapreduce.job.inputformat.class
+示例：org.apache.hadoop.mapreduce.lib.input.DelegatingInputFormatmapreduce.job.map.class
+示例：org.apache.hadoop.mapreduce.lib.input.DelegatingMapper 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
+调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程 
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD_%E5%A4%A7%E6%95%B0%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E4%B8%8E%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/" itemprop="url">
         [数据分析与统计推断] 大数极限定理与假设检验
         </a>
@@ -637,71 +709,6 @@ MDN：JSON
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84prototype%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/" itemprop="url">
-        [JavaScript] 函数的prototype对象属性
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-08-22">
-    2014-08-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">46 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    原型（prototype） JavaScript 不包含传统的类继承模型，而是使用原型模型。继承方面，JavaScript中的每个对象都有一个内部私有的链接指向另一个对象，这个对象就是该对象的原型。这个原型对象也有自己的原型，直到对象的原型为 null为止（也就是没有原型）。这种一级一级的链结构就称为原型链。Function.prototype.toString() toString()方法返回表示函数源代码的字符串。Function.prototype.bind() 对于给定函数，bind()方法创建具有与原始函数相同主体的绑定函数。 在绑定函数中，this对象将解析为传入的对象。绑定函数具有指定的初始参数。
-fun.bind(thisArg[, arg1[, arg2[, ...]]])  JavaScript bind 方法具有几种用法。 通常，它用于为在其他上下文中执行的函数保留执行上下文。
-Function.prototype.call()和Function.prototype.apply() call()和apply()方法都是调用一个对象的方法，用另一个对象上下文替换当前对象上下文。两者仅在定义参数方式有所区别：call传递的是参数列表，apply传递的是数组或arguments对象。
-fun.call(thisArg[, arg1[, arg2[, ...]]])  应用call和apply还有一个技巧，就是call和apply应用另外一个函数以后，当前函数就具备了另外一个函数的方法和属性，这也可以称之为“继承”。通过上例可知，extend调用call方法后就继承到了base的方法和属性。
-参考 JavaScript函数的Arguments对象属性
-Javascript继承机制的设计思想
-深入理解JavaScript系列（5）：强大的原型和原型链
-Function.prototype.apply()
-Function.prototype.call()
-Function.prototype.bind()
-Function.prototype.toString()
-Functional JavaScript, Part 3: .apply(), .call(), and the arguments object
-Bind, Call and Apply in JavaScript
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -724,6 +731,8 @@ Bind, Call and Apply in JavaScript
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/46/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -895,7 +904,7 @@ Bind, Call and Apply in JavaScript
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">702</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

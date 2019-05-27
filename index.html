@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8postman%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95salesforce-api/" itemprop="url">
+        使用Postman动态调试Salesforce API
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-05-27">
+    2019-05-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">44 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在使用Postman调试Salesforce API时，觉得每次输入Access Token很low，应该充分利用它的脚本能力进行自动化。
+创建环境变量 创建新环境变量： 设置环境变量： 选择环境变量： 创建OAuth集合 创建OAuth Collection：
+创建Password Authorization请求：
+Password Authorization请求头：
+Password Authorization请求体：
+Password Authorization响应脚本： 脚本用于将响应中信息写入ACCESS_TOKEN和INSTANCE_URL环境变量以用于后继API调用。
+Server Authorization请求：
+创建Export集合 创建Export Collection： 编辑Export Collection： 主要是让集合内请求共用Bearer Token。 获取版本： 脚本用于将响应中信息写入LATEST_VER_PATH环境变量以用于后继API调用。
+注： 通过快捷键(CMD/CTRL + ALT + C)可以打开Postman应用的控制台。
+获取资源： 获取对象列表： 获取对象元数据： 获取对象列信息： 脚本用于通过响应信息生成QUERY环境变量以用于SOQL查询API调用。
+执行SOQL查询： 查询限额： 最后将环境变量和两个请求集合导出成JSON文件，可以共享给其他人使用。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/" itemprop="url">
         体验Salesforce API
         </a>
@@ -701,67 +764,6 @@ C:\quTemp\PackerTest&gt;REM set PACKER_LOG=1 C:\quTemp\PackerTest&gt;packer buil
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/facebook%E7%9A%84pageaccesstoken/" itemprop="url">
-        Facebook的Page Access Token
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-10-30">
-    2018-10-30
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">88 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    忽然发现原本可用的Facebook App Access Token无法获取Page内容的，甚至是自己的主页，错误提示为： &gt; &ldquo;(#10) To use &lsquo;Page Public Content Access&rsquo;, your use of this endpoint must be reviewed and approved by Facebook. To submit this &lsquo;Page Public Content Access&rsquo; feature for review please read our documentation on reviewable features: https://developers.facebook.com/docs/apps/review.&quot;。
-注：我的App yquTest当前App版本为2.8。祭出Access Token Tool武器，开始实验User Access Token。 发现结果如下： - 使用Facebook App Access Token无法读取自己或他人的主页内容 - 使用Facebook User Access Token可以读取自己主页内容，但无法读取他人的主页内容
-Facebook Page Access Token调查 获取自己多个主页的Page Access Toke 获取自己单个主页的Page Access Toke 使用Page Access Token获取自己的主页内容 尝试获取他人主页的Page Access Token 结果自然是嘿嘿嘿。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/facebook%E7%9A%84pageaccesstoken/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -787,6 +789,8 @@ Facebook Page Access Token调查 获取自己多个主页的Page Access Toke 获
 
 <nav class="pagination">
     
+    
+        
     
         
     
@@ -958,7 +962,7 @@ Facebook Page Access Token调查 获取自己多个主页的Page Access Toke 获
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">702</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

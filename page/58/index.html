@@ -113,6 +113,66 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" itemprop="url">
+        [C&#43;&#43;] 重温析构函数
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-25">
+    2013-10-25
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">466 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    创建一个C++对象时，一般先调用父类构造函数，再调用自己的构造函数；而在销毁一个C++对象时，一般先调用自己的析构函数，再调用父类的析构函数。我用如下testDestructor.cpp进行测试。
+class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } ~BaseClass() { cout &lt;&lt; &quot;~BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string(&quot;NULL&quot;)) { cout &lt;&lt; &quot;DerivedClass() on &quot; &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string&amp; n):name(new string(n)) { cout &lt;&lt; &quot;DerivedClass(string) on &quot; &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; &quot;~DerivedClass(): name has been deleted on &quot; &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; &quot;=== test bo1 ===&quot; &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); delete bo1; cout &lt;&lt; &quot;=== test do1 ===&quot; &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); delete do1; cout &lt;&lt; &quot;=== test bo2 ===&quot; &lt;&lt; endl; BaseClass* bo2 = new DerivedClass(&quot;123&quot;); delete bo2; cout &lt;&lt; &quot;=== test bo3 ===&quot; &lt;&lt; endl; BaseClass bo3 = DerivedClass(&quot;321&quot;); return 0; }  输出结果如下：
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/" itemprop="url">
         [HBase] HBase Shell交互实践
         </a>
@@ -660,60 +720,6 @@ grep命令帮助 示例: grep -i 'hello world' menu.h main.c 正则选择和解�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/xming%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" itemprop="url">
-        Xming使用笔记
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-21">
-    2013-10-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">19 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    XWindow系统里有一个统一的Server来负责各个程序与显示器、键盘和鼠标等输入输出设备的交互，每个有GUI的应用程序都通过网络协议与Server进行交互。所以对于任何一个应用程序，本地运行和远程运行的差别仅仅是XServer的地址不同，别的没有差别。所以在Windows运行一个XServer，就可以很方便的远程运行有GUI的Linux应用了。 Xming是一个在Microsoft Windows操作系统上运行XWindow系统的服务器。它非常简单易用，搭配强大。一般搭配putty的下列配置，就可以在Windows平台上远程运行有GUI的Linux应用了：
-Connection-SSH-X11-Enable X11 forwarding  Xming操作笔记如下： - 选择单词：双击鼠标左键 - 选择一行：三击鼠标左键 - 选择特定文本：鼠标左键点击文本起点，然后按住鼠标右键选择。 - 复制文本：Alt + Shift + C
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -860,9 +866,7 @@ Connection-SSH-X11-Enable X11 forwarding  Xming操作笔记如下： - 选择单
         
     
         
-        
-          <a class="page-number" href="/page/62/">62</a>
-        
+    
         
     
         
@@ -911,7 +915,7 @@ Connection-SSH-X11-Enable X11 forwarding  Xming操作笔记如下： - 选择单
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">702</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
