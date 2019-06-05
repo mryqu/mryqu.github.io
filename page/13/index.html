@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/" itemprop="url">
+        在Ubuntu中识别当前Init系统
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-05">
+    2016-08-05
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">58 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Ubuntu 14.04 首先用uname命令查看一下系统信息：
+ubuntu@node50069:~$ uname -a Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是init：可以下面几个命令查看init进程所用的命令信息： - ps -efa|grep init - type init - sudo stat /proc/1/exe
+最终通过&rdquo;sudo init &ndash;version&rdquo;可知当前的Init系统为upstart：Ubuntu 15.04 首先查看一下系统信息：
+vagrant@vagrant-ubuntu-trusty:~$ uname -a Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是systemd：参考 WIKI：init
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/" itemprop="url">
         [Spark]Spark和Hive集成
         </a>
@@ -659,66 +722,6 @@ build.gradle buildscript { repositories { mavenCentral() } dependencies { classp
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/" itemprop="url">
-        [OpenUI5] 复习Controller lifecycle
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-05-27">
-    2016-05-27
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">181 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    昨天看到有同事添加了几个Controller的回调，对其中的onBeforeExit、beforeExit没一点印象。
-sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&quot;foo onInit called&quot;); }, onBeforeExit: function(){ console.info(&quot;foo onBeforeExit called&quot;) ; } , beforeExit: function() { console.info(&quot;foo beforeExit called&quot;) ; }, onBeforeRendering: function() { console.info(&quot;foo onBeforeRendering called&quot;); }, onExit: function() { console.info(&quot;foo onExit called&quot;); } });  查了一下如下OpenUI5开发指南 MVC中关于Controllers的介绍。 &gt; SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event handlers or other functions tothe controller and the controller can fire events, for which othercontrollers or entities can register.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -914,7 +917,7 @@ sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&q
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">702</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

@@ -113,6 +113,62 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/" itemprop="url">
+        OneDrive认证时的&#34;Public clients can&#39;t send a client secret.&#34;错误
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-10-14">
+    2016-10-14
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">23 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在进行Microsoft OneDrive认证和登录实验的过程中，曾经用下列命令过去访问令牌：
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;client_secret={client_secret} &amp;code={code}&amp;grant_type=authorization_code  结果返回：
+{&quot;error&quot;:&quot;invalid_request&quot;,&quot;error_description&quot;:&quot;Public clients can't send a client secret.&quot;}  一个&rdquo;public client&rdquo;指的是移动或桌面应用(web服务则是&rdquo;confidentialclient&rdquo;)。由于跳转URI是https://login.live.com/oauth20_desktop.srf，因而MSA返回该错误响应。这种情况下，不应该提供client_secret，使用下列请求即可。
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;code={code}&amp;grant_type=authorization_code  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/" itemprop="url">
         Microsoft OneDrive认证和登录
         </a>
@@ -647,61 +703,6 @@ Dropbox token API
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8tableau%E5%AF%BC%E5%85%A5google_sheets/" itemprop="url">
-        使用Tableau导入Google Sheets
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-10-01">
-    2016-10-01
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">18 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    尝试一下用Tableau导入Google Sheets，操作过程中没看到配置项，比较简洁。
-用Google账户授权Tableau 显示所有电子表格 选择一个电子表格 导入一个电子表格 参考 Connect Directly to Google Sheets in Tableau 10
-Tableau connector examples
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -897,7 +898,7 @@ Tableau connector examples
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">702</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

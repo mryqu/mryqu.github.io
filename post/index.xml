@@ -6,10 +6,24 @@
     <description>Recent content in Posts on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 27 May 2019 06:12:23 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Jun 2019 18:36:11 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>玩一道正则表达式练习题</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E9%81%93%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%83%E4%B9%A0%E9%A2%98/</link>
+      <pubDate>Sun, 02 Jun 2019 18:36:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E9%81%93%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%83%E4%B9%A0%E9%A2%98/</guid>
+      <description>前一段时间在网上碰到一道题，要求进行用户名检查：
+- 用户名长度要求最短6字符，最长16字符；
+- 用户名可以由字母、数字和可选的一个连字号(-)组成；
+- 用户名首字符必须为字母，末字符不可以是连字号。
+这道题属于送分题，很容易写出下面的Java代码：
+public class Username { public static int MIN_LEN = 6; public static int MAX_LEN = 16; public static boolean validate(String username) { if(username==null || username.length()&amp;lt;MIN_LEN || username.length()&amp;gt;MAX_LEN || !Character.isLetter(username.charAt(0))) return false; int hyphenNum = 0; for(int i=1;i&amp;lt;username.length();i++) { char ch = username.charAt(i); if (!Character.isLetterOrDigit(ch)) { if (ch==&#39;-&#39;) { if(i== username.length()-1 || ++hyphenNum&amp;gt;1) return false; } else return false; } } return true; } public static void main(String[] args) { String[] tests = new String[] { null, &amp;quot;mryqu123&amp;quot;, &amp;quot;mryqu-123&amp;quot;, &amp;quot;mryqu 123&amp;quot;, &amp;quot;mryqu123-&amp;quot;, &amp;quot;mryqu-123-bj&amp;quot;, &amp;quot;123mryqu&amp;quot;, &amp;quot;MryQu-123&amp;quot; }; for(String test:tests) { System.</description>
+    </item>
     
     <item>
       <title>使用Postman动态调试Salesforce API</title>

@@ -113,6 +113,59 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/postgresql_jdbc_setfetchsize/" itemprop="url">
+        PostgreSQL JDBC setFetchSize
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-14">
+    2013-06-14
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db/nosql" itemprop="url" rel="index">
+        <span itemprop="name">DB/NoSQL</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">6 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    今天看到我们的Hiberante配置没有设hibernate.jdbc.fetch_size。 Fetch Size是设定JDBC的Statement读取数据的时候每次从数据库中取出的记录条数。例如一次查询1万条记录，对于Oracle的JDBC驱动来说，是不会1次性把1万条取出来的，而只会取出FetchSize条数，当纪录集遍历完了这些记录以后，再去数据库取Fetch Size条数据。因此大大节省了无谓的内存消耗。当然FetchSize设的越大，读数据库的次数越少，速度越快；FetchSize越小，读数据库的次数越多，速度越慢。这有点像平时我们写程序写硬盘文件一样，设立一个缓冲，每次写入缓冲，等缓冲满了以后，一次写入硬盘，道理相同。 看了一下Postgres，它的JDBC驱动却是一次将查询的所有结果都返回。相反使用游标、设置fetchsize倒是麻烦不少。 http://jdbc.postgresql.org/documentation/head/query.html
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="url">
         Hibernate3 HQL: ClassCastException解决办法
         </a>
@@ -719,81 +772,6 @@ name=&ldquo;persistDS1&rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/" itemprop="url">
-        GemFire查询
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-15">
-    2013-05-15
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service%E5%8F%8Ajavaee" itemprop="url" rel="index">
-        <span itemprop="name">Service及JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/cache" itemprop="url" rel="index">
-        <span itemprop="name">Cache</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gemfire" itemprop="url" rel="index">
-        <span itemprop="name">GemFire</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1858 字 ~9分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。
-Region存储示例 本文的查询示例基于类Porfolio和Positon的对象。
-Portfolio.java package query; import java.io.DataInput; import java.io.DataOutput; import java.io.IOException; import java.io.Serializable; import java.util.HashMap; import java.util.Iterator; import java.util.Map; import com.gemstone.gemfire.DataSerializable; import com.gemstone.gemfire.DataSerializer; public class Portfolio implements Serializable, DataSerializable { private int ID; public String pkid; public Position position1; public Position position2; public String description; public HashMap positions = new HashMap(); String type; public String status; public String [] names={&quot;aaa&quot;,&quot;bbb&quot;,&quot;ccc&quot;,&quot;ddd&quot;}; public int getID() { return ID; } public String getPk() { return pkid; } public HashMap getPositions() { return positions; } public Position getP1() { return position1; } public Position getP2() { return position2; } public boolean isActive() { return status.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1022,7 +1000,7 @@ Portfolio.java package query; import java.io.DataInput; import java.io.DataOutpu
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">702</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
