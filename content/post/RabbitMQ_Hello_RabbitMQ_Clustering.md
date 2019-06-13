@@ -2,7 +2,7 @@
 title: '[RabbitMQ] Hello RabbitMQ Clustering'
 date: 2016-08-08 05:58:43
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - MQ
 tags: 
 - rabbitmq

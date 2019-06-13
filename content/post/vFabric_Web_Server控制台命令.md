@@ -2,7 +2,7 @@
 title: 'vFabric Web Server控制台命令'
 date: 2013-10-16 19:28:36
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Web Application Server
 tags: 
 - vfabric

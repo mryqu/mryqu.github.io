@@ -2,7 +2,7 @@
 title: 'Tomcat的会话持久化'
 date: 2013-11-08 20:17:47
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Web Application Server
 tags: 
 - tomcat

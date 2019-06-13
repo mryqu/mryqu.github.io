@@ -2,7 +2,7 @@
 title: 'Spring Cloud Consul Config'
 date: 2017-06-23 05:40:36
 categories:
-- Service及JavaEE 
+- Service+JavaEE 
 - Spring
 tags: 
 - spring

@@ -2,7 +2,7 @@
 title: '[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping'
 date: 2015-12-03 06:38:56
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

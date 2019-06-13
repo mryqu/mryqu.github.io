@@ -2,7 +2,7 @@
 title: 'GemFire Region分类'
 date: 2013-05-15 07:28:53
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

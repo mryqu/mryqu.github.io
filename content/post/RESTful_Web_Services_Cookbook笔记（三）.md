@@ -2,7 +2,7 @@
 title: 'RESTful Web Services Cookbook笔记（三）'
 date: 2013-10-19 09:08:24
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - rest
 - 最佳实践手册

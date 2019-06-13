@@ -2,7 +2,7 @@
 title: 'Hibernate shards数据库分片'
 date: 2013-07-19 07:01:23
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Hibernate
 tags: 
 - hibernate

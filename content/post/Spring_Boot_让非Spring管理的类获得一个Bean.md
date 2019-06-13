@@ -2,7 +2,7 @@
 title: '[Spring Boot] 让非Spring管理的类获得一个Bean'
 date: 2015-12-04 06:08:47
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

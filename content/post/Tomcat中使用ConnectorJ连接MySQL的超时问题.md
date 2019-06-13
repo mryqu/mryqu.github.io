@@ -2,7 +2,7 @@
 title: 'Tomcat中使用Connector/J连接MySQL的超时问题'
 date: 2014-05-05 20:58:54
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Web Application Server
 tags: 
 - tomcat

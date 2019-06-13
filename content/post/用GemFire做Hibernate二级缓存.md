@@ -2,7 +2,7 @@
 title: '用GemFire做Hibernate二级缓存'
 date: 2013-06-16 11:13:02
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

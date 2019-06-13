@@ -2,7 +2,7 @@
 title: "Spring3 REST can't solve list of object generated by Javascript"
 date: 2015-01-16 21:21:44
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

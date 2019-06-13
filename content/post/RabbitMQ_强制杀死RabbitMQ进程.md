@@ -2,7 +2,7 @@
 title: '[RabbitMQ] 强制杀死RabbitMQ进程'
 date: 2016-08-11 05:10:09
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - MQ
 tags: 
 - kill

@@ -2,7 +2,7 @@
 title: '用GemFire做Mybatis二级缓存'
 date: 2013-05-22 09:12:27
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

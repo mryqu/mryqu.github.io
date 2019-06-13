@@ -2,7 +2,7 @@
 title: '[RabbitMQ] 了解多个同名rabbitmq-server文件'
 date: 2016-08-12 06:13:28
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - MQ
 tags: 
 - rabbitmq-server

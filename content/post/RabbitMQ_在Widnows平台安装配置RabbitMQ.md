@@ -2,7 +2,7 @@
 title: '[RabbitMQ] 在Widnows平台安装配置RabbitMQ'
 date: 2016-08-06 05:29:19
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - MQ
 tags: 
 - rabbitmq

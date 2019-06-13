@@ -2,7 +2,7 @@
 title: '[RabbitMQ] Hello RabbitMQ'
 date: 2016-08-07 05:54:08
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - MQ
 tags: 
 - rabbitmq

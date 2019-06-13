@@ -2,7 +2,7 @@
 title: '[Spring Boot] 创建超媒体驱动的Mail服务'
 date: 2015-08-03 06:46:47
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

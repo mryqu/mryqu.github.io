@@ -2,7 +2,7 @@
 title: '嵌套的动态GemFire region研究'
 date: 2013-06-28 16:16:14
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

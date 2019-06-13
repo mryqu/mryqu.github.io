@@ -2,7 +2,7 @@
 title: '[Spring Boot] Hello Spring LDAP'
 date: 2015-07-06 06:20:32
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

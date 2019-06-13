@@ -2,7 +2,7 @@
 title: '[Spring Boot] Hello MethodInvokingFactoryBean and MethodInvokingBean'
 date: 2015-11-05 05:58:07
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

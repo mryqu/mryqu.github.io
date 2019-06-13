@@ -2,7 +2,7 @@
 title: 'tc Server与Atomikos集成'
 date: 2013-10-13 17:15:41
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - tcserver
 - atomikos

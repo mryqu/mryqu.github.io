@@ -2,7 +2,7 @@
 title: '差一点搞混了Transactional注解'
 date: 2014-04-01 20:03:28
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - transactional

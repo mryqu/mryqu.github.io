@@ -2,7 +2,7 @@
 title: '试试swagger-codegen的invokerPackage和basePackage'
 date: 2017-07-24 05:42:35
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Swagger
 tags: 
 - swagger

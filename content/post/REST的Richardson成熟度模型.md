@@ -2,7 +2,7 @@
 title: 'REST的Richardson成熟度模型'
 date: 2013-10-19 10:59:05
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - rest
 - restful

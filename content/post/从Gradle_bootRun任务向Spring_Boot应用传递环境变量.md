@@ -2,7 +2,7 @@
 title: '从Gradle bootRun任务向Spring Boot应用传递环境变量'
 date: 2015-09-08 06:32:44
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - gradle

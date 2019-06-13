@@ -2,7 +2,7 @@
 title: 'Java RMI 客户端回调（callback）'
 date: 2013-07-26 19:40:26
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - rmi
 - 回调

@@ -2,7 +2,7 @@
 title: '[RabbitMQ] AutorecoveringConnection在连接恢复后才调用ShutdownListener'
 date: 2016-08-13 06:00:17
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - MQ
 tags: 
 - rabbitmq

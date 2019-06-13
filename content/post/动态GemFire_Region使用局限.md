@@ -2,7 +2,7 @@
 title: '动态GemFire Region使用局限'
 date: 2013-07-05 21:23:00
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

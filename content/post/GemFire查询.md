@@ -2,7 +2,7 @@
 title: 'GemFire查询'
 date: 2013-05-15 07:30:01
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

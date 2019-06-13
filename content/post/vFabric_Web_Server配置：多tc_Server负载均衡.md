@@ -2,7 +2,7 @@
 title: 'vFabric Web Server配置：多tc Server负载均衡'
 date: 2013-10-16 22:03:02
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Web Application Server
 tags: 
 - vfabric

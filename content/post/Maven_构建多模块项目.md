@@ -2,7 +2,7 @@
 title: '[Maven] 构建多模块项目'
 date: 2016-09-03 07:07:55
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - maven
 - module

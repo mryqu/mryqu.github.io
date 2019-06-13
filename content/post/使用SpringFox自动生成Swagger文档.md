@@ -2,7 +2,7 @@
 title: '使用SpringFox自动生成Swagger文档'
 date: 2016-04-28 06:03:36
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Swagger
 tags: 
 - springfox

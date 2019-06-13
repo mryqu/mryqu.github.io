@@ -2,7 +2,7 @@
 title: 'Hibernate缓存'
 date: 2013-05-25 09:40:06
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 tags: 
 - hibernate

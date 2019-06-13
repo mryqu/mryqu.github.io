@@ -2,7 +2,7 @@
 title: '遭遇“GsonFactory cannot be resolved”'
 date: 2015-09-18 05:07:00
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - gsonfactory
 - google

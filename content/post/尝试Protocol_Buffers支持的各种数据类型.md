@@ -2,7 +2,7 @@
 title: '尝试Protocol Buffers支持的各种数据类型'
 date: 2013-09-22 22:45:14
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - protobuf
 - protocol

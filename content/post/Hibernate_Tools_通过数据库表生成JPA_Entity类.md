@@ -2,7 +2,7 @@
 title: '[Hibernate Tools] 通过数据库表生成JPA Entity类'
 date: 2015-08-30 08:56:57
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Hibernate
 tags: 
 - hibernate

@@ -2,7 +2,7 @@
 title: 'JDBC连接池的testQuery/validationQuery设置'
 date: 2014-05-07 21:20:32
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 tags: 
 - jdbc
 - 连接池

@@ -2,7 +2,7 @@
 title: '[Spring Data] 调试H2数据库'
 date: 2015-06-28 01:00:55
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Spring
 tags: 
 - spring

@@ -2,7 +2,7 @@
 title: 'GemFire 数据逐出和持久化'
 date: 2013-05-17 15:48:33
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Cache
 - GemFire
 tags: 

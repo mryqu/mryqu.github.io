@@ -2,7 +2,7 @@
 title: 'Tomcat JNDI 数据源配置'
 date: 2012-08-22 09:19:36
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Web Application Server
 tags: 
 - tomcat

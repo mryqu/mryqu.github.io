@@ -2,7 +2,7 @@
 title: '获取Tomcat版本的简单办法'
 date: 2013-09-29 21:28:50
 categories: 
-- Service及JavaEE
+- Service+JavaEE
 - Web Application Server
 tags: 
 - version.bat
