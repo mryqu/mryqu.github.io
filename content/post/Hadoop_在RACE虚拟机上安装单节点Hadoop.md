@@ -2,7 +2,7 @@
 title: '[Hadoop] 在RACE虚拟机上安装单节点Hadoop'
 date: 2013-07-24 21:58:09
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

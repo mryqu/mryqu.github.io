@@ -2,7 +2,7 @@
 title: '[Sqoop]尝试Sqoop'
 date: 2018-07-11 05:44:19
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Sqoop
 tags: 
 - sqoop

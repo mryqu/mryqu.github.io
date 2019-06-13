@@ -2,7 +2,7 @@
 title: '[Zeppelin] 尝试Zeppelin'
 date: 2018-07-10 05:50:35
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Zeppelin
 tags: 
 - zeppelin

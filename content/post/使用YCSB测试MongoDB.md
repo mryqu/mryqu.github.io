@@ -2,7 +2,7 @@
 title: '使用YCSB测试MongoDB'
 date: 2014-03-31 20:29:01
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - ycsb
 - benchmark

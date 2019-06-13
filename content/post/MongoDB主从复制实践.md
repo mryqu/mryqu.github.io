@@ -2,7 +2,7 @@
 title: 'MongoDB主从复制实践'
 date: 2014-04-03 21:53:44
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mongodb
 - nosql

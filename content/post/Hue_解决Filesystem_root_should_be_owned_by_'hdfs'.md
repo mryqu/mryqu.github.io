@@ -2,7 +2,7 @@
 title: "[Hue] 解决Filesystem root '/' should be owned by 'hdfs'"
 date: 2016-08-24 05:36:55
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hue
 tags: 
 - hue

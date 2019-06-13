@@ -2,7 +2,7 @@
 title: '[HBase] Shell命令'
 date: 2013-09-27 19:58:03
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - HBase
 tags: 
 - hbase

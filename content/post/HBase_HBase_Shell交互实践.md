@@ -2,7 +2,7 @@
 title: '[HBase] HBase Shell交互实践'
 date: 2013-10-25 20:12:48
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - HBase
 tags: 
 - hbase

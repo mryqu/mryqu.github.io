@@ -2,7 +2,7 @@
 title: 'MongoDB 3.0新特性、提升与兼容性改变'
 date: 2015-03-07 22:01:45
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mongodb
 - 新特性

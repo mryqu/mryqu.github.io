@@ -2,7 +2,7 @@
 title: '数据库catalog的定义'
 date: 2012-08-13 22:16:37
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - 数据库
 - catalog

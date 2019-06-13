@@ -2,7 +2,7 @@
 title: 'PostgreSQL与MySQL数据库分区'
 date: 2013-07-16 21:10:39
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - 数据库
 - 分区

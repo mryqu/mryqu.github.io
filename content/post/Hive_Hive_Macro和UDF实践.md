@@ -2,7 +2,7 @@
 title: '[Hive] Hive Macro和UDF实践'
 date: 2015-08-18 05:09:46
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

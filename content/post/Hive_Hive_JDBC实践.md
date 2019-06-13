@@ -2,7 +2,7 @@
 title: '[Hive] Hive JDBC实践'
 date: 2015-07-30 05:35:26
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

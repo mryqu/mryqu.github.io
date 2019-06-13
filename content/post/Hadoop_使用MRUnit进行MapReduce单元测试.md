@@ -2,7 +2,7 @@
 title: '[Hadoop] 使用MRUnit进行MapReduce单元测试'
 date: 2014-06-15 22:59:22
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

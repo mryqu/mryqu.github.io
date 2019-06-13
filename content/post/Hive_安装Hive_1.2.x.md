@@ -2,7 +2,7 @@
 title: '[Hive] 安装Hive 1.2.x'
 date: 2015-07-24 05:37:23
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

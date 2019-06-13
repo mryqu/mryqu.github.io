@@ -2,7 +2,7 @@
 title: '[Hadoop] 安装protobuf'
 date: 2013-09-21 16:23:17
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

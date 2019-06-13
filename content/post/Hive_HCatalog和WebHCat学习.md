@@ -2,7 +2,7 @@
 title: '[Hive] HCatalog和WebHCat学习'
 date: 2015-07-29 05:39:31
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

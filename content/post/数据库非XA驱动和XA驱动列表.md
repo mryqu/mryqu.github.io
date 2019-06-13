@@ -2,7 +2,7 @@
 title: '数据库非XA驱动和XA驱动列表'
 date: 2013-10-17 19:44:55
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - non-xa
 - xa

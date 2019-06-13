@@ -2,7 +2,7 @@
 title: '[Hive] Hive 表UDTF和汇聚UDAF学习'
 date: 2015-08-20 05:48:48
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

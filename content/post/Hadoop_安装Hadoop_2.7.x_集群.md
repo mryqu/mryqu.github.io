@@ -2,7 +2,7 @@
 title: '[Hadoop] 安装Hadoop 2.7.x 集群'
 date: 2015-04-28 23:37:27
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

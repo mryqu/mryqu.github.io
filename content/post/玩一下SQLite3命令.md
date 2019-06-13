@@ -2,7 +2,7 @@
 title: '玩一下SQLite3命令'
 date: 2014-07-10 20:29:31
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - database
 - sqlite

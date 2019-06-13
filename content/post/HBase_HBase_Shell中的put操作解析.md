@@ -2,7 +2,7 @@
 title: '[HBase] HBase Shell中的put操作解析'
 date: 2014-01-03 23:20:51
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - HBase
 tags: 
 - hbase

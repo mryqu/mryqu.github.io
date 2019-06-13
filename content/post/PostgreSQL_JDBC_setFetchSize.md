@@ -2,7 +2,7 @@
 title: 'PostgreSQL JDBC setFetchSize'
 date: 2013-06-14 17:56:08
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - postgresql
 - hibernate

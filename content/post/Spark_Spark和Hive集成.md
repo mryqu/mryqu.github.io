@@ -2,7 +2,7 @@
 title: '[Spark]Spark和Hive集成'
 date: 2016-08-03 06:10:01
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Spark
 tags: 
 - spark

@@ -2,7 +2,7 @@
 title: 'Ubuntu下安装部署MySQL数据库'
 date: 2013-10-11 21:52:52
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - ubuntu
 - linux

@@ -2,7 +2,7 @@
 title: 'Hello MongoDB Java Driver'
 date: 2014-03-30 13:50:33
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mongodb
 - java

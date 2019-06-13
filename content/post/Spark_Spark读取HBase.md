@@ -2,7 +2,7 @@
 title: '[Spark] Spark读取HBase'
 date: 2018-07-12 05:40:01
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Spark
 tags: 
 - spark

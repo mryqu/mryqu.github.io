@@ -2,7 +2,7 @@
 title: '[Oozie] 遭遇ShareLib无法找到的问题'
 date: 2018-07-13 05:40:09
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Oozie
 tags: 
 -  oozie

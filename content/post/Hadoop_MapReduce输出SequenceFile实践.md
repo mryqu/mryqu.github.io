@@ -2,7 +2,7 @@
 title: '[Hadoop] MapReduce输出SequenceFile实践'
 date: 2014-01-01 23:19:23
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

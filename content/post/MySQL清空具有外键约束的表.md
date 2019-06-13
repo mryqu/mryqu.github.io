@@ -2,7 +2,7 @@
 title: 'MySQL:清空具有外键约束的表'
 date: 2013-11-20 20:30:18
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mysql
 - 清空

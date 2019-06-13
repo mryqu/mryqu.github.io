@@ -2,7 +2,7 @@
 title: '[Hive] 遇到Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}'
 date: 2015-07-25 07:33:55
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

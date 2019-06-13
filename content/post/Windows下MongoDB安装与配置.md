@@ -2,7 +2,7 @@
 title: 'Windows下MongoDB安装与配置'
 date: 2014-03-30 07:57:15
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mongodb
 - 安装

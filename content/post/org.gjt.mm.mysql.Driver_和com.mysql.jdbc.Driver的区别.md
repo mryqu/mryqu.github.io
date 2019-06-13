@@ -2,7 +2,7 @@
 title: 'org.gjt.mm.mysql.Driver和com.mysql.jdbc.Driver的区别'
 date: 2008-10-05 11:43:53
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mysql
 - 驱动

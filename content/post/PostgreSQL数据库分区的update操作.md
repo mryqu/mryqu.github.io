@@ -2,7 +2,7 @@
 title: 'PostgreSQL数据库分区的update操作'
 date: 2013-07-19 23:23:36
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - postgresql
 - 数据库

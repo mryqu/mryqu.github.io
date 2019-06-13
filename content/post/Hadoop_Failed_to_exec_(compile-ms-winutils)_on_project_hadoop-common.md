@@ -2,7 +2,7 @@
 title: '[Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common'
 date: 2014-04-15 22:16:23
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

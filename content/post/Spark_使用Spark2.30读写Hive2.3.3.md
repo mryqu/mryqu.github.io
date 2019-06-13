@@ -2,7 +2,7 @@
 title: '[Spark] 使用Spark2.30读写Hive2.3.3'
 date: 2018-07-03 06:04:31
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Spark
 tags: 
 - hadoop

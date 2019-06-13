@@ -2,7 +2,7 @@
 title: '[Ambari] 了解Ambari'
 date: 2015-07-26 07:35:28
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Ambari
 tags: 
 - ambari

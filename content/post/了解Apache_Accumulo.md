@@ -2,7 +2,7 @@
 title: '了解Apache Accumulo'
 date: 2015-03-10 20:12:08
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - apache
 - accumulo

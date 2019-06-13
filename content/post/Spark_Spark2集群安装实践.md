@@ -2,7 +2,7 @@
 title: '[Spark]Spark2集群安装实践'
 date: 2016-07-28 05:47:45
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Spark
 tags: 
 - spark

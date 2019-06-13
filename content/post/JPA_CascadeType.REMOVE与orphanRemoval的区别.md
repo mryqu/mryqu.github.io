@@ -2,7 +2,7 @@
 title: '[JPA] CascadeType.REMOVE与orphanRemoval的区别'
 date: 2013-10-26 13:15:59
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - jpa
 - hibernate

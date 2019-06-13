@@ -2,7 +2,7 @@
 title: 'MongoDB副本集实践'
 date: 2014-04-05 08:18:56
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mongodb
 - nosql

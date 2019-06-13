@@ -2,7 +2,7 @@
 title: '[Oozie] Oozie构建问题'
 date: 2018-07-05 06:20:10
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Oozie
 tags: 
 - oozie

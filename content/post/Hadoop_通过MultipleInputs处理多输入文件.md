@@ -2,7 +2,7 @@
 title: '[Hadoop] 通过MultipleInputs处理多输入文件'
 date: 2014-09-29 06:35:57
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

@@ -2,7 +2,7 @@
 title: '[Hive] Hive表文件存储格式'
 date: 2015-08-14 06:25:23
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

@@ -2,7 +2,7 @@
 title: '[Pig] 安装Pig 0.15.0'
 date: 2015-07-20 06:35:42
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Pig
 tags: 
 - pig

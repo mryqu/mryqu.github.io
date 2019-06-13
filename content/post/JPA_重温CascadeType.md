@@ -2,7 +2,7 @@
 title: '[JPA] 重温CascadeType'
 date: 2015-04-18 00:18:50
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - jpa
 - hibernate

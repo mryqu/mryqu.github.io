@@ -2,7 +2,7 @@
 title: 'Hive与Spark的版本搭配'
 date: 2016-08-02 05:46:59
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Spark
 tags: 
 - hive

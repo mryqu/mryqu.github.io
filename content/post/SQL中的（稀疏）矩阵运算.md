@@ -2,7 +2,7 @@
 title: 'SQL中的（稀疏）矩阵运算'
 date: 2014-07-07 21:16:01
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - sql
 - 稀疏矩阵

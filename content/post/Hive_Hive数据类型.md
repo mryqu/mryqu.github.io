@@ -2,7 +2,7 @@
 title: '[Hive] Hive数据类型'
 date: 2015-08-13 06:14:56
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

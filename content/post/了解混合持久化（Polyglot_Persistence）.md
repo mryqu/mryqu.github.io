@@ -2,7 +2,7 @@
 title: '了解混合持久化（Polyglot Persistence）'
 date: 2015-04-27 05:58:13
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - 混合持久化
 - polyglot

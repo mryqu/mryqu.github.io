@@ -2,7 +2,7 @@
 title: '[HBase] 才发现HBase REST服务占用的是8080端口'
 date: 2016-03-03 05:43:11
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - HBase
 tags: 
 - hbase

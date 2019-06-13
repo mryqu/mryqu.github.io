@@ -2,7 +2,7 @@
 title: '[Spark] 使用Spark2.30读写MySQL'
 date: 2018-07-04 06:36:25
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Spark
 tags: 
 - spark

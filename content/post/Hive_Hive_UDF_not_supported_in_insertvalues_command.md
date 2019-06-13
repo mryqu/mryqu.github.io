@@ -2,7 +2,7 @@
 title: '[Hive] Hive UDF not supported in insert/values command'
 date: 2015-08-10 05:58:27
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hive
 tags: 
 - hive

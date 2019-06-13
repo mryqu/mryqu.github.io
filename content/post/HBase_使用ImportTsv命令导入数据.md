@@ -2,7 +2,7 @@
 title: '[HBase] 使用ImportTsv命令导入数据'
 date: 2015-03-16 20:16:13
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - HBase
 tags: 
 - hbase

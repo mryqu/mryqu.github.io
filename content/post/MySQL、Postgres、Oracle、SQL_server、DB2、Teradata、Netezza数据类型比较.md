@@ -2,7 +2,7 @@
 title: 'MySQL、Postgres、Oracle、SQL server、DB2、Teradata、Netezza数据类型比较'
 date: 2013-06-24 20:49:03
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mysql
 - postgres

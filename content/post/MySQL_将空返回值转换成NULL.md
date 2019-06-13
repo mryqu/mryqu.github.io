@@ -2,7 +2,7 @@
 title: '[MySQL] 将空返回值转换成NULL'
 date: 2017-04-01 06:17:43
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mysql
 - sql

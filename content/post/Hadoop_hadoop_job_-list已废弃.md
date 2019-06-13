@@ -2,7 +2,7 @@
 title: '[Hadoop] hadoop job -list已废弃'
 date: 2013-10-20 22:04:34
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - Hadoop
 tags: 
 - hadoop

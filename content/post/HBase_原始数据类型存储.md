@@ -2,7 +2,7 @@
 title: '[HBase] 原始数据类型存储'
 date: 2014-01-02 22:37:53
 categories: 
-- Hadoop/Spark
+- Hadoop+Spark
 - HBase
 tags: 
 - hbase

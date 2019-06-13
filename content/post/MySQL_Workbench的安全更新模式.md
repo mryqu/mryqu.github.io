@@ -2,7 +2,7 @@
 title: 'MySQL Workbench的安全更新模式'
 date: 2014-07-16 21:08:37
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mysql
 - safe-update

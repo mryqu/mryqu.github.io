@@ -2,7 +2,7 @@
 title: '创建MySQL表失败，“show tables”命令显示表存在却无法删除'
 date: 2014-10-19 07:41:26
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - mysql
 - error1146

@@ -2,7 +2,7 @@
 title: '实践记录：将MDF MSSQL数据库内容导入MySQL'
 date: 2009-09-24 10:37:58
 categories: 
-- DB/NoSQL
+- db+nosql
 tags: 
 - 数据库
 - mysql
