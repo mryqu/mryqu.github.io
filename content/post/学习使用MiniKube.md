@@ -200,7 +200,15 @@ $
 ![Postman: new Env](/images/2019/6/Minikube-3.png)  
 
 ![Postman: new Env](/images/2019/6/Minikube-4.png)  
-
+  
+使用[Katacoda](https://www.katacoda.com/)，下列命令可以一试，但结果没什么用处。  
+```
+minikube ip                      # Get IP address of the running cluster
+kubectl cluster-info             # Get cluster information
+minikube dashboard --url         # Get the Dashboard URL
+minikube service --url SERVICE   # Get the URL of service
+```
+  
 ### 参考
 
 [Install Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)  
