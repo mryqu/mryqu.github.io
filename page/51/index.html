@@ -113,6 +113,66 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/" itemprop="url">
+        在R作图系统中自定义坐标轴
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-15">
+    2014-04-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">238 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在R作图系统中自定义坐标轴 R作图系统中坐标中的标签默认是等间隔，下列尝试是为了将少量数据的坐标显示在坐标轴上。
+加载库并定义数据 library(lattice) library(ggplot2) library(grid) library(gridExtra) x &lt;- c(1, 2, 3, 7, 8, 9) y &lt;- c(1, 23, 12, 77, 14, 2) data &lt;- data.frame(x = x, y = y) data  ## x y ## 1 1 1 ## 2 2 23 ## 3 3 12 ## 4 7 77 ## 5 8 14 ## 6 9 2  Base作图系统 opar &lt;- par(mfrow = c(1, 2), mar = c(4, 6, 4, 2)) with(data, plot(x, y, type = &quot;b&quot;, main = &quot;Default Axis&quot;)) par(las = 1) with(data, plot(x, y, type = &quot;b&quot;, main = &quot;customised Axis&quot;, xaxt = &quot;n&quot;, yaxt = &quot;n&quot;)) axis(1, data$x) axis(2, data$y)  par(opar)  Lattice作图系统 plot1 &lt;- xyplot(y ~ x, data, type = &quot;b&quot;, main = &quot;Default Axis&quot;) plot2 &lt;- xyplot(y ~ x, data, type = &quot;b&quot;, main = &quot;customised Axis&quot;, scales = list(x = list(at = unlist(data$x)), y = list(at = unlist(data$y))), las = 1) grid.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E8%B0%B7%E6%AD%8C%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95-%E7%AC%94%E5%88%92%E7%BB%84%E4%BB%B6%E8%BE%93%E5%85%A5/" itemprop="url">
         谷歌拼音输入法-笔划/组件输入
         </a>
@@ -640,66 +700,6 @@ sc create MongoDB binPath= &quot;C:\mongodb\bin\mongod.exe--config=C:\mongodb\et
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/" itemprop="url">
-        玩一下LineNumberReader
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-26">
-    2014-03-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">99 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    找资料的副产品就是发现了LineNumberReader这个类，跟它的父类BufferedReader相比多了计算文件行数的功能。记不得以前是否用过了，这里记录一下备用。
-import java.io.BufferedReader; import java.io.FileReader; import java.io.IOException; import java.io.LineNumberReader; public class TestFileLineNum { public static int countLinesV1(String flName) throws IOException { BufferedReader reader = new BufferedReader(new FileReader(flName)); int cnt = 0; while (reader.readLine() != null) { cnt++ ; } reader.close(); return cnt; } public static int countLinesV2(String flName) throws IOException { LineNumberReader reader = new LineNumberReader(new FileReader(flName)); while (reader.readLine() != null) { } int cnt = reader.getLineNumber(); reader.close(); return cnt; } public static void main(String[] args) throws IOException { for(int i=0;i&lt;4;i ) { String flName = &quot;test&quot; + i + &quot;.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -895,14 +895,14 @@ import java.io.BufferedReader; import java.io.FileReader; import java.io.IOEx
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -912,7 +912,7 @@ import java.io.BufferedReader; import java.io.FileReader; import java.io.IOEx
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1503</span>
+        <span class="site-state-item-count">1505</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

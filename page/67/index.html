@@ -113,6 +113,84 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" itemprop="url">
+        用GemFire做Hibernate二级缓存
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-16">
+    2013-06-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/cache" itemprop="url" rel="index">
+        <span itemprop="name">Cache</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gemfire" itemprop="url" rel="index">
+        <span itemprop="name">GemFire</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">115 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    打开二级缓存 &lt;property name=&quot;hibernate.cache.use_second_level_cache&quot;&gt;true&lt;/property&gt;  为查询缓存设置Cache Factory &lt;property name=&quot;hibernate.cache.region.factory_class&quot;&gt; com.gemstone.gemfire.modules.hibernate.GemFireRegionFactory &lt;/property&gt;  共享缓存模式 ENABLE_SELECTIVE|DISABLE_SELECTIVE|ALL|NONE  ENABLE_SELECTIVE (默认值及推荐值): 仅标注为可缓存的实体会被缓存。 DISABLE_SELECTIVE: 仅标注为不可缓存的实体才不会被缓存。 ALL: 即使实体标为不可缓存也会被缓存。 NONE: 即使实体标为可缓存也不会被缓存。该选项意味着完全禁止二级缓存。
+GemFire相关配置 设置GemFire缓存属性
+&lt;property name=&quot;gemfire.PROPERTY_NAME&quot;&gt;PROPERTY_VALUE&lt;/property&gt;  设置GemFire缓存默认region类型
+&lt;property name=&quot;gemfire.default-region-attributes-id&quot;&gt; REGION_ATTRIBUTE &lt;/property&gt;  REGION_ATTRIBUTE是预定义region类型快捷定义中的任一个。默认为REPLICATE_HEAP_LRU。其他有效region快捷定义包括:REPLICATE、 REPLICATE_PERSISTENT、 PARTITION、 PARTITION_PERSISTENT、PARTITION_REDUNDANT、 PARTITION_REDUNDANT_PERSISTENT。
+设置特定GemFire缓存region属性
+&lt;property name=&quot;gemfire.region-attributes-for: com.foo.Bar&quot;&gt; REGION_ATTRIBUTE &lt;/property&gt;  缓存映射 @Cache ( CacheConcurrencyStrategy usage(); String region() default &quot;&quot;; String include() default &quot;all&quot;; )  usage: 缓存并发策略(NONE, READ_ONLY, NONSTRICT_READ_WRITE, READ_WRITE,TRANSACTIONAL) region (可选项，默认为实体类的全类名或集合的全类名加属性名):缓存region名 include (选项项，默认为all): all则缓存所有实体属性，non-lazy仅缓存非懒惰加载的实体属性。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/postgresql_jdbc_setfetchsize/" itemprop="url">
         PostgreSQL JDBC setFetchSize
         </a>
@@ -687,91 +765,6 @@ http://jcp.org/en/jsr/detail?id=347
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" itemprop="url">
-        GemFire 数据逐出和持久化
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-17">
-    2013-05-17
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/cache" itemprop="url" rel="index">
-        <span itemprop="name">Cache</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gemfire" itemprop="url" rel="index">
-        <span itemprop="name">GemFire</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">178 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
-数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。 - 条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 - Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。
-对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作： - Region.containsKey - Region.containsValue - Region.getEntry
-当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
-分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行: - 对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 - 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。
-动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
-| |数据无持久化|数据持久化 |&mdash;&ndash; |EvictionAction.NONE|条目将在内存中一直保存。|条目将在内存和磁盘中一直保存。 |EvictionAction.LOCAL_DESTROY|条目（键和值两部分）将从内存中释放。仅当被逐出数据可从外部数据源加载时可用。| |EvictionAction.OVERFLOW_TO_DISK|条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。|条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。
-磁盘存储文件名和扩展名 磁盘存储文件包括存储管理、访问控制文件和操作日志（oplog，记录了删除和其他所有操作）。下面的表描述了文件名和扩展名及示例。
-文件名 文件名包括三部分:
-第一部分: 使用标识 |值|用途|示例 |&mdash;&ndash; |OVERFLOW|仅为溢出region和队列的操作日志数据。|OVERFLOWoverflowDS1_1.crf |BACKUP|持久化、持久化+溢出rgion和队列操作日志数据。|BACKUPoverflowDS1.if, BACKUPDEFAULT.if |DRLK_IF|访问控制 - 对磁盘存储上锁。|DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk
-第二部分: 磁盘存储名 |值|用途|示例 |&mdash;&ndash; |&lt;磁盘存储名&gt;|非默认磁盘存储。|name=&ldquo;overflowDS1&rdquo; DRLK_IFoverflowDS1.lk,
-name=&ldquo;persistDS1&rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf
-第三部分: 操作日志序列号 |值|用途|示例 |&mdash;&ndash; |序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1000,14 +993,14 @@ name=&ldquo;persistDS1&rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -1017,7 +1010,7 @@ name=&ldquo;persistDS1&rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1503</span>
+        <span class="site-state-item-count">1505</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
