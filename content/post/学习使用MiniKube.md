@@ -21,7 +21,7 @@ tags:
 - Ingres  
 
 ![Minikube 本地安装部署示意](/images/2019/6/Minikube-localinstall-diagram.png)  
-由上图可知，要使用Minikube，需要安装Minikube、kubectl和虚拟机。好在有[Katacoda](https://www.katacoda.com/)提供免费的浏览器内的[Kubernetes](https://kubernetes.io/)环境，省却了安装这一步骤。  
+由上图可知，要使用Minikube，需要安装Minikube、kubectl和虚拟机。好在有[Katacoda](https://www.katacoda.com/)提供浏览器内的带有[Kubernetes](https://kubernetes.io/)环境的免费虚拟终端，省却了安装这一步骤。  
 按照[Kubernetes](https://kubernetes.io/)的[Hello Minikube教程](https://kubernetes.io/docs/tutorials/hello-minikube/)走了一遍。  
 ![Run Minikube with Katacoda](/images/2019/6/Minikube-1.png) 
 ```
@@ -201,7 +201,7 @@ $
 
 ![Postman: new Env](/images/2019/6/Minikube-4.png)  
   
-使用[Katacoda](https://www.katacoda.com/)，下列命令可以一试，但结果没什么用处。  
+使用[Katacoda](https://www.katacoda.com/)，下列命令也可以一试。  
 ```
 minikube ip                      # Get IP address of the running cluster
 kubectl cluster-info             # Get cluster information
