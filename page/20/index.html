@@ -113,6 +113,63 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/" itemprop="url">
+        Twitter API访问频次限制处理
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-10">
+    2015-11-10
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">44 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在我前面的博文社交媒体API访问频次限制中，列举了Twitter API访问频次限制。
+Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。 当向Twitter发送请求后，可以通过解析响应头来获取限制信息。该信息是基于应用/用户上下文的： - X-Rate-Limit-Limit: 对给定请求的访问速率上限 - X-Rate-Limit-Remaining: 15分钟时间窗中剩余请求数 - X-Rate-Limit-Reset: 速率限制复位前（基于UTC）的剩余时间窗秒数
+一旦对Twitter的请求超过了频次限制，Twitter将返回HTTP 429 “Too ManyRequests”响应码及如下消息体：
+{ &quot;errors&quot;: [ { &quot;code&quot;: 88, &quot;message&quot;: &quot;Rate limit exceeded&quot; } ] }  除了通过解析响应头，还可以通过向Twitter发送rate_limit_status请求获取API访问限制信息。
+Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJSONImpl类用于处理响应头中的访问限制信息： Twitter4J的TwitterResponseImpl抽象类用于存放解析过的访问限制信息以供应用程序使用： 此外，还可以注册RateLimitStatusListener监听器实例。由Twitter4J的TwitterBaseImpl类可知，当解析到响应头中的API访问频次限制信息，RateLimitStatusListener监听器实例的onRateLimitStatus方法会被调用；当收到的响应码为420&rdquo;Enhance Your Claim&rdquo;、503 &ldquo;Service Unavailable&rdquo;或429 &ldquo;Too ManyRequests&rdquo;，RateLimitStatusListener监听器实例的onRateLimitReached方法将会被调用。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/git_%E5%88%86%E6%94%AF%E7%AC%94%E8%AE%B0/" itemprop="url">
         [Git] 分支笔记
         </a>
@@ -670,73 +727,6 @@ HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java pa
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/" itemprop="url">
-        [Spring Boot] 使用多个Servlet
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-10-28">
-    2015-10-28
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spring" itemprop="url" rel="index">
-        <span itemprop="name">Spring</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">280 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    当使用Spring boot的嵌入式servlet容器时，可以通过Springbean或扫描Servlet组件的方式注册Servlet、Filter和Servlet规范的所有监听器(例如HttpSessionListener)。 - 当urlMapping不是很复杂时，可以通过ServletRegistrationBean、FilterRegistrationBean和ServletListenerRegistrationBean获得完整控制。如果bean实现了ServletContextInitializer接口的话则可以直接注册。 - 当使用@ServletComponentScan扫描Servlet组件时，Servlet、过滤器和监听器可以是通过@WebServlet、@WebFilter和@WebListener自动注册
-示例代码 Application.java package com.yqu.multiservlet; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.boot.context.embedded.ServletRegistrationBean; import org.springframework.context.annotation.Bean; import org.springframework.web.servlet.DispatcherServlet; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } @Bean public ServletRegistrationBean dispatcherRegistration( DispatcherServlet dispatcherServlet) { ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet); registration.addUrlMappings(&quot;/hirest/*&quot;); printStacks(); return registration; } @Bean public ServletRegistrationBean servletRegistrationBean() { printStacks(); return new ServletRegistrationBean( new SigninServlet(), &quot;/signin&quot;); } private void printStacks() { StackTraceElement[] elements = Thread.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -932,7 +922,7 @@ HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java pa
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -949,7 +939,7 @@ HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java pa
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

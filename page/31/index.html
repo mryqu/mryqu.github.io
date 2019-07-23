@@ -113,6 +113,75 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/" itemprop="url">
+        Spring FileUpload限制调整笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-08">
+    2015-06-08
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spring" itemprop="url" rel="index">
+        <span itemprop="name">Spring</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">291 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Tomcat配置 HTTP Connector - maxPostSize配置 maxPostSize: 在POST请求中容器FORMURL参数解析所能处理的最大字节数。该参数可以通过设置为小于零的负值禁掉该限制。如果没有设置，该属性为2097152(2M字节)。 该配置可在$CATALINA_BASE/conf/server.xml内修改: Tomcat 7.0.63之前maxPostSzie=&ldquo;0&rdquo;视为禁掉该限制。
+multipart-config配置 max-file-size: 单个上传文件允许的最大字节数。默认-1，无限制。 max-request-size: 真个请求允许的最大字节数。默认-1，无限制。
+这两个配置可在web.xml内修改： 如果上传文件超过限制，则会抛出Exception。示例：
+org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (61198097) exceeds the configured maximum (20971520) at org.apache.tomcat.util.http.fileupload.FileUploadBase$FileItemIteratorImpl.(FileUploadBase.java:811) at org.apache.tomcat.util.http.fileupload.FileUploadBase.getItemIterator(FileUploadBase.java:256) at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:280) at org.apache.catalina.connector.Request.parseParts(Request.java:2730) at org.apache.catalina.connector.Request.parseParameters(Request.java:3064) at org.apache.catalina.connector.Request.getParameter(Request.java:1093) at org.apache.catalina.connector.RequestFacade.getParameter(RequestFacade.java:380) at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:70) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.boot.actuate.autoconfigure.MetricsFilter.doFilterInternal(MetricsFilter.java:68) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/" itemprop="url">
         Docker Compose笔记
         </a>
@@ -688,77 +757,6 @@ jvmsrc { packageName &quot;com.mycompany.myproject.mymodule&quot; }  此外，gr
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/" itemprop="url">
-        [Hadoop] 使用TeraSort测试集群性能
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-05-25">
-    2015-05-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">121 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Terasort是Hadoop自带的用于集群性能基准测试的工具，其源码位于https://github.com/apache/hadoop/tree/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/src/main/java/org/apache/hadoop/examples/terasort下。
-TeraSort用法 该性能基准测试工具针对Hadoop集群的HDFS和MapReduce层进行综合测试。完整的测试步骤为：
- 使用TeraGen程序生成官方GraySort输入数据集。(注：SortBenchmark是JimGray自98年建立的一项排序竞技活动，其对排序的输入数据制定了详细规则，要求使用其提供的gensort工具生成输入数据。而Hadoop的TeraGen数据生成工具的算法与gensort一致。） 在输入数据上运行真正的TeraSort性能基准测试工具 通过TeraValidate程序验证排序后的输出数据  TeraGen程序生成数据的格式为（详见TeraSort.generateRecord方法实现）： - 10字节键：一个16字节随机数的高10字节 - 2字节常量：0x0011 - 32字节rowid - 4字节常量：0x8899AABB - 48字节填充：由一个16字节随机数的低48比特生成 - 4字节常量:0xCCDDEEFF
-也就是说TeraGen程序生成的一行数据有100字节。TeraGen程序参数需要指定行数，可指定单位： - t：1000,000,000,000 - b：1000,000,000 - m：1000,000 - k：1000
-TeraSort测试 依次运行teragen、terasort和teravalidate：
-hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar teragen 5m /user/hadoop/teragen-data hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.X.jar terasort /user/hadoop/teragen-data /user/hadoop/terasort-data 15/05/24 08:29:03 INFO terasort.TeraSort: starting 15/05/24 08:29:04 INFO input.FileInputFormat: Total input paths to process : 2 Spent 123ms computing base-splits. Spent 2ms computing TeraScheduler splits.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -954,7 +952,7 @@ hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-map
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -971,7 +969,7 @@ hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-map
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

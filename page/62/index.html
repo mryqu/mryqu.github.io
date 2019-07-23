@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/" itemprop="url">
+        tc Server与Atomikos集成
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-13">
+    2013-10-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">271 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
+Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录： - atomikos-util.jar - transactions.jar - transactions-api.jar - transactions-jdbc.jar - transactions-jdbc-deprecated.jar - transactions-jms.jar - transactions-jms-deprecated.jar - transactions-jta.jar - transactions-osgi.jar - geronimo-jms_1.1_spec.jar - geronimo-jta_1.0.1B_spec.jar - JDBC驱动 - 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar
+复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
+com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false  复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
+package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/dig%E7%AC%94%E8%AE%B0/" itemprop="url">
         dig笔记
         </a>
@@ -689,67 +752,6 @@ sudo apt-get install python-pip pip2 install simplejson
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
-        尝试Protocol Buffers支持的各种数据类型
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-09-22">
-    2013-09-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">173 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Protocol Buffers(即protobuf)是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。它很适合做数据存储或RPC的数据交换格式，常用作通信协议、数据存储等领域。 相比于常见的XML格式，ProtocolBuffers官方网站这样描述它的优点： - 平台无关、语言无关； - 高性能； - 体积小； - 使用简单； - 兼容性好。
-现在尝试一下Protocol Buffers支持的各种数据类型。
-test.proto package com.yqu.proto; option java_package = &quot;com.yqu.proto&quot;; option java_outer_classname=&quot;TestProtos&quot;; message Test { required double doubleVar = 1; required float floatVar = 2; required int32 int32Var = 3; required int64 int64Var = 4; required uint32 uint32Var = 5; required uint64 uint64Var = 6; required sint32 sint32Var = 7; required sint64 sint64Var = 8; required fixed32 fixed32Var = 9; required fixed64 fixed64Var = 10; required sfixed32 sfixed32Var = 11; required sfixed64 sfixed64Var = 12; required bool booleanVar = 13; required string stringVar = 14; required bytes bytesVar = 15; enum Suit { SPADES = 0; HEARTS = 1; DIAMONDS = 2; CLUBS = 3; } required Suit enumVar = 16 [default = HEARTS]; repeated int32 int32ArrayVar = 17; repeated uint32 uint32ArrayVar = 18 [packed=true]; repeated string stringArrayVar = 19; message MsgVar { required string url = 1; optional string title = 2; } repeated MsgVar msgVar = 20; }  使用Google提供的Protocol Buffers编译器生成Java语言：
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -961,7 +963,7 @@ test.proto package com.yqu.proto; option java_package = &quot;com.yqu.proto&quot
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -978,7 +980,7 @@ test.proto package com.yqu.proto; option java_package = &quot;com.yqu.proto&quot
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

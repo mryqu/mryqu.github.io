@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" itemprop="url">
+        cut命令笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-22">
+    2013-10-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">77 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+     cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
+命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号('-')，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（'-'）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成''name:shell''对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38  个人体会  cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&ndash;output-delimiter=STRING选项控制输出字符分隔符。  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" itemprop="url">
         grep命令笔记
         </a>
@@ -646,69 +707,6 @@ struct command { char *name; void (*function) (void); };   ``` #define COMMAND(N
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/host%E7%AC%94%E8%AE%B0/" itemprop="url">
-        host笔记
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-19">
-    2013-10-19
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/network" itemprop="url" rel="index">
-        <span itemprop="name">NetWork</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">12 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     host命令是常用的分析域名查询工具，可以用来测试域名系统工作是否正常。
-host参数 -a等价于使用“-v -t ANY”-c Class当搜索非网际数据时要指定要查找的类。有效类为:
-IN网际类CHAOSChaos类HESIODMIT AlthenaHesiod类ANY通配符-C在需要认证的域名服务器上查找SOA记录-d等价于使用“-v”-l列出一个域内所有的主机-i反向查找-N改变点数-r禁用递归处理。-R指定UDP包数-t Type指定要查询的记录类型。常用类型为:
-A主机的网际地址CNAME别名的规范名称HINFO主机CPU与操作系统类型KEY安全密钥记录MINFO邮箱或邮件列表信息MX邮件交换器NS指定范围的名称服务器PTR如果查询的是一个网际地址则为主机名；否则，为其他信息的指针SIG签名记录SOA域的"授权开始"信息TXT文本信息UINFO用户信息WKS所支持的众所周知的服务。-T支持TCP/IP模式-v运行时显示详细的处理信息-w永远等待DNS服务器的一个回答。-W Waite指定等待回复的时间-4用于IPv4的查询-6用于IPv6的查询-m设置内存调试标志 host使用 
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -908,7 +906,7 @@ A主机的网际地址CNAME别名的规范名称HINFO主机CPU与操作系统类
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -925,7 +923,7 @@ A主机的网际地址CNAME别名的规范名称HINFO主机CPU与操作系统类
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

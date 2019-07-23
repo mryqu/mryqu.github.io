@@ -113,6 +113,61 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_theme%E5%8A%A0%E8%BD%BD/" itemprop="url">
+        [OpenUI5] Theme加载
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-12-28">
+    2017-12-28
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">41 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    瞄了一下OpenUI5中UI主题加载，关键点在sap.ui.core.Core.includeLibraryTheme方法。其调用者主要为： - sap.ui.core.Core._boot：启动OpenUI5核心时加载必要的主题 - sap.ui.core.Core.initLibrary：加载某个库时会尝试加载其主题 假定config.js内容如下：
+window['sap-ui-config'] = { bindingSyntax: 'complex', modules: [ &quot;sap.m.library&quot;, &quot;sap.ui.commons.library&quot;, &quot;sap.ui.table.library&quot;, &quot;sap.ui.layout.library&quot;, &quot;yqu.ui.kexiao.library&quot; ] } };  OpenUI5在加载yqu.ui.kexiao.library库时会尝试加载其主题。
+Core.includeLibraryTheme (Core.js?eval:xxxx) Core.initLibrary (Core.js?eval:xxxx) (anonymous) (Interface.js?eval:xx) (anonymous) (library.js?eval:xx) evalModuleStr (sap-ui-core-dbg.js:xxxxx) execModule (sap-ui-core-dbg.js:xxxxx) requireModule (sap-ui-core-dbg.js:xxxxx) jQuery.sap.require (sap-ui-core-dbg.js:xxxxx) Core.loadLibrary (Core.js?eval:xxxx) .............  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/typescript%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/" itemprop="url">
         Typescript类型定义文件(.d.ts)生成工具
         </a>
@@ -651,66 +706,6 @@ var _resourcesLocaleProperties = []byte(&quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8makefile%E5%AE%9E%E7%8E%B0go%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9E%84%E5%BB%BA/" itemprop="url">
-        [Golang] 使用Makefile实现Go项目的跨平台构建
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-18">
-    2017-10-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/golang" itemprop="url" rel="index">
-        <span itemprop="name">Golang</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">213 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    通常编译go程序，都是用go build，对于小的示例代码还可以应付，对于稍大一点的项目就有点繁琐了。 上网调差了一下，发现很多人是通过Makefile的形式对Go项目进行可重现构建的。下面我将以hellomake项目这个小示例展示如何使用Makefile实现Go项目的跨平台构建。
-hellomake/Makefile BUILD_ENV := CGO_ENABLED=0 BUILD=`date +%FT%T%z` LDFLAGS=-ldflags &quot;-w -s -X main.Version=${VERSION} -X main.Build=${BUILD}&quot; TARGET_EXEC := hellomake .PHONY: all clean setup build-linux build-osx build-windows all: clean setup build-linux build-osx build-windows clean: rm -rf build setup: mkdir -p build/linux mkdir -p build/osx mkdir -p build/windows build-linux: setup ${BUILD_ENV} GOARCH=amd64 GOOS=linux go build ${LDFLAGS} -o build/linux/${TARGET_EXEC} build-osx: setup ${BUILD_ENV} GOARCH=amd64 GOOS=darwin go build ${LDFLAGS} -o build/osx/${TARGET_EXEC} build-windows: setup ${BUILD_ENV} GOARCH=amd64 GOOS=windows go build ${LDFLAGS} -o build/windows/${TARGET_EXEC}.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8makefile%E5%AE%9E%E7%8E%B0go%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9E%84%E5%BB%BA/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -906,7 +901,7 @@ hellomake/Makefile BUILD_ENV := CGO_ENABLED=0 BUILD=`date +%FT%T%z` LDFLAGS=-ldf
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -923,7 +918,7 @@ hellomake/Makefile BUILD_ENV := CGO_ENABLED=0 BUILD=`date +%FT%T%z` LDFLAGS=-ldf
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

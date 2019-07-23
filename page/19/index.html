@@ -113,6 +113,72 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/" itemprop="url">
+        [C&#43;&#43;] 使用readelf
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-08">
+    2015-12-08
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1371 字 ~7分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在计算机科学中，ELF文件（Executableand LinkableFormat）是一种用于二进制文件、可执行文件、目标代码、共享库和核心转储格式文件，是UNIX系统实验室（USL）作为应用程序二进制接口（ApplicationBinaryInterface，ABI）而开发和发布的，也是Linux的主要可执行文件格式。1999年，被86open项目选为x86架构上的类Unix操作系统的二进制文件标准格式，用来取代COFF。因其可扩展性与灵活性，也可应用在其它处理器、计算机系统架构的操作系统上。 ELF文件由4部分组成，分别是ELF头（ELF header）、程序头表（Program headertable）、节（Section）和节头表（Section headertable）。实际上，一个文件中不一定包含全部内容，而且他们的位置也未必如同所示这样安排，只有ELF头的位置是固定的，其余各部分的位置、大小等信息由ELF头中的各项值来决定。 而readelf用于显示ELF文件的信息。 Usage: readelf &lt;option(s)&gt; elf-file(s) Display information about the contents of ELF format files Options are: -a --all 全部 Equivalent to: -h -l -S -s -r -d -V -A -I -h --file-header ELF头 Display the ELF file header -l --program-headers 程序头表 Display the program headers --segments An alias for --program-headers -S --section-headers 节头 Display the sections' header --sections An alias for --section-headers -g --section-groups 节组 Display the section groups -t --section-details 节细节 Display the section details -e --headers 全部头 Equivalent to: -h -l -S -s --syms 符号表 Display the symbol table --symbols An alias for --syms --dyn-syms 动态符号表 Display the dynamic symbol table -n --notes 核心注释 Display the core notes (if present) -r --relocs 重定位 Display the relocations (if present) -u --unwind Display the unwind info (if present) -d --dynamic 动态节 Display the dynamic section (if present) -V --version-info 版本节 Display the version sections (if present) -A --arch-specific 架构信息 Display architecture specific information (if any) -c --archive-index 该架构下符号/文件索引 Display the symbol/file index in an archive -D --use-dynamic Use the dynamic section info when displaying symbols -x --hex-dump=&lt;number|name&gt; Dump the contents of section &lt;number|name&gt; as bytes -p --string-dump=&lt;number|name&gt; Dump the contents of section &lt;number|name&gt; as strings -R --relocated-dump=&lt;number|name&gt; Dump the contents of section &lt;number|name&gt; as relocated bytes -w[lLiaprmfFsoRt] or --debug-dump[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames, =frames-interp,=str,=loc,=Ranges,=pubtypes, =gdb_index,=trace_info,=trace_abbrev,=trace_aranges, =addr,=cu_index] 显示DWARF2调试节 Display the contents of DWARF2 debug sections --dwarf-depth=N Do not display DIEs at depth N or greater --dwarf-start=N Display DIEs starting with N, at the same depth or deeper -I --histogram 柱状图 Display histogram of bucket list lengths -W --wide 输出宽度 Allow output width to exceed 80 characters @&lt;file&gt; Read options from &lt;file&gt; -H --help 帮助 Display this information -v --version 版本 Display the version number of readelf  练习 - 查看ELF文件头 hadoop@node51054:/usr/bin$ readelf -h curl ELF Header: Magic: 7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 Class: ELF64 Data: 2's complement, little endian Version: 1 (current) OS/ABI: UNIX - System V ABI Version: 0 Type: EXEC (Executable file) Machine: Advanced Micro Devices X86-64 Version: 0x1 Entry point address: 0x4023b1 Start of program headers: 64 (bytes into file) Start of section headers: 152600 (bytes into file) Flags: 0x0 Size of this header: 64 (bytes) Size of program headers: 56 (bytes) Number of program headers: 9 Size of section headers: 64 (bytes) Number of section headers: 27  练习 - 查看符号表 hadoop@node51054:/usr/bin$ readelf -s curl Symbol table '.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" itemprop="url">
         [C&#43;&#43;] 使用ldd
         </a>
@@ -710,63 +776,6 @@ git checkout $deletingCommit~1 -- $deletedFile  参考 Is there a way in Git to 
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/" itemprop="url">
-        Twitter API访问频次限制处理
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-10">
-    2015-11-10
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">44 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在我前面的博文社交媒体API访问频次限制中，列举了Twitter API访问频次限制。
-Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。 当向Twitter发送请求后，可以通过解析响应头来获取限制信息。该信息是基于应用/用户上下文的： - X-Rate-Limit-Limit: 对给定请求的访问速率上限 - X-Rate-Limit-Remaining: 15分钟时间窗中剩余请求数 - X-Rate-Limit-Reset: 速率限制复位前（基于UTC）的剩余时间窗秒数
-一旦对Twitter的请求超过了频次限制，Twitter将返回HTTP 429 “Too ManyRequests”响应码及如下消息体：
-{ &quot;errors&quot;: [ { &quot;code&quot;: 88, &quot;message&quot;: &quot;Rate limit exceeded&quot; } ] }  除了通过解析响应头，还可以通过向Twitter发送rate_limit_status请求获取API访问限制信息。
-Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJSONImpl类用于处理响应头中的访问限制信息： Twitter4J的TwitterResponseImpl抽象类用于存放解析过的访问限制信息以供应用程序使用： 此外，还可以注册RateLimitStatusListener监听器实例。由Twitter4J的TwitterBaseImpl类可知，当解析到响应头中的API访问频次限制信息，RateLimitStatusListener监听器实例的onRateLimitStatus方法会被调用；当收到的响应码为420&rdquo;Enhance Your Claim&rdquo;、503 &ldquo;Service Unavailable&rdquo;或429 &ldquo;Too ManyRequests&rdquo;，RateLimitStatusListener监听器实例的onRateLimitReached方法将会被调用。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -962,7 +971,7 @@ Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJS
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -979,7 +988,7 @@ Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJS
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

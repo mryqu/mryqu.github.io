@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/vagrant_%E5%AD%A6%E4%B9%A0vboxmanage%E5%AE%9A%E5%88%B6/" itemprop="url">
+        [Vagrant]学习VBoxManage定制
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-07-26">
+    2018-07-26
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/vagrant" itemprop="url" rel="index">
+        <span itemprop="name">Vagrant</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1571 字 ~8分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Vagrant Configuration - VBoxManage Customizations里面有讲到通过VBoxManage修改VirtualBox虚拟机。而VBoxManage modifyvm里面细致的介绍了所有设置。
+VBoxManage modifyvm设置 接触过的VBoxManage modifyvm设置 下面就仔细研究一下我看到过的modifyvm设置：
+# -*- mode: ruby -*- # vi: set ft=ruby : VAGRANTFILE_API_VERSION = &quot;2&quot; Vagrant.require_version &quot;&gt;= 1.6.3&quot; Vagrant.configure(VAGRANTFILE_API_VERSION) do |config| config.vm.provider &quot;virtualbox&quot; do |vb| # --memory设置用来指定分配的内存，单位为MB # 可简写为vb.memory=8192 vb.customize ['modifyvm', :id, '--memory', '8192'] # --cpus设置用来指定虚拟机的虚拟CPU个数 # 可简写为vb.cpus=3 vb.customize ['modifyvm', :id, '--cpus', '3'] # --cpuexecutioncap &lt;1-100&gt;设置用来指定虚拟CPU可用的CPU时间比例。 # 值50意味无论VM使用多少个虚拟虚拟CPU，都不会超过宿主机CPU时间的一半。 vb.customize ['modifyvm', :id, '--cpuexecutioncap', '75'] # --natdnshostresolver&lt;1-N&gt; on|off用来指定NAT使用宿主机的解析机制处理DNS请求。 vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on'] # --natdnsproxy&lt;1-N&gt; on|off用来指定NAT将所有客户机DNS请求代理到宿主机的DNS服务器。 vb.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/vagrant_%E5%AD%A6%E4%B9%A0vboxmanage%E5%AE%9A%E5%88%B6/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/vagrant_%E5%AD%A6%E4%B9%A0%E4%B8%80%E4%B8%8Bvagrant%E7%9A%84provider%E7%B1%BB%E5%9E%8B/" itemprop="url">
         [Vagrant] 学习一下Vagrant的Provider类型
         </a>
@@ -711,74 +779,6 @@ package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apach
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/" itemprop="url">
-        [Spark] 使用Spark2.30读写Hive2.3.3
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-07-03">
-    2018-07-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spark" itemprop="url" rel="index">
-        <span itemprop="name">Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">555 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
-在Hive上加载emp表 hive&gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' ; hive&gt; LOAD DATA LOCAL INPATH '/usr/local/hive/examples/files/emp2.txt' OVERWRITE INTO TABLE emp;  安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
-vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -977,7 +977,7 @@ vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ ex
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -994,7 +994,7 @@ vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ ex
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

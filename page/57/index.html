@@ -113,6 +113,68 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/tomcat%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96/" itemprop="url">
+        Tomcat的会话持久化
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-11-08">
+    2013-11-08
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/web-application-server" itemprop="url" rel="index">
+        <span itemprop="name">Web Application Server</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">19 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    《玩玩HTTP servlet和session资源监控器》提到我hello的一个web项目，刚开始我只是用监视器清除了Tomcat容器外部的文件资源，以为会话失效后Tomcat会自己清除会话属性，但后来发现想的太简单了。不但会话失效，并且重启Tomcat服务器，服务器端原来的会话及其属性都在,如果客户端浏览器的会话没有丢的话，刷新页面仍然可以获得以前的信息。原来Tomcat（起码5.x之后的版本）在默认的情况下提供了会话持久化这项功能，见$TOMCAT_HOME$/conf/context.xml：Tomcat的默认会话管理器是标准会话管理器(StandardManager)，用于非集群环境中对单个处于运行状态的Tomcat实例会话进行管理。当Tomcat关闭时，这些会话相关的数据会被写入磁盘上的一个名叫SESSION.ser的文件，并在Tomcat下次启动时读取此文件。 - 默认只有在Tomcat正常关闭时才会保存完整的用户会话信息 - 默认保存于$CATALINA_HOME$/work/Catalina/[host]/[webapp]/下的SESSIONS.ser文件中 - 若是自定义的虚拟主机则保存在$CATALINAHOME/work/Catalina/[host]//下的SESSIONS.ser文件中
+如果不想再获得失效会话属性的话，解决办法为： - 关闭Tomcat会话持久化功能。去掉context.xml中那句注释即可。 - HttpSessionListener实现类的sessionDestroyed方法删除该会话所有属性。
+参考 Apache Tomcat 5.5 Configuration ReferenceTomcat会话管理
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">
         [JavaScript] === 与 == 操作符的区别
         </a>
@@ -651,67 +713,6 @@ ffffffff
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/" itemprop="url">
-        [C&#43;&#43;] 重温函数隐藏和重写
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
-    2013-10-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">760 字 ~4分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    首先回顾一下C++的重载、隐藏和重写概念：
- 在相同作用域中，同名不同参的函数称为重载，这是c++多态的一种表现。对相同名字的成员函数，编译器可以根据传递的参数类型调用相应的成员函数。同名不同参的全局函数和类成员函数由于作用域不同，不是重载。不能通过函数返回值进行重载。像int和float这样不同的参数类型，可能会由于隐式转换隐患而无法通过编译。 当派生类中的成员函数/变量和基类中的成员函数/变量同名时，会隐藏基类的成员函数/变量，也就是指在派生类调用这个同名的成员函数/变量，调用的是派生类的成员函数/变量，而不是基类的那个成员函数/变量。可以通过类名::成员函数/变量去访问基类中同名的成员函数/变量。 派生类中的成员函数与基类的成员函数同名同参，就称为重写。当直接访问成员函数调用的是在派生类中重写的函数而不是从基类继承下来的成员函数，如果要访问从基类继承下来的成员函数也是通过类名::成员函数这种方式去调用基类的成员函数。  下面的小示例testOverride.cpp用于测试添加virtual与否对重写的影响：
-class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } BaseClass(const BaseClass&amp;) { cout &lt;&lt; &quot;BaseClass(BaseClass) on &quot; &lt;&lt; this &lt;&lt; endl; } virtual void vfun1() { cout &lt;&lt; &quot;BaseClass:vfun1() on &quot; &lt;&lt; this &lt;&lt; endl; } virtual void vfun2() { cout &lt;&lt; &quot;BaseClass:vfun2() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; &quot;BaseClass:fun1() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; &quot;BaseClass:fun2() on &quot; &lt;&lt; this &lt;&lt; endl; } virtual ~BaseClass() { cout &lt;&lt; &quot;~BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string(&quot;NULL&quot;)) { cout &lt;&lt; &quot;DerivedClass() on &quot; &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string&amp; n):name(new string(n)) { cout &lt;&lt; &quot;DerivedClass(string) on &quot; &lt;&lt; this &lt;&lt; endl; } void vfun1() { cout &lt;&lt; &quot;DerivedClass:vfun1() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; &quot;DerivedClass:fun1() on &quot; &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; &quot;~DerivedClass(): name has been deleted on &quot; &lt;&lt; this &lt;&lt; endl; } private: void vfun2() { cout &lt;&lt; &quot;DerivedClass:vfun2() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; &quot;DerivedClass:fun2() on &quot; &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; &quot;=== test bo1 ===&quot; &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); bo1-&gt;vfun1(); bo1-&gt;vfun2(); bo1-&gt;fun1(); bo1-&gt;fun2(); delete bo1; cout &lt;&lt; &quot;=== test do1 ===&quot; &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); do1-&gt;vfun1(); // error: 'virtual void DerivedClass::vfun2()' is private // within this context // do1-&gt;vfun2(); do1-&gt;fun1(); // error: 'void DerivedClass::fun2()' is private // within this context // do1-&gt;fun2(); delete do1; cout &lt;&lt; &quot;=== test bo2 ===&quot; &lt;&lt; endl; BaseClass* bo2 = new DerivedClass(&quot;123&quot;); bo2-&gt;vfun1(); bo2-&gt;vfun2(); bo2-&gt;fun1(); bo2-&gt;fun2(); delete bo2; return 0; }  vfun2和fun2在BaseClass类中是public访问权限，而在DerivedClass类中是private访问权限。 - 对DerivedClass指针，vfun2和fun2无法访问，这个满足期望。 - 对于指向DerivedClass对象的BaseClass指针，vfun2和fun2仍然可以访问。我只能在心里留一个&rdquo;?
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -907,7 +908,7 @@ class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -924,7 +925,7 @@ class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

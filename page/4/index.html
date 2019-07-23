@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/" itemprop="url">
+        [Spark] 使用Spark2.30读写Hive2.3.3
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2018-07-03">
+    2018-07-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spark" itemprop="url" rel="index">
+        <span itemprop="name">Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">555 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
+在Hive上加载emp表 hive&gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' ; hive&gt; LOAD DATA LOCAL INPATH '/usr/local/hive/examples/files/emp2.txt' OVERWRITE INTO TABLE emp;  安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
+vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/aws_%E5%AE%89%E8%A3%85awscli/" itemprop="url">
         [AWS] 安装AWSCLI 
         </a>
@@ -676,61 +744,6 @@ MDN: MouseEvent.offsetX
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_theme%E5%8A%A0%E8%BD%BD/" itemprop="url">
-        [OpenUI5] Theme加载
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-12-28">
-    2017-12-28
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">41 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    瞄了一下OpenUI5中UI主题加载，关键点在sap.ui.core.Core.includeLibraryTheme方法。其调用者主要为： - sap.ui.core.Core._boot：启动OpenUI5核心时加载必要的主题 - sap.ui.core.Core.initLibrary：加载某个库时会尝试加载其主题 假定config.js内容如下：
-window['sap-ui-config'] = { bindingSyntax: 'complex', modules: [ &quot;sap.m.library&quot;, &quot;sap.ui.commons.library&quot;, &quot;sap.ui.table.library&quot;, &quot;sap.ui.layout.library&quot;, &quot;yqu.ui.kexiao.library&quot; ] } };  OpenUI5在加载yqu.ui.kexiao.library库时会尝试加载其主题。
-Core.includeLibraryTheme (Core.js?eval:xxxx) Core.initLibrary (Core.js?eval:xxxx) (anonymous) (Interface.js?eval:xx) (anonymous) (library.js?eval:xx) evalModuleStr (sap-ui-core-dbg.js:xxxxx) execModule (sap-ui-core-dbg.js:xxxxx) requireModule (sap-ui-core-dbg.js:xxxxx) jQuery.sap.require (sap-ui-core-dbg.js:xxxxx) Core.loadLibrary (Core.js?eval:xxxx) .............  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -926,7 +939,7 @@ Core.includeLibraryTheme (Core.js?eval:xxxx) Core.initLibrary (Core.js?eval:xxxx
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -943,7 +956,7 @@ Core.includeLibraryTheme (Core.js?eval:xxxx) Core.initLibrary (Core.js?eval:xxxx
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1505</span>
+        <span class="site-state-item-count">1507</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
