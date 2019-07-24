@@ -295,7 +295,9 @@ tags:
 
 测试数据使用[tinyDAG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt)，结果如下：  
 ![DepthFirstOrder测试](/images/2019/7/DepthFirstOrder.png) 
-
+   
+![拓扑排序图示](/images/2019/7/topologicalSortDiagram.png)
+  
 ### KosarajuSharirSCC.js
 
 仿照[KosarajuSharirSCC.java](https://algs4.cs.princeton.edu/42digraph/KosarajuSharirSCC.java.html)写的，使用Kosaraju-Sharir算法为有向图计算强连通图。
