@@ -11,7 +11,7 @@ tags:
 
 最近需要用JavaScript处理图算法，没找到适合的库，就自己写一套玩玩。
 
-### DiGraph.js
+### Graph.js
 
 仿照[Graph.java](https://algs4.cs.princeton.edu/41graph/Graph.java.html)写的，实现无向图API。  
 ```
