@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Springfox on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/springfox/</link>
+    <description>Recent content in Springfox on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 28 Apr 2016 06:03:36 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/springfox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用SpringFox自动生成Swagger文档</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Thu, 28 Apr 2016 06:03:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/</guid>
+      <description>前面的博文Swagger实践和总结总体上探索了一下Swagger，这里着重研究Springfox。 Springfox Java库源自MartyPitt创建的swagger-springmvc项目。Swagger是一系列对RESTful接口进行规范描述和页面展示的工具，而通过Springfox将Swagger与Spring-MVC整合,可以将代码中的注解转换为符合Swagger开放API声明(OpenAPI Specification，OAS)的swagger.json文件,springfox-swagger-ui提供了将swagger.json转换为html页面的服务。
+HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但是对于一个写程序的人来说，不亲自写一遍，总觉得可能会有陷阱和漏洞，缺乏那么一点点自信。 我的示例是以Building a Hypermedia-Driven RESTful Web Service为基础修改的，懒人总是要找个肩膀。build.gradle jar { baseName = &#39;hello-springfox&#39; version = &#39;0.1.0&#39; } dependencies { compile(&amp;quot;org.springframework.boot:spring-boot-starter-actuator&amp;quot;) compile(&amp;quot;org.springframework.boot:spring-boot-starter-web&amp;quot;) compile(&amp;quot;org.springframework.boot:spring-boot-starter-hateoas&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger2:${springfoxVersion}&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger1:${springfoxVersion}&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger-ui:${springfoxVersion}&amp;quot;) testCompile(&amp;quot;com.jayway.jsonpath:json-path&amp;quot;) testCompile(&amp;quot;org.springframework.boot:spring-boot-starter-test&amp;quot;) }  Application.java package com.yqu.hellospringfox; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  Greeting.java package com.yqu.hellospringfox; import org.springframework.hateoas.ResourceSupport; import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.JsonProperty; public class Greeting extends ResourceSupport { private final String content; @JsonCreator public Greeting(@JsonProperty(&amp;quot;content&amp;quot;) String content) { this.</description>
+    </item>
+    
+  </channel>
+</rss>

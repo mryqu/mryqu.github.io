@@ -1,0 +1,928 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>PostgreSQL与MySQL数据库分区 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="PostgreSQL与MySQL数据库分区">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="PostgreSQL与MySQL数据库分区 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/" itemprop="url">
+        PostgreSQL与MySQL数据库分区
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-16">
+    2013-07-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
+        <span itemprop="name">db&#43;nosql</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1268 字 ~6分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。</p>
+
+<h2 id="分类">分类</h2>
+
+<p>分区主要有两种形式：</p>
+
+<h3 id="水平分区">水平分区</h3>
+
+<p>水平分区是将不同的行放入不同的表中。比如将邮编小于50000的客户放入“东部客户”表中，将邮编等于或大于50000的客户放入“西部客户”表中。该例中有两个分区表“东部客户”和“西部客户”，其合集视图就是所有客户的完整视图。
+通过这样的方式不同分区里面的物理列分割的数据集得以组合，从而进行个体分割（单分区）或集体分割（1个或多个分区）。所有在表中定义的列在每个数据集中都能找到，所以表的特性依然得以保持。</p>
+
+<h3 id="垂直分区">垂直分区</h3>
+
+<p>垂直分区创建含有（主键加上）较少列的表并使用额外的表存储（主键加上）剩余的列，每个分区表中都含有其中列所对应的行。范式化是内在包含垂直分区的过程。
+垂直分区被称为“行分割”，通常用于分割表中（查找很慢的）动态数据和（查找很快的、使用较动态数据更频繁的）静态数据。这样在保证数据相关性的同时，在诸如统计分析之类的查询中访问静态数据还能提高性能。
+不同的物理存储也可以用于垂直分区，例如不频繁使用的列或者宽列被存入不同的设备。
+其缺点是需要管理冗余列，查询所有数据需要join操作。</p>
+
+<h2 id="分区标准">分区标准</h2>
+
+<p>当前高端关系数据库管理系统提供分割数据库的不同标准。这些标准使用分区键基于一定标准分配分区。常用的标准为：</p>
+
+<h3 id="基于范围的分区">基于范围的分区</h3>
+
+<p>通过判断分区键是否在一定范围内选择分区。例如所有邮编列在70000和79999之间的行可以是一个分区。</p>
+
+<h3 id="基于列表的分区">基于列表的分区</h3>
+
+<p>一个分区分配给一列数值。如果分区键为这些值之一，该分区被选中。例如所有国家列为冰岛、挪威、瑞典、芬兰或丹麦的行可以是一个北欧国家分区。</p>
+
+<h3 id="基于哈希的分区">基于哈希的分区</h3>
+
+<p>哈希函数的返回值决定分区归属。假设有四个分区，哈希函数返回值为0到3。
+组合分区允许上述分区方案的一定组合。例如先使用基于范围的分区，然后使用基于哈希的分区。</p>
+
+<h2 id="postgresql数据库分区">PostgreSQL数据库分区</h2>
+
+<p>PostgreSQL支持基本的数据库分区，本文以PostgreSQL 9.1为例介绍一下PostgreSQL数据库分区。</p>
+
+<h3 id="优点">优点</h3>
+
+<p>分区具有下列优点：
+- 在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。
+- 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。
+- 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。
+- 很少使用的数据可被移往更便宜更慢的存储媒体。</p>
+
+<p>这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。</p>
+
+<h3 id="表继承">表继承</h3>
+
+<p>PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。</p>
+
+<pre><code>CREATE TABLE cities (
+    name            text,
+    population      float,
+    altitude        int     -- in feet
+);
+
+CREATE TABLE capitals (
+    state           char(2)
+) INHERITS (cities);
+</code></pre>
+
+<p>父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。</p>
+
+<pre><code>SELECT name, altitude FROM cities WHERE altitude &gt; 500;
+SELECT name, altitude FROM ONLY cities WHERE altitude &gt; 500;    
+-- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。
+</code></pre>
+
+<h3 id="支持的分区标准">支持的分区标准</h3>
+
+<p>PostgreSQL数据库支持基于范围的分区和基于列表的分区。</p>
+
+<h3 id="分区实现案例">分区实现案例</h3>
+
+<ul>
+<li>创建主表measurement
+<code>
+CREATE TABLE measurement (
+    city_id         int not null,
+    logdate         date not null,
+    peaktemp        int,
+    unitsales       int
+);
+</code></li>
+<li>创建分区表
+```
+CREATE TABLE measurement_y2006m02 (
+    CHECK ( logdate &gt;= DATE &rsquo;2006-02-01&rsquo; AND logdate &lt; DATE &rsquo;2006-03-01&rsquo; )
+) INHERITS (measurement);
+<br /></li>
+</ul>
+
+<p>CREATE TABLE measurement_y2006m03 (
+       CHECK ( logdate &gt;= DATE &rsquo;2006-03-01&rsquo; AND logdate &lt; DATE &rsquo;2006-04-01&rsquo; )
+   ) INHERITS (measurement);</p>
+
+<p>&hellip;</p>
+
+<p>CREATE TABLE measurement_y2007m11 (
+       CHECK ( logdate &gt;= DATE &rsquo;2007-11-01&rsquo; AND logdate &lt; DATE &rsquo;2007-12-01&rsquo; )
+   ) INHERITS (measurement);</p>
+
+<p>CREATE TABLE measurement_y2007m12 (
+       CHECK ( logdate &gt;= DATE &rsquo;2007-12-01&rsquo; AND logdate &lt; DATE &rsquo;2008-01-01&rsquo; )
+   ) INHERITS (measurement);</p>
+
+<p>CREATE TABLE measurement_y2008m01 (
+       CHECK ( logdate &gt;= DATE &rsquo;2008-01-01&rsquo; AND logdate &lt; DATE &rsquo;2008-02-01&rsquo; )
+   ) INHERITS (measurement);</p>
+
+<pre><code>- 为分区表的键列创建索引（可选）
+</code></pre>
+
+<p>CREATE INDEX measurement_y2006m02_logdate ON measurement_y2006m02 (logdate);
+   CREATE INDEX measurement_y2006m03_logdate ON measurement_y2006m03 (logdate);</p>
+
+<p>&hellip;</p>
+
+<p>CREATE INDEX measurement_y2007m11_logdate ON measurement_y2007m11 (logdate);
+   CREATE INDEX measurement_y2007m12_logdate ON measurement_y2007m12 (logdate);
+   CREATE INDEX measurement_y2008m01_logdate ON measurement_y2008m01 (logdate);</p>
+
+<pre><code>- 创建触发器
+</code></pre>
+
+<p>CREATE OR REPLACE FUNCTION measurement_insert_trigger()
+   RETURNS TRIGGER AS $$
+   BEGIN
+       IF ( NEW.logdate &gt;= DATE &rsquo;2006-02-01&rsquo; AND
+            NEW.logdate &lt; DATE &rsquo;2006-03-01&rsquo; ) THEN
+           INSERT INTO measurement_y2006m02 VALUES (NEW.<em>);
+       ELSIF ( NEW.logdate &gt;= DATE &rsquo;2006-03-01&rsquo; AND
+               NEW.logdate &lt; DATE &rsquo;2006-04-01&rsquo; ) THEN
+           INSERT INTO measurement_y2006m03 VALUES (NEW.</em>);
+       &hellip;
+       ELSIF ( NEW.logdate &gt;= DATE &rsquo;2008-01-01&rsquo; AND
+               NEW.logdate &lt; DATE &rsquo;2008-02-01&rsquo; ) THEN
+           INSERT INTO measurement_y2008m01 VALUES (NEW.*);
+       ELSE
+           RAISE EXCEPTION &rsquo;Date out of range.  Fix the measurement_insert_trigger() function!&lsquo;;
+       END IF;</p>
+
+<p>    RETURN NULL;
+   END;</p>
+
+<p>$$</p>
+
+<p>LANGUAGE plpgsql;</p>
+
+<p>CREATE TRIGGER insert_measurement_trigger
+       BEFORE INSERT ON measurement
+       FO EACH ROW EXECUTE PROCEDURE measurement_insert_trigger();</p>
+
+<pre><code>
+约束排除是一种能够提高分区表性能的查询优化技术。当使用约束排除，下列查询会仅扫描分区表measurement_y2008m01；当禁止掉约束排除，查询会扫描measurement的所有分区表。
+</code></pre>
+
+<p>SET constraint_exclusion = on;
+SELECT count(*) FROM measurement WHERE logdate &gt;= DATE &rsquo;2008-01-01&rsquo;;</p>
+
+<pre><code>
+
+## MySQL数据库分区
+
+MySQL从5.1开始支持数据库分区，本文以MySQL 5.7为例介绍一下MySQL数据库分区。
+
+### 支持的分区类型
+
+- 基于范围的分区
+- 基于列表的分区
+- 基于哈希的分区
+- 基于键的分区
+- 子分区--组合分区
+
+基于键的分区之外的其他分区类型所使用的列受限于INT或NULL类型(RANGE COLUMNS和LIST COLUMNS还可处理DATE和DATETIME类型)，基于键的分区没有这个限制。
+对于NULL，MySQL的分区实现把它当作任何非空的值都小来处理
+
+### 基于范围的分区
+
+使用PARTITION BY RANGE关键词的分区表达式返回结果必须是整数型的。
+</code></pre>
+
+<p>CREATE TABLE employees (
+    id INT NOT NULL,
+    fname VARCHAR(30),
+    lname VARCHAR(30),
+    hired DATE NOT NULL DEFAULT &rsquo;1970-01-01&rsquo;,
+    separated DATE NOT NULL DEFAULT &rsquo;9999-12-31&rsquo;,
+    job_code INT NOT NULL,
+    store_id INT NOT NULL
+)</p>
+
+<p>PARTITION BY RANGE (store_id) (
+    PARTITION p0 VALUES LESS THAN (6),
+    PARTITION p1 VALUES LESS THAN (11),
+    PARTITION p2 VALUES LESS THAN (16),
+    PARTITION p3 VALUES LESS THAN MAXVALUE
+);</p>
+
+<pre><code>
+</code></pre>
+
+<p>CREATE TABLE employees (
+    id INT NOT NULL,
+    fname VARCHAR(30),
+    lname VARCHAR(30),
+    hired DATE NOT NULL DEFAULT &rsquo;1970-01-01&rsquo;,
+    separated DATE NOT NULL DEFAULT &rsquo;9999-12-31&rsquo;,
+    job_code INT,
+    store_id INT
+)</p>
+
+<p>PARTITION BY RANGE ( YEAR(separated) ) (
+    PARTITION p0 VALUES LESS THAN (1991),
+    PARTITION p1 VALUES LESS THAN (1996),
+    PARTITION p2 VALUES LESS THAN (2001),
+    PARTITION p3 VALUES LESS THAN MAXVALUE
+);</p>
+
+<pre><code>
+</code></pre>
+
+<p>CREATE TABLE quarterly_report_status (
+    report_id INT NOT NULL,
+    report_status VARCHAR(20) NOT NULL,
+    report_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)</p>
+
+<p>PARTITION BY RANGE ( UNIX_TIMESTAMP(report_updated) ) (
+    PARTITION p0 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2008-01-01 00:00:00&rsquo;) ),
+    PARTITION p1 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2008-04-01 00:00:00&rsquo;) ),
+    PARTITION p2 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2008-07-01 00:00:00&rsquo;) ),
+    PARTITION p3 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2008-10-01 00:00:00&rsquo;) ),
+    PARTITION p4 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2009-01-01 00:00:00&rsquo;) ),
+    PARTITION p5 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2009-04-01 00:00:00&rsquo;) ),
+    PARTITION p6 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2009-07-01 00:00:00&rsquo;) ),
+    PARTITION p7 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2009-10-01 00:00:00&rsquo;) ),
+    PARTITION p8 VALUES LESS THAN ( UNIX_TIMESTAMP(&lsquo;2010-01-01 00:00:00&rsquo;) ),
+    PARTITION p9 VALUES LESS THAN (MAXVALUE)
+);</p>
+
+<pre><code>
+使用PARTITION BY RANGE COLUMNS关键词的分区表达式可以是DATE或DATETIME类型，并且可以接受多列作为一个元组进行分区。
+</code></pre>
+
+<p>CREATE TABLE members (
+    firstname VARCHAR(25) NOT NULL,
+    lastname VARCHAR(25) NOT NULL,
+    username VARCHAR(16) NOT NULL,
+    email VARCHAR(35),
+    joined DATE NOT NULL
+)</p>
+
+<p>PARTITION BY RANGE COLUMNS(joined) (
+    PARTITION p0 VALUES LESS THAN (&lsquo;1960-01-01&rsquo;),
+    PARTITION p1 VALUES LESS THAN (&lsquo;1970-01-01&rsquo;),
+    PARTITION p2 VALUES LESS THAN (&lsquo;1980-01-01&rsquo;),
+    PARTITION p3 VALUES LESS THAN (&lsquo;1990-01-01&rsquo;),
+    PARTITION p4 VALUES LESS THAN MAXVALUE
+);</p>
+
+<pre><code>
+</code></pre>
+
+<p>CREATE TABLE rangecolumn (
+    a INT,
+    b INT
+)</p>
+
+<p>PARTITION BY RANGE COLUMNS(a,b) (
+    PARTITION p0 VALUES LESS THAN (0,10),
+    PARTITION p1 VALUES LESS THAN (10,20),
+    PARTITION p2 VALUES LESS THAN (10,30),
+    PARTITION p3 VALUES LESS THAN (10,35),
+    PARTITION p4 VALUES LESS THAN (20,40),
+    PARTITION p5 VALUES LESS THAN (MAXVALUE,MAXVALUE)
+);</p>
+
+<pre><code>
+### 基于列表的分区
+
+使用PARTITION BY LIST关键词的分区表达式返回结果必须是整数型的。
+</code></pre>
+
+<p>CREATE TABLE employees (
+    id INT NOT NULL,
+    fname VARCHAR(30),
+    lname VARCHAR(30),
+    hired DATE NOT NULL DEFAULT &rsquo;1970-01-01&rsquo;,
+    separated DATE NOT NULL DEFAULT &rsquo;9999-12-31&rsquo;,
+    job_code INT,
+    store_id INT
+)</p>
+
+<p>PARTITION BY LIST(store_id) (
+    PARTITION pNorth VALUES IN (3,5,6,9,17),
+    PARTITION pEast VALUES IN (1,2,10,11,19,20),
+    PARTITION pWest VALUES IN (4,12,13,14,18),
+    PARTITION pCentral VALUES IN (7,8,15,16)
+);</p>
+
+<pre><code>
+使用PARTITION BY LIST COLUMNS关键词的分区表达式可以是DATE或DATETIME类型，并且可以接受多列作为一个元组进行分区。
+</code></pre>
+
+<p>CREATE TABLE customers_2 (
+    first_name VARCHAR(25),
+    last_name VARCHAR(25),
+    street_1 VARCHAR(30),
+    street_2 VARCHAR(30),
+    city VARCHAR(15),
+    renewal DATE
+)</p>
+
+<p>PARTITION BY LIST COLUMNS(renewal) (
+    PARTITION pWeek_1 VALUES IN(&lsquo;2010-02-01&rsquo;, &rsquo;2010-02-02&rsquo;, &rsquo;2010-02-03&rsquo;,
+        &rsquo;2010-02-04&rsquo;, &rsquo;2010-02-05&rsquo;, &rsquo;2010-02-06&rsquo;, &rsquo;2010-02-07&rsquo;),
+    PARTITION pWeek_2 VALUES IN(&lsquo;2010-02-08&rsquo;, &rsquo;2010-02-09&rsquo;, &rsquo;2010-02-10&rsquo;,
+        &rsquo;2010-02-11&rsquo;, &rsquo;2010-02-12&rsquo;, &rsquo;2010-02-13&rsquo;, &rsquo;2010-02-14&rsquo;),
+    PARTITION pWeek_3 VALUES IN(&lsquo;2010-02-15&rsquo;, &rsquo;2010-02-16&rsquo;, &rsquo;2010-02-17&rsquo;,
+        &rsquo;2010-02-18&rsquo;, &rsquo;2010-02-19&rsquo;, &rsquo;2010-02-20&rsquo;, &rsquo;2010-02-21&rsquo;),
+    PARTITION pWeek_4 VALUES IN(&lsquo;2010-02-22&rsquo;, &rsquo;2010-02-23&rsquo;, &rsquo;2010-02-24&rsquo;,
+        &rsquo;2010-02-25&rsquo;, &rsquo;2010-02-26&rsquo;, &rsquo;2010-02-27&rsquo;, &rsquo;2010-02-28&rsquo;)
+);</p>
+
+<pre><code>
+### 基于哈希的分区
+
+使用PARTITION BY HASH关键字的哈希算法是简单地对分区数取模。
+</code></pre>
+
+<p>CREATE TABLE employees (
+    id INT NOT NULL,
+    fname VARCHAR(30),
+    lname VARCHAR(30),
+    hired DATE NOT NULL DEFAULT &rsquo;1970-01-01&rsquo;,
+    separated DATE NOT NULL DEFAULT &rsquo;9999-12-31&rsquo;,
+    job_code INT,
+    store_id INT
+)</p>
+
+<p>PARTITION BY HASH(store_id)
+PARTITIONS 4;</p>
+
+<pre><code>
+使用PARTITION BY LINEAR HASH关键字的线性哈希算法：
+V是大于等于分区数的最接近的2的幂数。计算方法为：V = POWER(2, CEILING(LOG(2, 分区数)))
+Set N = F(column_list) &amp; (V - 1).
+当N大于等于分区数时，做如下循环计算直至小于分区数：
+  V = CEIL(V / 2)
+  N = N &amp; (V - 1)
+
+</code></pre>
+
+<p>CREATE TABLE employees (
+    id INT NOT NULL,
+    fname VARCHAR(30),
+    lname VARCHAR(30),
+    hired DATE NOT NULL DEFAULT &rsquo;1970-01-01&rsquo;,
+    separated DATE NOT NULL DEFAULT &rsquo;9999-12-31&rsquo;,
+    job_code INT,
+    store_id INT
+)</p>
+
+<p>PARTITION BY LINEAR HASH( YEAR(hired) )
+PARTITIONS 6;</p>
+
+<pre><code>
+如果一个员工2003年入职，则分区为#3。
+V = POWER(2, CEILING( LOG(2,6) )) = 8
+N = YEAR('2003-04-14') &amp; (8 - 1)
+   = 2003 &amp; 7
+   = 3
+
+如果一个员工1998年入职，则分区为#2。
+V = 8
+N = YEAR('1998-10-19') &amp; (8-1)
+  = 1998 &amp; 7
+  = 6
+N = 6 &amp; CEILING(8 / 2)
+  = 6 &amp; 3
+  = 2
+
+### 基于键的分区
+
+基于键的分区与基于哈希的分区类似，除了基于哈希的分区使用用户自定义的表达式，而基于键的分区使用MySQL提供的与PASSWORD()相类似的哈希算法。
+键列表可以为空，也可以为多个列名。
+键列表为空，使用主键id。
+</code></pre>
+
+<p>CREATE TABLE k1 (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(20)
+)</p>
+
+<p>PARTITION BY KEY()
+PARTITIONS 2;</p>
+
+<pre><code>
+键列表为空，使用UNIQUE键KEY。
+</code></pre>
+
+<p>CREATE TABLE k1 (
+    id INT NOT NULL,
+    name VARCHAR(20),
+    UNIQUE KEY (id)
+)</p>
+
+<p>PARTITION BY KEY()
+PARTITIONS 2;</p>
+
+<pre><code>
+键列表为s1,此例效果等同于空的键列表。
+</code></pre>
+
+<p>CREATE TABLE tm1 (
+    s1 CHAR(32) PRIMARY KEY
+)</p>
+
+<p>PARTITION BY KEY(s1)
+PARTITIONS 10;</p>
+
+<pre><code>
+使用PARTITION BY LINEAR KEY关键字与使用PARTITION BY LINEAR HASH关键字具有一样的效果。
+</code></pre>
+
+<p>CREATE TABLE tk (
+    col1 INT NOT NULL,
+    col2 CHAR(5),
+    col3 DATE
+)</p>
+
+<p>PARTITION BY LINEAR KEY (col1)
+PARTITIONS 3;</p>
+
+<pre><code>
+### 子分区--组合分区
+
+子分区隐形定义：
+</code></pre>
+
+<p>CREATE TABLE ts (id INT, purchased DATE)
+    PARTITION BY RANGE( YEAR(purchased) )
+    SUBPARTITION BY HASH( TO_DAYS(purchased) )
+    SUBPARTITIONS 2 (
+        PARTITION p0 VALUES LESS THAN (1990),
+        PARTITION p1 VALUES LESS THAN (2000),
+        PARTITION p2 VALUES LESS THAN MAXVALUE
+    );</p>
+
+<pre><code>
+子分区显性定义：
+</code></pre>
+
+<p>CREATE TABLE ts (id INT, purchased DATE)
+    PARTITION BY RANGE( YEAR(purchased) )
+    SUBPARTITION BY HASH( TO_DAYS(purchased) ) (
+        PARTITION p0 VALUES LESS THAN (1990) (
+            SUBPARTITION s0,
+            SUBPARTITION s1
+        ),
+        PARTITION p1 VALUES LESS THAN (2000) (
+            SUBPARTITION s2,
+            SUBPARTITION s3
+        ),
+        PARTITION p2 VALUES LESS THAN MAXVALUE (
+            SUBPARTITION s4,
+            SUBPARTITION s5
+        )
+    );    </p>
+
+<pre><code>
+### 分区修剪（Partition Pruning）
+
+分区修剪与PostgreSQL数据库的约束排除功能一样，就是不扫描与值不匹配的分区。
+
+### 分区选择
+
+PostgreSQL数据库需要为分区创建表，而MySQL不需要。那如何仅对某个分区进行查询呢？分区选择就是解决这一需求的方案。
+</code></pre>
+
+<p>CREATE TABLE employees  (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fname VARCHAR(25) NOT NULL,
+    lname VARCHAR(25) NOT NULL,
+    store_id INT NOT NULL,
+    department_id INT NOT NULL
+)   </p>
+
+<p>PARTITION BY RANGE(id)  (
+    PARTITION p0 VALUES LESS THAN (5),
+    PARTITION p1 VALUES LESS THAN (10),
+    PARTITION p2 VALUES LESS THAN (15),
+    PARTITION p3 VALUES LESS THAN MAXVALUE
+);</p>
+
+<pre><code>
+下面的查询语句仅应用于分区p1。
+</code></pre>
+
+<p>SELECT * FROM employees PARTITION (p1);
+```</p>
+
+<h3 id="分区约束与限制">分区约束与限制</h3>
+
+<p>MySQL分区的约束与限制很多，这里就不列举了，详见<a href="http://dev.mysql.com/doc/refman/5.7/en/partitioning-limitations.html">MySQL手册</a>。</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：PostgreSQL与MySQL数据库分区
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" rel="tag" title="数据库">#数据库#</a>
+    
+    <a href="/tags/%e5%88%86%e5%8c%ba" rel="tag" title="分区">#分区#</a>
+    
+    <a href="/tags/partitioning" rel="tag" title="partitioning">#partitioning#</a>
+    
+    <a href="/tags/mysql" rel="tag" title="mysql">#mysql#</a>
+    
+    <a href="/tags/postgresql" rel="tag" title="postgresql">#postgresql#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/" rel="next" title="Hibernate shards数据库分片">
+        <i class="fa fa-chevron-left"></i> Hibernate shards数据库分片
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/" rel="prev" title="R语言字符处理">
+        R语言字符处理 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/";
+this.page.identifier = "https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#分类">分类</a>
+<ul>
+<li><a href="#水平分区">水平分区</a></li>
+<li><a href="#垂直分区">垂直分区</a></li>
+</ul></li>
+<li><a href="#分区标准">分区标准</a>
+<ul>
+<li><a href="#基于范围的分区">基于范围的分区</a></li>
+<li><a href="#基于列表的分区">基于列表的分区</a></li>
+<li><a href="#基于哈希的分区">基于哈希的分区</a></li>
+</ul></li>
+<li><a href="#postgresql数据库分区">PostgreSQL数据库分区</a>
+<ul>
+<li><a href="#优点">优点</a></li>
+<li><a href="#表继承">表继承</a></li>
+<li><a href="#支持的分区标准">支持的分区标准</a></li>
+<li><a href="#分区实现案例">分区实现案例</a></li>
+<li><a href="#分区约束与限制">分区约束与限制</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Httptransport on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/httptransport/</link>
+    <description>Recent content in Httptransport on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 09 Oct 2015 05:34:55 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/httptransport/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Use proxy on Google Analytics API</title>
+      <link>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</link>
+      <pubDate>Fri, 09 Oct 2015 05:34:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</guid>
+      <description>使用Google API创建HTTP传输层是这样子的，没有可以传入代理的地方。
+HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();  仔细研究一下com.google.api.client.googleapis.javanet.GoogleNetHttpTransport，发现其实现是使用com.google.api.client.http.javanet.NetHttpTransport.Builder生成一个com.google.api.client.http.javanet.NetHttpTransport对象。com.google.api.client.http.javanet.NetHttpTransport.Builder和com.google.api.client.http.javanet.NetHttpTransport是都支持代理的。不用GoogleNetHttpTransport这个封装，直接对com.google.api.client.http.javanet.NetHttpTransport.Builder设置代理即可生成使用代理的HttpTransport对象。
+Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(&amp;quot;XXXX&amp;quot;, 80)); HttpTransport httpTransport = new NetHttpTransport.Builder().setProxy(proxy). trustCertificates(GoogleUtils.getCertificateTrustStore()).build();  </description>
+    </item>
+    
+  </channel>
+</rss>

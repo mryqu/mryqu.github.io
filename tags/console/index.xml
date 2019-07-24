@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Console on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/console/</link>
+    <description>Recent content in Console on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 28 Jun 2015 01:00:55 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/console/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Spring Data] 调试H2数据库</title>
+      <link>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Sun, 28 Jun 2015 01:00:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>我将Spring的两个入门指南Building a RESTful Web Service和Accessing Data with JPA融到一起，测试成功。那接下来的一个问题就是怎么查看H2数据库内容并进行调试？
+配置H2 Web控制台 为了解决这个问题，我首先增加了src/resources/application.properties配置文件，内容如下：
+spring.profiles.active=dev spring.h2.console.enabled=true  在H2 Web控制台上操作 启动Spring Boot应用，在浏览器中进入http://localhost:8080/h2_console/即可进入H2数据库的Web控制台了。 配置IDEA IntelliJ数据源 如果不使用H2 Web控制台的话，在IDEA IntelliJ集成开发环境中也可以通过配置H2数据源进行数据库操作。 解决数据库表不存在问题 上面的玩法有个问题，那就是没看到Accessing Data with JPA里面创建的CUSTOMER表，对不对？为了解决这个问题，在src/resources/application.properties配置文件增加如下内容：
+spring.profiles.active=dev spring.h2.console.enabled=true spring.datasource.url=jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE spring.datasource.driverClassName=org.h2.Driver spring.datasource.username=sa spring.datasource.password=  搞定，收工！
+参考 Using H2’s web console in Spring Boot
+Common application properties for Spring Boot
+H2 Console</description>
+    </item>
+    
+    <item>
+      <title>在chrome控制台中加载Javascript文件</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8chrome%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E5%8A%A0%E8%BD%BDjavascript%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 02 Feb 2014 20:49:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8chrome%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E5%8A%A0%E8%BD%BDjavascript%E6%96%87%E4%BB%B6/</guid>
+      <description>Include javascript file in chrome console里面介绍了几种在Chrome控制台加载Javascript文件的方法，对我来说使用JQuery是最方便的做法。
+$.getScript(&#39;script.js&#39;);  </description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] 调试及console.log</title>
+      <link>https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/</link>
+      <pubDate>Sat, 21 Dec 2013 11:49:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/</guid>
+      <description>最近玩一下javascipt，在回调里碰到一个问题，需要调试。加入了console.log函数打印日志，在我的chrome浏览器按Ctrl+Shift+J快捷键调出DevTool并显示控制台来查找问题。结合Wireshark，最后才发现对Json数据解析错误。下面介绍一下console.log的使用。javascript的代码示例如下：
+$(function () { $(&#39;#fileupload&#39;).fileupload({ url: url, dataType: &#39;json&#39;, done: function (e, data) { $.each(data.result.files, function (index, file) { $(&#39;&#39;).text(file.name).appendTo(&#39;#files&#39;); }); }, progressall: function (e, data) { var progress = parseInt(data.loaded / data.total * 100, 10); console.log(&amp;quot;complete:&amp;quot;+progress); $(&#39;#progress .progress-bar&#39;).css( &#39;width&#39;, progress + &#39;%&#39; ); } }).prop(&#39;disabled&#39;, !$.support.fileInput) .parent().addClass($.support.fileInput ? undefined : &#39;disabled&#39;); });  浏览器控制台使用 Firefox http://getfirebug.com/ (可以使用Firefox内建的开发工具Ctrl+Shift+J (Tools &amp;gt; Web Developer &amp;gt;Error Console)，但是Firebug更出色；建议使用Firebug)
+Safari和Chrome 使用方法基本相同。 https://developer.chrome.com/devtools/index https://developer.apple.com/technologies/safari/developer-tools.html
+Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模式。 http://msdn.</description>
+    </item>
+    
+    <item>
+      <title>为Unix终端或Windows命令行设置UTF-8编码</title>
+      <link>https://mryqu.github.io/post/%E4%B8%BAunix%E7%BB%88%E7%AB%AF%E6%88%96windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AEutf-8%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Tue, 14 May 2013 21:20:30 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%B8%BAunix%E7%BB%88%E7%AB%AF%E6%88%96windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AEutf-8%E7%BC%96%E7%A0%81/</guid>
+      <description>Unix终端 使用“locale –a” 命令检查支持的编码 servermt&amp;gt; locale -a C POSIX ……… en_US.ISO8859-1 en_US.ISO8859-15 en_US.US-ASCII en_US.UTF-8 ………  设置环境变量 LANG= en_US.UTF-8  Windows命令行 通过chcp命令设置 Displays or sets the active code page number: CHCP [nnn] C:\&amp;gt;chcp Active code page: 437 C:\&amp;gt;chcp 65001 Active code page: 65001  通过mode con命令设置 Select code page: MODE CON[:] CP SELECT=yyy Code page status: MODE CON[:] CP [/STATUS] C:\&amp;gt;mode con cp /status Status for device CON: ---------------------- Code page: 437 C:\&amp;gt;mode con cp select=65001 Status for device CON: ---------------------- Lines: 300 Columns: 160 Keyboard rate: 31 Keyboard delay: 1 Code page: 65001  代码页代号 |Identifier|.</description>
+    </item>
+    
+  </channel>
+</rss>

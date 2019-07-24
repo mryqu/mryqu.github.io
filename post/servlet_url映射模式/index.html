@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Servlet URL映射模式 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Servlet URL映射模式">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Servlet URL映射模式 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/" itemprop="url">
+        Servlet URL映射模式
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-13">
+    2013-10-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">16 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h3 id="servlet-2-5规范中的映射规则">Servlet 2.5规范中的映射规则:</h3>
+
+<ul>
+<li>完全匹配URL</li>
+<li>匹配通配符路径</li>
+<li>匹配扩展名</li>
+<li>匹配默认servlet</li>
+</ul>
+
+<h3 id="特殊url模式">特殊URL模式:</h3>
+
+<h4 id="url-pattern">url-pattern:/*</h4>
+
+<p>servlet上的<code>/*</code> 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将<code>/*</code> 用于<a href="http://download.oracle.com/javaee/6/api/javax/servlet/Filter.html">过滤器</a>。它能通过调用<a href="http://download.oracle.com/javaee/6/api/javax/servlet/FilterChain.html#doFilter(javax.servlet.ServletRequest,%20javax.servlet.ServletResponse)">FilterChain#doFilter()</a>让请求继续由监听另外一个特定URL模式的任何servlet处理。</p>
+
+<h4 id="url-pattern-1">url-pattern:/</h4>
+
+<p><code>/</code> 不会压制其他servlet。它仅会替换servlet容器内建的默认servlet，用于无法匹配任何已注册servlet的所有请求。一般仅调用在静态资源(CSS/JS/image/etc)和列举目录上。servlet容器内建默认servlet也能处理HTTP缓存请求、媒体（音视频）流和文件重新下载。由于必须负责默认servlet的所有任务，工作量不小，通常不会想要替换默认servlet。这也是一种不好的URL模式。关于为什么JSP页面不会调用这个servlet，是因为servlet容器的内建JSPservlet默认映射到<code>*.jsp</code>并被调用。</p>
+
+<h4 id="url-pattern-2">url-pattern:</h4>
+
+<p>这也有一个空字符串URL模式。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Servlet URL映射模式
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/servlet" rel="tag" title="servlet">#servlet#</a>
+    
+    <a href="/tags/url" rel="tag" title="url">#url#</a>
+    
+    <a href="/tags/mapping" rel="tag" title="mapping">#mapping#</a>
+    
+    <a href="/tags/pattern" rel="tag" title="pattern">#pattern#</a>
+    
+    <a href="/tags/%e5%8c%b9%e9%85%8d" rel="tag" title="匹配">#匹配#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/" rel="next" title="[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别">
+        <i class="fa fa-chevron-left"></i> [Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/" rel="prev" title="tc Server与Atomikos集成">
+        tc Server与Atomikos集成 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/";
+this.page.identifier = "https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#servlet-2-5规范中的映射规则">Servlet 2.5规范中的映射规则:</a></li>
+<li><a href="#特殊url模式">特殊URL模式:</a>
+<ul>
+<li><a href="#url-pattern">url-pattern:/*</a></li>
+<li><a href="#url-pattern-1">url-pattern:/</a></li>
+<li><a href="#url-pattern-2">url-pattern:</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

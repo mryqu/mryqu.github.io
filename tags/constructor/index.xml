@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Constructor on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/constructor/</link>
+    <description>Recent content in Constructor on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 Oct 2013 21:11:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/constructor/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C&#43;&#43;] 重温析构函数</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 25 Oct 2013 21:11:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/</guid>
+      <description>创建一个C++对象时，一般先调用父类构造函数，再调用自己的构造函数；而在销毁一个C++对象时，一般先调用自己的析构函数，再调用父类的析构函数。我用如下testDestructor.cpp进行测试。
+class BaseClass { public: BaseClass() { cout &amp;lt;&amp;lt; &amp;quot;BaseClass() on &amp;quot; &amp;lt;&amp;lt; this &amp;lt;&amp;lt; endl; } ~BaseClass() { cout &amp;lt;&amp;lt; &amp;quot;~BaseClass() on &amp;quot; &amp;lt;&amp;lt; this &amp;lt;&amp;lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string(&amp;quot;NULL&amp;quot;)) { cout &amp;lt;&amp;lt; &amp;quot;DerivedClass() on &amp;quot; &amp;lt;&amp;lt; this &amp;lt;&amp;lt; endl; } DerivedClass(const string&amp;amp; n):name(new string(n)) { cout &amp;lt;&amp;lt; &amp;quot;DerivedClass(string) on &amp;quot; &amp;lt;&amp;lt; this &amp;lt;&amp;lt; endl; } ~DerivedClass() { delete name; cout &amp;lt;&amp;lt; &amp;quot;~DerivedClass(): name has been deleted on &amp;quot; &amp;lt;&amp;lt; this &amp;lt;&amp;lt; endl; } private: string* name; }; int main() { cout &amp;lt;&amp;lt; &amp;quot;=== test bo1 ===&amp;quot; &amp;lt;&amp;lt; endl; BaseClass* bo1 = new BaseClass(); delete bo1; cout &amp;lt;&amp;lt; &amp;quot;=== test do1 ===&amp;quot; &amp;lt;&amp;lt; endl; DerivedClass* do1 = new DerivedClass(); delete do1; cout &amp;lt;&amp;lt; &amp;quot;=== test bo2 ===&amp;quot; &amp;lt;&amp;lt; endl; BaseClass* bo2 = new DerivedClass(&amp;quot;123&amp;quot;); delete bo2; cout &amp;lt;&amp;lt; &amp;quot;=== test bo3 ===&amp;quot; &amp;lt;&amp;lt; endl; BaseClass bo3 = DerivedClass(&amp;quot;321&amp;quot;); return 0; }  输出结果如下：</description>
+    </item>
+    
+  </channel>
+</rss>

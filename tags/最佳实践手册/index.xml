@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>最佳实践手册 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%89%8B%E5%86%8C/</link>
+    <description>Recent content in 最佳实践手册 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 19 Oct 2013 09:08:24 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（三）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/</link>
+      <pubDate>Sat, 19 Oct 2013 09:08:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/</guid>
+      <description>杂项 为了复制资源而不泄漏服务器实现细节，可以设计一个用于复制的控制器资源。客户端向控制器发送POST请求复制资源。为了实现条件POST，可以提供一次性URI。控制器创建副本后，返回状态码201 (Created)及Location头带有副本URI。 为了合并两个或多个资源，可以设计一个用于合并的应用程序特定控制器资源。客户端想控制器发送GET请求，其查询参数包含待合并资源的URI或标识符。服务器返回Last-Modified、ETag头和包含待合并资源摘要的表述体。ETag由时戳和随机数连接串构成。为了验证摘要，客户端向同一地址发送带有If-Unmodified-Since和If-Match头的POST请求发起合并。服务器合并后在事务日志中保留If-Match头的值并返回状态码201 (Created)及含有合并后资源URI的Location头。如果客户端再发送相同If-Match头的POST请求，服务器返回状态码412 (Preconditon Failed)。 为了移动资源，服务器会提供负责移动资源控制器的链接或链接模板以使客户端可以发送POST请求，并在完成请求后根据输出返回状态码201 (Created)或303 (See Other)。 WebDAV （RFC 4918）是用于资源分布式创作和版本管理的HTTP扩展，它扩展了一些HTTP方法和头用于管理文件和文档。当Web服务是内容创作应用且服务器支持WebDAV时使用WebDAV特定方法，避免对其他类型应用使用WebDAV。
+|方法|介绍 |&amp;mdash;&amp;ndash; |PROPFIND|WebDAV中的文档具有属性，客户端可用此方法获得属性 |PROPPATCH|客户端用此方法设置、添加或修改资源属性 |MKCOL|WebDAV可以将文档放入集合（文件夹），客户端可用此方法创建集合 |COPY|客户端可用此方法复制资源 |MOVE|客户端可用此方法移动资源 |LOCK|客户端可用此方法对给定文档加锁，以支持悲观并发控制 |UNLOCK|客户端可用此方法对给定文档去锁
+为了支持跨服务器边界的操作（例如，将用户配置从一个应用移植到另一个应用，将文档从草稿服务器发布到生产服务器），需要服务器之间彼此就数据格式、后台接口、并发控制、数据加载、范式化和存储等方面协作、设计和实现设计跨服务器操作。 wiki的网页都会维护当前和过去的修订历史，以便客户可以获取、比较和评估页面改变。为了支持资源以往历史快照，服务器在收到客户端PUT请求更新资源时，在更新资源之前会默认创建快照（资源副本），并在更新后的资源表述中包含快照链接，快照表述中包含更新后资源链接。当用户发送DELETE请求，删除资源及所有快照。 提供用于撤销操作的控制器资源。当客户端发送POST请求进行撤销操作，在事务日志中记录资源当前状态以用于审计。服务器将资源状态恢复到上一快照并将客户端重定向到资源URI。 当资源很大而改动很小时，发送GET请求获取整个表述、进行小的修改、发送PUT请求将整个表述传回服务器进行更新很费时费带宽。为了支持对资源进行部分更新，可以将可修改的资源部分封装为一个新资源。客户端通过PUT请求更新该新资源，等效于部分更新原来的资源。 HTTP PUT方法用于对资源的整个更新或替换，PATCH方法（RFC 5789）用于支持部分更新。PATCH方法不是安全和幂等的，请求体是一系列对资源进行改变的表述。当收到请求，服务器将整个补丁原子性地施加于资源，并返回响应码 200 (OK)或204 (No Content)。如果服务器无法将整体补丁施加于资源，就不会做任何局部修改。可以通过请求中包含If-Unmodified-Since和/或If-Match头支持条件PATCH请求，如果不匹配则返回状态码412 (Precondition Failed)。建议在OPTIONS响应的Allow头支持PATCH，并在PTACH方法包含Accept-Patch头，其值为支持的媒体类型。 当客户端需要为不同资源提交若干类似请求时，只要对每个资源的操作是相同的且资源是类似的，可以将这些操作组合成一个针对集合资源的单个操作。使用POST请求和集合资源一次性批量创建若干资源。服务器为集合资源分配一个URI，并使用状态码303 (See Other)重定向到该集合资源，集合资源表述包含所有新创建资源的链接。使用PUT请求更新或DELETE请求删除若干资源与创建过程类似，以上操作必须是原子化的。 客户端需要执行批量作业的用例不是少数。例如，为前一天销售订单做汇总、将一个或多个文档打包、批准选择的购买订单集合等等都需要批量执行。服务器需要设计一个控制器资源用于执行批量操作。如果客户端需要跟踪操作或客户端需要提交大量用于操作的数据，返回状态码202 (Accepted)以进行异步操作，否则返回200 (OK)或204 (No Content)。 将几个HTTP组合成一个HTTP请求以支持批量处理的用例不是少数。下面列举了一些通常使用的技术实现： - 客户端将几个HTTP请求序列化到一个JSON对象、或一个XML文档、或multipart/mixed消息的一部分。 - 客户端创建一个信封跟是将多个请求组合进入一个消息。 - 客户端向服务器的分批终点（batch end point）资源发送POST请求。 - 服务器接收到消息，打开信封，重构多个HTTP请求并分发到服务器的相关URI。或者服务器绕过HTTP将请求直接派发到能处理这种请求的代码。 - 服务器收集每个请求的响应并序列化为一个消息返回到客户端。 - 客户端打开信封并处理每个响应消息。
+避免这种将多个HTTP请求封装入一个POST请求隧道的做法。因为通常隧道方案有以下不利之处：
+|特性|介绍 |&amp;mdash;&amp;ndash; |并发|HTTP通过Last-Modified和ETag头来实现乐观并发检查。将多个HTTP请求封装进一个HTTP请求隧道的批量操作使并发检查变得困难，因为服务器需要为批量操作中每一个任务进行并发检查。 |原子性|HTTP请求是原子性的。每个请求执行单个任务，服务器在错误发生时确保数据的原子性和一致性。将多个任务混入一个请求、尤其是某些操作依赖于同一请求的前一操作是否成功的批量操作使Web服务很难确保原子性和进行错误恢复。 |可见性|将多个操作封装到一个HTTP请求隧道使中间节点无法对批量处理内的操作响应可见。此外检测请求防止拒绝攻击的典型安全方法几乎不可能捕捉到批量操作中的可疑请求，因此可能导致拒绝服务攻击。 |错误处理|用于批量操作的错误处理和报告更为复杂。单个批量请求的结构可能混杂成功和失败响应。 |可扩展性|一般用于批量操作的理由依赖批量处理比执行每个单个请求更可扩展这样的假设。当单个服务器收到非常多的批量处理，请求会降低服务器的响应能力。发送很多批量客户端处理到单个服务器的应用比不支持批量处理的相同应用性能可能更低。
+分析导致促成使用隧道技术的用例，设计应用特有的控制器资源支持相同需求。由于请求使用的是处理请求资源的单个URI，所以请求可见。由于仅返回一个状态码，所以响应可见。 RESTful web服务在下列场景可能会需要处理事务： - 客户端执行操作流的一些列步骤。客户端在取消操作流时要撤销所有已完成的数据变动。 - 客户端同若干服务器顺序交互以实现应用操作流，客户端可能希望恢复任何状态改变或持久化存储状态。</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（二）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Sat, 19 Oct 2013 08:32:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
+      <description>Atom和AtomPub Atom聚合格式（RFC 4287）和Atom发布协议（也称为AtomPub，RFC5023）定义了条目和种子等资源及其表述和操作协议。Atom主要用于基于文本的、意图让人们去阅读的博客、讨论论坛、评论系统等资源。AtomPub描述了允许客户端创建和修改Atom格式资源的语义，并引入有助于应用程序发现的服务和分类资源。 Atom和AtomPub被用于很多应用场景。尽管Atom通常用于博客种子，也能进行格式扩展以用于用户简介、搜索结果、相簿等应用数据。 下面列举了Atom条目和种子内的一些元素。Atom条目和种子都是可扩展的，也可以引入新的属性和元素。
+|元素|描述 |&amp;mdash;&amp;ndash; |atom:author|存在于atom:feed和atom:entry内，表现创建条目/种子的作者，包含至少一个atom:name及可选的atom:uri和atom:email子元素 |atom:content|存在于atom:entry内，提供普通文本、HTML或XHTML条目内容或带媒体类型的其他内容，使用src和type属性链接到任意媒体 |atom:summary|存在于atom:entry内，提供条目摘要或描述。与atom:tile相似，提供type属性。 |atom:id|存在于atom:entry内，包含条目的URN格式的全局唯一标识符（例如urn:guid:550e8400-e29b-41d4-a716-446655440123）。其值在条目/种子更新或移动后必须改变。 |atom:link|存在于atom:feed和atom:entry内，每个条目/种子必须包含一个rel值为self的atom:link元素，可以包含relf值为alternate的多个type和hreflang属性唯一的atom:link元素组合，也可以包含链接关联资源的其他atom:link元素。 |atom:title|存在于atom:feed、atom:entry和atom:source内，包含条目/种子的文本标题表述。支持type属性，值为text（默认）、thml或xhtml。 |atom:update|存在于atom:feed和atom:entry内，包含条目/种子的最新更新时间。 |atom:category|存在于atom:feed和atom:entry内，对条目和种子进行分类。 |atom:contributor|每个Atom条目可以包含一个或多个atom:contributor元素。 |atom:generator|存在于atom:entry和atom:source内，指示生成种子的软件或条目来源。 |atom:icon|存在于atom:feed内，每个种子可以包含一个atom:icon元素。 |atom:logo|存在于atom:feed内，每个种子可以包含一个atom:logo元素。 |atom:published|存在于atom:entry内，每个条目可以包含一个atom:published元素，用于指示条目第一次发布的时间。 |atom:rights|存在于atom:entry内，每个条目可以包含一个atom:rights元素，描述权利例如著作权。 |atom:subtitle|存在于atom:feed和atom:source内，每个条目/源可以包含一个atom:subtitle元素。
+使用Atom的好处在于互通性。为了使用Atom，将资源建模成条目，集合建模成种子。这些元素在http://www.w3.org/2005/Atom命名空间下定义，该命名空间常用的前缀为atom。 Atom种子和条目的默认内容模型包括文本、HTML或XHTML内容和摘要、标识符、链接、作者、分类等。该内容模型最适合发布和聚合作为种子的信息片。然而，由于其格式获取的基本概念对大多数应用程序有益，可被用于各种场景而不是仅仅用于内容种子。 当资源的信息模型或元数据与Atom种子和条目的语法和语义自然匹配时使用Atom。即使资源的信息模型无法匹配Atom，考虑为其提供由短文本、HTML或XHTML资源摘要和链接。用户可以通过种子阅读器等工具了解资源。 AtomPub引入了服务文档和媒体资源等额外资源，服务文档有助于客户端发现Web服务提供的集合。服务器能够使用媒体资源将语音、视频、图像媒体或任意文档与Atom条目进行关联。 使用服务文档资源将集合汇入工作空间。该资源表述是XML文档，定义在http://www.w3.org/2007/app命名空间的service是文档的根节点。该命名空间常用的前缀为app。表述的媒体类型是application/atomsvc+xml。服务（app:service）包含一个或多个工作空间（app:workspace）。每个工作空间包含多个的集合（app:collection），列举了所有种子URI、可接受媒体类型（app:accept）和分类（app:category）。 分类资源列举了集合内资源的分类，表述是category作为根节点的XML文档，有atom:category元素组成。表述的媒体类型是application/atomcat+xml。 AtomPub是修改Atom文档的应用协议。它描述如何创建、更新和删除Atom条目，也支持编辑诸如图片、打包文件等关联的非文本媒体。如果正在使用Atom格式发布可编辑资源，考虑支持AtomPub。 允许客户端通过提交消息体为Atom条目文档的POST请求来创建新资源。客户端可以接下来对edit关系类型的链接用PUT方法修改或用DELETE方法删除资源。 当表述是Atom条目文档时在媒体类型上添加参数type=entry。 AtomPub引入的资源类型之一是媒体资源。媒体资源是除了Atom条目文档之外的其他资源，可用于表现文档、图片、音频和视频文件等。由于媒体资源不是Atom条目文档且可能是二进制资源，AtomPub对每个媒体资源关联一个媒体链接资源（描述并链接媒体资源的Atom条目）。 客户端通过发送POST请求来创建媒体资源。服务器创建媒体资源和媒体链接资源，并在响应的通过Location头返回媒体链接资源的URI。在媒体链接资源表述中，通过atom:conteng元素的src属性提供新创建的媒体资源URI。
+内容协商 内容协商有时也称以为conneg，是当多种表述（/变体）可用时为客户端选择资源的最佳表述。尽管内容协商经常与指示媒体类型优先级相关，它也能用于指示语言本地化、字符编码和压缩编码的优先级。HTTP指定了两种内容协商：服务器驱动协商和代理驱动协商。服务器驱动协商使用request头选择一种变体，代理驱动协商为每一种变体使用不同URI。 当实现一个客户端时，对客户端来说向服务器指示自身能够处理的表述格式、语言、字符编码和压缩编码偏好和能力是非常重要的。即使能够通过带外了解响应中上诉信息，清楚指示客户端的偏好和能力有助于客户端面对变化。否则，当服务器决定提供资源的替换表述，HTTP库的任何默认偏好可能提示服务器返回了不同的表述并中断客户端。 在发送请求时，添加一个Accept头，包含逗号分隔的媒体类型优先级列表。如果媒体类型优先级不一样，对每个媒体类型添加一个q参数，以表示相关优先级（1.0～0.0，优先级越高值越大）。如果客户端仅能处理特定格式，在Accept头添加*;q=0.0以表明无法处理Accept头媒体列表之外的媒体。 如果客户端仅能处理特定字符编码，添加带有偏好字符集的Accept-Charset头，否则避免添加Accept-Charset头。为表述的偏好语言添加Accept-Language头。如果客户端能够解压缩诸如gzip、compress或deflate编码的表述，添加带有支持的压缩编码的Accept-Encoding头，否则，不要使用该头。
+# Request headers Accept: application/atom+xml;q=1.0, application/xml;q=0.6, **;q=0.0 # Response HTTP/1.1 200 OK Content-Language: en Vary: Accept-Language ... # Request for German representation GET /status HTTP/1.1 Host: www.example.org Accept-Language: de;q=1.0,**;q=0.0  当服务器无法满足客户端偏好且客户端显式包含**;q=0.8。这样很难在浏览器获得内容协商的表述。 代理驱动协商当客户端无法使用Accept-*头来表示偏好时很有效，它通过为每个变体提供不同URI，客户端使用URI来选择期望的表述。在代理驱动协商中，客户端通过从服务器获得的带外信息判断要使用的URI。如果表述存在，服务器返回表述，否则，返回404(Not Found)状态码。尽管所有Accept-*头内要协商的信息都可在代理驱动协商中实现，通常用于媒体类型和语言类型。下面是代理驱动协商的常用做法： - 查询参数，例如http://www.</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（一）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Sat, 19 Oct 2013 08:10:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
+      <description>使用统一接口 HTTP是一种应用层协议，它定义了客户端与服务器之间的转移操作的表述形式。在此协议中，诸如GET，POST和DELETE之类的方法是对资源的操作。有了它，无须创造createOrder,getOrder,updateOrder等应用程序特定的操作了。 作为应用协议，HTTP的设计目标是在客户端和服务器之间保持对库、服务器、代理、缓存和其他工具的可见性。可见性是HTTP的一个核心特征。 一旦识别并设计资源，就可以使用GET方法获取资源的表述，使用PUT方法更新资源，使用DELETE方法删除资源，以及使用POST方法执行各种不安全和非幂等的操作。可以添加适当的HTTP标头来描述请求和相应。 以下特性完全取决于保持请求和相应的可见性： - 缓存：缓存响应内容，并在资源修改时使缓存自动失效。 - 乐观并发控制：检测并发写入，并在操作过期的表述时防止资源发生变更。 - 内容协商：在给定资源的多个可用表述中，选择合适的表述。 - 安全性和幂等性：确保客户端可以重复或重试特定的HTTP请求。
+HTTP通过以下途径来实现可见性： - HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和响应的意义，而无须关联过去和将来的请求和响应。 - HTTP使用一个统一接口，包括有OPTIONS，GET，HEAD，POST，DELETE和TRACE方法。接口中的每一个方法操作一个且仅一个资源。每个方法的语法和含义不会因应用程序和资源的不同而发生改变。 - HTTP使用一种与MIME类似的信封格式进行表述编码。这种格式明确区分标头和内容。标头是可见的，除了创建、处理消息的部分，软件的其他部分都可以不用关心消息的内容。
+保持可见性的另一方面是使用适当的状态码和状态消息，以便代理、缓冲和客户端可以决定请求的结果。 在某些情况下，可能需要权衡其他特性，如网络效率、客户端的便利性以及分离关注点，为此放弃可见性。当进行这种权衡时，应仔细分析对缓存、幂等性、安全性等特性的影响。 当有多个共享数据的资源，或一个操作修改多个资源时，需要权衡是否降低可见性（例如是否禁止缓存）以便获得更好的信息抽象、更松散的耦合程度、更好地网络效率、更好地资源粒度，或纯粹为了方便客户端使用。 可以通过带有应用程序状态的URI链接来保持应用程序状态而无需依赖服务器中内存中的会话。 安全性和幂等性是服务器要实现的HTTP方法的特征。当客户端发送GET、HEAD、OPTIONS、PUT或DELETE请求时，如果没有使用并发条件限制时，确保服务器提供相同响应。
+|方法|是否安全?|是否幂等? |&amp;mdash;&amp;ndash; |GET|是|是 |HEAD|是|是 |OPTIONS|是|是 |PUT|否|是 |DELETE|否|是 |POST|否|否
+客户端通过下列方法实现幂等的/安全的HTTP请求： - 将GET、OPTIONS和HEAD视为只读操作，可按需随时可发送请求。 - 在网络或软件异常的情况下，通过If-Unmodified-Since/If-Match条件标头重发GET、PUT和DELETE请求。 - 不要重发POST请求，除非客户端（通过服务器文档）知道对特定资源的POST实现是幂等的。
+Web基础设施严重依赖于GET方法的幂等性和安全性。客户端期望能够重复发起GET请求，而不必担心造成副作用。缓存依赖于不需访问源服务器就能提供已缓存表述的能力。 不要把GET方法用于不安全和非幂等操作。因为这样做可能造成永久性的、意想不到的、不符合需要的资源改变。 可以使用POST方法或PUT方法创建新资源。只有在客户端可以决定资源的URI时才使用PUT方法创建新资源；否则使用POST，由服务器决定新创建资源的URI（客户端请求可以使用Slug头建议新资源的URI）。 在以下场合中使用POST方法： - 创建新的资源，把资源作为一个工厂 - 通过一个控制器资源来修改一个或多个资源 - 执行需要大数据输入的查询 - 在其他HTTP方法看上去不合适时，执行不安全或非幂等的操作。（缓存不会缓存这一方法的响应）
+使用POST方式实现异步任务：服务器在接受到POST请求时，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，如服务器还在执行中，返回响应码200（OK）及包含当前状态的任务资源表述；如服务器成功完成，返回响应码303（SeeOther）以及包含新资源URL的Location头；如服务器任务失败，返回响应码200（OK）及任务失败的表述。 使用DELETE方法实现异步请求：服务器在收到DELETE请求，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，服务器返回响应码200（OK）及包含当前状态的任务资源表述。 避免使用非标准的自定义HTTP方法。当前比较有名的自定义方法包括WebDAV定义的方法、PATCH和MERGE。 HTTP服务器可能会使用自定义HTTP标头，比较有名的自定义HTTP包括X-Powered-By、X-Cache、X-Pingback、X-Forwarded-For及X-HTTP-Method-Override。实现客户端和服务器时，要让他们在没有发现需要的自定义标头时也不会失败。避免使用自定义HTTP标头改变HTTP方法的行为。
+识别资源 从领域名词中识别资源。 直接将领域实体映射为资源可能导致资源效率低下且难以使用，可以通过网络效率、表述的多少以及客户端的应用程度来帮助确定资源的粒度。 粗粒度设计便于富客户端应用程序，更精细的资源颗粒可以更好地忙族缓存的要求。因此，应从客户端和网络的角度确定资源的粒度。下列原书可能会进一步影响资源粒度： - 可缓存性 - 修改频率 - 可变性
+仔细设计资源粒度，以确保使用更多缓存，减少修改频率，或将不可变数据从使用缓存较少、修改频率更高或可变数据分离出来，这样可以改善客户端和服务器端的效率。 基于应用程序特有的条件来识别相似的资源（例如共享同一数据库schema的资源，有相同特性或属性的资源），可以将这些有共性的资源组织成为集合。 基于客户端的使用模式、性能和延时要求，确定一些新的聚合其他资源的复合资源，来减少客户端与服务器的交互。 符合资源降低了统一接口的可见性，应为它们的表述中包含了和其他资源相重叠的资源。因此，在提供复合资源前,需要考虑一下几点： - 如果在应用程序的请求很少，那么它可能不是一个好的选择。依赖缓存代理，从缓存中获取这些资源，也许能让客户端收益匪浅。 - 另一个因素是网络开销&amp;ndash;客户端与服务器之间的网络开销，服务区和后端服务或他所依赖的数据存储之间的网络开销。如果后者开销很大，那获取大量数据并在服务器上将他们组合成复合资源可能会增加客户端的延时，降低服务器的吞吐量。 - 想要改善延时，可以在客户端和服务器之间增加一个缓存层，并避免复合资源，进行一些负载测试来验证复合资源是否能起到改善作用。</description>
+    </item>
+    
+  </channel>
+</rss>

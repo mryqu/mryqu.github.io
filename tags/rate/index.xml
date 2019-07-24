@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rate on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/rate/</link>
+    <description>Recent content in Rate on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 15 Oct 2016 06:11:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/rate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Microsoft OneDrive API访问速率限制</title>
+      <link>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link>
+      <pubDate>Sat, 15 Oct 2016 06:11:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid>
+      <description>一开始查看OneDrive文档Quota facet,，发现里面介绍的是OneDrive存储容量配额，跟API访问速率限制没有关系。除此之外，没有发现任何相关信息。 OneDrive文档Error response里面，看到如下跟访问速率限制相关的错误： - Status code: 429 (Too Many Requests)和509 (Bandwidth LimitExceeded) - The code property: activityLimitReached (The app or user hasbeen throttled) - Detailed error code: throttledRequest (Too many requests)</description>
+    </item>
+    
+    <item>
+      <title>Dropbox API访问速率限制</title>
+      <link>https://mryqu.github.io/post/dropbox_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link>
+      <pubDate>Wed, 05 Oct 2016 06:06:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/dropbox_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid>
+      <description>Dropbox的Data ingress guide介绍了关于Dropbox API访问速率限制。 错误Status code: 429 (Too ManyRequests)用于表示API访问速率超限，如果响应包内容为JSON，则包含too_many_requests或too_many_write_operations值进行更进一步说明。 关联用户的应用，访问速率限制仅适用于每用户。一个用户关联多个应用，各应用互不影响。 关联团队的应用当调用商业端点（BusinessEndpoint），访问速率限制仅适用于每个团队。如果应用有团队成员文件访问权限但是正在调用用户端点（UserEndpoint），访问速率限制仅适用于每个团队成员。这意味着，对于关联团队的应用，一个团队关联多个应用，各应用互不影响；单个应用代表多个团队成员的请求，也不会影响团队成员彼此的访问速率限制。 超过速率限制后的响应包含一个Retry-After头，提供按秒计的等待间隔值，应用在这段时间内不应重试请求以免再获得速率限制响应。 Dropbox不会公布其API速率限制值，开发时要假设Dropbox会在今后调整其API速率限制。</description>
+    </item>
+    
+    <item>
+      <title>Twitter API访问频次限制处理</title>
+      <link>https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/</link>
+      <pubDate>Tue, 10 Nov 2015 06:11:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/</guid>
+      <description>在我前面的博文社交媒体API访问频次限制中，列举了Twitter API访问频次限制。
+Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。 当向Twitter发送请求后，可以通过解析响应头来获取限制信息。该信息是基于应用/用户上下文的： - X-Rate-Limit-Limit: 对给定请求的访问速率上限 - X-Rate-Limit-Remaining: 15分钟时间窗中剩余请求数 - X-Rate-Limit-Reset: 速率限制复位前（基于UTC）的剩余时间窗秒数
+一旦对Twitter的请求超过了频次限制，Twitter将返回HTTP 429 “Too ManyRequests”响应码及如下消息体：
+{ &amp;quot;errors&amp;quot;: [ { &amp;quot;code&amp;quot;: 88, &amp;quot;message&amp;quot;: &amp;quot;Rate limit exceeded&amp;quot; } ] }  除了通过解析响应头，还可以通过向Twitter发送rate_limit_status请求获取API访问限制信息。
+Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJSONImpl类用于处理响应头中的访问限制信息： Twitter4J的TwitterResponseImpl抽象类用于存放解析过的访问限制信息以供应用程序使用： 此外，还可以注册RateLimitStatusListener监听器实例。由Twitter4J的TwitterBaseImpl类可知，当解析到响应头中的API访问频次限制信息，RateLimitStatusListener监听器实例的onRateLimitStatus方法会被调用；当收到的响应码为420&amp;rdquo;Enhance Your Claim&amp;rdquo;、503 &amp;ldquo;Service Unavailable&amp;rdquo;或429 &amp;ldquo;Too ManyRequests&amp;rdquo;，RateLimitStatusListener监听器实例的onRateLimitReached方法将会被调用。</description>
+    </item>
+    
+    <item>
+      <title>社交媒体API访问频次限制</title>
+      <link>https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6/</link>
+      <pubDate>Sat, 07 Nov 2015 05:38:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6/</guid>
+      <description>Facebook API访问频次限制  Facebook Graph API访问频次限制 Facebook Marketing API访问频次限制  FAcebook Graph API允许每用户每60分钟200次API调用。Facebook MarketingAPI随广告用户级别变化。
+Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。
+Google Analytics API Limits and Quotas  Google Analytics Core Reporting API - API Limits and Quotas Google Analytics Real Time Reporting API - API Limits and Quotas Google Analytics Multi-Channel Funnels Reporting API - API Limits and Quotas
+ 每个项目每天50000个请求，可增加。
+ 每个IP 10 QPS（query per second）。
+ 在Developers Console上，该配额是指per-userlimit。默认设置为1秒1个查询，可被调整为最大值10。 如果你的应用从单个IP地址发出所有API请求，你需要考虑在每个请求中使用userIP或quotaUser参数以获取对每个用户QPS的满配额。    Understand YouTube Analytics API Quota Usage 暂时没有查到Youtube Analytics API固定配额，不过看起来查询维度对配额使用的影响更大。</description>
+    </item>
+    
+  </channel>
+</rss>

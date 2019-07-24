@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Implementation on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/implementation/</link>
+    <description>Recent content in Implementation on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 26 Oct 2013 00:00:39 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/implementation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Eclipse] Find the override method implementation in subclasses</title>
+      <link>https://mryqu.github.io/post/eclipse_find_the_override_method_implementation_in_subclasses/</link>
+      <pubDate>Sat, 26 Oct 2013 00:00:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/eclipse_find_the_override_method_implementation_in_subclasses/</guid>
+      <description>已知当前对象为org.apache.hadoop.hdfs.client.HdfsDataInputStream实例，调用其祖宗抽象类java.io.InputStream的publicint read(byte b[], int off, int len) throwsIOException方法，究竟最后使用的是那个类的实现呢？ 由如上类继承图可知，应该从对象类往上依次查找方法实现：HdfsDataInputStream、FSDataInputStream、&amp;hellip;&amp;hellip;。工作很繁琐，挑战眼力！
+一个快捷的方式就是进入java.io.InputStream类，选中read(byte b[], int off, intlen) 方法，按住CTRL键后点击鼠标左键，这样会出现一个菜单： 选择OpenImplementation菜单，输入HdfsDataInputStream、FSDataInputStream、&amp;hellip;&amp;hellip;，可以更轻松的找到重写该方法的子类。 最终可知使用的是java.io.DataInputStream类中的实现：
+public final int read(byte b[], int off, int len) throws IOException { return in.read(b, off, len); }  </description>
+    </item>
+    
+  </channel>
+</rss>

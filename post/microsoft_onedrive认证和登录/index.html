@@ -1,0 +1,463 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Microsoft OneDrive认证和登录 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Microsoft OneDrive认证和登录">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Microsoft OneDrive认证和登录 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/" itemprop="url">
+        Microsoft OneDrive认证和登录
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-10-13">
+    2016-10-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">93 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h3 id="为onedrive注册自己的应用">为OneDrive注册自己的应用</h3>
+
+<p><img src="/images/2016/10/0026uWfMzy75C8TOOOcd0.jpg" alt="Microsoft OneDrive认证和登录" /> <a href="https://dev.onedrive.com/app-registration.htm">Registering your app for OneDrive API</a>里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！</p>
+
+<h3 id="onedrive认证">OneDrive认证</h3>
+
+<p><a href="https://dev.onedrive.com/auth/msa_oauth.htm">OneDrive authentication and sign-in</a>有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从<a href="https://dev.onedrive.com/auth/get-token.js">https://dev.onedrive.com/auth/get-token.js</a>中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为<a href="https://dev.onedrive.com/auth/callback.htm。而">https://dev.onedrive.com/auth/callback.htm。而</a> <a href="https://dev.onedrive.com/auth/msa_oauth.htm">OneDrive authentication and sign-in</a> 中提到对于移动应用和桌面应用，跳转URI应设为<strong><a href="https://login.live.com/oauth20_desktop.srf">https://login.live.com/oauth20_desktop.srf</a></strong> <strong>（注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。</strong></p>
+
+<h4 id="token-flow测试">Token Flow测试</h4>
+
+<p>HTTP GET请求如下：</p>
+
+<pre><code>https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;scope=onedrive.readonly+wl.signin&amp;response_type=code&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf
+</code></pre>
+
+<p>响应如下，认证失败：</p>
+
+<pre><code>https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;error_description=The+provided+value+for+the+input+parameter+'response_type'+is+not+allowed+for+this+client.+Expected+value+is+'code'.
+</code></pre>
+
+<p>找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了<a href="https://tools.ietf.org/html/rfc6749#section-4.2">RFC6749 The OAuth 2.0 Authorization Framework</a>，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！<img src="/images/2016/10/0026uWfMzy75GMNBbS830.jpg" alt="Microsoft OneDrive认证和登录" /></p>
+
+<h4 id="code-flow测试">Code Flow测试</h4>
+
+<ul>
+<li>用于用户登录的HTTP GET请求如下：
+<code>
+https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;scope=onedrive.readonly+wl.signin&amp;response_type=token&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf
+</code>
+<img src="/images/2016/10/0026uWfMzy75GLiDZur5b.jpg" alt="Microsoft OneDrive认证和登录" />请求用户授权：<img src="/images/2016/10/0026uWfMzy75GLj08sE60.jpg" alt="Microsoft OneDrive认证和登录" />此时浏览器上地址变为：
+<code>
+https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;scope=onedrive.readonly+wl.signin&amp;response_type=code&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;uaid=78...e6&amp;pid=...16&amp;mkt=EN-US&amp;scft=DSA...hfC&amp;contextid=7F...D6&amp;mkt=EN-US&amp;uiflavor=host&amp;id=27...69&amp;uaid=78...e6&amp;client_id=00...42&amp;rd=none&amp;scope=&amp;cscope=onedrive.readonly+wl.signin
+</code></li>
+<li>最终跳转的地址包含了code参数：<img src="/images/2016/10/0026uWfMzy75GLjexhua0.jpg" alt="Microsoft OneDrive认证和登录" /></li>
+<li>获取访问令牌的HTTP POST请求包含上面获得的code参数：
+<code>
+POST https://login.live.com/oauth20_token.srf
+Content-Type: application/x-www-form-urlencoded
+client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;code=M9...5e-b...a-e...5-6685-d...06&amp;grant_type=authorization_code
+</code>
+<img src="/images/2016/10/0026uWfMzy75GLk1IGi46.jpg" alt="Microsoft OneDrive认证和登录" /></li>
+<li>在OneDrive API中使用获得的访问令牌：<img src="/images/2016/10/0026uWfMzy75GLki16B6d.jpg" alt="Microsoft OneDrive认证和登录" /></li>
+</ul>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="https://dev.onedrive.com/getting-started.htm">Getting started with OneDrive API</a><br />
+<a href="https://dev.onedrive.com/SDKs.htm">SDKs for OneDrive integration</a><br />
+<a href="https://dev.onedrive.com/app-registration.htm">Registering your app for OneDrive API</a><br />
+<a href="https://dev.onedrive.com/auth/msa_oauth.htm">OneDrive authentication and sign-in</a><br />
+<a href="https://azure.microsoft.com/en-us/documentation/articles/active-directory-appmodel-v2-overview/">Sign-in Microsoft Account &amp; Azure AD users in a single app</a><br />
+<a href="https://dev.onedrive.com/README.htm">Develop with the OneDrive API</a><br />
+<a href="http://stackoverflow.com/questions/25511096/getting-error-unsupported-response-typeerror-description-aadsts70005-with-tok">getting #error=unsupported_response_type&amp;error_description=AADSTS70005: with token request</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Microsoft OneDrive认证和登录
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/microsoft" rel="tag" title="microsoft">#microsoft#</a>
+    
+    <a href="/tags/onedrive" rel="tag" title="onedrive">#onedrive#</a>
+    
+    <a href="/tags/authentication" rel="tag" title="authentication">#authentication#</a>
+    
+    <a href="/tags/sign-in" rel="tag" title="sign-in">#sign-in#</a>
+    
+    <a href="/tags/application" rel="tag" title="application">#application#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/" rel="next" title="OneDrive认证时的&#34;Public clients can&#39;t send a client secret.&#34;错误">
+        <i class="fa fa-chevron-left"></i> OneDrive认证时的&#34;Public clients can&#39;t send a client secret.&#34;错误
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/hello_microsoft_onedrive_api/" rel="prev" title="Hello Microsoft OneDrive API">
+        Hello Microsoft OneDrive API <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/";
+this.page.identifier = "https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#为onedrive注册自己的应用">为OneDrive注册自己的应用</a></li>
+<li><a href="#onedrive认证">OneDrive认证</a>
+<ul>
+<li><a href="#token-flow测试">Token Flow测试</a></li>
+<li><a href="#code-flow测试">Code Flow测试</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

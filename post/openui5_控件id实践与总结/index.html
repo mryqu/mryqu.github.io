@@ -1,0 +1,582 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[OpenUI5] 控件ID实践与总结 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[OpenUI5] 控件ID实践与总结">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[OpenUI5] 控件ID实践与总结 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/" itemprop="url">
+        [OpenUI5] 控件ID实践与总结
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-05-03">
+    2015-05-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">483 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h3 id="显式定义而不是自生成openui5控件id">显式定义而不是自生成OpenUI5控件ID</h3>
+
+<p>为了便于开发和测试，为控件设置一个便于理解的ID尤为重要。我的博文<a href="/post/openui5_快速定位openui5问题的一个方法">《快速定位OpenUI5问题的一个方法》</a>中的工具函数就是利用控件ID快速定位故障控件的。
+在<a href="http://sww.sas.com/saspedia/OpenUI5">OpenUI5</a>中，可在创建控件实例时使用JSON对象作为控件构造器参数。其中一个可选属性就是&rdquo;id&rdquo;，OpenUI5不仅用它（在&rdquo;注册信息&rdquo;中）追踪控件，也用在渲染控件的DOM输出。
+如果没有显式指定一个控件的ID，OpenUI5框架就会使用基于实例数量的算法自生成控件ID。
+自生成ID有两个缺点：
+- 调试的时候，不容易定位使用控件的代码位置。例如，异常跟某个控件相关，如果该类型控件实例很多，很难定位该控件定义在那个视图里。
+- 测试代码相对显式定义ID更加难写。如果对控件使用显式定义ID，相应的测试代码可以很容易通过该ID进行控件查找或验证。</p>
+
+<h3 id="控件id命名惯例">控件ID命名惯例</h3>
+
+<p>使用驼峰式写法、有意义且语法正确的ID来反映控件的本质。
+例如：
+- 一个表单上的提交按钮，其id=&ldquo;submit&rdquo;
+- 到不同图形设置的导航控件，其id=&ldquo;graphNav&rdquo;</p>
+
+<h3 id="openui5控件id内幕">OpenUI5控件ID内幕</h3>
+
+<p>sap.ui.base.ManagedObject是OpenUI5框架包括控件在内的大部分类的父类，它的构造器里有对ID的处理：</p>
+
+<pre><code>if (!sId) {
+  sId = this.getMetadata().uid() || jQuery.sap.uid();
+} else {
+  var preprocessor = ManagedObject._fnIdPreprocessor;
+  sId = (preprocessor ? preprocessor.call(this, sId) : sId);
+  var oType = DataType.getType(&quot;sap.ui.core.ID&quot;);
+  if (!oType.isValid(sId)) {
+    throw new Error(&quot;\&quot;&quot; + sId + &quot;\&quot; is not a valid ID.&quot;);
+  }
+}
+this.sId = sId;
+</code></pre>
+
+<p>sap.ui.base.ManagedObjectMetadata的ID生成代码：</p>
+
+<pre><code>(function() {
+  
+  var mUIDCounts = {};
+
+  function uid(sId) {
+    jQuery.sap.assert(!/[0-9]+$/.exec(sId), &quot;AutoId Prefixes must not end with numbers&quot;);
+
+    sId = sap.ui.getCore().getConfiguration().getUIDPrefix() + sId;
+
+    // 初始化计数器
+    mUIDCounts[sId] = mUIDCounts[sId] || 0;
+
+    // 组合 前缀+计数器
+    // 由于不许sId结尾为数字，因此sId和计数器的连接串是安全的!
+    return (sId + mUIDCounts[sId]++);
+  }
+  
+  ManagedObjectMetadata.uid = uid;
+  
+  ManagedObjectMetadata.prototype.uid = function() {
+    var sId = this._sUIDToken;
+    if ( typeof sId !== &quot;string&quot; ) {
+      // 从全类名开始操作
+      sId  = this.getName();
+      // 降为不带命名空间的类名
+      sId = sId.slice(sId.lastIndexOf('.')+1);
+      // 降为一个驼峰式写法, 多个词仅取最后一个
+      sId = sId.replace(/([a-z])([A-Z])/g, &quot;$1 $2&quot;).split(&quot; &quot;).slice(-1)[0];
+      // 删除不要的字符(结尾无数字!)并转换为小写
+      sId = this._sUIDToken = sId.replace(/([^A-Za-z0-9-_.:])|([0-9]+$)/g,&quot;&quot;).toLowerCase();
+    }
+
+    return uid(sId);
+  };
+
+}());
+</code></pre>
+
+<p>所有带元数据的ManagedObject对象，都采用这种生成方式。示例如下：
+<img src="/images/2015/5/0026uWfMgy6So69EaqV3d.png" alt="[OpenUI5] 控件ID实践与总结" />
+不带元数据的ManagedObject对象，采用jQuery.sap.uid()方法生成ID，比上一种缺少了类信息。</p>
+
+<pre><code>var iIdCounter = 0;
+
+jQuery.sap.uid = function uid() {
+  return &quot;id-&quot; + new Date().valueOf() + &quot;-&quot; + iIdCounter++;
+};
+</code></pre>
+
+<h3 id="控件id最好包含父控件id">控件ID最好包含父控件ID</h3>
+
+<p>例如在名为&rdquo;Update.view.xml&rdquo;的xml视图文件中定义一个图像控件：
+<img src="/images/2015/5/0026uWfMgy6Sob9sBPu5c.jpg" alt="[OpenUI5] 控件ID实践与总结" />
+图像相应的DOM输出为：
+<img src="/images/2015/5/0026uWfMgy6SobcxAAlb5.png" alt="[OpenUI5] 控件ID实践与总结" />
+DOM输出中的id和data-sap-id属性为父视图名和给定控件Id的连接串。同样在Javascript代码中，要巧妙利用creatId方法使控件ID为视图/UI组件/HTML片段的Id和给定控件Id的连接串。</p>
+
+<pre><code>sap.ui.core.Fragment.prototype.createId = function(sId) {
+  // no ID Prefixing by Fragments! This is called by the template parsers, 
+  // but only if there is not a View which defines the prefix.
+  var id = this._sExplicitId ? this._sExplicitId + &quot;--&quot; + sId : sId;
+  
+  if (this._oContainingView &amp;&amp; this._oContainingView != this) {
+    // if Fragment ID is added to the control ID and Fragment ID already 
+    // contains the View prefix, the View prefix does not need to be added again
+    // (this will now be checked inside the createId function already!)
+    id = this._oContainingView.createId(id);
+  }
+  
+  return id;
+};
+    
+sap.ui.core.mvc.View.prototype.createId = function(sId) {
+  if (!this.isPrefixedId(sId)) {
+    // views have 2 dashes as separator, components 3 and controls/elements 1
+    sId = this.getId() + &quot;--&quot; + sId;
+  }
+  return sId;
+};
+
+sap.ui.core.mvc.Controller.prototype.createId = function(sId) {
+  return this.oView ? this.oView.createId(sId): undefined;
+};
+  
+sap.ui.core.UIComponent.prototype.createId = function(sId) {
+  if (!this.isPrefixedId(sId)) {
+    // components have 3 dashes as separator, views 2 and controls/elements 1
+    sId = this.getId() + &quot;---&quot; + sId;
+  }
+  return sId;
+};
+</code></pre>
+
+<p>从上述代码可知，OpenUI5的惯例是：
+- UI组件使用两个连接符作为分隔符
+- 视图/控件和HTML片段使用两个连接符作为分隔符
+- 控件使用一个连接符作为分隔符在控件内部，可以手工将控件Id与子控件Id连接。下面以sap.ui.unified.FileUploader为例，其中的子控件Id为this.getId()+ &ldquo;-fu_input&rdquo;。</p>
+
+<pre><code>sap.ui.unified.FileUploader.prototype.init = function(){
+  // Instantiate browser-specific UI-Elements (IE8 only): 
+  // works fine with applySettings() after init() - most things are done in onAfterRendering
+  // IE8 should render a native file uploader and the SAPUI5 controls should be exactly behind
+  if (!!sap.ui.Device.browser.internet_explorer &amp;&amp; sap.ui.Device.browser.version == 8) {
+    this.oFilePath = new sap.ui.commons.TextField(&lt;font color=&quot;#FF0000&quot;&gt;**this.getId() + &quot;-fu_input&quot;**&lt;/font&gt;,
+                          {width: &quot;225px&quot;});
+    
+    this.oBrowse = new sap.ui.commons.Button({enabled : this.getEnabled(),
+      text: &quot;Browse..&quot;,
+      width: &quot;0px&quot;,
+      height: &quot;0px&quot;});
+  } else {
+    //all other browsers will load the respective UI-Elements from the FileUploaderHelper
+    this.oFilePath = sap.ui.unified.FileUploaderHelper.createTextField(&lt;font color=&quot;#FF0000&quot;&gt;**this.getId() + &quot;-fu_input&quot;**&lt;/font&gt;);
+    this.oBrowse = sap.ui.unified.FileUploaderHelper.createButton();
+  }
+  this.oFilePath.setParent(this);
+  this.oBrowse.setParent(this);
+
+  this.oFileUpload = null;
+
+  //retrieving the default browse button text from the resource bundle
+  this.oBrowse.setText(this.getBrowseText());
+};
+</code></pre>
+
+<p>控件ID最好包含父控件ID可以很好地表达层次关系，因此在调试时很有帮助！</p>
+
+<h3 id="定义聚合">定义聚合</h3>
+
+<p>当开发控件时，应该假定当其被使用时可在任何时候被销毁或重新创建。例如，控件的容器由于数据异步更新而销毁并重新创建，控件自身也要被销毁和重新创建。应此，对控件内使用的任何引用进行适当清理尤为重要。
+上述场景中一个常见的错误是&rdquo;duplicate ID&rdquo;错误，例如</p>
+
+<pre><code>Uncaught Error: Error: adding element with duplicate id 'Slider-basic-slider-valueLabel'
+</code></pre>
+
+<p>这可能是一个控件创建了另外一个控件实例(例如Label)并用变量引用它。当主控件进入销毁阶段，该引用没有自动清理。下次当控件重新创建时，它尝试使用相同ID创建Label实例从而导致上述错误。
+在与此类似的场景中，该错误可以通过将Label定义为主组件元数据块内的&rdquo;aggregation&rdquo;来进行避免。子控件从而算是“被管理”了，OpenUI5将负责管理控件的生命周期，包括清除其引用。并且这种方式也提供了库内一致性和自文档。详情和示例请参见<a href="https://www.nabisoft.com/tutorials/sapui5/creating-custom-controls-in-sapui5#Step2">Creating Custom Controls in SAPUI5</a>。</p>
+
+<p>最佳实践是在开发中故意销毁并重新创建控件以验证其能正常清理资源。</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[OpenUI5] 控件ID实践与总结
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/openui5" rel="tag" title="openui5">#openui5#</a>
+    
+    <a href="/tags/javascript" rel="tag" title="javascript">#javascript#</a>
+    
+    <a href="/tags/control" rel="tag" title="control">#control#</a>
+    
+    <a href="/tags/id" rel="tag" title="id">#id#</a>
+    
+    <a href="/tags/practice" rel="tag" title="practice">#practice#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8Baccordion_with_all_initial_collapsed_sections/" rel="next" title="[OpenUI5] 示例：Accordion with all initial collapsed sections">
+        <i class="fa fa-chevron-left"></i> [OpenUI5] 示例：Accordion with all initial collapsed sections
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_sorted_grouped_and_multi-selectable_list/" rel="prev" title="[OpenUI5] 示例: Sorted, grouped and multi-selectable list">
+        [OpenUI5] 示例: Sorted, grouped and multi-selectable list <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/";
+this.page.identifier = "https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#显式定义而不是自生成openui5控件id">显式定义而不是自生成OpenUI5控件ID</a></li>
+<li><a href="#控件id命名惯例">控件ID命名惯例</a></li>
+<li><a href="#openui5控件id内幕">OpenUI5控件ID内幕</a></li>
+<li><a href="#控件id最好包含父控件id">控件ID最好包含父控件ID</a></li>
+<li><a href="#定义聚合">定义聚合</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

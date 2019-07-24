@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rkt on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/rkt/</link>
+    <description>Recent content in Rkt on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 17 Jul 2015 06:10:11 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/rkt/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>整理贴：八卦一下CoreOS</title>
+      <link>https://mryqu.github.io/post/%E6%95%B4%E7%90%86%E8%B4%B4%E5%85%AB%E5%8D%A6%E4%B8%80%E4%B8%8Bcoreos/</link>
+      <pubDate>Fri, 17 Jul 2015 06:10:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%95%B4%E7%90%86%E8%B4%B4%E5%85%AB%E5%8D%A6%E4%B8%80%E4%B8%8Bcoreos/</guid>
+      <description>CoreOS是一个轻量级容器化Linux发行版，专为大型数据中心而设计，旨在通过轻量的系统架构和灵活的应用程序部署能力简化数据中心的维护成本和复杂度。
+CoreOS的历史 2013年2月，美国的dotCloud公司发布了一款新型的Linux容器软件Docker，并建立了一个网站发布它的首个演示版本（见Docker第一篇官方博客）。而几乎同时，2013年3月，美国加州，年轻的帅小伙Alex Polvi正在自己的车库开始他的第二次创业。此前，他的首个创业公司Cloudkick卖给了云计算巨头Rackspcace（就是OpenStack的东家）。 有了第一桶金的Alex这次准备干一票大的，他计划开发一个足以颠覆传统的服务器系统的Linux发行版。为了提供能够从任意操作系统版本稳定无缝地升级到最新版系统的能力，Alex急需解决应用程序与操作系统之间的耦合问题。因此，当时还名不见经传的Docker容器引起了他的注意，凭着敏锐直觉，Alex预见了这个项目的价值，当仁不让地将Docker做为了这个系统支持的第一套应用程序隔离方案。不久以后，他们成立了以自己的系统发行版命名的组织：CoreOS。事实证明，采用Docker这个决定，后来很大程度上成就了CoreOS的生态系统。 CoreOS特点 首先，CoreOS没有提供包管理工具，而是通过容器化的运算环境向应用程序提供运算资源。应用程序之间共享系统内核和资源，但是彼此之间又互不可见。这样就意味着应用程序将不会再被直接安装到操作系统中，而是通过Docker 运行在容器中。这种方式使得操作系统、应用程序及运行环境之间的耦合度大大降低。相对于传统的部署方式而言，在 CoreOS集群中部署应用程序更加灵活便捷，应用程序运行环境之间的干扰更少，而且操作系统自身的维护也更加容易。 其次， CoreOS 采用双系统分区 (dual root partition)设计。两个分区分别被设置成主动模式和被动模式并在系统运行期间各司其职。主动分区负责系统运行，被动分区负责系统升级。一旦新版本的操作系统被发布，一个完整的系统文件将被下载至被动分区，并在系统下一次重启时从新版本分区启动，原来的被动分区将切换为主动分区，而之前的主动分区则被切换为被动分区，两个分区扮演的角色将相互对调。同时在系统运行期间系统分区被设置成只读状态，这样也确保了CoreOS 的安全性。CoreOS 的升级过程在默认条件下将自动完成，并且通过 cgroup对升级过程中使用到的网络和磁盘资源进行限制，将系统升级所带来的影响降至最低。 另外，CoreOS 使用 Systemd 取代 SysV 作为系统和服务的管理工具。与 SysV 相比，Systemd不但可以更好的追踪系统进程，而且也具备优秀的并行化处理能力，加之按需启动等特点，并结合 Docker 的快速启动能力，在 CoreOS集群中大规模部署 Docker容器与使用其他操作系统相比在性能上的优势将更加明显。Systemd 的另一个特点是引入了“target” 的概念，每个 target 应用于一个特定的服务，并且可以通过继承一个已有的 target扩展额外的功能，这样使得操作系统对系统上运行的服务拥有更好的控制力。 通过对系统结构的重新设计，CoreOS剔除了任何不必要的软件和服务。在一定程度上减轻了维护一个服务器集群的复杂度，帮助用户从繁琐的系统及软件维护工作中解脱出来。虽然CoreOS最初源自于Google ChromeOS，但是从一开始就决定了 CoreOS更加适合应用于一个集群环境而不是一个传统的服务器操作系统。 CoreOS相关工具 除了操作系统之外，CoreOS 团队和其他团队还提供了若干工具帮助用户管理 CoreOS 集群以及部署Docker容器。
+etcd 在CoreOS 集群中处于骨架地位的是 etcd。 etcd 是一个分布式 key/value存储服务，CoreOS 集群中的程序和服务可以通过 etcd 共享信息或做服务发现 。etcd 基于非常著名的 raft一致性算法：通过选举形式在服务器之中选举 Lead 来同步数据，并以此确保集群之内信息始终一致和可用。etcd 以默认的形式安装于每个CoreOS 系统之中。在默认的配置下，etcd使用系统中的两个端口：4001和7001，其中4001提供给外部应用程序以HTTP+Json的形式读写数据，而7001则用作在每个etcd 之间进行数据同步。用户更可以通过配置 CA Cert让 etcd 以 HTTPS的方式读写及同步数据，进一步确保数据信息的安全性。
+fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的工具。fleet 与 Systemd 之间通过 D-Bus API 进行交互，每个fleet agent 之间通过 etcd 服务来注册和同步数据。fleet提供的功能非常丰富，包括查看集群中服务器的状态、启动或终止 Docker容器、读取日志内容等。更为重要的是 fleet可以确保集群中的服务一直处于可用状态。当出现某个通过 fleet创建的服务在集群中不可用时，如由于某台主机因为硬件或网络故障从集群中脱离时，原本运行在这台服务器中的一系列服务将通过fleet被重新分配到其他可用服务器中。虽然当前 fleet 还处于非常早期的状态，但是其管理 CoreOS集群的能力是非常有效的，并且仍然有很大的扩展空间，目前已提供简单的 API 接口供用户集成。</description>
+    </item>
+    
+  </channel>
+</rss>

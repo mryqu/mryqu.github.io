@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rabbitmq on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/rabbitmq/</link>
+    <description>Recent content in Rabbitmq on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 13 Aug 2016 06:00:17 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[RabbitMQ] AutorecoveringConnection在连接恢复后才调用ShutdownListener</title>
+      <link>https://mryqu.github.io/post/rabbitmq_autorecoveringconnection%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E8%B0%83%E7%94%A8shutdownlistener/</link>
+      <pubDate>Sat, 13 Aug 2016 06:00:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_autorecoveringconnection%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E8%B0%83%E7%94%A8shutdownlistener/</guid>
+      <description>想玩一玩RabbitMQ中的ShutdownListener和RecoveryListener，又不想写自己的重连接逻辑，所以使用了ConnectionFactory类的setAutomaticRecoveryEnabled方法让其自动恢复连接。代码如下：
+package com.yqu.rabbitmq; import com.rabbitmq.client.*; import java.io.IOException; public class AutoRecoveryRecv { private final static String QUEUE_NAME = &amp;quot;hello&amp;quot;; public static void main(String[] argv) throws Exception { try { ConnectionFactory factory = new ConnectionFactory(); factory.setHost(ConnectionFactoryConfiguration.HOST); factory.setUsername(ConnectionFactoryConfiguration.USERNAME); factory.setPassword(ConnectionFactoryConfiguration.PASSWORD); factory.setAutomaticRecoveryEnabled(true); factory.setNetworkRecoveryInterval(10000); Connection connection = factory.newConnection(); connection.addShutdownListener(new ShutdownListener() { @Override public void shutdownCompleted(ShutdownSignalException cause) { String hardError = &amp;quot;&amp;quot;; String applInit = &amp;quot;&amp;quot;; if (cause.isHardError()) { hardError = &amp;quot;connection&amp;quot;; } else { hardError = &amp;quot;channel&amp;quot;; } if (cause.</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] Hello RabbitMQ Clustering</title>
+      <link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/</link>
+      <pubDate>Mon, 08 Aug 2016 05:58:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/</guid>
+      <description>RabbitMQ集群文档的介绍是： 一个RabbitMQ代理（broker）是一或多个Erlang节点的逻辑组合，每个节点运行RabbitMQ应用并共享用户、虚拟主机、队列、交换器、绑定和运行时参数。有时我们将节点集合称之为集群。 对RabbitMQ代理操作所需的所有数据/状态都会在所有节点上复制。唯一的例外是消息队列，默认存在于创建队列的节点上，但是对所有其他节点可见并可访问。集群内节点通过主机名互相通信，所以这些主机名必须能被集群内所有节点解析。
+在Ubuntu上安装RabbitMQ 我在三台Ubuntu服务器上安装了RabbitMQ，分别是node50064，node50069和node51054。
+ 执行下列命令将APT仓库添加到/etc/apt/sources.list.d:  echo &#39;deb http://www.rabbitmq.com/debian/ testing main&#39; | sudo tee /etc/apt/sources.list.d/rabbitmq.list  (可选地)为了避免未签名包告警，使用 apt-key将RabbitMQ网站的公钥添加到信赖密钥列表：  wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -  执行下列命令更新包列表：  sudo apt-get update  安装rabbitmq-server包：  sudo apt-get install rabbitmq-server   配置RabbitMQ - 修改/etc/rabbitmq/enabled_plugins使能管理插件：
+ [rabbitmq_management].   修改/etc/default/rabbitmq-server，增大每用户可打开文件数（我的系统不使用systemd，无需修改/etc/systemd/system/rabbitmq-server.service.d/limits.conf）：  ulimit -S -n 4096  修改/etc/rabbitmq/rabbitmq-env.conf，激活长主机名并使用每个主机的完整域名作为本地节点名：  USE_LONGNAME=true NODENAME=rabbit@`env hostname -f`   关闭RabbitMQ：
+sudo /etc/init.d/rabbitmq-server stop  配置RabbitMQ集群 首先启动node50064上的RabbitMQ（注：会有告警，可忽略。-detached选项就会导致PID不写入PID文件。）：</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] Hello RabbitMQ</title>
+      <link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</link>
+      <pubDate>Sun, 07 Aug 2016 05:54:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</guid>
+      <description>为了快速入门RabbitMQ，我主要学习了下列参考中的两个链接：RabbitMQ教程和SpringAMQP范例。这里对所学教程做一个小笔记。
+准备工作 由于我不打算跑本机上的RabbitMQ服务器，所有对代码稍有修改。
+TutorialConfiguration.java public class TutorialConfiguration { public static final String HOST = &amp;quot;mryqu-rabbitmq-server&amp;quot;; public static final String USERNAME = &amp;quot;mryqu&amp;quot;; public static final String PASSWORD = &amp;quot;mryqu-pwd&amp;quot;; }  对原有代码进行修改 // factory.setHost(&amp;quot;localhost&amp;quot;); factory.setHost(TutorialConfiguration.HOST); factory.setUsername(TutorialConfiguration.USERNAME); factory.setPassword(TutorialConfiguration.PASSWORD); }  RabbitMQ函数 发布方和消费方首先要创建连接，通过连接创建通道。通过通道也可以声明交换器，也可以直接声明队列。 - 函数Exchange.DeclareOk exchangeDeclare(String exchange, Stringtype, boolean durable, boolean autoDelete, boolean internal, Maparguments)用于声明交换器。其中exchange为队列名；type为交换器类型，例如fanout、direct、header和topic，注意无法改变已存在交换器的类型；durable为true时为持久交换器，在服务器重启后仍将存在，默认为false；autoDelete为true时，当所有的消费者使用完交换器后，服务器会自动删除交换器。服务器必须为判断交换器未使用提供一个合理时延，起码允许客户端能够创建一个代理并将其与队列绑定。默认为false；internal为true时为内部交换器，客户端不能直接向其发布消息，默认为false。 - 函数Queue.DeclareOk queueDeclare(String queue, boolean durable,boolean exclusive, boolean autoDelete, Map arguments)用于声明队列，其中queue为队列名；durable为true时为持久队列，在服务器重启后仍将存在。默认为false；exclusive为true时为私有队列，仅在当前连接中可以访问队列，当连接关闭时删除该队列。默认为true；autoDelete为true时，当所有的消费者使用完队列后，服务器会自动删除队列。最后一个消费者可被显式取消或由于通道关闭而取消。如果队列从没有消费者，队列将不会被删除。应用可以像对普通队列一样使用Delete方法显式删除自动删除队列。默认为true。 函数Queue.BindOk queueBind(String queue, String exchange, StringroutingKey, Map arguments)用于通过路由关键字将队列与交换器进行绑定。</description>
+    </item>
+    
+    <item>
+      <title>[RabbitMQ] 在Widnows平台安装配置RabbitMQ</title>
+      <link>https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/</link>
+      <pubDate>Sat, 06 Aug 2016 05:29:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/</guid>
+      <description>RabbitMQ介绍 RabbitMQ是基于高级消息队列协议的消息代理软件。RabiitMQ服务器由Erlang语言开发，客户端支持多种主流编程语言。 RabbitMQ由LShift和CohesiveFT合营公司Rabbit技术有限公司开发，在2010年4月被SpringSource收购，2013年5月归入Pivotal软件。 RabbitMQ项目包括： - RabbitMQ交换服务器自身 - 用于HTTP、流文本定向消息协议(STOMP)和消息队列遥测传输协议(MQTT)的网关 - Java、.NET Framework和Erlang语言的AMQP客户端库 - 支持定制插件的插件平台，内建插件集合为: - Shovel插件，负责从一个消息代理（broker）向另一个移动/复制消息。 - Federation插件，在消息代理之间有效共享消息(基于exchange这一级) - Management插件，监控和管理消息代理 - STOMP插件，提供STOMP协议支持 - MQTT插件，提供MQTT协议支持 - LDAP插件，RabbitMQ通过外部LDAP服务器进行认证和授权
+在Widnows平台安装RabbitMQ 根据http://www.rabbitmq.com/install-windows.html安装Erlang和RabbitMQ服务器，运行RabbitMQ安装程序时需要选择“Runas Administrator”，否则事后需要执行下列命令修正.erlang.cookie位置错误。
+copy /Y %SystemRoot%\.erlang.cookie %HOMEDRIVE%%HOMEPATH%  设置环境变量（及安装并启动RabbitMQ服务）
+SET　ERLANG_HOME=C:\tools\erl8.0 SET RABBITMQ_SERVER＝C:\tools\RabbitMQ_Server\rabbitmq_server-3.6.5 SET　RABBITMQ_BASE=C:\rabbitmq-data ECHO []. &amp;gt; C:\rabbitmq-data\rabbitmq.config %RABBITMQ_SERVER%\sbin\rabbitmq-service.bat install %RABBITMQ_SERVER%\sbin\rabbitmq-service.bat start  安装管理插件 rabbitmq-management插件提供用于管理和监控RabbitMQ服务器的基于HTTP的API，以及基于浏览器的界面和一个控制台工具rabbitmqadmin。功能包括： - 声明、列举和删除exchange、queue、binding、用户、虚拟主机和权限。 - 监控队列长度、消息总速率和每通道速率、连接数据速率等。 - 发送和接受消息。 - 监控Erlang进程、文件描述符和内存使用。 - 导出/导入对象定义到JSON格式 - 强制关闭连接、清除队列。重启RabbitMQ后登录http://guest:guest@localhost:15672/，即可见到管理页面。 rabbitmqctl 通过rabbitmqctl创建一个管理员用户admin和一个对虚拟主机有读写权限的普通用户mryqu： 自建管理员用户admin的默认用户guest的区别在于：guest仅能本机访问RabbitMQ，除非在rabbitmq.config增加loopback_users设置。
+使用HTTP管理API 将配置导出成JSON格式：
+curl -i -u guest:guest http://localhost:15672/api/definitions  激活其他插件 例如激活shovel插件：</description>
+    </item>
+    
+  </channel>
+</rss>

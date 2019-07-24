@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Google Analytics之segment（分块、分割、细分） - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Google Analytics之segment（分块、分割、细分）">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Google Analytics之segment（分块、分割、细分） - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/google_analytics%E4%B9%8Bsegment%E5%88%86%E5%9D%97%E5%88%86%E5%89%B2%E7%BB%86%E5%88%86/" itemprop="url">
+        Google Analytics之segment（分块、分割、细分）
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-09-22">
+    2015-09-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">84 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>Segment是指你的GoogleAnalytics（分析）数据子集。例如，在你的整个用户群中，你可使用一个segment指定来自特定国家或城市的用户，使用另一个segment指定购买特定产品系列或访问网站上特定部分的用户。
+Segment可让你隔离出这些数据子集并进行分析，从而检查并响应业务中的各个子趋势。例如，如果你发现特定地理区域的用户所购买的特定产品系列的数量低于正常水平，就可以查看是不是因为竞争对手在以更低的价格销售同类型的产品。如果是这样，你可以通过向那些用户提供忠诚度折扣来弱化竞争对手在价格方面的优势。
+你还可以使用segment作为再营销受众群体的基础。例如，您可针对男装页面的访问者创建一个用户细分，然后利用重点宣传您添加到这些页面上的新产品的再营销广告系列来专门定位这些用户（再营销受众群体）。</p>
+
+<h3 id="segment类型">Segment类型</h3>
+
+<p>Segment代表会话子集或用户子集：
+- 会话子集：例如，源自广告系列 A 的所有会话；发生购买行为的所有会话
+- 用户子集：例如，之前有过购买行为的用户；向其购物车添加了商品，但未完成购买的用户</p>
+
+<p>先了解一下 Google Analytics（分析）用户模型有助于了解segment的工作原理。
+GoogleAnalytics（分析）用户模型由三大要素构成：
+- 用户
+- 会话 - 用户到达您的网站资源并与之互动。所有这些用户互动都会被划组到所谓的会话中。
+- 点击（Hit）-在会话中，用户会与您的网站资源互动。每次互动都被称为一次点击。这些点击包括网页浏览、事件、交易等等。</p>
+
+<p>一个用户可以有多个会话，每个会话可以有多次点击。下图直观显示了这一关系：
+<img src="/images/2015/9/0026uWfMgy6Wj8J6lnL75.png" alt="Google Analytics之segment（分块、分割、细分）" /><em>Google Analytics（分析）用户模型</em></p>
+
+<h3 id="使用segment">使用Segment</h3>
+
+<p>Segment是非破坏性的过滤器，不会更改您的基础数据。应用segment之后，它会在您浏览报告的过程中始终保持有效状态，直到您将其移除。您一次最多可以应用四个细分，并可在报告中将各个细分的结果放在一起比较。
+除分析数据之外，Segment还可以用于<a href="https://support.google.com/analytics/answer/6015314">构建再营销受众群体</a>。
+GoogleAnalytics（分析）包含预定义segment（系统segment），您可以按原样使用这些segment，也可以通过复制并修改这些segment来创建新的自定义segment。您也可以从头开始构建自己的segment。另外，您可以从 <a href="https://www.google.com/analytics/gallery/#landing/start/">Google Analytics（分析）解决方案库</a>导入segment，这是一个免费的市场，GoogleAnalytics（用户）可在其中分享各种segment以及开发的其他解决方案。</p>
+
+<h3 id="segment的定义和范围">Segment的定义和范围</h3>
+
+<p>在 Google Analytics（分析）报告中，您可以通过创建基于<a href="https://support.google.com/analytics/answer/1033861">维度和指标</a>的过滤器来定义segment：
+- 用户类型完全匹配“回访用户”
+- 国家/地区完全匹配“美国”
+- 电子商务转化率&gt;“0.2%”</p>
+
+<p>除了您在过滤器中使用的维度和指标之外，您还可以为过滤器设置数据范围。您可以使用三种范围：
+- 点击：单次操作中的行为，例如查看网页或播放视频。
+- 会话：单次会话中的行为；例如在会话过程中用户完成的目标或产生的收入。
+- 用户：在所用日期范围（最多 90天）内所有会话中的行为；例如，在日期范围内的所有会话中用户完成的所有目标或产生的所有收入。</p>
+
+<p>你可以使用<a href="https://support.google.com/analytics/answer/3124493">segment生成工具</a>定义组成segment的过滤器。</p>
+
+<h3 id="segment限制">Segment限制</h3>
+
+<p>Segment需要遵守以下限制：</p>
+
+<h4 id="segment总数上限">Segment总数上限</h4>
+
+<ul>
+<li>每个帐户 1000个segment</li>
+<li>每个数据视图中，每位用户 100个segment</li>
+<li>每个数据视图，所有用户共享100个segment
+这些限制适用于系统segment以及您创建或导入的所有segment。达到这些数量上限后，你就无法创建或导入更多segment。</li>
+</ul>
+
+<h4 id="应用于报告的segment">应用于报告的segment</h4>
+
+<p>你一次最多可以在报告中应用4个segment。</p>
+
+<h4 id="日期范围">日期范围</h4>
+
+<p>使用基于用户的segment时，您在报告中应用的日期范围不能超过90天。如果您已将日期范围设置为90天以上，那么当您创建基于用户的segment时，GoogleAnalytics（分析）会从开始日期算起，将该日期范围重置为90天。
+基于“第一次会话的日期”的segment的最大范围是31天。</p>
+
+<h4 id="多渠道路径">多渠道路径</h4>
+
+<p>请不要在多渠道路径报告中使用segment，你可以使用<a href="https://support.google.com/analytics/answer/1329505">转化segment</a>。</p>
+
+<h3 id="segment与filter的区别">Segment与filter的区别</h3>
+
+<p>在Googleanalytics中，Segment与filter都侧重于对数据的切片。在很多情况下，应用这两者返回的结果是相同的，但其本质是不同的。那么，何时应该使用segment，何时应该使用filter呢？
+如果你想选择整个访问则使用segment，如果想查找所有访问中的特定事件、pageviews等则使用filter。
+<strong>Segment</strong>：对于segment，每个访问都检查是否符合segment条件。对于满足条件的会话，所有行都会被获得。对于不满足条件的会话，不会获得任何行。
+<strong>Filter</strong>：对于filter，所有访问的所有行都会检查是否满足条件，<strong>仅满足过滤器条件的行</strong>会被获得。
+个人感受：Google analytics中的filter就像SQL中的where语句，而segment就像SQL中groupby相应的having语句。</p>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="https://support.google.com/analytics/answer/3123951?hl=en">About Segments</a><br />
+<a href="http://www.analyticscanvas.com/segments-vs-filters-in-google-analytics/">The key difference between segments and filters</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Google Analytics之segment（分块、分割、细分）
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/google" rel="tag" title="google">#google#</a>
+    
+    <a href="/tags/analytics" rel="tag" title="analytics">#analytics#</a>
+    
+    <a href="/tags/segment" rel="tag" title="segment">#segment#</a>
+    
+    <a href="/tags/socialmedia" rel="tag" title="socialmedia">#socialmedia#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/twitter%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E4%B8%8D%E8%BF%87%E6%9C%9F/" rel="next" title="Twitter的访问令牌（AccessToken）不过期">
+        <i class="fa fa-chevron-left"></i> Twitter的访问令牌（AccessToken）不过期
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/google_anaytics%E5%92%8Cyoutube_analytics%E7%9A%84%E7%BB%B4%E5%BA%A6%E5%92%8C%E6%8C%87%E6%A0%87/" rel="prev" title="Google Anaytics和Youtube Analytics的维度和指标">
+        Google Anaytics和Youtube Analytics的维度和指标 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/google_analytics%E4%B9%8Bsegment%E5%88%86%E5%9D%97%E5%88%86%E5%89%B2%E7%BB%86%E5%88%86/";
+this.page.identifier = "https://mryqu.github.io/post/google_analytics%E4%B9%8Bsegment%E5%88%86%E5%9D%97%E5%88%86%E5%89%B2%E7%BB%86%E5%88%86/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#segment类型">Segment类型</a></li>
+<li><a href="#使用segment">使用Segment</a></li>
+<li><a href="#segment的定义和范围">Segment的定义和范围</a></li>
+<li><a href="#segment限制">Segment限制</a>
+<ul>
+<li><a href="#segment总数上限">Segment总数上限</a></li>
+<li><a href="#应用于报告的segment">应用于报告的segment</a></li>
+<li><a href="#日期范围">日期范围</a></li>
+<li><a href="#多渠道路径">多渠道路径</a></li>
+</ul></li>
+<li><a href="#segment与filter的区别">Segment与filter的区别</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

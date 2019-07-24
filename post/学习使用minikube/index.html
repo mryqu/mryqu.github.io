@@ -1,0 +1,613 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>学习使用Minikube - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="学习使用Minikube">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="学习使用Minikube - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/" itemprop="url">
+        学习使用Minikube
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-06-13">
+    2019-06-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/kubernetes" itemprop="url" rel="index">
+        <span itemprop="name">kubernetes</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1083 字 ~6分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>在管理容器化应用方面，<a href="https://kubernetes.io/">Kubernetes</a>是目前最好的工具之一。而<a href="https://github.com/kubernetes/minikube">Minikube</a>能够在macOS、Linux和Windows平台上实现一个本地<a href="https://kubernetes.io/">Kubernetes</a>集群，用于<a href="https://kubernetes.io/">Kubernetes</a>的学习。</p>
+
+<p><a href="https://github.com/kubernetes/minikube">Minikube</a>是由Go语言实现，当前支持如下<a href="https://kubernetes.io/">Kubernetes</a>特性：<br />
+- DNS<br />
+- NodePort<br />
+- ConfigMap和Secret<br />
+- 仪表盘<br />
+- 容器运行时: Docker、rkt、CRI-O和containerd<br />
+- 使能容器网络接口<br />
+- Ingres</p>
+
+<p><img src="/images/2019/6/Minikube-localinstall-diagram.png" alt="Minikube 本地安装部署示意" /><br />
+由上图可知，要使用Minikube，需要安装Minikube、kubectl和虚拟机。好在有<a href="https://www.katacoda.com/">Katacoda</a>提供浏览器内的带有<a href="https://kubernetes.io/">Kubernetes</a>环境的免费虚拟终端，省却了安装这一步骤。<br />
+按照<a href="https://kubernetes.io/">Kubernetes</a>的<a href="https://kubernetes.io/docs/tutorials/hello-minikube/">Hello Minikube教程</a>走了一遍。<br />
+<img src="/images/2019/6/Minikube-1.png" alt="Run Minikube with Katacoda" /></p>
+
+<pre><code>minikube version; minikube start
+$
+$ minikube version; minikube start
+minikube version: v0.28.2
+Starting local Kubernetes v1.10.0 cluster...
+Starting VM...
+Getting VM IP address...
+Moving files into cluster...
+Setting up certs...
+Connecting to cluster...
+Setting up kubeconfig...
+Starting cluster components...
+Kubectl is now configured to use the cluster.
+Loading cached images from config file.
+$
+$ minikube --help
+Minikube is a CLI tool that provisions and manages single-node Kubernetes clusters optimized for development workflows.
+
+Usage:
+  minikube [command]
+
+Available Commands:
+  addons           Modify minikube's kubernetes addons
+  cache            Add or delete an image from the local cache.
+  completion       Outputs minikube shell completion for the given shell (bash or zsh)
+  config           Modify minikube config
+  dashboard        Opens/displays the kubernetes dashboard URL for your local cluster
+  delete           Deletes a local kubernetes cluster
+  docker-env       Sets up docker env variables; similar to '$(docker-machine env)'
+  get-k8s-versions Gets the list of Kubernetes versions available for minikube when using the localkube bootstrapper
+  help             Help about any command
+  ip               Retrieves the IP address of the running cluster
+  logs             Gets the logs of the running localkube instance, used for debugging minikube, not user code
+  mount            Mounts the specified directory into minikube
+  profile          Profile sets the current minikube profile
+  service          Gets the kubernetes URL(s) for the specified service in your local cluster
+  ssh              Log into or run a command on a machine with SSH; similar to 'docker-machine ssh'
+  ssh-key          Retrieve the ssh identity key path of the specified cluster
+  start            Starts a local kubernetes cluster
+  status           Gets the status of a local kubernetes cluster
+  stop             Stops a running local kubernetes cluster
+  update-check     Print current and latest version number
+  update-context   Verify the IP address of the running cluster in kubeconfig.
+  version          Print the version of minikube
+
+Flags:
+      --alsologtostderr                  log to standard error as well as files
+  -b, --bootstrapper string              The name of the cluster bootstrapper that will set up the kubernetes cluster. (default &quot;kubeadm&quot;)
+  -h, --help                             help for minikube
+      --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
+      --log_dir string                   If non-empty, write log files in this directory
+      --loglevel int                     Log level (0 = DEBUG, 5 = FATAL) (default 1)
+      --logtostderr                      log to standard error instead of files
+  -p, --profile string                   The name of the minikube VM being used.
+        This can be modified to allow for multiple minikube instances to be run independently (default &quot;minikube&quot;)
+      --stderrthreshold severity         logs at or above this threshold go to stderr (default 2)
+  -v, --v Level                          log level for V logs
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
+
+Use &quot;minikube [command] --help&quot; for more information about a command.
+$
+$ minikube status
+minikube: Running
+cluster: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 172.17.0.48
+$ minikube dashboard
+Opening kubernetes dashboard in default browser...
+$ kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+deployment.apps/hello-node created
+$ kubectl get deployments
+NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+hello-node   1         1         1            0           6s
+$ kubectl get deployments
+NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+hello-node   1         1         1            1           1m
+$ kubectl get pods
+NAME                          READY     STATUS    RESTARTS   AGE
+hello-node-7f5b6bd6b8-xsv8q   1/1       Running   0          1m
+$ kubectl get events
+LAST SEEN   FIRST SEEN   COUNT     NAME                                           KIND         SUBOBJECT                     TYPE      REASON SOURCE                  MESSAGE
+8m          8m           1         minikube.15a7b294ca3e3206                      Node                                       Normal    Starting kubelet, minikube       Starting kubelet.
+8m          8m           1         minikube.15a7b294fd3f5d0a                      Node                                       Normal    Starting kube-proxy, minikube    Starting kube-proxy.
+8m          8m           1         minikube.15a7b294d0df5af8                      Node                                       Normal    NodeHasSufficientPID kubelet, minikube       Node minikube status is now: NodeHasSufficientPID
+8m          8m           1         minikube.15a7b294d0df44a0                      Node                                       Normal    NodeHasNoDiskPressure kubelet, minikube       Node minikube status is now: NodeHasNoDiskPressure
+8m          8m           1         minikube.15a7b294d0df2ab9                      Node                                       Normal    NodeHasSufficientMemory kubelet, minikube       Node minikube status is now: NodeHasSufficientMemory
+8m          8m           1         minikube.15a7b294d0df04be                      Node                                       Normal    NodeHasSufficientDisk kubelet, minikube       Node minikube status is now: NodeHasSufficientDisk
+8m          8m           1         minikube.15a7b2954df56145                      Node                                       Normal    NodeAllocatableEnforced kubelet, minikube       Updated Node Allocatable limit across pods
+8m          8m           1         minikube.15a7b2972a0b97fc                      Node                                       Normal    NodeReady kubelet, minikube       Node minikube status is now: NodeReady
+1m          1m           1         hello-node.15a7b2f9dca4ac42                    Deployment                                 Normal    ScalingReplicaSet deployment-controller   Scaled up replica set hello-node-7f5b6bd6b8 to 1
+1m          1m           1         hello-node-7f5b6bd6b8.15a7b2f9dcb8c32e         ReplicaSet                                 Normal    SuccessfulCreate replicaset-controller   Created pod: hello-node-7f5b6bd6b8-xsv8q
+1m          1m           1         hello-node-7f5b6bd6b8-xsv8q.15a7b2f9fe7cf48f   Pod          spec.containers{hello-node}   Normal    Pulling kubelet, minikube       pulling image &quot;gcr.io/hello-minikube-zero-install/hello-node&quot;
+1m          1m           1         hello-node-7f5b6bd6b8-xsv8q.15a7b2f9ef33a6b7   Pod                                        Normal    SuccessfulMountVolume kubelet, minikube       MountVolume.SetUp succeeded for volume &quot;default-token-kmdrg&quot;
+1m          1m           1         hello-node-7f5b6bd6b8-xsv8q.15a7b2f9dda4da8c   Pod                                        Normal    Scheduled default-scheduler       Successfully assigned hello-node-7f5b6bd6b8-xsv8q to minikube
+59s         59s          1         hello-node-7f5b6bd6b8-xsv8q.15a7b301584221b0   Pod          spec.containers{hello-node}   Normal    Started kubelet, minikube       Started container
+59s         59s          1         hello-node-7f5b6bd6b8-xsv8q.15a7b301517672cd   Pod          spec.containers{hello-node}   Normal    Created kubelet, minikube       Created container
+59s         59s          1         hello-node-7f5b6bd6b8-xsv8q.15a7b3014df0fe95   Pod          spec.containers{hello-node}   Normal    Pulled kubelet, minikube       Successfully pulled image &quot;gcr.io/hello-minikube-zero-install/hello-node&quot;
+$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /root/.minikube/ca.crt
+    server: https://172.17.0.48:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /root/.minikube/client.crt
+    client-key: /root/.minikube/client.key
+$ kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+service/hello-node exposed
+$ kubectl get services
+NAME         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+hello-node   LoadBalancer   10.103.104.233   &lt;pending&gt;     8080:31739/TCP   4s
+kubernetes   ClusterIP      10.96.0.1        &lt;none&gt;        443/TCP          9m
+$ minikube service hello-node
+Opening kubernetes service default/hello-node in default browser...
+$ minikube addons list
+- addon-manager: enabled
+- coredns: disabled
+- dashboard: enabled
+- default-storageclass: enabled
+- efk: disabled
+- freshpod: disabled
+- heapster: disabled
+- ingress: disabled
+- kube-dns: enabled
+- metrics-server: disabled
+- nvidia-driver-installer: disabled
+- nvidia-gpu-device-plugin: disabled
+- registry: disabled
+- registry-creds: disabled
+- storage-provisioner: enabled
+$ minikube addons enable heapster
+heapster was successfully enabled
+$ kubectl get pod,svc -n kube-system
+NAME                                        READY     STATUS    RESTARTS   AGE
+pod/heapster-2mztm                          1/1       Running   0          3m
+pod/influxdb-grafana-v5j5q                  2/2       Running   0          3m
+pod/kube-addon-manager-minikube             1/1       Running   0          17m
+pod/kube-dns-6dcb57bcc8-84zs7               3/3       Running   0          17m
+pod/kubernetes-dashboard-5498ccf677-xc4kr   1/1       Running   0          17m
+pod/storage-provisioner                     1/1       Running   0          17m
+
+NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+service/heapster               ClusterIP   10.107.109.88    &lt;none&gt;        80/TCP              3m
+service/kube-dns               ClusterIP   10.96.0.10       &lt;none&gt;        53/UDP,53/TCP       17m
+service/kubernetes-dashboard   NodePort    10.111.86.255    &lt;none&gt;        80:30000/TCP        17m
+service/monitoring-grafana     NodePort    10.111.167.239   &lt;none&gt;        80:30002/TCP        3m
+service/monitoring-influxdb    ClusterIP   10.98.229.238    &lt;none&gt;        8083/TCP,8086/TCP   3m
+$ minikube addons disable heapster
+heapster was successfully disabled
+$ kubectl delete service hello-node
+service &quot;hello-node&quot; deleted
+$ kubectl delete deployment hello-node
+deployment.extensions &quot;hello-node&quot; deleted
+$ minikube stop
+Stopping local Kubernetes cluster...
+Machine stopped.
+$
+</code></pre>
+
+<p>唯一要注意的是，教程里提到打开Kubernetes仪表盘使用<code>Select port to view on Host 1</code>菜单，结果是502 Bad GateWay错误。可使用<code>View HTTP port 80 on Host 1</code>然后修改端口为30000即可。
+<img src="/images/2019/6/Minikube-2.png" alt="Postman: new Env" /></p>
+
+<p><img src="/images/2019/6/Minikube-3.png" alt="Postman: new Env" /></p>
+
+<p><img src="/images/2019/6/Minikube-4.png" alt="Postman: new Env" /></p>
+
+<p>使用<a href="https://www.katacoda.com/">Katacoda</a>，下列命令也可以一试。</p>
+
+<pre><code>minikube ip                      # Get IP address of the running cluster
+kubectl cluster-info             # Get cluster information
+minikube dashboard --url         # Get the Dashboard URL
+minikube service --url SERVICE   # Get the URL of service
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Install Minikube</a><br />
+<a href="https://kubernetes.io/docs/setup/learning-environment/minikube/">Installing Kubernetes with Minikube</a><br />
+<a href="https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0">Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?</a><br />
+<a href="https://cheatsheet.dennyzhang.com/cheatsheet-minikube-a4">MINIKUBE CHEATSHEET</a><br />
+<a href="https://www.cnblogs.com/cocowool/p/minikube_setup_and_first_sample.html">Minikube体验</a><br />
+<a href="https://kubernetes.io/blog/2016/07/minikube-easily-run-kubernetes-locally/">Minikube: easily run Kubernetes locally</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：学习使用Minikube
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/kubernetes" rel="tag" title="kubernetes">#kubernetes#</a>
+    
+    <a href="/tags/minikube" rel="tag" title="minikube">#minikube#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/openui5_%E7%9B%91%E6%8E%A7model%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8A%A8/" rel="next" title="[OpenUI5] 监控Model属性变动">
+        <i class="fa fa-chevron-left"></i> [OpenUI5] 监控Model属性变动
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E9%81%93%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%83%E4%B9%A0%E9%A2%98/" rel="prev" title="玩一道正则表达式练习题">
+        玩一道正则表达式练习题 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/";
+this.page.identifier = "https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

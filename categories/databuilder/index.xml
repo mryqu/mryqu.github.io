@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Databuilder on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/categories/databuilder/</link>
+    <description>Recent content in Databuilder on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 21 May 2019 06:01:23 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/categories/databuilder/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>体验Salesforce API</title>
+      <link>https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/</link>
+      <pubDate>Tue, 21 May 2019 06:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/</guid>
+      <description>继前一博文Salesforce dataLoader一览，这次就开始体验一把Salesforce API了。
+准备工作  通过developer.salesforce.com/signup获得Salesforce开发版
+ 确保激活了API权限
+ 创建connected app：scnydqTest1
+ 获取scnydqTest1的sonsumer key和secret   OAuth鉴权 Salesforce的OAuth鉴权支持三种流程：
+* web服务器流程：适用于服务器可以保存consumer secret
+* 用户代理流程：适用于应用无法安全保存consumer secret
+* 用户密码流程：应用使用用户凭证直接访问
+OAuth鉴权之web服务器流程 验证按照Understanding the User-Agent OAuth Authentication Flow进行。
+https://login.salesforce.com/services/oauth2/authorize?response_type=code&amp;amp;client_id={scnydqTest1_appConsumerKey}&amp;amp;redirect_uri=https%3A%2F%2Flogin.salesforce.com%2Fservices%2Foauth2%2Fsuccess  鉴权：
+通过跳转URL获取code：
+通过code、consumer key和consumer secret获取access token：
+OAuth鉴权之用户代理流程 验证按照How Are Apps Authenticated with the Web Server OAuth Authentication Flow?进行。
+https://login.salesforce.com/services/oauth2/authorize?response_type=token&amp;amp;client_id={scnydqTest1_appConsumerKey}&amp;amp;redirect_uri=https%3A%2F%2Flogin.salesforce.com%2Fservices%2Foauth2%2Fsuccess  认证： 鉴权：
+通过跳转URL获取access_token：
+返回URL为：
+https://login.salesforce.com/services/oauth2/success#access_token=00D2v000000R9tt%21AXXXXXi.&amp;amp;instance_url=https%3A%2F%2Fap15.salesforce.com&amp;amp;id=https%3A%2F%2Flogin.salesforce.com%2Fid%2F00D2XXXXXC%2F005XXXXXL&amp;amp;issued_at=1XXXXX8&amp;amp;signature=iXXXXXI%3D&amp;amp;scope=id+api&amp;amp;token_type=Bearer  OAuth鉴权之用户密码流程 验证按照Understanding the Username-Password OAuth Authentication Flow进行。
+REST调用 此处走一下Salesforce官方的快速入门示例。</description>
+    </item>
+    
+    <item>
+      <title>Salesforce Data Loader一览</title>
+      <link>https://mryqu.github.io/post/salesforce-dataloader%E4%B8%80%E8%A7%88/</link>
+      <pubDate>Mon, 20 May 2019 06:00:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/salesforce-dataloader%E4%B8%80%E8%A7%88/</guid>
+      <description>最近研究一下如何从Salesforce抓取数据，所以找到了dataloader.io和dataloader这两款软件进行学习。
+dataloader.io dataloader.io是salesforce AppExchange上的应用。它分为免费版、专业版和企业版。
+入口
+认证
+授权
+主界面
+导出 - 浏览对象 导出 - 选择列
+导出 - 设置
+导出 - 运行结果邮件
+Data Loader Data Loader是Salesforce开源的一款桌面版数据连接器，基于Java语言，底层依赖Force Wsc和Patner API。 Data Loader有两种登陆方式：OAuth和Password Authentication。 OAuth认证 认证 授权 登陆成功 密码认证 注：
+* 假设用户密码为mypwd，此处要输入的密码为用户密码和下面提到的Salesforce 安全标记组合，即mypwdXXXXXXXXXXXX。
+* 此处Salesforce登陆URL为用户所在的实例地址。如果使用沙箱的话，则使用https://test.salesforce.com。
+导出 导出 - 浏览对象 导出 - 选择列
+导出 - 运行
+导出 - 查看结果
+其他Salesforce Data Loader Jitterbit Cloud Data Loader for Salesforce
+Salesforce Connector - Mule 4
+参考 Data Loader Guide</description>
+    </item>
+    
+    <item>
+      <title>初探Salesforce API</title>
+      <link>https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2salesforce-api/</link>
+      <pubDate>Fri, 17 May 2019 06:00:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2salesforce-api/</guid>
+      <description>最近研究一下如何从Salesforce抓取数据，首先看了一下几个ODBC driver。
+* DataDirect 文档
+* easysoft
+* devart
+* cdata
+怎么没有Salesforce自家的驱动，都是第三方的。
+再找找看，找到了Salesforce SOAP API Developer Guide和REST API Developer Guide。
+既然有了SOAP/REST API，何必再看ODBC driver了。</description>
+    </item>
+    
+    <item>
+      <title>Facebook的Page Access Token</title>
+      <link>https://mryqu.github.io/post/facebook%E7%9A%84pageaccesstoken/</link>
+      <pubDate>Tue, 30 Oct 2018 06:31:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook%E7%9A%84pageaccesstoken/</guid>
+      <description>忽然发现原本可用的Facebook App Access Token无法获取Page内容的，甚至是自己的主页，错误提示为： &amp;gt; &amp;ldquo;(#10) To use &amp;lsquo;Page Public Content Access&amp;rsquo;, your use of this endpoint must be reviewed and approved by Facebook. To submit this &amp;lsquo;Page Public Content Access&amp;rsquo; feature for review please read our documentation on reviewable features: https://developers.facebook.com/docs/apps/review.&amp;quot;。
+注：我的App yquTest当前App版本为2.8。祭出Access Token Tool武器，开始实验User Access Token。 发现结果如下： - 使用Facebook App Access Token无法读取自己或他人的主页内容 - 使用Facebook User Access Token可以读取自己主页内容，但无法读取他人的主页内容
+Facebook Page Access Token调查 获取自己多个主页的Page Access Toke 获取自己单个主页的Page Access Toke 使用Page Access Token获取自己的主页内容 尝试获取他人主页的Page Access Token 结果自然是嘿嘿嘿。</description>
+    </item>
+    
+    <item>
+      <title>安装Twurl并调试extended tweet mode</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8twurl%E8%B0%83%E8%AF%95extended_tweet_mode/</link>
+      <pubDate>Thu, 08 Feb 2018 13:55:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8twurl%E8%B0%83%E8%AF%95extended_tweet_mode/</guid>
+      <description>在研究tweet字节限制由140字节变为280字节时，想要玩一玩Twitter API控制台工具(https://dev.twitter.com/rest/tools/console)，结果dev.twitter.com跳到了developer.twitter.com，这才发现Twitter REST API按照Standard、Premium和Enterprise划分开始走上收费的道路。 Twitter API控制台工具已经找不到了，官方示例使用twurl命令工具完成的。
+安装Twurl  在https://rubyinstaller.org/下载并安装RubyInstaller 执行gem install twurl  调试extended tweet mode 准备环境 认证 twurl authorize --consumer-key key --consumer-secret secret  搜索tweet twurl &amp;quot;/1.1/search/tweets.json?q=scnydq&amp;quot; { &amp;quot;statuses&amp;quot;: [ { &amp;quot;created_at&amp;quot;: &amp;quot;Thu Feb 08 02:22:11 +0000 2018&amp;quot;, &amp;quot;id&amp;quot;: 9.6142489253621e+17, &amp;quot;id_str&amp;quot;: &amp;quot;961424892536205313&amp;quot;, &amp;quot;text&amp;quot;: &amp;quot;scnydq.testbody280:001002003004005006007008009010011012013014015016017018019020021022023024025026027028029030031032\u2026 https:\/\/t.co\/q9CyeceQku&amp;quot;, &amp;quot;truncated&amp;quot;: true, &amp;quot;entities&amp;quot;: { &amp;quot;hashtags&amp;quot;: [ ], &amp;quot;symbols&amp;quot;: [ ], &amp;quot;user_mentions&amp;quot;: [ ], &amp;quot;urls&amp;quot;: [ { &amp;quot;url&amp;quot;: &amp;quot;https:\/\/t.co\/q9CyeceQku&amp;quot;, &amp;quot;expanded_url&amp;quot;: &amp;quot;https:\/\/twitter.com\/i\/web\/status\/961424892536205313&amp;quot;, &amp;quot;display_url&amp;quot;: &amp;quot;twitter.com\/i\/web\/status\/9\u2026&amp;quot;, &amp;quot;indices&amp;quot;: [ 117, 140 ] } ] }, &amp;quot;metadata&amp;quot;: { &amp;quot;iso_language_code&amp;quot;: &amp;quot;en&amp;quot;, &amp;quot;result_type&amp;quot;: &amp;quot;recent&amp;quot; }, &amp;quot;source&amp;quot;: &amp;quot;&amp;lt;a href=\&amp;quot;http:\/\/twitter.</description>
+    </item>
+    
+    <item>
+      <title>ArcGIS REST API资费</title>
+      <link>https://mryqu.github.io/post/arcgis_rest_api%E8%B5%84%E8%B4%B9/</link>
+      <pubDate>Sat, 20 May 2017 06:25:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/arcgis_rest_api%E8%B5%84%E8%B4%B9/</guid>
+      <description>一个ArcGIS开发者订阅每月有免费的50点积分。
+GeoEnrichment API资费 在Esri GeoEnrichment Service提到了资费列表：
+| GeoEnrichment服务资费 | Esri积分 | 美元 | | - | - | - | | 1 Stored GeoEnrichment Variable | 0.01 积分 (Per Feature) | $0.001 (Per Feature) | | 1,000 Stored GeoEnrichment Variables | 10 积分 (Per Feature) | $1.00 (Per Feature) | | 1 Non-Stored GeoEnrichment Request | 0.01 积分 | $0.001 | | 1000 Non-Stored GeoEnrichment Requests | 10 积分 | $1.</description>
+    </item>
+    
+    <item>
+      <title>玩玩ArcGIS REST API</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9arcgis_rest_api/</link>
+      <pubDate>Fri, 19 May 2017 05:49:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9arcgis_rest_api/</guid>
+      <description>了解Esri和ArcGIS 美国环境系统研究所公司（Environmental Systems Research Institute, Inc. 简称Esri公司）成立于1969年，总部设在美国加利福利亚州雷德兰兹市，是世界最大的地理信息系统技术提供商。 ArcGIS是Esri公司集40余年地理信息系统（GIS）咨询和研发经验，奉献给用户的一套完整的GIS平台产品，具有强大的地图制作、空间数据管理、空间分析、空间信息整合、发布与共享的能力。
+ArcGIS REST API ArcGIS REST API可用于包括ArcGIS Online在内的ArcGIS平台，包括： * Maps—随时可用的底图、参考层等。可用于快速为您的本地或全球数据添加上下文或背景。一些ArcGIS Online地图有页面主题，可以提供出你的应用所需的全部信息。 * World Geocoding Service—通过文本地址、商业名等查找位置，该服务也提供反向服务：通过地理坐标查找最近的地址。 * Directions and Routing Service (Network Analysis Service)—解决各种路线规划问题，例如简单的点到点路由、复杂的船舶航线规划、及行驶时间分析。 * GeoEnrichment Service—GeoEnrichment 服务借助本地化的人口、场所以及商业信息丰富了用户的地理数据。提交某个点、面、地址或地名后，可通过该服务了解该地区居民的生活习惯和生活方式、附近的商业类型以及区域邮政编码等信息。 * Spatial Analysis Service—各种可用于执行通用GIS分析的任务。传统上，包括查找热点和对周边汇总在内的许多任务都需要深度学习和专业知识才能运行。而这些空间分析任务仅包含少量需要研究的参数，也能获得相当不错的结果。 * Elevation Analysis service—高程分析服务允许您执行高程分析（轮廓，视角，总结高程）和水文分析（流域和跟踪下游）的各种操作。这些服务参考的数据由Esri托管和策划。
+ArcGIS REST API有些是免费的，有些是付费。付费操作需要订阅ArcGIS Online，并减扣账户积分。 使用需付费API时，需要在请求中通过token参数指定访问令牌。获取ArcGIS REST API所需访问令牌的方法，请参见前一博文ArcGIS认证和登录。
+响应数据格式 对于ArcGIS REST API，有些响应支持JSON、PJSON（个人理解就是完美打印版的JSON）、XML和BIN格式中的一种或多种。可在请求时通过f参数指定。
+使用GeoEnrichment API GeoEnrichment服务能力、属性和限制可以通过下列请求获得：
+http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/?f=pjson  由响应可知，GeoEnrichment端点支持Enrich、CreateReport、Reports、Countries、DataCollections、StandardGeographyLevels这几种操作。
+Countries操作 首先试一下国家列表：
+http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/Countries?f=pjson  当然Countries操作也可用于获取单个国家信息： StandardGeographyLevels操作 StandardGeographyLevels服务返回有效地理数据层列表。服务结果是BAIDNamePairs数组，包含数据层ID及相应名称。这些ID可被用于在其他分析中指定数据层。 下面的请求示例列举CN的有效地理数据层列表：
+http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/StandardGeographyLevels/CN?f=pjson  DataCollections操作 GeoEnrichment服务使用数据集合的概念定义服务返回的属性。更具体地说，数据集合是用于丰富输入特性的预先组合的属性列表。作为输入特性，集合属性可以描述所提交位置或区域的各种类型信息，例如人口特征和地理上下文。</description>
+    </item>
+    
+    <item>
+      <title>ArcGIS认证和登录</title>
+      <link>https://mryqu.github.io/post/arcgis%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
+      <pubDate>Thu, 18 May 2017 05:43:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/arcgis%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
+      <description>申请ArcGIS Online账户 创建应用 点击创建第一个应用： 输入应用所需信息： 查看应用信息： 设置redirect URI： 获取应用访问令牌 默认情况下，访问令牌2小时过期。可在获取访问令牌的请求中加入expiration参数，指定以分钟为单位的过期间隔（响应中单位为秒），最大为14天。 应用登录具有几个内建限制： * 通过应用获取的访问令牌仅能读取公开内容和服务。 * 通过应用获取的访问令牌有可能读取Esri托管的高级内容和服务，并消费代表应用所有者的点数。 * 应用无法创建、更新、共享、修改和删除在ArcGIS Online或ArcGIS门户网站上的内容（层、文件、服务、地图）。 * 使用应用登录方式的应用无法列于ArcGIS软件商店。
+获取用户访问令牌 用于用户登录的HTTP GET请求如下：
+https://www.arcgis.com/sharing/rest/oauth2/authorize?client_id={YOUR_APP_CLIENT_ID}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code  请求用户授权： 返回地址包含code参数，内容中也有一含有code值的文本框： 获取访问令牌的HTTP GET请求包含上面获得的code参数：：
+https://www.arcgis.com/sharing/rest/oauth2/token?client_id={YOUR_APP_CLIENT_ID}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;amp;code={GOTTEN_CODE}  访问令牌使用 不同的ArcGIS REST API使用的访问令牌类型可能不同。例如在Accessing the GeoEnrichment service中提到使用GeoEnrichment服务需要用户访问令牌；而在 Authenticate a request to the World Geocoding Service中提到使用Geocoding服务需要应用访问令牌。 下面的示例使用用户访问令牌执行Geocoding服务的操作，结果返回403错误，提示Token is valid but access is denied，具体信息为User does not have permissions to access geocodeAddresses。 参考 ArcGIS: Implementing App Login
+ArcGIS: Implementing Named User Login</description>
+    </item>
+    
+    <item>
+      <title>玩一下Quandl API</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/</link>
+      <pubDate>Thu, 11 May 2017 06:00:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/</guid>
+      <description>Quandl是为投资专业人士提供财务、经济和替代数据的平台。 Quandl来源于500多家出版商的数据。所有Quandl的数据都可通过API访问，也可以通过包含R、Python、Ruby等多种编程语言及Excel、SAS等软件进行原生访问。Quandl的来源包括联合国，世行和中央银行等提供商的公开数据、来自CLS集团，Zacks和ICE等供应商的核心财务数据、Dun＆Bradstreet的其他数据、以及许多机密来源。 什么是替代数据？替代数据的范围非常广泛，起初主要包含了未加工的、原始的公司文件、历史市场价格、投资者表现等数据，而现在替代数据已经涵盖任何从移动手机数据到职位信息再到天气预报、交通、卫星图像等能够被采集到的数据。替代数据世界由一系列模糊的数据集组成，而这些数据集可以被转换为交易信息。Quandl提供的替代数据包括企业财务压力数据、外汇数据、电子邮件收据数据、全球石油储量数据、定量股票选择数据等。 Quandl上的数据分为免费数据和高级（Premium）数据，其中高级数据只能通过订阅访问。
+申请Quandl账号 除了在Quandl上注册帐号外，Quandl还支持使用GitHub、Google和LinkedIn账号进行OAuth2认证登录。登录后查看账户设置信息中的API KEY，即可用于后继API访问。 Quandl API 全部的Quandl数据产品，可通过https://www.quandl.com/search查找。Quandl的数据产品来源不同，包含时间序列和表在内的各种对象。 Guandl的大多数数据集只能以时间序列或表中的一种格式打开，其中一些则既可用时间序列格式也可用表格式访问。 * 时间序列是一段时间内观测或指标集合，以时间为索引且只包含数字数据类型字段。 * 表包含各种未排序数据类型（字符串、数字、日期等）并可用不同字段进行过滤。
+Guandl可指定如下返回类型： * JSON * CSV * XML
+速率限制 认证用户限制10秒300个调用、10分钟2000调用及每天50000调用。使用免费数据集的认证用户并发限制为1，即进行一个调用的同时可以在队列中有一个额外的调用。 高级数据订阅限制10分钟5000调用及每天720000调用。
+访问时间序列  获取时间序列数据集数据
+ GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/data.{return_format}?api_key=YOURAPIKEY   获取时间序列数据集元数据
+ GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/metadata.{return_format}?api_key=YOURAPIKEY   获取时间序列数据集数据及元数据
+ GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}.{return_format}?api_key=YOURAPIKEY   获取时间序列数据库元数据
+ GET https://www.quandl.com/api/v3/databases/{database_code}.{return_format}?api_key=YOURAPIKEY   获取整个时间序列数据库(仅能用于订阅的高级数据)
+ GET https://www.quandl.com/api/v3/databases/{database_code}/data?download_type=full&amp;amp;api_key=YOURAPIKEY  查询参数  | 参数 | 必需 | 类型 | 值 | 描述 | | - | - | - | - | - | | database_code | 是 | string | | 数据库代码 | | dataset_code | 是 | string | | 数据集代码 | | limit | 否 | int | | 使用limit=n获得数据集的头n行。使用limit=1获取最新的一行。 | | column_index | 否 | int | | 指定特定列。第0列是日期列且永久返回，因此该处从第1列起。</description>
+    </item>
+    
+    <item>
+      <title>Icon/logo and brand guides for social media</title>
+      <link>https://mryqu.github.io/post/iconlogo_and_brand_guides_for_social_media/</link>
+      <pubDate>Wed, 10 May 2017 06:18:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/iconlogo_and_brand_guides_for_social_media/</guid>
+      <description> Twitter  https://abs.twimg.com/favicons/favicon.ico https://brand.twitter.com/en.html  Facebook  https://www.facebook.com/favicon.ico https://en.facebookbrand.com/  Google https://www.google.com/favicon.ico
+YouTube  https://www.youtube.com/favicon.ico https://www.youtube.com/yt/brand/using-logo.html  Google Analytics  https://analytics.google.com/analytics/web/s/analytics_suite_icon.png https://developers.google.com/analytics/terms/branding-policy  Google Drive  https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_4.ico https://developers.google.com/drive/v3/web/branding  </description>
+    </item>
+    
+    <item>
+      <title>YouTube Analytics Dimensions And Mitrics Research</title>
+      <link>https://mryqu.github.io/post/youtube_analytics_dimensions_and_mitrics_research/</link>
+      <pubDate>Fri, 28 Apr 2017 06:11:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/youtube_analytics_dimensions_and_mitrics_research/</guid>
+      <description>Dimensions GroupCore
+Dim?DimensionData
+TypeExampleTest
+URLResourcesXvideoSTRINGNO_FORMAT
+KHqrLhJPdtETestplaylistSTRINGNO_FORMAT
+TestXchannelSTRINGNO_FORMAT
+???group
+(filter only)Time periodsXdaySTRINGYYYY-MM-DD
+2016-05-03TestX7DayTotalsSTRINGYYYY-MM-DD
+2014-01-01TestX30DayTotalsSTRINGYYYY-MM-DD
+2014-01-01TestXmonthSTRINGYYYY-MM
+2016-05TestGeographic areasXcountrySTRING2-letter ISO-3166-1 code
+USTestprovince
+[use country==US in filter]STRINGISO 3166-2 code
+US-ZZTestcontinent
+(filter only)subContinent
+(filter only)Playback locationsinsightPlaybackLocationTypeSTRINGPossible Value:BROWSECHANNELEMBEDDEDEXTERNAL_APPMOBILESEARCHWATCHYT_OTHER
+WATCHTestinsightPlaybackLocationDetail
+[use insightPlaybackLocationType
+==EMBEDDED in filter]STRINGTestPlayback detailsliveOrOnDemandSTRINGPossible Value:LIVEON_DEMAND
+ON_DEMANDTestsubscribedStatusSTRINGPossible Value:SUBSCRIBEDUNSUBSCRIBEDTest?youtubeProductSTRINGPossible Values:COREGAMINGKIDSUNKNOWN
+CORETestTraffic sourcesinsightTrafficSourceTypeSTRINGPossible Values:ADVERTISINGANNOTATIONCAMPAIGN_CARDEND_SCREENEXT_URLNO_LINK_EMBEDDEDNO_LINK_OTHERNOTIFICATIONPLAYLISTPROMOTEDRELATED_VIDEOSUBSCRIBERYT_CHANNELYT_OTHER_PAGEYT_PLAYLIST_PAGEYT_SEARCH
+YT_CHANNELTestinsightTrafficSourceDetail
+[use insightTrafficSourceType in filter]STRINGNO_FORMAT
+UC-OpYDuNCwCt-AIHC6xNYdwTestDevicesdeviceTypeSTRINGPossible Values:DESKTOPGAME_CONSOLEMOBILETABLETTVUNKNOWN_PLATFORM
+DESKTOPTestoperatingSystemSTRINGPossible Values:ANDROIDBADABLACKBERRYCHROMECASTDOCOMOFIREFOXHIPTOPIOSLINUXMACINTOSHMEEGONINTENDO_3DSOTHERPLAYSTATIONPLAYSTATION_VITAREALMEDIASMART_TVSYMBIANTIZENWEBOSWIIWINDOWSWINDOWS_MOBILEXBOX
+WINDOWSTestDemographicsXageGroup
+[use specific metric]STRINGPossible Values:age13-17age18-24age25-34age35-44age45-54age55-64age65-TestXgender
+[use specific metric]STRINGPossible Values:femalemaleTestEngagement and content sharingXsharingServiceSTRINGPossible Values:AMEBAANDROID_EMAILANDROID_MESSENGERANDROID_MMSBBMBLOGGERCOPY_PASTECYWORLDDIGGDROPBOXEMBEDMAILFACEBOOKFACEBOOK_MESSENGERFACEBOOK_PAGESFOTKAGMAILGOOGOOGLEPLUSGO_SMSGROUPMEHANGOUTSHI5HTC_MMSINBOXIOS_SYSTEM_ACTIVITY_DIALOGKAKAO_STORYKIKLGE_EMAILLINELINKEDINLIVEJOURNALMENEAMEMIXIMOTOROLA_MESSAGINGMYSPACENAVERNEARBY_SHARENUJIJOTHERPINTERESTREDDITSKYPESKYBLOGSONY_CONVERSATIONSSTUMBLEUPONTELEGRAMTEXT_MESSAGETUENTITUMBLRTWITTERUNKNOWNVERIZON_MMSVIBERWECHATWEIBOWHATS_APPWYKOPYAHOOVKONTAKTEODNOKLASSNIKIRAKUTENKAKAOTestAudience retentionelapsedVideoTimeRatio</description>
+    </item>
+    
+    <item>
+      <title>Facebook根据请求API版本返回不同内容？</title>
+      <link>https://mryqu.github.io/post/facebook%E6%A0%B9%E6%8D%AE%E8%AF%B7%E6%B1%82api%E7%89%88%E6%9C%AC%E8%BF%94%E5%9B%9E%E4%B8%8D%E5%90%8C%E5%86%85%E5%AE%B9/</link>
+      <pubDate>Thu, 27 Apr 2017 06:10:12 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook%E6%A0%B9%E6%8D%AE%E8%AF%B7%E6%B1%82api%E7%89%88%E6%9C%AC%E8%BF%94%E5%9B%9E%E4%B8%8D%E5%90%8C%E5%86%85%E5%AE%B9/</guid>
+      <description>今天跟测试组同事研究Facebook返回内容时，发现一个奇怪现象：抓取湖南卫视的Page，当API版本为2.3至2.8时，返回结果内容为空；而API版本为2.9时，返回有内容的响应。 </description>
+    </item>
+    
+    <item>
+      <title>处理Google Analytics数据类型</title>
+      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86google_analytics%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Mon, 17 Apr 2017 05:50:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86google_analytics%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>发送一个Google Analytics请求 分析响应中的columnHeaders 响应中每一列头都包含数据类型信息，大致包含STRING、INTEGER、FLOAT、DATE、TIME、PERCENT、CURRENCY等。
+{ &amp;quot;kind&amp;quot;: &amp;quot;analytics#gaData&amp;quot;, &amp;quot;id&amp;quot;: &amp;quot;https://www.googleapis.com/analytics/v3/data/ga?ids=ga:1XXXXX0&amp;amp;dimensions=ga:campaign,ga:source,ga:medium,ga:date&amp;amp;metrics=ga:users,ga:newUsers,ga:percentNewSessions,ga:sessions,ga:bounceRate,ga:avgSessionDuration,ga:pageviewsPerSession&amp;amp;start-date=30daysAgo&amp;amp;end-date=yesterday&amp;amp;max-results=0&amp;quot;, &amp;quot;query&amp;quot;: { &amp;quot;start-date&amp;quot;: &amp;quot;30daysAgo&amp;quot;, &amp;quot;end-date&amp;quot;: &amp;quot;yesterday&amp;quot;, &amp;quot;ids&amp;quot;: &amp;quot;ga:1XXXXX0&amp;quot;, &amp;quot;dimensions&amp;quot;: &amp;quot;ga:campaign,ga:source,ga:medium,ga:date&amp;quot;, &amp;quot;metrics&amp;quot;: [ &amp;quot;ga:users&amp;quot;, &amp;quot;ga:newUsers&amp;quot;, &amp;quot;ga:percentNewSessions&amp;quot;, &amp;quot;ga:sessions&amp;quot;, &amp;quot;ga:bounceRate&amp;quot;, &amp;quot;ga:avgSessionDuration&amp;quot;, &amp;quot;ga:pageviewsPerSession&amp;quot; ], &amp;quot;start-index&amp;quot;: 1, &amp;quot;max-results&amp;quot;: 0 }, &amp;quot;itemsPerPage&amp;quot;: 0, &amp;quot;totalResults&amp;quot;: 27400, &amp;quot;selfLink&amp;quot;: &amp;quot;https://www.googleapis.com/analytics/v3/data/ga?ids=ga:1XXXXX0&amp;amp;dimensions=ga:campaign,ga:source,ga:medium,ga:date&amp;amp;metrics=ga:users,ga:newUsers,ga:percentNewSessions,ga:sessions,ga:bounceRate,ga:avgSessionDuration,ga:pageviewsPerSession&amp;amp;start-date=30daysAgo&amp;amp;end-date=yesterday&amp;amp;max-results=0&amp;quot;, &amp;quot;nextLink&amp;quot;: &amp;quot;https://www.googleapis.com/analytics/v3/data/ga?ids=ga:1XXXXX0&amp;amp;dimensions=ga:campaign,ga:source,ga:medium,ga:date&amp;amp;metrics=ga:users,ga:newUsers,ga:percentNewSessions,ga:sessions,ga:bounceRate,ga:avgSessionDuration,ga:pageviewsPerSession&amp;amp;start-date=30daysAgo&amp;amp;end-date=yesterday&amp;amp;start-index=1&amp;amp;max-results=0&amp;quot;, &amp;quot;profileInfo&amp;quot;: { &amp;quot;profileId&amp;quot;: &amp;quot;1XXXXX0&amp;quot;, &amp;quot;accountId&amp;quot;: &amp;quot;1XXXXX8&amp;quot;, &amp;quot;webPropertyId&amp;quot;: &amp;quot;UA-XXXXXXX-1&amp;quot;, &amp;quot;internalWebPropertyId&amp;quot;: &amp;quot;1XXXX1&amp;quot;, &amp;quot;profileName&amp;quot;: &amp;quot;Corporate Site (Master Profile)&amp;quot;, &amp;quot;tableId&amp;quot;: &amp;quot;ga:1XXXXX0&amp;quot; }, &amp;quot;containsSampledData&amp;quot;: true, &amp;quot;sampleSize&amp;quot;: &amp;quot;999951&amp;quot;, &amp;quot;sampleSpace&amp;quot;: &amp;quot;3174334&amp;quot;, &amp;quot;columnHeaders&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;ga:campaign&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;DIMENSION&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;STRING&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:source&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;DIMENSION&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;STRING&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:medium&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;DIMENSION&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;STRING&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:date&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;DIMENSION&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;STRING&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:users&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;INTEGER&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:newUsers&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;INTEGER&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:percentNewSessions&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;PERCENT&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:sessions&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;INTEGER&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:bounceRate&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;PERCENT&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:avgSessionDuration&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;TIME&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;ga:pageviewsPerSession&amp;quot;, &amp;quot;columnType&amp;quot;: &amp;quot;METRIC&amp;quot;, &amp;quot;dataType&amp;quot;: &amp;quot;FLOAT&amp;quot; } ], &amp;quot;totalsForAllResults&amp;quot;: { &amp;quot;ga:users&amp;quot;: &amp;quot;2648520&amp;quot;, &amp;quot;ga:newUsers&amp;quot;: &amp;quot;1488536&amp;quot;, &amp;quot;ga:percentNewSessions&amp;quot;: &amp;quot;46.</description>
+    </item>
+    
+    <item>
+      <title>Making Nested Requests using Facebook Graph API</title>
+      <link>https://mryqu.github.io/post/making_nested_requests_using_facebook_graph_api/</link>
+      <pubDate>Thu, 13 Apr 2017 05:53:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/making_nested_requests_using_facebook_graph_api/</guid>
+      <description>今天又玩了一把Facebook Graph API。当我们抓取Page上的帖子后，之后会发起API请求获取帖子的评论及回复。
+获取Page SASsoftware（ID为193453547355388）下的帖子 https://graph.facebook.com/193453547355388/feed?fields=id,XXXX,likes.limit(0).summary(1),comments,XXXX,with_tags&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;access_token={YOUR_TOKEN}  获取帖子193453547355388_951786161522119的评论 https://graph.facebook.com/193453547355388_951786161522119/comments?fields=id,from,message,created_time,like_count&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;access_token={YOUR_TOKEN}  获取评论951786161522119_951787458188656的回复 https://graph.facebook.com/951786161522119_951787458188656/comments?fields=id,from,message,created_time,like_count&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;access_token={YOUR_TOKEN}  试用嵌套请求 https://graph.facebook.com/193453547355388/feed?fields=id,XXXX,likes.limit(0).summary(1),comments{id,from,message,type,created_time,like_count,comments{id,from,message,type,created_time,like_count}},XXXX,with_tags&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;access_token={YOUR_TOKEN}  这里的请求使用了两级嵌套请求，第一级获取帖子的评论，第二季获取评论的回复，那结果如何？ 一个API请求就能够获得了帖子、评论及回复的信息。但是，考虑到一个帖子的评论或一个评论的回复都可能很多，返回结果是第一个分页结果，还是需要通过/{object-id}/comments API 请求获取，考虑到设计复杂性和性价比，决定放弃这种方案。</description>
+    </item>
+    
+    <item>
+      <title>Upload file to Google Drive using LibCurl</title>
+      <link>https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/</link>
+      <pubDate>Fri, 06 Jan 2017 05:26:57 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/</guid>
+      <description>This is a sequel to my last blog &amp;ldquo;Upload file to Google Drive using Postman and cURL&amp;rdquo;.
+I wrote C++ code using LibCurl to redo the three types of upload, and all of them work which shown in the below log snippet.
+Simple upload =&amp;gt; Send header, 0000000309 bytes (0x00000135) 0000: 50 4f 53 54 20 2f 75 70 6c 6f 61 64 2f 64 72 69 POST /upload/dri 0010: 76 65 2f 76 33 2f 66 69 6c 65 73 3f 75 70 6c 6f ve/v3/files?</description>
+    </item>
+    
+    <item>
+      <title>Get Facebook Reaction data using Graph API</title>
+      <link>https://mryqu.github.io/post/get_facebook_reaction_data_using_graph_api/</link>
+      <pubDate>Wed, 04 Jan 2017 05:54:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/get_facebook_reaction_data_using_graph_api/</guid>
+      <description>Facebook Enhances Everyone&amp;rsquo;s Like With Love, Haha, Wow, Sad, Angry Buttons. For example, there are two reactions in the post 778979332230227: Your can use Facebook Graph API - Reading Reactions to get the reactions data. Note: The API version must be 2.6 or higher. You also can get all reactions count of one post in single Graph API request: </description>
+    </item>
+    
+    <item>
+      <title>Upload file to Google Drive using Postman and cURL</title>
+      <link>https://mryqu.github.io/post/upload_file_to_google_drive_using_postman_and_curl/</link>
+      <pubDate>Tue, 03 Jan 2017 05:07:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/upload_file_to_google_drive_using_postman_and_curl/</guid>
+      <description>Simple upload For quick transfer of smaller files, for example, 5 MB or less.
+Postman cURL curl -T mytest.csv -X POST -H &amp;quot;Content-Type: text/csv&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; &amp;quot;https://www.googleapis.com/upload/drive/v3/files?uploadType=media&amp;amp;access_token={YOUR_ACCESS_TOKEN}&amp;quot;  Multipart upload For quick transfer of smaller files and metadata; transfers the file along with metadata that describes it, all in a single request.
+Postman At the beginning, I try to use form-data for body, then the second value can use file directly.</description>
+    </item>
+    
+    <item>
+      <title>在Google Drive上创建存在多个目录下的文件</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8google_drive%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%AD%98%E5%9C%A8%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Thu, 29 Dec 2016 06:10:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8google_drive%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%AD%98%E5%9C%A8%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6/</guid>
+      <description>准备环境 在Google Drive上创建两个目录: parent1和parent2 代码 package com.yqu.gd; import java.io.IOException; import java.util.ArrayList; import java.util.List; import com.google.api.client.auth.oauth2.Credential; import com.google.api.client.googleapis.auth.oauth2.GoogleCredential; import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport; import com.google.api.client.http.FileContent; import com.google.api.client.http.HttpTransport; import com.google.api.client.json.JsonFactory; import com.google.api.client.json.jackson2.JacksonFactory; import com.google.api.services.drive.Drive; import com.google.api.services.drive.model.File; import com.google.api.services.drive.model.FileList; public class FileWithMultiParents { private static final String APPLICATION_NAME = &amp;quot;Hello Google Drive API&amp;quot;; private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance(); private static HttpTransport HTTP_TRANSPORT; static { try { HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport(); } catch (Throwable t) { t.</description>
+    </item>
+    
+    <item>
+      <title>Hello Google Drive APIs</title>
+      <link>https://mryqu.github.io/post/hello_google_drive_apis/</link>
+      <pubDate>Thu, 20 Oct 2016 06:32:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_google_drive_apis/</guid>
+      <description>准备环境 当前我的Google Drive内容如下： 继续使用博文《Google Sheets API认证和鉴权》中用过的应用yquGSTest，不过需要激活Google Drive API： Google Drive API测试 方法drive.about.get测试 方法drive.about.get用于获取用户、驱动和系统容量等信息。
+方法drive.files.list测试 方法drive.files.list用于列举或搜索文件。
+与Microsoft OneDriveAPI仅列举请求目录下文件不同，方法drive.files.list列举文件时返回了所有目录和文件，例如子目录FolderTest1下的文件Class_cn_Tab.csv也在响应内容里面。
+方法drive.files.get测试 方法drive.files.get用于通过ID获取文件元数据。下面获得Class_cn_Tab.csv文件的元数据。
+方法drive.files.create测试 方法drive.files.create用于创建一个新文件。
+在API Explorer中仅能指定新文件的元数据，没法上传文件内容，所以虽然测试成功且GoogleDrive里也会显示新的文件，但是打不开。这种仅指定元数据不提供内容的方式特别适合创建目录。
+https://developers.google.com/drive/v3/web/manage-uploads里面说明了如何在创建或更新文件时上传文件内容。
+通过Java JDK创建文件 与博文《Google Sheets API认证和鉴权》中获取访问令牌的差异如下：
+GET https://accounts.google.com/o/oauth2/v2/auth? scope=**&amp;lt;font color=&amp;quot;#FF0000&amp;quot;&amp;gt;https://www.googleapis.com/auth/drive&amp;lt;/font&amp;gt;** https://www.googleapis.com/auth/drive.readonly profile&amp;amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;amp; response_type=code&amp;amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com``` 代码如下：  package com.yqu.gd;
+import java.io.IOException; import java.util.Collections; import java.util.List;
+import com.google.api.client.auth.oauth2.Credential; import com.google.api.client.googleapis.auth.oauth2.GoogleCredential; import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport; import com.google.api.client.http.FileContent; import com.google.api.client.http.HttpTransport; import com.google.api.client.json.JsonFactory; import com.google.api.client.json.jackson2.JacksonFactory; import com.google.api.services.drive.Drive; import com.google.api.services.drive.model.File; import com.google.api.services.drive.model.FileList;
+public class HelloGoogleDrive {</description>
+    </item>
+    
+    <item>
+      <title>使用OneDrive的根API资源</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Sun, 16 Oct 2016 06:40:59 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</guid>
+      <description> OneDrive的根API资源 可以使用OneDrive的这些根API资源来访问一个项目或驱动。
+|路径|资源 |&amp;mdash;&amp;ndash; |/drive|用户的默认驱动。 |/drives|列举对认证用户可用的驱动。 |/drives/{drive-id}|通过ID访问一个特定驱动。 |/drives/{drive-id}/root/children|列举特定驱动根路径下项目。 |/drive/items/{item-id}|通过ID访问一个元素。 |/drive/special/{special-id}|通过已知名访问一个特殊（命名）目录。ID目前可取值为：documents、photos、cameraroll、approot、music。 |/shares/{share-id}|通过共享ID或共享URL访问一个元素。
+元素可由路径定位，通过在任何元素或驱动URL后加冒号。
+|路径|资源 |&amp;mdash;&amp;ndash; |/drive/root:/path/to/file|通过根绝对路径访问一个元素。 |/drive/items/{item-id}:/path/to/file|通过相对路径访问一个元素。 |/drive/root:/path/to/file:/children|通过根绝对路径列举一个元素的子项。 |/drive/items/{item-id}:/path/to/file:/children|通过相对路径列举一个元素的子项。
+测试 获取默认驱动 列举可用驱动 通过ID获取指定驱动 列举特定驱动根路径下项目 通过ID访问一个目录&amp;rdquo;文档&amp;rdquo; 访问特殊目录documents 通过共享ID访问文件CN_EN_JP_KO.xlsx 将文件CN_EN_JP_KO.xlsx共享，获取其共享URL： 通过共享ID使用OneDrive API访问文件CN_EN_JP_KO.xlsx： 通过根绝对路径访问文件CN_EN_JP_KO.xlsx 注意root后有冒号： 通过相对路径访问文件CN_EN_JP_KO.xlsx 712B21FCE8E08C92!442是目录&amp;rdquo;文档&amp;rdquo;的ID，注意其后有冒号： 通过根绝对路径列举目录&amp;rdquo;文档&amp;rdquo;的子元素 注意root和路径（/文档）后都有冒号： 通过相对路径列举目录&amp;rdquo;FolderTest&amp;rdquo;的子元素 为了测试，首先我在目录&amp;rdquo;文档&amp;rdquo;创建子目录&amp;rdquo;FolderTest&amp;rdquo;，然后在目录&amp;rdquo;FolderTest&amp;rdquo;中创建mryqu.txt文件。
+712B21FCE8E08C92!442是目录&amp;rdquo;文档&amp;rdquo;的ID，注意其后有冒号；路径（/FolderTest）后也有冒号。 </description>
+    </item>
+    
+    <item>
+      <title>Microsoft OneDrive API访问速率限制</title>
+      <link>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link>
+      <pubDate>Sat, 15 Oct 2016 06:11:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid>
+      <description>一开始查看OneDrive文档Quota facet,，发现里面介绍的是OneDrive存储容量配额，跟API访问速率限制没有关系。除此之外，没有发现任何相关信息。 OneDrive文档Error response里面，看到如下跟访问速率限制相关的错误： - Status code: 429 (Too Many Requests)和509 (Bandwidth LimitExceeded) - The code property: activityLimitReached (The app or user hasbeen throttled) - Detailed error code: throttledRequest (Too many requests)</description>
+    </item>
+    
+    <item>
+      <title>OneDrive认证时的&#34;Public clients can&#39;t send a client secret.&#34;错误</title>
+      <link>https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Fri, 14 Oct 2016 05:40:38 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/</guid>
+      <description>在进行Microsoft OneDrive认证和登录实验的过程中，曾经用下列命令过去访问令牌：
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;client_secret={client_secret} &amp;amp;code={code}&amp;amp;grant_type=authorization_code  结果返回：
+{&amp;quot;error&amp;quot;:&amp;quot;invalid_request&amp;quot;,&amp;quot;error_description&amp;quot;:&amp;quot;Public clients can&#39;t send a client secret.&amp;quot;}  一个&amp;rdquo;public client&amp;rdquo;指的是移动或桌面应用(web服务则是&amp;rdquo;confidentialclient&amp;rdquo;)。由于跳转URI是https://login.live.com/oauth20_desktop.srf，因而MSA返回该错误响应。这种情况下，不应该提供client_secret，使用下列请求即可。
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code={code}&amp;amp;grant_type=authorization_code  </description>
+    </item>
+    
+    <item>
+      <title>Microsoft OneDrive认证和登录</title>
+      <link>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
+      <pubDate>Thu, 13 Oct 2016 05:59:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
+      <description>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
+OneDrive认证 OneDrive authentication and sign-in有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从https://dev.onedrive.com/auth/get-token.js中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为https://dev.onedrive.com/auth/callback.htm。而 OneDrive authentication and sign-in 中提到对于移动应用和桌面应用，跳转URI应设为https://login.live.com/oauth20_desktop.srf （注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。
+Token Flow测试 HTTP GET请求如下：
+https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  响应如下，认证失败：
+https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;amp;error_description=The+provided+value+for+the+input+parameter+&#39;response_type&#39;+is+not+allowed+for+this+client.+Expected+value+is+&#39;code&#39;.  找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！Code Flow测试  用于用户登录的HTTP GET请求如下：  https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=token&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  请求用户授权：此时浏览器上地址变为：  https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;uaid=78...e6&amp;amp;pid=...16&amp;amp;mkt=EN-US&amp;amp;scft=DSA...hfC&amp;amp;contextid=7F...D6&amp;amp;mkt=EN-US&amp;amp;uiflavor=host&amp;amp;id=27...69&amp;amp;uaid=78...e6&amp;amp;client_id=00...42&amp;amp;rd=none&amp;amp;scope=&amp;amp;cscope=onedrive.readonly+wl.signin  最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数：  POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code=M9...5e-b...a-e...5-6685-d...06&amp;amp;grant_type=authorization_code   在OneDrive API中使用获得的访问令牌：  参考 Getting started with OneDrive API</description>
+    </item>
+    
+    <item>
+      <title>Hello Microsoft OneDrive API</title>
+      <link>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</link>
+      <pubDate>Wed, 12 Oct 2016 06:14:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</guid>
+      <description>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
+测试源 为了省事，就用我自己私人的OneDrive做测试吧。获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&amp;rdquo;050709大同&amp;rdquo;子目录，该子目录的id为&amp;rdquo;712B21FCE8E08C92!112&amp;rdquo;。从整个响应内容可知，根目录包含&amp;rdquo;文档&amp;rdquo;子目录，其id为&amp;rdquo;712B21FCE8E08C92!442&amp;rdquo;。
+查看Drive &amp;ldquo;文档&amp;rdquo;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
+获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
+参考 Develop with the OneDrive API</description>
+    </item>
+    
+    <item>
+      <title>比较OneDrive、OneDriveforBusiness和Office365</title>
+      <link>https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/</link>
+      <pubDate>Tue, 11 Oct 2016 05:43:57 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/</guid>
+      <description>OneDrive与OneDrive for Business的区别 OneDrive与OneDrive for Business名字接近，如果认为是个人版和商业版的区别，OneDrive forBusiness在OneDrive基础上增加一些商业高级功能，那就没有正确理解二者的区别。
+ OneDrive（以前称之为SkyDrive）是微软提供的云端私人存储，通过Microsoft账户或Outlook.com获得。使用OneDrive在云上存储文档、图片和其他文件，可以共享给好友，甚至内容协作。可以随意决定你自己的使用方式。 OneDrive forBusiness是用于商业目的的在线存储，它既可以在微软云上也可以在组织/企业的SharePoint服务器上。OneDrive forBusiness是Office365或SharePoint服务器的主要组成部分，提供存储、共享和同步团队或项目工作文档的地方。你的OneDrive forBusiness由你的工作组织/企业管理，以便进行工作文档协作。你的工作组织/企业的网站集管理员控制你对文档库的权限。  功能桌面同步- Windows PC- Mac OS(Soon)移动应用- Windows Tablet- Android- iOS- Windows Phone- XBox在浏览器内创建/编辑Office文档与桌面版Office 集成实时协同编辑Office文档文档版本和历史信息- 简单自动创建版本和版本恢复- 版本管理(主次版本或仅主版本，手动创建版本需要checkout选项和其他高级版本选项)多重身份认证支持审计与报告用于细颗粒度控制的高级管理功能
+审批工作流使用SharePoint Designer创建定制工作流对文档创建列添加自己的元数据高级安全管理对内容创建视图(可保存视图、过滤器等等)创建列表进行数据管理(通告、任务、联系人等等)保留策略(取决于SharePoint计划)文档模板eDiscoverySharePoint提供的功能SSO/ADFS/Directory同步支持内建标准一致性存储容量5GB/15GB1TB/5TB Office 365 Office 365是一套用于个人、教育或商业活动的云服务。商业和企业计划可提供一套提高生产效率的产品。使用Office365，可以获得的Office应用(Word、Excel、PowerPoint、OneNote、Outlook和Publisher)，以及50GB邮箱容量、用于企业即时消息、音视频电话和web会议的Skypefor Business、作为企业社交网络的Yammer、用于文件管理的SharePoint及1TB的OneDrive存储。
+参考 OneDrive for Business vs OneDrive – Know the difference
+OneDrive, OneDrive for Business, and Office 365: What’s Best?
+What is OneDrive for Business?
+Ultimate Guide in choosing between OneDrive, OneDrive for Business and Office 365</description>
+    </item>
+    
+    <item>
+      <title>在线文档/存储 API/SDK</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%AD%98%E5%82%A8_apisdk/</link>
+      <pubDate>Mon, 10 Oct 2016 06:08:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%AD%98%E5%82%A8_apisdk/</guid>
+      <description>本博文是社交媒体API/SDK的姊妹篇。
+社交媒体API编程平台/语言OneDrive Filepicker SDK:
+快速下载或链接在OneDrive中的文件，或将文件保存到OneDrive官方:
+AndroidiOS （使用UIDocumentPicker约定）Web /JavaScriptWindows（使用FileOpenPicker或 FileSavePicker）
+OneDrive APISDK:
+操作OneDrive上的文件，无需处理认证、JSON解析、HTTP连接等细节官方:
+Windows .NET / C#/ XamariniOSPython（目前不支持OneDrive for Business）AndroidGoogle SheetsAPI SDK:
+访问和更新Google电子表格官方:
+AndroidGoiOSJavaJavaScript.NETNode.jsPHPPythonRubyGoogle Drive APISDK:
+在移动/web应用中读、写和同步在Google Drive上的文件官方:
+AndroidGoiOS (Object-C&amp;amp; Swift)JavaJavaScript.NETNode.jsPHPPythonRubyDropbox API SDK:
+操作Dropbox上的文件官方:
+.NETJavaJavaScriptPythonSwiftObjective-C社区:
+AndroidGoJavaJavaScriptObjective-CNode.jsPHPSwiftBox API SDK:
+操作Box上的文件官方:
+Java.NETNode.jsPythonRubyChromeSalesforceIOSAndroidWindows(Mobile)iCloud APISDK:
+操作iCloud上的资源官方:
+CloudKit JS库CloudKitSwift库CloudKitObjective-C库社区:
+PythonJavaAmazonDrive API :
+操作Amazon Drive上的文件 </description>
+    </item>
+    
+    <item>
+      <title>使用Tableau导入Google Analytics</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8tableau%E5%AF%BC%E5%85%A5google_analytics/</link>
+      <pubDate>Thu, 06 Oct 2016 06:03:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8tableau%E5%AF%BC%E5%85%A5google_analytics/</guid>
+      <description> 配置界面 Date Range配置选项 Segment配置选项 Dimension配置选项 Measure Group配置选项 Measure配置选项 </description>
+    </item>
+    
+    <item>
+      <title>Dropbox API访问速率限制</title>
+      <link>https://mryqu.github.io/post/dropbox_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link>
+      <pubDate>Wed, 05 Oct 2016 06:06:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/dropbox_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid>
+      <description>Dropbox的Data ingress guide介绍了关于Dropbox API访问速率限制。 错误Status code: 429 (Too ManyRequests)用于表示API访问速率超限，如果响应包内容为JSON，则包含too_many_requests或too_many_write_operations值进行更进一步说明。 关联用户的应用，访问速率限制仅适用于每用户。一个用户关联多个应用，各应用互不影响。 关联团队的应用当调用商业端点（BusinessEndpoint），访问速率限制仅适用于每个团队。如果应用有团队成员文件访问权限但是正在调用用户端点（UserEndpoint），访问速率限制仅适用于每个团队成员。这意味着，对于关联团队的应用，一个团队关联多个应用，各应用互不影响；单个应用代表多个团队成员的请求，也不会影响团队成员彼此的访问速率限制。 超过速率限制后的响应包含一个Retry-After头，提供按秒计的等待间隔值，应用在这段时间内不应重试请求以免再获得速率限制响应。 Dropbox不会公布其API速率限制值，开发时要假设Dropbox会在今后调整其API速率限制。</description>
+    </item>
+    
+    <item>
+      <title>Hello Dropbox API</title>
+      <link>https://mryqu.github.io/post/hello_dropbox_api/</link>
+      <pubDate>Tue, 04 Oct 2016 05:53:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_dropbox_api/</guid>
+      <description>本博文用来记录一下粗略体验Dropbox关于用户、文件、共享三方面API的过程。
+准备环境 还是用我私人的Dropbox做测试，所以只显示Public目录下的东东了。 用户类API测试 方法get_current_account测试 方法get_account测试 方法get_space_usage测试 文件类API测试 方法list_folder测试 方法list_folder其实是列举文件和目录，而且是分层的。如果path没设，则显示根目录下的元素。
+方法get_metadata测试 方法get_metadata用于获取一个元素（文件/目录）的元数据。
+方法create_folder测试 方法get_preview测试 方法get_preview仅支持 .doc、 .docx、 .docm、 .ppt、 .pps、 .ppsx、 .ppsm、.pptx、.pptm、 .xls、 .xlsx、 .xlsm、.rtf文件类型。就我的测试而言，没看出跟下面的download方法有多大区别。
+这里尝试了一下path的其他使用方式。除了最常规的文件路径外，path参数还可以使用id或rev。
+方法download测试 方法search测试 方法upload测试 方法delete测试 方法delete用于删除一个元素（文件/目录）。
+方法permanently_delete测试 方法permanently_delete是支持Dropbox商业应用，而我的是开发应用，因而测试失败。
+共享类API测试 方法share_folder测试 方法list_folders测试 方法unshare_folder测试 方法unshare_folder使用的是异步任务的方式，需要通过下列的方法check_job_status查询任务进度及结果。
+方法check_job_status测试 方法create_share_link测试 share_folder可以通过邮件或Dropbox账户的方式分享给其他Dropbox用户，而share_link甚至可以共享给没有安装Dropbox的使用者。
+方法get_share_links测试 方法get_shared_link_file测试 方法revoke_shared_link测试 revoke_shared_link竟然不返回结果，查证文档后确实如此。
+学习总结 Dropbox关于文件共享方面的API占比相对OneDrive、Google Drive要多一些。 Dropbox API相对OneDrive、GoogleDrive而言，成熟度更低。按照REST的Richardson成熟度模型来说仅在2-级别，它的REST资源还是动词，例如get_metadata、check_job_status。
+参考 Dropbox
+Dropbox API v2 for HTTP Developers
+Dropbox API Explorer</description>
+    </item>
+    
+    <item>
+      <title>Dropbox认证和登录</title>
+      <link>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
+      <pubDate>Mon, 03 Oct 2016 05:44:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
+      <description>为Dropbox申请自己的应用 Dropbox OAuth Guide提到：对于命令行或桌面应用，没办法让浏览器重定向回你的应用。这种情况下，你的应用无需包含redirect_uri参数。Dropbox将向用户显示认证码，以用于复制到你的应用来获得可重用的访问令牌。基于此，对于桌面应用，redirect_uri不用设置；对于web应用，我选择了http://localhost以便测试。Dropbox网站没有提及urn:ietf:wg:oauth:2.0:oob。 Dropbox认证 Token Flow测试 HTTP GET请求如下：
+https://www.dropbox.com/oauth2/authorize?client_id=**3t...hi**&amp;amp;redirect_uri=http://localhost&amp;amp;response_type=token&amp;amp;state=dsxoekdmpyt  成功跳转到如下URI：
+http://localhost/#access_token=  连App secret都不用，仅凭App Key就可以获得访问令牌！看来还是认证码方式更安全一些。最后把应用的Allowimplicit grant选项改成Disallow以确保安全。
+Code Flow测试 HTTP GET请求如下：
+https://www.dropbox.com/oauth2/authorize?client_id=3t...hi&amp;amp;response_type=code&amp;amp;state=wecidskklsxpxl123  请求用户授权：显示认证码：获取访问令牌的HTTP POST请求包含上面获得的code参数：
+POST https://api.dropboxapi.com/1/oauth2/token Content-Type: application/x-www-form-urlencoded Cache-Control: no-cache code=oV...9I&amp;amp;amp;client_id=3t...hi&amp;amp;amp;client_secret=j...7&amp;amp;amp;grant_type=authorization_code  参考 Dropbox API
+Dropbox OAuth Guide
+Dropbox authorize API
+Dropbox token API</description>
+    </item>
+    
+    <item>
+      <title>Tableau不支持导入OneDrive文件？</title>
+      <link>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 02 Oct 2016 05:39:38 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</guid>
+      <description>没有发现Tableau的Microsoft OneDrive连接器，OData连接器和WebData连接器都不成。查了一下Tableau社区，就寥寥无几的几个帖子提到OneDrive。其中一个帖子提到了Using OneDrive as a Tableau Data Source。这个博文在2015年5月提到Tableau还不支持直连OneDrive上的文件，建议用OneDrive SyncApp同步到Tableau服务器上再导入。 貌似现在还是如此！！</description>
+    </item>
+    
+    <item>
+      <title>使用Tableau导入Google Sheets</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8tableau%E5%AF%BC%E5%85%A5google_sheets/</link>
+      <pubDate>Sat, 01 Oct 2016 06:02:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8tableau%E5%AF%BC%E5%85%A5google_sheets/</guid>
+      <description>尝试一下用Tableau导入Google Sheets，操作过程中没看到配置项，比较简洁。
+用Google账户授权Tableau 显示所有电子表格 选择一个电子表格 导入一个电子表格 参考 Connect Directly to Google Sheets in Tableau 10
+Tableau connector examples</description>
+    </item>
+    
+    <item>
+      <title>在Google API中使用访问令牌的三种方式</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8google_api%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Thu, 29 Sep 2016 05:33:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8google_api%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/</guid>
+      <description>在Google Developers OAuth 2.0 playground 中设置OAuth2.0配置时，可以发现有一个访问令牌位置的选择框，其值为： - Authorization header w/ OAuth prefix - Authorization header w/ Bearer prefix - Access_token URL parameter
+按照前面博文《Google Sheets API认证和鉴权 》中的方法生成一个访问令牌。下面我就用这个访问令牌对这三种使用方式进行一下尝试。
+认证头使用OAuth前缀 认证头使用Bearer前缀 使用access_token URL参数 结论：这三种访问令牌位置的使用都工作正常，API结果相同！</description>
+    </item>
+    
+    <item>
+      <title>Hello Google Sheets API</title>
+      <link>https://mryqu.github.io/post/hello_google_sheets_api/</link>
+      <pubDate>Wed, 28 Sep 2016 06:00:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_google_sheets_api/</guid>
+      <description>准备环境 首先在Google Sheets创建了SpreadSheetTest1和To-do list两个电子表格，以备使用。 API测试 方法spreadsheets.get测试 方法spreadsheets.get可以获得一个电子表格中所有表单的内容和元数据。 下面是用Postman进行同样操作： 方法spreadsheets.values.get测试 方法spreadsheets.values.get可以获得一个电子表格中所有表单的内容。 方法spreadsheets.create测试 方法spreadsheets.create可以创建一个新的电子表格。 查看GoogleSheets，也可以看到新创建的电子表格SpreadSheetCreate1。由于我的请求里没有数据，因此下图中数据区也是空空。 方法spreadsheets.values.append测试 方法spreadsheets.values.append可以向电子表格中添加内容。 查看Google Sheets，也可以看到刚才创建的电子表格SpreadSheetCreate1有了九个单元格新数据。 学习结论 Google Sheets API可以创建、读取和修改电子表格，但是没有找到删除电子表格的方法。 Google SheetsAPI可以创建、读取、修改和删除一个电子表格内容，例如方法spreadsheets.batchUpdate中deleteSheet就可以删除一个表单，而deleteDimension就可以删除一个表单中的行/列。
+参考 Google Sheets
+Google Sheets API
+Google API Explorer: Sheets</description>
+    </item>
+    
+    <item>
+      <title>Google Sheets API认证和鉴权</title>
+      <link>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</link>
+      <pubDate>Tue, 27 Sep 2016 05:44:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</guid>
+      <description>玩一把用于Google Sheets API的OAuth2认证，以获得用于Sheets API的访问令牌。
+注册Google Sheets应用 首先在Google API Console注册一个应用： Google Sheets API鉴权  用于用户登录的HTTPGET请求如下（scope选择了profile、对文件元数据和内容只读访问、对表单和属性只读访问）：  GET https://accounts.google.com/o/oauth2/v2/auth? scope=https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive.readonly profile&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; response_type=code&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com  首先要求用户登录：要求登录后用户的授权：返回页面包含授权码： 获取访问令牌的HTTPPOST请求包含上面获得的授权码（在创建Google应用时获得的client_id和client_secret）： ``` POST https://www.googleapis.com/oauth2/v4/token Content-Type: application/x-www-form-urlencoded  code=4/-qpp&amp;hellip;qA&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com&amp;amp; client_secret=5&amp;hellip;r&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; grant_type=authorization_code ``` 参考 Google Sheets
+Google Sheets API
+Authorize Google Sheets API Requests
+Using OAuth 2.0 for Mobile and Desktop Applications
+Using OAuth 2.0 for Web Server Applications</description>
+    </item>
+    
+    <item>
+      <title>安装Tableau Public</title>
+      <link>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85tableau_public/</link>
+      <pubDate>Tue, 30 Aug 2016 06:18:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85tableau_public/</guid>
+      <description>Tableau Public的安装文件可在http://public.tableau.com/s/下载。 安装后创建Tableau Public账户，并进入注册所用信箱激活账户即可。
+Tableau Public可导入的服务器很有限，Tableau Desktop就丰富多了。</description>
+    </item>
+    
+    <item>
+      <title>获取Facebook User Token</title>
+      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</link>
+      <pubDate>Tue, 09 Aug 2016 05:25:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</guid>
+      <description>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。 获取Facebook App Token一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。
+参考3 Facebook Login - Advance - Manually Build a Login Flow给出了如何构建一个signURL，RestFB的getLoginDialogUrl方法就实现了这样的功能。redirectUri一开始直接想用带外认证urn:ietf:wg:oauth:2.0:oob，可是Facebook不认呀。 Facebook Login - Advance - Manually Build a Login Flow已经提到了：对于桌面应用，redirectUri必须是https://www.facebook.com/connect/login_success.html 。
+获取Facebook User Token步骤 生成signURL 生成signURL并进行Get请求：
+curl &amp;quot;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;amp;response_type=token&amp;amp;scope=public_profile&amp;quot;  可以从返回的页面中获取登录表单：认证 使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：
+curl -X POST &amp;quot;{form-action}&amp;quot; -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; --data &amp;quot;lsd={lsd_value}&amp;amp;api_key={api_key_value}&amp;amp;cancel_url={cancel_rul_value}&amp;amp;isprivate={isprivate=_value}&amp;amp;legacy_return={legacy_return_value}&amp;amp;profile_selector_ids={profile_selector_ids_value}&amp;amp;return_session={return_session_value}&amp;amp;skip_api_login={skip_api_login_value}&amp;amp;signed_next={skip_api_login_value}&amp;amp;trynum={trynum_value}&amp;amp;timezone={timezone_value}&amp;amp;lgndim={lgndim_value}&amp;amp;lgnrnd={lgnrnd_value}&amp;amp;lgnjs={lgnjs_value}&amp;amp;email={your_facebook_account}&amp;amp;pass={your_facebook_password}&amp;amp;login={login_value}&amp;amp;persistent={persistent_value}&amp;amp;default_persistent={default_persistent_value}&amp;quot;  获取User Token Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。
+https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;amp;expires_in={expire}  参考 Facebook Login - Access Tokens
+Facebook Login - Access Tokens - App Access Tokens</description>
+    </item>
+    
+    <item>
+      <title>twitcurl获取访问令牌（AccessToken和AccessTokenSecret）的实现流程</title>
+      <link>https://mryqu.github.io/post/twitcurl%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E5%92%8Caccesstokensecret%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Fri, 01 Jul 2016 05:34:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitcurl%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E5%92%8Caccesstokensecret%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</guid>
+      <description>twitterClient.cpp中有一段代码是没有AccessToken和AccessTokenSecret的情况下，通过ConsumerKey、ConsumerKeySecret、UserName和UaserPassword获取AccessToken和AccessTokenSecret。 一般实现是通过重定向到Twitter页面去授权应用，通过callbackURL获得Twitter传过来的AccessToken和AccessTokenSecret信息。twitcurl既可以通过访问twitter.com获取PIN，也可以交由twitcurl自动获得。 如果通过twitter.com处理PIN，twitcurl会提供授权链接。进入链接后输入用户名和密码，会重定向到Twitter应用的callbackURL（例如http://www.mryqu.com/test.html?oauth_token={OAuthToken}&amp;amp;oauth_verifier={OAuthVerifier} ），其中oauth_verifier值即为所谓的PIN。 下面我们看一下twitcurl是如何实现不访问twitter.com获取AccessToken和AccessTokenSecret的。 - GET https://api.twitter.com/oauth/request_tokentwitCurl::oAuthRequestToken 方法实现该HTTP请求，允许消费者应用获得一个OAuth请求令牌以请求用户授权。除了HTTP OAuth头外，twitcurl实现没有其他HTTP头，也没有消息体内容。HTTP OAuth头包含如下项： - oauth_consumer_key - oauth_nonce - oauth_signature - oauth_signature_method - oauth_timestamp - oauth_version
+通过如下HTTP响应可以获得oauth_token和oauth_token_secret，保存在oAuth对象的m_oAuthTokenKey和m_oAuthTokenSecret变量中：
+ oauth_token=XXXXXX&amp;amp;oauth_token_secret=XXXXXX&amp;amp;oauth_callback_confirmed=true   GET https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXtwitterObj.oAuthHandlePIN 方法实现该HTTP请求，获取响应页面中表单的authenticity_token和oauth_token元素的值。除了HTTP OAuth头外，twitcurl实现没有其他HTTP头，也没有消息体内容。HTTP OAuth头包含如下项：  oauth_consumer_key oauth_nonce oauth_signature oauth_signature_method oauth_timestamp oauth_token （取自上一HTTP响应） oauth_version    HTTP响应片段：- POST https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXtwitterObj.oAuthHandlePIN 方法实现该HTTP请求，允许消费者应用使用OAuth请求令牌请求用户授权。HTTP OAuth头包含如下项： - oauth_consumer_key - oauth_nonce - oauth_signature - oauth_signature_method - oauth_timestamp - oauth_token （取自上一HTTP响应） - oauth_version
+HTTP请求消息体内容为：
+ oauth_token=XXXXXX&amp;amp;authenticity_token=XXXXXX&amp;amp;session[username_or_email]=**XXXXX**X&amp;amp;session[password]=XXXXXX  HTTP响应片段：通过如下HTTP响应可以获得oauth_verifier，保存在oAuth对象的m_oAuthPin变量中。 - GET https://api.</description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之分享数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E5%88%86%E4%BA%AB%E6%95%B0/</link>
+      <pubDate>Fri, 13 May 2016 05:56:49 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E5%88%86%E4%BA%AB%E6%95%B0/</guid>
+      <description>现在Facebook帖子上有一个分享计数，下面这个湖南卫视的帖子可以看到总共有3个。 点进去可以查看这3个分享的具体情况： 使用Facebook Graph Explorer却可以得到分享数为7： 差4个分享，有点醉！ 其实我刚才刚刚用消息给朋友共享了这个帖子，由于是不是公开的，所以Facebook网页显示上是不计入的，但是API却是统计的。 </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之点赞数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E7%82%B9%E8%B5%9E%E6%95%B0/</link>
+      <pubDate>Thu, 12 May 2016 06:24:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E7%82%B9%E8%B5%9E%E6%95%B0/</guid>
+      <description>现在Facebook帖子上有一个心情计数，下面这个湖南卫视的帖子可以看到总共有293个。 通过Facebook Graph API获得的点赞数为275个。 示例里的帖子心情计数293包括点赞数275、大爱数13、笑趴数4、【未知表情计数】1。 这里可以看到点赞可以细分为点赞、大爱、笑趴、哇、心碎和怒这六种表情。 </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之主页名</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E4%B8%BB%E9%A1%B5%E5%90%8D/</link>
+      <pubDate>Mon, 09 May 2016 06:32:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E4%B8%BB%E9%A1%B5%E5%90%8D/</guid>
+      <description>今天Alisa同学说搜中国湖南卫视的主页报错，我一直都只是用SASsoftware和我的YquTest做的开发测试。赶紧赶过去看了一眼，实验证明搜hntvchina好使，搜中国湖南卫视就会出错。 感觉中国湖南卫视就像是hntvchina的显示名，而SASsoftware的显示名其实是SAS software。 又和小伙伴一起创建了一个主页玩玩，让我们输入的名字最后成了显示名，而真正生成的名字将空格用&amp;rdquo;-&amp;ldquo;代替然后又加了一串数字，感觉像防止主键冲突。</description>
+    </item>
+    
+    <item>
+      <title>Get comments count using Facebook Graph API</title>
+      <link>https://mryqu.github.io/post/get_comments_count_using_facebook_graph_api/</link>
+      <pubDate>Fri, 06 May 2016 05:50:38 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/get_comments_count_using_facebook_graph_api/</guid>
+      <description>通过fields参数获取评论/回复个数 通过预判评论/回复个数，以决定是否发起/{object-id}/commentsAPI请求，可以显著减少API请求个数。
+获取帖子的评论数 https://graph.facebook.com/{YOUR_PAGE_ID}/feed?fields=id,XXXX,likes.limit(0).summary(1),comments.limit(0).summary(1),XXXX,with_tags&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;include_hidden=true&amp;amp;access_token={YOUR_ACCESS_TOKEN}  获取评论的回复数 https://graph.facebook.com/{YOUR_POST_ID}/comments?fields=id,from,message,created_time,like_count,comments.limit(0).summary(1)&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;limit=100&amp;amp;since=XXXX&amp;amp;until=XXXX&amp;amp;include_hidden=true&amp;amp;access_token={YOUR_ACCESS_TOKEN}  comments.summary.total_count解读 在Facebook Graph指南中/{object-id}/comments提到了total_count数值是随filter变动的。 - filter为stream，total_count为该节点下所有评论及其回复的总数； - filter为toplevel，total_count为该节点下顶层评论/回复的总数。
+由于在我的使用场景中为设置filter，而其默认值为toplevel，则total_count为该节点下顶层评论/回复的总数。</description>
+    </item>
+    
+    <item>
+      <title>Get likes count using fields parameters in Facebook Graph API</title>
+      <link>https://mryqu.github.io/post/get_likes_count_using_fields_parameters_in_facebook_graph_api/</link>
+      <pubDate>Thu, 05 May 2016 06:02:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/get_likes_count_using_fields_parameters_in_facebook_graph_api/</guid>
+      <description>原来获得Facebook帖子/评论的点赞数，需要额外单独发送一次API请求：通过对Facebook GraphAPI中fields参数添加likes.</description>
+    </item>
+    
+    <item>
+      <title>Use proxy on RestFB</title>
+      <link>https://mryqu.github.io/post/use_proxy_on_restfb/</link>
+      <pubDate>Mon, 04 Apr 2016 06:18:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/use_proxy_on_restfb/</guid>
+      <description>曾经有人向RestFB开过issue（https://github.com/restfb/restfb/issues/116）询问如何给其设置代理，issue里回复扩展DefaultWebRequestor。下面的代码基于该方案并测试通过。
+package com.yqu.restfb; import com.restfb.DefaultFacebookClient; import com.restfb.DefaultJsonMapper; import com.restfb.FacebookClient; import com.restfb.Version; import java.io.IOException; import java.net.HttpURLConnection; import java.net.InetSocketAddress; import java.net.Proxy; import java.net.URL; public class HelloRestFBWithProxy { private static class DefaultWebRequestor extends com.restfb.DefaultWebRequestor { protected HttpURLConnection openConnection(URL url) throws IOException { HttpURLConnection httpURLConnection = null; if (useProxyFlag.booleanValue()) { InetSocketAddress proxyLocation = new InetSocketAddress( hostName, port); Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyLocation); try { httpURLConnection = (HttpURLConnection) url .openConnection(proxy); return httpURLConnection; } catch (Exception e) { return (HttpURLConnection) url.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] 给twitcurl添加访问频次限制信息获取功能</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E7%BB%99twitcurl%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%8A%9F/</link>
+      <pubDate>Thu, 24 Mar 2016 06:05:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E7%BB%99twitcurl%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%8A%9F/</guid>
+      <description>在我之前的博文Twitter API访问频次限制处理中，描述了Twitter API访问频次限制及Twitter4J对其处理。twitcurl项目并没有这样的功能，今天我将getLastRateLimitStatus功能添加到了twitcurl。 通过添加如下代码，我可以获取响应头信息：
+curl_easy_setopt( m_curlHandle, CURLOPT_HEADERFUNCTION, curlHeaderCallback ); curl_easy_setopt( m_curlHandle, CURLOPT_HEADERDATA, this );  输出的调试信息如下：
+Enter string to search: va Limit search results to: 2 twitCurl::curlHeaderCallback headers: HTTP/1.1 200 OK twitCurl::curlHeaderCallback headers: cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0 twitCurl::curlHeaderCallback headers: content-disposition: attachment; filename=json.json twitCurl::curlHeaderCallback headers: content-encoding: gzip twitCurl::curlHeaderCallback headers: content-length: 1301 twitCurl::curlHeaderCallback headers: content-type: application/json;charset=utf-8 twitCurl::curlHeaderCallback headers: date: Thu, 24 Mar 2016 04:59:41 GMT twitCurl::curlHeaderCallback headers: expires: Tue, 31 Mar 1981 05:00:00 GMT twitCurl::curlHeaderCallback headers: last-modified: Thu, 24 Mar 2016 04:59:41 GMT twitCurl::curlHeaderCallback headers: pragma: no-cache twitCurl::curlHeaderCallback headers: server: tsa_b twitCurl::curlHeaderCallback headers: set-cookie: guest_id=v1:145879558114535127; Domain=.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;]获取Facebook帖子生成的SAS时间</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96facebook%E5%B8%96%E5%AD%90%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Sat, 20 Feb 2016 06:13:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96facebook%E5%B8%96%E5%AD%90%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</guid>
+      <description>写了一个小代码分析Facebook帖子生成时间字符串，将其解析成SAS时间。 简而言之，time_t存储的是距00:00:00, Jan 1, 1970 UTC的秒数（epoch），其中tm_year存储的是当前年数减去1900；而SAS时间起始点为00:00:00, Jan 1, 1960UTC；转换主要使用difftime获取两者的时间差。
+代码如下：参考 C++: time_t
+C++: time
+C++: gmtime</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;]获取推文生成的SAS时间</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96%E6%8E%A8%E6%96%87%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Fri, 19 Feb 2016 06:07:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E8%8E%B7%E5%8F%96%E6%8E%A8%E6%96%87%E7%94%9F%E6%88%90%E7%9A%84sas%E6%97%B6%E9%97%B4/</guid>
+      <description>写了一个小代码分析推文生成时间字符串，将其解析成SAS时间。 简而言之，time_t存储的是距00:00:00, Jan 1, 1970 UTC的秒数（epoch），其中tm_year存储的是当前年数减去1900；而SAS时间起始点为00:00:00, Jan 1, 1960UTC；转换主要使用difftime获取两者的时间差。 代码如下：参考 C++: time_t
+C++: time
+C++: gmtime</description>
+    </item>
+    
+    <item>
+      <title>使用Facebook Graph API中的fields参数</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8facebook_graph_api%E4%B8%AD%E7%9A%84fields%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Fri, 15 Jan 2016 05:50:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8facebook_graph_api%E4%B8%AD%E7%9A%84fields%E5%8F%82%E6%95%B0/</guid>
+      <description>使用Facebook Graph API进行查询，v2.3和v2.4版返回结果截然不同。使用v2.3之前的FacebookGraph API获得的响应信息很详细，而使用v2.4及之后的Facebook Graph API获得的响应基本没什么信息！ 这可是相同的AccessToken呀。卖萌的话，可以说句“吓死宝宝了”。
+Using the Graph API提到可以使用fields参数选择所需字段，照着v2.3的加上了id、name、about、awards&amp;hellip;&amp;hellip; 失而复得，虚惊一场！！！
+Using the Graph API里不仅提到了选择参数，还提到可以使用字段表达式进行嵌套查询。 likes字段使用limit(1)限定其仅返回一个点赞数据，反正我还要使用GraphAPI对帖子点赞数据进行请求，返回一个点赞知道需不需要请求就好了。
+comments字段还制定了二级字段attachment、id和from。这样comments字段既不会漏了我需要的子字段，也不会多出来我不需要的字段。在上图GraphAPI Explorer中，左侧comments字段下面的”Search for afield“链接可以提示那些子字段可选，很方便。</description>
+    </item>
+    
+    <item>
+      <title>处理Twitter API访问速率超限错误</title>
+      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86twitter_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Wed, 13 Jan 2016 05:54:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86twitter_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</guid>
+      <description>与处理Facebook API访问速率超限错误需要对比好几个Facebook错误代码相比，Twitter的API访问速率超限错误只需要处理HTTP响应代码429即可，很轻松。</description>
+    </item>
+    
+    <item>
+      <title>处理Facebook API访问速率超限错误</title>
+      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86facebook_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Tue, 12 Jan 2016 06:20:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86facebook_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</guid>
+      <description>对于下列Facebook通用错误，我个人觉的#2、#4、#9、#17、#18和#32错误都可以向客户端报告FacebookAPI访问速率超限，至于#5不确定。
+|Error number|PHP Constant name|Error description|Generated by methods |&amp;mdash;&amp;ndash; |2|API_EC_SERVICE|Service temporarily unavailable|(all) |4|API_EC_TOO_MANY_CALLS|Application request limit reached|(all) |5|API_EC_BAD_IP|Unauthorized source IP address|(all) |9|API_EC_RATE|User is performing too many actions| |17|API_EC_USER_TOO_MANY_CALLS|User request limit reached| |18|API_EC_REQUEST_RESOURCES_EXCEEDED|This API call could not be completed due to resourcelimits| |32||Page request limit reached|
+参考 Rate Limiting on the Facebook Graph API
+Facebook API Error Codes for Developers</description>
+    </item>
+    
+    <item>
+      <title>SocialMedia Error Handling</title>
+      <link>https://mryqu.github.io/post/socialmedia_error_handling/</link>
+      <pubDate>Sun, 10 Jan 2016 05:57:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/socialmedia_error_handling/</guid>
+      <description>Facebook - Handling Errors https://developers.facebook.com/docs/graph-api/using-graph-api#errors
+Marketing API Error Codes https://developers.facebook.com/docs/marketing-api/error-reference
+Games Payments Error Codes https://developers.facebook.com/docs/games_payments/fulfillment/errorcodes
+List of Error Codes for Facebook&amp;rsquo;s API Facebook曾经有过错误代码列表，后来不提供了。这里提供完整错误代码列表。 http://www.fb-developers.info/tech/fb_dev/faq/general/gen_10.html
+Twitter Error Codes &amp;amp; Responses https://dev.twitter.com/overview/api/response-codes
+Google Analytics Core Reporting API - Standard Error Responses https://developers.google.com/analytics/devguides/reporting/core/v3/coreErrors#standard_errors
+YouTube YouTube API v2.0 – Understanding API Error Responses https://developers.google.com/youtube/2.0/developers_guide_protocol_error_responses
+Youtube Data API - Errors https://developers.google.com/youtube/v3/docs/errors</description>
+    </item>
+    
+    <item>
+      <title>Facebook API Endpoint URL</title>
+      <link>https://mryqu.github.io/post/facebook_api_endpoint_url/</link>
+      <pubDate>Sat, 09 Jan 2016 05:44:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_api_endpoint_url/</guid>
+      <description>阅读com.restfb.DefaultFacebookClient中的createEndpointForApiCall方法，发现有四种端点URL。
+端点URL地址说明FACEBOOK_READ_ONLY_ENDPOINT_URL
+https://api-read.facebook.com/method从官方PHP客户端抓取的只读函数列表，当API请求为如下列表项，使用该只读端点URL。
+admin.getallocationadmin.getapppropertiesadmin.getbannedusersadmin.getlivestreamvialinkadmin.getmetricsadmin.getrestrictioninfoapplication.getpublicinfoauth.getapppublickeyauth.getsessionauth.getsignedpublicsessiondatacomments.getconnect.getunconnectedfriendscountdashboard.getactivitydashboard.getcountdashboard.getglobalnewsdashboard.getnewsdashboard.multigetcountdashboard.multigetnewsdata.getcookiesevents.getevents.getmembersfbml.getcustomtagsfeed.getappfriendstoriesfeed.getregisteredtemplatebundlebyidfeed.getregisteredtemplatebundlesfql.multiqueryfql.queryfriends.arefriendsfriends.getfriends.getappusersfriends.getlistsfriends.getmutualfriendsgifts.getgroups.getgroups.getmembersintl.gettranslationslinks.getnotes.getnotifications.getpages.getinfopages.isadminpages.isappaddedpages.isfanpermissions.checkavailableapiaccesspermissions.checkgrantedapiaccessphotos.getphotos.getalbumsphotos.gettagsprofile.getinfoprofile.getinfooptionsstream.getstream.getcommentsstream.getfiltersusers.getinfousers.getloggedinuserusers.getstandardinfousers.hasapppermissionusers.isappuserusers.isverifiedvideo.getuploadlimitsFACEBOOK_GRAPH_VIDEO_ENDPOINT_URL
+https://graph-video.facebook.comAPI请求以/video或/advideos结尾FACEBOOK_ENDPOINT_URL
+https://www.facebook.comAPI请求以logout.php结尾FACEBOOK_GRAPH_ENDPOINT_URL
+https://graph.facebook.com不满足上述三种的默认URL </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之我的常用URL笔记</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8url%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 08 Jan 2016 06:20:20 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8url%E7%AC%94%E8%AE%B0/</guid>
+      <description>获取Facebook主页Id https://graph.facebook.com/v2.5/SasSoftware?access_token={accessToken}&amp;amp;format=json 上面示例是通过主页名SasSoftware获取其主页Id。
+获取Facebook主页帖子  https://graph.facebook.com/v2.5/{pageId}/feed?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}&amp;amp;since=2015-01-01&amp;amp;util=2015-12-31
+ https://graph.facebook.com/{pageId}/feed?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}&amp;amp;since=1420041660&amp;amp;util=1422634320
+ https://graph.facebook.com/v2.0/{pageId}/feed?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}&amp;amp;since=1420041660&amp;amp;util=1422634320  通过Facebook Graph API 2.5或不带版本的API仅能获取帖子的Id、创建时间和帖子内容，而FacebookGraph API 2.0则可以获得更多内容。
+获取Facebook帖子的评论信息 https://graph.facebook.com/{postId}/comments?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;access_token={accessToken}
+获取Facebook帖子的点赞信息 https://graph.facebook.com/{postId}/likes?limit=100&amp;amp;format=json&amp;amp;include_hidden=true&amp;amp;summary=true&amp;amp;access_token={accessToken}</description>
+    </item>
+    
+    <item>
+      <title>cURL错误处理</title>
+      <link>https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
+      <pubDate>Thu, 07 Jan 2016 06:08:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid>
+      <description>cURL执行错误分为两种： - 通过curl_easy_perform函数执行请求结果，返回值不是CURLE_OK。错误信息除了可以对照CURLcode定义查看，也可以通过设置CURLOPT_ERRORBUFFER设置错误缓存区获得人类易读的错误文字信息。范例见https://curl.haxx.se/libcurl/c/CURLOPT_ERRORBUFFER.html
+ curl = curl_easy_init(); if(curl) { CURLcode res; char errbuf[CURL_ERROR_SIZE]; curl_easy_setopt(curl, CURLOPT_URL, &amp;quot;http://example.com&amp;quot;); curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf); errbuf[0] = 0; res = curl_easy_perform(curl); if(res != CURLE_OK) { size_t len = strlen(errbuf); fprintf(stderr, &amp;quot;\nlibcurl: (%d) &amp;quot;, res); if(len) fprintf(stderr, &amp;quot;%s%s&amp;quot;, errbuf, ((errbuf[len - 1] != &#39;\n&#39;) ? &amp;quot;\n&amp;quot; : &amp;quot;&amp;quot;)); else fprintf(stderr, &amp;quot;%s\n&amp;quot;, curl_easy_strerror(res)); } }   另一种是curl_easy_perform返回CURLE_OK，但是HTTP响应代码为400及以上的整数。HTTP响应代码可以通过curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE,&amp;amp;httpCode)获得错误消息需要通过curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,curlCallback)获得消息体后解析而得。  </description>
+    </item>
+    
+    <item>
+      <title>为cURL库设置HTTP代理的代码片段</title>
+      <link>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link>
+      <pubDate>Wed, 06 Jan 2016 06:01:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</guid>
+      <description>在twitcurl看到cURL库设置http代理的方法，记录一下。
+void twitCurl::prepareCurlProxy() { if( m_curlProxyParamsSet ) { return; } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYUSERPWD, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYAUTH, (long)CURLAUTH_ANY ); std::string proxyIpPort(&amp;quot;&amp;quot;); if( getProxyServerIp().size() ) { utilMakeCurlParams( proxyIpPort, getProxyServerIp(), getProxyServerPort() ); } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, proxyIpPort.c_str() ); if( m_proxyUserName.length() &amp;amp;amp;&amp;amp;amp; m_proxyPassword.length() ) { std::string proxyUserPass; utilMakeCurlParams( proxyUserPass,getProxyUserName(),getProxyPassword() ); curl_easy_setopt( m_curlHandle,CURLOPT_PROXYUSERPWD,proxyUserPass.c_str() ); } m_curlProxyParamsSet = true; }  </description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API之message_tags</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8Bmessage_tags/</link>
+      <pubDate>Tue, 05 Jan 2016 06:38:10 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E4%B9%8Bmessage_tags/</guid>
+      <description>message_tag是Facebook帖子和评论中消息标记的设置档，包括标记ID、文本、类型、偏移和长度。 今天才注意到Facebook帖子（Post）中message_tag是一个JSON对象，而评论（Comment）中message_tag是一个JSON数组。
+帖子中的message_tag是这个样子的：
+&amp;quot;message_tags&amp;quot;: { &amp;quot;88&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;168597536563870&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;IBM&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 88, &amp;quot;length&amp;quot;: 3 } ], &amp;quot;93&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;241760048297&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Fidelity Investments&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 93, &amp;quot;length&amp;quot;: 20 } ], &amp;quot;115&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;145619362306025&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;ABB&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 115, &amp;quot;length&amp;quot;: 3 } ], &amp;quot;120&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;252467906271&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Quintiles&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 120, &amp;quot;length&amp;quot;: 9 } ], &amp;quot;131&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;193453547355388&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;SAS Software&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 131, &amp;quot;length&amp;quot;: 12 } ], &amp;quot;161&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;702317053131576&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Duke Energy&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 161, &amp;quot;length&amp;quot;: 11 } ], &amp;quot;174&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;313176732094295&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Toshiba Global Commerce Solutions&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 174, &amp;quot;length&amp;quot;: 33 } ], &amp;quot;209&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;20531316728&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Facebook&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;page&amp;quot;, &amp;quot;offset&amp;quot;: 209, &amp;quot;length&amp;quot;: 8 } ] }  评论中的message_tag是这个样子的：</description>
+    </item>
+    
+    <item>
+      <title>Facebook Graph API获取帖子订阅信息之limit参数</title>
+      <link>https://mryqu.github.io/post/facebook_graph_api%E8%8E%B7%E5%8F%96%E5%B8%96%E5%AD%90%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF%E4%B9%8Blimit%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Mon, 04 Jan 2016 05:30:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook_graph_api%E8%8E%B7%E5%8F%96%E5%B8%96%E5%AD%90%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF%E4%B9%8Blimit%E5%8F%82%E6%95%B0/</guid>
+      <description>不同版本Facebook Graph API对 获取帖子订阅信息中limit参数要求不同： - v2.0及以下版本没有说明 - v2.1、v2.2和v2.3版本上限为250 - v2.</description>
+    </item>
+    
+    <item>
+      <title>解决使用twitcurl.lib遇到的LNK1112和LNK2038链接错误</title>
+      <link>https://mryqu.github.io/post/%E8%A7%A3%E5%86%B3%E4%BD%BF%E7%94%A8twitcurl.lib%E9%81%87%E5%88%B0%E7%9A%84lnk1112%E5%92%8Clnk2038%E9%93%BE%E6%8E%A5%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Wed, 30 Dec 2015 14:52:38 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%A7%A3%E5%86%B3%E4%BD%BF%E7%94%A8twitcurl.lib%E9%81%87%E5%88%B0%E7%9A%84lnk1112%E5%92%8Clnk2038%E9%93%BE%E6%8E%A5%E9%94%99%E8%AF%AF/</guid>
+      <description>在使用twitcurl.lib时，遭遇下列链接错误：
+fatal error LNK1112: module machine type &#39;X86&#39; conflicts with target machine type &#39;x64&#39; libtwitcurl.lib(twitcurl.obj) : error LNK2038: mismatch detected for &#39;RuntimeLibrary&#39;: value &#39;MD_DynamicRelease&#39; doesn&#39;t match value &#39;MT_StaticRelease&#39; in xxxxx.obj  解决方法： </description>
+    </item>
+    
+    <item>
+      <title>twitcurl生成HTTP OAuth头的实现流程</title>
+      <link>https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Sun, 27 Dec 2015 06:12:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</guid>
+      <description>对twitcurl代码做了一些修改，结果遇到了认证失败的错误：
+{“errors”:[{“message”:”Could not authenticate you”,”code”:32}]}  通过继续修改twitcurl代码改正问题，学习了twitcurl的认证授权部分代码。其授权部分主要在oauthlib.h和oauthlib.cpp中的oAuth类实现中。下面主要分析一下oAuth::getOAuthHeader方法。
+外部数据 Http URL: https://api.twitter.com/1.1/search/tweets.json Http头参数:
+|参数键|参数值 |&amp;mdash;&amp;ndash; |q|va |count|23 |result_type|recent
+Http授权参数:
+|参数键|参数值 |&amp;mdash;&amp;ndash; |oauth_consumer_key|xvz1evFS4wEEPTGEFPHBog |oauth_signature_method|HMAC-SHA1 |oauth_token|370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb |oauth_version|1.0
+oAuth::getOAuthHeader方法  通过buildOAuthHttpParameterKeyValPairs(params, true,rawKeyValuePairs);对Http头参数中参数值进行百分号编码（URL编码），编码后结果放在哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent
+ 假定HTTP内容是经过百分号编码的，通过buildOAuthRawDataKeyValPairs( rawData,false, rawKeyValuePairs );找到内容中的键值对，放入哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent 通过buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin,std::string( &amp;ldquo;&amp;rdquo; ), rawKeyValuePairs, true );创建认授权证： rawKeyValuePairs: 键值说明qvacount23result_typerecentoauth_consumer_keyxvz1evFS4wEEPTGEFPHBogoauth_nonce131862295819ctwitcurl实现就是时戳项加一个随机数oauth_signature_methodHMAC-SHA1固定值oauth_timestamp1318622958oauth_token370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEboauth_version1.0固定值 通过getSignature( eType, pureUrl, rawKeyValuePairs,oauthSignature );获得签名  生成 sigBase： 使用consumer_secret和token_secret组成signing_key，使用HMAC_SHA1算法通过sigBase和signing_key生成摘要strDigest：B6 79 C0 AF 18 F4 E9 C5 87 AB 8E 20 0A CD 4E 48 A9 3F 8C B6(非真实计算而得数据) 通过base64_encode进行编码：tnnArxj06cWHq44gCs1OSKk/jLY= (非真实计算而得数据) 通过百分比编码获得最终签名：(非真实计算而得数据)  通过rawKeyValuePairs.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] Building twitcurl Library in Unix platform</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_building_twitcurl_library_in_unix_platform/</link>
+      <pubDate>Sat, 19 Dec 2015 05:47:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_building_twitcurl_library_in_unix_platform/</guid>
+      <description> Download twitcurl source from https://github.com/swatkat/twitcurl using Git client.  git clone https://github.com/swatkat/twitcurl.git  In Unix shell, cd into libtwitcurl directory. Compile all of the twitcurlsource files into object files.  g++ -Wall -fPIC -c -I. twitcurl.cpp oauthlib.cpp urlencode.cpp base64.cpp HMAC_SHA1.cpp SHA1.cpp  Building twitcurl asstatic library: Use the archive commandto build twitcurl library from object files.  ar rvs libtwitcurl.a *.o   </description>
+    </item>
+    
+    <item>
+      <title>Twitter API访问频次限制处理</title>
+      <link>https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/</link>
+      <pubDate>Tue, 10 Nov 2015 06:11:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/</guid>
+      <description>在我前面的博文社交媒体API访问频次限制中，列举了Twitter API访问频次限制。
+Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。 当向Twitter发送请求后，可以通过解析响应头来获取限制信息。该信息是基于应用/用户上下文的： - X-Rate-Limit-Limit: 对给定请求的访问速率上限 - X-Rate-Limit-Remaining: 15分钟时间窗中剩余请求数 - X-Rate-Limit-Reset: 速率限制复位前（基于UTC）的剩余时间窗秒数
+一旦对Twitter的请求超过了频次限制，Twitter将返回HTTP 429 “Too ManyRequests”响应码及如下消息体：
+{ &amp;quot;errors&amp;quot;: [ { &amp;quot;code&amp;quot;: 88, &amp;quot;message&amp;quot;: &amp;quot;Rate limit exceeded&amp;quot; } ] }  除了通过解析响应头，还可以通过向Twitter发送rate_limit_status请求获取API访问限制信息。
+Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJSONImpl类用于处理响应头中的访问限制信息： Twitter4J的TwitterResponseImpl抽象类用于存放解析过的访问限制信息以供应用程序使用： 此外，还可以注册RateLimitStatusListener监听器实例。由Twitter4J的TwitterBaseImpl类可知，当解析到响应头中的API访问频次限制信息，RateLimitStatusListener监听器实例的onRateLimitStatus方法会被调用；当收到的响应码为420&amp;rdquo;Enhance Your Claim&amp;rdquo;、503 &amp;ldquo;Service Unavailable&amp;rdquo;或429 &amp;ldquo;Too ManyRequests&amp;rdquo;，RateLimitStatusListener监听器实例的onRateLimitReached方法将会被调用。</description>
+    </item>
+    
+    <item>
+      <title>社交媒体API访问频次限制</title>
+      <link>https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6/</link>
+      <pubDate>Sat, 07 Nov 2015 05:38:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6/</guid>
+      <description>Facebook API访问频次限制  Facebook Graph API访问频次限制 Facebook Marketing API访问频次限制  FAcebook Graph API允许每用户每60分钟200次API调用。Facebook MarketingAPI随广告用户级别变化。
+Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。
+Google Analytics API Limits and Quotas  Google Analytics Core Reporting API - API Limits and Quotas Google Analytics Real Time Reporting API - API Limits and Quotas Google Analytics Multi-Channel Funnels Reporting API - API Limits and Quotas
+ 每个项目每天50000个请求，可增加。
+ 每个IP 10 QPS（query per second）。
+ 在Developers Console上，该配额是指per-userlimit。默认设置为1秒1个查询，可被调整为最大值10。 如果你的应用从单个IP地址发出所有API请求，你需要考虑在每个请求中使用userIP或quotaUser参数以获取对每个用户QPS的满配额。    Understand YouTube Analytics API Quota Usage 暂时没有查到Youtube Analytics API固定配额，不过看起来查询维度对配额使用的影响更大。</description>
+    </item>
+    
+    <item>
+      <title>Spring Accessing Facebook Data Guide调试笔记</title>
+      <link>https://mryqu.github.io/post/spring_accessing_facebook_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 06 Nov 2015 05:45:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_accessing_facebook_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
+      <description>尝试Spring Accessing Facebook Data Guide时，除了要像Spring Accessing Twitter Data Guide调试笔记中那样设置代理，还碰到几个其他问题，这里记录一下。
+Null Pointer Exception 描述
+java.lang.NullPointerException: null at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51] at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51] at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:208) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at com.sun.proxy.$Proxy49.isAuthorized(Unknown Source) ~[na:na] at hello.HelloController.helloFacebook(HelloController.java:26) ~[bin/:na] at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51] at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51] at org.</description>
+    </item>
+    
+    <item>
+      <title>Spring Accessing Twitter Data Guide调试笔记</title>
+      <link>https://mryqu.github.io/post/spring_accessing_twitter_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 04 Nov 2015 05:57:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_accessing_twitter_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
+      <description>尝试Spring Accessing Twitter Data Guide时碰到几个问题，这里记录一下。
+连接超时问题 遇到I/O error on POST request for&amp;rdquo;https://api.twitter.com/oauth/request_token&amp;quot;错误:
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for &amp;quot;https://api.twitter.com/oauth/request_token&amp;quot;:Connection timed out: connect; nested exception is java.net.ConnectException: Connection timed out: connect at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:582) at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:547) at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:468) at org.springframework.social.oauth1.OAuth1Template.exchangeForToken(OAuth1Template.java:187) at org.springframework.social.oauth1.OAuth1Template.fetchRequestToken(OAuth1Template.java:115) at org.springframework.social.connect.web.ConnectSupport.fetchRequestToken(ConnectSupport.java:212) at org.springframework.social.connect.web.ConnectSupport.buildOAuth1Url(ConnectSupport.java:199) at org.springframework.social.connect.web.ConnectSupport.buildOAuthUrl(ConnectSupport.java:126) at org.springframework.social.connect.web.ConnectController.connect(ConnectController.java:226) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:497) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137) at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:775) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705) at org.</description>
+    </item>
+    
+    <item>
+      <title>Hello Spring Social LinkedIn</title>
+      <link>https://mryqu.github.io/post/hello_spring_social_linkedin/</link>
+      <pubDate>Tue, 03 Nov 2015 05:50:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_spring_social_linkedin/</guid>
+      <description>本想玩玩Spring SocialLinkedIn，看看能从LinkedIn哪里获得什么有价值的数据。可是LinkedIn现在放开的只有r_basicprofile、r_emailaddress、rw_company_admin、w_share权限，如LinkedIn developer program transition所说的不要在认证中请求r_fullprofile、r_network、r_contactinfo、rw_nus、rw_groups和w_messages权限了。 在LinkedIn API Console中可试最多的是CompaniesAPI，可是我在LinkedIn上没有公司主页可以创建。所以浅尝则止，没什么太多可分享的。
+参考 Spring Social LinkedIn Project
+Spring Social Project
+GitHub: spring-projects/spring-social-samples
+LinkedIn Developer
+LinkedIn API Console
+LinkedIn developer program transition</description>
+    </item>
+    
+    <item>
+      <title>Hello Spring Social Twitter</title>
+      <link>https://mryqu.github.io/post/hello_spring_social_twitter/</link>
+      <pubDate>Sun, 01 Nov 2015 06:03:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_spring_social_twitter/</guid>
+      <description>学习了Spring Accessing Twitter Data Guide，稍作修改，练习一下用Spring Social Twitter搜索推文。
+HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java package com.yqu.springtwitter; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  src/main/java/com/yqu/springtwitter/HelloController.java package com.yqu.springtwitter; import javax.inject.Inject; import org.springframework.social.connect.ConnectionRepository; import org.springframework.social.twitter.api.SearchResults; import org.springframework.social.twitter.api.Twitter; import org.springframework.stereotype.Controller; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RequestMethod; import org.springframework.web.bind.annotation.RequestParam; @Controller @RequestMapping(&amp;quot;/&amp;quot;) public class HelloController { private Twitter twitter; private ConnectionRepository connectionRepository; @Inject public HelloController(Twitter twitter, ConnectionRepository connectionRepository) { this.</description>
+    </item>
+    
+    <item>
+      <title>Gradle multi-project Builds on HelloSocialMedia</title>
+      <link>https://mryqu.github.io/post/gradle_multi-project_builds_on_hellosocialmedia/</link>
+      <pubDate>Thu, 22 Oct 2015 05:38:15 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gradle_multi-project_builds_on_hellosocialmedia/</guid>
+      <description>尝试对我的HelloSocialMedia演示代码集合使用Gradle的多项目构建，项目结构如下：
+HelloSocialMedia/ build.gradle settings.gradle HelloYoutubeAnalytics/ build.gradle HelloGoogleAnalytics/ build.gradle HelloTwitter4J/ build.gradle HelloRestFB/ build.gradle  settings.gradle
+rootProject.name = &#39;HelloSocialMedia&#39; include &amp;quot;HelloYoutubeAnalytics&amp;quot; include &amp;quot;HelloGoogleAnalytics&amp;quot; include &amp;quot;HelloTwitter4J&amp;quot; include &amp;quot;HelloRestFB&amp;quot; project(&amp;quot;:HelloYoutubeAnalytics&amp;quot;).name = &amp;quot;HelloSocialMedia-YoutubeAnalytics&amp;quot; project(&amp;quot;:HelloGoogleAnalytics&amp;quot;).name = &amp;quot;HelloSocialMedia-GoogleAnalytics&amp;quot; project(&amp;quot;:HelloTwitter4J&amp;quot;).name = &amp;quot;HelloSocialMedia-Twitter4J&amp;quot; project(&amp;quot;:HelloRestFB&amp;quot;).name = &amp;quot;HelloSocialMedia-RestFB&amp;quot;  build.gradle
+buildscript { repositories { mavenCentral() } } subprojects { apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 }  HelloYoutubeAnalytics/build.</description>
+    </item>
+    
+    <item>
+      <title>Hello RestFB</title>
+      <link>https://mryqu.github.io/post/hello_restfb/</link>
+      <pubDate>Wed, 21 Oct 2015 05:55:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_restfb/</guid>
+      <description>RestFB是一个简单灵活的Facebook图谱API和REST客户端Java库。本演示用它来获取一个Facebook主页下的帖子、评论及回复。
+获取Facebook AccessToken 示例代码 package com.yqu.restfb; import java.util.List; import com.restfb.Connection; import com.restfb.DefaultFacebookClient; import com.restfb.FacebookClient; import com.restfb.Parameter; import com.restfb.Version; import com.restfb.types.Comment; import com.restfb.types.Page; import com.restfb.types.Post; public class HelloRestFB { public static void main(String[] args) { FacebookClient facebookClient = new DefaultFacebookClient( MY_ACCESS_TOKEN, Version.VERSION_2_5); Page pageInfo = (Page) facebookClient.fetchObject(&amp;quot;YquTest&amp;quot;, Page.class, new Parameter[0]); Connection postConnection = facebookClient.fetchConnection( pageInfo.getId() + &amp;quot;/feed&amp;quot;, Post.class, new Parameter[] { Parameter.with(&amp;quot;limit&amp;quot;, 10), Parameter.with(&amp;quot;include_hidden&amp;quot;, &amp;quot;true&amp;quot;) }); if (postConnection.getData().size() &amp;lt;= 0) { System.</description>
+    </item>
+    
+    <item>
+      <title>Twitter的高级搜索和过滤功能</title>
+      <link>https://mryqu.github.io/post/twitter%E7%9A%84%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E5%92%8C%E8%BF%87%E6%BB%A4%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Tue, 20 Oct 2015 06:08:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter%E7%9A%84%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E5%92%8C%E8%BF%87%E6%BB%A4%E5%8A%9F%E8%83%BD/</guid>
+      <description>刚接触Twitter的搜索功能，以为仅能用关键字搜索推文。后来才知道，Twitter搜索不仅支持关键字的与或非逻辑处理，还能根据日期、地理位置、推文是否有链接、图像、视频、转推、回复等条件进行过滤。例如：
+ 即包含&amp;rdquo;andrew&amp;rdquo;又包含&amp;rdquo;2015&amp;rdquo;的推文``` https://twitter.com/search?q=andrew 2015&amp;amp;src=typd   - 完全匹配&amp;quot;andrew 2015&amp;quot;的推文``` https://twitter.com/search?q=&amp;quot;andew 2015&amp;quot;&amp;amp;src=typd   包含&amp;rdquo;andrew&amp;rdquo;或&amp;rdquo;2015&amp;rdquo;的中文推文``` https://twitter.com/search?q=andew OR 2015 lang:zh&amp;amp;src=typd   - 包含&amp;quot;andrew&amp;quot;的推文（包括转推）``` https://twitter.com/search?q=andrew include:retweets&amp;amp;src=typd   包含&amp;rdquo;andrew&amp;rdquo;的推文（不包括转推）``` ttps://twitter.com/search?q=andrew exclude:retweets&amp;amp;src=typd   - 包含&amp;quot;andrew&amp;quot;且有URL链接的推文``` https://twitter.com/search?q=andrew filter:links&amp;amp;src=typd   包含&amp;rdquo;andrew&amp;rdquo;且没有URL链接的推文``` https://twitter.com/search?q=andrew -filter:links&amp;amp;src=typd  ```
+参考 Twitter Advanced Search
+Using Twitter Advanced Search
+How to Master Twitter Search: Basic Boolean Operators and Filters</description>
+    </item>
+    
+    <item>
+      <title>Hello Twitter4J</title>
+      <link>https://mryqu.github.io/post/hello_twitter4j/</link>
+      <pubDate>Mon, 19 Oct 2015 06:10:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_twitter4j/</guid>
+      <description>Twitter4J是Twitter API的第三方Java库。本演示用它通过关键字搜索推文。
+获取Twitter应用证书 示例代码
+package com.yqu.twitter4j; import twitter4j.Query; import twitter4j.QueryResult; import twitter4j.Status; import twitter4j.Twitter; import twitter4j.TwitterFactory; public class HelloTwitter4J { // I18NOK:CLS public static void main(String[] args) { try { // The factory instance is re-useable and thread safe. Twitter twitter = TwitterFactory.getSingleton(); Query query = new Query(&amp;quot;夏洛特烦恼&amp;quot;); query.setLang(&amp;quot;zh&amp;quot;); query.setCount(10); QueryResult result = twitter.search(query); for (Status status : result.getTweets()) { System.out.println(status.getCreatedAt()+&amp;quot;:&amp;quot;+status.getText()); } } catch (Exception e) { e.printStackTrace(); } } }  twitter.</description>
+    </item>
+    
+    <item>
+      <title>Hello Youtube Analytics</title>
+      <link>https://mryqu.github.io/post/hello_youtube_analytics/</link>
+      <pubDate>Sat, 17 Oct 2015 06:10:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_youtube_analytics/</guid>
+      <description>Google Credential设置见我之前的博文解决 &amp;ldquo;Access Not Configured. The API (YouTube Analytics API) is not enabled for your project.&amp;rdquo;。
+示例代码：
+package com.yqu.yt; import java.io.IOException; import java.io.PrintStream; import java.math.BigDecimal; import java.util.List; import com.google.api.client.auth.oauth2.Credential; import com.google.api.client.googleapis.auth.oauth2.GoogleCredential; import com.google.api.client.http.HttpTransport; import com.google.api.client.http.javanet.NetHttpTransport; import com.google.api.client.json.JsonFactory; import com.google.api.client.json.jackson2.JacksonFactory; import com.google.api.services.youtube.YouTube; import com.google.api.services.youtube.model.Channel; import com.google.api.services.youtube.model.ChannelListResponse; import com.google.api.services.youtubeAnalytics.YouTubeAnalytics; import com.google.api.services.youtubeAnalytics.model.ResultTable; import com.google.api.services.youtubeAnalytics.model.ResultTable.ColumnHeaders; import com.google.common.collect.Lists; public class HelloYoutubeAnalytics { //I18NOK:CLS private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport(); private static final JsonFactory JSON_FACTORY = new JacksonFactory(); private static YouTube youtube; private static YouTubeAnalytics analytics; public static void main(String[] args) { // These scopes are required to access information about the // authenticated user&#39;s YouTube channel as well as Analytics // data for that channel.</description>
+    </item>
+    
+    <item>
+      <title>解决&#34;Access Not Configured. The API (YouTube Analytics API) is not enabled for your project.&#34;</title>
+      <link>https://mryqu.github.io/post/%E8%A7%A3%E5%86%B3_access_not_configured._the_youtube_analytics_api_is_not_enabled_for_your_project/</link>
+      <pubDate>Fri, 16 Oct 2015 06:32:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%A7%A3%E5%86%B3_access_not_configured._the_youtube_analytics_api_is_not_enabled_for_your_project/</guid>
+      <description>在用Google Developers OAuth 2.0 Playground试用Google YoutubeAnalytics API时总是返回下列403 Forbidden错误:
+{ &amp;quot;code&amp;quot; : 403, &amp;quot;errors&amp;quot; : [ { &amp;quot;domain&amp;quot; : &amp;quot;usageLimits&amp;quot;, &amp;quot;message&amp;quot; : &amp;quot;Access Not Configured. The API (YouTube Analytics API) is not enabled for your project. Please use the Google Developers Console to update your configuration.&amp;quot;, &amp;quot;reason&amp;quot; : &amp;quot;accessNotConfigured&amp;quot;, &amp;quot;extendedHelp&amp;quot; : &amp;quot;https://console.developers.google.com&amp;quot; } ], &amp;quot;message&amp;quot; : &amp;quot;Access Not Configured. The API (YouTube Analytics API) is not enabled for your project. Please use the Google Developers Console to update your configuration.</description>
+    </item>
+    
+    <item>
+      <title>Use proxy on Google Analytics API</title>
+      <link>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</link>
+      <pubDate>Fri, 09 Oct 2015 05:34:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</guid>
+      <description>使用Google API创建HTTP传输层是这样子的，没有可以传入代理的地方。
+HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();  仔细研究一下com.google.api.client.googleapis.javanet.GoogleNetHttpTransport，发现其实现是使用com.google.api.client.http.javanet.NetHttpTransport.Builder生成一个com.google.api.client.http.javanet.NetHttpTransport对象。com.google.api.client.http.javanet.NetHttpTransport.Builder和com.google.api.client.http.javanet.NetHttpTransport是都支持代理的。不用GoogleNetHttpTransport这个封装，直接对com.google.api.client.http.javanet.NetHttpTransport.Builder设置代理即可生成使用代理的HttpTransport对象。
+Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(&amp;quot;XXXX&amp;quot;, 80)); HttpTransport httpTransport = new NetHttpTransport.Builder().setProxy(proxy). trustCertificates(GoogleUtils.getCertificateTrustStore()).build();  </description>
+    </item>
+    
+    <item>
+      <title>获取Facebook App Token</title>
+      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_app_token/</link>
+      <pubDate>Thu, 08 Oct 2015 06:06:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_app_token/</guid>
+      <description>今天看了一下如何用Facebook的App Id和App Secret获取App Token。
+可以使用RestFB，一行搞定：
+FacebookClient.AccessToken ac = new DefaultFacebookClient(Version.LATEST) .obtainAppAccessToken(appId, appSecret);  curl命令也超简单：
+curl &amp;quot;https://graph.facebook.com/v2.5/oauth/access_token?client_id={appId}&amp;amp;client_secret={appSecret}&amp;amp;grant_type=client_credentials&amp;quot;  我的一个Facebook应用YquTest如下： 通过其App Id和App Secret进行实验，获得结果可以用上一篇博文Facebook开发调试工具提到的访问口令工具验证，完全一致！
+参考 Facebook Login - Access Tokens
+Facebook Login - Access Tokens - App Access Tokens</description>
+    </item>
+    
+    <item>
+      <title>Facebook开发调试工具</title>
+      <link>https://mryqu.github.io/post/facebook%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 07 Oct 2015 07:13:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/facebook%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</guid>
+      <description>Facebook开发调试工具大体位于https://developers.facebook.com/tools-and-support/下。 - 访问口令工具:这里所提供的用户口令便于测试应用，会过期。应用口令不会过期，应该秘密存储。- 图谱API探索工具:测试图谱API或FQL查询。- JS JDK控制台: 可以加载FacebookJS库，执行HTML代码- URL调试器:可以让Facebook的爬虫抓取你的网站，看看你的网站在Facebook被共享时的模样。这里面我用的最多的是图谱API探索工具，其次就是看图谱API参考文档了。</description>
+    </item>
+    
+    <item>
+      <title>Hello Google Analytics</title>
+      <link>https://mryqu.github.io/post/hello_google_analytics/</link>
+      <pubDate>Mon, 28 Sep 2015 05:57:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_google_analytics/</guid>
+      <description>Google Credential设置见我之前的博文Google Analytics API Error 403: &amp;ldquo;User does not have any Google Analytics Account&amp;rdquo;。
+示例代码：
+package com.yqu.ga; import java.io.File; import java.io.IOException; import java.io.InputStream; import java.util.List; import com.google.api.client.googleapis.auth.oauth2.GoogleCredential; import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport; import com.google.api.client.http.HttpRequest; import com.google.api.client.http.HttpRequestInitializer; import com.google.api.client.http.HttpTransport; import com.google.api.client.json.JsonFactory; import com.google.api.client.json.gson.GsonFactory; import com.google.api.services.analytics.Analytics; import com.google.api.services.analytics.AnalyticsScopes; import com.google.api.services.analytics.model.Accounts; import com.google.api.services.analytics.model.GaData; import com.google.api.services.analytics.model.GaData.ColumnHeaders; import com.google.api.services.analytics.model.GaData.Query; import com.google.api.services.analytics.model.Profiles; import com.google.api.services.analytics.model.Webproperties; public class HelloAnalytics { // I18NOK:CLS private static enum AuthType { SERVICE_ACCOUNT, SERVICE_ACCOUNT_P12, OAUTH }; protected static final String APPLICATION_NAME = &amp;quot;Hello Analytics&amp;quot;; protected static final JsonFactory JSON_FACTORY = GsonFactory .</description>
+    </item>
+    
+    <item>
+      <title>Twitter开发调试工具</title>
+      <link>https://mryqu.github.io/post/twitter%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Sun, 27 Sep 2015 05:58:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</guid>
+      <description>Twitter开发调试工具主要位于https://dev.twitter.com/下。
+ API status: 显示Twitter API可用性和性能[](http://photo.blog.sina.com.cn/showpic.html#blogid=72ef7bea0102w3q5&amp;amp;url=http://album.sina.com.cn/pic/0026uWfMgy71J0epHONd1)![Twitter开发调试工具](/images/2015/9/0026uWfMgy71J0jgKtO60.jpg) API参考文档 API控制台工具：测试TwitterAPI 管理自己的应用：对自己的应用进行配置  我用的最多的是API参考文档，其次是API控制台工具。</description>
+    </item>
+    
+    <item>
+      <title>SocialMedia API Policy and Terms</title>
+      <link>https://mryqu.github.io/post/socialmedia_api_policy_and_terms/</link>
+      <pubDate>Sat, 26 Sep 2015 07:01:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/socialmedia_api_policy_and_terms/</guid>
+      <description>Facebook Facebook Terms and Policies: https://www.facebook.com/policies Statement of Rights and Responsibilities: https://www.facebook.com/legal/terms Data Policy: https://www.facebook.com/about/privacy
+Twitter Twitter Terms of Service: https://twitter.com/tos?lang=en Twitter Privacy Policy: https://twitter.com/privacy?lang=en Twitter Developer Agreement: https://dev.twitter.com/overview/terms/agreement Twitter Developer Policy: https://dev.twitter.com/overview/terms/policy
+Google (Google Analytics &amp;amp; YouTube Analytics) Google APIs Terms of Service: https://developers.google.com/terms/ Google Privacy Policy: https://www.google.com/intl/en/policies/privacy/
+LinkedIn User Agreement: https://www.linkedin.com/legal/user-agreement Privacy Policy: https://www.linkedin.com/legal/privacy-policy API Terms of Use: https://developer.linkedin.com/legal/api-terms-of-use Cookies on the LinkedIn site: https://www.linkedin.com/legal/cookie_policy
+微博 开发者协议: http://open.</description>
+    </item>
+    
+    <item>
+      <title>社交媒体API/SDK</title>
+      <link>https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api_sdk/</link>
+      <pubDate>Fri, 25 Sep 2015 06:04:42 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api_sdk/</guid>
+      <description>社交媒体API编程平台/语言Facebook API:应用广告：提升应用安装量和使用率。Analytics for Apps：制定基于数据的客户和广告决策。匿名登录：用户无需分享自己的信息即可注册使用您的应用。应用邀请：方便用户直接与好友分享他们喜欢的应用。应用链接：应用间链接的开放式跨平台标准。应用盈利：Facebook 和 LiveRail 广告助您实现应用盈利。移动应用受众网络：Facebook 广告助您实现应用盈利。游戏：实现游戏跨平台，覆盖数百万Facebook玩家。Facebook 登录：方便用户跨设备注册您的应用。Messenger：扩大展示，帮助用户发现您的应用。Parse：更快速地构建强大的移动应用。分享：借助 Facebook，提升网站和应用内容的知名度。社交插件：让您的网站和应用更具社交性和吸引力的最简单方式。ThreatExchange：分享威胁信息，保障用户安全。官方:iOSAndroidUnityJavascriptPHP
+第三方:Cocos2d-xCFlashHTML5JavaJavaScriptLuaNode.jsObjective-CQtRubyUnityV-PlayWinJSTwitter API：TweetsUsersEntitiesPlaces官方:iOSAndroidOSXWebJava第三方:iOSAndroidJavaASPC++ClojureColdFusion.NETGoJavascript/node.jsLua/Corona SDKObjective-CPerlPHPPythonRubyGoogle Analytics Configuration APIs：自动执行帐户和用户配置。Management API：访问和管理帐户、媒体资源、数据视图等Google Analytics（分析）实体。Provision API：创建新的Google Analytics（分析）帐户。Google Analytics Reporting APIs：借助报告API，您可以自动化复杂的报告任务，进而节省时间。您还可以使用相应API将Google Analytics（分析）数据与您自己的业务数据整合在一起，从而获得更深入的分析数据。Core Reporting API：通过查询维度和指标来创建自定义报告。Multi-channel Funnels Reporting API：查看您用户的归因和转化路径数据。Real-time Reporting API：查看您的媒体资源上当前发生的活动。Embed API：几分钟内即可将信息中心嵌入第三方网站。Metadata API：查看 API 维度和指标列表以及属性。官方:JavaPythonPHPJavascriptLinkedIn SDK:登录LinkedIn在LinkedIn进行内容分享在用户档案上添加（学位、证书等）信息管理公司页官方:iOSAndroidJavascriptREST APIYouTube API：Youtube Play API：使用内嵌播放器在你的应用直接播放视频，定制回放体验。实际上YouTube提供的是IFRAME、Android API、iOS API、PLAYER PARAMETERS。Youtube Data API：搜索YouTube内容、上传视频、创建和管理播放列表等功能。Youtube Analytics and Reporting API：获取YouTube视频和频道的统计、流行指标等信息。Youtube Analytics API：支持生成定制YouTube分析报告的实时有针对性的查询。API提供过滤和排序参数，因此调用程序无需支持这些功能。每个API请求指定数据范围，也能获取每周和每月的数据集，调用程序无需存储获得的数据集，也无需跨数据范围汇总统计信息。Youtube Reporting API：为频道或内容所有人获取包含YouTube分析数据的一批报告。用于能够导入大数据集并进行过滤、排序、数据挖据的应用。每个报告包含预定义字段集合。开发者使用该API预定报表任务，每个任务标识YouTube所要生成的报告。YouTube生成可以异步下载的日报告。每个报告包含唯一的一天数据。YouTube Live Streaming API：预定YouTube现场直播，管理直播视频流。官方:JavaJavaScript.NETObjective-CPHPPythonDartGoNode.jsRuby微博API：粉丝服务微博评论用户关系账号收藏搜索提醒短链公共服务位置服务地理信息地图引擎支付OAuth 2.0授权官方:JavaPHPFlashPythonJavascriptC++AndroidiOSWP7Windows 8第三方:nodejsC#RubyDelphi微信移动开发微信登录微信智能接口微信支付接口接口微信网站开发微信登录微信智能接口微信公众平台：运营者通过公众号为微信用户提供资讯和服务的平台基础接口分享接口图像接口音频接口智能接口设备信息地理位置摇一摇周边界面操作微信扫一扫微信小店微信卡券微信支付数据统计接口官方:iOSAndroidWP8
+REST
+JS 在线文档/存储 API/SDK内容见在线文档/存储 API/SDK。</description>
+    </item>
+    
+    <item>
+      <title>Twitter的访问令牌（AccessToken）不过期</title>
+      <link>https://mryqu.github.io/post/twitter%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E4%B8%8D%E8%BF%87%E6%9C%9F/</link>
+      <pubDate>Wed, 23 Sep 2015 06:19:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E4%B8%8D%E8%BF%87%E6%9C%9F/</guid>
+      <description>Twitter OAuth FAQ中提到了目前Twitter访问令牌不会过期，省事了。</description>
+    </item>
+    
+    <item>
+      <title>Google Analytics之segment（分块、分割、细分）</title>
+      <link>https://mryqu.github.io/post/google_analytics%E4%B9%8Bsegment%E5%88%86%E5%9D%97%E5%88%86%E5%89%B2%E7%BB%86%E5%88%86/</link>
+      <pubDate>Tue, 22 Sep 2015 06:44:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/google_analytics%E4%B9%8Bsegment%E5%88%86%E5%9D%97%E5%88%86%E5%89%B2%E7%BB%86%E5%88%86/</guid>
+      <description>Segment是指你的GoogleAnalytics（分析）数据子集。例如，在你的整个用户群中，你可使用一个segment指定来自特定国家或城市的用户，使用另一个segment指定购买特定产品系列或访问网站上特定部分的用户。 Segment可让你隔离出这些数据子集并进行分析，从而检查并响应业务中的各个子趋势。例如，如果你发现特定地理区域的用户所购买的特定产品系列的数量低于正常水平，就可以查看是不是因为竞争对手在以更低的价格销售同类型的产品。如果是这样，你可以通过向那些用户提供忠诚度折扣来弱化竞争对手在价格方面的优势。 你还可以使用segment作为再营销受众群体的基础。例如，您可针对男装页面的访问者创建一个用户细分，然后利用重点宣传您添加到这些页面上的新产品的再营销广告系列来专门定位这些用户（再营销受众群体）。
+Segment类型 Segment代表会话子集或用户子集： - 会话子集：例如，源自广告系列 A 的所有会话；发生购买行为的所有会话 - 用户子集：例如，之前有过购买行为的用户；向其购物车添加了商品，但未完成购买的用户
+先了解一下 Google Analytics（分析）用户模型有助于了解segment的工作原理。 GoogleAnalytics（分析）用户模型由三大要素构成： - 用户 - 会话 - 用户到达您的网站资源并与之互动。所有这些用户互动都会被划组到所谓的会话中。 - 点击（Hit）-在会话中，用户会与您的网站资源互动。每次互动都被称为一次点击。这些点击包括网页浏览、事件、交易等等。
+一个用户可以有多个会话，每个会话可以有多次点击。下图直观显示了这一关系： Google Analytics（分析）用户模型
+使用Segment Segment是非破坏性的过滤器，不会更改您的基础数据。应用segment之后，它会在您浏览报告的过程中始终保持有效状态，直到您将其移除。您一次最多可以应用四个细分，并可在报告中将各个细分的结果放在一起比较。 除分析数据之外，Segment还可以用于构建再营销受众群体。 GoogleAnalytics（分析）包含预定义segment（系统segment），您可以按原样使用这些segment，也可以通过复制并修改这些segment来创建新的自定义segment。您也可以从头开始构建自己的segment。另外，您可以从 Google Analytics（分析）解决方案库导入segment，这是一个免费的市场，GoogleAnalytics（用户）可在其中分享各种segment以及开发的其他解决方案。
+Segment的定义和范围 在 Google Analytics（分析）报告中，您可以通过创建基于维度和指标的过滤器来定义segment： - 用户类型完全匹配“回访用户” - 国家/地区完全匹配“美国” - 电子商务转化率&amp;gt;“0.2%”
+除了您在过滤器中使用的维度和指标之外，您还可以为过滤器设置数据范围。您可以使用三种范围： - 点击：单次操作中的行为，例如查看网页或播放视频。 - 会话：单次会话中的行为；例如在会话过程中用户完成的目标或产生的收入。 - 用户：在所用日期范围（最多 90天）内所有会话中的行为；例如，在日期范围内的所有会话中用户完成的所有目标或产生的所有收入。
+你可以使用segment生成工具定义组成segment的过滤器。
+Segment限制 Segment需要遵守以下限制：
+Segment总数上限  每个帐户 1000个segment 每个数据视图中，每位用户 100个segment 每个数据视图，所有用户共享100个segment 这些限制适用于系统segment以及您创建或导入的所有segment。达到这些数量上限后，你就无法创建或导入更多segment。  应用于报告的segment 你一次最多可以在报告中应用4个segment。
+日期范围 使用基于用户的segment时，您在报告中应用的日期范围不能超过90天。如果您已将日期范围设置为90天以上，那么当您创建基于用户的segment时，GoogleAnalytics（分析）会从开始日期算起，将该日期范围重置为90天。 基于“第一次会话的日期”的segment的最大范围是31天。
+多渠道路径 请不要在多渠道路径报告中使用segment，你可以使用转化segment。</description>
+    </item>
+    
+    <item>
+      <title>Google Anaytics和Youtube Analytics的维度和指标</title>
+      <link>https://mryqu.github.io/post/google_anaytics%E5%92%8Cyoutube_analytics%E7%9A%84%E7%BB%B4%E5%BA%A6%E5%92%8C%E6%8C%87%E6%A0%87/</link>
+      <pubDate>Sun, 20 Sep 2015 07:05:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/google_anaytics%E5%92%8Cyoutube_analytics%E7%9A%84%E7%BB%B4%E5%BA%A6%E5%92%8C%E6%8C%87%E6%A0%87/</guid>
+      <description>Google Anaytics的维度和指标 Google Anaytics 维度和指标浏览器
+Youtube Analytics的维度和指标 Youtube Anaytics 维度 Youtube Anaytics指标
+参考 Google Anaytics Core Reporting API - 常用查询</description>
+    </item>
+    
+    <item>
+      <title>Google Analytics API Error 403: &#34;User does not have any Google Analytics Account&#34;</title>
+      <link>https://mryqu.github.io/post/google_analytics_api_error_403_user_does_not_have_any_google_analytics_account/</link>
+      <pubDate>Sat, 19 Sep 2015 06:05:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/google_analytics_api_error_403_user_does_not_have_any_google_analytics_account/</guid>
+      <description>试用Google Analytics API，使用service account的认证方式，结果它报错:“User doesnot have any Google Analytics Account”。
+解决方法：
+ 在Google开发者控制台中确认Analytics API已经使能  Service account的邮箱域为@developer.gserviceaccount.com  拥有适当的AccountID和ProfileID，并将serviceaccount（至少以读取和分析权限）添加到Google Analytics profile   参考 Google&amp;rsquo;s instructions for adding an email address to an Analytics profile</description>
+    </item>
+    
+    <item>
+      <title>Google Anaytics资料</title>
+      <link>https://mryqu.github.io/post/google_anaytics%E8%B5%84%E6%96%99/</link>
+      <pubDate>Thu, 17 Sep 2015 05:29:03 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/google_anaytics%E8%B5%84%E6%96%99/</guid>
+      <description> Google官方资料  Google Analytics（分析）帮助中心 (英文版) Google Analytics团队的博客 Avinash的Google+ Google Analytics Fundamental：有组织性的一个教程  外部资料  An introduction to Google Analytic (slideshare)：相当于一个全面的、提纲式的Google Analytics学习笔记 Google Analytics CheatSheet：制作的一个更加简练的备忘录 蓝鲸网站分析笔记：关注GoogleAnalytics应用 流量的秘密——Google Analytics网站分析与优化技巧》 Advanced Web Metrics with Google Analytics》 Google analytics-understanding Vistor Behavior》 《网站分析实战》  </description>
+    </item>
+    
+    <item>
+      <title>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</title>
+      <link>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</link>
+      <pubDate>Mon, 14 Sep 2015 06:22:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</guid>
+      <description>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
+Facebook 通过curl命令获取访问密钥：
+curl &amp;quot;https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=client_credentials&amp;quot;  Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
+Google Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
+curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Youtube Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
+curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Google drive &amp;amp; sheets 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
+curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  DropBox 首先通过浏览器访问下列链接获取code：</description>
+    </item>
+    
+    <item>
+      <title>第三方开源Facebook Java API</title>
+      <link>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</link>
+      <pubDate>Sun, 13 Sep 2015 06:14:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</guid>
+      <description>|API|许可类型|活跃度|最后更新|文档|注释 |&amp;mdash;&amp;ndash; |SpringSocial|Apache 2.0|活跃||有|良好 |RestFB|MIT|活跃||有|良好 |BatchFB|MIT|一般||有|良好 |Facebook BlackBerry SDK|MIT|停止更新|2011-8-22|无|老项目，停止更新较早 |FB4J|GPLv2|停止更新|2010-02-14|无|老项目，停止更新较早 |FB Java API|MIT|项目宣布停止|2013-2-5|有|主页建议转到RestFB |JFALibrary|GPLv3|停止更新|2011-5-22|无|很少的提交，且停止更新较早 |Javabook|Apache 2.0|停止更新|2007-9-5|有一点|项目在停止更新前未完成</description>
+    </item>
+    
+  </channel>
+</rss>

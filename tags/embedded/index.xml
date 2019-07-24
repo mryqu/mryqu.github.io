@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Embedded on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/embedded/</link>
+    <description>Recent content in Embedded on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 24 Jul 2015 05:37:23 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/embedded/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Hive] 安装Hive 1.2.x</title>
+      <link>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</link>
+      <pubDate>Fri, 24 Jul 2015 05:37:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</guid>
+      <description>我的Hadoop集群为node50064、node50069和node51054。本文的Hive和MySQL软件仅在node50064上安装。
+安装Hive-内嵌元数据存储模式 Hive驱动、元数据存储接口和数据库(derby)使用相同的JVM。元数据保持在内嵌的derby数据库，只允许一个会话连接到数据库。 下载并解压缩Hive wget http://apache.cs.utah.edu/hive/hive-1.2.x/apache-hive-1.2.x-bin.tar.gz tar -xzf apache-hive-1.2.x-bin.tar.gz sudo mv apache-hive-1.2.x-bin /usr/local/hive sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /usr/local/hive  环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;quot; export HIVE_HOME=/usr/local/hive export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$HIVE_HOME/bin  最后通过source~/.bashrc刷新配置文件。
+conf/hive-env.sh 首先通过cd $HIVE_HOME/conf;cp hive-env.sh.template hive-env.sh;chmod 774hive-env.sh创建并设置hive-env.sh执行权限。 修改后的主要部分内容如下：
+# Set HADOOP_HOME to point to a specific hadoop install directory export HADOOP_HOME=${HADOOP_HOME:-/usr/local/hadoop} # Hive Configuration Directory can be controlled by: export HIVE_CONF_DIR=/usr/local/hive/conf # Folder containing extra ibraries required for hive compilation/execution can be controlled by: export HIVE_AUX_JARS_PATH=/usr/local/hive/lib  conf/hive-site.</description>
+    </item>
+    
+  </channel>
+</rss>

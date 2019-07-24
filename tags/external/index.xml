@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>External on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/external/</link>
+    <description>Recent content in External on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 01 Aug 2015 07:00:25 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/external/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>向Consul注册/注销外部服务节点</title>
+      <link>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</link>
+      <pubDate>Sat, 01 Aug 2015 07:00:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</guid>
+      <description>已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
+docker-compose stop foo docker-compose rm foo curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;, &amp;quot;Address&amp;quot;: &amp;quot;foo.cluster.yqu.com&amp;quot;, &amp;quot;Service&amp;quot;: {&amp;quot;Service&amp;quot;:&amp;quot;foo&amp;quot;, &amp;quot;tags&amp;quot;: [&amp;quot;controller&amp;quot;], &amp;quot;port&amp;quot;: 12221}}&#39; http://localhost:8500/v1/catalog/register docker-compose restart consul  切换回系统内部过程的foo服务节点操作过程如下：
+curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul  注销foo服务节点操作过程如下：
+curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul  参考 Consul Guide：Registering An External Service</description>
+    </item>
+    
+  </channel>
+</rss>

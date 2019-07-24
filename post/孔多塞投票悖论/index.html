@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>孔多塞投票悖论 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="孔多塞投票悖论">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="孔多塞投票悖论 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%94%E5%A4%9A%E5%A1%9E%E6%8A%95%E7%A5%A8%E6%82%96%E8%AE%BA/" itemprop="url">
+        孔多塞投票悖论
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-01-20">
+    2013-01-20
+</time>
+</span> 
+      
+
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">59 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h2 id="简介">简介</h2>
+
+<p>投票悖论指的是在通过“多数原则”实现个人选择到集体选择的转换过程中所遇到的障碍或非传递性，这是阿罗的不可能定理衍生出的难题。公共选择理论对投票行为的研究假设投票是那些其福利受到投票结果影响的人们进行的，投票行为的作用是将个人偏好转化为社会偏好。在多数投票原则下，可能没有稳定一致的结果。
+投票悖论是公共选择理论中的概念，又称为循环的大多数，是指在集体投票时容易出现投票结果随投票次序的不同变化，大部分甚至全部备选方案在比较过程中都有机会轮流当选的循环现象。
+18世纪时，法国著名思想家提出了所谓的“投票悖论”，后人称其为“孔多塞投票悖论”。其描述为：设有A、B、C三个人，他们对X、Y、Z的偏好如下：
+    A： X&gt;Y&gt;Z
+    B： Y&gt;Z&gt;X
+    C： Z&gt;X&gt;Y</p>
+
+<p>如果按照社会少数服从多数的原则，对X与Y进行民主表决，那么结果如下：
+    A： X&gt;Y
+    B： Y&gt;X
+    C： X&gt;Y
+社会偏好：X&gt;Y</p>
+
+<p>因为A、C两个人都偏好X，只有一个人B偏好Y，所以根据少数服从多数原则，我们最后得到X&gt;Y的社会偏好。
+同理，我们如果再按照少数服从多数的原则，对Y与Z以及X与Z进行民主表决。通过三次选择，于是我们得到一个矛盾的社会偏好：
+   X&gt;Y；Y&gt;Z；Z&gt;X</p>
+
+<p>从上面的论述中，孔多塞认为，大众投票并不会真正传递社会偏好，投票制度并不能真正保证社会合意的结果。因为，根据常理推断，社会偏好应该具有某种传递特征。因此，大众投票并不能保证出最优的，投票从本质上不具有传递性，甚至会有某种非理性。</p>
+
+<p>同时，孔多塞悖论还给我们另一层的其实：认为设计的投票顺序和规则，可以对投票的结果产生非常重大的影响。</p>
+
+<p>例如三个女孩A、B、C一块出去吃午饭，可以选择肯德基、麦当劳、必胜客其中之一。她们的喜好如下：
+    A： 麦当劳&gt;肯德基&gt;必胜客
+    B： 肯德基&gt;麦当劳&gt;必胜客
+    C： 必胜客&gt;麦当劳&gt;肯德基</p>
+
+<p>由于偏好难以达成一致，于是三人决定投票，并定投票规则为：先在麦当劳和必胜客之间选一个，然后再在胜者和肯德基之间选一个。</p>
+
+<p>假如三人都毫无心机，那么第一轮麦当劳胜出；第二轮又将胜出。这实际上是最佳选择，也就是说麦当劳在三人中的综合评论是最高的。</p>
+
+<p>但是如果B为了达到自己的目的而动用一些策略，投票的结果将完全改变。B可以在第一轮故意投票给必胜客，淘汰掉麦当劳，必胜客胜出，第二轮肯德基铁定胜出，因此B通过策略实现了自己的最爱，但是这一结果却不符合总体的最大利益。</p>
+
+<h2 id="发展">发展</h2>
+
+<p>1972年诺贝尔经济学奖的获得者肯尼思·阿罗，在他的《社会选择与个人价值》（1951）中，证明了著名的阿罗不可能性定理，把这个投票悖论形式化了。在该书中，他运用数学工具把孔多塞的观念严格化和一般化了。那么，能不能设计出一个消除循环投票，做出合理决策的投票方案呢？</p>
+
+<h3 id="阿罗的结论">阿罗的结论</h3>
+
+<p>根本不存在一种能保证效率、尊重个人偏好、并且不依赖程序 (agenda)的多数规则的投票方案。</p>
+
+<h3 id="阿罗证明">阿罗证明</h3>
+
+<p>不存在同时满足如下四个基本公理的社会选择函数：
+1）个人偏好的无限制性，即对一个社会可能存在的所有状态，逻辑上可能的个人偏好都不应当先验地被排除；
+2）弱帕累托原则，
+3）非相关目标独立性，即关于一对社会目标的社会偏好序不受其它目标偏好序变化的影响；
+4）社会偏好的非独裁性。</p>
+
+<p>简单地说，阿罗的不可能定理意味着，在通常情况下，当社会所有成员的偏好为已知时，不可能通过一定的方法从个人偏好次序得出社会偏好次序，不可能通过一定的程序准确地表达社会全体成员的个人偏好或者达到合意的公共决策。投票悖论表明：根本不存在一种能满足阿罗五个假设条件的社会选择原理。解决投票悖论的方法是限制投票偏好，即将多峰偏好改为单峰偏好。</p>
+
+<h2 id="解决">解决</h2>
+
+<p>1998年诺贝尔经济学奖获得者阿马蒂亚·森在20世纪70年代提出对“投票悖论”的解决方法。阿马蒂亚·森所提出的解决投票悖论、绕过“阿罗不可能定理”的方法就是改变甲、乙、丙其中一个人的偏好次序，以解决投票悖论的问题。</p>
+
+<h3 id="举例">举例</h3>
+
+<p>比如将A的偏好次序从（X&gt;Y&gt;Z）改变为（X&gt;Z&gt;Y），新的偏好次序排列如下：
+A：X&gt;Z&gt;Y
+B：Y&gt;Z&gt;X
+C：Z&gt;X&gt;Y</p>
+
+<p>于是得到三个社会偏好次序——（X&gt;Y）（Z&gt;Y）（Z&gt;X），这样就能避开投票悖论，当然它却改变了A的偏好次序。</p>
+
+<h3 id="阿马蒂亚-森选择模式">阿马蒂亚·森选择模式</h3>
+
+<p>阿马蒂亚·森把这个发现加以延伸和拓展，得出了解决投票悖论的三种选择模式：
+一、所有人都同意其中一项选择方案并非是最佳；
+二、所有人都同意其中一项选择方案并非是次佳；
+三、所有人都同意其中一项选择方案并非是最差。</p>
+
+<p>阿马蒂亚·森表示在上述三种选择模式下，投票悖论不会再出现，取而代之的结果是得大多数票者获胜的规则总是能达到唯一的决定。但是有一个问题是为了追求一致性，改变、忽略、牺牲了个人偏好次序。</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：孔多塞投票悖论
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/%e6%82%96%e8%ae%ba" rel="tag" title="悖论">#悖论#</a>
+    
+    <a href="/tags/%e5%ad%94%e5%a4%9a%e5%a1%9e" rel="tag" title="孔多塞">#孔多塞#</a>
+    
+    <a href="/tags/%e6%8a%95%e7%a5%a8" rel="tag" title="投票">#投票#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/" rel="next" title="尝试了一下jacob">
+        <i class="fa fa-chevron-left"></i> 尝试了一下jacob
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/t%E5%88%86%E5%B8%83%E7%9A%84%E7%94%B1%E6%9D%A5/" rel="prev" title="t分布的由来">
+        t分布的由来 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E5%AD%94%E5%A4%9A%E5%A1%9E%E6%8A%95%E7%A5%A8%E6%82%96%E8%AE%BA/";
+this.page.identifier = "https://mryqu.github.io/post/%E5%AD%94%E5%A4%9A%E5%A1%9E%E6%8A%95%E7%A5%A8%E6%82%96%E8%AE%BA/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#发展">发展</a>
+<ul>
+<li><a href="#阿罗的结论">阿罗的结论</a></li>
+<li><a href="#阿罗证明">阿罗证明</a></li>
+</ul></li>
+<li><a href="#解决">解决</a>
+<ul>
+<li><a href="#举例">举例</a></li>
+<li><a href="#阿马蒂亚-森选择模式">阿马蒂亚·森选择模式</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

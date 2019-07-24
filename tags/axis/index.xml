@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Axis on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/axis/</link>
+    <description>Recent content in Axis on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 15 Apr 2014 21:11:08 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/axis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在R作图系统中自定义坐标轴</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/</link>
+      <pubDate>Tue, 15 Apr 2014 21:11:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/</guid>
+      <description>在R作图系统中自定义坐标轴 R作图系统中坐标中的标签默认是等间隔，下列尝试是为了将少量数据的坐标显示在坐标轴上。
+加载库并定义数据 library(lattice) library(ggplot2) library(grid) library(gridExtra) x &amp;lt;- c(1, 2, 3, 7, 8, 9) y &amp;lt;- c(1, 23, 12, 77, 14, 2) data &amp;lt;- data.frame(x = x, y = y) data  ## x y ## 1 1 1 ## 2 2 23 ## 3 3 12 ## 4 7 77 ## 5 8 14 ## 6 9 2  Base作图系统 opar &amp;lt;- par(mfrow = c(1, 2), mar = c(4, 6, 4, 2)) with(data, plot(x, y, type = &amp;quot;b&amp;quot;, main = &amp;quot;Default Axis&amp;quot;)) par(las = 1) with(data, plot(x, y, type = &amp;quot;b&amp;quot;, main = &amp;quot;customised Axis&amp;quot;, xaxt = &amp;quot;n&amp;quot;, yaxt = &amp;quot;n&amp;quot;)) axis(1, data$x) axis(2, data$y)  par(opar)  Lattice作图系统 plot1 &amp;lt;- xyplot(y ~ x, data, type = &amp;quot;b&amp;quot;, main = &amp;quot;Default Axis&amp;quot;) plot2 &amp;lt;- xyplot(y ~ x, data, type = &amp;quot;b&amp;quot;, main = &amp;quot;customised Axis&amp;quot;, scales = list(x = list(at = unlist(data$x)), y = list(at = unlist(data$y))), las = 1) grid.</description>
+    </item>
+    
+  </channel>
+</rss>

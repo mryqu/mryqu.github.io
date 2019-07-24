@@ -1,0 +1,768 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[JS] 图算法实践 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[JS] 图算法实践">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[JS] 图算法实践 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/js_%E5%9B%BE%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        [JS] 图算法实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-07-18">
+    2019-07-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">934 字 ~5分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>最近需要用JavaScript处理图算法，没找到适合的库，就自己写一套玩玩。</p>
+
+<h3 id="digraph-js">DiGraph.js</h3>
+
+<p>仿照<a href="https://algs4.cs.princeton.edu/41graph/Graph.java.html">Graph.java</a>写的，实现无向图API。</p>
+
+<pre><code>(function(){ 
+  return Graph = (function () {
+    // create empty Graph with V vertices
+    function Graph(V) {
+      this._V = V;
+      this._E = 0;
+      this._adj = [];
+      for(var i=0;i&lt;V;i++)
+        this._adj.push([]);
+    }
+
+    Object.defineProperty(Graph.prototype, &quot;V&quot;, {
+      get: function () {
+        return this._V;
+      },
+      enumerable: true,
+      configurable: true
+    });
+
+    Object.defineProperty(Graph.prototype, &quot;E&quot;, {
+      get: function () {
+        return this._E;
+      },
+      enumerable: true,
+      configurable: true
+    });
+
+    // Adds the undirected edge v-w to this graph.
+    Graph.prototype.addEdge = function (v, w) {
+      this._E++;
+      this._adj[v].push(w);
+      this._adj[w].push(v);
+    };
+
+    // Returns the vertices adjacent to vertex v
+    Graph.prototype.adj = function (v) {
+      return this._adj[v];
+    };
+
+    return Graph;
+  }());
+})();
+</code></pre>
+
+<p>测试数据使用<a href="https://algs4.cs.princeton.edu/41graph/tinyG.txt">tinyG.txt</a>，结果如下：<br />
+<img src="/images/2019/7/Graph.png" alt="Graph测试" /></p>
+
+<h3 id="cc-js">CC.js</h3>
+
+<p>仿照<a href="https://algs4.cs.princeton.edu/41graph/CC.java.html">CC.java</a>写的，使用DFS算法为无向图计算连通图。</p>
+
+<pre><code>(function(){ 
+  return CC = (function () {
+
+  // Computes the connected components of the DiGraph
+  function CC(G) {
+    this._marked = [];   // marked[v] = has vertex v been marked?
+    this._id = [];     // id[v] = id of connected component containing v
+    this._size = [];   // size[id] = number of vertices in given component
+    this._count = 0;   // number of connected components
+    for(var i=0;i&lt;G.V;i++) {
+    this._id.push(0);
+    this._size.push(0);
+    this._marked.push(false);
+    }
+
+    for(var v=0;v&lt;G.V;v++) {
+    if (!this._marked[v]) {
+      this.dfs(G, v);
+      this._count++;
+    }
+    }
+  }
+
+  // Returns the number of strong components.
+  Object.defineProperty(CC.prototype, &quot;count&quot;, {
+    get: function () {
+    return this._count;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  Object.defineProperty(CC.prototype, &quot;ids&quot;, {
+    get: function () {
+    return this._id;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  // DFS on graph G
+  CC.prototype.dfs = function (G, v) {
+    this._marked[v] = true;
+    this._id[v] = this._count;
+    this._size[this._count]++;
+
+    var adj = G.adj(v);
+    for(var i=0;i&lt;adj.length;i++) {
+    var w = adj[i];
+    if(!this._marked[w])
+      this.dfs(G, w);
+    }
+  };
+
+  // Are vertices v and w in the same connected component?
+  CC.prototype.areConnected = function (v, w) {
+    return this._id[v] === this._id[w];
+  };
+
+  // Returns the component id of the connected component containing vertex v
+  CC.prototype.id = function (v) {
+    return this._id[v];
+  };
+
+  // Returns the number of vertices in the connected component containing vertex v
+  CC.prototype.size = function (v) {
+    return this._size[v];
+  };
+
+  return CC;
+  }());
+})();
+</code></pre>
+
+<p>测试数据使用<a href="https://algs4.cs.princeton.edu/41graph/tinyG.txt">tinyG.txt</a>，结果如下：<br />
+<img src="/images/2019/7/CC.png" alt="CC测试" /></p>
+
+<p><img src="/images/2019/7/ccDiagram.png" alt="CC图示" /></p>
+
+<h3 id="digraph-js-1">DiGraph.js</h3>
+
+<p>仿照<a href="https://algs4.cs.princeton.edu/42digraph/Digraph.java.html">Digraph.java</a>写的，实现有向图API。</p>
+
+<pre><code>(function(){ 
+  return DiGraph = (function () {
+  // create empty digraph with V vertices
+  function DiGraph(V) {
+  this._V = V;
+  this._E = 0;
+  this._adj = [];
+  for(var i=0;i&lt;V;i++)
+  this._adj.push([]);
+  }
+
+  Object.defineProperty(DiGraph.prototype, &quot;V&quot;, {
+  get: function () {
+  return this._V;
+  },
+  enumerable: true,
+  configurable: true
+  });
+
+  Object.defineProperty(DiGraph.prototype, &quot;E&quot;, {
+  get: function () {
+  return this._E;
+  },
+  enumerable: true,
+  configurable: true
+  });
+
+  // add edge v→w
+  DiGraph.prototype.addEdge = function (v, w) {
+  this._adj[v].unshift(w);
+  this._E++;
+  };
+
+  // vertices pointing from v
+  DiGraph.prototype.adj = function (v) {
+  return this._adj[v];
+  };
+
+  DiGraph.prototype.reverse = function() {
+  var reverse = new DiGraph(this._V);
+  for (var v = 0; v &lt; this._V; v++) {
+  var adj = this.adj(v);
+  for(var i=0;i&lt;adj.length;i++) {
+  var w = adj[i];
+  reverse.addEdge(w, v);
+  }
+  }
+  return reverse;
+  };
+
+  return DiGraph;
+  }());
+})();
+</code></pre>
+
+<p>测试数据使用<a href="https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt">tinyDAG.txt</a>，结果如下：<br />
+<img src="/images/2019/7/DiGraph.png" alt="DiGraph测试" /></p>
+
+<h3 id="depthfirstorder-js">DepthFirstOrder.js</h3>
+
+<p>仿照<a href="https://algs4.cs.princeton.edu/42digraph/DepthFirstOrder.java.html">DepthFirstOrder.java</a>写的，为有向图计算前序和后序。</p>
+
+<pre><code>(function(){ 
+  return DepthFirstOrder = (function () {
+
+  // Determines a depth-first order for the DiGraph
+  function DepthFirstOrder(G) {
+  this._marked = [];   //marked[v] = has v been marked in dfs?
+  this._pre = [];  // pre[v]  = preorder  number of v
+  this._post = [];   // post[v]   = postorder number of v
+  this._preorder = [];   // vertices in preorder
+  this._postorder = [];  // vertices in postorder
+  this._preCounter = 0;  // counter or preorder numbering
+  this._postCounter = 0; // counter for postorder numbering
+  for(var i=0;i&lt;G.V;i++) {
+  this._marked.push(false);
+  this._pre.push(0);
+  this._post.push(0);
+  }
+
+  for (var v = 0; v &lt; G.V; v++) {
+  if (!this._marked[v])
+  this.dfs(G, v);
+  }
+  }
+
+  // Returns the vertices in pre-order.
+  Object.defineProperty(DepthFirstOrder.prototype, &quot;preorder&quot;, {
+  get: function () {
+  return this._preorder;
+  },
+  enumerable: true,
+  configurable: true
+  });
+
+  // Returns the vertices in post-order.
+  Object.defineProperty(DepthFirstOrder.prototype, &quot;postorder&quot;, {
+  get: function () {
+  return this._postorder;
+  },
+  enumerable: true,
+  configurable: true
+  });
+
+  // Returns the vertices in reverse post-order.
+  Object.defineProperty(DepthFirstOrder.prototype, &quot;reversePost&quot;, {
+  get: function () {
+  return this._postorder.reverse();
+  },
+  enumerable: true,
+  configurable: true
+  });
+  
+  // Run DFS in digraph G from vertex v and compute pre-order/post-order
+  DepthFirstOrder.prototype.dfs = function (G, v) {
+  this._marked[v] = true;
+  this._pre[v] = this._preCounter++;
+  this._preorder.push(v);
+  
+  var adj = G.adj(v);
+  for(var i=0;i&lt;adj.length;i++) {
+  var w = adj[i];
+  if(!this._marked[w])
+  this.dfs(G, w);
+  }
+  this._postorder.push(v);
+  this._post[v] = this._postCounter++;  
+  };
+  
+  // Returns the pre-order number of vertex
+  DepthFirstOrder.prototype.pre = function (v) {
+  return this._pre[v];
+  };
+  
+  // Returns the post-order number of verte
+  DepthFirstOrder.prototype.post = function (v) {
+  return this._post[v];
+  };
+  
+  return DepthFirstOrder;
+  }());
+})();
+</code></pre>
+
+<p>测试数据使用<a href="https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt">tinyDAG.txt</a>，结果如下：<br />
+<img src="/images/2019/7/DepthFirstOrder.png" alt="DepthFirstOrder测试" /></p>
+
+<h3 id="kosarajusharirscc-js">KosarajuSharirSCC.js</h3>
+
+<p>仿照<a href="https://algs4.cs.princeton.edu/42digraph/KosarajuSharirSCC.java.html">KosarajuSharirSCC.java</a>写的，使用Kosaraju-Sharir算法为有向图计算强连通图。</p>
+
+<pre><code>(function(){ 
+  // Kosaraju-Sharir algorithm implementation to compute strong components in a DiGraph (with two DFSs).
+  return KosarajuSharirSCC = (function () {
+
+  // Computes the strong components of the DiGraph
+  function KosarajuSharirSCC(G) {
+  this._id = [];    // id[v] = id of connected component containing v
+  this._marked = [];  // marked[v] = has vertex v been marked?
+  this._count = 0;    // number of strong connected components
+  for(var i=0;i&lt;G.V;i++) {
+  this._id.push(0);
+  this._marked.push(false);
+  }
+
+  // compute reverse post-order of reverse graph
+  var dfs = new DepthFirstOrder(G.reverse());
+  var reversePost = dfs.reversePost;
+  
+  // run DFS on G, using reverse postorder to guide calculation
+  for(var i=0;i&lt;reversePost.length;i++) {
+  var v = reversePost[i];
+  if (!this._marked[v]) {
+    this.dfs(G, v);
+    this._count++;
+  }
+  }
+  }
+
+  // Returns the number of strong components.
+  Object.defineProperty(KosarajuSharirSCC.prototype, &quot;count&quot;, {
+  get: function () {
+  return this._count;
+  },
+  enumerable: true,
+  configurable: true
+  });
+
+  Object.defineProperty(KosarajuSharirSCC.prototype, &quot;ids&quot;, {
+  get: function () {
+  return this._id;
+  },
+  enumerable: true,
+  configurable: true
+  });
+
+  // DFS on graph G
+  KosarajuSharirSCC.prototype.dfs = function (G, v) {
+  this._marked[v] = true;
+  this._id[v] = this._count;
+
+  var adj = G.adj(v);
+  for(var i=0;i&lt;adj.length;i++) {
+  var w = adj[i];
+  if(!this._marked[w])
+    this.dfs(G, w);
+  }
+  };
+
+  // Are vertices v and w in the same strong component?
+  KosarajuSharirSCC.prototype.stronglyConnected = function (v, w) {
+  return this._id[v] === this._id[w];
+  };
+  
+  // Returns the component id of the strong component containing vertex v
+  KosarajuSharirSCC.prototype.id = function (v) {
+  return this._id[v];
+  };
+
+  return KosarajuSharirSCC;
+  }());
+})();
+</code></pre>
+
+<p>测试数据使用<a href="https://algs4.cs.princeton.edu/42digraph/tinyDG.txt">tinyDG.txt</a>，结果如下：<br />
+<img src="/images/2019/7/KosarajuSharirSCC.png" alt="KosarajuSharirSCC测试" /></p>
+
+<p><img src="/images/2019/7/SccDiagram.png" alt="SCC图示" /></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[JS] 图算法实践
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/javascript" rel="tag" title="javascript">#javascript#</a>
+    
+    <a href="/tags/algorithm" rel="tag" title="algorithm">#algorithm#</a>
+    
+    <a href="/tags/digraph" rel="tag" title="digraph">#digraph#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/openui5_%E7%9B%91%E6%8E%A7model%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8A%A8/" rel="prev" title="[OpenUI5] 监控Model属性变动">
+        [OpenUI5] 监控Model属性变动 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/js_%E5%9B%BE%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/";
+this.page.identifier = "https://mryqu.github.io/post/js_%E5%9B%BE%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#digraph-js">DiGraph.js</a></li>
+<li><a href="#cc-js">CC.js</a></li>
+<li><a href="#digraph-js-1">DiGraph.js</a></li>
+<li><a href="#depthfirstorder-js">DepthFirstOrder.js</a></li>
+<li><a href="#kosarajusharirscc-js">KosarajuSharirSCC.js</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

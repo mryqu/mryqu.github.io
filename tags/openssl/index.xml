@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openssl on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/openssl/</link>
+    <description>Recent content in Openssl on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Mar 2015 23:05:26 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C&#43;&#43;] 编译OpenSSL和libCurl</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</link>
+      <pubDate>Sun, 01 Mar 2015 23:05:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</guid>
+      <description>准备工作 登录一台Linux服务器，并完成下列工作： - 在目录/home/mryqu/创建子目录out，在out目录下创建子目录ssl和curl； - 从OpenSSL项目下载openssl-1.0.2.tar.gz，并解压； - 从curl项目下载curl-7.40.0.tar.gz，并解压
+编译OpenSSL  进入openssl-1.0.2目录; 完成OpenSSL配置，仅支持静态库不支持动态库：  ./config no-shared --openssldir=/home/mryqu/out/ssl  对Makefile文件中的FGLAG和DEPFLAG变量进行修改，增加-fPIC。 编译：  make depend make make install   编译产生如下内容： 编译libCurl  进入curl-7.40.0目录; 首先设定pkg-config路径，指定为上一步OpenSSL编译结果。由于我们的OpenSSL编译结果不在编译器/链接器默认搜索路径，通过pkg-config路径和&amp;ndash;with-ssl让libCurl查找到OpenSSL。通过&amp;ndash;without-zlib禁止掉即时解压缩。  export PKG_CONFIG_PATH=/home/mryqu/out/ssl/lib/pkgconfig ./configure --prefix=/home/mryqu/out/curl --with-ssl --without-zlib make make install   编译产生如下内容： 参考 OpenSSL Compilation and Installation
+how to install curl and libcurl
+OpenSSL Cookbook
+Everything curl</description>
+    </item>
+    
+  </channel>
+</rss>

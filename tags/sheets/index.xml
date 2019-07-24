@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sheets on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/sheets/</link>
+    <description>Recent content in Sheets on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 28 Sep 2016 06:00:05 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/sheets/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello Google Sheets API</title>
+      <link>https://mryqu.github.io/post/hello_google_sheets_api/</link>
+      <pubDate>Wed, 28 Sep 2016 06:00:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_google_sheets_api/</guid>
+      <description>准备环境 首先在Google Sheets创建了SpreadSheetTest1和To-do list两个电子表格，以备使用。 API测试 方法spreadsheets.get测试 方法spreadsheets.get可以获得一个电子表格中所有表单的内容和元数据。 下面是用Postman进行同样操作： 方法spreadsheets.values.get测试 方法spreadsheets.values.get可以获得一个电子表格中所有表单的内容。 方法spreadsheets.create测试 方法spreadsheets.create可以创建一个新的电子表格。 查看GoogleSheets，也可以看到新创建的电子表格SpreadSheetCreate1。由于我的请求里没有数据，因此下图中数据区也是空空。 方法spreadsheets.values.append测试 方法spreadsheets.values.append可以向电子表格中添加内容。 查看Google Sheets，也可以看到刚才创建的电子表格SpreadSheetCreate1有了九个单元格新数据。 学习结论 Google Sheets API可以创建、读取和修改电子表格，但是没有找到删除电子表格的方法。 Google SheetsAPI可以创建、读取、修改和删除一个电子表格内容，例如方法spreadsheets.batchUpdate中deleteSheet就可以删除一个表单，而deleteDimension就可以删除一个表单中的行/列。
+参考 Google Sheets
+Google Sheets API
+Google API Explorer: Sheets</description>
+    </item>
+    
+    <item>
+      <title>Google Sheets API认证和鉴权</title>
+      <link>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</link>
+      <pubDate>Tue, 27 Sep 2016 05:44:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</guid>
+      <description>玩一把用于Google Sheets API的OAuth2认证，以获得用于Sheets API的访问令牌。
+注册Google Sheets应用 首先在Google API Console注册一个应用： Google Sheets API鉴权  用于用户登录的HTTPGET请求如下（scope选择了profile、对文件元数据和内容只读访问、对表单和属性只读访问）：  GET https://accounts.google.com/o/oauth2/v2/auth? scope=https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive.readonly profile&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; response_type=code&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com  首先要求用户登录：要求登录后用户的授权：返回页面包含授权码： 获取访问令牌的HTTPPOST请求包含上面获得的授权码（在创建Google应用时获得的client_id和client_secret）： ``` POST https://www.googleapis.com/oauth2/v4/token Content-Type: application/x-www-form-urlencoded  code=4/-qpp&amp;hellip;qA&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com&amp;amp; client_secret=5&amp;hellip;r&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; grant_type=authorization_code ``` 参考 Google Sheets
+Google Sheets API
+Authorize Google Sheets API Requests
+Using OAuth 2.0 for Mobile and Desktop Applications
+Using OAuth 2.0 for Web Server Applications</description>
+    </item>
+    
+  </channel>
+</rss>

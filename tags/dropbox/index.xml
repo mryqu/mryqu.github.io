@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dropbox on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/dropbox/</link>
+    <description>Recent content in Dropbox on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 05 Oct 2016 06:06:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/dropbox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dropbox API访问速率限制</title>
+      <link>https://mryqu.github.io/post/dropbox_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link>
+      <pubDate>Wed, 05 Oct 2016 06:06:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/dropbox_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid>
+      <description>Dropbox的Data ingress guide介绍了关于Dropbox API访问速率限制。 错误Status code: 429 (Too ManyRequests)用于表示API访问速率超限，如果响应包内容为JSON，则包含too_many_requests或too_many_write_operations值进行更进一步说明。 关联用户的应用，访问速率限制仅适用于每用户。一个用户关联多个应用，各应用互不影响。 关联团队的应用当调用商业端点（BusinessEndpoint），访问速率限制仅适用于每个团队。如果应用有团队成员文件访问权限但是正在调用用户端点（UserEndpoint），访问速率限制仅适用于每个团队成员。这意味着，对于关联团队的应用，一个团队关联多个应用，各应用互不影响；单个应用代表多个团队成员的请求，也不会影响团队成员彼此的访问速率限制。 超过速率限制后的响应包含一个Retry-After头，提供按秒计的等待间隔值，应用在这段时间内不应重试请求以免再获得速率限制响应。 Dropbox不会公布其API速率限制值，开发时要假设Dropbox会在今后调整其API速率限制。</description>
+    </item>
+    
+    <item>
+      <title>Hello Dropbox API</title>
+      <link>https://mryqu.github.io/post/hello_dropbox_api/</link>
+      <pubDate>Tue, 04 Oct 2016 05:53:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_dropbox_api/</guid>
+      <description>本博文用来记录一下粗略体验Dropbox关于用户、文件、共享三方面API的过程。
+准备环境 还是用我私人的Dropbox做测试，所以只显示Public目录下的东东了。 用户类API测试 方法get_current_account测试 方法get_account测试 方法get_space_usage测试 文件类API测试 方法list_folder测试 方法list_folder其实是列举文件和目录，而且是分层的。如果path没设，则显示根目录下的元素。
+方法get_metadata测试 方法get_metadata用于获取一个元素（文件/目录）的元数据。
+方法create_folder测试 方法get_preview测试 方法get_preview仅支持 .doc、 .docx、 .docm、 .ppt、 .pps、 .ppsx、 .ppsm、.pptx、.pptm、 .xls、 .xlsx、 .xlsm、.rtf文件类型。就我的测试而言，没看出跟下面的download方法有多大区别。
+这里尝试了一下path的其他使用方式。除了最常规的文件路径外，path参数还可以使用id或rev。
+方法download测试 方法search测试 方法upload测试 方法delete测试 方法delete用于删除一个元素（文件/目录）。
+方法permanently_delete测试 方法permanently_delete是支持Dropbox商业应用，而我的是开发应用，因而测试失败。
+共享类API测试 方法share_folder测试 方法list_folders测试 方法unshare_folder测试 方法unshare_folder使用的是异步任务的方式，需要通过下列的方法check_job_status查询任务进度及结果。
+方法check_job_status测试 方法create_share_link测试 share_folder可以通过邮件或Dropbox账户的方式分享给其他Dropbox用户，而share_link甚至可以共享给没有安装Dropbox的使用者。
+方法get_share_links测试 方法get_shared_link_file测试 方法revoke_shared_link测试 revoke_shared_link竟然不返回结果，查证文档后确实如此。
+学习总结 Dropbox关于文件共享方面的API占比相对OneDrive、Google Drive要多一些。 Dropbox API相对OneDrive、GoogleDrive而言，成熟度更低。按照REST的Richardson成熟度模型来说仅在2-级别，它的REST资源还是动词，例如get_metadata、check_job_status。
+参考 Dropbox
+Dropbox API v2 for HTTP Developers
+Dropbox API Explorer</description>
+    </item>
+    
+    <item>
+      <title>Dropbox认证和登录</title>
+      <link>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
+      <pubDate>Mon, 03 Oct 2016 05:44:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
+      <description>为Dropbox申请自己的应用 Dropbox OAuth Guide提到：对于命令行或桌面应用，没办法让浏览器重定向回你的应用。这种情况下，你的应用无需包含redirect_uri参数。Dropbox将向用户显示认证码，以用于复制到你的应用来获得可重用的访问令牌。基于此，对于桌面应用，redirect_uri不用设置；对于web应用，我选择了http://localhost以便测试。Dropbox网站没有提及urn:ietf:wg:oauth:2.0:oob。 Dropbox认证 Token Flow测试 HTTP GET请求如下：
+https://www.dropbox.com/oauth2/authorize?client_id=**3t...hi**&amp;amp;redirect_uri=http://localhost&amp;amp;response_type=token&amp;amp;state=dsxoekdmpyt  成功跳转到如下URI：
+http://localhost/#access_token=  连App secret都不用，仅凭App Key就可以获得访问令牌！看来还是认证码方式更安全一些。最后把应用的Allowimplicit grant选项改成Disallow以确保安全。
+Code Flow测试 HTTP GET请求如下：
+https://www.dropbox.com/oauth2/authorize?client_id=3t...hi&amp;amp;response_type=code&amp;amp;state=wecidskklsxpxl123  请求用户授权：显示认证码：获取访问令牌的HTTP POST请求包含上面获得的code参数：
+POST https://api.dropboxapi.com/1/oauth2/token Content-Type: application/x-www-form-urlencoded Cache-Control: no-cache code=oV...9I&amp;amp;amp;client_id=3t...hi&amp;amp;amp;client_secret=j...7&amp;amp;amp;grant_type=authorization_code  参考 Dropbox API
+Dropbox OAuth Guide
+Dropbox authorize API
+Dropbox token API</description>
+    </item>
+    
+  </channel>
+</rss>

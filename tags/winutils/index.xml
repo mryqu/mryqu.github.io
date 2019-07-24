@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Winutils on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/winutils/</link>
+    <description>Recent content in Winutils on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 15 Apr 2014 22:16:23 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/winutils/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common</title>
+      <link>https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/</link>
+      <pubDate>Tue, 15 Apr 2014 22:16:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/</guid>
+      <description>在Windows平台编译Hadoop时遇到了compile-ms-winutils执行失败的问题。Hadoop默认需要用VS2010编译，但是我的环境只有VS2013。
+问题及解决方案如下： - Cannot run program &amp;ldquo;msbuild&amp;rdquo; 将C:\Windows\Microsoft.NET\Framework\v4.0.30319放入PATH环境变量 - Command execution failed. Process exited with an error: 1(Exitvalue: 1) -&amp;gt; [Help 1] 打开hadoop-common\hadoop-hdfs-project\hadoop-hdfs\pom.xml，将&amp;rsquo;VisualStudio 10 Win64&amp;rsquo;改成&amp;rsquo;Visual Studio 12 Win64&amp;rsquo;。 将如下两个Visual Studio项目用VS2013打开，手动编译。 - hadoop-common\hadoop-common-project\hadoop-common\src\main\winutils\winutils.sln - hadoop-common\hadoop-common-project\hadoop-common\src\main\native\winutils.sln
+重新执行：
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat mvn install -DskipTests  上述问题不再出现。</description>
+    </item>
+    
+  </channel>
+</rss>

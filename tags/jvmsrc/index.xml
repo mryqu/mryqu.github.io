@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jvmsrc on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/jvmsrc/</link>
+    <description>Recent content in Jvmsrc on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 May 2015 05:51:01 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/jvmsrc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玩一下gradle-jvmsrc-plugin</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bgradle-jvmsrc-plugin/</link>
+      <pubDate>Wed, 27 May 2015 05:51:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bgradle-jvmsrc-plugin/</guid>
+      <description>玩了一下gradle-jvmsrc-plugin插件，使用这个插件后执行gradlecreateJvmSrcDirs可以根据Gradle项目的JVM语言插件（(java、groovy、scala、android等），自动创建默认的源代码、测试和资源包目录。例如： - src/main/resources - src/main/java/ - src/main/groovy/ - src/test/java/ - src/test/groovy/ - src/test/resources
+刚上手总是报错，看了一下CreateJvmSourceDirs.groovy，定位到packageToDirectoryPath方法：
+* What went wrong: Execution failed for task &#39;:HelloJvmsrc:createJvmSrcDirs&#39;. &amp;gt; character to be escaped is missing  按照如下gradle-jvmsrc-plugin的说明，要配置基础包名。可是真按它介绍的带有.分割的包名就会出错，简单改成&amp;rdquo;com&amp;rdquo;这种没有.分割的包名就可以避免错误。
+jvmsrc { packageName &amp;quot;com.mycompany.myproject.mymodule&amp;quot; }  此外，gradle-jvmsrc-plugin对空目录默认生成.gitkeep文件。 总体来说，用处不是很大，可以偷点懒！</description>
+    </item>
+    
+  </channel>
+</rss>

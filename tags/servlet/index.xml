@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Servlet on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/servlet/</link>
+    <description>Recent content in Servlet on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 28 Oct 2015 06:07:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/servlet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Spring Boot] 使用多个Servlet</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/</link>
+      <pubDate>Wed, 28 Oct 2015 06:07:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/</guid>
+      <description>当使用Spring boot的嵌入式servlet容器时，可以通过Springbean或扫描Servlet组件的方式注册Servlet、Filter和Servlet规范的所有监听器(例如HttpSessionListener)。 - 当urlMapping不是很复杂时，可以通过ServletRegistrationBean、FilterRegistrationBean和ServletListenerRegistrationBean获得完整控制。如果bean实现了ServletContextInitializer接口的话则可以直接注册。 - 当使用@ServletComponentScan扫描Servlet组件时，Servlet、过滤器和监听器可以是通过@WebServlet、@WebFilter和@WebListener自动注册
+示例代码 Application.java package com.yqu.multiservlet; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.boot.context.embedded.ServletRegistrationBean; import org.springframework.context.annotation.Bean; import org.springframework.web.servlet.DispatcherServlet; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } @Bean public ServletRegistrationBean dispatcherRegistration( DispatcherServlet dispatcherServlet) { ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet); registration.addUrlMappings(&amp;quot;/hirest/*&amp;quot;); printStacks(); return registration; } @Bean public ServletRegistrationBean servletRegistrationBean() { printStacks(); return new ServletRegistrationBean( new SigninServlet(), &amp;quot;/signin&amp;quot;); } private void printStacks() { StackTraceElement[] elements = Thread.</description>
+    </item>
+    
+    <item>
+      <title>Servlet URL映射模式</title>
+      <link>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 13 Oct 2013 20:56:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</guid>
+      <description>Servlet 2.5规范中的映射规则:  完全匹配URL 匹配通配符路径 匹配扩展名 匹配默认servlet  特殊URL模式: url-pattern:/* servlet上的/* 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将/* 用于过滤器。它能通过调用FilterChain#doFilter()让请求继续由监听另外一个特定URL模式的任何servlet处理。
+url-pattern:/ / 不会压制其他servlet。它仅会替换servlet容器内建的默认servlet，用于无法匹配任何已注册servlet的所有请求。一般仅调用在静态资源(CSS/JS/image/etc)和列举目录上。servlet容器内建默认servlet也能处理HTTP缓存请求、媒体（音视频）流和文件重新下载。由于必须负责默认servlet的所有任务，工作量不小，通常不会想要替换默认servlet。这也是一种不好的URL模式。关于为什么JSP页面不会调用这个servlet，是因为servlet容器的内建JSPservlet默认映射到*.jsp并被调用。
+url-pattern: 这也有一个空字符串URL模式。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.</description>
+    </item>
+    
+    <item>
+      <title>Servlet</title>
+      <link>https://mryqu.github.io/post/servlet/</link>
+      <pubDate>Wed, 29 May 2013 09:58:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/servlet/</guid>
+      <description>现在用的VFabric tc Server 2.8.0基于Apache的Tomcat7.0.3版本，支持Servlet3.0和JSP 2.2规范。 Java Servlet3.1规范这周可以下载了，目前正在学习当中。将Servlet的不同版本的资料汇总一下，利人利己。 JSR 340：Java Servlet 3.1 Specification
+JSR 315：Java Servlet 3.0 Specification
+JSR 154：Java Servlet 2.4 Specification
+JSR 53：Java Servlet 2.3 and JavaServer Pages 1.2 Specification
+Servlet API 2.2 的新特性
+Servlet 3.0 新特性详解</description>
+    </item>
+    
+  </channel>
+</rss>

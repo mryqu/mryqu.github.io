@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html5 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/html5/</link>
+    <description>Recent content in Html5 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 11 Apr 2016 05:58:48 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/html5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[OpenUI5] 使用DateRangeSelection</title>
+      <link>https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/</link>
+      <pubDate>Mon, 11 Apr 2016 05:58:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/</guid>
+      <description>今天使用了DateRangeSelection来选择日期范围。 DateRangeSelection范例
+sap.m.DateRangeSelection jsDoc
+DateRangeSelection源代码
+sap.ui.core.format.DateFormat jsDoc
+Working with Dates in Sapui5
+sap.ui.core.format.DateFormat
+通过阅读上述资料，DateRangeSelection内存储的起始、结束时间为Date类。可以通过设置displayFormat和delimiter来改变界面上日期的表现形式；不支持valueFormat，因此只能通过getDateValue()、getSecondDateValue()获取Date对象，然后通过DateFormat获得相应格式化的日期字符串。 DateRangeSelection最新版代码提供了setMinDate()和setMaxDate()函数，但是jsDoc还没有体现，我司目前所用的OpenUI5版本还不支持。</description>
+    </item>
+    
+    <item>
+      <title>了解HTML5 Data Adapter for SAS®（h54s）</title>
+      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3html5_data_adapter_for_sash54s/</link>
+      <pubDate>Sat, 30 Jan 2016 06:20:15 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3html5_data_adapter_for_sash54s/</guid>
+      <description>今天在LinkedIn上看到一个消息，SAS的银牌合作伙伴Boemska开源了他们的HTML5 Data Adapter forSAS®（h54s）。 H54S是一个库，帮助和管理基于HTML5(JavaScript)的Web应用与部署在SAS企业BI平台上以SAS语言开发的后端数据服务之间的无缝双向通信。可以让Web程序员和SAS开发者协作以前所未有的速度和敏捷创建通用Web应用。 服务器端要求： - SAS® BI平台 (9.2及更高版本) - SAS® 存储过程Web应用 (集成技术)
+粗略扫了一下h54s.sas、h54s.js和method.js：编写一个引入h54s.sas的SAS存储过程，接收前端的JSON数据，经过该SAS存储过程处理后返回给前端JSON结果。
+参考 HTML5 Data Adapter for SAS®（h54s）
+GitHub：boemska/h54s</description>
+    </item>
+    
+    <item>
+      <title>在jQuery AJAX中使用statusCode</title>
+      <link>https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/</link>
+      <pubDate>Wed, 05 Aug 2015 05:49:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/</guid>
+      <description>jQuery.ajax中提供了statusCode设置，以便根据响应状态值进行相应处理。
+var data = JSON.stringify({ name: &amp;quot;mryqu&amp;quot;, count: 123 }); $.ajax({ //cache: false, url: &amp;quot;/test&amp;quot;, type: &amp;quot;post&amp;quot;, contentType: &amp;quot;application/json&amp;quot;, dataType: &amp;quot;json&amp;quot;, data: data, beforeSend: function (xhr) { console.log(&amp;quot;beforeSend called&amp;quot;); }, statusCode: { 401: function() { console.log(&amp;quot;statusCode 401 called&amp;quot;); }, 449: function() { console.log(&amp;quot;statusCode 449 called&amp;quot;); } }, error: function (oResult, textStatus, errorThrown) { if (oResult.status !==401 &amp;amp;&amp;amp; oResult.status !==449) { console.log(&amp;quot;error called&amp;quot;); } }, success: function (oResult) { console.log(&amp;quot;success called&amp;quot;); } });  有时候发现statusCode不被调用，所以我更喜欢用下面这种更保险的方式。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.core.ResizeHandler</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/</link>
+      <pubDate>Sun, 14 Jun 2015 09:10:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/</guid>
+      <description>OpenUI5里窗口大小放生变化，各个控件如何收到通知跟着相应变化的呢？
+sap.ui.core.Core 首先我们看一下sap.ui.core.Core的源代码：
+Core._I_INTERVAL = 200; ResizeHandler.prototype.I_INTERVAL = Core._I_INTERVAL; Core.prototype.attachIntervalTimer = function(fnFunction, oListener) { if (!this.oTimedTrigger) { var IntervalTrigger = sap.ui.requireSync(&amp;quot;sap/ui/core/IntervalTrigger&amp;quot;); this.oTimedTrigger = new IntervalTrigger(Core._I_INTERVAL); } this.oTimedTrigger.addListener(fnFunction, oListener); };  sap.ui.core.Core里面会起一个定时器，以200毫秒间隔周期触发。
+sap.ui.core.ResizeHandler 接下来我们看一下sap.ui.core.ResizeHandler的源代码：
+function initListener(){ if (!this.bRegistered &amp;amp;&amp;amp; this.aResizeListeners.length &amp;gt; 0) { this.bRegistered = true; sap.ui.getCore().attachIntervalTimer(this.checkSizes, this); } } ResizeHandler.prototype.checkSizes = function() { var bDebug = log.isLoggable(); if ( bDebug ) { log.debug(&amp;quot;checkSizes:&amp;quot;); } jQuery.each(this.aResizeListeners, function(index, oResizeListener){ if (oResizeListener) { var bCtrl = !</description>
+    </item>
+    
+    <item>
+      <title>图表工具JS库</title>
+      <link>https://mryqu.github.io/post/%E5%9B%BE%E8%A1%A8%E5%B7%A5%E5%85%B7js%E5%BA%93/</link>
+      <pubDate>Wed, 08 Apr 2015 05:53:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%9B%BE%E8%A1%A8%E5%B7%A5%E5%85%B7js%E5%BA%93/</guid>
+      <description>由于目前工作用到GoJS，所有也关注一下图表工具JS库。10 JavaScript libraries to draw your own diagrams一文给出了10个JS库的功能分析和比较图表。
+|库|许可|语言 / 基础架构|高/低级|内建编辑器|Github (04/02/2015) |&amp;mdash;&amp;ndash; |JointJS|MPL|HTMLJavascriptSVG|高|无|1388星265分支（fork） |Rappid|商业1 500,00 €|HTMLJavascriptSVG|高|有|&amp;nbsp; |Mxgraph|商业4300.00 €|HTMLJavascriptSVG|高|有|&amp;nbsp; |GoJS|商业$1,350.00|HTMLCanvasJavascript|高|有|&amp;nbsp; |Raphael|MIT|HTMLJavascriptSVG|低|无|7105星1078分支（fork） |Draw2D|GPL2商业|HTMLJavascriptSVG|中|无|&amp;nbsp; |D3|BSD|HTMLJavascriptSVG|低|无|36218星9142分支（fork） |FabricJS|MIT|HTMLCanvasjavasript|低|无|4127星705分支（fork） |paperJS|MIT|HTMLCanvasjavascript|低|无|4887星496分支（fork） |JsPlumb|MIT/GPL2|HTMLJavascript|中|无|2161星563分支（fork）
+这里面D3在数据科学领域成绩比计突出，是数据可视化的一个重要工具。此外我在接触过的开源项目有几个用到了Raphael（包括Activiti）。其他库还没有接触过。 我为什么选择 D3.js一文中将D3和Raphael进行了对比。Raphael是一个矢量图的API，专注于对矢量图形的操作。D3是一个数据可视化展示的API，通过数据与图形进行绑定。 图表工具JS库除了上面帖子提及的外，还有很多。如果有机会的话，我会在GoJS之外更多关注D3和Raphael。</description>
+    </item>
+    
+    <item>
+      <title>GoJS BPMN元素界面实现分析</title>
+      <link>https://mryqu.github.io/post/gojs_bpmn%E5%85%83%E7%B4%A0%E7%95%8C%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 11 Mar 2015 20:10:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gojs_bpmn%E5%85%83%E7%B4%A0%E7%95%8C%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90/</guid>
+      <description>GoJS BPMN里面的BPMN元素采用过不是PNG/JPEG这样的静态图标，而是通过GoJS在Cavas绘出来的。 由BPMN.js可知，一个BPMN元素是一个go.Node，内部大致包含go.Panel、go.Shape、go.TextBlock等对象，用于绘制外层的正方形、填充内部颜色、添加图标和文字。 如果创建自己定制的BPMN元素，最麻烦的就是图标了。现在我来看一下GoJS BPMN扩展里面的图标是怎么保存和绘制的。 GoJS BPMN扩展里面大部分的图标都已经在go.js里面以源代码的形式定义了，只有四个是在BPMN.js里面通过go.Shape.defineFigureGenerator方法定制的，分别是Empty、Annotation、BpmnTaskManual和BpmnTaskService。这四个图标的内容是GoJS geometry的格式保存的。 所有这些图标可以通过与go.Shape的figure进行绑定，由GoJS驱动完成底层绘制。我自己做了一个简单样例，对这些内嵌图标和BPMN定制图标稍微玩了点花样 http://jsfiddle.net/mryqu/mywy0nhz/ 显示效果如下： </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] Grid layout for responsive design</title>
+      <link>https://mryqu.github.io/post/openui5_grid_layout_for_responsive_design/</link>
+      <pubDate>Sun, 01 Mar 2015 09:29:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_grid_layout_for_responsive_design/</guid>
+      <description>OpenUI5的Grid机制位于sap.ui.layout库内，它在12列流布局中定位子控件位置。取决于当前屏幕尺寸，子控件可以指定可变的列数，从而实现响应式设计。 在上图示例中，无论屏幕大小，子控件1都占满12列，从而其他子控件无法跟它位于同一行内。 在大屏幕和中等屏幕尺寸下，子控件2和3共同占满12列，可以置于一行内；而在小屏幕尺寸下，二者需要列数超过12，只能分置于两行了。
+参考 Responsive Web Design
+UI5 features for building responsive Fiori apps
+jsDoc: sap.ui.layout.GridData
+MDN: CSS Grid Layout
+MDN: Using CSS multi-column layouts</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] Open/SaveAs File</title>
+      <link>https://mryqu.github.io/post/javascript_%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%92%8C%E5%8F%A6%E5%AD%98%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sat, 31 Jan 2015 12:42:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%92%8C%E5%8F%A6%E5%AD%98%E6%96%87%E4%BB%B6/</guid>
+      <description>看了一下HTML5应用中如何打开文件或另存文件。与Swing/EclipseRCP应用不同，有些操作由于安全的原因无法在HTML5应用内使用，而是浏览器与客户交互。例如HTML5应用往本地写文件。下面的显示了在新窗口打开文件、在当前窗口打开文件以及a标签的download属性。 学习了下面链接中的代码和文章，其中FileSaver.js是一个跨浏览器的JS库，但是在各个浏览器上保存文件的用户体验却不相同。目前为止，我还没发现更好的跨浏览器/设备的另存文件解决方案。 Google HTML5 Download Demo
+An HTML5 saveAs() FileSaver implementation
+New HTML5 Attributes for Hyperlinks: download, media, and ping
+Save files on disk using JavaScript or JQuery!
+JavaScript Question:Opening Save As Dialog
+Internet media type</description>
+    </item>
+    
+    <item>
+      <title>[CSS] 图片叠加效果</title>
+      <link>https://mryqu.github.io/post/css_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Thu, 25 Dec 2014 17:37:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/css_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</guid>
+      <description>今天接着折腾OpenUI5。我们原有的客户端是EclipseRCP富客户端，有些菜单上的图标是叠加出来的，很不幸sap.ui.commons.MenuItem仅支持一个图片文件的URL，不支持多个图片进行叠加。 玩一下使用CSS做图片叠加效果。代码如下： </description>
+    </item>
+    
+    <item>
+      <title>开玩OpenUI5</title>
+      <link>https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/</link>
+      <pubDate>Sun, 09 Nov 2014 14:43:58 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/</guid>
+      <description>OpenUI5是SAP推出的开源HTML5Javascript用户界面库，网址为http://sap.github.io/openui5/index.html 前不久SAP宣布我司成了签署OpenUI5企业贡献者许可协议的第一个组织(BjornGoerkee的Tweet)，从此我司产品中的Flex就要纷纷下岗，让位HTML5了。 据说SAP在UI框架上的选择纠结了十多年了，甚至投奔过微软的silverlight，后来才成为HTML5的拥拓。 我司的富客户端技术用过Swing，中间打算换成Eclipse RCP，再后来决定全面采用Flex技术，兜了一圈又一圈，花了时间费了钱，最后决定采用HTML5。 虽然各浏览器厂商还在HTML5上进行利益博弈，W3C与WHATWG分道扬镳，Facebook和Linkedin抛弃HTML5转投原生App应用，但是为了将我司的产品转向云应用，HTML5对于我们这种企业级应用来说还算是很靠谱的了。 今天下载了openui5-sdk-1.24.3.zip，直接解压到Tomcat的webapps目录下，开始学文档做demo。 </description>
+    </item>
+    
+    <item>
+      <title>50个必用的Bootstrap扩展插件</title>
+      <link>https://mryqu.github.io/post/50%E4%B8%AA%E5%BF%85%E7%94%A8%E7%9A%84bootstrap%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Tue, 19 Aug 2014 23:13:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/50%E4%B8%AA%E5%BF%85%E7%94%A8%E7%9A%84bootstrap%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6/</guid>
+      <description>学习了一下50 Must-have plugins for extending Twitter Bootstrap，对Bootstrap Form Wizard感兴趣。之前看过Twitter Bootstrap Wizard，个人感觉没这个漂亮。</description>
+    </item>
+    
+  </channel>
+</rss>

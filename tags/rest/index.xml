@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rest on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/rest/</link>
+    <description>Recent content in Rest on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 21 May 2019 06:01:23 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/rest/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>体验Salesforce API</title>
+      <link>https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/</link>
+      <pubDate>Tue, 21 May 2019 06:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%93%E9%AA%8Csalesforce-api/</guid>
+      <description>继前一博文Salesforce dataLoader一览，这次就开始体验一把Salesforce API了。
+准备工作  通过developer.salesforce.com/signup获得Salesforce开发版
+ 确保激活了API权限
+ 创建connected app：scnydqTest1
+ 获取scnydqTest1的sonsumer key和secret   OAuth鉴权 Salesforce的OAuth鉴权支持三种流程：
+* web服务器流程：适用于服务器可以保存consumer secret
+* 用户代理流程：适用于应用无法安全保存consumer secret
+* 用户密码流程：应用使用用户凭证直接访问
+OAuth鉴权之web服务器流程 验证按照Understanding the User-Agent OAuth Authentication Flow进行。
+https://login.salesforce.com/services/oauth2/authorize?response_type=code&amp;amp;client_id={scnydqTest1_appConsumerKey}&amp;amp;redirect_uri=https%3A%2F%2Flogin.salesforce.com%2Fservices%2Foauth2%2Fsuccess  鉴权：
+通过跳转URL获取code：
+通过code、consumer key和consumer secret获取access token：
+OAuth鉴权之用户代理流程 验证按照How Are Apps Authenticated with the Web Server OAuth Authentication Flow?进行。
+https://login.salesforce.com/services/oauth2/authorize?response_type=token&amp;amp;client_id={scnydqTest1_appConsumerKey}&amp;amp;redirect_uri=https%3A%2F%2Flogin.salesforce.com%2Fservices%2Foauth2%2Fsuccess  认证： 鉴权：
+通过跳转URL获取access_token：
+返回URL为：
+https://login.salesforce.com/services/oauth2/success#access_token=00D2v000000R9tt%21AXXXXXi.&amp;amp;instance_url=https%3A%2F%2Fap15.salesforce.com&amp;amp;id=https%3A%2F%2Flogin.salesforce.com%2Fid%2F00D2XXXXXC%2F005XXXXXL&amp;amp;issued_at=1XXXXX8&amp;amp;signature=iXXXXXI%3D&amp;amp;scope=id+api&amp;amp;token_type=Bearer  OAuth鉴权之用户密码流程 验证按照Understanding the Username-Password OAuth Authentication Flow进行。
+REST调用 此处走一下Salesforce官方的快速入门示例。</description>
+    </item>
+    
+    <item>
+      <title>初探Salesforce API</title>
+      <link>https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2salesforce-api/</link>
+      <pubDate>Fri, 17 May 2019 06:00:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2salesforce-api/</guid>
+      <description>最近研究一下如何从Salesforce抓取数据，首先看了一下几个ODBC driver。
+* DataDirect 文档
+* easysoft
+* devart
+* cdata
+怎么没有Salesforce自家的驱动，都是第三方的。
+再找找看，找到了Salesforce SOAP API Developer Guide和REST API Developer Guide。
+既然有了SOAP/REST API，何必再看ODBC driver了。</description>
+    </item>
+    
+    <item>
+      <title>[Spark] 使用Spark的REST服务Livy</title>
+      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</link>
+      <pubDate>Tue, 17 Jul 2018 06:09:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</guid>
+      <description>Apache Livy简介 Apache Livy是由Cloudera Labs贡献的基于Apache Spark的开源REST服务，它不仅以REST的方式代替了Spark传统的处理交互方式，同时也提供企业应用中不可忽视的多用户，安全，以及容错的支持。其功能如下：- 拥有可用于多Spark作业或多客户端长时间运行的SparkContext； - 同时管理多个SparkContext，并在集群（YARN / Mesos）而不是Livy服务器上运行它们，以实现良好的容错性和并发性； - 可以通过预先编译好的JAR、代码片段或是java/scala客户端API将Spark作业提交到远端的Spark集群上执行。
+建立测试环境 今天在GitHub: mryqu/vagrant-hadoop-hive-spark提交了add livy support，因此可以在Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中使用Livy 0.5.0服务。 使用Livy的REST API 创建交互式会话 curl -X POST -d &#39;{&amp;quot;kind&amp;quot;: &amp;quot;spark&amp;quot;}&#39; -H &amp;quot;Content-Type: application/json&amp;quot; http://10.211.55.101:8998/sessions { &amp;quot;id&amp;quot;:0, &amp;quot;appId&amp;quot;:null, &amp;quot;owner&amp;quot;:null, &amp;quot;proxyUser&amp;quot;:null, &amp;quot;state&amp;quot;:&amp;quot;starting&amp;quot;, &amp;quot;kind&amp;quot;:&amp;quot;spark&amp;quot;, &amp;quot;appInfo&amp;quot;:{ &amp;quot;driverLogUrl&amp;quot;:null, &amp;quot;sparkUiUrl&amp;quot;:null }, &amp;quot;log&amp;quot;:[ &amp;quot;stdout: &amp;quot;, &amp;quot; stderr: &amp;quot; ] }  成功创建会话0，kind指定为spark，如果之后提交的代码中没有指定kind，则使用此处的会话默认kind。
+查询交互式会话列表 curl http://10.211.55.101:8998/sessions { &amp;quot;from&amp;quot;:0, &amp;quot;total&amp;quot;:1, &amp;quot;sessions&amp;quot;:[ { &amp;quot;id&amp;quot;:0, &amp;quot;appId&amp;quot;:null, &amp;quot;owner&amp;quot;:null, &amp;quot;proxyUser&amp;quot;:null, &amp;quot;state&amp;quot;:&amp;quot;idle&amp;quot;, &amp;quot;kind&amp;quot;:&amp;quot;spark&amp;quot;, &amp;quot;appInfo&amp;quot;:{ &amp;quot;driverLogUrl&amp;quot;:null, &amp;quot;sparkUiUrl&amp;quot;:null }, &amp;quot;log&amp;quot;:[ &amp;quot;2018-07-18 03:19:16 INFO BlockManager:54 - Using org.</description>
+    </item>
+    
+    <item>
+      <title>swagger-codegen 2.2.3与2.1.5区别</title>
+      <link>https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Sun, 23 Jul 2017 06:13:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/</guid>
+      <description>支持的语法 $ java -jar swagger-codegen-cli-2.1.6.jar langs Available languages: [android, aspnet5, async-scala, csharp, dart, flash, python-flask, go, java, jaxrs, jaxrs-cxf, jaxrs-resteasy, inflector, javascript, javascript-closure-angular, jmeter, nodejs-server, objc, perl, php, python, qt5cpp, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring-mvc, dynamic-html, html, swagger, swagger-yaml, swift, tizen, typescript-angular, typescript-node, akka-scala, CsharpDotNet2, clojure, haskell-servant] $ java -jar swagger-codegen-cli-2.2.3.jar langs Available languages: [akka-scala, android, apache2, apex, aspnet5, aspnetcore, async-scala, bash, csharp, clojure, cwiki, cpprest, CsharpDotNet2, dart, elixir, eiffel, erlang-server, finch, flash, python-flask, go, go-server, groovy, haskell, jmeter, jaxrs-cxf-client, jaxrs-cxf, java, inflector, jaxrs-cxf-cdi, jaxrs-spec, jaxrs, msf4j, java-play-framework, jaxrs-resteasy-eap, jaxrs-resteasy, javascript, javascript-closure-angular, java-vertx, kotlin, lumen, nancyfx, nodejs-server, objc, perl, php, php-symfony, powershell, pistache-server, python, qt5cpp, rails5, restbed, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring, dynamic-html, html2, html, swagger, swagger-yaml, swift4, swift3, swift, tizen, typescript-angular2, typescript-angular, typescript-fetch, typescript-jquery, typescript-node, undertow, ze-ph]  swagger-codegen 2.</description>
+    </item>
+    
+    <item>
+      <title>ArcGIS REST API资费</title>
+      <link>https://mryqu.github.io/post/arcgis_rest_api%E8%B5%84%E8%B4%B9/</link>
+      <pubDate>Sat, 20 May 2017 06:25:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/arcgis_rest_api%E8%B5%84%E8%B4%B9/</guid>
+      <description>一个ArcGIS开发者订阅每月有免费的50点积分。
+GeoEnrichment API资费 在Esri GeoEnrichment Service提到了资费列表：
+| GeoEnrichment服务资费 | Esri积分 | 美元 | | - | - | - | | 1 Stored GeoEnrichment Variable | 0.01 积分 (Per Feature) | $0.001 (Per Feature) | | 1,000 Stored GeoEnrichment Variables | 10 积分 (Per Feature) | $1.00 (Per Feature) | | 1 Non-Stored GeoEnrichment Request | 0.01 积分 | $0.001 | | 1000 Non-Stored GeoEnrichment Requests | 10 积分 | $1.</description>
+    </item>
+    
+    <item>
+      <title>玩玩ArcGIS REST API</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9arcgis_rest_api/</link>
+      <pubDate>Fri, 19 May 2017 05:49:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9arcgis_rest_api/</guid>
+      <description>了解Esri和ArcGIS 美国环境系统研究所公司（Environmental Systems Research Institute, Inc. 简称Esri公司）成立于1969年，总部设在美国加利福利亚州雷德兰兹市，是世界最大的地理信息系统技术提供商。 ArcGIS是Esri公司集40余年地理信息系统（GIS）咨询和研发经验，奉献给用户的一套完整的GIS平台产品，具有强大的地图制作、空间数据管理、空间分析、空间信息整合、发布与共享的能力。
+ArcGIS REST API ArcGIS REST API可用于包括ArcGIS Online在内的ArcGIS平台，包括： * Maps—随时可用的底图、参考层等。可用于快速为您的本地或全球数据添加上下文或背景。一些ArcGIS Online地图有页面主题，可以提供出你的应用所需的全部信息。 * World Geocoding Service—通过文本地址、商业名等查找位置，该服务也提供反向服务：通过地理坐标查找最近的地址。 * Directions and Routing Service (Network Analysis Service)—解决各种路线规划问题，例如简单的点到点路由、复杂的船舶航线规划、及行驶时间分析。 * GeoEnrichment Service—GeoEnrichment 服务借助本地化的人口、场所以及商业信息丰富了用户的地理数据。提交某个点、面、地址或地名后，可通过该服务了解该地区居民的生活习惯和生活方式、附近的商业类型以及区域邮政编码等信息。 * Spatial Analysis Service—各种可用于执行通用GIS分析的任务。传统上，包括查找热点和对周边汇总在内的许多任务都需要深度学习和专业知识才能运行。而这些空间分析任务仅包含少量需要研究的参数，也能获得相当不错的结果。 * Elevation Analysis service—高程分析服务允许您执行高程分析（轮廓，视角，总结高程）和水文分析（流域和跟踪下游）的各种操作。这些服务参考的数据由Esri托管和策划。
+ArcGIS REST API有些是免费的，有些是付费。付费操作需要订阅ArcGIS Online，并减扣账户积分。 使用需付费API时，需要在请求中通过token参数指定访问令牌。获取ArcGIS REST API所需访问令牌的方法，请参见前一博文ArcGIS认证和登录。
+响应数据格式 对于ArcGIS REST API，有些响应支持JSON、PJSON（个人理解就是完美打印版的JSON）、XML和BIN格式中的一种或多种。可在请求时通过f参数指定。
+使用GeoEnrichment API GeoEnrichment服务能力、属性和限制可以通过下列请求获得：
+http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/?f=pjson  由响应可知，GeoEnrichment端点支持Enrich、CreateReport、Reports、Countries、DataCollections、StandardGeographyLevels这几种操作。
+Countries操作 首先试一下国家列表：
+http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/Countries?f=pjson  当然Countries操作也可用于获取单个国家信息： StandardGeographyLevels操作 StandardGeographyLevels服务返回有效地理数据层列表。服务结果是BAIDNamePairs数组，包含数据层ID及相应名称。这些ID可被用于在其他分析中指定数据层。 下面的请求示例列举CN的有效地理数据层列表：
+http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/StandardGeographyLevels/CN?f=pjson  DataCollections操作 GeoEnrichment服务使用数据集合的概念定义服务返回的属性。更具体地说，数据集合是用于丰富输入特性的预先组合的属性列表。作为输入特性，集合属性可以描述所提交位置或区域的各种类型信息，例如人口特征和地理上下文。</description>
+    </item>
+    
+    <item>
+      <title>ArcGIS认证和登录</title>
+      <link>https://mryqu.github.io/post/arcgis%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
+      <pubDate>Thu, 18 May 2017 05:43:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/arcgis%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
+      <description>申请ArcGIS Online账户 创建应用 点击创建第一个应用： 输入应用所需信息： 查看应用信息： 设置redirect URI： 获取应用访问令牌 默认情况下，访问令牌2小时过期。可在获取访问令牌的请求中加入expiration参数，指定以分钟为单位的过期间隔（响应中单位为秒），最大为14天。 应用登录具有几个内建限制： * 通过应用获取的访问令牌仅能读取公开内容和服务。 * 通过应用获取的访问令牌有可能读取Esri托管的高级内容和服务，并消费代表应用所有者的点数。 * 应用无法创建、更新、共享、修改和删除在ArcGIS Online或ArcGIS门户网站上的内容（层、文件、服务、地图）。 * 使用应用登录方式的应用无法列于ArcGIS软件商店。
+获取用户访问令牌 用于用户登录的HTTP GET请求如下：
+https://www.arcgis.com/sharing/rest/oauth2/authorize?client_id={YOUR_APP_CLIENT_ID}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code  请求用户授权： 返回地址包含code参数，内容中也有一含有code值的文本框： 获取访问令牌的HTTP GET请求包含上面获得的code参数：：
+https://www.arcgis.com/sharing/rest/oauth2/token?client_id={YOUR_APP_CLIENT_ID}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;amp;code={GOTTEN_CODE}  访问令牌使用 不同的ArcGIS REST API使用的访问令牌类型可能不同。例如在Accessing the GeoEnrichment service中提到使用GeoEnrichment服务需要用户访问令牌；而在 Authenticate a request to the World Geocoding Service中提到使用Geocoding服务需要应用访问令牌。 下面的示例使用用户访问令牌执行Geocoding服务的操作，结果返回403错误，提示Token is valid but access is denied，具体信息为User does not have permissions to access geocodeAddresses。 参考 ArcGIS: Implementing App Login
+ArcGIS: Implementing Named User Login</description>
+    </item>
+    
+    <item>
+      <title>玩一下Quandl API</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/</link>
+      <pubDate>Thu, 11 May 2017 06:00:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/</guid>
+      <description>Quandl是为投资专业人士提供财务、经济和替代数据的平台。 Quandl来源于500多家出版商的数据。所有Quandl的数据都可通过API访问，也可以通过包含R、Python、Ruby等多种编程语言及Excel、SAS等软件进行原生访问。Quandl的来源包括联合国，世行和中央银行等提供商的公开数据、来自CLS集团，Zacks和ICE等供应商的核心财务数据、Dun＆Bradstreet的其他数据、以及许多机密来源。 什么是替代数据？替代数据的范围非常广泛，起初主要包含了未加工的、原始的公司文件、历史市场价格、投资者表现等数据，而现在替代数据已经涵盖任何从移动手机数据到职位信息再到天气预报、交通、卫星图像等能够被采集到的数据。替代数据世界由一系列模糊的数据集组成，而这些数据集可以被转换为交易信息。Quandl提供的替代数据包括企业财务压力数据、外汇数据、电子邮件收据数据、全球石油储量数据、定量股票选择数据等。 Quandl上的数据分为免费数据和高级（Premium）数据，其中高级数据只能通过订阅访问。
+申请Quandl账号 除了在Quandl上注册帐号外，Quandl还支持使用GitHub、Google和LinkedIn账号进行OAuth2认证登录。登录后查看账户设置信息中的API KEY，即可用于后继API访问。 Quandl API 全部的Quandl数据产品，可通过https://www.quandl.com/search查找。Quandl的数据产品来源不同，包含时间序列和表在内的各种对象。 Guandl的大多数数据集只能以时间序列或表中的一种格式打开，其中一些则既可用时间序列格式也可用表格式访问。 * 时间序列是一段时间内观测或指标集合，以时间为索引且只包含数字数据类型字段。 * 表包含各种未排序数据类型（字符串、数字、日期等）并可用不同字段进行过滤。
+Guandl可指定如下返回类型： * JSON * CSV * XML
+速率限制 认证用户限制10秒300个调用、10分钟2000调用及每天50000调用。使用免费数据集的认证用户并发限制为1，即进行一个调用的同时可以在队列中有一个额外的调用。 高级数据订阅限制10分钟5000调用及每天720000调用。
+访问时间序列  获取时间序列数据集数据
+ GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/data.{return_format}?api_key=YOURAPIKEY   获取时间序列数据集元数据
+ GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/metadata.{return_format}?api_key=YOURAPIKEY   获取时间序列数据集数据及元数据
+ GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}.{return_format}?api_key=YOURAPIKEY   获取时间序列数据库元数据
+ GET https://www.quandl.com/api/v3/databases/{database_code}.{return_format}?api_key=YOURAPIKEY   获取整个时间序列数据库(仅能用于订阅的高级数据)
+ GET https://www.quandl.com/api/v3/databases/{database_code}/data?download_type=full&amp;amp;api_key=YOURAPIKEY  查询参数  | 参数 | 必需 | 类型 | 值 | 描述 | | - | - | - | - | - | | database_code | 是 | string | | 数据库代码 | | dataset_code | 是 | string | | 数据集代码 | | limit | 否 | int | | 使用limit=n获得数据集的头n行。使用limit=1获取最新的一行。 | | column_index | 否 | int | | 指定特定列。第0列是日期列且永久返回，因此该处从第1列起。</description>
+    </item>
+    
+    <item>
+      <title>Hello UnRAVL</title>
+      <link>https://mryqu.github.io/post/hello_unravl/</link>
+      <pubDate>Thu, 18 Aug 2016 05:47:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_unravl/</guid>
+      <description>UnRAVL介绍 UnRAVL（Uniform REST API ValidationLanguage）是用于验证REST应用编程接口的JSON领域特定语言。UnRAVL由SAS架构师DavidBiesack实现，并作为SAS开源软件在GitHub上发布。UnRAVL脚本包含一个REST API调用的JSON描述: - HTTP方法（GET、POST、PUT、DELETE、HEAD、PATCH） - URI - (可选的)HTTP头 - (可选的)请求消息体 - (可选的)认证
+对于每个API调用，一个UnRAVL脚本可以包含用于验证结果的一或多个断言。某些断言可以表达为前置条件，即在进行API调用之前必须为真。下列内容可以断言： - 结果消息体匹配期望的JSON、文本或其他数据 - 存在带有特定值的特定头 - HTTP状态码为特定值或在特定集合内 - 响应消息体匹配基准（benchmark） - 通过Groovy表达式测试响应或环境变量中的元素为真 - 一个环境变量已赋值
+UnRAVL也支持从RESTAPI调用结果中抽取数据、与环境变量进行数据绑定并用于之后的API调用验证。例如，将一个创建资源的POST 调用响应的Location 头进行保存，并将此URL用于后继GET 、PUT 、DELETE 调用。 模板功能提供了可重用的API验证构建能力。
+UnRAVL示例 build.gradle buildscript { repositories { mavenCentral() } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; jar { baseName = &#39;HelloUnRAVL&#39; version = &#39;0.1.0&#39; } repositories { mavenCentral() } sourceCompatibility = 1.</description>
+    </item>
+    
+    <item>
+      <title>使用SpringFox自动生成Swagger文档</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Thu, 28 Apr 2016 06:03:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/</guid>
+      <description>前面的博文Swagger实践和总结总体上探索了一下Swagger，这里着重研究Springfox。 Springfox Java库源自MartyPitt创建的swagger-springmvc项目。Swagger是一系列对RESTful接口进行规范描述和页面展示的工具，而通过Springfox将Swagger与Spring-MVC整合,可以将代码中的注解转换为符合Swagger开放API声明(OpenAPI Specification，OAS)的swagger.json文件,springfox-swagger-ui提供了将swagger.json转换为html页面的服务。
+HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但是对于一个写程序的人来说，不亲自写一遍，总觉得可能会有陷阱和漏洞，缺乏那么一点点自信。 我的示例是以Building a Hypermedia-Driven RESTful Web Service为基础修改的，懒人总是要找个肩膀。build.gradle jar { baseName = &#39;hello-springfox&#39; version = &#39;0.1.0&#39; } dependencies { compile(&amp;quot;org.springframework.boot:spring-boot-starter-actuator&amp;quot;) compile(&amp;quot;org.springframework.boot:spring-boot-starter-web&amp;quot;) compile(&amp;quot;org.springframework.boot:spring-boot-starter-hateoas&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger2:${springfoxVersion}&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger1:${springfoxVersion}&amp;quot;) compile(&amp;quot;io.springfox:springfox-swagger-ui:${springfoxVersion}&amp;quot;) testCompile(&amp;quot;com.jayway.jsonpath:json-path&amp;quot;) testCompile(&amp;quot;org.springframework.boot:spring-boot-starter-test&amp;quot;) }  Application.java package com.yqu.hellospringfox; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  Greeting.java package com.yqu.hellospringfox; import org.springframework.hateoas.ResourceSupport; import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.JsonProperty; public class Greeting extends ResourceSupport { private final String content; @JsonCreator public Greeting(@JsonProperty(&amp;quot;content&amp;quot;) String content) { this.</description>
+    </item>
+    
+    <item>
+      <title>[HBase] 才发现HBase REST服务占用的是8080端口</title>
+      <link>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</link>
+      <pubDate>Thu, 03 Mar 2016 05:43:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</guid>
+      <description>今天用一下Tomcat，结果发现8080端口还被占了，谁呀？ 竟然是HBase REST服务占用的！！看了一下Ports Used by Components of CDH 5，发现ClouderaCDH里是这么用的： - 8080：Non- Cloudera Manager - managed HBase REST Service - 20550：Cloudera Manager - managed HBase REST Service - 8085：HBase REST UI
+8080端口还是留着吧，对hbase-site.xml做如下修改：重启HBase REST服务：
+hbase-daemon.sh stop rest hbase-daemon.sh start rest  通过HBase REST UI检查，REST服务端口改成了20550：另一种修改REST服务端口的方式是在启动HBase REST服务命令时通过-p选项直接指定端口。例如：
+hbase-daemon.sh start rest -p 20550  参考 Linux – Which application is using port 8080
+Configuring and Using the HBase REST API
+Ports Used by Components of CDH 5</description>
+    </item>
+    
+    <item>
+      <title>[Zookeeper] 运行Zookeeper REST服务实践</title>
+      <link>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 02 Mar 2016 05:57:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</guid>
+      <description>Zookeeper REST服务介绍 通常我们应该使用Java/C客户端绑定访问ZooKeeper服务器。不过由于大多数语言内建支持基于HTTP的协议，RESTZooKeeper网关还是很有用的。ZooKeeper REST实现使用Jersey JAX-RS，其REST绑定参考SPEC.txt。其中org.apache.zookeeper.server.jersey.resources.ZNodeResource是项目的核心类，提供Http请求方式对ZooKeeper节点的添加、修改、查询和删除功能，以xml方式返回数据；org.apache.zookeeper.server.jersey.RestMain提供主函数入口。
+以Ant脚本方式启动 这是GitHub：apache/zookeeper - REST implementation中介绍的方式。
+cd $ZOOPEEPER_HOME ant cd src/contrib/rest nohup ant run&amp;amp;  如果仅是临时运行一下REST服务，ant run即可。 通过nohug提交作业可以确保在退出控制台后ZookeeperREST服务仍在后台运行。当需要关闭时，通过jobs命令查找当前所有运行的作业，通过fg [job_spec]命令关闭作业。 以rest.sh方式启动 cd $ZOOKEEPER_HOME mkdir src/contrib/rest/lib cp build/contrib/rest/zookeeper-dev-rest.jar src/contrib/rest/lib/ cp build/contrib/rest/lib/*.jar src/contrib/rest/lib/ cp zookeeper-3.4.X.jar src/contrib/rest/lib/ cp src/java/lib/*.jar src/contrib/rest/lib/  启动
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh start  停止
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh stop  查看日志
+cd $ZOOKEEPER_HOME/src/contrib/rest tail -f zkrest.log  测试 将我的Zookeeper从node50064复制到node50069和node51054上，分别在三台机器上启动Zookeeper和ZookeeperREST服务。
+访问application.wadl 获取根节点数据 获取根节点的子节点 导出节点及znode层次数据 参考 GitHub：apache/zookeeper - REST implementation</description>
+    </item>
+    
+    <item>
+      <title>Postman使用笔记</title>
+      <link>https://mryqu.github.io/post/postman%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 15 Sep 2015 06:15:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/postman%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</guid>
+      <description>以前用过cURL和rest-shell进行RESTAPI测试，最近偶然看到了Postman。Postman是一款Chrome插件，强大、便利，可以在浏览器里直接测试RESTAPI。
+安装 在Chrome浏览器里进入Postman插件安装地址即可安装Postman。 使用 Postman可以模拟各种Http请求，并且可以额外设置特殊的URL参数、Http头以及Basic Auth、DigestAuth、OAuth 1.0等认证信息。在展现Http响应上，Postman支持完美打印，JSON、XML或是HTML都会整理成人类阅读的格式，有助于我们更清楚地查看响应内容。特色功能  更多的Http方法：Postman除了支持GET、POST、PUT、PATCH、DELETE、HEAD、OPTIONS这些常用Http方法，还支持COPY、LINK、UNLINK、PURGE。 集合（Collection）功能：Postman可以管理Http请求的集合，在做完单个测试时，可以将该请求存入特定集合内。这样在后继的重复测试，无需重新输入Http请求，就可以快速测试并获得结果。集合支持输入或导出，便于团队共享。 设置环境变量（Environment）：Postman可以管理环境变量。一般我们有可能有多种环境：development、staging或local，每种环境下的请求URL有可能各不相同。通过环境变量，在切换环境测试时无需重写Http请求。  参考 Postman插件安装地址
+Github：postmanlabs
+Postman官方博客
+HTTP Link and Unlink Methods</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 创建超媒体驱动的Mail服务</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Mon, 03 Aug 2015 06:46:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/</guid>
+      <description>Spring与Mail的集成 Spring框架为邮件发送提供了一个有用的工具库，可为用户屏蔽底层邮件系统细节，并负责代表客户端负责低层资源处理。 org.springframework.mail包是Spring框架邮件支持的根级包。发送邮件的核心接口是MailSender 接口；封装了简单邮件_from_和_to_等属性的简单对象类是 SimpleMailMessage 。该包也包含对底层邮件系统进行更高级抽象的分层检查异常，其根异常为MailException。 org.springframework.mail.javamail.JavaMailSender 接口MailSender为添加了专业的_JavaMail_ 功能，例如MIME消息支持。JavaMailSender 也为JavaMailMIME消息提供了回调接口org.springframework.mail.javamail.MimeMessagePreparator。
+Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体即应用状态引擎)是REST应用架构的一个约束。Spring HATEOAS是一个用于支持实现超媒体驱动的RESTWeb服务的开发库。它提供一些API用于同Spring特别是SpringMVC一起使用时轻松创建遵循HATEOAS原则的REST表述，其试图解决的核心问题是链接创建和表述装配。功能： - 用于链接、资源表述模型的模型类 - 用于指向Spring MVC控制器方法的链接建造者API - 对HAL之类的多媒体格式的支持
+示例 Application.java package com.yqu.mail; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  MailServerVO.java package com.yqu.mail; import org.springframework.hateoas.ResourceSupport; import java.io.Serializable; import java.util.Properties; public class MailServerVO extends ResourceSupport implements Serializable { private String host; private Integer port; private String userName; private String password; private String defaultEncoding; private Properties properties; public MailServerVO() {} public MailServerVO( String host, Integer port, String userName, String password, String defaultEncoding, Properties properties) { this.</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot Example：Rest Exception Handling</title>
+      <link>https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/</link>
+      <pubDate>Tue, 02 Jun 2015 00:14:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/</guid>
+      <description>要给同事做个Rest异常处理的演示，顺便用用Spring Boot和Gradle构建。 首先新建一个项目：rest-exception-handling。
+rest-exception-handling/src/main/java/com/yqu/rest目录 Application.java package com.yqu.rest; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  GreetingController.java package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; @RestController public class GreetingController { @Autowired private GreetingService service; @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/greeting&amp;quot;, method = RequestMethod.</description>
+    </item>
+    
+    <item>
+      <title>Swagger实践和总结</title>
+      <link>https://mryqu.github.io/post/swagger%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 11 May 2015 05:54:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/swagger%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%80%BB%E7%BB%93/</guid>
+      <description>Swagger学习和实践 最近安装并使用了一下Swagger-ui、Swagger-editor和Swagger-codegen，感觉还不错。 Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web服务。Swagger的目标是对RESTAPI定义一个标准的和语言无关的接口，可让人和计算机无需访问源码、文档或网络流量监测就可以发现和理解服务的能力。当通过Swagger进行正确定义，用户可以理解远程服务并使用最少实现逻辑与远程服务进行交互。与为底层编程所实现的接口类似，Swagger消除了调用服务时可能会有的猜测。 Swagger是一组开源项目，其中主要要项目如下： - Swagger-tools:提供各种与Swagger进行集成和交互的工具。例如模式检验、Swagger1.2文档转换成Swagger 2.0文档等功能。 - Swagger-core:用于、Servlets和Play框架进行集成。 - Swagger-js:用于JavaScript的Swagger实现。 - Swagger-node-express:Swagger模块，用于node.js的Express web应用框架。 - Swagger-ui：一个无依赖的HTML、JS和CSS集合，可以为Swagger兼容API动态生成优雅文档。 - Swagger-codegen：一个模板驱动引擎，通过分析用户Swagger资源声明以各种语言生成客户端代码。
+ C:\tools\swagger-codegen&amp;gt;mvn package C:\tools\swagger-codegen\modules\swagger-codegen-cli&amp;gt;mvn package C:\tools\swagger-codegen\modules\swagger-generator&amp;gt;mvn package C:\tools\swagger-codegen&amp;gt;java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i http://petstore.swagger.io/v2/swagger.json -l spring-mvc -o yqu/petstore/spring-mvc C:\tools\swagger-codegen\yqu\petstore\spring-mvc&amp;gt;mvn package  上述操作通过底层使用SpringFox库，会创建带有Swagger注释的SpringMVC框架代码，包括Controller和DTO类。这样将Swagger-ui部署到Web应用内，就可以通过http://server:8002/v2/sdoc.jsp 在线访问API文档了。 - Swagger-editor：可让使用者在浏览器里以YAML格式编辑SwaggerAPI规范并实时预览文档。可以生成有效的SwaggerJSON描述，并用于所有Swagger工具（代码生成、文档等等）中。 除了Swagger项目自身支持的Java、Scala和JavaScript语言，Swagger社区中还提供了很多支持其他语言的第三方工具，覆盖了Clojure、ColdFusion/ CFML、Eiffel、Go、Groovy、.Net、Perl、PHP、Python、Ruby等各种编程语言。
+Swagger总结 Swagger这类API文档工具可以满足下列需求： - 支持API自动生成同步的在线文档 - 这些文档可用于项目内部API审核 - 方便测试人员了解API - 这些文档可作为客户产品文档的一部分进行发布 - 支持API规范生成代码，生成的客户端和服务器端骨架代码可以加速开发和测试速度
+跟下列其他API文档工具相比，Swagger各有优缺点，但它功能最多、也是最流行的。 - RESTful API Modeling Language (RAML) - apiary的API Blueprint - I/O Docs - Web Application Description Language (WADL)</description>
+    </item>
+    
+    <item>
+      <title>Spring3 REST can&#39;t solve list of object generated by Javascript</title>
+      <link>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</link>
+      <pubDate>Fri, 16 Jan 2015 21:21:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</guid>
+      <description>最近遭遇Spring3REST无法解析对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+客户端代码 var meatadata=&#39;[{&amp;quot;varName&amp;quot;:&amp;quot;id&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Id&amp;quot;,&amp;quot;varIndex&amp;quot;:1},{&amp;quot;varName&amp;quot;:&amp;quot;name&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Name&amp;quot;,&amp;quot;varIndex&amp;quot;:2},{&amp;quot;varName&amp;quot;:&amp;quot;age&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Age&amp;quot;,&amp;quot;varIndex&amp;quot;:3}]&#39;; $.ajax({ url: &amp;quot;configure&amp;quot;, type: &amp;quot;POST&amp;quot;, data: metadata, dataType: &amp;quot;json&amp;quot;, contentType: &amp;quot;application/json&amp;quot;, success: function (res) { $(&#39;#cfgContent&#39;).text(JSON.stringify(res)); $(&#39;#cfgError&#39;).text(&amp;quot;&amp;quot;); }, error: function (res) { $(&#39;#cfgContent&#39;).text(&amp;quot;&amp;quot;); $(&#39;#cfgError&#39;).text(res.responseText); } });  中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.</description>
+    </item>
+    
+    <item>
+      <title>Spring REST can&#39;t solve nested object array generated by JavaScript</title>
+      <link>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</link>
+      <pubDate>Thu, 15 Jan 2015 21:27:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</guid>
+      <description>最近遭遇SpringREST无法解析嵌套对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+所操作的复杂对象 客户端POST响应 中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/configure&amp;quot;, method = RequestMethod.GET) public @ResponseBody SheetVO getConfiguration() { List columns = new ArrayList(); columns.add(new ColumnVO(&amp;quot;id&amp;quot;,&amp;quot;The Id&amp;quot;,1)); columns.add(new ColumnVO(&amp;quot;name&amp;quot;,&amp;quot;The Name&amp;quot;,2)); columns.add(new ColumnVO(&amp;quot;age&amp;quot;,&amp;quot;The Age&amp;quot;,3)); SheetVO metadata = new SheetVO(SheetVO.</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] retrieve data table</title>
+      <link>https://mryqu.github.io/post/javascript_retrieve_data_table/</link>
+      <pubDate>Wed, 20 Aug 2014 22:06:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_retrieve_data_table/</guid>
+      <description>想学学怎么提交一个Form中的Table，放狗出去，结果不够给力。 曾经有很多年Table标签被用作格式对齐的工具，这使搜出来的页面很少讲的是数据表格。 看了看DataTables这个JQuery插件，可以加载和更新数据，但是没有找到存储所有表格数据的功能。 看了看ajaxsubmit，必须有formcontent，此外可以有可选的data。由于表格里有很多行，没想好path的设置问题。 最后还是用JS提取所有表格数据，生成JS数组，通过AJAX post函数发送给服务器侧。 JS侧的代码示例：http://jsfiddle.net/mryqu/d7rubzut/ 服务器侧的用于REST的Spring控制器代码如下：
+@RequestMapping(params=&amp;quot;action=test&amp;quot;, method = RequestMethod.POST) public @ResponseBody TestResultVO test(HttpServletRequest request, @ModelAttribute(&amp;quot;tqs&amp;quot;)ArrayList tqs) throws Exception { ...... }  运行结果正常</description>
+    </item>
+    
+    <item>
+      <title>使用Spring MVC下载Excel文件</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8spring_mvc%E4%B8%8B%E8%BD%BDexcel%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 20 Jan 2014 21:29:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8spring_mvc%E4%B8%8B%E8%BD%BDexcel%E6%96%87%E4%BB%B6/</guid>
+      <description> 想使用Spring MVC下载Excel文件，照着下面的样例，很容易就实现了。 Spring MVC with Excel View Example (Apache POI and JExcelApi)
+Spring MVC and Excel file via AbstractExcelView
+问题一：数据仅能生成xls，不能生成xlsx 通过org.springframework.web.servlet.view.document.AbstractExcelView源代码可知，Spring的AbstractExcelView仅支持HSSFWorkbook，不支持XSSFWorkbook。这一问题可以通过Github上的hmkcode/Spring-Framework来解决。 com.hmkcode.view.abstractview.AbstractExcelView
+com.hmkcode.view.ExcelView
+问题二：下载的文件是我配置的视图路径export.do，而不是Excel后缀 通过在Rest Controller里添加如下代码解决：
+SimpleDateFormat myFmt=new SimpleDateFormat(&amp;quot;yyyyMMdd_HHmmss&amp;quot;); response.setHeader(&amp;quot;Pragma&amp;quot;, &amp;quot;public&amp;quot;); response.setHeader(&amp;quot;Cache-Control&amp;quot;, &amp;quot;max-age=0&amp;quot;); if(excelVersion.equals(&amp;quot;xlsx&amp;quot;)){ response.setContentType(&amp;quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&amp;quot;); response.setHeader(&amp;quot;Content-Disposition&amp;quot;, &amp;quot;attachment; filename=test&amp;quot;+myFmt.format(new Date())+&amp;quot;.xlsx&amp;quot;); }else{ response.setContentType(&amp;quot;application/vnd.ms-excel&amp;quot;); response.setHeader(&amp;quot;Content-Disposition&amp;quot;, &amp;quot;attachment; filename=\&amp;quot;test&amp;quot;+myFmt.format(new Date())+&amp;quot;.xls\&amp;quot;&amp;quot;); }  </description>
+    </item>
+    
+    <item>
+      <title>REST的Richardson成熟度模型</title>
+      <link>https://mryqu.github.io/post/rest%E7%9A%84richardson%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sat, 19 Oct 2013 10:59:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rest%E7%9A%84richardson%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/</guid>
+      <description>一个web服务有多么的&amp;rdquo;restful&amp;rdquo;，最有名的就是《RESTful Web Services》的合著者Leonard Richardson提出的REST 成熟度模型，简称Richardson成熟度模型。 - 第0级：使用HTTP作为传输方式；一个URI，一个HTTP方法。SOAP、XML-RPM都属于这一级别，仅是来回传送&amp;rdquo;Plain OldXML&amp;rdquo;(POX)。即使没有显式调用RPC接口（SOAP、XML-RPM），通常会调用服务器端的一个处理过程。一个接口会有一个端点，文档的内容会被解析用还判断所要调用的处理过程及其参数。这种做法相当于把HTTP 这个应用层协议降级为传输层协议用。HTTP 头和有效载荷是完全隔离的，HTTP头只用于保证传输，不涉及业务逻辑；有效载荷包含全部业务逻辑，因此 API 可以无视 HTTP 头中的任何信息。 - 第1级：引入了资源的概念，每个资源有对应的标识符和表达；多个URI，一个HTTP方法。这些资源仍是被&amp;rdquo;GETful&amp;rdquo;接口操作而不是HTTP动词，但服务基本上提供和操作资源。例如： - GET http://example.com/app/createUser - GET http://example.com/app/getUser?id=123 - GEThttp://example.com/app/changeUser?id=123&amp;amp;field=value - GET http://example.com/app/deleteUser?id=123 - 第2级：根据语义使用HTTP动词，适当处理HTTP响应状态码；多个URI，多个HTTP方法。 - GET用于查询资源； - HEAD用于查询资源是否存在； - POST创建新资源； - PUT更新已存在的资源； - PATCH部分更新已存在的资源； - DELETE删除已存在的资源。在这一级别，资源名称为基URI的一部分，而不是查询参数。 - 第3级：使用超媒体作为应用状态引擎（HATEOAS）；多个URI，多个HTTP方法。在资源的表达中包含了链接信息。客户端可以根据链接来发现可以执行的动作。链接推荐使用ATOM (RFC4287)中的显式语义。
+当然围绕这一模型，争论很多，Martin Fowler、Rest之父Roy Fielding、《RESTful WebServices Cookbook》作者Subbu Allamaraju都有不同的见解。
+参考 Leonard Richardson：REST 成熟度模型
+Martin Fowler：Richardson Maturity Model
+Roy Fielding：REST APIs must be hypertext-driven
+Subbu Allamaraju：Measuring REST
+如何度量应用的RESTful成熟度？</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（三）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/</link>
+      <pubDate>Sat, 19 Oct 2013 09:08:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/</guid>
+      <description>杂项 为了复制资源而不泄漏服务器实现细节，可以设计一个用于复制的控制器资源。客户端向控制器发送POST请求复制资源。为了实现条件POST，可以提供一次性URI。控制器创建副本后，返回状态码201 (Created)及Location头带有副本URI。 为了合并两个或多个资源，可以设计一个用于合并的应用程序特定控制器资源。客户端想控制器发送GET请求，其查询参数包含待合并资源的URI或标识符。服务器返回Last-Modified、ETag头和包含待合并资源摘要的表述体。ETag由时戳和随机数连接串构成。为了验证摘要，客户端向同一地址发送带有If-Unmodified-Since和If-Match头的POST请求发起合并。服务器合并后在事务日志中保留If-Match头的值并返回状态码201 (Created)及含有合并后资源URI的Location头。如果客户端再发送相同If-Match头的POST请求，服务器返回状态码412 (Preconditon Failed)。 为了移动资源，服务器会提供负责移动资源控制器的链接或链接模板以使客户端可以发送POST请求，并在完成请求后根据输出返回状态码201 (Created)或303 (See Other)。 WebDAV （RFC 4918）是用于资源分布式创作和版本管理的HTTP扩展，它扩展了一些HTTP方法和头用于管理文件和文档。当Web服务是内容创作应用且服务器支持WebDAV时使用WebDAV特定方法，避免对其他类型应用使用WebDAV。
+|方法|介绍 |&amp;mdash;&amp;ndash; |PROPFIND|WebDAV中的文档具有属性，客户端可用此方法获得属性 |PROPPATCH|客户端用此方法设置、添加或修改资源属性 |MKCOL|WebDAV可以将文档放入集合（文件夹），客户端可用此方法创建集合 |COPY|客户端可用此方法复制资源 |MOVE|客户端可用此方法移动资源 |LOCK|客户端可用此方法对给定文档加锁，以支持悲观并发控制 |UNLOCK|客户端可用此方法对给定文档去锁
+为了支持跨服务器边界的操作（例如，将用户配置从一个应用移植到另一个应用，将文档从草稿服务器发布到生产服务器），需要服务器之间彼此就数据格式、后台接口、并发控制、数据加载、范式化和存储等方面协作、设计和实现设计跨服务器操作。 wiki的网页都会维护当前和过去的修订历史，以便客户可以获取、比较和评估页面改变。为了支持资源以往历史快照，服务器在收到客户端PUT请求更新资源时，在更新资源之前会默认创建快照（资源副本），并在更新后的资源表述中包含快照链接，快照表述中包含更新后资源链接。当用户发送DELETE请求，删除资源及所有快照。 提供用于撤销操作的控制器资源。当客户端发送POST请求进行撤销操作，在事务日志中记录资源当前状态以用于审计。服务器将资源状态恢复到上一快照并将客户端重定向到资源URI。 当资源很大而改动很小时，发送GET请求获取整个表述、进行小的修改、发送PUT请求将整个表述传回服务器进行更新很费时费带宽。为了支持对资源进行部分更新，可以将可修改的资源部分封装为一个新资源。客户端通过PUT请求更新该新资源，等效于部分更新原来的资源。 HTTP PUT方法用于对资源的整个更新或替换，PATCH方法（RFC 5789）用于支持部分更新。PATCH方法不是安全和幂等的，请求体是一系列对资源进行改变的表述。当收到请求，服务器将整个补丁原子性地施加于资源，并返回响应码 200 (OK)或204 (No Content)。如果服务器无法将整体补丁施加于资源，就不会做任何局部修改。可以通过请求中包含If-Unmodified-Since和/或If-Match头支持条件PATCH请求，如果不匹配则返回状态码412 (Precondition Failed)。建议在OPTIONS响应的Allow头支持PATCH，并在PTACH方法包含Accept-Patch头，其值为支持的媒体类型。 当客户端需要为不同资源提交若干类似请求时，只要对每个资源的操作是相同的且资源是类似的，可以将这些操作组合成一个针对集合资源的单个操作。使用POST请求和集合资源一次性批量创建若干资源。服务器为集合资源分配一个URI，并使用状态码303 (See Other)重定向到该集合资源，集合资源表述包含所有新创建资源的链接。使用PUT请求更新或DELETE请求删除若干资源与创建过程类似，以上操作必须是原子化的。 客户端需要执行批量作业的用例不是少数。例如，为前一天销售订单做汇总、将一个或多个文档打包、批准选择的购买订单集合等等都需要批量执行。服务器需要设计一个控制器资源用于执行批量操作。如果客户端需要跟踪操作或客户端需要提交大量用于操作的数据，返回状态码202 (Accepted)以进行异步操作，否则返回200 (OK)或204 (No Content)。 将几个HTTP组合成一个HTTP请求以支持批量处理的用例不是少数。下面列举了一些通常使用的技术实现： - 客户端将几个HTTP请求序列化到一个JSON对象、或一个XML文档、或multipart/mixed消息的一部分。 - 客户端创建一个信封跟是将多个请求组合进入一个消息。 - 客户端向服务器的分批终点（batch end point）资源发送POST请求。 - 服务器接收到消息，打开信封，重构多个HTTP请求并分发到服务器的相关URI。或者服务器绕过HTTP将请求直接派发到能处理这种请求的代码。 - 服务器收集每个请求的响应并序列化为一个消息返回到客户端。 - 客户端打开信封并处理每个响应消息。
+避免这种将多个HTTP请求封装入一个POST请求隧道的做法。因为通常隧道方案有以下不利之处：
+|特性|介绍 |&amp;mdash;&amp;ndash; |并发|HTTP通过Last-Modified和ETag头来实现乐观并发检查。将多个HTTP请求封装进一个HTTP请求隧道的批量操作使并发检查变得困难，因为服务器需要为批量操作中每一个任务进行并发检查。 |原子性|HTTP请求是原子性的。每个请求执行单个任务，服务器在错误发生时确保数据的原子性和一致性。将多个任务混入一个请求、尤其是某些操作依赖于同一请求的前一操作是否成功的批量操作使Web服务很难确保原子性和进行错误恢复。 |可见性|将多个操作封装到一个HTTP请求隧道使中间节点无法对批量处理内的操作响应可见。此外检测请求防止拒绝攻击的典型安全方法几乎不可能捕捉到批量操作中的可疑请求，因此可能导致拒绝服务攻击。 |错误处理|用于批量操作的错误处理和报告更为复杂。单个批量请求的结构可能混杂成功和失败响应。 |可扩展性|一般用于批量操作的理由依赖批量处理比执行每个单个请求更可扩展这样的假设。当单个服务器收到非常多的批量处理，请求会降低服务器的响应能力。发送很多批量客户端处理到单个服务器的应用比不支持批量处理的相同应用性能可能更低。
+分析导致促成使用隧道技术的用例，设计应用特有的控制器资源支持相同需求。由于请求使用的是处理请求资源的单个URI，所以请求可见。由于仅返回一个状态码，所以响应可见。 RESTful web服务在下列场景可能会需要处理事务： - 客户端执行操作流的一些列步骤。客户端在取消操作流时要撤销所有已完成的数据变动。 - 客户端同若干服务器顺序交互以实现应用操作流，客户端可能希望恢复任何状态改变或持久化存储状态。</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（二）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Sat, 19 Oct 2013 08:32:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
+      <description>Atom和AtomPub Atom聚合格式（RFC 4287）和Atom发布协议（也称为AtomPub，RFC5023）定义了条目和种子等资源及其表述和操作协议。Atom主要用于基于文本的、意图让人们去阅读的博客、讨论论坛、评论系统等资源。AtomPub描述了允许客户端创建和修改Atom格式资源的语义，并引入有助于应用程序发现的服务和分类资源。 Atom和AtomPub被用于很多应用场景。尽管Atom通常用于博客种子，也能进行格式扩展以用于用户简介、搜索结果、相簿等应用数据。 下面列举了Atom条目和种子内的一些元素。Atom条目和种子都是可扩展的，也可以引入新的属性和元素。
+|元素|描述 |&amp;mdash;&amp;ndash; |atom:author|存在于atom:feed和atom:entry内，表现创建条目/种子的作者，包含至少一个atom:name及可选的atom:uri和atom:email子元素 |atom:content|存在于atom:entry内，提供普通文本、HTML或XHTML条目内容或带媒体类型的其他内容，使用src和type属性链接到任意媒体 |atom:summary|存在于atom:entry内，提供条目摘要或描述。与atom:tile相似，提供type属性。 |atom:id|存在于atom:entry内，包含条目的URN格式的全局唯一标识符（例如urn:guid:550e8400-e29b-41d4-a716-446655440123）。其值在条目/种子更新或移动后必须改变。 |atom:link|存在于atom:feed和atom:entry内，每个条目/种子必须包含一个rel值为self的atom:link元素，可以包含relf值为alternate的多个type和hreflang属性唯一的atom:link元素组合，也可以包含链接关联资源的其他atom:link元素。 |atom:title|存在于atom:feed、atom:entry和atom:source内，包含条目/种子的文本标题表述。支持type属性，值为text（默认）、thml或xhtml。 |atom:update|存在于atom:feed和atom:entry内，包含条目/种子的最新更新时间。 |atom:category|存在于atom:feed和atom:entry内，对条目和种子进行分类。 |atom:contributor|每个Atom条目可以包含一个或多个atom:contributor元素。 |atom:generator|存在于atom:entry和atom:source内，指示生成种子的软件或条目来源。 |atom:icon|存在于atom:feed内，每个种子可以包含一个atom:icon元素。 |atom:logo|存在于atom:feed内，每个种子可以包含一个atom:logo元素。 |atom:published|存在于atom:entry内，每个条目可以包含一个atom:published元素，用于指示条目第一次发布的时间。 |atom:rights|存在于atom:entry内，每个条目可以包含一个atom:rights元素，描述权利例如著作权。 |atom:subtitle|存在于atom:feed和atom:source内，每个条目/源可以包含一个atom:subtitle元素。
+使用Atom的好处在于互通性。为了使用Atom，将资源建模成条目，集合建模成种子。这些元素在http://www.w3.org/2005/Atom命名空间下定义，该命名空间常用的前缀为atom。 Atom种子和条目的默认内容模型包括文本、HTML或XHTML内容和摘要、标识符、链接、作者、分类等。该内容模型最适合发布和聚合作为种子的信息片。然而，由于其格式获取的基本概念对大多数应用程序有益，可被用于各种场景而不是仅仅用于内容种子。 当资源的信息模型或元数据与Atom种子和条目的语法和语义自然匹配时使用Atom。即使资源的信息模型无法匹配Atom，考虑为其提供由短文本、HTML或XHTML资源摘要和链接。用户可以通过种子阅读器等工具了解资源。 AtomPub引入了服务文档和媒体资源等额外资源，服务文档有助于客户端发现Web服务提供的集合。服务器能够使用媒体资源将语音、视频、图像媒体或任意文档与Atom条目进行关联。 使用服务文档资源将集合汇入工作空间。该资源表述是XML文档，定义在http://www.w3.org/2007/app命名空间的service是文档的根节点。该命名空间常用的前缀为app。表述的媒体类型是application/atomsvc+xml。服务（app:service）包含一个或多个工作空间（app:workspace）。每个工作空间包含多个的集合（app:collection），列举了所有种子URI、可接受媒体类型（app:accept）和分类（app:category）。 分类资源列举了集合内资源的分类，表述是category作为根节点的XML文档，有atom:category元素组成。表述的媒体类型是application/atomcat+xml。 AtomPub是修改Atom文档的应用协议。它描述如何创建、更新和删除Atom条目，也支持编辑诸如图片、打包文件等关联的非文本媒体。如果正在使用Atom格式发布可编辑资源，考虑支持AtomPub。 允许客户端通过提交消息体为Atom条目文档的POST请求来创建新资源。客户端可以接下来对edit关系类型的链接用PUT方法修改或用DELETE方法删除资源。 当表述是Atom条目文档时在媒体类型上添加参数type=entry。 AtomPub引入的资源类型之一是媒体资源。媒体资源是除了Atom条目文档之外的其他资源，可用于表现文档、图片、音频和视频文件等。由于媒体资源不是Atom条目文档且可能是二进制资源，AtomPub对每个媒体资源关联一个媒体链接资源（描述并链接媒体资源的Atom条目）。 客户端通过发送POST请求来创建媒体资源。服务器创建媒体资源和媒体链接资源，并在响应的通过Location头返回媒体链接资源的URI。在媒体链接资源表述中，通过atom:conteng元素的src属性提供新创建的媒体资源URI。
+内容协商 内容协商有时也称以为conneg，是当多种表述（/变体）可用时为客户端选择资源的最佳表述。尽管内容协商经常与指示媒体类型优先级相关，它也能用于指示语言本地化、字符编码和压缩编码的优先级。HTTP指定了两种内容协商：服务器驱动协商和代理驱动协商。服务器驱动协商使用request头选择一种变体，代理驱动协商为每一种变体使用不同URI。 当实现一个客户端时，对客户端来说向服务器指示自身能够处理的表述格式、语言、字符编码和压缩编码偏好和能力是非常重要的。即使能够通过带外了解响应中上诉信息，清楚指示客户端的偏好和能力有助于客户端面对变化。否则，当服务器决定提供资源的替换表述，HTTP库的任何默认偏好可能提示服务器返回了不同的表述并中断客户端。 在发送请求时，添加一个Accept头，包含逗号分隔的媒体类型优先级列表。如果媒体类型优先级不一样，对每个媒体类型添加一个q参数，以表示相关优先级（1.0～0.0，优先级越高值越大）。如果客户端仅能处理特定格式，在Accept头添加*;q=0.0以表明无法处理Accept头媒体列表之外的媒体。 如果客户端仅能处理特定字符编码，添加带有偏好字符集的Accept-Charset头，否则避免添加Accept-Charset头。为表述的偏好语言添加Accept-Language头。如果客户端能够解压缩诸如gzip、compress或deflate编码的表述，添加带有支持的压缩编码的Accept-Encoding头，否则，不要使用该头。
+# Request headers Accept: application/atom+xml;q=1.0, application/xml;q=0.6, **;q=0.0 # Response HTTP/1.1 200 OK Content-Language: en Vary: Accept-Language ... # Request for German representation GET /status HTTP/1.1 Host: www.example.org Accept-Language: de;q=1.0,**;q=0.0  当服务器无法满足客户端偏好且客户端显式包含**;q=0.8。这样很难在浏览器获得内容协商的表述。 代理驱动协商当客户端无法使用Accept-*头来表示偏好时很有效，它通过为每个变体提供不同URI，客户端使用URI来选择期望的表述。在代理驱动协商中，客户端通过从服务器获得的带外信息判断要使用的URI。如果表述存在，服务器返回表述，否则，返回404(Not Found)状态码。尽管所有Accept-*头内要协商的信息都可在代理驱动协商中实现，通常用于媒体类型和语言类型。下面是代理驱动协商的常用做法： - 查询参数，例如http://www.</description>
+    </item>
+    
+    <item>
+      <title>RESTful Web Services Cookbook笔记（一）</title>
+      <link>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Sat, 19 Oct 2013 08:10:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
+      <description>使用统一接口 HTTP是一种应用层协议，它定义了客户端与服务器之间的转移操作的表述形式。在此协议中，诸如GET，POST和DELETE之类的方法是对资源的操作。有了它，无须创造createOrder,getOrder,updateOrder等应用程序特定的操作了。 作为应用协议，HTTP的设计目标是在客户端和服务器之间保持对库、服务器、代理、缓存和其他工具的可见性。可见性是HTTP的一个核心特征。 一旦识别并设计资源，就可以使用GET方法获取资源的表述，使用PUT方法更新资源，使用DELETE方法删除资源，以及使用POST方法执行各种不安全和非幂等的操作。可以添加适当的HTTP标头来描述请求和相应。 以下特性完全取决于保持请求和相应的可见性： - 缓存：缓存响应内容，并在资源修改时使缓存自动失效。 - 乐观并发控制：检测并发写入，并在操作过期的表述时防止资源发生变更。 - 内容协商：在给定资源的多个可用表述中，选择合适的表述。 - 安全性和幂等性：确保客户端可以重复或重试特定的HTTP请求。
+HTTP通过以下途径来实现可见性： - HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和响应的意义，而无须关联过去和将来的请求和响应。 - HTTP使用一个统一接口，包括有OPTIONS，GET，HEAD，POST，DELETE和TRACE方法。接口中的每一个方法操作一个且仅一个资源。每个方法的语法和含义不会因应用程序和资源的不同而发生改变。 - HTTP使用一种与MIME类似的信封格式进行表述编码。这种格式明确区分标头和内容。标头是可见的，除了创建、处理消息的部分，软件的其他部分都可以不用关心消息的内容。
+保持可见性的另一方面是使用适当的状态码和状态消息，以便代理、缓冲和客户端可以决定请求的结果。 在某些情况下，可能需要权衡其他特性，如网络效率、客户端的便利性以及分离关注点，为此放弃可见性。当进行这种权衡时，应仔细分析对缓存、幂等性、安全性等特性的影响。 当有多个共享数据的资源，或一个操作修改多个资源时，需要权衡是否降低可见性（例如是否禁止缓存）以便获得更好的信息抽象、更松散的耦合程度、更好地网络效率、更好地资源粒度，或纯粹为了方便客户端使用。 可以通过带有应用程序状态的URI链接来保持应用程序状态而无需依赖服务器中内存中的会话。 安全性和幂等性是服务器要实现的HTTP方法的特征。当客户端发送GET、HEAD、OPTIONS、PUT或DELETE请求时，如果没有使用并发条件限制时，确保服务器提供相同响应。
+|方法|是否安全?|是否幂等? |&amp;mdash;&amp;ndash; |GET|是|是 |HEAD|是|是 |OPTIONS|是|是 |PUT|否|是 |DELETE|否|是 |POST|否|否
+客户端通过下列方法实现幂等的/安全的HTTP请求： - 将GET、OPTIONS和HEAD视为只读操作，可按需随时可发送请求。 - 在网络或软件异常的情况下，通过If-Unmodified-Since/If-Match条件标头重发GET、PUT和DELETE请求。 - 不要重发POST请求，除非客户端（通过服务器文档）知道对特定资源的POST实现是幂等的。
+Web基础设施严重依赖于GET方法的幂等性和安全性。客户端期望能够重复发起GET请求，而不必担心造成副作用。缓存依赖于不需访问源服务器就能提供已缓存表述的能力。 不要把GET方法用于不安全和非幂等操作。因为这样做可能造成永久性的、意想不到的、不符合需要的资源改变。 可以使用POST方法或PUT方法创建新资源。只有在客户端可以决定资源的URI时才使用PUT方法创建新资源；否则使用POST，由服务器决定新创建资源的URI（客户端请求可以使用Slug头建议新资源的URI）。 在以下场合中使用POST方法： - 创建新的资源，把资源作为一个工厂 - 通过一个控制器资源来修改一个或多个资源 - 执行需要大数据输入的查询 - 在其他HTTP方法看上去不合适时，执行不安全或非幂等的操作。（缓存不会缓存这一方法的响应）
+使用POST方式实现异步任务：服务器在接受到POST请求时，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，如服务器还在执行中，返回响应码200（OK）及包含当前状态的任务资源表述；如服务器成功完成，返回响应码303（SeeOther）以及包含新资源URL的Location头；如服务器任务失败，返回响应码200（OK）及任务失败的表述。 使用DELETE方法实现异步请求：服务器在收到DELETE请求，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，服务器返回响应码200（OK）及包含当前状态的任务资源表述。 避免使用非标准的自定义HTTP方法。当前比较有名的自定义方法包括WebDAV定义的方法、PATCH和MERGE。 HTTP服务器可能会使用自定义HTTP标头，比较有名的自定义HTTP包括X-Powered-By、X-Cache、X-Pingback、X-Forwarded-For及X-HTTP-Method-Override。实现客户端和服务器时，要让他们在没有发现需要的自定义标头时也不会失败。避免使用自定义HTTP标头改变HTTP方法的行为。
+识别资源 从领域名词中识别资源。 直接将领域实体映射为资源可能导致资源效率低下且难以使用，可以通过网络效率、表述的多少以及客户端的应用程度来帮助确定资源的粒度。 粗粒度设计便于富客户端应用程序，更精细的资源颗粒可以更好地忙族缓存的要求。因此，应从客户端和网络的角度确定资源的粒度。下列原书可能会进一步影响资源粒度： - 可缓存性 - 修改频率 - 可变性
+仔细设计资源粒度，以确保使用更多缓存，减少修改频率，或将不可变数据从使用缓存较少、修改频率更高或可变数据分离出来，这样可以改善客户端和服务器端的效率。 基于应用程序特有的条件来识别相似的资源（例如共享同一数据库schema的资源，有相同特性或属性的资源），可以将这些有共性的资源组织成为集合。 基于客户端的使用模式、性能和延时要求，确定一些新的聚合其他资源的复合资源，来减少客户端与服务器的交互。 符合资源降低了统一接口的可见性，应为它们的表述中包含了和其他资源相重叠的资源。因此，在提供复合资源前,需要考虑一下几点： - 如果在应用程序的请求很少，那么它可能不是一个好的选择。依赖缓存代理，从缓存中获取这些资源，也许能让客户端收益匪浅。 - 另一个因素是网络开销&amp;ndash;客户端与服务器之间的网络开销，服务区和后端服务或他所依赖的数据存储之间的网络开销。如果后者开销很大，那获取大量数据并在服务器上将他们组合成复合资源可能会增加客户端的延时，降低服务器的吞吐量。 - 想要改善延时，可以在客户端和服务器之间增加一个缓存层，并避免复合资源，进行一些负载测试来验证复合资源是否能起到改善作用。</description>
+    </item>
+    
+  </channel>
+</rss>

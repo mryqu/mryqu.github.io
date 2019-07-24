@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tech on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/categories/tech/</link>
+    <description>Recent content in Tech on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 02 Jun 2019 18:36:11 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玩一道正则表达式练习题</title>
+      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E9%81%93%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%83%E4%B9%A0%E9%A2%98/</link>
+      <pubDate>Sun, 02 Jun 2019 18:36:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E9%81%93%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%83%E4%B9%A0%E9%A2%98/</guid>
+      <description>前一段时间在网上碰到一道题，要求进行用户名检查：
+- 用户名长度要求最短6字符，最长16字符；
+- 用户名可以由字母、数字和可选的一个连字号(-)组成；
+- 用户名首字符必须为字母，末字符不可以是连字号。
+这道题属于送分题，很容易写出下面的Java代码：
+public class Username { public static int MIN_LEN = 6; public static int MAX_LEN = 16; public static boolean validate(String username) { if(username==null || username.length()&amp;lt;MIN_LEN || username.length()&amp;gt;MAX_LEN || !Character.isLetter(username.charAt(0))) return false; int hyphenNum = 0; for(int i=1;i&amp;lt;username.length();i++) { char ch = username.charAt(i); if (!Character.isLetterOrDigit(ch)) { if (ch==&#39;-&#39;) { if(i== username.length()-1 || ++hyphenNum&amp;gt;1) return false; } else return false; } } return true; } public static void main(String[] args) { String[] tests = new String[] { null, &amp;quot;mryqu123&amp;quot;, &amp;quot;mryqu-123&amp;quot;, &amp;quot;mryqu 123&amp;quot;, &amp;quot;mryqu123-&amp;quot;, &amp;quot;mryqu-123-bj&amp;quot;, &amp;quot;123mryqu&amp;quot;, &amp;quot;MryQu-123&amp;quot; }; for(String test:tests) { System.</description>
+    </item>
+    
+    <item>
+      <title>学习一下TOML</title>
+      <link>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%B8%80%E4%B8%8Btoml/</link>
+      <pubDate>Mon, 23 Oct 2017 05:47:58 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%B8%80%E4%B8%8Btoml/</guid>
+      <description>TOML（Tom&amp;rsquo;s Obvious, Minimal Language）是（GitHub的联合创始人及前CEO）Tom Preston-Werner于2013年创建的语言，其目标是成为一个小规模的易于使用的语义化配置文件格式。TOML被设计为可以无二义性的转换为一个哈希表(Hash table)。它是YAML和JSON的替代品，跟JSON相对对人类更友好，比YAML更简单。 GitHub：toml-lang/toml
+Learn toml in Y minutes
+[](https://www.cnblogs.com/unqiang/p/6399136.html)
+TOML简介 （转）</description>
+    </item>
+    
+    <item>
+      <title>短网址服务学习和测试</title>
+      <link>https://mryqu.github.io/post/%E7%9F%AD%E7%BD%91%E5%9D%80%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Sat, 30 Jul 2016 05:56:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%9F%AD%E7%BD%91%E5%9D%80%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B5%8B%E8%AF%95/</guid>
+      <description>短网址服务 短网址（Short URL） ，顾名思义就是在形式上比较短的网址。通常用的是asp或者php转向，在Web2.0的今天，不得不说，这是一个潮流。目前已经有许多类似服务，借助短网址您可以用简短的网址替代原来冗长的网址，让使用者可以更容易的分享链接。 网上的短网址服务一堆堆的，例如谷歌家的goo.gl，bit.ly为推特家提供了bit.ly及为亚马逊家提供了amzn.to，推特家自己的t.co，新浪家的t.cn，百度家的dwz.cn，简直数不过来。 SearchEngineLand曾对国外市面上的URL缩短服务进行了分析总结，列出了推荐使用的和应尽力避免使用的服务。该评测从是否为301转向（永久转向，相对302为暂时转向）、是否支持Tracking（追踪链接的来源）、是否支持主流的Twitter客户端、缩短后的URL字数、是否支持自定义URL、是否支持分享等多个方面进行评价。具体结果见此表。 短网址算法 算法一  将长网址md5生成32位签名串,分为4段, 每段4个字节（即32位）; 对这四段循环处理, 取4个字节（32位）, 将他看成16进制串与0x3fffffff(30位1)与操作,即超过30位的忽略处理; 这30位分成6段, 每5位的数字作为字母表的索引取得特定字符, 依次进行获得6位字符串; 总的md5串可以获得4个6位串; 取里面的任意一个就可作为这个长url的短url地址;  算法二 把数字和字符组合做一定的映射,就可以产生唯一的字符串,如第62个组合就是aaaaa9,第63个组合就是aaaaba,再利用洗牌算法，把原字符串打乱后保存，那么对应位置的组合字符串就会是无序的组合。 把长网址存入数据库,取返回的id,找出对应的字符串,例如返回ID为1，那么对应上面的字符串组合就是bbb,同理ID为2时，字符串组合为bba,依次类推,直至到达62种组合后才会出现重复的可能，所以如果用上面的62个字符，任意取6个字符组合成字符串的话，你的数据存量达到500多亿后才会出现重复的可能。
+短网址服务测试(基于新浪短地址服务) 短地址服务是否验证长URL？ 对于不存在的长地址http://www.mryqu.com/test/test.html，新浪短地址服务没有验证，直接转成了短地址http://t.cn/RtXngGQ 。如果长url其实是该短地址服务产生的短地址，如何处理？ 对于长地址http://t.cn/RtXngGQ ，新浪短地址服务做了检查识别出短地址,并直接按照http://www.mryqu.com/test/test.html返回短地址http://t.cn/RtXngGQ 。如果长url其实是其他短地址服务产生的短地址，如何处理？ 我用长地址http://blog.sina.com.cn/yandongqu 在百度短地址服务获得了短地址http://dwz.cn/3TE3bq ，将其作为新浪短地址服务的输入，新浪短地址服务识别出短地址，获得原始长地址http://blog.sina.com.cn/yandongqu ，并返回相应短地址短地址http://t.cn/RLoGZKa 。参考 短网址
+短网址服务，我们该怎么选？
+URL Shorteners: Which Shortening Service Should You Use?
+短链接URL系统是怎么设计的？
+tinyURL的设计方案与实现【一】</description>
+    </item>
+    
+    <item>
+      <title>表情符号之Unicode和UTF-8编码</title>
+      <link>https://mryqu.github.io/post/%E8%A1%A8%E6%83%85%E7%AC%A6%E5%8F%B7%E4%B9%8Bunicode%E5%92%8Cutf-8%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Sat, 26 Dec 2015 06:06:24 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%A1%A8%E6%83%85%E7%AC%A6%E5%8F%B7%E4%B9%8Bunicode%E5%92%8Cutf-8%E7%BC%96%E7%A0%81/</guid>
+      <description>最近在玩表情符号，这个表情符号Unicode表格，还挺全： http://apps.timwhitlock.info/emoji/tables/unicode 此外也常用这个在线编码转换工具进行验证：http://tool.oschina.net/encode 表情符号的Unicode范围在Android - How to filter emoji (emoticons) from a string?有提到过： - U+2190 to U+21FF - U+2600 to U+26FF - U+2700 to U+27BF - U+3000 to U+303F - U+1F300 to U+1F64F - U+1F680 to U+1F6FF</description>
+    </item>
+    
+    <item>
+      <title>一张图学习一门语言</title>
+      <link>https://mryqu.github.io/post/%E4%B8%80%E5%BC%A0%E5%9B%BE%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Thu, 10 Sep 2015 05:58:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%B8%80%E5%BC%A0%E5%9B%BE%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E8%AF%AD%E8%A8%80/</guid>
+      <description>今天看到两个不错的图： - Javascript in one pic - Python3 in one pic</description>
+    </item>
+    
+    <item>
+      <title>漫谈Lua</title>
+      <link>https://mryqu.github.io/post/%E6%BC%AB%E8%B0%88lua/</link>
+      <pubDate>Mon, 24 Aug 2015 05:49:45 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%BC%AB%E8%B0%88lua/</guid>
+      <description>由于工作需要，最近用了有一段时间Lua了。对于脚本语言，研究生时用过Tcl/Tk做过网络仿真，后来在工作中学过Ruby，不同程度地用过UnixShell、Python、Javascript、Groovy、SAS和R。这里面UnixShell脚本是针对特定操作系统的脚本，SAS和R是用于特定业务领域（统计）的脚本，Javascript现在做Web富客户端是绕不过去的。用于通用领域的脚本中，Python容易上手、成熟、工具库多、资源丰富、文档等支持强大、几乎能做任何事：网络、图形界面、桌面程序、服务器、图形处理、算法等。可是我司将Lua而不是Python集成到SAS9.4中了。我使用它之前对其一无所知。很好奇Lua的历史及特长，是什么让我司对其青睐有加的？
+何为Lua？ Lua是一门强大、快速、轻量级、可嵌入的脚本语言。Lua结合了简单的程序语法以及基于关联数组和扩展语义的强大数据描述结构。Lua是动态类型语言，通过在基于寄存器的虚拟机上解析字节码进行运行，具有自动内存管理和增量垃圾回收功能，极适于配置、脚本和快速原型开发。
+Lua的历史 Lua在葡萄牙语中指的是“月亮”。Lua由PUC-Rio（巴西的里约热内卢天主教大学）的一个团队设计、实现和维护。Lua由Tecgraf（原先的计算机图形技术组）发明，并作为自由软件发行。现在由LabLua维护。Tecgraf和LabLua是PUC-Rio计算机科学系的两个实验室。 Lua发明者：Waldemar, Roberto, Luiz由Ernani d&amp;rsquo;Almeida拍摄(2011)
+|Lua版本|发行时间|Lua版本|发行时间 |&amp;mdash;&amp;ndash; |1.0|未公开|3.1|1998/07/11 |1.1|1994/07/08|3.2|1999/07/08 |2.1|1995/02/07|4.0|2000/11/06 |2.2|1995/11/28|5.0|2003/04/11 |2.3|未公开|5.1|2006/02/21 |2.4|1996/03/14|5.2|2011/12/16 |2.5|1996/11/19|5.3|2015/01/12 |3.0|1997/07/01
+Lua优点  经过验证的、健壮的语言：Lua已经被用于很多工业程序中(例如Adobe的PhotoshopLightroom)、嵌入式系统中(例如，用于巴西数字电视的Ginga中间件)和游戏中(例如魔兽和愤怒的小鸟)。Lua是游戏开发中主要的脚本语言。 速度快：许多Benchmark显示Lua是解释性脚本语言中最快的。例如Lua vs Python3 on X64 Ubuntu显示Lua比Python3要快很多。此外，LuaJIT项目提供在目标平台上的即时编译，可以让Lua有更优越的性能。 可移植：Lua以很小的包进行分发，在任何具有标准C编译器的系统上即可开箱即用地进行编译。Lua可在所有Unix发行版和Windows、移动设备、嵌入微处理器和IBM大型机等系统上运行。 可嵌入：Lua以很小的体积提供了一个快速语言引擎，所以易于嵌入到应用中。Lua具有简明、很好文档化的API，允许同其他语言紧密集成。非常易于通过其他语言库扩展Lua，同样其他语言程序也易于用Lua扩展。Lua不仅仅被用于扩展C和C++程序，还有Java、C#、Smalltalk、Fortran、Ada、Erlang、甚至注入Perl和Ruby之类的其他脚本语言。 功能强大（但简明）：Lua设计的一个基本概念是对所实现的功能提供元机制，而不是在语言中直接提供一堆功能。例如，Lua不是一个纯的面向对象语言，但它提供了用于实现类和集成的元机制。Lua的元机制带来概念的简明性并保持语言很小，同时允许语义以非传统的方式进行扩展。 体积小：Lua5.3.1的压缩包包含源代码和文档，体积仅276K，解压缩后为1.1M。源代码包含大约23000行C代码。在64位Linux下，使用所有标准Lua库的Lua解释器占242K，Lua库占414K。 免费：开源，使用非常自由的MIT许可证发布软件。  为什么SAS集成Lua？ 通过本文所附文章，基本可以判断SAS集成Lua是内部驱动的； 首先Lua有助SAS研发部门完成特定产品的开发工作（特别是新版本的SAS预报服务器）。Lua的优雅语法、现代设计和对数据结构的支持，可以让你以新的方式书写SAS程序，克服SAS宏语言的种种不足。SAS中的Lua生态系统有助于提升质量、一致性和重用性，从而以更低的代价获得更高的生产力。
+参考 Lua官网
+The History of Lua
+Lua 为什么在游戏编程领域被广泛运用？
+Lua简明教程
+Driving SAS® with Lua
+Using Lua within your SAS programs
+The implementation of Lua 5.0
+The LuaJIT Project</description>
+    </item>
+    
+    <item>
+      <title>阅读《微服务资源指南》</title>
+      <link>https://mryqu.github.io/post/%E9%98%85%E8%AF%BB%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%B5%84%E6%BA%90%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Wed, 15 Jul 2015 05:42:06 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%98%85%E8%AF%BB%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%B5%84%E6%BA%90%E6%8C%87%E5%8D%97/</guid>
+      <description>Martin Fowler近日发布了《Microservices Resource Guide》，介绍的是Martin自己和别人的书/文章汇集，一开头回顾了微服务的特征，接着谈到了对微服务和单块架构的权衡，最后大篇幅列举了很多公司开发微服务的经验教训。
+微服务特征  通过服务进行组件化 围绕业务能力进行组织服务 团队为产品而不是项目工作 智能端点和哑管道：取其Unix思想，REST协议或消息总线仅仅是管道，服务才是智能的 去中心化治理 去中心化数据管理 基础设施自动化 故障设计：服务故障检测、自恢复 演进式设计  微服务与单块架构之间的权衡 微服务带来收益…  强模块边界: 微服务增强模块结构，这对大的团队尤为重要。  独立的部署: 简单服务更易于部署，由于它们都是自治的，服务出现问题不容易导致系统故障。  技术多样性: 使用微服务可以混合多种编程语言、开发框架和数据存储技术。  …也伴随着代价  分布: 由于远程调用慢并一直具有故障风险。很难开发分布式系统代码。  最终一致性: 对于分布式系统维护强一致性非常困难，这意味着必须管理最终一致性。  运维复杂: 需要一个成熟的运维团队来管理很多经常需要重新部署的服务。  微服务与单块架构的生产率 经验教训（略） 先看完《Build Microservices》，然后再读一遍所有列举资料，再单开新的博客帖子介绍吧。</description>
+    </item>
+    
+    <item>
+      <title>断路器（CircuitBreaker）设计模式</title>
+      <link>https://mryqu.github.io/post/%E6%96%AD%E8%B7%AF%E5%99%A8circuitbreaker%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 04 Jul 2015 06:47:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%96%AD%E8%B7%AF%E5%99%A8circuitbreaker%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>断路器是电器时代的一个重要组成部分，后面总是有保险丝熔断或跳闸的断路器是安全的重要保障。 微服务最近几年成为软件架构的热门话题，其益处多多。但需要知道的是，一旦开始将单块系统进行分解，就上了分布式系统的山头。 在云或分布式系统环境中，任何对一致性或可靠性的表述就是谎言。我们必须假设微服务的行为或其服务器位置会经常变动，其结果就是组件有时会提供低质量服务甚至可能彻底无法提供服务。这些微服务的故障如果没有处理好，将导致整个系统的故障。 微服务的故障可能是瞬时故障：如慢的网络连接、超时，资源过度使用而暂时不可用；也可能是不容易预见的突发事件的情况下需要更长时间来纠正的故障。 分布式服务的容错是一个不得不考虑的问题，通常的做法有两种： - 重试机制：对于预期的短暂故障问题，通过重试模式是可以解决的。 - 断路器（CircuitBreaker）模式：将受保护的服务封装在一个可以监控故障的断路器对象中，当故障达到一定门限，断路器将跳闸（trip），所有后继调用将不会发往受保护的服务而由断路器对象之间返回错误。对于需要更长时间解决的故障问题，不断重试就没有太大意义了，可以使用断路器模式。 断路器模式设计状态机 注意事项 在决定如何实现这个模式时，您应考虑以下几点： - 异常处理。通过断路器调用操作的应用程序必须能够处理在操作不可用时可能被抛出的异常，该类异常的处理方式都是应用程序特有的。例如，应用程序会暂时降级其功能，调用备选操作尝试相同的任务或获取相同的数据，或者将异常通知给用户让其稍后重试。 - 异常类型。一个请求可能由于各种原因失败，其中有一些可能表明故障严重类型高于其他故障。例如，一个请求可能由于需要几分钟才能恢复的远程服务崩溃而失败，也可能由于服务暂时超载造成的超时而失败。断路器有可能可以检查发生的异常类型，并根据这些异常本质调整策略。例如，促使切换到开状态（跳闸）的服务超时异常个数要远多于服务完全不可用导致的故障个数。 - 日志记录。一个断路器应记录所有失败的请求（如果可能的话记录所有请求），以使管理员能够监视它封装下受保护操作的运行状态。 - 可恢复性。应该配置断路器成与受保护操作最匹配的恢复模式。例如，如果断路器设定出入开状态的时间很长，即使底层操作故障已经解决它还会返回错误。如果开状态到半开状态切换过快，底层操作故障还没解决它就会再次调用受保护操作。 - 测试失败的操作。在开状态下，断路器可能不用计时器来确定何时切换到半开状态，而是通过周期性地查验远程服务或资源以确定它是否已经再次可用。这个检查可能采用上次失败的操作的形式，也可以使用由远程服务提供的专门用于测试服务健康状况的特殊操作。 - 手动复位。在一个系统中，如果一个失败的操作的恢复时间差异很大，提供一个手动复位选项以使管理员能够强行关闭断路器（和复位故障计数器）可能是有益的。同样，如果受保护操作暂时不可用，管理员可以强制断路器进入放状态（并重新启动超时定时器）。 - 并发。同一断路器可以被应用程序的大量并发实例访问。断路器实现不应阻塞并发请求或对每一请求增加额外开销。 - 资源分化。当断路器使用某类可能有多个底层独立数据提供者的资源时需要特别小心。例如，一个数据存储包含多个分区(shard)，部分分区出现暂时的问题，其他分区可能完全工作正常。如果该场景中的错误响应是合并响应，应用程序在部分故障分区很可能会阻塞整个请求时仍会试图访问某些工作正常的分区。 - 加速断路。有时失败响应对于断路器实现来说包含足够的信息用于判定应当立即跳闸并保持最小时间量的跳闸状态。例如，从过载共享资源的错误响应可能指示不推荐立即重试，且应用程序应当隔几分钟时间之后重试。如果一个请求的服务对于特定Web服务器不可用，可以返回HTTP协议定义的“HTTP 503 ServiceUnavailable”响应。该响应可以包含额外的信息，例如预期延迟持续时间。 - 重试失败请求。在开状态下，断路器可以不是快速地简单返回失败，而是将每个请求的详细信息记录日志并在远程资源或服务重新可用时安排重试。 - 对外部服务的不恰当超时。当对外部服务配置的超时很大时，断路器可能无法保护其故障操作，断路器内的线程在指示操作失败之前仍将阻塞到外部服务上，同时很多其他应用实例仍会视图通过断路器调用服务。
+断路器模式业界Java实现 GitHub：jrugged：CircuitBreaker类源代码
+GitHub：Netflix/hystrix
+参考 Martin Fowler：CircuitBreaker
+MSDN：Circuit Breaker Pattern
+Protect your software with the Circuit Breaker design pattern
+[](http://wiki.jikexueyuan.com/project/cloud-design-patterns/circuit-breaker-model.html)</description>
+    </item>
+    
+    <item>
+      <title>YAML</title>
+      <link>https://mryqu.github.io/post/yaml/</link>
+      <pubDate>Fri, 22 May 2015 22:55:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/yaml/</guid>
+      <description>简介 YAML是一个可读性高的数据序列化格式。YAML参考了其他多种语言，包括：XML、C语言、Python、Perl以及电子邮件格式RFC2822。ClarkEvans在2001年首次发表了这种语言 ，另外Ingy d?t Net与OrenBen-Kiki也是这语言的共同设计者。目前已经有数种编程语言或脚本语言支援（或者说解析）这种语言。 _YAML_是&amp;rdquo;YAML Ain&amp;rsquo;t a Markup Language&amp;rdquo;（YAML不是一种标记语言）的递回缩写。在开发的这种语言时，_YAML_的意思其实是：&amp;rdquo;Yet Another Markup Language&amp;rdquo;（仍是一种标记语言），但为了强调这种语言以数据做为中心，而不是以标记语言为重点，而用反向缩略语重新命名。
+功能 YAML的语法和其他高阶语言类似，并且可以简单表达列表、哈希表，标量等数据形式。它使用空白符号缩排和大量依赖外观的特色，特别适合用来表达或编辑数据结构、各种配置文件、调试时的转储内容、文件标题（例如：许多电子邮件标题格式和YAML非常接近）。尽管它比较适合用来表达分层数据，不过也有紧凑的语法可以表示关联性数据。由于YAML使用空白字符和分行来分隔数据，使得它特别适合用grep／Python／Perl／Ruby操作。其让人最容易上手的特色是巧妙避开各种封闭符号，如：引号、各种括号等，这些符号在嵌套结构时会变得复杂而难以辨认。
+范例 简单的文件 数据结构可以用类似大纲的缩排方式呈现
+--- receipt: Oz-Ware Purchase Invoice date: 2007-08-06 customer: given: Dorothy family: Gale items: - part_no: A4786 descrip: Water Bucket (Filled) price: 1.47 quantity: 4 - part_no: E1628 descrip: High Heeled &amp;quot;Ruby&amp;quot; Slippers price: 100.27 quantity: 1 bill-to: &amp;amp;id001 street: | 123 Tornado Alley Suite 16 city: East Westville state: KS ship-to: *id001 specialDelivery: &amp;gt; Follow the Yellow Brick Road to the Emerald City.</description>
+    </item>
+    
+    <item>
+      <title>阅读《Microservice Design Patterns》</title>
+      <link>https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservice_design_patterns/</link>
+      <pubDate>Tue, 28 Apr 2015 05:51:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservice_design_patterns/</guid>
+      <description>Java Code Geeks有一篇文章Microservice Design Patterns，提供了六种微服务架构的设计模式，用于组合微服务。
+聚合器微服务设计模式
+这是一种最常用也最简单的设计模式，如下图所示：
+聚合器调用多个服务实现应用程序所需的功能。它可以是一个简单的Web页面，将检索到的数据进行处理展示。它也可以是一个更高层次的组合微服务，对检索到的数据增加业务逻辑后进一步发布成一个新的微服务，这符合DRY原则。另外，每个服务都有自己的缓存和数据库。如果聚合器是一个组合服务，那么它也有自己的缓存和数据库。聚合器可以沿X轴和Z轴独立扩展。
+代理微服务设计模式
+这是聚合器模式的一个变种，如下图所示：
+在这种情况下，客户端并不聚合数据，但会根据业务需求的差别调用不同的微服务。代理可以仅仅委派请求，也可以进行数据转换工作。一个很好的实例就是针对不同设备的表现层可以封装在代理微服务内。
+链式微服务设计模式
+这种模式在接收到请求后会产生一个经过合并的响应，如下图所示：
+在这种情况下，服务A接收到请求后会与服务B进行通信，类似地，服务B会同服务C进行通信。所有服务都使用同步消息传递。在整个链式调用完成之前，客户端会一直阻塞。因此，服务调用链不宜过长，以免客户端长时间等待。
+分支微服务设计模式
+这种模式是聚合器模式的扩展，允许同时调用两个微服务链，如下图所示：
+数据共享微服务设计模式
+自治是微服务的设计原则之一，就是说微服务是全栈式服务。但在重构现有的“单体应用（monolithicapplication）”时，SQL数据库反规范化可能会导致数据重复和不一致。因此，在单体应用到微服务架构的过渡阶段，可以使用这种设计模式，如下图所示：
+在这种情况下，部分微服务可能会共享缓存和数据库存储。不过，这只有在两个服务之间存在强耦合关系时才可以。对于基于微服务的新建应用程序而言，这是一种反模式。
+异步消息传递微服务设计模式
+虽然REST设计模式非常流行，但它是同步的，会造成阻塞。因此部分基于微服务的架构可能会选择使用消息队列代替REST请求/响应，如下图所示：
+感兴趣的读者可以参考《微服务中的耦合与自治》一文为自己的微服务选择合适的消息传递模式。</description>
+    </item>
+    
+    <item>
+      <title>《The Art of Scalability》中的三维伸缩性模型</title>
+      <link>https://mryqu.github.io/post/the_art_of_scalability%E4%B8%AD%E7%9A%84%E4%B8%89%E7%BB%B4%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sat, 25 Apr 2015 15:32:52 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/the_art_of_scalability%E4%B8%AD%E7%9A%84%E4%B8%89%E7%BB%B4%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%A8%A1%E5%9E%8B/</guid>
+      <description>最近又搜集到Martin L. Abbott和Michael T. Fisher的两本好书：
+ The Art of Scalability Scalability Rules：50 Principles for Scaling Web Sites  第一本书将近六百页，最近没时间看，就先粗略学习一下其中的三维伸缩性模型： 在该模型中，将应用程序水平复制，通过负载均衡运行应用程序的多个完全一样的副本的方式来实现应用程序伸缩性，这种方式称为X轴伸缩性。这是一种很好的方式来提高应用程序的容量和可用度。 当使用Z轴伸缩性，每个服务器运行代码的一个完全相同的副本。在该方面，它与X轴伸缩性很相似。最大的不同是每个服务器只负责数据的一个子集。该系统的一些组件负责将每个请求路由给适当的服务器。一个常见的路由规则是把请求的一个属性作为被访问的实体的主键，比如分区。另一个常见的路由规则是客户类型。例如，应用程序可以向付费用户提供比免费用户更高的SLA，实现方式是将付费用户的请求路由到具有更高容量的一组服务器上。 Z轴伸缩性与X轴伸缩性类似，提高了应用程序的容量和可用度。然而，没有任何一个方式能够解决不断增加的开发工作和程序复杂度的问题。解决这些问题需要Y轴伸缩性。 伸缩性的第三个维度是针对功能性分解的Y轴伸缩性。Y轴伸缩性与Z轴伸缩性分解事情的方式相似但有不同。在应用程序层级，Y轴伸缩性将单体应用程序拆分成一组服务。每个服务实现了一组相关的功能特性，例如订单管理，客户管理等。 决定如何将系统分割为一组服务更像是一门艺术，但是可借助于一些策略。一种方式是通过动词或使用情况拆分服务。另一个拆分方式是通过名词或资源分割系统。这种服务负责处理给定的实体/资源的所有操作。 Unix提供了大量的工具，比如grep，cat和find。每个工具只做一件事，效果往往非常好，并且可以使用shell脚本组合多个工具以执行复杂的任务。服务分割也应采用类似的策略。</description>
+    </item>
+    
+    <item>
+      <title>阅读《Microservices, Monoliths, and NoOps》</title>
+      <link>https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservices_monoliths_and_noops/</link>
+      <pubDate>Sat, 25 Apr 2015 00:10:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservices_monoliths_and_noops/</guid>
+      <description>Java Code Geeks有一篇文章Microservices, Monoliths, and NoOps，分析了单体应用与微服务的优缺点，并建议使用微服务重构现有的应用程序。
+单体应用 通俗地讲，“单体应用（monolithapplication）”就是将应用程序的所有功能都打包成一个独立的单元，可以是JAR、WAR、EAR或其它归档格式。
+单体应用优点 单体应用有如下优点： - 为人所熟知：现有的大部分工具、应用服务器、框架和脚本都是这种应用程序； - IDE 友好：像NetBeans、Eclipse、IntelliJ这些开发环境都是针对开发、部署、调试这样的单个应用而设计的； - 便于共享：单个归档文件包含所有功能，便于在团队之间以及不同的部署阶段之间共享； - 易于测试：单体应用一旦部署，所有的服务或特性就都可以使用了，这简化了测试过程，因为没有额外的依赖，每项测试都可以在部署完成后立刻开始； - 容易部署：只需将单个归档文件复制到单个目录下。
+单体应用缺点 目前为止，单体应用已经很好地服务了我们，未来无疑还会继续发挥重要作用。但是，不管如何模块化，单体应用最终都会因为团队壮大、成员变动、应用范围扩展等出现问题。下面是单体应用的一些不足： - 不够灵活：对应用程序做任何细微的修改都需要将整个应用程序重新构建、重新部署。开发人员需要等到整个应用程序部署完成后才能看到变化。如果多个开发人员共同开发一个应用程序，那么还要等待其他开发人员完成了各自的开发。这降低了团队的灵活性和功能交付频率； - 妨碍持续交付：单体应用可能会比较大，构建和部署时间也相应地比较长，不利于频繁部署，阻碍持续交付。在移动应用开发中，这个问题会显得尤为严重； - 受技术栈限制：对于这类应用，技术是在开发之前经过慎重评估后选定的，每个团队成员都必须使用相同的开发语言、持久化存储及消息系统，而且要使用类似的工具，无法根据具体的场景做出其它选择； - 技术债务：“不坏不修（Not broken，don’tfix）”，这在软件开发中非常常见，单体应用尤其如此。系统设计或写好的代码难以修改，因为应用程序的其它部分可能会以意料之外的方式使用它。随着时间推移、人员更迭，这必然会增加应用程序的技术债务。
+什么是微服务？ 而随着业务需求的快速发展变化，敏捷性、灵活性和可扩展性需求不断增长，迫切需要一种更加快速高效的软件交付方式。微服务就是一种可以满足这种需求的软件架构风格。单体应用被分解成多个更小的服务，每个服务有自己的归档文件，单独部署，然后共同组成一个应用程序。这里的“微”不是针对代码行数而言，而是说服务的范围限定到单个功能。
+微服务的特征 微服务有如下特征： - 领域驱动设计：应用程序功能分解可以通过Eric Evans在《领域驱动设计》中明确定义的规则实现，领域驱动设计不是分解应用程序的唯一方法，但肯定是很常用的一种；每个团队负责与一个领域或业务功能相关的全部开发；团队遵循全栈开发方法拥有全系列的开发人员，具备用户界面、业务逻辑和持久化存储等方面的开发技能； - 单一职责原则：每个服务应该负责该功能的一个单独的部分，这是SOLID原则之一，Unix工具程序很好地证明这一原则的重要性； - 明确发布接口：每个服务都会发布一个定义明确的接口，而且保持不变；服务消费者只关心接口，而对于被消费的服务没有任何运行依赖；服务之间就业务模型、API、负载或其他契约达成一致并使用符合契约的方式进行通信。接口可能会产生新版本，但接口的老版本可以继续使用，且新服务保持后续兼容。不可以通过改变契约破坏兼容性。 - 独立部署、升级、扩展和替换：每个服务都可以单独部署及重新部署而不影响整个系统。这使得服务很容易升级，例如增加更多的功能点。每个服务都可以沿着《Art of Scalability》一书定义的X轴（水平复制）和Z轴（面向查询的分割，数据分区）进行独立扩展；由于其他服务仅依赖发布的接口，只要发布相同的契约，服务实现甚至是底层技术栈都可以修改； - 可以异构/采用多种语言：每个服务的实现细节都与其它服务无关，这使得服务之间能够解耦，团队可以针对每个服务选择最合适的开发语言、持久化存储、工具和方法；一个需要在关系型数据库存储数据的服务可以选择MySQL，另一个需要存储文档的服务可以选择MongoDB。不同的团队可以根据自己的需求选择JavaEE、NodeJS、Python、Vert.x或其他对本团队最有效的技术； - 轻量级通信：服务通信使用轻量级的通信协议，例如在HTTP上承载的REST。由于REST本质是同步的，可能会有某些潜在的瓶颈。另一个可选机制是使用支持异步消息的发布/订阅机制。任何符合需求的消息协议，例如AMQP、STOMP、MQTT或WebSocket，都可以使用。简单消息实现，例如ActiveMQ，提供了可靠的异步组构尤其适用于这种用途。每个开发团队可以根据服务的具体需求对同步还是异步消息做适宜的选择，当然也可以混用。
+Netflix是微服务的一个典型代表，这里有几篇文章介绍他们对微服务的应用。 - Netflix&amp;rsquo;s Viewing Data: How We Know Where You Are in House of Cards - A Microscope on Microservices - Scalable Microservices at Netflix.</description>
+    </item>
+    
+    <item>
+      <title>了解OSM和Esri</title>
+      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/</link>
+      <pubDate>Wed, 22 Apr 2015 00:15:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/</guid>
+      <description>学习SAS Visual Analytics Explorer时看到了地图提供程序模式竟然没有GoogleMap，而是OpenStreetMap和Esri。对没接触过的东东还比较好奇，搜了一下。
+OpenStreetMap 开放街道地图（OpenStreetMap，简称OSM）是一个由地图制作爱好者组成的社区。这些爱好者提供并维护世界各地关于道路、小道、咖啡馆、铁路车站等各种各样的数据，目标是创造一个内容自由且能让所有人编辑的世界地图，并且让一般便宜的移动设备有方便的导航方案。OSM项目由英国人SteveCoast创立，概念启发自维基百科网站，以及英国以及其他地区私有地图数据占尽优势。一如维基百科等网站，OSM网站地图页有“编辑”按钮，亦有纪录修订历史。经注册的用户可上传GPS路径，及可编辑地图的矢量数据，包括使用OSM网站的编辑器或其他自由地理信息系统软件，如JOSM。OSM的地图由用户根据手持GPS设备、航空摄影照片、卫星视频、其他自由内容以至单靠用户由于对有关区域的熟悉而具有的本地知识绘制。地图的矢量数据以开放数据库授权方式授权。OSM网站由英国非营利组织OpenStreetMap基金会赞助维运。
+既然有Google和Nokia这样的公司提供很好的地图商业产品，那为什么还需要一个像OpenStreetMap项目了？答案是简单的，作为一个社会，不应当有一家或几家公司在地理信息上进行垄断。地理信息是分享资源，当你将所有的这些权力给予一个单独的实体，你给予他们的权力就不止是告诉他们你的地理位置，更是在塑造它，从自己商业利益的角度显示地图上的内容。而在地图内容方面，OpenStreetMap即是中立的又是透明的。
+Esri 美国环境系统研究所公司（Environmental Systems Research Institute,Inc.，简称Esri），是目前世界最大的地理信息系统技术供应商，其地理信息系统软件目前的全球市场占有率最高，公司最知名产品为ArcGIS。ArcGISOnline是一个面向全球用户的公有云GIS平台，是一种全新的GIS软件应用模式。ArcGISOnline包含了全球范围内的底图、地图数据、应用程序，以及可配置的应用模板和开发人员使用的 GIS 工具和 API，可用于创建Web 地图、发布GIS服务、共享地图、数据和应用程序等，以及管理组织的内容和多个用户。
+SAS Visual Analysis Explorer里面在Esri模式下还需要选择ArcGISOnline的数据源（例如World Cities、World Street Map）。
+参考 OpenStreetMap网站
+Esri公司
+Wiki: 开放街图
+为什么世界需要 OpenStreetMap 开源道路地图
+Wiki: 美国环境系统研究所公司</description>
+    </item>
+    
+    <item>
+      <title>函数式编程笔记</title>
+      <link>https://mryqu.github.io/post/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 29 Mar 2015 05:39:20 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/</guid>
+      <description>澄清概念 面向对象编程(OOP)对应的是面向过程编程(POP)。其区别在于模块化和如何对事物进行抽象： - POP中程序可被分解成函数，OOP中程序可被分解成对象； - POP侧重于过程及其执行顺序，OOP侧重于数据而不是过程； - POP自顶向下解决问题，OOP自底向上解决问题； - POP可以自由地在函数之间传递数据，OOP中对象需要通过成员方法传递数据和彼此通信； - OOP更容易添加新数据和函数，有POP所没有的（public、private、protected等）访问修饰符、数据隐藏、方法覆写等特性。
+函数式编程(Functional Programming)对应的是命令式编程(Imperativeprogramming)。
+普林斯顿的科学家阿隆左·丘奇（Alonzo Church）、阿兰·图灵（Alan Turing）、约翰·冯·诺依曼（Johnvon Neumann）和库尔特·冈特（KurtGodel）都对形式系统很感兴趣，致力于解决抽象的数学难题。这些难题的共同之处就是计算：如果计算机能有无限的计算能力，哪些问题可以被解决？哪些问题可以被自动解决？哪些问题依旧无法解决？为什么不能被解决？基于不同设计的各种计算机是否具有相同的计算能力？ 阿隆左·丘奇提出了一个被称为lambda演算的形式系统。这个系统本质上是一种程序设计语言。它可以运行在具有无限计算能力的机器上。lambda演算由一些函数构成，这些函数的输入输出也是函数。函数用希腊字母lambda标识，因此整个形式系统也叫lambda。通过这一形式系统，阿隆左就可以对上述诸多问题进行推理并给出结论性的答案。在同一时间，阿兰·图灵也在进行着相似的工作。他提出了一个完全不同的形式系统（现在被称为图灵机），并使用这一系统得出了和阿隆左相似的结论。事后证明，图灵机和lambda的演算能力是等价的。 1949年，第一台电子计算机EDVAC被推出并获得了巨大的成功。这是冯·诺依曼架构的第一个具体实现，实际上也是图灵机的第一个实现。而与此同时，阿隆左·丘奇则没有那么幸运。直到二十世纪五十年代，一位MIT的教授JohnMcCarthy对阿隆左·丘奇的工作产生了兴趣。1958年，他发布了Lisp语言。Lisp的不同之处在于，它在冯·诺依曼计算机上实现了阿隆左·丘奇的lambda演算！很多计算机科学家开始意识到Lisp的表达能力。1973年，MIT人工智能实验室的一帮程序员开发了被称为Lisp机器的硬件，于是阿隆左的lambda演算系统终于在硬件上实现了！函数式编程更加现代一些的例子包括scheme、Haskell、Clean、Erlang和Miranda等。1980年代末期，集函数式编程研究成果于大成的Haskell发布。命令式编程是图灵机思想的一种实现，对应地函数式编程则是lambda演算思想的一种实现。但并非所有的lambda演算都被实现了，因为lambda演算原本不是为有物理限制的计算机设计的。
+|特征|命令式编程|函数式编程 |&amp;mdash;&amp;ndash; |程序员关注点|任务（算法）如何被执行及状态变化如何被追踪|所要得到的信息及所需转换 |状态变化|很重要|不存在状态变化 |执行顺序|很重要|不是很重要 |基本流控制|循环、条件分支和函数调用|包括递归在内的函数调用 |基本操作单元|结构体或类的对象|作为头等对象的函数、数据集合
+定义 在维基百科中，已经对函数式编程有了很详细的介绍，其定义如下：
+函数式编程或称函数程序设计，又称泛函编程，是一种编程范型，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变对象。函数编程语言最重要的基础是λ演算（lambda calculus）。而且λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。  概念 支持闭包和高阶函数 函数在函数式编程中是所谓的&amp;rdquo;头等公民&amp;rdquo;，函数与其他数据类型一样处于平等地位，有时称为闭包或者仿函数（functor）对象。实质上，闭包是起函数的作用并可以像对象一样操作的对象。与此类似，函数式编程语言支持高阶函数。高阶函数可以用另一个函数（间接地，用一个表达式）作为其输入参数，在某些情况下，它甚至返回一个函数作为其输出参数。这两种结构结合在一起使得可以用优雅的方式进行模块化编程，这是使用函数式编程的最大好处。
+纯函数 所谓“纯”函数式(或表达式)就是实现了lambda演算并且不包含与Church范式矛盾的特性，它没有(内存或I/O)副作用。 - 变量的不可变性：函数式编程的变量都是不可变的，函数保持独立，不能修改外部变量的值，所有功能就是返回一个新的值。在命令式编程中，变量往往用来保存&amp;rdquo;状态&amp;rdquo;（state）,变量会影响函数的输出。在函数式编程中，不能修改变量，意味着状态不能保存在变量中。函数式编程使用函数参数保存状态，函数参数是影响函数返回值的唯一途径。如果一个编程语言中变量都是不可变的好处是： - 可以去掉很多情况的锁操作, 并发处理速度会更快. - 可以简化垃圾回收GC - 函数的确定性或引用透明性（Referentialtransparency）：指的是函数的运行不依赖于外部变量或&amp;rdquo;状态&amp;rdquo;，只依赖于输入的参数，任何时候只要参数相同，引用函数所得到的返回值总是相同的。这使您可以从形式上推断程序行为，因为表达式的意义只取决于其子表达式而不是计算顺序或者其他表达式的副作用。这有助于验证正确性、简化算法，甚至有助于找出优化它的方法。
+递归 函数式编程还有一个特点是用递归做为控制流程的机制。递归最大的好处就简化代码，他可以把一个复杂的问题用很简单的代码描述出来。注意：递归的精髓是描述问题，而这正是函数式编程的精髓。
+懒惰计算 懒惰计算需要编译器的支持。表达式不是在绑定到变量时立即计算，而是在求值程序需要产生表达式的值时进行计算。延迟的计算使您可以编写可能潜在地生成无穷输出的函数。因为不会计算多于程序的其余部分所需要的值，所以不需要担心由无穷计算所导致的out-of-memory错误。一个懒惰计算的例子是生成无穷Fibonacci列表的函数，但是对第n个Fibonacci数的计算相当于只是从可能的无穷列表中提取一项。 C类和ML类的语言都是非懒惰的（饥饿求值），而Haskell和Miranda都是懒惰的。OCaml是缺省非懒惰，但是在需要的时候支持懒惰的风格。
+模式匹配 模式匹配不是什么新特性。事实上它和函数式编程的关系不大。为什么总是把它当做函数式编程的一个特性呢？这是因为函数式语言已经支持模式匹配一段时间了，而现代命令式语言还不行。 用一个例子来进一步了解模式匹配。下面是Java实现的斐波那契函数：
+int fib(int n) { if(n == 0) return 1; if(n == 1) return 1; return fib(n - 2) + fib(n - 1); }  如果用我们上文构造的并且支持模式匹配的Java来写，实现如下</description>
+    </item>
+    
+    <item>
+      <title>YCSB相关博文</title>
+      <link>https://mryqu.github.io/post/ycsb%E7%9B%B8%E5%85%B3%E5%8D%9A%E6%96%87/</link>
+      <pubDate>Sat, 03 Jan 2015 11:33:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/ycsb%E7%9B%B8%E5%85%B3%E5%8D%9A%E6%96%87/</guid>
+      <description>使用YCSB测试MongoDB的微分片性能
+使用YCSB测试Mongodb性能的方法简介
+NoSQL数据库压力测试工具YCSB使用
+使用YCSB对HBase进行测试
+性能测试：SequoiaDB vs. MongoDB vs. Cassandra vs. HBase</description>
+    </item>
+    
+    <item>
+      <title>使用微软的机器学习云Azure ML进行预测分析</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8%E5%BE%AE%E8%BD%AF%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%91azure_ml%E8%BF%9B%E8%A1%8C%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90/</link>
+      <pubDate>Tue, 23 Sep 2014 23:01:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8%E5%BE%AE%E8%BD%AF%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%91azure_ml%E8%BF%9B%E8%A1%8C%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90/</guid>
+      <description>今天看了一个帖子Predictive Analytics with Microsoft Azure Machine Learning。尽管机器学习已经是一项历史悠久而且应用广泛的技术，微软以云服务形式推出希望获得一些市场。AzureML通过拖拽操作在界面上组织数据清理、训练模型、模型打分和评估，最后可以生成C#、R或Python代码。 对云数据进行数据分析，除了用Hadoop/Spark等技术自己搭积木开发实现外，这种通用分析产品还不够丰富。期望早日看到各厂家纷纷推出成熟的旗舰产品那一天，我司（SAS）加油！：）</description>
+    </item>
+    
+    <item>
+      <title>了解CAS（集中式认证服务）</title>
+      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3cas%E9%9B%86%E4%B8%AD%E5%BC%8F%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Fri, 11 Jul 2014 21:25:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3cas%E9%9B%86%E4%B8%AD%E5%BC%8F%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1/</guid>
+      <description>集中式认证服务（Central AuthenticationService，缩写CAS）是一种针对万维网的单点登录协议。它的目的是允许一个用户访问多个应用程序，而只需提供一次凭证（如用户名和密码）。它还允许web应用程序在没有获得用户的安全凭据（如密码）的情况下对用户进行身份验证。“CAS”也指实现了该协议的软件包。 CAS协议涉及到至少三个方面：客户端Web浏览器、Web应用请求的身份验证和CAS服务器。它还可能涉及一个后台服务（例如数据库服务器），它并没有自己的HTTP接口，但与一个Web应用程序进行通信。 当客户端访问访问应用程序，请求身份验证时，应用程序重定向到CAS。CAS验证客户端是否被授权，通常通过在数据库对用户名和密码进行检查（例如Kerberos、LDAP或ActiveDirectory）。 如果身份验证成功，CAS令客户端返回到应用程序，并传递身份验证票（Securityticket）。然后，应用程序通过安全连接连接CAS，并提供自己的服务标识和验证票。之后CAS给出了关于特定用户是否已成功通过身份验证的应用程序授信信息。 CAS允许通过代理服务器进行多层身份验证。后端服务（如数据库或邮件服务器）可以组成CAS，通过从Web应用程序接收到的信息验证用户是否被授权。因此，网页邮件客户端和邮件服务器都可以实现CAS。 历史 CAS是由耶鲁大学的Shawn Bayern创始的，后来由耶鲁大学的Drew Mazurek维护。CAS1.0实现了单点登录。CAS2.0引入了多级代理认证（Multi-tier proxyauthentication）。CAS其他几个版本已经有了新的功能。 2004年12月，CAS成为Jasig（Java in Administration Special InterestGroup）的一个项目，2008年该组织负责CAS的维护和发展。CAS原名“Yale CAS”，现在则被称为“JasigCAS”。
+参考 Wiki：Central Authentication Service
+Jasig CAS主页
+GitHub：Jasig/java-cas-client
+GitHub：Jasig/cas
+CAS协议规范 3.0</description>
+    </item>
+    
+    <item>
+      <title>重温MVC:一个很好的MVC图</title>
+      <link>https://mryqu.github.io/post/%E9%87%8D%E6%B8%A9mvc%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A5%BD%E7%9A%84mvc%E5%9B%BE/</link>
+      <pubDate>Wed, 26 Mar 2014 22:28:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%87%8D%E6%B8%A9mvc%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A5%BD%E7%9A%84mvc%E5%9B%BE/</guid>
+      <description>今天看了一个帖子A terrific Model View Controller (MVC) diagram，感觉文中说的很对：一个技术如果能简洁地表达出来，才容易被人记住并记的牢。该文中的Model/View/ControllerUML图共有两个，第一个图非常简单，仅展示作者用于控制器、视图和模型的符号。第二个图展示了MVC模式允许的操作和禁止的操作。- 用户与视图对象交互。 - 视图对象和控制器对象可以相互访问调用。 - 不同的控制器对象之间可以相互访问调用。 - 控制器对象可以访问调用模型对象。 - 除了上面这四种访问方式，禁止对象之间的其他通信方法。</description>
+    </item>
+    
+    <item>
+      <title>转战Octave</title>
+      <link>https://mryqu.github.io/post/%E8%BD%AC%E6%88%98octave/</link>
+      <pubDate>Sun, 16 Mar 2014 23:27:14 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%BD%AC%E6%88%98octave/</guid>
+      <description>可赶上机器学习的课了，原来学过《集体编程智慧》里面机器学习算法的Python实现，这次想着有个巩固提高。可是老师偏偏使用Octave，杂就杂吧，学学matlab风格的编程也不错。 Matlab是一款数值计算和分析的优秀软件，可是价格昂贵。其开源替代品就是Scilab和Octave。
+Scilab是由INRIA（法国国立计算机及自动化研究院）和ENPC（法国国立桥梁学院）开发的开源科学计算自由软件。与Matlab类似，Scilab数据类型丰富，可以很方便地实现各种矩阵运算与图形显示，能应用于科学计算、数学建模、信号处理、决策优化、线性/非线性控制等各个方面。它还提供可以满足不同工程与科学需要的工具箱，例如Scicos，信号处理工具箱，图与网络工具箱等。可以说，就基本的功能如科学计算、矩阵处理及图形显示而言，Matlab能完成的工作Scilab都可以实现。由于Scilab的语法与Matlab非常接近，熟悉Matlab编程的人很快就会掌握Scilab的使用。有意思的是，Scilab提供的语言转换函数可以自动将用Matlab语言编写的程序翻译为Scilab语言。
+GNU Octave是自由软件基金会支持的遵循GPL协议的一个自由再发布的软件，作者是以John W.Eaton为首的一些志愿者。它提供了一个环境，该环境支持叫做GNUOctave的高级语言，这种语言与Matlab兼容，主要用于数值计算。它提供了一个方便的命令行方式，可以数值求解线性和非线性问题，以及做一些数值模拟。 Octave也提供了一些工具包，可以解决一般的线性代数问题，非线性方程求根，常规函数积分，处理多项式，处理常微分方程和微分代数方程。它也很容易的使用Octave自带的接口方式扩展和定制功能。
+Octave相对于Scilab，对Matlab的语法兼容性更好，几乎没有差别。比如，Octave也使用M文件的形式来扩展功能和定义函数。因此熟悉Matlab的用户更容易接受Octave环境。 它可编程的性能更好，Octave语言功能更为强大，几乎提供所有系统函数的支持，Octave在语法上也更接近C的语法，比如提供++和&amp;ndash;这样的预算符。这样，我们可以在Octave环境里面增加一些更为强大和易用的扩展。不象在Matlab和Scilab环境中限制比较多，有时无法充分的利用系统资源。它的计算库都是用C写，而Scilab则基本是Fortran的编写的。这也是一份有用的资源。和GNU下面的其他软件也可以较多协作。劣势就是Octave的功能比起Scilab要简单一些，这使得Octave对一些用户来说意义不如Scilab大。而且Octave目前没有图形界面，只能以命令行方式进行交互。
+第一次编程作业的效果图：
+将原来的一些编程思路转换成矩阵和矢量是一个挑战，对于复杂一些编程，还是逃不开纠结和调试。</description>
+    </item>
+    
+    <item>
+      <title>Markdown介绍</title>
+      <link>https://mryqu.github.io/post/markdown%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Wed, 19 Feb 2014 22:39:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/markdown%E4%BB%8B%E7%BB%8D/</guid>
+      <description>Markdown是一种用于普通文本的便于读写的轻量级标记语言，可以转换成HTML、LaTeX或Docbook文档。很多网站都支持Markdown，如GitHub、Wikipedia和博客平台WordPress。RMarkdown将R代码和markdown进行有效集成以用于文学编程（LiterateProgramming），R代码会在RMarkdown转化markdown处理过程中被执行，并将R代码结果一同插入markdown文档。下面的示例是基于knitr工具完成RMarkDown转换的。
+Markdown 文字样式：斜体和粗体、删除线 *斜体表述1* 和 _斜体表述2_ 示例。 **粗体表述1** 和 __粗体表述2__ 示例。 ___斜粗体表述1___ 和 ***斜粗体表述2*** 示例。 ~~删除线表述~~ 示例。  斜体表述1 和 斜体表述2 示例。粗体表述1 和 粗体表述2 示例。斜粗体表述1 和 斜粗体表述2示例。删除线表述 示例。
+段落和换行 一个空行（两个回车）会被转换成分段，在行末加两个或多个空格会被转换成换行。
+标题 在行首用一到六个井号 (#) 开始该行为标题行 # H1示例 ## H2示例 ### H3示例 #### H4示例 ##### H5示例 ###### H6示例  H1示例 H2示例 H3示例 H4示例 H5示例 H6示例 另一种方式用下一行的一到多个等号表示一级标题，一到多个短划线表示二级标题。
+H1示例 ========= H2示例 ---------  H1示例 H2示例 水平分割线 通过单行输入3个或3个以上中短划线、星号或下划线进行输入水平分隔线, 短划线、星号或下划线之间可以包含空格：
+--- *** ___ - - - * * * _ _ _  列表 HTML 列表分无序列表 (unordered list, ul) 和有序列表 (ordered list, ol) 两种。在Markdown 中用星号、加号、减号开始一行表示无序列表，用数字开始一行表示有序列表。例如：</description>
+    </item>
+    
+    <item>
+      <title>Hello Android!</title>
+      <link>https://mryqu.github.io/post/hello_android/</link>
+      <pubDate>Sat, 25 Jan 2014 12:31:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_android/</guid>
+      <description>第一次再简陋总比不做强！ ADT安装 不经常装ADT （Android development tool），第二次装又犯晕了。 ADT要跟JDK平台一致： - 对应32位JDK的adt-bundle-windows-x86-20131030.zip - 对应64位JDK的adt-bundle-windows-x86_64-20131030.zip
+JDK装好久了，不知道是32位还是64位的了，可以跑一下下面的代码：
+public class JdkPlatformTest { public static voidmain(String[] args) { String arch =System.getProperty(&amp;quot;sun.arch.data.model&amp;quot;); System.out.println(arch+&amp;quot;-bit&amp;quot;); } }  此外Windows平台可以通过下列命令获取：wmic os get osarchitecture
+Android虚拟设备仿真器操作命令 http://developer.android.com/tools/devices/emulator.html</description>
+    </item>
+    
+    <item>
+      <title>学习十二要素应用宣言</title>
+      <link>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/</link>
+      <pubDate>Fri, 25 Oct 2013 22:02:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/</guid>
+      <description>Heroku是业内知名的云应用平台，从对外提供服务以来，他们已经有上百万应用的托管和运营经验。大概在去年，创始人Adam Wiggins根据这些经验，发布了一个“十二要素应用宣言（The Twelve-Factor App）”。 简介 如今，软件通常会作为一种服务来交付，它们被称为网络应用程序，或软件即服务（SaaS）。12-Factor为构建如下的SaaS应用提供了方法论： - 使用标准化流程自动配置，从而使新的开发者花费最少的学习成本加入这个项目。 - 和操作系统之间尽可能的划清界限，在各个系统中提供最大的可移植性。 - 适合部署在现代的云计算平台，从而在服务器和系统管理方面节省资源。 - 将开发环境和生产环境的差异降至最低，并使用持续交付实施敏捷开发。 - 可以在工具、架构和开发流程不发生明显变化的前提下实现扩展。
+这套理论适用于任意语言和后端服务（数据库、消息队列、缓存等）开发的应用程序。
+背景 本文的贡献者者参与过数以百计的应用程序的开发和部署，并通过Heroku平台间接见证了数十万应用程序的开发，运作以及扩展的过程。 本文综合了我们关于 SaaS应用几乎所有的经验和智慧，是开发此类应用的理想实践标准，并特别关注于应用程序如何保持良性成长，开发者之间如何进行有效的代码协作，以及如何避免软件污染。 我们的初衷是分享在现代软件开发过程中发现的一些系统性问题，并加深对这些问题的认识。我们提供了讨论这些问题时所需的共享词汇，同时使用相关术语给出一套针对这些问题的广义解决方案。本文格式的灵感来自于Martin Fowler 的书籍：_Patterns of Enterprise Application Architecture，Refactoring_。
+读者应该是哪些人？ 任何SaaS应用的开发人员。部署和管理此类应用的运维工程师。
+12-Factors I. 基准代码 一份基准代码，多份部署 12-Factor应用通常会使用版本控制系统加以管理，如Git、Mercurial、Subversion。一份用来跟踪代码所有修订版本的数据库被称作_代码库_（coderepository, code repo, repo）。 在类似 SVN这样的集中式版本控制系统中，_基准代码_就是指控制系统中的这一份代码库；而在Git那样的分布式版本控制系统中，_基准代码_则是指最上游的那份代码库。 基准代码和应用之间总是保持一一对应的关系： - 一旦有多个基准代码，就不能称为一个应用，而是一个分布式系统。分布式系统中的每一个组件都是一个应用，每一个应用可以分别使用12-Factor进行开发。 - 多个应用共享一份基准代码是有悖于12-Factor原则的。解决方案是将共享的代码拆分为独立的类库，然后使用依赖管理策略去加载它们。
+尽管每个应用只对应一份基准代码，但可以同时存在多份部署。每份_部署_相当于运行了一个应用的实例。通常会有一个生产环境，一个或多个预发布环境。此外，每个开发人员都会在自己本地环境运行一个应用实例，这些都相当于一份部署。 所有部署的基准代码相同，但每份部署可以使用其不同的版本。比如，开发人员可能有一些提交还没有同步至预发布环境；预发布环境也有一些提交没有同步至生产环境。但它们都共享一份基准代码，我们就认为它们只是相同应用的不同部署而已。
+II. 依赖 显式声明依赖关系 大多数编程语言都会提供一个打包系统，用来为各个类库提供打包服务，就像Perl的CPAN或是Ruby的Rubygems。通过打包系统安装的类库可以是系统级的（称之为 &amp;ldquo;sitepackages&amp;rdquo;），或仅供某个应用程序使用，部署在相应的目录中（称之为 &amp;ldquo;vendoring&amp;rdquo; 或 &amp;ldquo;bunding&amp;rdquo;）。 12-Factor规则下的应用程序不会隐式依赖系统级的类库。它一定通过_依赖清单_，确切地声明所有依赖项。此外，在运行过程中通过_依赖隔离_工具来确保程序不会调用系统中存在但清单中未声明的依赖项。这一做法会统一应用到生产和开发环境。 例如，Ruby的Gem Bundler使用Gemfile 作为依赖项声明清单，使用bundle exec 来进行依赖隔离。Python中则可分别使用两种工具 &amp;ndash; Pip用作依赖声明，Virtualenv用作依赖隔离。甚至C语言也有类似工具，Autoconf用作依赖声明，静态链接库用作依赖隔离。无论用什么工具，依赖声明和依赖隔离必须一起使用，否则无法满足12-Factor规范。 显式声明依赖的优点之一是为新进开发者简化了环境配置流程。新进开发者可以检出应用程序的基准代码，安装编程语言环境和它对应的依赖管理工具，只需通过一个_构建命令_来安装所有的依赖项，即可开始工作。例如，Ruby/Bundler下使用bundle install ，而Clojure/Leiningen则是lein deps。 12-Factor应用同样不会隐式依赖某些系统工具，如ImageMagick或是curl 。即使这些工具存在于几乎所有系统，但终究无法保证所有未来的系统都能支持应用顺利运行，或是能够和应用兼容。如果应用必须使用到某些系统工具，那么这些工具应该被包含在应用之中。</description>
+    </item>
+    
+    <item>
+      <title>正则表达式风格与语法对比</title>
+      <link>https://mryqu.github.io/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%A3%8E%E6%A0%BC%E4%B8%8E%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/</link>
+      <pubDate>Fri, 11 Oct 2013 06:26:12 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%A3%8E%E6%A0%BC%E4%B8%8E%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/</guid>
+      <description>现在很多编程语言都支持正则表达式，一般都会提到是Perl风格（PCRE，Perl兼容正则表达式）还是POSIX风格（IEEE制定的POSIXExtended 1003.2标准）。解析POSIX与Perl标准的正则表达式区别详细介绍了这两种风格正则表达式的区别。我对正则表达式的使用主要是Java语言中，其次在R、Python和Javascript中有不同程度的涉猎。不同软件的正则表达式语法汇总介绍了不同语言/软件之间的区别。参考 https://developer.mozilla.org/en/docs/web/javascript/guide/regular_expressions
+https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html
+https://docs.python.org/2/library/re.html</description>
+    </item>
+    
+    <item>
+      <title>初探ANTLR</title>
+      <link>https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/</link>
+      <pubDate>Wed, 03 Jul 2013 20:25:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/</guid>
+      <description>当前的项目是基于多维数据集市的RTOLAP财务系统，其中的公式使用ANTLR 3进行语法解析和编译。 此外看Hibernate源码的时候也接触到ANTLR，Hibernate使用ANTLR产生查询分析器。
+ANTLR简介 ANTLR的全称是ANother Tool for LanguageRecognition，其前身是PCCTS，和YACC、LEX、JavaCC、Coco/R等工具一样，都是编译器的编译程序。 ANTLR对语法树构造、遍历和转换、错误修复和报告提供出色的支持，它为包括Java，C++，C#和Python在内的语言提供了一个通过语法描述来自动构造自定义语言的识别器、解析器、编译器和转换器的框架。 ANTLR可以通过断言（Predicate）解决识别冲突；支持动作（Action）和返回值（ReturnValue）来；更棒的是，它可以根据输入自动生成语法树并可视化的显示出来。由此，计算机语言的翻译变成了一项普通的任务。 ANTLR是由旧金山大学的Terence Parr博士领导下完成的，最新版本为4.1。
+编译器工作主要分有词法分析，语法分析，代码生成三个步骤。ANTLR分别提供了三个东西: 1. 词法分析器（Lexer） 词法分析器又称为Scanner，Lexicalanalyser和Tokenizer。程序设计语言通常由关键字和严格定义的语法结构组成。编译的最终目的是将程序设计语言的高层指令翻译成物理机器或虚拟机可以执行的指令。词法分析器的工作是分析量化那些本来毫无意义的字符流，将他们翻译成离散的字符组（也就是一个一个的Token），包括关键字、标识符、符号和操作符供语法分析器使用。 1. 语法分析器（Parser） 编译器又称为Syntacticalanalyser。在分析字符流的时候，Lexer不关心所生成的单个Token的语法意义及其与上下文之间的关系，而这就是Parser的工作。语法分析器将收到的Tokens组织起来，并转换成为目标语言语法定义所允许的序列。 无论是Lexer还是Parser都是一种识别器，Lexer是字符序列识别器而Parser是Token序列识别器。他们在本质上是类似的东西，而只是在分工上有所不同而已。 1. 抽象语法树遍历器 (Tree walker) 树分析器可以用于对语法分析生成的抽象语法树进行遍历，并能执行一些相关的操作，可以进行语义匹配生成代码。
+ANTLR 3的Eclipse插件 ANTLR IDE用于ANTLR3的一个Eclipse插件。 - 支持ANTLR 3.0、3.1、3.2、3.3和3.4。 - ANTLR启动器和调试器(仅限Java) - ANTLR内建解析器。 - 代码格式化工具(Ctrl+Shift+F) - 语法图（铁路图） - 定制目标 - 自动生成资源 - 对语法文件中错误和告警自动标注 - 高级文本编辑器、代码选择(F3)和代码补全(Ctrl+Space) - 对（Java、C#、Python和C等）目标语言自动语法高亮 - 标注生成的资源 - 高级字符串模板(StringTemplate)编辑器(*.st and .stg) - 高级语法单元测试(gUnit)编辑器(.gunit and *.testsuite)使用ANTLR生成代码的ANT设置 &amp;lt;property name=&amp;quot;lib.dir&amp;quot; value=&amp;quot;lib&amp;quot; /&amp;gt; &amp;lt;property name=&amp;quot;gensrc.dir&amp;quot; value=&amp;quot;gen-source/Java&amp;quot; /&amp;gt; &amp;lt;property name=&amp;quot;parser.</description>
+    </item>
+    
+    <item>
+      <title>技术博文链接</title>
+      <link>https://mryqu.github.io/post/%E6%8A%80%E6%9C%AF%E5%8D%9A%E6%96%87%E9%93%BE%E6%8E%A5/</link>
+      <pubDate>Wed, 06 Mar 2013 20:32:37 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%8A%80%E6%9C%AF%E5%8D%9A%E6%96%87%E9%93%BE%E6%8E%A5/</guid>
+      <description>Webkit Webkit内核探究【1】——Webkit简介
+Webkit内核探究【2】——Webkit CSS实现
+WebKit内核源代码分析（一）
+WebKit内核源代码分析（二）
+WebKit内核源代码分析（三）
+WebKit内核源代码分析（四）
+WebKit内核源代码分析（五）
+ 安全存储密码 如何安全的存储密码 - hash、salt 以及更多
+MD5+Salt加密机制
+ ActiveMQ ActiveMQ in Action (1) 关于Session.DUPS_OK_ACKNOWLEDGE的注解： 当使用DUPS_OK_ACKNOWLEDGE会话应答模式，会话延迟应答消息的传递情况。 当JMS出现问题，这可能导致一些消息的重复传递，所以仅用于消费者能容忍重复消息的情况下。 其优点是通过减少会话防止重复消息的工作来减少会话的负载。 ActiveMQ in Action (2) ActiveMQ in Action (3) ActiveMQ in Action (4) ActiveMQ in Action (5) ActiveMQ in Action (6) ActiveMQ in Action (7) 飞鸟Blog:优化ActiveMQ性能
+ Tomcat集群 负载均衡技术 Apache + Tomcat集群配置详解 （1） Apache + Tomcat集群配置详解 （2） IP组播与组播协议 Tomcat集群Cluster实现原理剖析 利用JMX监控Tomcat集群
+ 负载均衡 http://en.wikipedia.org/wiki/Load_balancing_(computing) http://zh.wikipedia.org/wiki/负载均衡_(计算机)</description>
+    </item>
+    
+    <item>
+      <title>表驱动法</title>
+      <link>https://mryqu.github.io/post/%E8%A1%A8%E9%A9%B1%E5%8A%A8%E6%B3%95/</link>
+      <pubDate>Fri, 24 Aug 2012 09:11:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%A1%A8%E9%A9%B1%E5%8A%A8%E6%B3%95/</guid>
+      <description>表提供了一种复杂逻辑和继承结构的替换方案。如果发现自己对某个应用程序的逻辑或者继承树关系感到困惑，可以问问自己它是否可以通过一个查询表来加以简化。 使用表的一项关键决策是决定如何访问表。可以通过直接访问、索引访问或者阶梯访问。 使用表的另一项关键决策是决定应该把什么内容放入表中。</description>
+    </item>
+    
+    <item>
+      <title>读《剑出偏锋 JBoss的过去现在和未来》</title>
+      <link>https://mryqu.github.io/post/%E8%AF%BB%E5%89%91%E5%87%BA%E5%81%8F%E9%94%8B_jboss%E7%9A%84%E8%BF%87%E5%8E%BB%E7%8E%B0%E5%9C%A8%E5%92%8C%E6%9C%AA%E6%9D%A5/</link>
+      <pubDate>Mon, 30 Mar 2009 23:08:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%AF%BB%E5%89%91%E5%87%BA%E5%81%8F%E9%94%8B_jboss%E7%9A%84%E8%BF%87%E5%8E%BB%E7%8E%B0%E5%9C%A8%E5%92%8C%E6%9C%AA%E6%9D%A5/</guid>
+      <description>剑出偏锋 JBoss的过去现在和未来 JBoss的确很好用，全是拜Marc老兄带人稳扎稳打做出来的。学习，实践，平常心!</description>
+    </item>
+    
+    <item>
+      <title>UML笔记（JUDE）</title>
+      <link>https://mryqu.github.io/post/uml%E7%AC%94%E8%AE%B0jude/</link>
+      <pubDate>Thu, 05 Feb 2009 20:55:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/uml%E7%AC%94%E8%AE%B0jude/</guid>
+      <description>UML介绍 统一建模语言（UML是 Unified ModelingLanguage的缩写）是用来对软件密集系统进行可视化建模的一种语言。UML为面向对象开发系统的产品进行说明、可视化、和编制文档的一种标准语言。 UML的主要创始人是Jim Rumbaugh、Ivar Jacobson和GradyBooch，他们最初都有自己的建模方法（OMT、OOSE和Booch），彼此之间存在着竞争。最终，他们联合起来创造了一种开放的标准。1997年，OMG组织（ObjectManagementGroup对象管理组织）发布了统一建模语言UML。UML的目标之一就是为开发团队提供标准通用的设计语言来开发和构建计算机应用。UML提出了一套IT专业人员期待多年的统一的标准建模符号。通过使用UML，这些人员能够阅读和交流系统架构和设计规划&amp;ndash;就像建筑工人多年来所使用的建筑设计图一样。 最常用的UML图包括：用例图、类图、序列图、状态图、活动图、组件图和部署图。 类图 类图中的元素 类和接口是类图中的基本元素，其UML表示是一个长方形，垂直地分为三个区：最上层显示类名或接口名，中间的区域列出类的属性，底部的区域列出类的操作。 对于抽象类/方法，类/方法名是斜体的。 对于静态属性/方法，属性/方法下面有下划线。 根据属性/方法的访问权限不同，其图示也不同。
+|属性/方法访问权限|图示 |&amp;mdash;&amp;ndash; |公开|+ |包内访问|~ |保护|# |私有|-
+在关联建模中，存在一些情况下，你需要包括其它类，因为它包含了关于关联的有价值的信息。对于这种情况，你会使用关联类来绑定你的基本关联。关联类和一般类一样表示。不同的是，主类和关联类之间用一条相交的点线连接。关联类类似查询表，可以凭借关联信息从一个类查找到另一个类。 UML中的软件包类似于Java中的包，使建模者能够组织模型分类器到不同的名字空间中，便于管理。 类图中的六大关系 |关系名|介绍|体现|图示 |&amp;mdash;&amp;ndash; |泛化关系generalization|表示一般与特殊的关系|类与类之间的继承，接口与接口之间的继承|用一条实线加空三角来表示|实现关系realization|表示类与接口的关系|类对接口的实现|用一条虚线加空三角来表示|依赖关系dependency|类与类之间的连接，表示一个类依赖于另外一个类的定义；依赖关系仅仅描述了类与类之间的一种使用与被使用的关系|局部变量、方法/函数的参数或者是对静态方法的调用|用一条虚线加箭头来表示|关联关系association|类与类之间的连结，关联关系使一个类知道另外一个类的属性和方法；通常含有“知道”，“了解”的含义依赖关系是具有偶然性的、临时性的、非常弱的，方向是单向的；关联关系是固定的、长期的对应关系，方向可以是单向或者双向的。对类而言依赖存在的理由有：B作为一个参数被传递给A内所定义的一个方法(参数可见性)；B在A的一个方法内被声明为局部对象(局部声明可见性)；B对A全局可见(全局可见性)。而关联一般应来描述普通的属性可见性(B是A的一个属性，是一种相对长久的可见性, 是普遍存在的)。|成员变量|用一条实线来表示关联关系的一段带箭头的是可访问的（Navigableassociation）；带叉号的是不可访问或禁止访问的（Non-navigableassociation）；什么都不带的是未特别指出的关系（Unspecifiedassociation），例如无法直接访问但是可以间接访问。 |聚合关系aggregation|关联关系的一种，是一种强关联关系；聚合关系是整体和个体/部分之间的关系；关联关系的两个类处于同一个层次上，而聚合关系的两个类处于不同的层次上，一个是整体，一个是个体/部分；在聚合关系中，代表个体/部分的对象有可能会被多个代表整体的对象所共享|成员变量|用一条实线加空心菱形来表示|组合关系composition|也是关联关系的一种，但它是比聚合关系更强的关系。组合关系要求聚合关系中代表整体的对象要负责代表个体/部分的对象的整个生命周期；组合关系不能共享；在组合关系中，如果代表整体的对象被销毁或破坏，那么代表个体/部分的对象也一定会被销毁或破坏；而聚在合关系中，代表个体/部分的对象则有可能被多个代表整体的对象所共享，而不一定会随着某个代表整体的对象被销毁或破坏而被销毁或破坏。|成员变量|用一条实线加实心菱形来表示继承和实现体现的是类与类、或者类与接口间的纵向关系；依赖、关联、聚合和组合关系则体现的是类与类、或者类与接口间的引用、横向关系，是比较难区分的，这几种关系都是语义级别的，所以从代码层面并不能完全区分各种关系。 但总的来说，后几种关系所表现的强弱程度依次为：组合&amp;gt;聚合&amp;gt;关联&amp;gt;依赖。
+序列图 同步消息的图示为一条实线加实三角，异步消息的图示为一条实线加箭头。 交互框常见操作符 |操作符|含义 |&amp;mdash;&amp;ndash; |alt|多选一的片段；只有条件为真者会执行 |opt|可选的；该片段只在所给条件为真时执行，等同于只有一个片断的alt |par|并行；每一个片断并行运行 |loop|循环；片断可以执行多次；警戒条件表示循环的条件 |region|关键区域；片断一次只有一个线程执行 |neg|否定；片断展示无效的交互 |ref|引用；引用到另一张图中定义的交互。画一个框盖住交互设计的生命线。你可以定义参数和返回值 |sd|序列图；圈出一张完整的序列图，如果你愿意的话
+参考 《UML精粹：标准对象建模语言简明指南》 JUDE文档
+IBM的“UML 基础”系列文章。</description>
+    </item>
+    
+    <item>
+      <title>面向对象设计的SOLID原则和设计模式</title>
+      <link>https://mryqu.github.io/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84solid%E5%8E%9F%E5%88%99%E5%92%8C%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 23 Nov 2007 13:43:37 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84solid%E5%8E%9F%E5%88%99%E5%92%8C%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>S.O.L.I.D S.O.L.I.D是面向对象设计和编程(OOD&amp;amp;OOP)中几个重要编码原则(ProgrammingPrinciple)的首字母缩写。 - SRP :The Single Responsibility Principle单一责任原则 - OCP :The Open Closed Principle 开放封闭原则 - LSP :The Loskop Substitution Principle里氏替换原则 - DIP :The Dependency Inversion Principle依赖倒置原则 - ISP :The Interface Segregation Principle接口分离原则
+单一责任原则：  当需要修改某个类的时候原因有且只有一个（THERE SHOULD NEVER BE MORE THAN ONE REASONFOR A CLASS TOCHANGE）。换句话说就是让一个类只做一种类型责任，当这个类需要承当其他类型的责任的时候，就需要分解这个类。 比如：报表的内容和报表的格式都会变化改变，但是这两种变化的性质不同，一个是实质内在，一个是表面上的，SRP认为这是问题的两个方面，其实代表不同的职责，应该将它们分离放入不同的类或模块中，而不应该放在一起，否则的话，因为不同原因发生变化，导致对方变动，比如报表格式变新的样式，这个变化是不应该涉及到内容的。 反模式: 一个类处理的事情太多了, 应当进行分解
+开放封闭原则  软件实体应该是可扩展，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。这个原则是诸多面向对象编程原则中最抽象、最难理解的一个。 反模式: 一个模块的修改将导致其他模块的修改
+里氏替换原则  当一个子类的实例应该能够替换任何其超类的实例时，它们之间才具有is-A关系 子类可以代替基类, 客户使用基类, 他们不需要知道派生类所做的事情. 反模式: if(a instanceof TypeA) {&amp;hellip;} 这是一个针对行为职责可替代的原则，如果S是T的子类型，那么S对象就应该在不改变任何抽象属性情况下替换所有T对象。这里的抽象属性是指对象的字段属性。
+我们使用接口时经常碰到一个问题，需要使用接口子类中的方法，而接口中没有这个方法，那么只能要么修改接口，要么将接口downcast为具体子类。为什么会出现这个尴尬现象？有几种情况导致，其中一种情况是是将当前的类重构到接口时，没有将类中所有方法extract到接口中，可能因为这些被你漏掉的方法不属于当前接口，那么，它又违背了单一职责原理，说明你当前这个类的方法设计得又不合理。
+所以，如果单一职责设计的足够好，那么LSP原则则是检验的方法。LSP原则是对对象职责和协作的一种检验约束方法，此外还有DBC(designby contract)原则，为了保证实现接口的子类职责行为的约束，DBC三要素都必须被重视满足： 1.</description>
+    </item>
+    
+  </channel>
+</rss>

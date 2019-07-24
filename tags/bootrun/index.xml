@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bootrun on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/bootrun/</link>
+    <description>Recent content in Bootrun on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 08 Sep 2015 06:32:44 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/bootrun/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>从Gradle bootRun任务向Spring Boot应用传递环境变量</title>
+      <link>https://mryqu.github.io/post/%E4%BB%8Egradle_bootrun%E4%BB%BB%E5%8A%A1%E5%90%91spring_boot%E5%BA%94%E7%94%A8%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Tue, 08 Sep 2015 06:32:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BB%8Egradle_bootrun%E4%BB%BB%E5%8A%A1%E5%90%91spring_boot%E5%BA%94%E7%94%A8%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</guid>
+      <description>尝试了从Gradle bootRun任务中传递环境变量给Spring Boot应用，下面是示例代码和演示。
+示例代码 Application.java package com.yqu.gradlesysprop; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;quot;mryqu.prop.test=&amp;quot;+ System.getProperty(&amp;quot;mryqu.prop.test&amp;quot;)); }; } }  build.gradle buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;quot;org.</description>
+    </item>
+    
+  </channel>
+</rss>

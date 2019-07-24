@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>集群 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E9%9B%86%E7%BE%A4/</link>
+    <description>Recent content in 集群 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 08 Aug 2016 05:58:43 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E9%9B%86%E7%BE%A4/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[RabbitMQ] Hello RabbitMQ Clustering</title>
+      <link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/</link>
+      <pubDate>Mon, 08 Aug 2016 05:58:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/</guid>
+      <description>RabbitMQ集群文档的介绍是： 一个RabbitMQ代理（broker）是一或多个Erlang节点的逻辑组合，每个节点运行RabbitMQ应用并共享用户、虚拟主机、队列、交换器、绑定和运行时参数。有时我们将节点集合称之为集群。 对RabbitMQ代理操作所需的所有数据/状态都会在所有节点上复制。唯一的例外是消息队列，默认存在于创建队列的节点上，但是对所有其他节点可见并可访问。集群内节点通过主机名互相通信，所以这些主机名必须能被集群内所有节点解析。
+在Ubuntu上安装RabbitMQ 我在三台Ubuntu服务器上安装了RabbitMQ，分别是node50064，node50069和node51054。
+ 执行下列命令将APT仓库添加到/etc/apt/sources.list.d:  echo &#39;deb http://www.rabbitmq.com/debian/ testing main&#39; | sudo tee /etc/apt/sources.list.d/rabbitmq.list  (可选地)为了避免未签名包告警，使用 apt-key将RabbitMQ网站的公钥添加到信赖密钥列表：  wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -  执行下列命令更新包列表：  sudo apt-get update  安装rabbitmq-server包：  sudo apt-get install rabbitmq-server   配置RabbitMQ - 修改/etc/rabbitmq/enabled_plugins使能管理插件：
+ [rabbitmq_management].   修改/etc/default/rabbitmq-server，增大每用户可打开文件数（我的系统不使用systemd，无需修改/etc/systemd/system/rabbitmq-server.service.d/limits.conf）：  ulimit -S -n 4096  修改/etc/rabbitmq/rabbitmq-env.conf，激活长主机名并使用每个主机的完整域名作为本地节点名：  USE_LONGNAME=true NODENAME=rabbit@`env hostname -f`   关闭RabbitMQ：
+sudo /etc/init.d/rabbitmq-server stop  配置RabbitMQ集群 首先启动node50064上的RabbitMQ（注：会有告警，可忽略。-detached选项就会导致PID不写入PID文件。）：</description>
+    </item>
+    
+    <item>
+      <title>ActiveMQ集群</title>
+      <link>https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Wed, 24 Jul 2013 21:24:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/</guid>
+      <description>ActiveMQ Introduction ActiveMQ is an open source (Apache 2.0 licensed) message brokerwhich fully implements the Java Message Service 1.1. It providesadvanced features like clustering, multiple message stores, andability to use file systems, and databases as a JMS persistenceprovider.
+ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages on a queue across consumers. If a consumer dies, anyunacknowledged messages are redelivered to other consumers on thequeue. If one consumer is faster than the others it gets moremessages etc.</description>
+    </item>
+    
+  </channel>
+</rss>

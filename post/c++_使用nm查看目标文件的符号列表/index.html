@@ -1,0 +1,515 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[C&#43;&#43;] 使用NM查看目标文件的符号列表 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[C&#43;&#43;] 使用NM查看目标文件的符号列表">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[C&#43;&#43;] 使用NM查看目标文件的符号列表 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/" itemprop="url">
+        [C&#43;&#43;] 使用NM查看目标文件的符号列表
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-18">
+    2015-12-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">592 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>练习使用<a href="https://linux.die.net/man/1/nm">nm</a>查看目标文件的符号列表。此外发现G++竟然创建了两套构造函数和析构函数。</p>
+
+<h3 id="nm命令">nm命令</h3>
+
+<ul>
+<li>-a或&ndash;debug-syms：显示调试符号。</li>
+<li>-B：等同于&ndash;format=bsd，用来兼容MIPS的nm。</li>
+<li>-C或&ndash;demangle：将低级符号名解码(demangle)成用户级名字。这样可以使得C++函数名具有可读性。</li>
+<li>-D或&ndash;dynamic：显示动态符号。该任选项仅对于动态目标(例如特定类型的共享库)有意义。</li>
+<li>-fformat：使用format格式输出。format可以选取bsd、sysv或posix，该选项在GNU的nm中有用。默认为bsd。</li>
+<li>-g或&ndash;extern-only：仅显示外部符号。</li>
+<li>-n、-v或&ndash;numeric-sort：按符号对应地址的顺序排序，而非按符号名的字符顺序。</li>
+<li>-p或&ndash;no-sort：按目标文件中遇到的符号顺序显示，不排序。</li>
+<li>-P或&ndash;portability：使用POSIX.2标准输出格式代替默认的输出格式。等同于使用任选项-fposix。</li>
+<li>-s或&ndash;print-armap：当列出库中成员的符号时，包含索引。索引的内容包含：哪些模块包含哪些名字的映射。</li>
+<li>-r或&ndash;reverse-sort：反转排序的顺序(例如，升序变为降序)。</li>
+<li>&ndash;size-sort：按大小排列符号顺序。该大小是按照一个符号的值与它下一个符号的值进行计算的。</li>
+<li>-tradix或&ndash;radix=radix：使用radix进制显示符号值。radix只能为&rdquo;d&rdquo;表示十进制、&rdquo;o&rdquo;表示八进制或&rdquo;x&rdquo;表示十六进制。</li>
+<li>&ndash;target=bfdname：指定一个目标代码的格式，而非使用系统的默认格式。</li>
+<li>-u或&ndash;undefined-only：仅显示没有定义的符号(那些外部符号)。</li>
+<li>-l或&ndash;line-numbers：对每个符号，使用调试信息来试图找到文件名和行号。对于已定义的符号，查找符号地址的行号。对于未定义符号，查找指向符号重定位入口的行号。如果可以找到行号信息，显示在符号信息之后。</li>
+<li>-V或&ndash;version：显示nm的版本号。</li>
+<li>&ndash;help：显示nm的任选项。</li>
+</ul>
+
+<h3 id="练习">练习</h3>
+
+<h4 id="symtest-hpp">symtest.hpp</h4>
+
+<pre><code>#include &lt;iostream&gt;
+
+class SymTest
+{
+    SymTest();
+    SymTest(int x);
+    ~SymTest();
+    void foo();
+};
+</code></pre>
+
+<h4 id="symtest-cpp">symtest.cpp</h4>
+
+<pre><code>#include &quot;symtest.hpp&quot;
+
+SymTest::SymTest() { printf(&quot;SymTest::SymTest\n&quot;); }
+
+SymTest::SymTest(int x) { printf(&quot;SymTest::SymTest(int)\n&quot;); }
+
+SymTest::~SymTest() { printf(&quot;SymTest::~SymTest\n&quot;); }
+
+void SymTest::foo() { printf(&quot;SymTest::foo\n&quot;); }
+</code></pre>
+
+<h4 id="编译">编译</h4>
+
+<p><img src="/images/2015/12/0026uWfMzy79RhXyGPa4c.png" alt="[C++] 使用NM查看目标文件的符号列表" /></p>
+
+<h4 id="nm-g-仅显示外部符号-c-显示用户级名字">NM: -g 仅显示外部符号 -C 显示用户级名字</h4>
+
+<p><img src="/images/2015/12/0026uWfMzy79RdDF2MV29.png" alt="[C++] 使用NM查看目标文件的符号列表" /> 学习了StackOverflow上的帖子<a href="http://stackoverflow.com/questions/6921295/dual-emission-of-constructor-symbols">Dual emission of constructor symbols</a>，才了解这是G++的一个已知问题，两套构造函数分别是complete objectconstructor和base object constructor。</p>
+
+<h4 id="nm-a-在每个符号前显示文件名">NM: -A 在每个符号前显示文件名</h4>
+
+<p><img src="/images/2015/12/0026uWfMzy79RiKNR1K18.png" alt="[C++] 使用NM查看目标文件的符号列表" /></p>
+
+<h4 id="nm-l-在每个符号前显示行号">NM: -l 在每个符号前显示行号</h4>
+
+<pre><code>mymachine&gt; g++ -c symtest.cpp -g -o symtest.dbg.o
+mymachine&gt; nm -l symtest.dbg.o
+0000000000000170 t _GLOBAL__I__ZN7SymTestC2Ev   /u/mryqu/nmtest/symtest.cpp:10
+0000000000000000 t _Z17__gthread_triggerv
+0000000000000130 t _Z41__static_initialization_and_destruction_0ii      /u/mryqu/nmtest/symtest.cpp:9
+00000000000001b0 T _ZN7SymTest3fooEv    /u/mryqu/nmtest/symtest.cpp:9
+0000000000000210 T _ZN7SymTestC1Ei      /u/mryqu/nmtest/symtest.cpp:5
+0000000000000250 T _ZN7SymTestC1Ev      /u/mryqu/nmtest/symtest.cpp:3
+0000000000000230 T _ZN7SymTestC2Ei      /u/mryqu/nmtest/symtest.cpp:5
+0000000000000270 T _ZN7SymTestC2Ev      /u/mryqu/nmtest/symtest.cpp:3
+00000000000001d0 T _ZN7SymTestD1Ev      /u/mryqu/nmtest/symtest.cpp:7
+00000000000001f0 T _ZN7SymTestD2Ev      /u/mryqu/nmtest/symtest.cpp:7
+                 U _ZNKSs4sizeEv        /usr/include/c++/4.2/bits/stl_algobase.h:189
+                 U _ZNKSsixEm   /usr/include/c++/4.2/bits/locale_facets.tcc:2569
+                 U _ZNSt8ios_base4InitC1Ev      /usr/include/c++/4.2/iostream:77
+                 U _ZNSt8ios_base4InitD1Ev      /usr/include/c++/4.2/iostream:77
+0000000000000010 t _ZSt17__verify_groupingPKcmRKSs      /usr/include/c++/4.2/bits/locale_facets.tcc:2558
+0000000000000000 W _ZSt3minImERKT_S2_S2_
+0000000000000000 b _ZSt8__ioinit
+                 U __cxa_atexit /usr/include/c++/4.2/iostream:77
+                 U __dso_handle /usr/include/c++/4.2/iostream:77
+0000000000000000 d __gthread_active
+                 U __gxx_personality_v0 /usr/include/c++/4.2/bits/locale_facets.tcc:2558
+0000000000000190 t __tcf_0      /usr/include/c++/4.2/iostream:77
+                 U puts /u/mryqu/nmtest/symtest.cpp:9
+</code></pre>
+
+<h3 id="符号类型">符号类型</h3>
+
+<p>符号类型一列有两个字母时，小写字母代表局部符号，大写则为全局/外部符号。
+<table border="1" cellpadding="4" cellspacing="0" frame="border" rules="all" summary="" style="font-family: Arial, Verdana, sans-serif; border-collapse: collapse; border-width: 1px; margin-top: 7pt;"><tbody><tr><td width="20">&ldquo;A&rdquo;</td><td>The symbol&rsquo;s value is absolute, and will not be changed byfurther linking.</td></tr><tr><td>&ldquo;B&rdquo;<br>&ldquo;b&rdquo;</td><td>The symbol is in the uninitialized data section (known as BSS).</td></tr><tr><td>&ldquo;C&rdquo;</td><td>The symbol is common. Common symbols are uninitialized data.When linking, multiple common symbols may appear with the samename. If the symbol is defined anywhere, the common symbols aretreated as undefined references.</td></tr><tr><td>&ldquo;D&rdquo;<br>&ldquo;d&rdquo;</td><td>The symbol is in the initialized data section.</td></tr><tr><td>&ldquo;G&rdquo;<br>&ldquo;g&rdquo;</td><td>The symbol is in an initialized data section for small objects.Some object file formats permit more efficient access to small dataobjects, such as a global int variable as opposed to a large globalarray.</td></tr><tr><td>&ldquo;i&rdquo;</td><td>For PE format files this indicates that the symbol is in asection specific to the implementation of DLLs. For ELF formatfiles this indicates that the symbol is an indirect function. Thisis a GNU extension to the standard set of ELF symbol types. Itindicates a symbol which if referenced by a relocation does notevaluate to its address, but instead must be invoked at runtime.The runtime execution will then return the value to be used in therelocation.</td></tr><tr><td>&ldquo;N&rdquo;</td><td>The symbol is a debugging symbol.</td></tr><tr><td>&ldquo;p&rdquo;</td><td>The symbols is in a stack unwind section.</td></tr><tr><td>&ldquo;R&rdquo;<br>&ldquo;r&rdquo;</td><td>The symbol is in a read only data section.</td></tr><tr><td>&ldquo;S&rdquo;<br>&ldquo;s&rdquo;</td><td>The symbol is in an uninitialized data section for smallobjects.</td></tr><tr><td>&ldquo;T&rdquo;<br>&ldquo;t&rdquo;</td><td>The symbol is in the text (code) section.</td></tr><tr><td>&ldquo;U&rdquo;</td><td>The symbol is undefined.</td></tr><tr><td>&ldquo;u&rdquo;</td><td>The symbol is a unique global symbol. This is a GNU extensionto the standard set of ELF symbol bindings. For such a symbol thedynamic linker will make sure that in the entire process there isjust one symbol with this name and type in use.</td></tr><tr><td>&ldquo;V&rdquo;<br>&ldquo;v&rdquo;</td><td>The symbol is a weak object. When a weak defined symbol islinked with a normal defined symbol, the normal defined symbol isused with no error. When a weak undefined symbol is linked and thesymbol is not defined, the value of the weak symbol becomes zerowith no error. On some systems, uppercase indicates that a defaultvalue has been specified.</td></tr><tr><td>&ldquo;W&rdquo;<br>&ldquo;w&rdquo;</td><td>The symbol is a weak symbol that has not been specificallytagged as a weak object symbol. When a weak defined symbol islinked with a normal defined symbol, the normal defined symbol isused with no error. When a weak undefined symbol is linked and thesymbol is not defined, the value of the symbol is determined in asystem-specific manner without error. On some systems, uppercaseindicates that a default value has been specified.</td></tr><tr><td>&rdquo;-&rdquo;</td><td>The symbol is a stabs symbol in an a.out object file. In thiscase, the next values printed are the stabs other field, the stabsdesc field, and the stab type. Stabs symbols are used to holddebugging information.</td></tr><tr><td>&rdquo;?&rdquo;</td><td>The symbol type is unknown, or object file formatspecific.</td></tr></tbody></table></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[C&#43;&#43;] 使用NM查看目标文件的符号列表
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/nm" rel="tag" title="nm">#nm#</a>
+    
+    <a href="/tags/cpp" rel="tag" title="cpp">#cpp#</a>
+    
+    <a href="/tags/gcc" rel="tag" title="gcc">#gcc#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/c&#43;&#43;_building_twitcurl_library_in_unix_platform/" rel="next" title="[C&#43;&#43;] Building twitcurl Library in Unix platform">
+        <i class="fa fa-chevron-left"></i> [C&#43;&#43;] Building twitcurl Library in Unix platform
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/fileupload_streaming/" rel="prev" title="FileUpload Streaming">
+        FileUpload Streaming <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/";
+this.page.identifier = "https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#nm命令">nm命令</a></li>
+<li><a href="#练习">练习</a>
+<ul>
+<li><a href="#symtest-hpp">symtest.hpp</a></li>
+<li><a href="#symtest-cpp">symtest.cpp</a></li>
+<li><a href="#编译">编译</a></li>
+<li><a href="#nm-g-仅显示外部符号-c-显示用户级名字">NM: -g 仅显示外部符号 -C 显示用户级名字</a></li>
+<li><a href="#nm-a-在每个符号前显示文件名">NM: -A 在每个符号前显示文件名</a></li>
+<li><a href="#nm-l-在每个符号前显示行号">NM: -l 在每个符号前显示行号</a></li>
+</ul></li>
+<li><a href="#符号类型">符号类型</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

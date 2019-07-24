@@ -1,0 +1,713 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>粗览Activiti Modeler操作和源代码 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="粗览Activiti Modeler操作和源代码">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="粗览Activiti Modeler操作和源代码 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%B2%97%E8%A7%88activiti_modeler%E6%93%8D%E4%BD%9C%E5%92%8C%E6%BA%90%E4%BB%A3%E7%A0%81/" itemprop="url">
+        粗览Activiti Modeler操作和源代码
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-15">
+    2015-02-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/workflow" itemprop="url" rel="index">
+        <span itemprop="name">workflow</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">467 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h2 id="activiti-model-editor组件">Activiti Model Editor组件</h2>
+
+<p>我的<a href="/post/了解activiti_explorer及其vaadin实现方式">了解Activiti Explorer及其Vaadin实现方式</a>博文里提到ActivitiExplorer使用的是Vaadin架构，但是Activiti 模型编辑器组件却没用使用Vaadin架构，而是采用Angular.JS的MVC模式。Activiti模型编辑器组件的客户端代码位于Activiti\modules\activiti-webapp-explorer2\src\main\webapp\editor-app\。
+该目录下的editor.html是Activiti Modeler Editor的主界面HTML代码
+<img src="/images/2015/2/0026uWfMgy6Qex1KLT311.jpg" alt="粗览Activiti Modeler操作和源代码" />
+其中palette区是通过Angular.JS使用stencilsets\bpmn2.0\icons下多个子目录内的PNG图像形成的多组列表。其节点层次关系获取相关代码为：
+- stencil-controller.js
+- Activiti\modules\activiti-modeler\src\main\java\org\activiti\rest\editor\main\StencilsetRestResource.java
+- Activiti\modules\activiti-webapp-explorer2\src\main\resources\stencilset.json</p>
+
+<p><img src="/images/2015/2/0026uWfMgy6QeECefVIa6.jpg" alt="粗览Activiti Modeler操作和源代码" /></p>
+
+<p>editor.html中的视图与两个控制器进行了绑定:
+- stencil-controller.js：处理对canvas中BPMN元素的操作，很多处理是通过editor目录下的QRYX库完成的
+- toolbar-controller.js：处理对工具栏的操作，很多处理由configuration\toolbar-default-actions.js完成</p>
+
+<h3 id="保存模型操作">保存模型操作</h3>
+
+<p>保存模型操作，是通过toolbar-default-actions.js中的SaveModel方法完成的，它需要将三部分信息传给服务器：
+- 模型的元数据：例如模型名称、分类、创建时间、最后一次更新时间等等
+- 模型JSON数据：将canvas内的图像数据转换成JSON数据UTF8字符串</p>
+
+<pre><code>   {
+    &quot;resourceId&quot;: 53,
+    &quot;properties&quot;: {
+     &quot;process_id&quot;: &quot;process&quot;,
+     &quot;name&quot;: &quot;&quot;,
+     &quot;documentation&quot;: &quot;&quot;,
+     &quot;process_author&quot;: &quot;&quot;,
+     &quot;process_version&quot;: &quot;&quot;,
+     &quot;process_namespace&quot;: &quot;http://www.activiti.org/processdef&quot;,
+     &quot;executionlisteners&quot;: &quot;&quot;,
+     &quot;eventlisteners&quot;: &quot;&quot;
+    },
+    &quot;stencil&quot;: {
+     &quot;id&quot;: &quot;BPMNDiagram&quot;
+    },
+    &quot;childShapes&quot;: [
+     {
+      &quot;resourceId&quot;: &quot;sid-4F7484B9-11EC-4FCE-8950-FEFFB723D88B&quot;,
+      &quot;properties&quot;: {
+       &quot;overrideid&quot;: &quot;&quot;,
+       &quot;name&quot;: &quot;&quot;,
+       &quot;documentation&quot;: &quot;&quot;,
+       &quot;executionlisteners&quot;: &quot;&quot;,
+       &quot;initiator&quot;: &quot;&quot;,
+       &quot;formkeydefinition&quot;: &quot;&quot;,
+       &quot;formproperties&quot;: &quot;&quot;
+      },
+      &quot;stencil&quot;: {
+       &quot;id&quot;: &quot;StartNoneEvent&quot;
+      },
+      &quot;childShapes&quot;: [],
+      &quot;outgoing&quot;: [
+       {
+        &quot;resourceId&quot;: &quot;sid-B589A0D9-FA79-4C12-95B7-253E72480384&quot;
+       }
+      ],
+      &quot;bounds&quot;: {
+       &quot;lowerRight&quot;: {
+        &quot;x&quot;: 259,
+        &quot;y&quot;: 139
+       },
+       &quot;upperLeft&quot;: {
+        &quot;x&quot;: 229,
+        &quot;y&quot;: 109
+       }
+      },
+      &quot;dockers&quot;: []
+     },
+     {
+      &quot;resourceId&quot;: &quot;sid-1A762474-62B9-4F3D-A81C-1ADD46AF7D2F&quot;,
+      &quot;properties&quot;: {
+       &quot;overrideid&quot;: &quot;&quot;,
+       &quot;name&quot;: &quot;&quot;,
+       &quot;documentation&quot;: &quot;&quot;,
+       &quot;asynchronousdefinition&quot;: &quot;false&quot;,
+       &quot;exclusivedefinition&quot;: &quot;false&quot;,
+       &quot;executionlisteners&quot;: &quot;&quot;,
+       &quot;multiinstance_type&quot;: &quot;None&quot;,
+       &quot;multiinstance_cardinality&quot;: &quot;&quot;,
+       &quot;multiinstance_collection&quot;: &quot;&quot;,
+       &quot;multiinstance_variable&quot;: &quot;&quot;,
+       &quot;multiinstance_condition&quot;: &quot;&quot;,
+       &quot;isforcompensation&quot;: &quot;false&quot;,
+       &quot;usertaskassignment&quot;: &quot;&quot;,
+       &quot;formkeydefinition&quot;: &quot;&quot;,
+       &quot;duedatedefinition&quot;: &quot;&quot;,
+       &quot;prioritydefinition&quot;: &quot;&quot;,
+       &quot;formproperties&quot;: &quot;&quot;,
+       &quot;tasklisteners&quot;: &quot;&quot;
+      },
+      &quot;stencil&quot;: {
+       &quot;id&quot;: &quot;UserTask&quot;
+      },
+      &quot;childShapes&quot;: [],
+      &quot;outgoing&quot;: [
+       {
+        &quot;resourceId&quot;: &quot;sid-4134C10E-B589-42FF-AACC-463D35D52016&quot;
+       }
+      ],
+      &quot;bounds&quot;: {
+       &quot;lowerRight&quot;: {
+        &quot;x&quot;: 746,
+        &quot;y&quot;: 172
+       },
+       &quot;upperLeft&quot;: {
+        &quot;x&quot;: 646,
+        &quot;y&quot;: 92
+       }
+      },
+      &quot;dockers&quot;: []
+     },
+     {
+      &quot;resourceId&quot;: &quot;sid-B22A5CAB-94D0-419E-BB1E-E8538C6A7283&quot;,
+      &quot;properties&quot;: {
+       &quot;overrideid&quot;: &quot;&quot;,
+       &quot;name&quot;: &quot;&quot;,
+       &quot;documentation&quot;: &quot;&quot;,
+       &quot;executionlisteners&quot;: &quot;&quot;
+      },
+      &quot;stencil&quot;: {
+       &quot;id&quot;: &quot;EndNoneEvent&quot;
+      },
+      &quot;childShapes&quot;: [],
+      &quot;outgoing&quot;: [],
+      &quot;bounds&quot;: {
+       &quot;lowerRight&quot;: {
+        &quot;x&quot;: 1089,
+        &quot;y&quot;: 138
+       },
+       &quot;upperLeft&quot;: {
+        &quot;x&quot;: 1061,
+        &quot;y&quot;: 110
+       }
+      },
+      &quot;dockers&quot;: []
+     },
+     {
+      &quot;resourceId&quot;: &quot;sid-B589A0D9-FA79-4C12-95B7-253E72480384&quot;,
+      &quot;properties&quot;: {
+       &quot;overrideid&quot;: &quot;&quot;,
+       &quot;name&quot;: &quot;&quot;,
+       &quot;documentation&quot;: &quot;&quot;,
+       &quot;conditionsequenceflow&quot;: &quot;&quot;,
+       &quot;executionlisteners&quot;: &quot;&quot;,
+       &quot;defaultflow&quot;: &quot;false&quot;
+      },
+      &quot;stencil&quot;: {
+       &quot;id&quot;: &quot;SequenceFlow&quot;
+      },
+      &quot;childShapes&quot;: [],
+      &quot;outgoing&quot;: [
+       {
+        &quot;resourceId&quot;: &quot;sid-1A762474-62B9-4F3D-A81C-1ADD46AF7D2F&quot;
+       }
+      ],
+      &quot;bounds&quot;: {
+       &quot;lowerRight&quot;: {
+        &quot;x&quot;: 645.5626565925471,
+        &quot;y&quot;: 131.10730365650525
+       },
+       &quot;upperLeft&quot;: {
+        &quot;x&quot;: 259.12484340745283,
+        &quot;y&quot;: 124.26769634349473
+       }
+      },
+      &quot;dockers&quot;: [
+       {
+        &quot;x&quot;: 15,
+        &quot;y&quot;: 15
+       },
+       {
+        &quot;x&quot;: 50,
+        &quot;y&quot;: 40
+       }
+      ],
+      &quot;target&quot;: {
+       &quot;resourceId&quot;: &quot;sid-1A762474-62B9-4F3D-A81C-1ADD46AF7D2F&quot;
+      }
+     },
+     {
+      &quot;resourceId&quot;: &quot;sid-4134C10E-B589-42FF-AACC-463D35D52016&quot;,
+      &quot;properties&quot;: {
+       &quot;overrideid&quot;: &quot;&quot;,
+       &quot;name&quot;: &quot;&quot;,
+       &quot;documentation&quot;: &quot;&quot;,
+       &quot;conditionsequenceflow&quot;: &quot;&quot;,
+       &quot;executionlisteners&quot;: &quot;&quot;,
+       &quot;defaultflow&quot;: &quot;false&quot;
+      },
+      &quot;stencil&quot;: {
+       &quot;id&quot;: &quot;SequenceFlow&quot;
+      },
+      &quot;childShapes&quot;: [],
+      &quot;outgoing&quot;: [
+       {
+        &quot;resourceId&quot;: &quot;sid-B22A5CAB-94D0-419E-BB1E-E8538C6A7283&quot;
+       }
+      ],
+      &quot;bounds&quot;: {
+       &quot;lowerRight&quot;: {
+        &quot;x&quot;: 1060.676003953202,
+        &quot;y&quot;: 130.93202152143962
+       },
+       &quot;upperLeft&quot;: {
+        &quot;x&quot;: 746.595480421798,
+        &quot;y&quot;: 124.30235347856038
+       }
+      },
+      &quot;dockers&quot;: [
+       {
+        &quot;x&quot;: 50,
+        &quot;y&quot;: 40
+       },
+       {
+        &quot;x&quot;: 14,
+        &quot;y&quot;: 14
+       }
+      ],
+      &quot;target&quot;: {
+       &quot;resourceId&quot;: &quot;sid-B22A5CAB-94D0-419E-BB1E-E8538C6A7283&quot;
+      }
+     }
+    ],
+    &quot;bounds&quot;: {
+     &quot;lowerRight&quot;: {
+      &quot;x&quot;: 1200,
+      &quot;y&quot;: 1050
+     },
+     &quot;upperLeft&quot;: {
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0
+     }
+    },
+    &quot;stencilset&quot;: {
+     &quot;url&quot;: &quot;stencilsets/bpmn2.0/bpmn2.0.json&quot;,
+     &quot;namespace&quot;: &quot;http://b3mn.org/stencilset/bpmn2.0#&quot;
+    },
+    &quot;ssextensions&quot;: []
+   }
+</code></pre>
+
+<ul>
+<li>模型的SVG图像数据：将canvas中的SVG图像数据经过过滤处理而得</li>
+</ul>
+
+<p>服务器侧保存模型的代码位于 Activiti\modules\activiti-modeler\src\main\java\org\activiti\rest\editor\model\ModelSaveRestResource.java。
+- 通过RepositoryService的saveModel方法将模型的元数据存入数据库的ACT_RE_MODEL表
+- 通过RepositoryService的addModelEditorSource方法将模型JSON数据UTF8字符串存入数据库的ACT_GE_BYTEARRAY表
+- 通过<a href="http://xmlgraphics.apache.org/batik/">Apache™ Batik SVG Toolkit</a>将模型的SVG图像数据转换成PNG格式，通过RepositoryService的addModelEditorSourceExtra方法将PNG图像存入数据库的ACT_GE_BYTEARRAY表</p>
+
+<h2 id="activiti-explorer操作已保存模型">Activiti Explorer操作已保存模型</h2>
+
+<p>对模型的编辑操作是在Activiti Model Editor组件里实现的，对已保存模型的其他操作还是在ActivitiExplorer里基于Vaadin架构实现的。
+客户端代码位于：Activiti\modules\activiti-explorer\src\main\java\org\activiti\editor\ui\。
+下图的HTML界面由EditorProcessDefinitionDetailPanel.java实现。
+<img src="/images/2015/2/0026uWfMgy6QfphZz8A68.jpg" alt="粗览Activiti Modeler操作和源代码" /></p>
+
+<h3 id="显示已保存模型">显示已保存模型</h3>
+
+<ul>
+<li>选择模型，会调用EditorProcessDefinitionPage类的showProcessDefinitionDetail方法</li>
+<li>EditorProcessDefinitionDetailPanel类的initUI方法调用initProcessDefinitionInfo方法，它会加入EditorProcessDefinitionInfoComponent实例</li>
+<li>在构造EditorProcessDefinitionInfoComponent实例时，其initImage方法会被调用，通过RepositoryService的getModelEditorSourceExtra方法获得PNG格式图像，最终被显示到浏览器界面上。</li>
+</ul>
+
+<h3 id="部署已保存模型">部署已保存模型</h3>
+
+<p>EditorProcessDefinitionDetailPanel类的deployModel方法处理部署已保存模型的操作。
+- 通过RepositoryService的getModelEditorSource方法获得模型JSON数据的UTF8字符串
+- 通过<a href="https://github.com/FasterXML/jackson-databind">FasterXML/jackson-databind</a>转换成Java对象树
+- 通过Activiti\modules\activiti-json-converter\src\main\java\org\activiti\editor\language\json\converter\BpmnJsonConverter.java将模型JSON数据的Java对象树转换成BpmnModel实例
+- 通过Activiti\modules\activiti-bpmn-converter\src\main\java\org\activiti\bpmn\converter\BpmnXMLConverter.java将BpmnModel实例转成BPMN XML数据
+- 通过RepositoryService的createDeployment方法将BPMN XML数据进行部署</p>
+
+<h3 id="导出已保存模型">导出已保存模型</h3>
+
+<p>EditorProcessDefinitionDetailPanel类的exportModel方法处理导出已保存模型的操作。
+- 通过RepositoryService的getModelEditorSource方法获得模型数据的JSON字符串
+- 通过<a href="https://github.com/FasterXML/jackson-databind">FasterXML/jackson-databind</a>转换成Java对象树
+- 通过Activiti\modules\activiti-json-converter\src\main\java\org\activiti\editor\language\json\converter\BpmnJsonConverter.java将模型JSON数据的Java对象树转换成BpmnModel实例
+- 通过Activiti\modules\activiti-bpmn-converter\src\main\java\org\activiti\bpmn\converter\BpmnXMLConverter.java将BpmnModel实例转成BPMN XML数据</p>
+
+<h3 id="编辑已保存模型">编辑已保存模型</h3>
+
+<p>EditorProcessDefinitionDetailPanel类内注册了EditModelClickListener监听器用于处理导入BPMN模型操作。EditModelClickListener的showModeler会生成访问模型编辑器组件的URL地址，打开指定的模型。
+- Activiti\modules\activiti-webapp-explorer2\src\main\webapp\editor-app\app.js中的监听器处理$includeContentLoaded事件，调用了fetchModel方法
+- Activiti\modules\activiti-modeler\src\main\java\org\activiti\rest\editor\model\ModelEditorJsonRestResource.java处理该REST请求，返回由RepositoryService的getModel和getModelEditorSource方法获得Activiti模型元数据和JSON数据</p>
+
+<h3 id="导入bpmn模型">导入BPMN模型</h3>
+
+<p>EditorProcessDefinitionDetailPanel类内注册了ImportModelClickListener监听器用于处理导入BPMN模型操作。ImportPopupWindow界面完成BPMN模型操作后，ImportUploadReceiver类的deployUploadedFile方法处理上传的BPMNXML数据。
+- 通过Activiti\modules\activiti-bpmn-converter\src\main\java\org\activiti\bpmn\converter\BpmnXMLConverter.java将BPMN XML数据转换成BpmnModel实例
+- 通过BpmnModel实例生成模型的元数据，通过RepositoryService的saveModel方法将模型的元数据存入数据库的ACT_RE_MODEL表
+- 通过Activiti\modules\activiti-json-converter\src\main\java\org\activiti\editor\language\json\converter\BpmnJsonConverter.java将BpmnModel实例转换成模型JSON数据的Java对象树，通过RepositoryService的addModelEditorSource方法将模型JSON数据UTF8字符串存入数据库的ACT_GE_BYTEARRAY表</p>
+
+<hr />
+
+<p>一些疑惑和想法：
+- 这里BpmnXMLConverter和BpmnJsonConverter用的比较频繁，而且成对出现。为什么不跳过中间的BpmnModel？
+- 导入BPMN模型为什么不生成PNG图像？
+- 数据库存储的模型数据不采用BPMNXML格式而是采用JSON格式，很灵活，可以随意添加Activiti扩展内容。但是如果没有现成的JSONschema，分析起来够麻烦。</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：粗览Activiti Modeler操作和源代码
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/activiti" rel="tag" title="activiti">#activiti#</a>
+    
+    <a href="/tags/modeler" rel="tag" title="modeler">#modeler#</a>
+    
+    <a href="/tags/%e4%bb%a3%e7%a0%81" rel="tag" title="代码">#代码#</a>
+    
+    <a href="/tags/%e5%88%86%e6%9e%90" rel="tag" title="分析">#分析#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/hbase_%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%AEzookeeper%E8%BF%87%E7%A8%8B/" rel="next" title="[HBase] 启动内置ZooKeeper过程">
+        <i class="fa fa-chevron-left"></i> [HBase] 启动内置ZooKeeper过程
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/activiti_5.17_jndi%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/" rel="prev" title="Activiti 5.17 JNDI数据源配置">
+        Activiti 5.17 JNDI数据源配置 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E7%B2%97%E8%A7%88activiti_modeler%E6%93%8D%E4%BD%9C%E5%92%8C%E6%BA%90%E4%BB%A3%E7%A0%81/";
+this.page.identifier = "https://mryqu.github.io/post/%E7%B2%97%E8%A7%88activiti_modeler%E6%93%8D%E4%BD%9C%E5%92%8C%E6%BA%90%E4%BB%A3%E7%A0%81/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#activiti-model-editor组件">Activiti Model Editor组件</a>
+<ul>
+<li><a href="#保存模型操作">保存模型操作</a></li>
+</ul></li>
+<li><a href="#activiti-explorer操作已保存模型">Activiti Explorer操作已保存模型</a>
+<ul>
+<li><a href="#显示已保存模型">显示已保存模型</a></li>
+<li><a href="#部署已保存模型">部署已保存模型</a></li>
+<li><a href="#导出已保存模型">导出已保存模型</a></li>
+<li><a href="#编辑已保存模型">编辑已保存模型</a></li>
+<li><a href="#导入bpmn模型">导入BPMN模型</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

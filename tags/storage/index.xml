@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Storage on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/storage/</link>
+    <description>Recent content in Storage on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 20 Oct 2016 06:32:31 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/storage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello Google Drive APIs</title>
+      <link>https://mryqu.github.io/post/hello_google_drive_apis/</link>
+      <pubDate>Thu, 20 Oct 2016 06:32:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_google_drive_apis/</guid>
+      <description>准备环境 当前我的Google Drive内容如下： 继续使用博文《Google Sheets API认证和鉴权》中用过的应用yquGSTest，不过需要激活Google Drive API： Google Drive API测试 方法drive.about.get测试 方法drive.about.get用于获取用户、驱动和系统容量等信息。
+方法drive.files.list测试 方法drive.files.list用于列举或搜索文件。
+与Microsoft OneDriveAPI仅列举请求目录下文件不同，方法drive.files.list列举文件时返回了所有目录和文件，例如子目录FolderTest1下的文件Class_cn_Tab.csv也在响应内容里面。
+方法drive.files.get测试 方法drive.files.get用于通过ID获取文件元数据。下面获得Class_cn_Tab.csv文件的元数据。
+方法drive.files.create测试 方法drive.files.create用于创建一个新文件。
+在API Explorer中仅能指定新文件的元数据，没法上传文件内容，所以虽然测试成功且GoogleDrive里也会显示新的文件，但是打不开。这种仅指定元数据不提供内容的方式特别适合创建目录。
+https://developers.google.com/drive/v3/web/manage-uploads里面说明了如何在创建或更新文件时上传文件内容。
+通过Java JDK创建文件 与博文《Google Sheets API认证和鉴权》中获取访问令牌的差异如下：
+GET https://accounts.google.com/o/oauth2/v2/auth? scope=**&amp;lt;font color=&amp;quot;#FF0000&amp;quot;&amp;gt;https://www.googleapis.com/auth/drive&amp;lt;/font&amp;gt;** https://www.googleapis.com/auth/drive.readonly profile&amp;amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;amp; response_type=code&amp;amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com``` 代码如下：  package com.yqu.gd;
+import java.io.IOException; import java.util.Collections; import java.util.List;
+import com.google.api.client.auth.oauth2.Credential; import com.google.api.client.googleapis.auth.oauth2.GoogleCredential; import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport; import com.google.api.client.http.FileContent; import com.google.api.client.http.HttpTransport; import com.google.api.client.json.JsonFactory; import com.google.api.client.json.jackson2.JacksonFactory; import com.google.api.services.drive.Drive; import com.google.api.services.drive.model.File; import com.google.api.services.drive.model.FileList;
+public class HelloGoogleDrive {</description>
+    </item>
+    
+    <item>
+      <title>使用OneDrive的根API资源</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Sun, 16 Oct 2016 06:40:59 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</guid>
+      <description> OneDrive的根API资源 可以使用OneDrive的这些根API资源来访问一个项目或驱动。
+|路径|资源 |&amp;mdash;&amp;ndash; |/drive|用户的默认驱动。 |/drives|列举对认证用户可用的驱动。 |/drives/{drive-id}|通过ID访问一个特定驱动。 |/drives/{drive-id}/root/children|列举特定驱动根路径下项目。 |/drive/items/{item-id}|通过ID访问一个元素。 |/drive/special/{special-id}|通过已知名访问一个特殊（命名）目录。ID目前可取值为：documents、photos、cameraroll、approot、music。 |/shares/{share-id}|通过共享ID或共享URL访问一个元素。
+元素可由路径定位，通过在任何元素或驱动URL后加冒号。
+|路径|资源 |&amp;mdash;&amp;ndash; |/drive/root:/path/to/file|通过根绝对路径访问一个元素。 |/drive/items/{item-id}:/path/to/file|通过相对路径访问一个元素。 |/drive/root:/path/to/file:/children|通过根绝对路径列举一个元素的子项。 |/drive/items/{item-id}:/path/to/file:/children|通过相对路径列举一个元素的子项。
+测试 获取默认驱动 列举可用驱动 通过ID获取指定驱动 列举特定驱动根路径下项目 通过ID访问一个目录&amp;rdquo;文档&amp;rdquo; 访问特殊目录documents 通过共享ID访问文件CN_EN_JP_KO.xlsx 将文件CN_EN_JP_KO.xlsx共享，获取其共享URL： 通过共享ID使用OneDrive API访问文件CN_EN_JP_KO.xlsx： 通过根绝对路径访问文件CN_EN_JP_KO.xlsx 注意root后有冒号： 通过相对路径访问文件CN_EN_JP_KO.xlsx 712B21FCE8E08C92!442是目录&amp;rdquo;文档&amp;rdquo;的ID，注意其后有冒号： 通过根绝对路径列举目录&amp;rdquo;文档&amp;rdquo;的子元素 注意root和路径（/文档）后都有冒号： 通过相对路径列举目录&amp;rdquo;FolderTest&amp;rdquo;的子元素 为了测试，首先我在目录&amp;rdquo;文档&amp;rdquo;创建子目录&amp;rdquo;FolderTest&amp;rdquo;，然后在目录&amp;rdquo;FolderTest&amp;rdquo;中创建mryqu.txt文件。
+712B21FCE8E08C92!442是目录&amp;rdquo;文档&amp;rdquo;的ID，注意其后有冒号；路径（/FolderTest）后也有冒号。 </description>
+    </item>
+    
+    <item>
+      <title>Hello Microsoft OneDrive API</title>
+      <link>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</link>
+      <pubDate>Wed, 12 Oct 2016 06:14:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</guid>
+      <description>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
+测试源 为了省事，就用我自己私人的OneDrive做测试吧。获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&amp;rdquo;050709大同&amp;rdquo;子目录，该子目录的id为&amp;rdquo;712B21FCE8E08C92!112&amp;rdquo;。从整个响应内容可知，根目录包含&amp;rdquo;文档&amp;rdquo;子目录，其id为&amp;rdquo;712B21FCE8E08C92!442&amp;rdquo;。
+查看Drive &amp;ldquo;文档&amp;rdquo;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
+获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
+参考 Develop with the OneDrive API</description>
+    </item>
+    
+    <item>
+      <title>Hello Dropbox API</title>
+      <link>https://mryqu.github.io/post/hello_dropbox_api/</link>
+      <pubDate>Tue, 04 Oct 2016 05:53:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_dropbox_api/</guid>
+      <description>本博文用来记录一下粗略体验Dropbox关于用户、文件、共享三方面API的过程。
+准备环境 还是用我私人的Dropbox做测试，所以只显示Public目录下的东东了。 用户类API测试 方法get_current_account测试 方法get_account测试 方法get_space_usage测试 文件类API测试 方法list_folder测试 方法list_folder其实是列举文件和目录，而且是分层的。如果path没设，则显示根目录下的元素。
+方法get_metadata测试 方法get_metadata用于获取一个元素（文件/目录）的元数据。
+方法create_folder测试 方法get_preview测试 方法get_preview仅支持 .doc、 .docx、 .docm、 .ppt、 .pps、 .ppsx、 .ppsm、.pptx、.pptm、 .xls、 .xlsx、 .xlsm、.rtf文件类型。就我的测试而言，没看出跟下面的download方法有多大区别。
+这里尝试了一下path的其他使用方式。除了最常规的文件路径外，path参数还可以使用id或rev。
+方法download测试 方法search测试 方法upload测试 方法delete测试 方法delete用于删除一个元素（文件/目录）。
+方法permanently_delete测试 方法permanently_delete是支持Dropbox商业应用，而我的是开发应用，因而测试失败。
+共享类API测试 方法share_folder测试 方法list_folders测试 方法unshare_folder测试 方法unshare_folder使用的是异步任务的方式，需要通过下列的方法check_job_status查询任务进度及结果。
+方法check_job_status测试 方法create_share_link测试 share_folder可以通过邮件或Dropbox账户的方式分享给其他Dropbox用户，而share_link甚至可以共享给没有安装Dropbox的使用者。
+方法get_share_links测试 方法get_shared_link_file测试 方法revoke_shared_link测试 revoke_shared_link竟然不返回结果，查证文档后确实如此。
+学习总结 Dropbox关于文件共享方面的API占比相对OneDrive、Google Drive要多一些。 Dropbox API相对OneDrive、GoogleDrive而言，成熟度更低。按照REST的Richardson成熟度模型来说仅在2-级别，它的REST资源还是动词，例如get_metadata、check_job_status。
+参考 Dropbox
+Dropbox API v2 for HTTP Developers
+Dropbox API Explorer</description>
+    </item>
+    
+    <item>
+      <title>Hello Google Sheets API</title>
+      <link>https://mryqu.github.io/post/hello_google_sheets_api/</link>
+      <pubDate>Wed, 28 Sep 2016 06:00:05 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_google_sheets_api/</guid>
+      <description>准备环境 首先在Google Sheets创建了SpreadSheetTest1和To-do list两个电子表格，以备使用。 API测试 方法spreadsheets.get测试 方法spreadsheets.get可以获得一个电子表格中所有表单的内容和元数据。 下面是用Postman进行同样操作： 方法spreadsheets.values.get测试 方法spreadsheets.values.get可以获得一个电子表格中所有表单的内容。 方法spreadsheets.create测试 方法spreadsheets.create可以创建一个新的电子表格。 查看GoogleSheets，也可以看到新创建的电子表格SpreadSheetCreate1。由于我的请求里没有数据，因此下图中数据区也是空空。 方法spreadsheets.values.append测试 方法spreadsheets.values.append可以向电子表格中添加内容。 查看Google Sheets，也可以看到刚才创建的电子表格SpreadSheetCreate1有了九个单元格新数据。 学习结论 Google Sheets API可以创建、读取和修改电子表格，但是没有找到删除电子表格的方法。 Google SheetsAPI可以创建、读取、修改和删除一个电子表格内容，例如方法spreadsheets.batchUpdate中deleteSheet就可以删除一个表单，而deleteDimension就可以删除一个表单中的行/列。
+参考 Google Sheets
+Google Sheets API
+Google API Explorer: Sheets</description>
+    </item>
+    
+    <item>
+      <title>[Hive] Hive表文件存储格式</title>
+      <link>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Fri, 14 Aug 2015 06:25:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid>
+      <description>Hive支持的内建表文件存储格式如下：
+|存储格式|介绍 |&amp;mdash;&amp;ndash; |TEXTFILE|按照纯文本文件格式存储。如果配置hive.default.fileformat没有设置的话，TEXTFILE是默认文件格式。
+此存储格式下，数据不做压缩的话，磁盘开销大，数据解析开销大。使用Gzip、Bzip2、Snappy等进行压缩使用（系统自动检查，执行查询时自动解压）的话，Hive不能对数据进行切分，从而无法对数据进行并行操作。 |SEQUENCEFILE|按照压缩的Sequence File格式存储。
+SequenceFile一般是在HDFS FileSystem中生成，供map调用的原始文件。Hive中的SequenceFile继承自Hadoop API 的SequenceFile，不过它的key为空，使用value存放实际的值，这样是为了避免MR在运行map阶段的排序过程。 |RCFILE|按照RCFile (Record Columnar File)格式存储。
+在Hive0.6.0引入。RCFile是在计算机集群中判断如何存储关系型表的数据存放结构，是Facebook、俄亥俄州立大学、中科院计算所联合研究成果。FCFile结构是由数据存储格式、数据压缩方式、数据读取优化技术等多种模块的系统组合，可以实现数据存放的四个要求：(1)快速加载，(2) 快速处理查询，(3) 高效利用存储空间 (4) 非常适用于动态数据访问模式。
+它遵循“先按行划分，再垂直划分”的设计理念。当查询过程中，针对它并不关心的列时，它会在IO上跳过这些列。需要说明的是，RCFile在map阶段从远端拷贝仍然是拷贝整个数据块，并且拷贝到本地目录后RCFile并不是真正直接跳过不需要的列，并跳到需要读取的列，而是通过扫描每一个row group的头部定义来实现的，但是在整个HDFS Block 级别的头部并没有定义每个列从哪个rowgroup起始到哪个row group结束。所以在读取所有列的情况下，RCFile的性能反而没有SequenceFile高。 |ORC|在Hive 0.11.0引入。ORC(Optimized RowColumnar)存储源自于RCFile。FCFile把每列都当作二进制blob处理，而ORC存储列元数据，针对列类型使用特定的读写器。ORC支持ACID、内建索引和复杂类型。官网上介绍“其性能显著快于RCFile或Parquet”。Facebook和Yahoo等大公司都在使用。 |PARQUET|在Hive 0.13.0引入。Parquet源自于google Dremel系统。Parquet最初的设计动机是存储嵌套式数据，将这类数据存储成列式格式，以方便对其高效压缩和编码，且使用更少的IO操作取出需要的数据，这也是Parquet相比于ORC的优势，它能够透明地将Protobuf和thrift类型的数据进行列式存储，在Protobuf和thrift被广泛使用的今天，与parquet进行集成，是一件非容易和自然的事情。除了上述优势外，相比于ORC,Parquet没有太多其他可圈可点的地方，比如它不支持update操作（数据写成后不可修改），不支持ACID等。 |AVRO|在Hive 0.13.0引入。Avro是数据序列化系统，由Hadoop项目开发的。
+测试 $ echo -e &#39;1\x01foo&#39; &amp;gt; tabft.txt $ echo -e &#39;2\x01bar&#39; &amp;gt;&amp;gt; tabft.txt $ hive hive&amp;gt; create table tabft (id int, name string); hive&amp;gt; quit; $ hadoop fs -put tabft.txt /user/hive/warehouse/tabft $ hive hive&amp;gt; create table tabft_txt (id int, name string) STORED AS TEXTFILE; hive&amp;gt; insert into table tabft_txt select * from tabft; hive&amp;gt; create table tabft_seq (id int, name string) STORED AS SEQUENCEFILE; hive&amp;gt; insert into table tabft_seq select * from tabft; hive&amp;gt; create table tabft_rc (id int, name string) STORED AS RCFILE; hive&amp;gt; insert into table tabft_rc select * from tabft; hive&amp;gt; create table tabft_orc (id int, name string) STORED AS ORC; hive&amp;gt; insert into table tabft_orc select * from tabft; hive&amp;gt; create table tabft_parq (id int, name string) STORED AS PARQUET; hive&amp;gt; insert into table tabft_parq select * from tabft; hive&amp;gt; create table tabft_avro (id int, name string) STORED AS AVRO; hive&amp;gt; insert into table tabft_avro select * from tabft;  获取Sequence文件信息 在我的环境下，按照压缩的Sequence File格式存储后的文件是非压缩的。 获取ORC文件信息 参考 Hive 语言手册 - DDL</description>
+    </item>
+    
+    <item>
+      <title>[HBase] 原始数据类型存储</title>
+      <link>https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Thu, 02 Jan 2014 22:37:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/</guid>
+      <description>对原始数据类型如何在HBase中存储，如何在HBaseShell中如何显示尚不了解，做一下小实验满足一下好奇心。使用下列代码存放和读取原始数据类型：
+byte[] cf = Bytes.toBytes(CF_DEFAULT); Put put = new Put(Bytes.toBytes(&amp;quot;test&amp;quot;)); byte[] val = Bytes.toBytes(&amp;quot;123&amp;quot;); System.out.println(&amp;quot;Bytes for str: &amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;str&amp;quot;), val); short shortVal = 123; val = Bytes.toBytes(shortVal); System.out.println(&amp;quot;Bytes for short:&amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;short&amp;quot;), val); int intVal = 123; val = Bytes.toBytes(intVal); System.out.println(&amp;quot;Bytes for int:&amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;int&amp;quot;), val); long longVal = 123L; val = Bytes.toBytes(longVal); System.out.println(&amp;quot;Bytes for long:&amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;long&amp;quot;), val); float floatVal = 123; val = Bytes.</description>
+    </item>
+    
+  </channel>
+</rss>

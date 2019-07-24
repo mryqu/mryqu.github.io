@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Repositories on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/repositories/</link>
+    <description>Recent content in Repositories on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 29 Jun 2015 00:03:59 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/repositories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Gradle] buildScript块与allprojects块及根级别的repositories区别</title>
+      <link>https://mryqu.github.io/post/gradle_buildscript%E5%9D%97%E4%B8%8Eallprojects%E5%9D%97%E5%8F%8A%E6%A0%B9%E7%BA%A7%E5%88%AB%E7%9A%84repositories%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Mon, 29 Jun 2015 00:03:59 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gradle_buildscript%E5%9D%97%E4%B8%8Eallprojects%E5%9D%97%E5%8F%8A%E6%A0%B9%E7%BA%A7%E5%88%AB%E7%9A%84repositories%E5%8C%BA%E5%88%AB/</guid>
+      <description>一直对为什么buildScript块里定义了repositories而allprojects段或根还定义repositories没有思考过，偶然有了念头想要探究一下。
+build.gradle： buildscript {
+repositories { &amp;hellip; } dependencies { &amp;hellip; } } allprojects { repositories { &amp;hellip; } dependencies { &amp;hellip; } }repositories { &amp;hellip; } dependencies { &amp;hellip; }
+buildScript块主要是为了Gradle脚本自身的执行，获取脚本依赖插件。我在写的一篇博客《尝试Artifactory》中Gradle脚本需要com.jfrog.artifactory插件才能执行成功，而这个插件是从URL为https://plugins.gradle.org/m2/的Maven仓库获得。 根级别的repositories主要是为了当前项目提供所需依赖包，比如log4j、spring-core等依赖包可从mavenCentral仓库获得。 allprojects块的repositories用于多项目构建，为所有项目提供共同所需依赖包。而子项目可以配置自己的repositories以获取自己独需的依赖包。
+参考 What&amp;rsquo;s the difference between buildscript and allprojects in build.gradle?
+Gradle buildscript dependencies
+Gradle: Project</description>
+    </item>
+    
+  </channel>
+</rss>

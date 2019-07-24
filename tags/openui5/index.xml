@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openui5 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/openui5/</link>
+    <description>Recent content in Openui5 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 18 Jul 2019 06:36:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/openui5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[OpenUI5] 监控Model属性变动</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%9B%91%E6%8E%A7model%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8A%A8/</link>
+      <pubDate>Thu, 18 Jul 2019 06:36:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%9B%91%E6%8E%A7model%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8A%A8/</guid>
+      <description>设计了某个OpenUI5控件，当对控件的某些子控件进行设置时，想监控模型的变动。
+下面的代码完成了这样的功能：
+1. 该控件绑定路径为/someItems/{itemId}/objInfo
+2. 当控件下某些子控件修改设置，则路径为/someItems/{itemId}/objInfo的模型属性会发生变动
+3. 路径为/someItems/{itemId}/isModified的模型属性将被设置为true
+(function () { &amp;quot;use strict&amp;quot;; .... var PATH_PART_OBJINFO = &amp;quot;/objInfo&amp;quot;; var PATH_PART_ISMODIFIED = &amp;quot;/isModified&amp;quot;; SomeControl.extend(&amp;quot;com.yqu.MySomeControl&amp;quot;, { metadata: { properties: {}, publicMethods: [], events: {} }, rb: sap.ui.getCore().getLibraryResourceBundle(&amp;quot;com.yqu&amp;quot;), renderer: &amp;quot;SomeControlRenderer&amp;quot;, init: function() { .... }, onBeforeRendering: function() { if(SomeControl.prototype.onBeforeRendering) SomeControl.prototype.onBeforeRendering.apply(this, arguments); .... var context = this.getBindingContext(); if (!!context &amp;amp;&amp;amp; !!context.oModel &amp;amp;&amp;amp; !!context.sPath) { var binding = new sap.ui.model.Binding(context.oModel, &amp;quot;/&amp;quot;, context); binding.attachChange($.proxy(this._onDataModified, this)); } }, _onDataModified: function() { var context = this.</description>
+    </item>
+    
+    <item>
+      <title>[JS] 导出数据到CSV文件</title>
+      <link>https://mryqu.github.io/post/js_%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0csv%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Thu, 09 Aug 2018 14:25:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/js_%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0csv%E6%96%87%E4%BB%B6/</guid>
+      <description> 项目有可能要在HTML客户端上导出数据到CSV文件，先找找方案。
+JS/jQuery方案  Export to CSV using jQuery and html Demo for StackOverflow Answer to the question: Export to CSV using jQuery and html 使用javascript下载页面中的表格数据 Exporting data from a web browser to a csv file using javascript.  OpenUI5方案  GitHub: OpenUI5 Export Test Download the Model Data to a CSV/Excel file in UI5 Export sap.ui.table.Table as CSV Export To Excel customization in UI5  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] Theme加载</title>
+      <link>https://mryqu.github.io/post/openui5_theme%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Thu, 28 Dec 2017 05:37:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_theme%E5%8A%A0%E8%BD%BD/</guid>
+      <description>瞄了一下OpenUI5中UI主题加载，关键点在sap.ui.core.Core.includeLibraryTheme方法。其调用者主要为： - sap.ui.core.Core._boot：启动OpenUI5核心时加载必要的主题 - sap.ui.core.Core.initLibrary：加载某个库时会尝试加载其主题 假定config.js内容如下：
+window[&#39;sap-ui-config&#39;] = { bindingSyntax: &#39;complex&#39;, modules: [ &amp;quot;sap.m.library&amp;quot;, &amp;quot;sap.ui.commons.library&amp;quot;, &amp;quot;sap.ui.table.library&amp;quot;, &amp;quot;sap.ui.layout.library&amp;quot;, &amp;quot;yqu.ui.kexiao.library&amp;quot; ] } };  OpenUI5在加载yqu.ui.kexiao.library库时会尝试加载其主题。
+Core.includeLibraryTheme (Core.js?eval:xxxx) Core.initLibrary (Core.js?eval:xxxx) (anonymous) (Interface.js?eval:xx) (anonymous) (library.js?eval:xx) evalModuleStr (sap-ui-core-dbg.js:xxxxx) execModule (sap-ui-core-dbg.js:xxxxx) requireModule (sap-ui-core-dbg.js:xxxxx) jQuery.sap.require (sap-ui-core-dbg.js:xxxxx) Core.loadLibrary (Core.js?eval:xxxx) .............  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 在XMLView中使用带有参数的I18N消息</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</link>
+      <pubDate>Wed, 01 Mar 2017 06:14:39 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</guid>
+      <description>在做的一个新项目中，美国团队那边齐刷刷地一色用XMLView而不是JSView，碰到一个小问题：那就是怎么在XMLView中设置带有参数的I18N消息。
+参考Passing parameters to i18n model within XML view帖子中的方案，基本搞定：
+&amp;lt;Input id=&amp;quot;myInput&amp;quot; type=&amp;quot;Text&amp;quot; required=&amp;quot;true&amp;quot; value=&amp;quot;{myyquInput}&amp;quot; placeholder=&amp;quot;{parts:[&#39;i18n&amp;gt;myKey.txt&#39;, &#39;myModel&amp;gt;myProp&#39;], formatter: &#39;jQuery.sap.formatMessage&#39;}&amp;quot; change=&amp;quot;.handleChangeForMyInput&amp;quot;&amp;gt; &amp;lt;layoutData&amp;gt; &amp;lt;l:GridData span=&amp;quot;L6 M8 S9&amp;quot; /&amp;gt; &amp;lt;/layoutData&amp;gt; &amp;lt;/Input&amp;gt;  messagebundle.properties：
+myKey.txt=&amp;quot;(Example: {0})&amp;quot;  使用sap.ui.model.CompositeBinding可以通过XMLView中的parts加载多个参数，达到我的目的。缺点就是每个参数只能是model/path组合，或者省略model的path。我没有找到直接输入参数值的便捷方法。 阅读sap.ui.base.ManagedObject的bindProperty方法可知，它对part中每一元素查找是否有“&amp;gt;”，有则认为是model/path组合，否则即为path。
+ManagedObject.prototype.bindProperty = function(sName, oBindingInfo, _vFormat, _sMode) { var iSeparatorPos, bAvailable = true, oProperty = this.getMetadata().getPropertyLikeSetting(sName); // check whether property or alternative type on aggregation exists if (!oProperty) { throw new Error(&amp;quot;Property \&amp;quot;&amp;quot; + sName + &amp;quot;\&amp;quot; does not exist in &amp;quot; + this); } // old API compatibility (sName, sPath, _vFormat, _sMode) if (typeof oBindingInfo == &amp;quot;string&amp;quot;) { oBindingInfo = { parts: [ { path: oBindingInfo, type: _vFormat instanceof Type ?</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 折腾了一下JSView转换XMLView</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</link>
+      <pubDate>Tue, 21 Feb 2017 05:49:10 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</guid>
+      <description>根据OpenUI5 Developer Guide - Diagnostics Window中的介绍，尝试一下XML View Conversion。
+ Many code samples are written in JavaScript. To facilitate the conversion of these code samples into XML, OpenUI5 provides a generic conversion tool. To run the tool, proceed as follows: 1. Run the OpenUI5 app in your browser, for example, open a page in the test suite. 2. Open the support tool by choosing CTRL+ALT+SHIFT+S. 3. Open the Control Tree panel. 4.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] jQuery.sap.formatMessage的一点注意事项</title>
+      <link>https://mryqu.github.io/post/openui5_jquery.sap.formatmessage%E7%9A%84%E4%B8%80%E7%82%B9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</link>
+      <pubDate>Mon, 19 Dec 2016 05:34:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jquery.sap.formatmessage%E7%9A%84%E4%B8%80%E7%82%B9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
+      <description>今天偶然发现I18N properties文件中有字符串包含替换符，可是没起作用，还是明晃晃输出了{0}。仔细研究一下，才发现原因在于字符串中包含单个&amp;rsquo;，OpenUI5使用jQuery.sap.formatMessage替换I18N字符串，如果仅含有一个&amp;rsquo;字符的话，其/(&#39;&#39;)|&#39;([^&#39;]+(?:&#39;&#39;[^&#39;]*)*)(?:&#39;|$)|\{([0-9]+(?:\s*,[^{}]*)?)\}|[{}]/g 就只触发第二组替换了。如果想显示单个字符&amp;rsquo;，需要用两个字符&amp;rsquo;转义。 不过问题来了，负责翻译I18N的同事是否清楚jQuery.sap.formatMessage关于字符&amp;rsquo;的限制呢？</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 复习Controller lifecycle</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/</link>
+      <pubDate>Fri, 27 May 2016 05:36:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/</guid>
+      <description>昨天看到有同事添加了几个Controller的回调，对其中的onBeforeExit、beforeExit没一点印象。
+sap.ui.controller(&amp;quot;kx123.foo&amp;quot;, { onInit: function () { console.info(&amp;quot;foo onInit called&amp;quot;); }, onBeforeExit: function(){ console.info(&amp;quot;foo onBeforeExit called&amp;quot;) ; } , beforeExit: function() { console.info(&amp;quot;foo beforeExit called&amp;quot;) ; }, onBeforeRendering: function() { console.info(&amp;quot;foo onBeforeRendering called&amp;quot;); }, onExit: function() { console.info(&amp;quot;foo onExit called&amp;quot;); } });  查了一下如下OpenUI5开发指南 MVC中关于Controllers的介绍。 &amp;gt; SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event handlers or other functions tothe controller and the controller can fire events, for which othercontrollers or entities can register.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.model.SimpleType及其子类中的约束</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</link>
+      <pubDate>Tue, 12 Apr 2016 05:57:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</guid>
+      <description>对OpenUI5模型中的数据项如何设置类型，如何设置最大最小值等约束呢？这一切可以通过研究sap.ui.model.SimpleType及其子类获得答案。
+sap.ui.model.SimpleType类图 SimpleType子类Integer约束测试 下面的示例中有两个sap.m.Input控件，第一个为文本类型输入没有约束，第二个整数类型输入有约束：
+that.oNameInput = new Input({ id: sFormId+&amp;quot;-name&amp;quot;, type: sap.m.InputType.Text, value: &amp;quot;{/name}&amp;quot;, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) }); that.oCountInput = new Input({ id: sFormId+&amp;quot;-count&amp;quot;, type: sap.m.InputType.Number, value: { path:&#39;/count&#39;, type: &#39;sap.ui.model.type.Integer&#39;, constraints: { minimum : 1, maximum : 50 } }, placeholder: &amp;quot;(1-50)&amp;quot;, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) });  完整示例代码：二者调试信息的差异：一个仅指定了映射路径；另一个除了指定映射路径外，明确指定了模型数据项类型及约束。
+测试结果 that.oCountInput施加了范围1到50的约束。如果输入值在范围内，则界面和模型中的count值都会改变；如果输入值不再范围内，则模型中的count值保留上一有效值，而界面发生改变且无告警。 调试堆栈如下：
+PropertyBinding.setExternalValue (sap-ui-core-dbg.js:57174) ManagedObject.updateModelProperty (sap-ui-core-dbg.js:34286) ManagedObject.setProperty (sap-ui-core-dbg.js:32531) InputBase.setProperty (InputBase-dbg.js:690) InputBase.setValue (InputBase-dbg.js:1007) Input.setValue (Input-dbg.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 使用DateRangeSelection</title>
+      <link>https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/</link>
+      <pubDate>Mon, 11 Apr 2016 05:58:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/</guid>
+      <description>今天使用了DateRangeSelection来选择日期范围。 DateRangeSelection范例
+sap.m.DateRangeSelection jsDoc
+DateRangeSelection源代码
+sap.ui.core.format.DateFormat jsDoc
+Working with Dates in Sapui5
+sap.ui.core.format.DateFormat
+通过阅读上述资料，DateRangeSelection内存储的起始、结束时间为Date类。可以通过设置displayFormat和delimiter来改变界面上日期的表现形式；不支持valueFormat，因此只能通过getDateValue()、getSecondDateValue()获取Date对象，然后通过DateFormat获得相应格式化的日期字符串。 DateRangeSelection最新版代码提供了setMinDate()和setMaxDate()函数，但是jsDoc还没有体现，我司目前所用的OpenUI5版本还不支持。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 控件的Property、Aggregation和Association如何自动具有的Getter和Setter？</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6%E7%9A%84propertyaggregation%E5%92%8Cassociation%E5%A6%82%E4%BD%95%E8%87%AA%E5%8A%A8%E5%85%B7%E6%9C%89%E7%9A%84getter%E5%92%8Csetter/</link>
+      <pubDate>Fri, 13 Nov 2015 06:04:43 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6%E7%9A%84propertyaggregation%E5%92%8Cassociation%E5%A6%82%E4%BD%95%E8%87%AA%E5%8A%A8%E5%85%B7%E6%9C%89%E7%9A%84getter%E5%92%8Csetter/</guid>
+      <description>定义了OpenUI5控件的Property、Aggregation、Association和Event后，该控件就会出现这些Property、Aggregation和Association的Getter和Setter，是什么机制自动生成的这些Getter和Setter的？
+OpenUI5控件都继承自sap.ui.core.Control，其父类为sap.ui.core.Element，在祖父类为sap.ui.base.ManagedObject。sap.ui.base.ManagedObject类定义了Properties、Aggregations、Associations和Events这些管理特性。
+Getter和Setter的生成机制都在sap.ui.core.ManagedObjectMetadata中实现的。首先我们看一下sap.ui.core.ManagedObjectMetadata这个类的源代码片段：
+ManagedObjectMetadata.prototype.generateAccessors = function() { var proto = this.getClass().prototype, prefix = this.getName() + &amp;quot;.&amp;quot;, methods = this._aPublicMethods, n; function add(name, fn, info) { if ( !proto[name] ) { proto[name] = (info &amp;amp;&amp;amp; info.deprecated) ? deprecation(fn, prefix + info.name) : fn; } methods.push(name); } for (n in this._mProperties) { this._mProperties[n].generate(add); } for (n in this._mAggregations) { this._mAggregations[n].generate(add); } for (n in this._mAssociations) { this._mAssociations[n].generate(add); } for (n in this._mEvents) { this.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.define源码分析</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 23 Aug 2015 06:35:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>jQuery.sap.define通过名字、依赖、模块值或工厂定义一个Javascript模块。
+jQuery.sap.define函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
+通过判断jQuery.sap.define的sModuleName参数类型是否为string类型，获得参数实际对应使用用途，通过移换参数获得真实的sResourceName（js文件路径）、vFactory（模块工厂）、aDependencies（依赖模块）及bExport。
+通过[OpenUI5] jQuery.sap.declare源码分析里介绍过的declareModule函数宣称当前模块已存在，通过[OpenUI5] jQuery.sap.require源码分析里介绍过的requireModule函数解析当前模块的每一个依赖。
+sap.ui.define = function(sModuleName, aDependencies, vFactory, bExport) { var sResourceName, i; // optional id if ( typeof sModuleName === &#39;string&#39; ) { sResourceName = sModuleName + &#39;.js&#39;; } else { // shift parameters bExport = vFactory; vFactory = aDependencies; aDependencies = sModuleName; sResourceName = _execStack[_execStack.length - 1]; } // convert module name to UI5 module name syntax (might fail!) sModuleName = urnToUI5(sResourceName); // optional array of dependencies if ( !</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] jQuery.sap.declare源码分析</title>
+      <link>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 23 Aug 2015 00:03:20 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>jQuery.sap.declare用于宣称一个模块已存在。
+在OpenUI5开发指南&amp;ndash;精粹&amp;ndash;优化应用&amp;ndash;模块化和依赖管理中对declare介绍是:
+ Modules can declare themselves by calling the static jQuery.sap.declare functionwith their name. This helpsSAPUI5tocheck at runtime whether a loaded module contains the expectedcontent by comparing the required name against the declared name.As a side effect,jQuery.sap.declare ensures that the parent namespace of the module name exists in the currentglobal namespace (window).Formore information, see jQuery.sap.declare.
+For modules without declaration, the framework assumes that themodule has the expected content and declares it with the name thatwas used for loading.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] jQuery.sap.require源码分析</title>
+      <link>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 22 Aug 2015 07:32:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>jQuery.sap.require用于解析一个或多个模块依赖。
+jQuery.sap.require函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
+通过下面的源代码可知，jQuery.sap.require首先通过ui5ToRJS将javascript类名转换为js文件名，例如sap.m.Dialog转换为sap/m/Dialog.js，然后执行requireModule函数。
+requireModule函数查找该模块在sap.ui.core.Core对象的mModules中是否存在，不存在则添加并设为INITIAL状态，判断模块是否已经被加载、执行过，如果没有则设为LOADING状态并通过ajax以同步方式加载代码（如果当前是debug模式则选择-dbg版本的js文件URL），加载失败设为FAILED状态，加载成功则设为LOADED状态并执行代码，执行失败设为FAILED状态，执行成功设为READY状态。
+jQuery.sap.require = function(vModuleName, fnCallback) { if ( arguments.length &amp;gt; 1 ) { // legacy mode with multiple arguments, each representing a dependency for (var i = 0; i &amp;lt; arguments.length; i++) { jQuery.sap.require(arguments[i]); } return this; } // check for an object as parameter for sModuleName // in case of this the object contains the module name and the type // which could be {modName: &amp;quot;sap.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 加载时替换JavaScript源文件</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9B%BF%E6%8D%A2javascript%E6%BA%90%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 16 Aug 2015 07:22:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9B%BF%E6%8D%A2javascript%E6%BA%90%E6%96%87%E4%BB%B6/</guid>
+      <description>我有一些自己定制的OpenUI5控件，有时会修改某个方法内的逻辑，这个好处理，在ChromedevTool直接修改加载后JS代码并保存就可以直接调试。如果修改了property、aggregation或者init方法内的逻辑的话，由于错过了初始化就不灵了，而重新加载的话又丢失了自己新加的调试代码。
+我的解决方法如下： - 清除Chrome缓存 - 在sap-ui-core-dbg.js里requireModule方法内设置断点，设置断点条件为response.indexOf(&amp;ldquo;Dialog.extend(\&amp;ldquo;mryqu.test.control.KexiaoDialog&amp;rdquo;)&amp;gt;0这样当OpenUI5加载KexiaoDialog.js文件时就会触发断点。 - 重新加载我的OpenUI5项目：http://www.mryqu.com/test123/?sap-ui-debug=true&amp;amp;sap-ui-preload=false - 当断点被触发时，在Console执行：
+ response=&#39;(function ()\n\ {\n\ &amp;quot;use strict&amp;quot;;\n\ \n\ jQuery.sap.require(&amp;quot;sap.m.Button&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.Dialog&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.HBox&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.Input&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.RadioButton&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.VBox&amp;quot;);\n\ jQuery.sap.require(&amp;quot;sap.m.Text&amp;quot;);\n\ \n\ var Button = sap.m.Button;\n\ var Dialog = sap.m.Dialog;\n\ var HBox = sap.m.HBox;\n\ var Icon = sap.ui.core.Icon;\n\ var Input = sap.m.Input;\n\ var RadioButton = sap.m.RadioButton;\n\ var Text = sap.m.Text;\n\ var VBox = sap.m.VBox;\n\ \n\ Dialog.extend(&amp;quot;mryqu.test.control.KexiaoDialog&amp;quot;, {\n\ metadata: {\n\ properties: {\n\ &amp;quot;tableName&amp;quot; : {type : &amp;quot;string&amp;quot;, defaultValue : &amp;quot;&amp;quot;},\n\ },\n\ associations: {\n\ invoker: {type: &amp;quot;sap.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 自定义控件属性支持的数据类型</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E5%B1%9E%E6%80%A7%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 08 Aug 2015 08:05:21 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E5%B1%9E%E6%80%A7%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>创建一个OpenUI5控件时免不了声明几个属性，例如：
+metadata: { properties: { &amp;quot;msg&amp;quot; : {type : &amp;quot;string&amp;quot;, defaultValue : &amp;quot;kx123&amp;quot;}, &amp;quot;byProxy&amp;quot; : {type : &amp;quot;boolean&amp;quot;, defaultValue : true} }, publicMethods: [ ], events: { complete : {enablePreventDefault : true} } }  可是属性都支持那些数据类型呢？搜了一下OpenUI5 开发指南，并没有找到什么有用的信息。还是得从代码里面寻觅，结果发现答案就在sap.ui.base.DataType里。
+var mTypes = { &amp;quot;any&amp;quot; : createType(&amp;quot;any&amp;quot;, { defaultValue : null, isValid : function(vValue) { return true; } }), &amp;quot;boolean&amp;quot; : createType(&amp;quot;boolean&amp;quot;, { defaultValue : false, isValid : function(vValue) { return typeof vValue === &amp;quot;boolean&amp;quot;; } }), &amp;quot;int&amp;quot; : createType(&amp;quot;int&amp;quot;, { defaultValue : 0, isValid : function(vValue) { return typeof vValue === &amp;quot;number&amp;quot; &amp;amp;&amp;amp; Math.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.core.ResizeHandler</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/</link>
+      <pubDate>Sun, 14 Jun 2015 09:10:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/</guid>
+      <description>OpenUI5里窗口大小放生变化，各个控件如何收到通知跟着相应变化的呢？
+sap.ui.core.Core 首先我们看一下sap.ui.core.Core的源代码：
+Core._I_INTERVAL = 200; ResizeHandler.prototype.I_INTERVAL = Core._I_INTERVAL; Core.prototype.attachIntervalTimer = function(fnFunction, oListener) { if (!this.oTimedTrigger) { var IntervalTrigger = sap.ui.requireSync(&amp;quot;sap/ui/core/IntervalTrigger&amp;quot;); this.oTimedTrigger = new IntervalTrigger(Core._I_INTERVAL); } this.oTimedTrigger.addListener(fnFunction, oListener); };  sap.ui.core.Core里面会起一个定时器，以200毫秒间隔周期触发。
+sap.ui.core.ResizeHandler 接下来我们看一下sap.ui.core.ResizeHandler的源代码：
+function initListener(){ if (!this.bRegistered &amp;amp;&amp;amp; this.aResizeListeners.length &amp;gt; 0) { this.bRegistered = true; sap.ui.getCore().attachIntervalTimer(this.checkSizes, this); } } ResizeHandler.prototype.checkSizes = function() { var bDebug = log.isLoggable(); if ( bDebug ) { log.debug(&amp;quot;checkSizes:&amp;quot;); } jQuery.each(this.aResizeListeners, function(index, oResizeListener){ if (oResizeListener) { var bCtrl = !</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 通过sap.ui.core.Core的registerElement和deregisterElement函数监控View和控件的构造和析构</title>
+      <link>https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/</link>
+      <pubDate>Sat, 13 Jun 2015 21:47:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/</guid>
+      <description>在sap.ui.core.Core中有registerElement和deregisterElement函数，它们可用于在调试中监控Element（包括View和控件）的构造和析构。 - registerElement：在控件构造时被调用- deregisterElement：在控件析构时被调用通过下面的代码可知，Core类的mElements存储着元素Id和元素的散列表：
+Core.prototype.registerElement = function(oElement) { var sId = oElement.getId(), oldElement = this.mElements[sId]; if ( oldElement &amp;amp;&amp;amp; oldElement !== oElement ) { if ( oldElement._sapui_candidateForDestroy ) { jQuery.sap.log.debug(&amp;quot;destroying dangling template &amp;quot; + oldElement + &amp;quot; when creating new object with same ID&amp;quot;); oldElement.destroy(); } else { // duplicate ID detected =&amp;gt; fail or at least log a warning if (this.oConfiguration.getNoDuplicateIds()) { jQuery.sap.log.error(&amp;quot;adding element with duplicate id &#39;&amp;quot; + sId + &amp;quot;&#39;&amp;quot;); throw new Error(&amp;quot;Error: adding element with duplicate id &#39;&amp;quot; + sId + &amp;quot;&#39;&amp;quot;); } else { jQuery.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 自定义控件示例</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Fri, 05 Jun 2015 05:42:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/</guid>
+      <description>最近在写一个OpenUI5自定义控件，参考了如下文章，搞定。
+需要注意的是，控件内的property在init函数内不会获得构造函数的属性值。通过源码可知，EventProvider.extend.constructor内先回调用init函数，然后再调用applySettings将构造函数内的属性设置进去。
+constructor : function(sId, mSettings, oScope) { EventProvider.call(this); // no use to pass our arguments if (typeof (sId) != &amp;quot;string&amp;quot; &amp;amp;&amp;amp; arguments.length &amp;gt; 0) { // shift arguments in case sId was missing, but mSettings was given oScope = mSettings; mSettings = sId; if (mSettings &amp;amp;&amp;amp; mSettings.id) { sId = mSettings[&amp;quot;id&amp;quot;]; } else { sId = null; } } if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.m.Input的change回调</title>
+      <link>https://mryqu.github.io/post/openui5_sap.m.input%E7%9A%84change%E5%9B%9E%E8%B0%83/</link>
+      <pubDate>Tue, 26 May 2015 05:27:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.m.input%E7%9A%84change%E5%9B%9E%E8%B0%83/</guid>
+      <description>用sap.m.Input的change回调，当值在输入界面被修改后就会调用。今天试了一下，如果通过Model设置改变值的话，其change回调不会被调用。
+这种特性正好用于判断是否为界面手工修改。在我的用例中，有一个表名和一个表表述。如果改动表名，表描述跟着相应更新；但是一旦用户手工输入表描述后，上述规则不再生效。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 示例：Accordion with all initial collapsed sections</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8Baccordion_with_all_initial_collapsed_sections/</link>
+      <pubDate>Mon, 04 May 2015 00:01:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8Baccordion_with_all_initial_collapsed_sections/</guid>
+      <description>sap.ui.commons.Accordion会设置一个默认展开的section。
+sap.ui.commons.Accordion.prototype.addSection = function(oSection) { this.addAggregation(&amp;quot;sections&amp;quot;, oSection); //Add a default opened section id if ( (this.getOpenedSectionsId() == null || this.getOpenedSectionsId() == &amp;quot;&amp;quot; ) &amp;amp;&amp;amp; oSection.getEnabled()){ this.setOpenedSectionsId(oSection.getId()); } this.aSectionTitles.push(oSection.getTitle()); };  如果想让初始化所有section为折叠的，只要将openedSectionsId设为“-1”就可以了。 示例位置: http://jsbin.com/sajoba/1/edit?html,output </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 控件ID实践与总结</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 03 May 2015 06:53:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6id%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+      <description>显式定义而不是自生成OpenUI5控件ID 为了便于开发和测试，为控件设置一个便于理解的ID尤为重要。我的博文《快速定位OpenUI5问题的一个方法》中的工具函数就是利用控件ID快速定位故障控件的。 在OpenUI5中，可在创建控件实例时使用JSON对象作为控件构造器参数。其中一个可选属性就是&amp;rdquo;id&amp;rdquo;，OpenUI5不仅用它（在&amp;rdquo;注册信息&amp;rdquo;中）追踪控件，也用在渲染控件的DOM输出。 如果没有显式指定一个控件的ID，OpenUI5框架就会使用基于实例数量的算法自生成控件ID。 自生成ID有两个缺点： - 调试的时候，不容易定位使用控件的代码位置。例如，异常跟某个控件相关，如果该类型控件实例很多，很难定位该控件定义在那个视图里。 - 测试代码相对显式定义ID更加难写。如果对控件使用显式定义ID，相应的测试代码可以很容易通过该ID进行控件查找或验证。
+控件ID命名惯例 使用驼峰式写法、有意义且语法正确的ID来反映控件的本质。 例如： - 一个表单上的提交按钮，其id=&amp;ldquo;submit&amp;rdquo; - 到不同图形设置的导航控件，其id=&amp;ldquo;graphNav&amp;rdquo;
+OpenUI5控件ID内幕 sap.ui.base.ManagedObject是OpenUI5框架包括控件在内的大部分类的父类，它的构造器里有对ID的处理：
+if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject._fnIdPreprocessor; sId = (preprocessor ? preprocessor.call(this, sId) : sId); var oType = DataType.getType(&amp;quot;sap.ui.core.ID&amp;quot;); if (!oType.isValid(sId)) { throw new Error(&amp;quot;\&amp;quot;&amp;quot; + sId + &amp;quot;\&amp;quot; is not a valid ID.&amp;quot;); } } this.sId = sId;  sap.ui.base.ManagedObjectMetadata的ID生成代码：
+(function() { var mUIDCounts = {}; function uid(sId) { jQuery.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 示例: Sorted, grouped and multi-selectable list</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_sorted_grouped_and_multi-selectable_list/</link>
+      <pubDate>Sat, 02 May 2015 08:14:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_sorted_grouped_and_multi-selectable_list/</guid>
+      <description>做了一个可多选、使用定制分组和排序的list示例，示例位置：http://jsbin.com/jetena/1/edit?html,output
+var fGrouper = function(oContext) { var v = oContext.getProperty(&amp;quot;workbook&amp;quot;); return { key: v, text: v }; } var oSorter = new sap.ui.model.Sorter(&amp;quot;&amp;quot;, false, fGrouper); oSorter.fnCompare = function(a, b) { // Determine the group and group order var agroup = a.workbook; var bgroup = b.workbook; // Return sort result, by group ... if (agroup &amp;lt; bgroup) return -1; if (agroup &amp;gt; bgroup) return 1; // ... and then within group (when relevant) if (a.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] set required field in form element</title>
+      <link>https://mryqu.github.io/post/openui5_set_required_field_in_form_element/</link>
+      <pubDate>Thu, 19 Mar 2015 19:27:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_set_required_field_in_form_element/</guid>
+      <description>对FormElement中的sap.m.Input设置了required属性，但是界面上的标签并没有显示星号*。
+new FormElement({ label: &amp;quot;name&amp;quot;, fields: [ new sap.m.Input({ id: sFormId+&amp;quot;-name&amp;quot;, type: sap.m.InputType.Text, value: &amp;quot;{/name}&amp;quot;, required: true, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) }) ] })  通过阅读Q: UI5 Setting field as required得知，需要对label属性赋值一个带有required为true的Label控件。
+new FormElement({ label: new sap.m.Label({ text:&amp;quot;name&amp;quot;, required:true }), fields: [ new sap.m.Input({ id: sFormId+&amp;quot;-name&amp;quot;, type: sap.m.InputType.Text, value: &amp;quot;{/name}&amp;quot;, required: true, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) }) ] })  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] sap.ui.core.format.DateFormat使用</title>
+      <link>https://mryqu.github.io/post/openui5_sap.ui.core.format.dateformat%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 15 Mar 2015 17:02:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_sap.ui.core.format.dateformat%E4%BD%BF%E7%94%A8/</guid>
+      <description>使用javascript的Date类型，想要输出国际化的字符串，可以使用toLocaleString函数，但是需要自己往里设locale，并且输出结果随操作系统和浏览器不同而变化。
+最后还是用OpenUI5的DateFormat，既可以固定格式有可以自动国际化。
+var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({ pattern: &amp;quot;EEEE, MMMM d, yyyy HH:mm:ss a z&amp;quot; }); oDateFormat.format(new Date());  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 将布尔型数据在数据表中显示为checkbox</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%B0%86%E5%B8%83%E5%B0%94%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%9C%A8%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E4%B8%BAcheckbox/</link>
+      <pubDate>Sat, 14 Mar 2015 18:09:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%B0%86%E5%B8%83%E5%B0%94%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%9C%A8%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E4%B8%BAcheckbox/</guid>
+      <description>看了一下OpenUI5、Datatables和Vaadin中将布尔型数据在数据表中显示为checkbox的示例： OpenUI5 example: DataTable
+Datatables example: Always shown checkbox Vaadin table: How to display Boolean as checkboxes with editable=false
+感觉还是OpenUI5更灵活，不过小项目用OpenUI5又太重了！</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] Grid layout for responsive design</title>
+      <link>https://mryqu.github.io/post/openui5_grid_layout_for_responsive_design/</link>
+      <pubDate>Sun, 01 Mar 2015 09:29:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_grid_layout_for_responsive_design/</guid>
+      <description>OpenUI5的Grid机制位于sap.ui.layout库内，它在12列流布局中定位子控件位置。取决于当前屏幕尺寸，子控件可以指定可变的列数，从而实现响应式设计。 在上图示例中，无论屏幕大小，子控件1都占满12列，从而其他子控件无法跟它位于同一行内。 在大屏幕和中等屏幕尺寸下，子控件2和3共同占满12列，可以置于一行内；而在小屏幕尺寸下，二者需要列数超过12，只能分置于两行了。
+参考 Responsive Web Design
+UI5 features for building responsive Fiori apps
+jsDoc: sap.ui.layout.GridData
+MDN: CSS Grid Layout
+MDN: Using CSS multi-column layouts</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 第三方JavaScript库加载</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%AC%AC%E4%B8%89%E6%96%B9javascript%E5%BA%93%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Fri, 06 Feb 2015 20:28:33 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%AC%AC%E4%B8%89%E6%96%B9javascript%E5%BA%93%E5%8A%A0%E8%BD%BD/</guid>
+      <description>SAP often put 3rd JavaScript libraries at \resources\sap\ui\thirdparty, then load as below:
+jQuery.sap.require(&amp;quot;sap/ui/thirdparty/d3&amp;quot;);  样例： OpenUI5: D3.js based custom control and table
+Custom SAPUI5 Visualization Controls with D3.js</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 数据绑定模式</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Mon, 02 Feb 2015 00:24:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E6%A8%A1%E5%BC%8F/</guid>
+      <description>OpenUI5数据绑定模式概念 OpenUI5开发指南-数据绑定模式介绍了OpenUI5数据绑定模式概念和不同模型的默认值。
+绑定模式 绑定模式定义了数据源如何绑定。不同模型实现需要特定绑定模式。例如资源模型仅支持模型到视图的一次性绑定。 SAPUI5提供如下绑定模式： - 单向绑定：单向绑定意味着模型到视图的绑定；模型中的数据变化将更新相应的绑定和视图。 - 双向绑定：双向绑定意味着模型到视图及视图到模型的绑定；模型/视图中的数据变化将更新相应的绑定和视图/模型。 - 一次性绑定：一次性绑定意味着模型到视图的绑定。
+下表展示了不同模型分别支持的绑定模式：
+|模型|一次性绑定|双向绑定|单向绑定 |&amp;mdash;&amp;ndash; |资源模型|&amp;ndash;|&amp;ndash;|X |JSON模型|X|X|X |XML模型|X|X|X |OData模型|X|X|X
+资源模型仅处理静态文本，所以仅支持一次性绑定模式
+模型的默认绑定模式 当模型实例被创建后，该实例具有一个默认绑定模式。该模型实例的所有绑定会采用他们自己默认绑定模式。 下表展示了不同模式实现的默认绑定模式。
+|模型|默认绑定模式 |&amp;mdash;&amp;ndash; |资源模型|一次性绑定 |JSON模型|双向绑定 |XML模型|双向绑定 |OData模型|单向绑定
+OpenUI5数据绑定模式范例 OpenUI5开发指南-数据绑定入门介绍了数据绑定使用范例。
+OpenUI5数据绑定模式源代码研究 数据绑定模式在sap.ui.model.BindingMode中定义。 通过如上类图可知，JSON模型类和XML模型类继承自客户端模型类，资源模型和OData模型直接继承自模型类。 客户端模型具有额外的setData方法。客户端模型相对模型类多了一层客户端数据，可以存储视图属性变化相应的数据，应此能够在不跟服务器端交互的情况下实现双向绑定。网上的很多演示采用客户端模型，就是因为无需搭建服务器，易于实现。 模型类原型有一个checkUpdate方法，用于在模型数据发生变化后，检查模型的所有绑定是否需要更新以实现模型到视图的绑定。其调用情况如下： - JSON模型和XML模型：被setData和setProperty方法调用 - OData模型：被loadData、setProperty和refresh方法调用 - 资源模型：无调用
+视图到模型的绑定，主要在sap.ui.base.ManagedObject类实现。 ManagedObject是所有视图控件的祖宗类，ManagedObject原型的_bindProperty方法判别绑定模式是否是一次性绑定，是的话就将绑定上的事件和模型数据变化处理程序卸载掉。 ManagedObject原型的updateModelProperty方法判别绑定模式是否是双向绑定，是的话就将视图属性变化写入绑定，从而将数据写入模型。
+参考 OpenUI5 API参考指南
+sap.ui.model包源代码 - GitHub</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 示例: open dialog which content is a form defined in another view</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_open_dialog_which_content_is_a_form_defined_in_another_view/</link>
+      <pubDate>Sun, 11 Jan 2015 21:11:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_open_dialog_which_content_is_a_form_defined_in_another_view/</guid>
+      <description>使用OpenUI5做了一个例子，在一个JSVIEW中定义的dialog的内容是另外一个JSVIEW中定义的form。 示例位置: http://jsbin.com/fotepu/1/edit?html,output 此外，通过学习http://stackoverflow.com/questions/25510090/sapui5-attach-chart-to-dialog ，了解到dialog内容为图表时有可能需要使用invalidate()函数。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 获得当前页面语言</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%8E%B7%E5%BE%97%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 10 Jan 2015 15:33:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%8E%B7%E5%BE%97%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E8%AF%AD%E8%A8%80/</guid>
+      <description>获得当前页面语言的方法：
+ javascript:document.getElementsByTagName(&#39;html&#39;)[0].getAttribute(&#39;lang&#39;) jQuery: $(&#39;html&#39;).attr(&#39;lang&#39;) OpenUI5: sap.ui.getCore().getConfiguration().getLanguage()  示例： </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 快速定位OpenUI5问题的一个方法</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 09 Jan 2015 16:30:12 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</guid>
+      <description>sap.ui.base.Object是所有OpenUI5对象的父类，它的某些方法对快速定位OpenUI5问题很有帮助。我写了一个小函数通过OpenUI5对象的元数据获得类名，并且获得OpenUI5对象的ID信息。
+ traceUI5Object: function(obj) { if(obj instanceof sap.ui.base.Object) console.log(obj.getMetadata().getName()+&amp;quot;{id:\&#39;&amp;quot;+obj.getId()+&amp;quot;\&#39;}&amp;quot;); } traceUI5EventProviders: function(obj) { var that = obj; while (that &amp;amp;&amp;amp; that instanceof sap.ui.base.EventProvider) { console.log(that.getMetadata().getName()+&amp;quot;{id:\&#39;&amp;quot;+that.getId()+&amp;quot;\&#39;}&amp;quot;); that = that.getEventingParent(); } }  traceUI5EventProviders函数运行结果示例： sap.ui.commons.CheckBox{id:&#39;check1&#39;} sap.ui.commons.Panel{id:&#39;panel1&#39;} sap.ui.core.mvc.JSView{id:&#39;leftView&#39;} sap.ui.commons.Splitter{id:&#39;Splitter1&#39;} sap.ui.core.mvc.JSView{id:&#39;__jsview0&#39;} sap.ui.core.UIArea{id:&#39;content&#39;}  在编写和调试OpenUI5时，有时会有Exception抛出。 假定上面图中代码会抛出Exception，通过this我们看到的的是一个Factory，通过sId我们可以找到发生问题的定义了ID的控件。但是如果控件ID是自生成的，就不太容易了。我们可以通过监视表达式获取（组件链上所有的）组件类名及ID，这样就可以更快定位导致抛出Exception的OpenUI5视图/控件了。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] MVC和EventBus示例</title>
+      <link>https://mryqu.github.io/post/openui5_mvc%E5%92%8Ceventbus%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Fri, 09 Jan 2015 12:11:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_mvc%E5%92%8Ceventbus%E7%A4%BA%E4%BE%8B/</guid>
+      <description>昨天发了一个帖子[OpenUI5] MVC：访问其他View/Controller的方法，里面的示例是用违反MVC原则的方式演示一下效果，今天又在jsbin上做了个OpenUI5MVC &amp;amp; EventBus示例：http://jsbin.com/nixomo/1/edit?html,output。 sap.ui.core.EventBus使用起来很简单。
+ 通过var bus = sap.ui.getCore().getEventBus() 获得消息总线 接收方首先在某个消息通道上订阅消息时间并注册消息监听器listener 发送方在这个消息通道上发布消息，接收方就会去处理  通过阅读代码可知，EventBus一个实例对应一个消息通道，EventBus的_defaultChannel和_mChannels都是sap.ui.base.EventProvider实例，用于事件注册与分发、将数据与事件的绑定/解绑。上图中就是消息通道&amp;rdquo;rightViewChannel&amp;rdquo;对应的EventBus实例，已经注册了两个事件setRightPanelVisible和doSomething。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] MVC：访问其他View/Controller的方法</title>
+      <link>https://mryqu.github.io/post/openui5_mvc%E8%AE%BF%E9%97%AE%E5%85%B6%E4%BB%96view%E6%88%96controller%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Thu, 08 Jan 2015 19:42:03 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_mvc%E8%AE%BF%E9%97%AE%E5%85%B6%E4%BB%96view%E6%88%96controller%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>访问其他视图/控件的方法 在创建视图/控件实例时，设置ID：
+var oViewLeft = sap.ui.jsview(&amp;quot;leftView&amp;quot;, &amp;quot;com.yqu.view.Left&amp;quot;); var oPanelRight = new sap.ui.commons.Panel(&amp;quot;panel2&amp;quot;);  通过sap.ui.getCore().byId(&amp;ldquo;compID&amp;rdquo;)获取上述视图/控件。控制器可以通过getView()函数获取自身对应的视图，但是该视图内部的控件还得通过这种方式获取：
+var refViewLeft = sap.ui.getCore().byId(&amp;quot;leftView&amp;quot;); var refPanelRight = sap.ui.getCore().byId(&amp;quot;panel2&amp;quot;);  需要注意的是，上面讲的是JS视图最简单的一种情况。 对于使用了静态视图ID的XML、HTML和JSON视图，其内部的控件ID会自动添加视图ID做前缀。JS视图中，在动态实例化控件时通过oController.createId(&amp;ldquo;ID&amp;rdquo;)也可以生成用视图ID做前缀的唯一ID。
+var refSubView = oViewParent.byId(&amp;quot;subViewId&amp;quot;); refSubView.byId(&amp;quot;ctrId&amp;quot;);  JS、XML、HTML和JSON片断(Fragment)是更轻量级的分割和UI重用单元，每个片段示例化时为了保证唯一性，即使没有定义片段ID也会自动生成，其内部的控件ID会自动添加视图ID和片段ID做前缀。 - 当没有给定片段ID：myControl = sap.ui.getCore().byId(&amp;ldquo;myControl&amp;rdquo;) - 当给定片段ID &amp;ldquo;myFrag&amp;rdquo; ：myControl =sap.ui.core.Fragment.byId(&amp;ldquo;myFrag&amp;rdquo;, &amp;ldquo;myControl&amp;rdquo;)
+访问其他Controller的方法  最简单的方法是使用一个全局变量引用所需控制器 不推荐 通过获取其他控制器对应的视图来访问该控制器的函数：sap.ui.getCore().byId(&amp;ldquo;viewId&amp;rdquo;).getController().method(); 直接调用控制器的函数：sap.ui.controller(&amp;ldquo;namespace.Controllername&amp;rdquo;).method(); 最推荐的是在控制器(或应用组件)之间的通信使用sap.ui.core.EventBus，这种事件/消息总线模式可以更好进行解耦。  在jsbin上做了个Retrive other component示例：http://jsbin.com/xufeyo/1/edit?html,output 这个示例演示了一个视图如何控制另外一个视图的控件是否显示，一个视图调用了另外一个视图控制器的方法。但是它完全违反了我以前有篇学习帖子重温MVC:一个很好的MVC中的规则，不可以在实际工作中使用！</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] MVC示例:JSView embedding JSVIEW</title>
+      <link>https://mryqu.github.io/post/openui5_mvc%E7%A4%BA%E4%BE%8Bjsview_embedding_jsview/</link>
+      <pubDate>Wed, 07 Jan 2015 23:47:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_mvc%E7%A4%BA%E4%BE%8Bjsview_embedding_jsview/</guid>
+      <description>OpenUI5 SDK的演示程序里面有一个视图嵌套另外一个视图，但是通过Componentcontainer和Component.js实现的。一直对视图直接嵌套另外一个视图觉得理所当然但是有点顾虑，此外也担心外层视图的数据模型如何传递给内部视图。当然内外两层视图可以使用不同的数据模型，但是如果不知道共享一份数据视图是否可行?
+在jsbin上做了一个示例：http://jsbin.com/jirogo/1/edit?html,output，结果显示担忧是多余的</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 调节元素间距</title>
+      <link>https://mryqu.github.io/post/openui5_%E8%B0%83%E8%8A%82%E5%85%83%E7%B4%A0%E9%97%B4%E8%B7%9D/</link>
+      <pubDate>Mon, 05 Jan 2015 20:31:26 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E8%B0%83%E8%8A%82%E5%85%83%E7%B4%A0%E9%97%B4%E8%B7%9D/</guid>
+      <description>在使用OpenUI5时，有时两个元素间距不合预期，我大体可用两种方式进行改进：
+ 一种方式是添加自己定制的CSS类，然后通过addStyleClass方法对控件设置自己定制的CSS类 ​另一种方法土点，就是对需要调整间距的两个元素上增加一个HBox/VBox控件，然后在两个之间加一个定宽/高的控件调节间距。 //在oControl1和oControl2之间增加15px的间距 new VBox({ items: [ oControl1, new HBox({ height: &amp;quot;15px&amp;quot;, fitContainer: true }), oControl2 ] })  ​  </description>
+    </item>
+    
+    <item>
+      <title>HTML Busy Indicator</title>
+      <link>https://mryqu.github.io/post/html_busy_indicator/</link>
+      <pubDate>Sun, 04 Jan 2015 20:13:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/html_busy_indicator/</guid>
+      <description>看了一下OpenUI5的LocalBusyIndicator效果，感觉跟自己想的转圈圈的那种spinner不一样:https://sapui5.hana.ondemand.com/sdk/test-resources/sap/ui/core/demokit/LocalBusyIndicator.html 想看看bootstrap的busy indicator，竟然没有，不过找到了开发组的讨论：https://github.com/twbs/bootstrap/issues/12598 不止一次有人建议开发busy indicator，不过Mark Otto（Bootstrap是Mark Otto和JacobThornton共同开发的）没同意。因为满足不了下列条件： - It needs to be retina-ready - Needs to work in IE8+ - Needs to work on light backgrounds and dark—alphatransparencywould be bomb - Would be cool if it was a font, but PNG or GIF is fine,too - Available in multiple sizes
+开发一款满意的控件容易吗！！！还好我就用用而已 下面是我找到的一些Busy Indicator资源： http://fgnass.github.io/spin.js/
+http://semantic-ui.com/elements/loader.html
+http://w3lessons.info/2014/01/26/showing-busy-loading-indicator-during-an-ajax-request-using-jquery/</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 打开web应用调试模式的方法</title>
+      <link>https://mryqu.github.io/post/openui5_%E6%89%93%E5%BC%80web%E5%BA%94%E7%94%A8%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 22 Dec 2014 23:27:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E6%89%93%E5%BC%80web%E5%BA%94%E7%94%A8%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>OpenUI5 web应用调试模式无需服务器端支持，完全可在浏览器上进行设置。下面列举了四种打开调试模式的方法： - URL指定参数sap-ui-debug=true例如：http://localhost:8080/fmwebstudio/?sap-ui-debug=true - 在浏览器控制台执行jQuery.sap.debug(true) - 在加载了OpenUI5 web应用页面执行CTRL-SHIFT-ALT-P快捷键调出技术信息进行设置。- 在加载了OpenUI5web应用页面执行CTRL-SHIFT-ALT-S快捷键调出OpenUI5诊断页面进行设置。</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] logging</title>
+      <link>https://mryqu.github.io/post/openui5_logging/</link>
+      <pubDate>Sun, 16 Nov 2014 09:21:34 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_logging/</guid>
+      <description>jQuery.sap.log是客户端Javascript日志API。 通过上图可知，其日志级别分别为ALL、DEBUG、ERROR、FATAL、INFO、NONE、TRACE和WARNING，默认日志级别为ERROR。
+如果要显示所有日志信息，可以执行:
+jQuery.sap.log.setLevel(6)  </description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] JSView的createContent和Controller的onInit孰先孰后？</title>
+      <link>https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/</link>
+      <pubDate>Fri, 14 Nov 2014 20:06:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/</guid>
+      <description>首先在这个两个函数设置断点，很容易知道JSView的createContent先于Controller的onInit被调用。 通过sap.ui.core.mvc.View源码片段可知，View的_initCompositeSupport函数中首先调用createAndConnectController函数创建Controller,之后调用的onControllerConnected函数会调用createContent函数，最后调用的fireAfterInit函数会触发Controller的onInit函数回调。
+View.prototype._initCompositeSupport = function(mSettings) { // init View with constructor settings // (e.g. parse XML or identify default controller) // make user specific data available during view instantiation this.oViewData = mSettings.viewData; // remember the name of this View this.sViewName = mSettings.viewName; // remember the preprocessors this.mPreprocessors = mSettings.preprocessors || {}; //check if there are custom properties configured for this view, //and only if there are, create a settings preprocessor applying these if (sap.</description>
+    </item>
+    
+    <item>
+      <title>[OpenUI5] 十分钟了解sap.ui.table.Table</title>
+      <link>https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/</link>
+      <pubDate>Wed, 12 Nov 2014 20:00:19 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/</guid>
+      <description>转发一篇SAP community network的好帖子：http://scn.sap.com/docs/DOC-54075
+Introduction _sap.ui.table.Table_ is commonly used inOpenUI5 desktop application. Many questions (related to thiscontrol) that are posted in this group, it is evident thatdocumentation for this control is lacking and we (developers) haveto dive deep into debugging its source code to figure things out.It is fortunate that Javascript source code is always available;modern browsers provide debugging capability and personally, I amfortunate to have the opportunity to work with someone in SAPUI5team while using this control.</description>
+    </item>
+    
+    <item>
+      <title>开玩OpenUI5</title>
+      <link>https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/</link>
+      <pubDate>Sun, 09 Nov 2014 14:43:58 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/</guid>
+      <description>OpenUI5是SAP推出的开源HTML5Javascript用户界面库，网址为http://sap.github.io/openui5/index.html 前不久SAP宣布我司成了签署OpenUI5企业贡献者许可协议的第一个组织(BjornGoerkee的Tweet)，从此我司产品中的Flex就要纷纷下岗，让位HTML5了。 据说SAP在UI框架上的选择纠结了十多年了，甚至投奔过微软的silverlight，后来才成为HTML5的拥拓。 我司的富客户端技术用过Swing，中间打算换成Eclipse RCP，再后来决定全面采用Flex技术，兜了一圈又一圈，花了时间费了钱，最后决定采用HTML5。 虽然各浏览器厂商还在HTML5上进行利益博弈，W3C与WHATWG分道扬镳，Facebook和Linkedin抛弃HTML5转投原生App应用，但是为了将我司的产品转向云应用，HTML5对于我们这种企业级应用来说还算是很靠谱的了。 今天下载了openui5-sdk-1.24.3.zip，直接解压到Tomcat的webapps目录下，开始学文档做demo。 </description>
+    </item>
+    
+  </channel>
+</rss>

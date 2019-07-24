@@ -1,0 +1,563 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>模型评估笔记 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="模型评估笔记">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="模型评估笔记 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/" itemprop="url">
+        模型评估笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-16">
+    2013-06-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">262 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h2 id="模型评估简介">模型评估简介</h2>
+
+<p>模型评估是模型开发过程的不可或缺的一部分。它有助于发现表达数据的最佳模型和所选模型将来工作的性能如何。在数据挖掘中，使用训练集中的数据评估模型性能是不可接受的，因为这易于生成过于乐观和过拟合的模型。数据挖掘中有两种方法评估模型，验证（Hold-Out）和交叉验证（Cross-Validation）。为了避免过拟合，这两种方法都使用（模型没有遇到过的）测试集来评估模型性能。</p>
+
+<h3 id="验证-hold-out">验证（Hold-Out）</h3>
+
+<p>使用这种方法时，通常大的数据集会被_随机_分成三个子集：
+- <strong>训练集</strong>：用于构建预测模型。
+- <strong>验证集</strong>：用于评估训练阶段所得模型的性能。它为模型参数优化和选择最优模型提供了测试平台。不是所有模型算法都需要验证机。
+- <strong>测试集</strong>或之前未遇到的样本用于评估模型未来可能的性能。如果模型与训练集拟合的好于测试集，有可能是过拟合所致。</p>
+
+<h3 id="交叉验证-cross-validation">交叉验证（Cross-Validation）</h3>
+
+<p>当仅有有限数量的数据时，为了对模型性能进行无偏估计，我们可以使用_k_折交叉验证（<em>k</em>-foldcross-validation）。使用这种方法时，数据被分成_k_份数目相等的子集。我们构建_k_次模型，每次留一个子集做测试集，其他用作训练集。如果_k_等于样本大小，这也被称之为留一验证（leave-one-out）。</p>
+
+<h2 id="分类模型评估">分类模型评估</h2>
+
+<h3 id="混淆矩阵-confusion-matrix">混淆矩阵（Confusion Matrix）</h3>
+
+<p>混淆矩阵显示了分类模型相对数据的真实输出（目标值）的正确预测和不正确预测数目。矩阵为_N_x_N_，其中_N_为目标值（类）数目。这类模型的性能通常使用矩阵中的数据评估。下表为两个类别（阳性和阴性）的2x2混淆矩阵。
+<table border="1" width="620" bordercolor="#C0C0C0" cellspacing="0" bordercolorlight="#C0C0C0" bordercolordark="#FFFFFF"><tbody><tr><td align="center" width="170" colspan="2" rowspan="2">混淆矩阵</td><td align="center" width="191" colspan="2" bgcolor="#E3EBF2"><b>目标</b></td><td align="center" width="241" colspan="2" rowspan="2">&nbsp;</td></tr><tr><td align="center" width="92" bgcolor="#E3EBF2">阳性</td><td align="center" width="95" bgcolor="#E3EBF2">阴性</td></tr><tr><td rowspan="2" align="center" width="94" bgcolor="#E3EBF2"><b>模型</b></td><td align="center" width="72" bgcolor="#E3EBF2">阳性</td><td align="center" width="92">TP</td><td align="center" width="95">FP</td><td align="center" width="181" bgcolor="#FFFFCC"><p align="left"><i>阳性预测值</i></p></td><td align="center" width="60" bgcolor="#FFFFCC">TP/(TP+FP)</td></tr><tr><td align="center" width="72" bgcolor="#E3EBF2">阴性</td><td align="center" width="92">FN</td><td align="center" width="95">TN</td><td align="center" width="181" bgcolor="#FFFFCC"><p align="left"><i>阴性预测值</i></p></td><td align="center" width="60" bgcolor="#FFFFCC">TN/(FN+TN)</td></tr><tr><td align="center" width="166" colspan="2" rowspan="2">&nbsp;</td><td align="center" width="92" bgcolor="#FFFFCC"><i>灵敏度</i></td><td align="center" width="95" bgcolor="#FFFFCC"><i>特异度</i></td><td align="center" width="241" colspan="2" rowspan="2"><p align="center"><b>准确度</b>&nbsp;=(TP+TN)/(TP+FP+FN+TN)</p></td></tr><tr><td align="center" width="92" bgcolor="#FFFFCC">TP/(TP+FN)</td><td align="center" width="95" bgcolor="#FFFFCC">TN/(FP+TN)</td></tr></tbody></table></p>
+
+<p>术语：
+- <strong>阳性 (P, positive)</strong>
+- <strong>阴性 (N, Negative)</strong>
+- <strong>真阳性 (TP, true positive)</strong>：正确的肯定。又称：命中 (hit)
+- <strong>真阴性 (TN, true negative)</strong>：正确的否定。又称：正确拒绝 (correctrejection)
+- <strong>伪阳性 (FP, false positive)</strong>：错误的肯定，又称：假警报 (falsealarm)、第二型错误
+- <strong>伪阴性 (FN, false negative)</strong>：错误的否定，又称：未命中(miss)、第一型错误
+- <strong>灵敏度(sensitivity)或真阳性率(TPR, true positive rate)</strong>：又称：召回率（recall）、命中率 (hit rate)在阳性值中实际被预测正确所占的比例。TPR = TP / P = TP / (TP+FN)
+- <strong>伪阳性率(FPR, false positive rate)</strong>：又称：错误命中率，假警报率 (false alarm rate)FPR = FP / N = FP / (FP + TN) = 1-SPC
+- <strong>特异度 (SPC, Specificity)或真阴性率(TNR, true negativerate)</strong>：在阴性值中实现被预测正确所占的比例。SPC = TN / N = TN / (FP+TN) = 1-FPR
+- <strong>假发现率 (FDR, false discovery rate)</strong>：FDR = FP / (FP + TP) = 1-TPR
+- <strong>准确度 (ACC, accuracy）</strong>：预测正确的数占样本数的比例。ACC = (TP + TN) / (P + N)
+- <strong>阳性预测值 (PPV, positive predictive value)</strong>或<strong>精度(precision)</strong>：阳性预测值被预测正确的比例。PPV = TP / (TP + FP)
+- <strong>阴性预测值 (NPV, negative predictive value)</strong>：阴性预测值被预测正确的比例。NPV = TN / (TN + FN)
+- <strong>F1评分</strong>：精度和灵敏度的调和平均数。F1 = 2 precision * recall / (precision+recall) =2TP/(2TP+FP+FN)
+- <strong>Matthews相关系数 (MCC)，即 Phi相关系数</strong>：(TP*TN - FP*FN)/ sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}</p>
+
+<p><em>示例</em>:
+<table border="1" width="620" bordercolor="#C0C0C0" cellspacing="0" bordercolorlight="#C0C0C0" bordercolordark="#FFFFFF"><tbody><tr><td align="center" width="170" colspan="2" rowspan="2">混淆矩阵</td><td align="center" width="191" colspan="2" bgcolor="#E3EBF2"><b>目标</b></td><td align="center" width="241" colspan="2" rowspan="2">&nbsp;</td></tr><tr><td align="center" width="92" bgcolor="#E3EBF2">阳性</td><td align="center" width="95" bgcolor="#E3EBF2">阴性</td></tr><tr><td rowspan="2" align="center" width="94" bgcolor="#E3EBF2"><b>模型</b></td><td align="center" width="72" bgcolor="#E3EBF2">阳性</td><td align="center" width="92">70</td><td align="center" width="95">20</td><td align="center" width="181" bgcolor="#FFFFCC"><p align="left"><i>阳性预测值</i></p></td><td align="center" width="60" bgcolor="#FFFFCC">0.78</td></tr><tr><td align="center" width="72" bgcolor="#E3EBF2">阴性</td><td align="center" width="92">30</td><td align="center" width="95">80</td><td align="center" width="181" bgcolor="#FFFFCC"><p align="left"><i>阴性预测值</i></p></td><td align="center" width="60" bgcolor="#FFFFCC">0.73</td></tr><tr><td align="center" width="166" colspan="2" rowspan="2">&nbsp;</td><td align="center" width="92" bgcolor="#FFFFCC"><i>灵敏度</i></td><td align="center" width="95" bgcolor="#FFFFCC"><i>特异度</i></td><td align="center" width="241" colspan="2" rowspan="2"><p align="center"><b>准确度</b>&nbsp;= 0.75</p></td></tr><tr><td align="center" width="92" bgcolor="#FFFFCC">0.70</td><td align="center" width="95" bgcolor="#FFFFCC">0.80</td></tr></tbody></table></p>
+
+<h3 id="增益-gain-和提升-lift-图">增益（Gain）和提升（Lift）图</h3>
+
+<p>增益和提升是分类模型有效性指标，由通过模型获得的结果和没有模型获得的结果之间的比率计算而成。增益图和提升图使用与评估分类模型性能的可视化工具。然而，与混淆矩阵评估的是整个总体上的模型性能不同，增益图和提升图评估的是总体一部分上的模型性能。</p>
+
+<h4 id="增益图">增益图</h4>
+
+<p>增益图实际上描述的是整体覆盖率(精度)指标。按照模型预测出的概率从高到低排列，将每一个百分位数内的覆盖率指标标注在图形区域内，就形成了非累积的增益图。如果对每一个百分位及其之前的覆盖率求和，并将值标注在图形区域内，则形成累积的增益图。
+- 显然，累积图通常能够更好的表现模型性能，而非累积图则更有利于指出模型中可能存在问题的地方。
+- 采用训练集绘制的增益图一般都很不错，虽然没什么意义。用验证集绘制的收益图则未必。</p>
+
+<p><img src="/images/2013/6/0026uWfMgy6VZVpNHkR61.png" alt="增益图1" /></p>
+
+<p><em>示例:</em>
+<img src="/images/2013/6/0026uWfMgy6W2IuimTC20.jpg" alt="增益图2" /><img src="/images/2013/6/0026uWfMgy6W2IAZWQCfe.png" alt="增益图3" /></p>
+
+<h4 id="提升图">提升图</h4>
+
+<p>提升图实际上是把各个百分位点上的提升度予以描述，同样也分累积的和非累积的。提升图显示与联系随机顾客样本相比我们有可能获得多少阳性响应。例如，通过预测模型仅联系10%的顾客，可以获得不使用模型的三倍响应。
+<img src="/images/2013/6/0026uWfMgy6W2IVFxa33b.png" alt="提升图" /></p>
+
+<h3 id="k-s-柯尔莫诺夫-斯米尔诺夫-kolmogorov-smirnov-图">K-S（柯尔莫诺夫-斯米尔诺夫，Kolmogorov-Smirnov）图</h3>
+
+<p>K-S图衡量分类模型的性能。更准确的说，K-S阳性和阴性分布之间分离度指标。如果评分将总体分成两组，一组全是阳性，一组全是阴性，则K-S为100。如果模型无法区分阳性和阴性，模型选择的效果类似从总体中随机抽取，K-S将为0。对大多数分类模型，K-S在0到100之间，值越高表示模型分离阳性和阴性的效果越好。
+<em>示例：</em>
+下例显示分类模型结果。模型对每个阳性（目标）和阴性（非目标）输出赋予0到1000之间的评分。
+<img src="/images/2013/6/0026uWfMgy6W2J7tBiW92.jpg" alt="KS图1" /> <img src="/images/2013/6/0026uWfMgy6W2J8SzsL33.png" alt="KS图2" /></p>
+
+<h3 id="接收者操作特征曲线-roc-图">接收者操作特征曲线（ROC）图</h3>
+
+<p>ROC图与增益图或提升图类似，它们都提供了比较分类模型的一种途径。ROC图在X轴显示伪阳性率（真值为0、目标值为1的概率，即1-特异度），Y轴为真阳性率（即灵敏度）。理想情况下，曲线快速爬向左上，表示模型准确预测数据。红色斜对角线表示随机模型。
+<img src="/images/2013/6/0026uWfMgy6W2JefWuMa4.png" alt="ROC图" /></p>
+
+<h4 id="曲线下面积-auc-area-under-the-curve">曲线下面积(AUC，Area Under the Curve)</h4>
+
+<p>ROC曲线下面积经常用作衡量分类模型质量的指标。随机分类的AUC为0.5，而完美分类的AUC等于1。在实践中，大多数分类模型的AUC在0.5和1之间。
+<img src="/images/2013/6/0026uWfMgy6W2JfQlQw3c.png" alt="AUC" />
+举个例子来说，AUC为0.8表示从目标值为1的组内随机抽取的案例有80%的可能比目标值为0的组内随机抽取的案例评分大。当分类器无法区分两组，区域等于0.5(ROC曲线与斜线一致)。当两组完美分离，例如没有重叠的分布，ROC曲线将直接到达左上角纵坐标1的位置.</p>
+
+<h3 id="基尼系数">基尼系数</h3>
+
+<p>判定方法：基尼系数应大于60%，就算好模型。
+Gini ＝ 2*AUC － 1</p>
+
+<h2 id="回归模型评估">回归模型评估</h2>
+
+<p>当创建一些不同的回归模型后，有大量的标准可被评估和比较。</p>
+
+<h3 id="均方根误差-root-mean-squared-error-rmse">均方根误差（Root Mean Squared Error，RMSE）</h3>
+
+<p>RMSE是一个衡量回归模型误差率的常用公式。 然而，它仅能比较误差是相同单位的模型。
+<img src="/images/2013/6/0026uWfMgy6W2JvDSJI82.png" alt="RMSE1" /> <img src="/images/2013/6/0026uWfMgy6W2JANj3yc0.png" alt="RMSE2" /></p>
+
+<h3 id="相对平方误差-relative-squared-error-rse">相对平方误差（Relative Squared Error，RSE）</h3>
+
+<p>与RMSE不同，RSE可以比较误差是不同单位的模型。
+<img src="/images/2013/6/0026uWfMgy6W2JCgbzq80.png" alt="RSE" /></p>
+
+<h3 id="平均绝对误差-mean-absolute-error-mae">平均绝对误差（Mean Absolute Error，MAE)</h3>
+
+<p>MAE与原始数据单位相同， 它仅能比较误差是相同单位的模型。量级近似与RMSE，但是误差值相对小一些。
+<img src="/images/2013/6/0026uWfMgy6W2JDts2H7f.png" alt="MAE" /></p>
+
+<h3 id="相对绝对误差-relative-absolute-error-rae">相对绝对误差（Relative Absolute Error，RAE)</h3>
+
+<p>与RSE不同，RAE可以比较误差是不同单位的模型。
+<img src="/images/2013/6/0026uWfMgy6W2JGztUSa2.png" alt="RAE" /></p>
+
+<h3 id="决定系数-coefficient-of-determination">决定系数 (Coefficient of Determination)</h3>
+
+<p>决定系数 (<strong>R<sup>2</sup></strong>)回归模型汇总了回归模型的解释度，由平方和术语计算而得。
+<img src="/images/2013/6/0026uWfMgy6W2JI5pba90.jpg" alt="R2" />
+R<sup>2</sup>描述了回归模型所解释的因变量方差在总方差中的比例。R<sup>2</sup>很大，即自变量和因变量之间存在线性关系，如果回归模型是“完美的”，SSE为零，则R<sup>2</sup>为1。R<sup>2</sup>小，则自变量和因变量之间存在线性关系的证据不令人信服。如果回归模型完全失败，SSE等于SST，没有方差可被回归解释，则R<sup>2</sup>为零。</p>
+
+<h3 id="标准化残差图-standardized-residuals-plot">标准化残差图（Standardized Residuals Plot）</h3>
+
+<p>标准化残差图是一个对在标准化尺度上显示残差分散图有帮助的可视化工具。标准化残差图与普通残差图之间没有实质不同，唯一区别是在Y轴的标准化可以更容易检测到潜在的异常值。
+<img src="/images/2013/6/0026uWfMgy6W2JJmKGaee.jpg" alt="Standardized Residuals Plot" /></p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="http://www.saedsayad.com/model_uation.htm">Model Evaluation</a><br />
+<a href="http://cos.name/2008/12/measure-classification-model-performance-confusion-matrix/">分类模型的性能评估——以SAS Logistic回归为例(1): 混淆矩阵</a><br />
+<a href="http://cos.name/2008/12/measure-classification-model-performance-roc-auc/">分类模型的性能评估——以SAS Logistic回归为例(2): ROC和AUC</a><br />
+<a href="http://cos.name/2009/02/measure-classification-model-performance-lift-gain/">分类模型的性能评估——以SAS Logistic回归为例(3): Lift和Gain</a><br />
+<a href="https://en.wikipedia.org/wiki/Gain_(information_retri)">WIKI：Gain(information retrieval)</a><br />
+<a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">WIKI：Receiver operating characteristic</a><br />
+<a href="https://en.wikipedia.org/wiki/F1_score">WIKI：F1 score</a><br />
+<a href="https://en.wikipedia.org/wiki/Gini_coefficient">WIKI：Gini coefficient</a><br />
+[](<a href="http://mund-consulting.com/Blog/understanding-uate-model-in-microsoft-azure-machine-learning/">http://mund-consulting.com/Blog/understanding-uate-model-in-microsoft-azure-machine-learning/</a>)<br />
+[](<a href="http://www.analyticsvidhya.com/blog/2015/01/model-performance-metrics-classification/">http://www.analyticsvidhya.com/blog/2015/01/model-performance-metrics-classification/</a>)<br />
+[](<a href="http://www.analyticsvidhya.com/blog/2015/01/model-perform-part-2/">http://www.analyticsvidhya.com/blog/2015/01/model-perform-part-2/</a>)</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：模型评估笔记
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/model" rel="tag" title="model">#model#</a>
+    
+    <a href="/tags/evaluation" rel="tag" title="evaluation">#evaluation#</a>
+    
+    <a href="/tags/data-mining" rel="tag" title="data-mining">#data-mining#</a>
+    
+    <a href="/tags/classification" rel="tag" title="classification">#classification#</a>
+    
+    <a href="/tags/regression" rel="tag" title="regression">#regression#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/" rel="next" title="发现Hibernate 3.2.6统计中一个bug">
+        <i class="fa fa-chevron-left"></i> 发现Hibernate 3.2.6统计中一个bug
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="prev" title="用GemFire做Hibernate二级缓存">
+        用GemFire做Hibernate二级缓存 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/";
+this.page.identifier = "https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#模型评估简介">模型评估简介</a>
+<ul>
+<li><a href="#验证-hold-out">验证（Hold-Out）</a></li>
+<li><a href="#交叉验证-cross-validation">交叉验证（Cross-Validation）</a></li>
+</ul></li>
+<li><a href="#分类模型评估">分类模型评估</a>
+<ul>
+<li><a href="#混淆矩阵-confusion-matrix">混淆矩阵（Confusion Matrix）</a></li>
+<li><a href="#增益-gain-和提升-lift-图">增益（Gain）和提升（Lift）图</a>
+<ul>
+<li><a href="#增益图">增益图</a></li>
+<li><a href="#提升图">提升图</a></li>
+</ul></li>
+<li><a href="#k-s-柯尔莫诺夫-斯米尔诺夫-kolmogorov-smirnov-图">K-S（柯尔莫诺夫-斯米尔诺夫，Kolmogorov-Smirnov）图</a></li>
+<li><a href="#接收者操作特征曲线-roc-图">接收者操作特征曲线（ROC）图</a>
+<ul>
+<li><a href="#曲线下面积-auc-area-under-the-curve">曲线下面积(AUC，Area Under the Curve)</a></li>
+</ul></li>
+<li><a href="#基尼系数">基尼系数</a></li>
+</ul></li>
+<li><a href="#回归模型评估">回归模型评估</a>
+<ul>
+<li><a href="#均方根误差-root-mean-squared-error-rmse">均方根误差（Root Mean Squared Error，RMSE）</a></li>
+<li><a href="#相对平方误差-relative-squared-error-rse">相对平方误差（Relative Squared Error，RSE）</a></li>
+<li><a href="#平均绝对误差-mean-absolute-error-mae">平均绝对误差（Mean Absolute Error，MAE)</a></li>
+<li><a href="#相对绝对误差-relative-absolute-error-rae">相对绝对误差（Relative Absolute Error，RAE)</a></li>
+<li><a href="#决定系数-coefficient-of-determination">决定系数 (Coefficient of Determination)</a></li>
+<li><a href="#标准化残差图-standardized-residuals-plot">标准化残差图（Standardized Residuals Plot）</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

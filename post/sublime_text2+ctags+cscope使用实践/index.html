@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Sublime Text2&#43;Ctags&#43;Cscope使用实践 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Sublime Text2&#43;Ctags&#43;Cscope使用实践">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Sublime Text2&#43;Ctags&#43;Cscope使用实践 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/sublime_text2&#43;ctags&#43;cscope%E4%BD%BF%E7%94%A8%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        Sublime Text2&#43;Ctags&#43;Cscope使用实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-09">
+    2015-12-09
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">173 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h3 id="安装">安装</h3>
+
+<h4 id="安装package-control">安装Package Control</h4>
+
+<p>步骤见<a href="https://packagecontrol.io/installation#st2">https://packagecontrol.io/installation#st2</a></p>
+
+<h4 id="安装ctags插件">安装CTags插件</h4>
+
+<ul>
+<li>通过 Preference -&gt; Package Control -&gt; InstallPackage安装Ctags插件（快捷键Ctrl+Shift+P，输入install）<img src="/images/2015/12/0026uWfMgy71ddMtNSZ4d.jpg" alt="Sublime Text2+Ctags+Cscope使用实践" /></li>
+<li>打开Preference -&gt; Package Settings -&gt; Ctags -&gt;Settings-Default和Setting-User，将Settings-Default中的内容拷贝到Setting-User中，将&rdquo;command&rdquo;: &ldquo;&rdquo; 中的 &ldquo;&rdquo; 填入Ctags.exe的路径位置</li>
+<li>打开C工程根目录，在上点击右键，选择Ctags:Rebuild tags<img src="/images/2015/12/0026uWfMgy71dei8odx87.png" alt="Sublime Text2+Ctags+Cscope使用实践" /></li>
+</ul>
+
+<h4 id="安装cscope插件">安装Cscope插件</h4>
+
+<ul>
+<li>同样通过 Preference -&gt; Package Control -&gt; InstallPackage安装Cscope插件（快捷键Ctrl+Shift+P，输入install）</li>
+<li>通过cscope –Rb在C工程根目录创建cscope.out文件</li>
+<li>Cscope在ST2上没有包配置菜单，需要打开CscopeSublime.sublime-settings文件(我的机器在C:/Users/yqu/AppData/Roaming/SublimeText 2/Packages/Cscope目录下)，将 &ldquo;executable&rdquo;: &ldquo;&rdquo; 中的 &ldquo;&ldquo;填入Cscope.exe的路径位置,将 &ldquo;database_location&rdquo;: &ldquo;&rdquo; 中的&rdquo;&ldquo;填入cscope.out的路径位置。</li>
+</ul>
+
+<h3 id="使用">使用</h3>
+
+<h4 id="ctags命令-https-github-com-sublimetext-ctags-commands-listing"><a href="https://github.com/SublimeText/CTags#commands-listing">CTags命令</a></h4>
+
+<p>|Command|Key Binding|Alt Binding|Mouse Binding
+|&mdash;&ndash;
+|rebuild_ctags|ctrl+t, ctrl+r| &nbsp; | &nbsp;
+|navigate_to_definition|ctrl+t, ctrl+t|ctrl+&gt;|ctrl+shift+left_click
+|jump_prev|ctrl+t, ctrl+b|ctrl+&lt;|ctrl+shift+right_click
+|show_symbols|alt+s| &nbsp;| &nbsp;
+|show_symbols (all files)|alt+shift+s| &nbsp;| &nbsp;
+|show_symbols (suffix)|ctrl+alt+shift+s| &nbsp;| &nbsp;</p>
+
+<h4 id="cscope命令">Cscope命令</h4>
+
+<ul>
+<li>Ctrl + \ - Show Cscope options<img src="/images/2015/12/0026uWfMgy71dj5dhrB3b.png" alt="Sublime Text2+Ctags+Cscope使用实践" /></li>
+<li>Ctrl + L , Ctrl + S - Look up symbol undercursor</li>
+<li>Ctrl + L , Ctrl + D - Look up definition undercursor</li>
+<li>Ctrl + L , Ctrl + E - Look up functions calledby the function under the cursor</li>
+<li>Ctrl + L , Ctrl + R - Look up functionscalling the function under the cursor</li>
+<li>Ctrl + Shift + [ - Jump back</li>
+<li>Ctrl + Shift + ] - Jump forward</li>
+</ul>
+
+<h4 id="其他快捷键">其他快捷键</h4>
+
+<ul>
+<li>Ctrl + p - 快速定位项目中的文件</li>
+<li>Ctrl + R - 获取当前文件中的函数列表（# 和 @分别为变量和函数），这个功能也使得ST2不需要taglist插件了。</li>
+</ul>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="https://www.zybuluo.com/lanxinyuchs/note/33551">使用Sublime Text3+Ctags+Cscope替代Source Insight</a><br />
+<a href="/post/exuberant_ctags笔记">Exuberant Ctags笔记</a><br />
+<a href="/post/cscope笔记">Cscope笔记</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Sublime Text2&#43;Ctags&#43;Cscope使用实践
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/sublime" rel="tag" title="sublime">#sublime#</a>
+    
+    <a href="/tags/ctags" rel="tag" title="ctags">#ctags#</a>
+    
+    <a href="/tags/cscope" rel="tag" title="cscope">#cscope#</a>
+    
+    <a href="/tags/c&#43;&#43;" rel="tag" title="C&#43;&#43;">#C&#43;&#43;#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/fileupload_streaming/" rel="next" title="FileUpload Streaming">
+        <i class="fa fa-chevron-left"></i> FileUpload Streaming
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/" rel="prev" title="[C&#43;&#43;] 使用readelf">
+        [C&#43;&#43;] 使用readelf <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/sublime_text2+ctags+cscope%E4%BD%BF%E7%94%A8%E5%AE%9E%E8%B7%B5/";
+this.page.identifier = "https://mryqu.github.io/post/sublime_text2+ctags+cscope%E4%BD%BF%E7%94%A8%E5%AE%9E%E8%B7%B5/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#安装">安装</a>
+<ul>
+<li><a href="#安装package-control">安装Package Control</a></li>
+<li><a href="#安装ctags插件">安装CTags插件</a></li>
+<li><a href="#安装cscope插件">安装Cscope插件</a></li>
+</ul></li>
+<li><a href="#使用">使用</a>
+<ul>
+<li><a href="#ctags命令-https-github-com-sublimetext-ctags-commands-listing"><a href="https://github.com/SublimeText/CTags#commands-listing">CTags命令</a></a></li>
+<li><a href="#cscope命令">Cscope命令</a></li>
+<li><a href="#其他快捷键">其他快捷键</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Web安全 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Web安全">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Web安全 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/" itemprop="url">
+        Web安全
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-11-11">
+    2014-11-11
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">78 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>学习OpenUI5程序员指南里关于Web安全的章节，在网上也搜了一下资料，下面是这次的学习笔记。</p>
+
+<h2 id="浏览器安全">浏览器安全</h2>
+
+<h3 id="跨站脚本攻击-cross-site-scripting-xss-http-en-wikipedia-org-wiki-cross-site-scripting"><a href="http://en.wikipedia.org/wiki/Cross-site_scripting">跨站脚本攻击（Cross-Site Scripting， XSS）</a></h3>
+
+<p>XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意用户的特殊目的。例如，如果某些无需登录即可访问的公共页面区域有提交表单，攻击者可以在提交内容里面注入恶意javascript脚本（原理类似与SQL注入攻击），提交后的页面内容可能就含有这样的可执行恶意脚本。当其他登录用户访问这个页面后，就有可能泄漏自己的会话cookie信息。一般的防御手段是使用HTMLSanitization工具对用户输入信息做检查，过滤其提交内容；或者cookie记录登录ip，仅允许该ip使用此cookie。</p>
+
+<h3 id="点击劫持-clickjacking-http-en-wikipedia-org-wiki-clickjacking"><a href="http://en.wikipedia.org/wiki/Clickjacking">点击劫持（clickjacking）</a></h3>
+
+<p>点击劫持指的是通过欺骗用户点击看似正常的恶意网页来获得机密信息或远程控制其电脑。例如，攻击者想要攻击某网页，可以发布一个网址与原网址及其近似的恶意网页，恶意网页通过iframe嵌入原网页。当用户被欺骗到恶意网页，界面和操作都与原网页一模一样，但操作实际上是与恶意网页交互。另外一个例子是攻击者发布一个恶意flash游戏，当用户玩游戏时，点击会被引导到恶意链接上，进而控制用户的摄像头和麦克风，用户的个人隐私遭到泄漏。一般的防御手段是Framebusting：正常网页中添加X-FRAME-OPTIONS=DENY(拒绝任何域加载)的http头，以及通过javascript脚本判别顶级frame是否被修改并将覆盖在自身上面的&rdquo;恶意&rdquo;frame重新定向会self.location。</p>
+
+<h3 id="html5">HTML5</h3>
+
+<h4 id="localstorage">localStorage</h4>
+
+<p>所有浏览器都提供本地存储API，可用于存储有限数量的数据。仅运行在与存储数据相同域上的JavaScript代码可被执行进行数据访问。浏览器的本地存储不是安全存储，所以仅能用于存储静态数据，不应该存储应用数据。</p>
+
+<h4 id="webgl">WEBGL</h4>
+
+<p>越来越多的浏览器默认支持WEBG，WEBG允许访问计算机的底层图形API，这可能导致底层漏洞。</p>
+
+<h4 id="websockets">WebSockets</h4>
+
+<p>WebSockets为web应用的客户端/服务器通信提供了新的方式，但很多浏览器厂商的第一版WebSockets实现就暴露了很多安全问题。RGC6455中的WebSockets标准化已经稳定，并且Chrome16、Firefox 11和IE10都实现了WebSockets。即使浏览器自身的WebSockets实现被证明是安全的，使用WebSockets时客户端仍需要额外的安全措施。</p>
+
+<h4 id="postmessage-onmessage">Postmessage/Onmessage</h4>
+
+<p>postMessage允许浏览器窗口之间的跨域通信，这可能会导致安全问题。应用程序应该检查消息的发送域并仅处理来自受信域的消息。</p>
+
+<h2 id="会话安全">会话安全</h2>
+
+<p>HTTP通信是无状态的和非加密的，客户端和服务器之间的数据传输是不安全的，因此有必要使用SSL进行加密，并使用cookie或URL地址重写进行会话处理。即使使用SSL对数据传输进行加密，仍有可能发生会话劫持。跨域请求伪造和会话固定攻击就是这类攻击中突出的两个例子。</p>
+
+<h3 id="web认证基础知识">WEB认证基础知识</h3>
+
+<ul>
+<li>用户访问需要认证的网站。</li>
+<li>用户提供一个用户名和口令进行验证。</li>
+<li>网站验证用户口令，如果通过，则准许用户登录进入，并将一个cookie提供给用户的浏览器。此cookie用于唯一的标识会话。</li>
+<li>用户继续访问网站。在用户请求一个新网页时，浏览器都会发送cookie和用户请求，提醒Web服务器：该请求是前面的认证连接的一部分。在多数情况下，Web开发人员和网站管理员都会使用HTTPS加密来保护这个过程的第二步，他们都知道如果其它人员能够访问其他用户的用户名和口令，就可以轻易地获得访问权。在许多情况下，他们会转而使用一个不加密的HTTP连接，以便于实现Web通信的其余部分，其中也包括cookie的交换。</li>
+</ul>
+
+<h3 id="火羊-firesheep-http-en-wikipedia-org-wiki-firesheep"><a href="http://en.wikipedia.org/wiki/Firesheep">火羊（Firesheep）</a></h3>
+
+<p>Firesheep是一个火狐（Firefox）插件，它在不安全的无线网络中自动操作会话劫持攻击。这个插件（plug-in）本质上是一个数据包嗅探器，它监测并分析Wi-Fi上终端用户之间的流量，并获取正在交换的cookie。西雅图的软件开发工程师EricButler研发了Firesheep并在2010年10月的ToorCon黑客会议上宣布了它的发行。Firesheep非常容易使用，下载插件，登陆公用的WIFI点，按一下按钮就可以获取网络中各种人的用户名和图像（例如：Facebook、Twitter、Flickr、bit.ly、Google和Amazon），双击图像攻击者就可以用受害人的身份登陆了。一般的防御手段是仅允许通过SSL来发送cookie；要限制能够利用cookie的应用程序；限制cookies仅能使用HTTPS。</p>
+
+<h3 id="跨域请求伪造-cross-site-request-forgery-csrf或xsrf-http-en-wikipedia-org-wiki-cross-site-request-forgery"><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">跨域请求伪造(Cross-site request forgery, CSRF或XSRF)</a></h3>
+
+<p>跨域请求伪造指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，在用户毫不知情的情况下以用户名义伪造请求发送给受攻击站点，从而在并未授权的情况下执行在权限保护之下的操作。例如，恶意网页中有转账请求的恶意链接，当有用户被骗访问网站并点击了带有恶意链接的图片或广告，该请求会附带用户浏览器的cookie一起发往银行。大多数情况下，该请求会失败，因为它要求用户的认证信息。但是如果用户当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的会话尚未过期，浏览器的cookie之中含有用户的认证信息。这时，转账请求就被处理。一般的防御手段是验证HTTP的Referer字段；在所有页面加入同步令牌模式(Synchronizer tokenpattern)并要求在请求地址中添加令牌并验证；在强调安全的操作前重复用户认证。</p>
+
+<h3 id="会话固定攻击-session-fixation-http-en-wikipedia-org-wiki-session-fixation"><a href="http://en.wikipedia.org/wiki/Session_fixation">会话固定攻击(session fixation)</a></h3>
+
+<p>会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人。例如，攻击者访问<a href="http://vulnerable.example.com/">http://vulnerable.example.com/</a> ，并从服务器响应(Set-Cookie:SID=0D6441FEA4496C2)获得会话ID，他发送给受害者一个链接<a href="http://vulnerable.example.com/?SID=0D6441FEA4496C2。受害者登录的话，会使用这个固定会话标识符SID=0D6441FEA4496C2。攻击者这时访问http://vulnerable.example.com/?SID=0D6441FEA4496C2就可以不受限地访问受害者的账户了。一般的防御手段是用户登录后更改会话ID；仅接受服务器生成的会话ID；超时或退出登录后删除会话；强调安全的操作使用SSL会话ID；每次请求更新会话ID。">http://vulnerable.example.com/?SID=0D6441FEA4496C2。受害者登录的话，会使用这个固定会话标识符SID=0D6441FEA4496C2。攻击者这时访问http://vulnerable.example.com/?SID=0D6441FEA4496C2就可以不受限地访问受害者的账户了。一般的防御手段是用户登录后更改会话ID；仅接受服务器生成的会话ID；超时或退出登录后删除会话；强调安全的操作使用SSL会话ID；每次请求更新会话ID。</a></p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://www.cnblogs.com/LittleHann/p/3386055.html">Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites</a><br /></li>
+<li><a href="http://www.ibm.com/developerworks/cn/web/1112_huangxa_websocket/">使用 HTML5 WebSocket 构建实时 Web 应用</a><br /></li>
+<li><a href="http://www.ibm.com/developerworks/cn/web/1112_weijf_websocket/">应用 HTML5 的 WebSocket 实现 BiDirection 数据交换</a><br /></li>
+<li><a href="http://www.ibm.com/developerworks/cn/web/1301_jiangjj_html5message/index.html">HTML5 postMessage 和 onmessage API 详细应用</a><br /></li>
+<li><a href="http://beyondlovew.iteye.com/blog/432642">urlrewrite使用小结</a><br /></li>
+<li><a href="http://zhidao.baidu.com/question/623963464128251604.html">怎样应对会话劫持：以Firesheep为例</a><br /></li>
+<li><a href="http://www.ibm.com/developerworks/cn/web/1102_niugang_csrf/">CSRF 攻击的应对之道</a><br /></li>
+<li><a href="http://www.cnblogs.com/makemelaugh/archive/2013/05/12/3074486.html">Spring Security如何防止会话固定攻击(session fixation attack)</a><br /></li>
+<li><a href="http://www1.huachu.com.cn/read/readbook.asp?bookid=10107753">黑客攻防技术宝典: Web实战篇</a><br /></li>
+</ul>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Web安全
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/web%e5%ae%89%e5%85%a8" rel="tag" title="web安全">#web安全#</a>
+    
+    <a href="/tags/xss" rel="tag" title="xss">#xss#</a>
+    
+    <a href="/tags/clickjacking" rel="tag" title="clickjacking">#clickjacking#</a>
+    
+    <a href="/tags/csrf" rel="tag" title="csrf">#csrf#</a>
+    
+    <a href="/tags/session_fixation" rel="tag" title="session_fixation">#session_fixation#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/" rel="next" title="[OpenUI5] 十分钟了解sap.ui.table.Table">
+        <i class="fa fa-chevron-left"></i> [OpenUI5] 十分钟了解sap.ui.table.Table
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90_%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C/" rel="prev" title="[社交网络分析课] 小世界网络">
+        [社交网络分析课] 小世界网络 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/";
+this.page.identifier = "https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#浏览器安全">浏览器安全</a>
+<ul>
+<li><a href="#跨站脚本攻击-cross-site-scripting-xss-http-en-wikipedia-org-wiki-cross-site-scripting"><a href="http://en.wikipedia.org/wiki/Cross-site_scripting">跨站脚本攻击（Cross-Site Scripting， XSS）</a></a></li>
+<li><a href="#点击劫持-clickjacking-http-en-wikipedia-org-wiki-clickjacking"><a href="http://en.wikipedia.org/wiki/Clickjacking">点击劫持（clickjacking）</a></a></li>
+<li><a href="#html5">HTML5</a>
+<ul>
+<li><a href="#localstorage">localStorage</a></li>
+<li><a href="#webgl">WEBGL</a></li>
+<li><a href="#websockets">WebSockets</a></li>
+<li><a href="#postmessage-onmessage">Postmessage/Onmessage</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#会话安全">会话安全</a>
+<ul>
+<li><a href="#web认证基础知识">WEB认证基础知识</a></li>
+<li><a href="#火羊-firesheep-http-en-wikipedia-org-wiki-firesheep"><a href="http://en.wikipedia.org/wiki/Firesheep">火羊（Firesheep）</a></a></li>
+<li><a href="#跨域请求伪造-cross-site-request-forgery-csrf或xsrf-http-en-wikipedia-org-wiki-cross-site-request-forgery"><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">跨域请求伪造(Cross-site request forgery, CSRF或XSRF)</a></a></li>
+<li><a href="#会话固定攻击-session-fixation-http-en-wikipedia-org-wiki-session-fixation"><a href="http://en.wikipedia.org/wiki/Session_fixation">会话固定攻击(session fixation)</a></a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

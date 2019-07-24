@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>非概率抽样 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="非概率抽样">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="非概率抽样 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%9D%9E%E6%A6%82%E7%8E%87%E6%8A%BD%E6%A0%B7/" itemprop="url">
+        非概率抽样
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-09-29">
+    2013-09-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">30 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>非概率抽样：调查者根据自己的方便或主观判断抽取样本的方法。它不是严格按随机抽样原则来抽取样本，所以失去了大数定律的存在基础，也就无法确定抽样误差,无法正确地说明样本的统计值在多大程度上适合于总体。虽然根据样本调查的结果也可在一定程度上说明总体的性质，特征，但不能从数量上推断总体。非概率抽样主要有偶遇抽样，主观抽样，定额抽样，滚雪球抽样等类型。</p>
+
+<h2 id="定义">定义</h2>
+
+<p>非概率抽样就是调查者根据自己的方便或主观判断抽取样本的方法。
+它不是严格按随机抽样原则来抽取样本，所以失去了大数定律的存在基础，也就无法确定抽样误差，无法正确地说明样本的统计值在多大程度上适合于总体。虽然根据样本调查的结果也可在一定程度上说明总体的性质、特征，但不能从数量上推断总体。</p>
+
+<h2 id="分类">分类</h2>
+
+<p>非概率抽样依抽样特点可分为方便抽样、定额抽样、立意抽样、滚雪球抽样和空间抽样。</p>
+
+<h3 id="方便抽样">方便抽样</h3>
+
+<p>样本限于总体中易于抽到的一部分。最常见的方便抽样是偶遇抽样，即研究者将在某一时间和环境中所遇到的每一总体单位均作为样本成员。“街头拦人法”就是一种偶遇抽样。某些调查对被调查者来说是不愉快的、麻烦的，这时为方便起见就采用以自愿被调查者为调查样本的方法。方便抽样是非随机抽样中最简单的方法，省时省钱，但样本代表性因受偶然因素的影响太大而得不到保证。</p>
+
+<h3 id="定额抽样">定额抽样</h3>
+
+<p>定额抽样也称配额抽样，是将总体依某种标准分层（群）；然后按照各层样本数与该层总体数成比例的原则主观抽取样本。定额抽样与分层概率抽样很接近，最大的不同是分层概率抽样的各层样本是随机抽取的，而定额抽样的各层样本是非随机的。总体也可按照多种标准的组合分层(群)，例如，在研究自杀问题时，考虑到婚姻与性别都可能对自杀有影响，可将研究对象分为未婚男性、已婚男性、未婚女性和已婚女性四个组，然后从各群非随机地抽样。定额抽样是通常使用的非概率抽样方法，样本除所选标识外无法保证代表性。</p>
+
+<h3 id="立意抽样">立意抽样</h3>
+
+<p>立意抽样又称判断抽样，研究人员从总体中选择那些被判断为最能代表总体的单位作样本的抽样方法。当研究者对自己的研究领域十分熟悉，对研究总体比较了解时采用这种抽样方法，可获代表性较高的样本。这种抽样方法多应用于总体小而内部差异大的情况，以及在总体边界无法确定或因研究者的时间与人力、物力有限时采用。</p>
+
+<h3 id="滚雪球抽样">滚雪球抽样</h3>
+
+<p>以若干个具有所需特征的人为最初的调查对象，然后依靠他们提供认识的合格的调查对象，再由这些人提供第三批调查对象，……依次类推，样本如同滚雪球般由小变大。滚雪球抽样多用于总体单位的信息不足或观察性研究的情况。这种抽样中有些分子最后仍无法找到，有些分子被提供者漏而不提，两者都可能造成误差。</p>
+
+<h3 id="空间抽样">空间抽样</h3>
+
+<p>对非静止的、暂时性的空间相邻的群体的抽样方法。例如，游行与集会没有确定的总体，参加者从一地到另一地，一些人离去又有一些人进来，但这些事件是在一定范围内进行的。对这样的总体在同一时间内抽样十分重要，以便样本组成不会经历时间上的太大变化。具体作法是:若干调查员间隔均匀的距离,从某一方向开始，访问离他最近的人，然后每隔一定步数抽取一人为调查对象。</p>
+
+<h2 id="抽样列举">抽样列举</h2>
+
+<p>常用的非概率抽样有方便抽样、定额抽样、立意抽样、雪球抽样等。</p>
+
+<h3 id="方便抽样-1">方便抽样</h3>
+
+<p>方便抽样又称偶遇抽样。在这种抽样中，研究者选择那些最容易接近的人作为研究对象。此法常用于干预试验或预调查时，也可用于调查收尾时补缺。</p>
+
+<h3 id="立意抽样-1">立意抽样</h3>
+
+<p>立意抽样又称目的抽样和判断抽样。根据研究目的的需要和研究者的主观判断，选择研究对象。</p>
+
+<h3 id="雪球抽样">雪球抽样</h3>
+
+<p>雪球抽样是指选择并调查几个具有研究目的所需要的特征的人，再依靠他们选择合乎研究需要的人，后者又可选择更多合乎研究需要的人，以此类推下去，样本就像滚雪球一样越来越大。</p>
+
+<h3 id="定额抽样-1">定额抽样</h3>
+
+<p>定额抽样是先将要研究的人群按某种特征划分成几个组别，然后，按照一定的比例，从每组人群中任意选择一定量的样本作为研究对象。由于抽样前先进行了分层处理，抽得的样本代表性比单纯的方便抽样要好。</p>
+
+<h2 id="优点">优点</h2>
+
+<p>简单易行、成本低、省时间,在统计上也比概率抽样简单。但由于无法排除抽样者的主观性，无法控制和客观地测量样本代表性，因此样本不具有推论总体的性质。非概率抽样多用于探索性研究和预备性研究，以及总体边界不清难于实施概率抽样的研究。在实际应用中，非概率抽样往往与概率抽样结合使用。</p>
+
+<h2 id="方法">方法</h2>
+
+<p>PPS抽样调查法;Q分类法;SEM模型;不重复抽样;专项调查;主观概率法;二手资料调研;二路焦点小组;产品留置测试;任意抽样;会议调查;典型调查法;分层抽样;分层最佳抽样;分层比例抽样;判断抽样;双重抽样;可行性研究;因果性调研;垃圾调研法;多维尺度法;多阶段抽样;威廉·戈塞;定性研究方法;定量研究方法;实地调研;家庭日记法;市场实验调查法;市场容量测定法;平衡量表法;投射研究;投影技法;抽样;抽样调查;抽签法;拐点调研;探索性调研;推销人员估计法;描述性调研;数值分配量表;整群抽样;文案调查法;文献调查法;无准备访问;案例研究法;案头调研;概率抽样;深层访谈法;滚雪球抽样;焦点访谈法;独立控制配额抽样;电话调查;留置调查;盲测;相互控制配额抽样;等比量表;等距抽样;等距量表;简单随机抽样;类别量表;经销商访谈;经验判断法;网上间接调查;网络调研;联合分析法;营销学术语英汉对照表;行踪分析;观察法;评价量表;询问法;辅助变量;辛迪加调研;逐户寻找法;邮寄调查;配对比较量表;配额抽样;重点调查;重置抽样;问卷调查法;随机号码表法;面谈访问法;顺序量表;&hellip;</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：非概率抽样
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/%e9%9d%9e%e6%a6%82%e7%8e%87%e6%8a%bd%e6%a0%b7" rel="tag" title="非概率抽样">#非概率抽样#</a>
+    
+    <a href="/tags/non-probability" rel="tag" title="non-probability">#non-probability#</a>
+    
+    <a href="/tags/sampling" rel="tag" title="sampling">#sampling#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/" rel="next" title="获取Tomcat版本的简单办法">
+        <i class="fa fa-chevron-left"></i> 获取Tomcat版本的简单办法
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/" rel="prev" title="[HBase] Shell命令">
+        [HBase] Shell命令 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E9%9D%9E%E6%A6%82%E7%8E%87%E6%8A%BD%E6%A0%B7/";
+this.page.identifier = "https://mryqu.github.io/post/%E9%9D%9E%E6%A6%82%E7%8E%87%E6%8A%BD%E6%A0%B7/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#定义">定义</a></li>
+<li><a href="#分类">分类</a>
+<ul>
+<li><a href="#方便抽样">方便抽样</a></li>
+<li><a href="#定额抽样">定额抽样</a></li>
+<li><a href="#立意抽样">立意抽样</a></li>
+<li><a href="#滚雪球抽样">滚雪球抽样</a></li>
+<li><a href="#空间抽样">空间抽样</a></li>
+</ul></li>
+<li><a href="#抽样列举">抽样列举</a>
+<ul>
+<li><a href="#方便抽样-1">方便抽样</a></li>
+<li><a href="#立意抽样-1">立意抽样</a></li>
+<li><a href="#雪球抽样">雪球抽样</a></li>
+<li><a href="#定额抽样-1">定额抽样</a></li>
+</ul></li>
+<li><a href="#优点">优点</a></li>
+<li><a href="#方法">方法</a></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/statistics/</link>
+    <description>Recent content in Statistics on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 18 Jun 2013 17:13:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/statistics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>发现Hibernate 3.2.6统计中一个bug</title>
+      <link>https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/</link>
+      <pubDate>Tue, 18 Jun 2013 17:13:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/</guid>
+      <description>今天使用Hibernate的统计类，分析一下结果。结果发现了一个bug，不能获得查询缓存中的查询语句。 这个bug倒在3.6.8已经修改了，不过还是影响我的工作。
+Statistics stat = sessionFactory.getStatistics(); logger.info(&amp;quot;isStatisticsEnabled:&amp;quot;+stat.isStatisticsEnabled()); logger.info(&amp;quot;stat=&amp;quot;+stat.toString()); logger.info(&amp;quot;queries=&amp;quot;+Arrays.toString(stat.getQueries()));  org.hibernate.stat.StatisticsImpl.java
+public String[] getQueries() { return ArrayHelper.toStringArray( queryStatistics.keySet()); }  org.hibernate.util.ArrayHelper.java (Hibernate 3.2.6)
+public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray(EMPTY_STRING_ARRAY); }  org.hibernate.util.ArrayHelper.java (Hibernate3.6.8)
+public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray( new String[coll.size()]); }  </description>
+    </item>
+    
+  </channel>
+</rss>

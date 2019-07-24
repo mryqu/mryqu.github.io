@@ -1,0 +1,599 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>用GemFire做Mybatis二级缓存 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="用GemFire做Mybatis二级缓存">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="用GemFire做Mybatis二级缓存 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" itemprop="url">
+        用GemFire做Mybatis二级缓存
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-22">
+    2013-05-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/cache" itemprop="url" rel="index">
+        <span itemprop="name">Cache</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gemfire" itemprop="url" rel="index">
+        <span itemprop="name">GemFire</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">380 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>MyBatis支持第三方二级缓存实现，目前支持Ehcache、Hazelcast和OSCache。
+GemFire不在支持的范围，但是可以通过实现org.apache.ibatis.cache.Cache接口来使用。</p>
+
+<h3 id="mybatis的cache配置及实现">MyBatis的Cache配置及实现</h3>
+
+<ol>
+<li>设置MyBatis的Cache全局使用开关：默认是true，如果它配成false，其余各个MapperXML文件配成支持cache也没用。
+<code>
+&lt;settings&gt;                                 
+&lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt;
+&lt;/settings&gt;
+</code></li>
+<li>各个Mapper XML文件，默认是不采用cache。在配置文件加一行就可以支持cache：
+<code>
+ &lt;cache /&gt; 
+</code></li>
+
+<li><p>实现GemfireCache</p>
+
+<pre><code>package com.yqu.mybatis.caches.gemfire;
+    
+import com.gemstone.gemfire.cache.AttributesFactory;
+import com.gemstone.gemfire.cache.CacheFactory;
+import com.gemstone.gemfire.cache.Region;
+    
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+    
+import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.CacheException;
+    
+public final class GemfireCache implements Cache {
+    
+  private static Region&lt;object&gt; mybatis_region = null; 
+  private Region&lt;object&gt; region = null;   
+  private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); 
+  private String id; 
+       
+  public void setId(String id) { 
+    this.id = id; 
+  } 
+       
+  public void setRegion(Region&lt;object&gt; region) { 
+    this.region = region; 
+  } 
+       
+  public Region&lt;object&gt; getRegion() { 
+    return region; 
+  } 
+       
+  private static synchronized Region&lt;object&gt; getParentRegion() 
+  { 
+    if(mybatis_region==null) 
+    { 
+      com.gemstone.gemfire.cache.Cache cache = new CacheFactory() 
+        .set(&quot;name&quot;, &quot;mybatis_gemfire_cache&quot;) 
+        .set(&quot;cache-xml-file&quot;, &quot;gemfire.xml&quot;).create(); 
+      mybatis_region = cache.getRegion(&quot;mybatis_gemfire_region&quot;); 
+    } 
+    return mybatis_region; 
+  } 
+       
+  @SuppressWarnings({ &quot;deprecation&quot;, &quot;unchecked&quot;, &quot;rawtypes&quot; }) 
+  public GemfireCache(String id) { 
+    if (id == null) { 
+      throw new IllegalArgumentException(&quot;Cache instances require an ID&quot;); 
+    } 
+    this.id = id; 
+             
+    region = getParentRegion().getSubregion(id); 
+    if (null == region) { 
+      AttributesFactory attrFactory = 
+          new AttributesFactory(mybatis_region.getAttributes()); 
+           
+      region = mybatis_region.createSubregion(id, attrFactory.create()); 
+    } 
+  } 
+       
+  public void clear() { 
+    if (null != region) { 
+      try { 
+        region.clear(); 
+      } catch (Throwable t) { 
+        throw new CacheException(t); 
+      }   
+    } 
+  } 
+       
+  public String getId() { 
+    return this.id; 
+  } 
+       
+  public Object getObject(Object key) { 
+    Object retVal = null; 
+    if (null != region) { 
+      if (region.containsKey(key.hashCode())) { 
+        try { 
+          retVal = region.get(key.hashCode()); 
+        } catch (Throwable t) { 
+          throw new CacheException(t); 
+        }   
+      } 
+    } 
+    return retVal; 
+  } 
+       
+  public ReadWriteLock getReadWriteLock() { 
+    return this.readWriteLock; 
+  } 
+       
+  public int getSize() { 
+    if (null != region) { 
+      try { 
+        return region.size(); 
+      } catch (Throwable t) { 
+        throw new CacheException(t); 
+      } 
+    } 
+    return 0; 
+  } 
+       
+  public void putObject(Object key, Object value) { 
+    if (null != region) { 
+      try { 
+        region.put(key.hashCode(), value); 
+      } catch (Throwable t) { 
+        throw new CacheException(t); 
+      } 
+    } 
+  } 
+       
+  public Object removeObject(Object key) { 
+    if (null != region) { 
+      try { 
+        return region.remove(key.hashCode()); 
+      } catch (Throwable t) { 
+        throw new CacheException(t); 
+      } 
+    } 
+    return null; 
+  } 
+       
+  @Override 
+  public boolean equals(Object obj) { 
+    if (this == obj) { 
+      return true; 
+    } 
+    if (obj == null) { 
+      return false; 
+    } 
+    if (!(obj instanceof Cache)) { 
+      return false; 
+    } 
+         
+    Cache otherCache = (Cache)obj; 
+    return this.id.equals(otherCache.getId()); 
+  } 
+       
+  @Override 
+  public int hashCode() { 
+    return this.id.hashCode(); 
+  } 
+       
+  @Override 
+  public String toString() { 
+    return &quot;GemfireCache{&quot; + this.id + &quot;}&quot;; 
+  } 
+}
+</code></pre></li>
+
+<li><p>Mapper XML文件配置支持cache后，文件中所有的Mapperstatement就支持了。此时要个别对待某条可以通过useCache禁止使用cache：</p>
+
+<pre><code>&lt;select id=&quot;inetAton&quot; parameterType=&quot;string&quot; resultType=&quot;integer&quot; useCache=&quot;false&quot;&gt;    
+select inet_aton(#{name})
+&lt;/select&gt;
+</code></pre></li>
+</ol>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="http://howtodoinjava.com/2013/01/06/how-to-enable-caching-in-ibatis-using-oscache/">iBatis OSCache example tutorial</a><br />
+<a href="http://www.webdbtips.com/60455/">http://www.webdbtips.com/60455/</a><br />
+<a href="http://blog.csdn.net/xuezhimeng/article/details/7378096">MyBatis的Cache实际意义不大</a><br />
+<a href="http://grepcode.com/file/repo1.maven.org/maven2/org.mybatis.caches/mybatis-ehcache/1.0.0-RC1/org/mybatis/caches/ehcache/EhcacheCache.java">EhcacheCache.java</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：用GemFire做Mybatis二级缓存
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/gemfire" rel="tag" title="gemfire">#gemfire#</a>
+    
+    <a href="/tags/mybatis" rel="tag" title="mybatis">#mybatis#</a>
+    
+    <a href="/tags/%e4%ba%8c%e7%ba%a7%e7%bc%93%e5%ad%98" rel="tag" title="二级缓存">#二级缓存#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/" rel="next" title="JavaSE 新增特性">
+        <i class="fa fa-chevron-left"></i> JavaSE 新增特性
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/" rel="prev" title="Java缓存规范JCache API(JSR107)">
+        Java缓存规范JCache API(JSR107) <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/";
+this.page.identifier = "https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#mybatis的cache配置及实现">MyBatis的Cache配置及实现</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

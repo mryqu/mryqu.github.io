@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gcc on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/gcc/</link>
+    <description>Recent content in Gcc on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 23 Mar 2017 06:14:57 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/gcc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C&#43;&#43;] Compile JsonCpp library using CMake</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_compile_jsoncpp_library_using_cmake/</link>
+      <pubDate>Thu, 23 Mar 2017 06:14:57 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_compile_jsoncpp_library_using_cmake/</guid>
+      <description>本文为升级JsonCpp库操作过程的备份笔记。
+Linux/Unix平台 下载JsonCpp 从JsonCpp releases页面可知，当前最高版本为1.8.0。
+wget https://github.com/open-source-parsers/jsoncpp/archive/1.8.0.tar.gz tar xzvf 1.8.0.tar.gz cd jsoncpp-1.8.0 mkdir build/release  升级gcc 这里我选择使用gcc 5:
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test sudo apt-get update sudo apt-get install gcc-5 g++-5 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1  升级cmake JsonCpp 1.8.0要求cmake&amp;gt;=3.1
+sudo apt-get install software-properties-common sudo add-apt-repository ppa:george-edison55/cmake-3.x sudo apt-get update sudo apt-get upgrade cmake  编译JsonCpp cmake -DCMAKE_BUILD_TYPE=release -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G &amp;quot;Unix Makefiles&amp;quot; .</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;]玩玩Designated Initializer</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E7%8E%A9%E7%8E%A9designated_initializer/</link>
+      <pubDate>Mon, 28 Dec 2015 06:18:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E7%8E%A9%E7%8E%A9designated_initializer/</guid>
+      <description>玩一把gcc的Designated Initializers： 测试结果：结构体内的变量必须按照声明的顺序初始化，并且不能遗漏，否则会报“sorry, unimplemented:non-trivial designated initializers not supported”错误。
+参考 C99标准
+Bug 55606 - sorry, unimplemented: non-trivial designated initializers not supported
+C++ - g++: sorry, unimplemented: non-trivial designated initializers not supported - SysTutorials QA
+http://stackoverflow.com/questions/31215971/non-trivial-designated-initializers-not-supported
+Non-trivial designated initializers not supported · Issue #8 · couchbaselabs/cbforest · GitHub</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] 我服务器上的GCC版本不支持C&#43;&#43;11特性</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E6%88%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84gcc%E7%89%88%E6%9C%AC%E4%B8%8D%E6%94%AF%E6%8C%81c&#43;&#43;11%E7%89%B9%E6%80%A7/</link>
+      <pubDate>Fri, 25 Dec 2015 06:10:29 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E6%88%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84gcc%E7%89%88%E6%9C%AC%E4%B8%8D%E6%94%AF%E6%8C%81c&#43;&#43;11%E7%89%B9%E6%80%A7/</guid>
+      <description>用了点C++11特性，结果编译失败，编译参数加&amp;rdquo;-std=c++0x&amp;rdquo;，结果识别不出来。
+$ g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with: FreeBSD/amd64 system compiler Thread model: posix gcc version 4.2.1 20070719 [FreeBSD]  C++0x/C++11 Support in GCC提到GCC 4.3版本之后才支持C++11特性，白折腾一把！ 好吧，我用gcc docker!</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] 使用NM查看目标文件的符号列表</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/</link>
+      <pubDate>Fri, 18 Dec 2015 06:10:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/</guid>
+      <description>练习使用nm查看目标文件的符号列表。此外发现G++竟然创建了两套构造函数和析构函数。
+nm命令  -a或&amp;ndash;debug-syms：显示调试符号。 -B：等同于&amp;ndash;format=bsd，用来兼容MIPS的nm。 -C或&amp;ndash;demangle：将低级符号名解码(demangle)成用户级名字。这样可以使得C++函数名具有可读性。 -D或&amp;ndash;dynamic：显示动态符号。该任选项仅对于动态目标(例如特定类型的共享库)有意义。 -fformat：使用format格式输出。format可以选取bsd、sysv或posix，该选项在GNU的nm中有用。默认为bsd。 -g或&amp;ndash;extern-only：仅显示外部符号。 -n、-v或&amp;ndash;numeric-sort：按符号对应地址的顺序排序，而非按符号名的字符顺序。 -p或&amp;ndash;no-sort：按目标文件中遇到的符号顺序显示，不排序。 -P或&amp;ndash;portability：使用POSIX.2标准输出格式代替默认的输出格式。等同于使用任选项-fposix。 -s或&amp;ndash;print-armap：当列出库中成员的符号时，包含索引。索引的内容包含：哪些模块包含哪些名字的映射。 -r或&amp;ndash;reverse-sort：反转排序的顺序(例如，升序变为降序)。 &amp;ndash;size-sort：按大小排列符号顺序。该大小是按照一个符号的值与它下一个符号的值进行计算的。 -tradix或&amp;ndash;radix=radix：使用radix进制显示符号值。radix只能为&amp;rdquo;d&amp;rdquo;表示十进制、&amp;rdquo;o&amp;rdquo;表示八进制或&amp;rdquo;x&amp;rdquo;表示十六进制。 &amp;ndash;target=bfdname：指定一个目标代码的格式，而非使用系统的默认格式。 -u或&amp;ndash;undefined-only：仅显示没有定义的符号(那些外部符号)。 -l或&amp;ndash;line-numbers：对每个符号，使用调试信息来试图找到文件名和行号。对于已定义的符号，查找符号地址的行号。对于未定义符号，查找指向符号重定位入口的行号。如果可以找到行号信息，显示在符号信息之后。 -V或&amp;ndash;version：显示nm的版本号。 &amp;ndash;help：显示nm的任选项。  练习 symtest.hpp #include &amp;lt;iostream&amp;gt; class SymTest { SymTest(); SymTest(int x); ~SymTest(); void foo(); };  symtest.cpp #include &amp;quot;symtest.hpp&amp;quot; SymTest::SymTest() { printf(&amp;quot;SymTest::SymTest\n&amp;quot;); } SymTest::SymTest(int x) { printf(&amp;quot;SymTest::SymTest(int)\n&amp;quot;); } SymTest::~SymTest() { printf(&amp;quot;SymTest::~SymTest\n&amp;quot;); } void SymTest::foo() { printf(&amp;quot;SymTest::foo\n&amp;quot;); }  编译 NM: -g 仅显示外部符号 -C 显示用户级名字 学习了StackOverflow上的帖子Dual emission of constructor symbols，才了解这是G++的一个已知问题，两套构造函数分别是complete objectconstructor和base object constructor。</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] 使用readelf</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/</link>
+      <pubDate>Tue, 08 Dec 2015 06:06:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/</guid>
+      <description>在计算机科学中，ELF文件（Executableand LinkableFormat）是一种用于二进制文件、可执行文件、目标代码、共享库和核心转储格式文件，是UNIX系统实验室（USL）作为应用程序二进制接口（ApplicationBinaryInterface，ABI）而开发和发布的，也是Linux的主要可执行文件格式。1999年，被86open项目选为x86架构上的类Unix操作系统的二进制文件标准格式，用来取代COFF。因其可扩展性与灵活性，也可应用在其它处理器、计算机系统架构的操作系统上。 ELF文件由4部分组成，分别是ELF头（ELF header）、程序头表（Program headertable）、节（Section）和节头表（Section headertable）。实际上，一个文件中不一定包含全部内容，而且他们的位置也未必如同所示这样安排，只有ELF头的位置是固定的，其余各部分的位置、大小等信息由ELF头中的各项值来决定。 而readelf用于显示ELF文件的信息。 Usage: readelf &amp;lt;option(s)&amp;gt; elf-file(s) Display information about the contents of ELF format files Options are: -a --all 全部 Equivalent to: -h -l -S -s -r -d -V -A -I -h --file-header ELF头 Display the ELF file header -l --program-headers 程序头表 Display the program headers --segments An alias for --program-headers -S --section-headers 节头 Display the sections&#39; header --sections An alias for --section-headers -g --section-groups 节组 Display the section groups -t --section-details 节细节 Display the section details -e --headers 全部头 Equivalent to: -h -l -S -s --syms 符号表 Display the symbol table --symbols An alias for --syms --dyn-syms 动态符号表 Display the dynamic symbol table -n --notes 核心注释 Display the core notes (if present) -r --relocs 重定位 Display the relocations (if present) -u --unwind Display the unwind info (if present) -d --dynamic 动态节 Display the dynamic section (if present) -V --version-info 版本节 Display the version sections (if present) -A --arch-specific 架构信息 Display architecture specific information (if any) -c --archive-index 该架构下符号/文件索引 Display the symbol/file index in an archive -D --use-dynamic Use the dynamic section info when displaying symbols -x --hex-dump=&amp;lt;number|name&amp;gt; Dump the contents of section &amp;lt;number|name&amp;gt; as bytes -p --string-dump=&amp;lt;number|name&amp;gt; Dump the contents of section &amp;lt;number|name&amp;gt; as strings -R --relocated-dump=&amp;lt;number|name&amp;gt; Dump the contents of section &amp;lt;number|name&amp;gt; as relocated bytes -w[lLiaprmfFsoRt] or --debug-dump[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames, =frames-interp,=str,=loc,=Ranges,=pubtypes, =gdb_index,=trace_info,=trace_abbrev,=trace_aranges, =addr,=cu_index] 显示DWARF2调试节 Display the contents of DWARF2 debug sections --dwarf-depth=N Do not display DIEs at depth N or greater --dwarf-start=N Display DIEs starting with N, at the same depth or deeper -I --histogram 柱状图 Display histogram of bucket list lengths -W --wide 输出宽度 Allow output width to exceed 80 characters @&amp;lt;file&amp;gt; Read options from &amp;lt;file&amp;gt; -H --help 帮助 Display this information -v --version 版本 Display the version number of readelf  练习 - 查看ELF文件头 hadoop@node51054:/usr/bin$ readelf -h curl ELF Header: Magic: 7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 Class: ELF64 Data: 2&#39;s complement, little endian Version: 1 (current) OS/ABI: UNIX - System V ABI Version: 0 Type: EXEC (Executable file) Machine: Advanced Micro Devices X86-64 Version: 0x1 Entry point address: 0x4023b1 Start of program headers: 64 (bytes into file) Start of section headers: 152600 (bytes into file) Flags: 0x0 Size of this header: 64 (bytes) Size of program headers: 56 (bytes) Number of program headers: 9 Size of section headers: 64 (bytes) Number of section headers: 27  练习 - 查看符号表 hadoop@node51054:/usr/bin$ readelf -s curl Symbol table &#39;.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] 使用ldd</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/</link>
+      <pubDate>Mon, 07 Dec 2015 06:05:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/</guid>
+      <description>ldd是用来查看共享库依赖的Shell脚本命令。下面来看一下ldd命令的参数。 - -v：显示所有信息，例如包括符号版本信息。 - -u：显示没有使用的直接依赖。 - -d：执行重新定位，报告任何缺失对象（仅针对ELF） - -r：对数据对象和函数执行重新定位，报告任何缺失对象或函数（仅针对ELF）
+Oracle - Linker and Libraries Guide - Relocations介绍了重新定位技术的来龙去脉，也介绍了ldd命令的相关使用。
+ldd练习 hadoop@node51054:/usr/bin$ ldd curl linux-vdso.so.1 =&amp;gt; (0x00007ffefe989000) libcurl.so.4 =&amp;gt; /usr/lib/x86_64-linux-gnu/libcurl.so.4 (0x00007fb86cf8f000) libz.so.1 =&amp;gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007fb86cd76000) libpthread.so.0 =&amp;gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb86cb58000) libc.so.6 =&amp;gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb86c790000) libidn.so.11 =&amp;gt; /usr/lib/x86_64-linux-gnu/libidn.so.11 (0x00007fb86c55d000) librtmp.so.0 =&amp;gt; /usr/lib/x86_64-linux-gnu/librtmp.so.0 (0x00007fb86c343000) libssl.so.1.0.0 =&amp;gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fb86c0e4000) libcrypto.so.1.0.0 =&amp;gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fb86bd08000) libgssapi_krb5.so.2 =&amp;gt; /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007fb86bac1000) liblber-2.4.so.2 =&amp;gt; /usr/lib/x86_64-linux-gnu/liblber-2.4.so.2 (0x00007fb86b8b2000) libldap_r-2.4.so.2 =&amp;gt; /usr/lib/x86_64-linux-gnu/libldap_r-2.4.so.2 (0x00007fb86b661000) /lib64/ld-linux-x86-64.so.2 (0x00007fb86d1f6000) libgnutls.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] GNU Binutils之ar和ranlib</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/</link>
+      <pubDate>Sun, 06 Dec 2015 07:36:13 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/</guid>
+      <description>GNU binutils是一组二进制工具集。包括：ld、as、addr2line、ar、gprof、nm、objcopy、objdump、ranlib、size、strings、strip等。本文重点学习一下其中的ar和ranlib。
+ar命令 ar用于建立、修改、提取档案文件(archive)。archive是一个包含多个被包含文件的单一文件（也称之为库文件），其结构保证了可以从中检索并得到原始的被包含文件（称之为archive中的member）。member的原始文件内容、模式（权限）、时间戳、所有者和组等属性都被保存在archive中。member被提取后，他们的属性被恢复到初始状态。 ar命令第一个参数可混合指令代码（operationcode p）和修饰符标志（modifier flags mod），可按意愿添加一个折线。
+ar [--plugin name] [-X32_64] [-]p[mod [relpos] [count]] archive [member...]  指令参数  d：删除档案文件中的成员文件。 m：移动在档案文件中的成员文件，改变次序。可以借助修饰符标志a、b、i移动到指定位置。 p：显示档案文件中的成员文件内容。 q：将文件快速附加在档案文件末端。不检查、不替换已有同名成员文件，也不更新档案文件的符号表索引，修饰符标志a、b、i无效。然而很多不同系统都假设q指令重建档案文件的符号表索引，因此GNU将其按照r指令进行相同实现。 r：将文件插入档案文件中。检查并替换已有同名成员文件，重建档案文件的符号表索引，借助修饰符标志a、b、i将文件插入到指定位置。 t：显示档案文件中所包含的文件。 x：自档案文件中取出成员文件。  修饰符标志  a &amp;lt;成员文件&amp;gt;：将文件插入档案文件中指定的成员文件之后。 b&amp;lt;成员文件&amp;gt;：将文件插入档案文件中指定的成员文件之前。 c：建立档案文件。当更新档案文件时，档案文件不存在则创建档案文件，但会告警。此标志可抑制告警。 D：以确定模式工作。 f：为避免过长的文件名不兼容于其他系统的ar指令指令，可利用此参数，截掉要放入档案文件中过长的成员文件名称。 i &amp;lt;成员文件&amp;gt;：将文件插入档案文件中指定的成员文件之前。（等同标志b） I：可接受但不使用。 N：使用count参数。当档案文件中存在多个同名成员，用于指定提取/删除的个数。 o：保留档案文件中文件的日期。如无此参数，则输出文件的修改时间为提取时间。 s：若档案文件中包含了对象模式，可利用此参数建立档案文件的符号表。 S：不产生符号表。 T：使指定档案文件成为瘦档案文件。例如将多个档案文件加入目标档案文件，目标档案文件可以包含符号索引及对源档案文件中成员文件的引用。 u：只将日期较新文件插入档案文件中。 v：程序执行时显示详细的信息。 V：显示版本信息。  练习 # 将当前目录下所有.o打包成libyqutest.a档案文件：r插入，v显示操作信息，s生成符号表。 ar rvs libyqutest.a *.o # 制作瘦档案文件：r插入，c建立档案文件，T指定为瘦档案文件。 ar -rcT libkx.a libke.a libxiao.a  ranlib命令 为档案文件创建符号索引。
+ranlib [-vVt] archive  选项： - -v、-V或&amp;ndash;version：显示版本 - -t：更新档案文件符号映射的时戳。</description>
+    </item>
+    
+    <item>
+      <title>MinGW安装和使用</title>
+      <link>https://mryqu.github.io/post/mingw%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 04 Feb 2014 18:17:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/mingw%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>MinGW简介 MinGW全称Minimalist GNU For Windows，，是将GCC编译器和GNUBinutils移植到Win32平台下的产物，包括一系列头文件（Win32API）、库和可执行文件。MinGW是从Cygwin1.3基础上发展而来，相比Cygwin而言体积更小、使用更方便。MinGW分两个分支，MinGW（即MinGW32）和MinGW-w64。 MinGW包括： - GNU编译器套件，包括C/C++、ADA语言和Fortran语言编译器 - 用于生成Windows二进制文件的GNU工具（编译器、链接器和档案管理器） - 用于Windows平台安装和部署MinGW和MSYS的命令行安装器（mingw-get） - 用于命令行安装器的GUI打包器（mingw-get-inst）
+MinGW安装和使用 我只想使用C/C++，所以仅安装mingw32-base、mingw32-gcc-g++。msys-base其实也是可以不用安装的，因为我可以使用已有的GitBash。 我选择了默认的安装路径c:\MinGW，可以将c:\MinGW\bin加入环境变量以便使用。 参考 MinGW 官方网站
+SourceForge.net：MinGW - Minimalist GNU for Windows
+SourceForge.net：MinGW-w64 - for 32 and 64 bit Windows</description>
+    </item>
+    
+    <item>
+      <title>[C] GCC对UTF8 BOM的支持</title>
+      <link>https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/</link>
+      <pubDate>Thu, 24 Oct 2013 20:31:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/</guid>
+      <description>最近玩些特俗字符，结果对yqutest.cpp源码文件编译时先碰到error:converting to execution character set: Illegal bytesequence错误。GCC的源码字符集与执行字符集默认是UTF-8编码，为了避免源码文件乱码，最好也是采用UTF-8编码来存储源码文件。将源码编码转成UTF-8，问题得以解决。 但是否需要UTF-8 BOM(byte-order mark)呢？ 我一时兴起添加了BOM，十六进制为EF BB BF，即对应八进制的357 273 277，编译结果如下：
+mryqu&amp;gt; g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray &#39;\357&#39; in program yqutest.cpp:1: error: stray &#39;\273&#39; in program yqutest.cpp:1: error: stray &#39;\277&#39; in program yqutest.cpp:1: error: stray &#39;#&#39; in program yqutest.cpp:1: error: expected constructor, destructor, or type conversion before &#39;&amp;lt;&#39; token mryqu&amp;gt; g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with: FreeBSD/amd64 system compiler Thread model: posix gcc version 4.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;] 从静态库获取GCC版本和编译平台</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/</link>
+      <pubDate>Thu, 24 Oct 2013 07:43:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/</guid>
+      <description>获取GCC版本：strings -a {library} | grep &amp;ldquo;GCC: (&amp;rdquo;
+mryqu&amp;gt; strings -a libcurl.a | grep &amp;quot;GCC: (&amp;quot; GCC: (GNU) 4.4.5 20110214 (Red Hat 4.4.5-6)  获取编译平台信息：ar -x {library}file *.o
+mryqu&amp;gt; ar -x libcurl.a mryqu&amp;gt;file libcurl_la-url.o libcurl_la-url.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped  参考 How to retrieve the GCC version used to compile a given ELF executable?
+How to see the compilation platform of a static library file</description>
+    </item>
+    
+    <item>
+      <title>[C] Exec format error</title>
+      <link>https://mryqu.github.io/post/c_exec_format_error/</link>
+      <pubDate>Sun, 20 Oct 2013 17:28:57 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c_exec_format_error/</guid>
+      <description>很久没用g++了，结果编个小程序还出错。
+mryqu:~/ctest$ g++ -g -c wvc.cpp -o wvc mryqu:~/ctest$ chmod a+x wvc mryqu:~/ctest$ ./wvc -bash: ./wvc: cannot execute binary file: Exec format error mryqu:~/ctest$ file wvc wvc: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped  查了查gcc的帮助，才发现用了-c选项后其实是只编译不链接的：
+-c Compile or assemble the source files, but do not link. The linking stage simply is not done. The ultimate output is in the form of an object file for each source file.</description>
+    </item>
+    
+  </channel>
+</rss>

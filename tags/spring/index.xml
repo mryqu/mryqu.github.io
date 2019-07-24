@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spring on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/spring/</link>
+    <description>Recent content in Spring on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 13 Aug 2018 10:25:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Spring] LDAP用户验证笔记</title>
+      <link>https://mryqu.github.io/post/spring_ldap%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 13 Aug 2018 10:25:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_ldap%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81%E7%AC%94%E8%AE%B0/</guid>
+      <description>对Spring LDAP用户验证进行了学习，制作了时序图： LDAP身份验证的步骤为：
+- 从客户端登录页面获得用户名和密码。
+- 匿名或使用管理DN/密码绑定到LDAP服务器，通过登录用户名查询用户DN，如失败则报用户不存在。
+- 使用用户DN和密码再次绑定到LDAP服务器，如果能成功绑定则验证成功，否则报用户密码错误。
+参考 Spring Security Architecture
+Spring Security Reference
+Spring Security Project
+GETTING STARTED: Authenticating a User with LDAP
+GitHub: spring-guides/gs-authenticating-ldap</description>
+    </item>
+    
+    <item>
+      <title>swagger-codegen 2.2.3与2.1.5区别</title>
+      <link>https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Sun, 23 Jul 2017 06:13:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/</guid>
+      <description>支持的语法 $ java -jar swagger-codegen-cli-2.1.6.jar langs Available languages: [android, aspnet5, async-scala, csharp, dart, flash, python-flask, go, java, jaxrs, jaxrs-cxf, jaxrs-resteasy, inflector, javascript, javascript-closure-angular, jmeter, nodejs-server, objc, perl, php, python, qt5cpp, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring-mvc, dynamic-html, html, swagger, swagger-yaml, swift, tizen, typescript-angular, typescript-node, akka-scala, CsharpDotNet2, clojure, haskell-servant] $ java -jar swagger-codegen-cli-2.2.3.jar langs Available languages: [akka-scala, android, apache2, apex, aspnet5, aspnetcore, async-scala, bash, csharp, clojure, cwiki, cpprest, CsharpDotNet2, dart, elixir, eiffel, erlang-server, finch, flash, python-flask, go, go-server, groovy, haskell, jmeter, jaxrs-cxf-client, jaxrs-cxf, java, inflector, jaxrs-cxf-cdi, jaxrs-spec, jaxrs, msf4j, java-play-framework, jaxrs-resteasy-eap, jaxrs-resteasy, javascript, javascript-closure-angular, java-vertx, kotlin, lumen, nancyfx, nodejs-server, objc, perl, php, php-symfony, powershell, pistache-server, python, qt5cpp, rails5, restbed, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring, dynamic-html, html2, html, swagger, swagger-yaml, swift4, swift3, swift, tizen, typescript-angular2, typescript-angular, typescript-fetch, typescript-jquery, typescript-node, undertow, ze-ph]  swagger-codegen 2.</description>
+    </item>
+    
+    <item>
+      <title>Ribbon和Spring Cloud Consul</title>
+      <link>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</link>
+      <pubDate>Thu, 29 Jun 2017 05:45:01 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</guid>
+      <description>学习一下Client Side Load Balancing with Ribbon and Spring Cloud快速入门指南，这里的客户端负载平衡是借助Netflix Ribbon实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。
+@RibbonClient和@LoadBalanced的区别 Difference between @RibbonClient and @LoadBalanced讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。
+restTemplate.getForObject(&amp;quot;http://some-service-name/user/{id}&amp;quot;, String.class, 1);  @RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。 在下列两种情况下需要使用@RibbonClient注解： * 需要对特定Robbon客户端使用定制Ribbon设置 * 没有使用任何服务发现
+定制Robbon设置：
+@Configuration @RibbonClient(name = &amp;quot;foo&amp;quot;, configuration = FooConfiguration.class) public class TestConfiguration { }  注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。
+Spring Cloud Consul和Ribbon 在没用使用任何服务发现时，Ribbon从listOfServers配置里的服务器列表进行选择的。偶在项目中是用Consul的，它主业就是干服务发现的工作，而且还支持Netflix Ribbon。 网上有现成的Spring Cloud Consul和Ribbon示例spring-boot-consul-demo-tax和spring-boot-consul-demo-invoice。使用默认Ribbon设置，所以bootstrap.yml/application.yml里没有Ribbon设置，代码也没有使用@RibbonClient。 启动两个spring-boot-consul-demo-tax微服务实例和一个spring-boot-consul-demo-invoice微服务实例，在浏览器访问spring-boot-consul-demo-invoice微服务，就会发现spring-boot-consul-demo-invoice微服务实例以RoundRobin轮询方式调用两个spring-boot-consul-demo-tax微服务实例了。
+Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包含的几个重要组件/属性，正是这几个组件为Ribbon的功能提供支持:
+| 组件 | 描述 | | - | - | |Rule | 负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。| |Ping | 判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。| |ServerList | 服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。| |LoadBalancerStats | 负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。|</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud Consul Config</title>
+      <link>https://mryqu.github.io/post/spring_cloud_consul_config/</link>
+      <pubDate>Fri, 23 Jun 2017 05:40:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_cloud_consul_config/</guid>
+      <description>Spring Cloud是在Spring Boot的基础上构建的，用于简化分布式系统构建的工具集，为开发人员提供快速建立分布式系统中的一些常见的模式。例如：分布式版本可控配置(Distributed/versioned configuration)，服务注册与发现(Service registration and discovery)、智能路由(intelligent routing)、服务间调用、负载均衡、断路器(circuit breakers)、微代理(micro-proxy)、控制总线(control bus)、一次性令牌(one-time tokens)、全局锁(global locks)、领导选举和集群状态(leadership election and cluster state)、分布式消息、分布式会话等。 Spring Cloud Config项目快速入门示例展示了用于分布式系统中由Git仓库支持的中央外部配置。但是偶在项目中是用Consul的，而Spring Cloud Consul项目的快速入门示例并没有展示如何使用Consul进行配置管理，所以还是自己攒一下吧。
+Spring Cloud Consul简介 HashiCorp公司的Consul是用于基础架构中服务发现和配置的工具，支持服务发现、健康检查、用于不同用途的键值对存储、多数据中心支持。 Spring Cloud Consul通过自动配置及Spring环境和其他Spring编程模型进行绑定实现Cosul与Spring Boot应用的集成。通过一些简单的注释，即可激活应用内的通用模式，使用Hashicorp的Consul构建大型分布式系统。其功能如下： * 服务发现: 实例可以向Consul agent注册，客户端可以使用Spring管理的bean发现这些实例 * 支持Ribbon: 通过Spring Cloud Netflix提供的客户端负载均衡 * 支持Zuul: 通过Spring Cloud Netflix提供的动态路由和过滤 * 分布式配置: 使用Consul键值对存储 * 控制总线: 使用Consul事件的分布式控制事件
+安装并启动Consul 每个集群需要最少三台Consul server，以建立仲裁(quorum)，每个机器上必须运行一个consul agent。 Consul Agent: - 健康检查
+- 转发查询
+Consul Server: - 存储数据
+- 响应查询
+- 领导选举
+根据参考二Consul安装指南，可以很轻松地在本机安装Consul。用于开发环境启动本地单Consul实例的脚本可以使用参考一Spring Cloud Consul指南中所提到的src/main/bash/local_run_consul.</description>
+    </item>
+    
+    <item>
+      <title>学习Java Annotation</title>
+      <link>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</link>
+      <pubDate>Tue, 27 Dec 2016 05:46:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</guid>
+      <description>以前看过Java Annotation，走马观花，现在印象已经不深刻了。这次好好看一下Java Annotation和Spring Annotation。
+阅读列表： The Java Tutorials - Annotations
+Java Annotation认知(包括框架图、详细介绍、示例说明)
+Annotations Gotchas and Best Practices
+Annotations: Don&amp;rsquo;t Mess with Java
+Java Annotations Are a Big Mistake
+Spring Annotation-based container configuration
+Spring Framework Annotations cheat sheet
+Spring Without XML: The Basics of Spring Annotations vs. Spring XML Files
+Spring Annotation Tutorial
+Spring Annotations [ Quick Reference ]</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 让非Spring管理的类获得一个Bean</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E8%AE%A9%E9%9D%9Espring%E7%AE%A1%E7%90%86%E7%9A%84%E7%B1%BB%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AAbean/</link>
+      <pubDate>Fri, 04 Dec 2015 06:08:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E8%AE%A9%E9%9D%9Espring%E7%AE%A1%E7%90%86%E7%9A%84%E7%B1%BB%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AAbean/</guid>
+      <description> 我有一个工具类，它既会被SpringBean调用，也会被非Spring管理的类调用。我想在这个工具类里获得Spring注入了拦截器的RestTemplate。一开始考虑了ApplicationContextAware、ContextLoaderListener和ContextLoaderServlet，最后采用了下面这种改动最小的解决方案。
+示例代码 Application.java @SpringBootApplication public class Application{ public static void main(String[] args) { final ApplicationContext applicationContext = SpringApplication.run(Application.class, args); MyUtil.setApplicationContext(applicationContext); } @Bean public RestTemplate restTemplate() { return new RestTemplate(); } }  MyUtil.java public class MyUtil { private static ApplicationContext applicationContext; public static void setApplicationContext(ApplicationContext context) { applicationContext = context; } public static void doSomething() { RestTemplate _restTemplate = applicationContext.getBean(RestTemplate.class); ........ } }  </description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping</title>
+      <link>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</link>
+      <pubDate>Thu, 03 Dec 2015 06:38:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</guid>
+      <description>简介 SpringMVC的URL映射有一个控制路径匹配的参数alwaysUseFullPath。当它被设置为true后，总是使用当前servlet上下文中的全路径进行URL查找，否则使用当前servlet映射内的路径。默认为false。下面示例一下当一个请求的全路径通过servlet映射找到所服务的RequestDispatcherservelet后alwaysUseFullPath为false时URL映射表现：
+         servlet mapping = &amp;ldquo;/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test&amp;rdquo;; request URI = &amp;ldquo;/test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;   servlet mapping = &amp;ldquo;/*.test&amp;rdquo;; request URI = &amp;ldquo;/a.test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;    从org.</description>
+    </item>
+    
+    <item>
+      <title>Spring Accessing Facebook Data Guide调试笔记</title>
+      <link>https://mryqu.github.io/post/spring_accessing_facebook_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 06 Nov 2015 05:45:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_accessing_facebook_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
+      <description>尝试Spring Accessing Facebook Data Guide时，除了要像Spring Accessing Twitter Data Guide调试笔记中那样设置代理，还碰到几个其他问题，这里记录一下。
+Null Pointer Exception 描述
+java.lang.NullPointerException: null at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51] at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51] at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:208) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE] at com.sun.proxy.$Proxy49.isAuthorized(Unknown Source) ~[na:na] at hello.HelloController.helloFacebook(HelloController.java:26) ~[bin/:na] at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51] at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51] at org.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Hello MethodInvokingFactoryBean and MethodInvokingBean</title>
+      <link>https://mryqu.github.io/post/spring_boot_hello_methodinvokingfactorybean_and_methodinvokingbean/</link>
+      <pubDate>Thu, 05 Nov 2015 05:58:07 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_hello_methodinvokingfactorybean_and_methodinvokingbean/</guid>
+      <description>简介 在用spring管理我们的类的时候有时候希望有些属性值是来源于一些配置文件，系统属性，或者一些方法调用的结果，对于前两种使用方式可以使用spring的PropertyPlaceholderConfigurer类来注入，对于后一种则可以使用org.springframework.beans.factory.config.MethodInvokingFactoryBean类来生成需要注入的bean的属性。
+通过MethodInvokingFactory Bean类，可注入方法返回值。MethodInvokingFactoryBean用来获得某个方法的返回值，该方法既可以是静态方法，也可以是实例方法。该方法的返回值可以注入bean实例属性，也可以直接定义成bean实例。
+MethodInvokingBean是MethodInvokingFactoryBean的父类，更为简单。跟MethodInvokingFactoryBean相比，不会对容器返回任何值。
+类层次关系 示例代码： package com.yqu.methodinvoker; import java.util.Arrays; import java.util.Properties; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.beans.factory.config.MethodInvokingBean; import org.springframework.beans.factory.config.MethodInvokingFactoryBean; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); log.info(&amp;quot;sysProp http.proxyHost:&amp;quot;+System.getProperty(&amp;quot;http.proxyHost&amp;quot;)); log.info(&amp;quot;sysProp http.proxyPort:&amp;quot;+System.getProperty(&amp;quot;http.proxyPort&amp;quot;)); } @Bean public MethodInvokingFactoryBean methodInvokingFactoryBean() { MethodInvokingFactoryBean mfBean = new MethodInvokingFactoryBean(); mfBean.setStaticMethod(&amp;quot;java.lang.System.setProperties&amp;quot;); Properties props = System.</description>
+    </item>
+    
+    <item>
+      <title>Spring Accessing Twitter Data Guide调试笔记</title>
+      <link>https://mryqu.github.io/post/spring_accessing_twitter_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 04 Nov 2015 05:57:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_accessing_twitter_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
+      <description>尝试Spring Accessing Twitter Data Guide时碰到几个问题，这里记录一下。
+连接超时问题 遇到I/O error on POST request for&amp;rdquo;https://api.twitter.com/oauth/request_token&amp;quot;错误:
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for &amp;quot;https://api.twitter.com/oauth/request_token&amp;quot;:Connection timed out: connect; nested exception is java.net.ConnectException: Connection timed out: connect at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:582) at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:547) at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:468) at org.springframework.social.oauth1.OAuth1Template.exchangeForToken(OAuth1Template.java:187) at org.springframework.social.oauth1.OAuth1Template.fetchRequestToken(OAuth1Template.java:115) at org.springframework.social.connect.web.ConnectSupport.fetchRequestToken(ConnectSupport.java:212) at org.springframework.social.connect.web.ConnectSupport.buildOAuth1Url(ConnectSupport.java:199) at org.springframework.social.connect.web.ConnectSupport.buildOAuthUrl(ConnectSupport.java:126) at org.springframework.social.connect.web.ConnectController.connect(ConnectController.java:226) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:497) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137) at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:775) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705) at org.</description>
+    </item>
+    
+    <item>
+      <title>Hello Spring Social LinkedIn</title>
+      <link>https://mryqu.github.io/post/hello_spring_social_linkedin/</link>
+      <pubDate>Tue, 03 Nov 2015 05:50:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_spring_social_linkedin/</guid>
+      <description>本想玩玩Spring SocialLinkedIn，看看能从LinkedIn哪里获得什么有价值的数据。可是LinkedIn现在放开的只有r_basicprofile、r_emailaddress、rw_company_admin、w_share权限，如LinkedIn developer program transition所说的不要在认证中请求r_fullprofile、r_network、r_contactinfo、rw_nus、rw_groups和w_messages权限了。 在LinkedIn API Console中可试最多的是CompaniesAPI，可是我在LinkedIn上没有公司主页可以创建。所以浅尝则止，没什么太多可分享的。
+参考 Spring Social LinkedIn Project
+Spring Social Project
+GitHub: spring-projects/spring-social-samples
+LinkedIn Developer
+LinkedIn API Console
+LinkedIn developer program transition</description>
+    </item>
+    
+    <item>
+      <title>Hello Spring Social Twitter</title>
+      <link>https://mryqu.github.io/post/hello_spring_social_twitter/</link>
+      <pubDate>Sun, 01 Nov 2015 06:03:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_spring_social_twitter/</guid>
+      <description>学习了Spring Accessing Twitter Data Guide，稍作修改，练习一下用Spring Social Twitter搜索推文。
+HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java package com.yqu.springtwitter; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  src/main/java/com/yqu/springtwitter/HelloController.java package com.yqu.springtwitter; import javax.inject.Inject; import org.springframework.social.connect.ConnectionRepository; import org.springframework.social.twitter.api.SearchResults; import org.springframework.social.twitter.api.Twitter; import org.springframework.stereotype.Controller; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RequestMethod; import org.springframework.web.bind.annotation.RequestParam; @Controller @RequestMapping(&amp;quot;/&amp;quot;) public class HelloController { private Twitter twitter; private ConnectionRepository connectionRepository; @Inject public HelloController(Twitter twitter, ConnectionRepository connectionRepository) { this.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 使用多个Servlet</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/</link>
+      <pubDate>Wed, 28 Oct 2015 06:07:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAservlet/</guid>
+      <description>当使用Spring boot的嵌入式servlet容器时，可以通过Springbean或扫描Servlet组件的方式注册Servlet、Filter和Servlet规范的所有监听器(例如HttpSessionListener)。 - 当urlMapping不是很复杂时，可以通过ServletRegistrationBean、FilterRegistrationBean和ServletListenerRegistrationBean获得完整控制。如果bean实现了ServletContextInitializer接口的话则可以直接注册。 - 当使用@ServletComponentScan扫描Servlet组件时，Servlet、过滤器和监听器可以是通过@WebServlet、@WebFilter和@WebListener自动注册
+示例代码 Application.java package com.yqu.multiservlet; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.boot.context.embedded.ServletRegistrationBean; import org.springframework.context.annotation.Bean; import org.springframework.web.servlet.DispatcherServlet; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } @Bean public ServletRegistrationBean dispatcherRegistration( DispatcherServlet dispatcherServlet) { ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet); registration.addUrlMappings(&amp;quot;/hirest/*&amp;quot;); printStacks(); return registration; } @Bean public ServletRegistrationBean servletRegistrationBean() { printStacks(); return new ServletRegistrationBean( new SigninServlet(), &amp;quot;/signin&amp;quot;); } private void printStacks() { StackTraceElement[] elements = Thread.</description>
+    </item>
+    
+    <item>
+      <title>Spring 框架: @RestController vs @Controller</title>
+      <link>https://mryqu.github.io/post/spring%E6%A1%86%E6%9E%B6_restcontroller_vs_controller/</link>
+      <pubDate>Fri, 23 Oct 2015 05:57:46 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring%E6%A1%86%E6%9E%B6_restcontroller_vs_controller/</guid>
+      <description>今天扫了一眼RestController注解的实现，它是@Controller和@ResponseBody的合体。
+@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME) @Documented @Controller @ResponseBody public @interface RestController { String value() default &amp;quot;&amp;quot;; }  至于@RestController与@Controller的所有区别，还不是完全明了。看了Srivatsan Sundararajan和Swapna Sagi的大作Spring Framework: @RestController vs @Controller，感觉豁然开朗。
+Spring MVC框架和REST Spring基于MVC框架的注解简化了创建RESTful web服务流程。传统MVS控制器和RESTfulweb服务控制器关键区别在于HTTP响应体创建方式。传统MVC控制器依赖试图技术，而RESTfulweb服务控制器仅仅返回对象并将对象数据作为JSON/XML直接写到HTTP响应中。关于使用Spring框架创建RESTfulWEB服务的技术细节，点击这里。 图1: Spring MVC传统工作流
+Spring MVC REST工作流 传统Spring MVC REST工作流步骤如下: - 客户端以URI形式向web服务发送一个请求。The client sends a request to a webservice in URI form. - 请求被DispatcherServlet拦截用于查找处理器映射（Handler Mappings）及类型。 - 在应用上下文文件中定义的处理器映射会告知DispatcherServlet用于基于请求查找控制器的策略。 - Spring MVC支持三种类型的请求URI与控制器间的映射：注解、名称转换和显式映射。 - 请求由控制器处理后，响应返回给DispatcherServlet后分发给视图。
+在图1中，注意在传统工作流中ModelAndView对象由控制器转发给客户端。在方法上使用@ResponseBody注解，Spring可让应用直接从控制器返回数据，不再查找视图。从第4版起，引入@RestController注解进一步简化处理流程。两种使用方式解释如下。
+使用@ResponseBody注解 当对一个方法使用@ResponseBody注解后，Spring将返回值进行转换并自动写入Http响应中。控制器类的每个方法必须使用@ResponseBody进行注解。 图2: Spring 3.x MVC RESTful web服务工作流
+幕后工作 Spring在幕后注册了一系列HttpMessageConverters。HTTPMessageConverter负责根据预先定义的MIME类型将请求体转换成特定类及将特定类转换成响应体。每次一个请求匹配上@ResponseBody，Spring遍历所有已注册的HTTPMessageConverter，查找到第一个匹配上给定MIME类型和类的HTTPMessageConverter用之进行实际转换。</description>
+    </item>
+    
+    <item>
+      <title>从Gradle bootRun任务向Spring Boot应用传递环境变量</title>
+      <link>https://mryqu.github.io/post/%E4%BB%8Egradle_bootrun%E4%BB%BB%E5%8A%A1%E5%90%91spring_boot%E5%BA%94%E7%94%A8%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Tue, 08 Sep 2015 06:32:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BB%8Egradle_bootrun%E4%BB%BB%E5%8A%A1%E5%90%91spring_boot%E5%BA%94%E7%94%A8%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</guid>
+      <description>尝试了从Gradle bootRun任务中传递环境变量给Spring Boot应用，下面是示例代码和演示。
+示例代码 Application.java package com.yqu.gradlesysprop; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;quot;mryqu.prop.test=&amp;quot;+ System.getProperty(&amp;quot;mryqu.prop.test&amp;quot;)); }; } }  build.gradle buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;quot;org.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 创建超媒体驱动的Mail服务</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Mon, 03 Aug 2015 06:46:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/</guid>
+      <description>Spring与Mail的集成 Spring框架为邮件发送提供了一个有用的工具库，可为用户屏蔽底层邮件系统细节，并负责代表客户端负责低层资源处理。 org.springframework.mail包是Spring框架邮件支持的根级包。发送邮件的核心接口是MailSender 接口；封装了简单邮件_from_和_to_等属性的简单对象类是 SimpleMailMessage 。该包也包含对底层邮件系统进行更高级抽象的分层检查异常，其根异常为MailException。 org.springframework.mail.javamail.JavaMailSender 接口MailSender为添加了专业的_JavaMail_ 功能，例如MIME消息支持。JavaMailSender 也为JavaMailMIME消息提供了回调接口org.springframework.mail.javamail.MimeMessagePreparator。
+Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体即应用状态引擎)是REST应用架构的一个约束。Spring HATEOAS是一个用于支持实现超媒体驱动的RESTWeb服务的开发库。它提供一些API用于同Spring特别是SpringMVC一起使用时轻松创建遵循HATEOAS原则的REST表述，其试图解决的核心问题是链接创建和表述装配。功能： - 用于链接、资源表述模型的模型类 - 用于指向Spring MVC控制器方法的链接建造者API - 对HAL之类的多媒体格式的支持
+示例 Application.java package com.yqu.mail; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  MailServerVO.java package com.yqu.mail; import org.springframework.hateoas.ResourceSupport; import java.io.Serializable; import java.util.Properties; public class MailServerVO extends ResourceSupport implements Serializable { private String host; private Integer port; private String userName; private String password; private String defaultEncoding; private Properties properties; public MailServerVO() {} public MailServerVO( String host, Integer port, String userName, String password, String defaultEncoding, Properties properties) { this.</description>
+    </item>
+    
+    <item>
+      <title>Java Mail</title>
+      <link>https://mryqu.github.io/post/java_mail/</link>
+      <pubDate>Sun, 02 Aug 2015 09:22:37 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/java_mail/</guid>
+      <description>JavaMail API JavaMail最新版本为1.5.4。 支持的邮件协议有： - SMTP：简单邮件传输协议（Simple Mail Transfer Protocol），由RFC 821 定义，定义了发送电子邮件的机制。在JavaMailAPI环境中，基于JavaMail的程序将和公司或因特网服务供应商的SMTP服务器通信。SMTP 服务器会中转消息给接收方 SMTP服务器以便最终让用户经由 POP 或 IMAP 获得。这不是要求SMTP服务器成为开放的中继，尽管SMTP服务器支持身份验证，不过还是得确保它的配置正确。JavaMailAPI不支持像配置服务器来中继消息或添加/删除邮件账号这类任务的实现。 - POP：邮局协议（Post Office Protocol）。目前用的是版本 3，也称POP3，由RFC 1939定义。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。POP协议支持“离线”邮件处理。其具体过程是：邮件发送到服务器上，电子邮件客户端调用邮件客户机程序以连接服务器，并下载所有未阅读的电子邮件。使用POP时，用户熟悉的许多性能并不是由POP协议支持的，如查看有几封新邮件消息这一性能。这些性能内建于如Eudora或Microsoft Outlook之类的程序中，它们能记住一些事，诸如最近一次收到的邮件，还能计算出有多少是新的。所以当使用JavaMailAPI时，如果您想要这类信息，您就必须自己算。 - IMAP： 因特网消息访问协议（Internet Message Access Protocol）。目前用的是版本 4，也称IMAP4。由RFC 2060定义，是更高级的用于接收消息的协议。它与POP3协议的主要区别是用户可以不用把所有的邮件全部下载，可以通过客户端直接对服务器上的邮件进行操作。IMAP4改进了POP3的不足，用户可以通过浏览信件头来决定是否收取、删除和检索邮件的特定部分，还可以在服务器上创建或更改文件夹或邮箱。它除了支持POP3协议的脱机操作模式外，还支持联机操作和断连接操作。它为用户提供了有选择的从邮件服务器接收邮件的功能、基于服务器的信息处理功能和共享信箱功能。IMAP4的脱机模式不同于POP3，它不会自动删除在邮件服务器上已取出的邮件，其联机模式和断连接模式也是将邮件服务器作为“远程文件服务器”进行访问，更加灵活方便。IMAP4支持多个邮箱。
+MIME：多用途因特网邮件扩展标准（Multipurpose Internet MailExtensions）。它不是邮件传输协议。但对传输内容的消息、附件及其它的内容定义了格式。这里有很多不同的有效文档：RFC 822、RFC 2045、RFC 2046 和 RFC 2047。作为一个 JavaMailAPI的用户，您通常不必对这些格式操心。无论如何，一定存在这些格式而且程序会用到它。
+JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参考设计，其中包括SMTP、IMAP和POP3协议提供者。 JavaMail API 类包: - javax.mail： The JavaMailTM API提供为邮件系统建模的类。 - javax.mail.event： 用于JavaMail API的监听器和事件。 - javax.mail.internet：特定互联网邮件系统的类。 - javax.mail.search：用于JavaMail API的消息搜索术语。 - javax.mail.util： JavaMail API工具类。Sun参考设计的类包: - com.sun.mail.dsn：支持创建和解析传递状态通知。 - com.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 监控和管理Spring Boot应用</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 11 Jul 2015 06:53:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/</guid>
+      <description>本博文在[Spring Boot] Hello Spring LDAP 基础上稍作修改，尝试一下监控和管理Spring Boot应用。
+application.properties改动 server.context-path=/HelloSpringLdapOdm server.port=8080 spring.profiles.active=test,dev # spring.dao.exceptiontranslation.enabled=false yqu.ldap.url=ldap://127.0.0.1:18880 yqu.ldap.userDN=uid=admin,ou=system yqu.ldap.password=secret yqu.ldap.base=dc=jayway,dc=se yqu.ldap.clean=true management.port=8081 management.address=127.0.0.1 endpoints.shutdown.enabled=true applicationDefaultJvmArgs: [ &amp;quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=55558&amp;quot; ]  测试  autoconfig: Displays an auto-configuration report showing allauto-configuration candidates and the reason why they ‘were’ or‘were not’ applied. beans: Displays a complete list of all the Spring beans in yourapplication. configprops: Displays a collated list of all@ConfigurationProperties. dump: Performs a thread dump. env: Exposes properties from Spring’sConfigurableEnvironment.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Hello CommandLineRunner</title>
+      <link>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</link>
+      <pubDate>Wed, 08 Jul 2015 06:02:53 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</guid>
+      <description>通过CommandLineRunner，可在所有Spring Bean和ApplicationContext被创建后执行一些可以访问命令行参数的任务。如想指定多个CommandLineRunnerBean的执行顺序，可以实现org.springframework.core.Ordered接口或添加org.springframework.core.annotation.Order注解。
+示例代码 Application.java package com.yqu.cmdlinerunner; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.Banner; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.DependsOn; import org.springframework.core.annotation.Order; import org.springframework.core.annotation.OrderUtils; import java.util.Arrays; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean(name=&amp;quot;demo1&amp;quot;) @DependsOn(&amp;quot;demo2&amp;quot;) @Order(8) public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;quot;demo1:order=&amp;quot;+ OrderUtils.getOrder(this.getClass())+ &amp;quot;:args=&amp;quot;+Arrays.toString(args)); //log.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] Hello Spring LDAP</title>
+      <link>https://mryqu.github.io/post/spring_boot_hello_spring_ldap/</link>
+      <pubDate>Mon, 06 Jul 2015 06:20:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_hello_spring_ldap/</guid>
+      <description>这个帖子设定了标题后，一直忙于其他事情，拖延了两个月终于能够结贴了。
+部分示例代码 LdapConfiugration.java package com.yqu.ldap.odm; import com.yqu.ldap.odm.dao.*; import org.apache.commons.logging.Log; import org.apache.commons.logging.LogFactory; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.context.annotation.*; import org.springframework.core.env.Environment; import org.springframework.ldap.core.LdapTemplate; import org.springframework.ldap.core.support.LdapContextSource; import javax.annotation.PostConstruct; @Configuration @ComponentScan(basePackages={&amp;quot;com.yqu.ldap.odm&amp;quot;}) public class LdapConfiugration { @Autowired private Environment _environment; private static Log log = LogFactory.getLog(LdapConfiugration.class); @PostConstruct private void init() { log.debug(&amp;quot;environment: yqu.ldap.url:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.url&amp;quot;)); log.debug(&amp;quot;environment: yqu.ldap.userDN:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.userDN&amp;quot;)); log.debug(&amp;quot;environment: yqu.ldap.password:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.password&amp;quot;)); log.debug(&amp;quot;environment: yqu.ldap.base:&amp;quot; + _environment.getProperty(&amp;quot;yqu.ldap.base&amp;quot;)); } @Bean(name=&amp;quot;ldapContextSource&amp;quot;) public LdapContextSource ldapContextSource() { String url = _environment.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Data] 调试H2数据库</title>
+      <link>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Sun, 28 Jun 2015 01:00:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>我将Spring的两个入门指南Building a RESTful Web Service和Accessing Data with JPA融到一起，测试成功。那接下来的一个问题就是怎么查看H2数据库内容并进行调试？
+配置H2 Web控制台 为了解决这个问题，我首先增加了src/resources/application.properties配置文件，内容如下：
+spring.profiles.active=dev spring.h2.console.enabled=true  在H2 Web控制台上操作 启动Spring Boot应用，在浏览器中进入http://localhost:8080/h2_console/即可进入H2数据库的Web控制台了。 配置IDEA IntelliJ数据源 如果不使用H2 Web控制台的话，在IDEA IntelliJ集成开发环境中也可以通过配置H2数据源进行数据库操作。 解决数据库表不存在问题 上面的玩法有个问题，那就是没看到Accessing Data with JPA里面创建的CUSTOMER表，对不对？为了解决这个问题，在src/resources/application.properties配置文件增加如下内容：
+spring.profiles.active=dev spring.h2.console.enabled=true spring.datasource.url=jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE spring.datasource.driverClassName=org.h2.Driver spring.datasource.username=sa spring.datasource.password=  搞定，收工！
+参考 Using H2’s web console in Spring Boot
+Common application properties for Spring Boot
+H2 Console</description>
+    </item>
+    
+    <item>
+      <title>Spring FileUpload限制调整笔记</title>
+      <link>https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 08 Jun 2015 06:42:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/</guid>
+      <description>Tomcat配置 HTTP Connector - maxPostSize配置 maxPostSize: 在POST请求中容器FORMURL参数解析所能处理的最大字节数。该参数可以通过设置为小于零的负值禁掉该限制。如果没有设置，该属性为2097152(2M字节)。 该配置可在$CATALINA_BASE/conf/server.xml内修改: Tomcat 7.0.63之前maxPostSzie=&amp;ldquo;0&amp;rdquo;视为禁掉该限制。
+multipart-config配置 max-file-size: 单个上传文件允许的最大字节数。默认-1，无限制。 max-request-size: 真个请求允许的最大字节数。默认-1，无限制。
+这两个配置可在web.xml内修改： 如果上传文件超过限制，则会抛出Exception。示例：
+org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (61198097) exceeds the configured maximum (20971520) at org.apache.tomcat.util.http.fileupload.FileUploadBase$FileItemIteratorImpl.(FileUploadBase.java:811) at org.apache.tomcat.util.http.fileupload.FileUploadBase.getItemIterator(FileUploadBase.java:256) at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:280) at org.apache.catalina.connector.Request.parseParts(Request.java:2730) at org.apache.catalina.connector.Request.parseParameters(Request.java:3064) at org.apache.catalina.connector.Request.getParameter(Request.java:1093) at org.apache.catalina.connector.RequestFacade.getParameter(RequestFacade.java:380) at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:70) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.boot.actuate.autoconfigure.MetricsFilter.doFilterInternal(MetricsFilter.java:68) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot Example：Rest Exception Handling</title>
+      <link>https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/</link>
+      <pubDate>Tue, 02 Jun 2015 00:14:40 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/</guid>
+      <description>要给同事做个Rest异常处理的演示，顺便用用Spring Boot和Gradle构建。 首先新建一个项目：rest-exception-handling。
+rest-exception-handling/src/main/java/com/yqu/rest目录 Application.java package com.yqu.rest; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  GreetingController.java package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; @RestController public class GreetingController { @Autowired private GreetingService service; @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/greeting&amp;quot;, method = RequestMethod.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 访问JSP</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E8%AE%BF%E9%97%AEjsp/</link>
+      <pubDate>Fri, 08 May 2015 05:53:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E8%AE%BF%E9%97%AEjsp/</guid>
+      <description> 需求 我的Spring Boot web应用中用到了JSP，可是访问始终404。
+@Controller public class TestController { @RequestMapping(&amp;quot;/test&amp;quot;) public String webapp(Map model) { return &amp;quot;WEB-INF/index.jsp&amp;quot;; } }  解决方案是增加tomcat-embed-jasper依赖，此外可选性地增加了jstl依赖。
+Gradle dependencies { ...... // jsps providedRuntime (&#39;org.apache.tomcat.embed:tomcat-embed-jasper&#39;) }  Maven </description>
+    </item>
+    
+    <item>
+      <title>Spring3 REST can&#39;t solve list of object generated by Javascript</title>
+      <link>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</link>
+      <pubDate>Fri, 16 Jan 2015 21:21:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/</guid>
+      <description>最近遭遇Spring3REST无法解析对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+客户端代码 var meatadata=&#39;[{&amp;quot;varName&amp;quot;:&amp;quot;id&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Id&amp;quot;,&amp;quot;varIndex&amp;quot;:1},{&amp;quot;varName&amp;quot;:&amp;quot;name&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Name&amp;quot;,&amp;quot;varIndex&amp;quot;:2},{&amp;quot;varName&amp;quot;:&amp;quot;age&amp;quot;,&amp;quot;varTitle&amp;quot;:&amp;quot;The Age&amp;quot;,&amp;quot;varIndex&amp;quot;:3}]&#39;; $.ajax({ url: &amp;quot;configure&amp;quot;, type: &amp;quot;POST&amp;quot;, data: metadata, dataType: &amp;quot;json&amp;quot;, contentType: &amp;quot;application/json&amp;quot;, success: function (res) { $(&#39;#cfgContent&#39;).text(JSON.stringify(res)); $(&#39;#cfgError&#39;).text(&amp;quot;&amp;quot;); }, error: function (res) { $(&#39;#cfgContent&#39;).text(&amp;quot;&amp;quot;); $(&#39;#cfgError&#39;).text(res.responseText); } });  中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.</description>
+    </item>
+    
+    <item>
+      <title>Spring REST can&#39;t solve nested object array generated by JavaScript</title>
+      <link>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</link>
+      <pubDate>Thu, 15 Jan 2015 21:27:22 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/</guid>
+      <description>最近遭遇SpringREST无法解析嵌套对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
+所操作的复杂对象 客户端POST响应 中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = &amp;quot;/&amp;quot;, method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println(&amp;quot;home&amp;quot;); return new ModelAndView(&amp;quot;index&amp;quot;); } @RequestMapping(value = &amp;quot;/configure&amp;quot;, method = RequestMethod.GET) public @ResponseBody SheetVO getConfiguration() { List columns = new ArrayList(); columns.add(new ColumnVO(&amp;quot;id&amp;quot;,&amp;quot;The Id&amp;quot;,1)); columns.add(new ColumnVO(&amp;quot;name&amp;quot;,&amp;quot;The Name&amp;quot;,2)); columns.add(new ColumnVO(&amp;quot;age&amp;quot;,&amp;quot;The Age&amp;quot;,3)); SheetVO metadata = new SheetVO(SheetVO.</description>
+    </item>
+    
+    <item>
+      <title>[JavaScript] retrieve data table</title>
+      <link>https://mryqu.github.io/post/javascript_retrieve_data_table/</link>
+      <pubDate>Wed, 20 Aug 2014 22:06:08 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/javascript_retrieve_data_table/</guid>
+      <description>想学学怎么提交一个Form中的Table，放狗出去，结果不够给力。 曾经有很多年Table标签被用作格式对齐的工具，这使搜出来的页面很少讲的是数据表格。 看了看DataTables这个JQuery插件，可以加载和更新数据，但是没有找到存储所有表格数据的功能。 看了看ajaxsubmit，必须有formcontent，此外可以有可选的data。由于表格里有很多行，没想好path的设置问题。 最后还是用JS提取所有表格数据，生成JS数组，通过AJAX post函数发送给服务器侧。 JS侧的代码示例：http://jsfiddle.net/mryqu/d7rubzut/ 服务器侧的用于REST的Spring控制器代码如下：
+@RequestMapping(params=&amp;quot;action=test&amp;quot;, method = RequestMethod.POST) public @ResponseBody TestResultVO test(HttpServletRequest request, @ModelAttribute(&amp;quot;tqs&amp;quot;)ArrayList tqs) throws Exception { ...... }  运行结果正常</description>
+    </item>
+    
+    <item>
+      <title>差一点搞混了Transactional注解</title>
+      <link>https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/</link>
+      <pubDate>Tue, 01 Apr 2014 20:03:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/</guid>
+      <description>今天给我的Srping业务层加如下Service和Transactional注解：
+@Service @Scope(BeanDefinition.SCOPE_SINGLETON) @Transactional(propagation=Propagation.REQUIRED, timeout=600, rollbackFor=Exception.class)  结果总是不认propagation、timeout和rollbackFor，后来才发现我引入类定义错了，本来应该用Spring的org.springframework.transaction.annotation.Transactional，可是引入了JavaEE用于CDI(Contextsand Dependency Injection for the Java EEplatform，上下文和依赖注入)bean的javax.transaction.Transactional,不注意还真容易混淆。</description>
+    </item>
+    
+    <item>
+      <title>使用Spring MVC下载Excel文件</title>
+      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8spring_mvc%E4%B8%8B%E8%BD%BDexcel%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 20 Jan 2014 21:29:48 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8spring_mvc%E4%B8%8B%E8%BD%BDexcel%E6%96%87%E4%BB%B6/</guid>
+      <description> 想使用Spring MVC下载Excel文件，照着下面的样例，很容易就实现了。 Spring MVC with Excel View Example (Apache POI and JExcelApi)
+Spring MVC and Excel file via AbstractExcelView
+问题一：数据仅能生成xls，不能生成xlsx 通过org.springframework.web.servlet.view.document.AbstractExcelView源代码可知，Spring的AbstractExcelView仅支持HSSFWorkbook，不支持XSSFWorkbook。这一问题可以通过Github上的hmkcode/Spring-Framework来解决。 com.hmkcode.view.abstractview.AbstractExcelView
+com.hmkcode.view.ExcelView
+问题二：下载的文件是我配置的视图路径export.do，而不是Excel后缀 通过在Rest Controller里添加如下代码解决：
+SimpleDateFormat myFmt=new SimpleDateFormat(&amp;quot;yyyyMMdd_HHmmss&amp;quot;); response.setHeader(&amp;quot;Pragma&amp;quot;, &amp;quot;public&amp;quot;); response.setHeader(&amp;quot;Cache-Control&amp;quot;, &amp;quot;max-age=0&amp;quot;); if(excelVersion.equals(&amp;quot;xlsx&amp;quot;)){ response.setContentType(&amp;quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&amp;quot;); response.setHeader(&amp;quot;Content-Disposition&amp;quot;, &amp;quot;attachment; filename=test&amp;quot;+myFmt.format(new Date())+&amp;quot;.xlsx&amp;quot;); }else{ response.setContentType(&amp;quot;application/vnd.ms-excel&amp;quot;); response.setHeader(&amp;quot;Content-Disposition&amp;quot;, &amp;quot;attachment; filename=\&amp;quot;test&amp;quot;+myFmt.format(new Date())+&amp;quot;.xls\&amp;quot;&amp;quot;); }  </description>
+    </item>
+    
+    <item>
+      <title>数据源/Hibernate配置明文密码加密思考</title>
+      <link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E6%BA%90hibernate%E9%85%8D%E7%BD%AE%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%80%9D%E8%80%83/</link>
+      <pubDate>Wed, 01 Jan 2014 17:48:44 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E6%BA%90hibernate%E9%85%8D%E7%BD%AE%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%80%9D%E8%80%83/</guid>
+      <description>无论是Web应用服务器数据源配置还是Hibernate配置，一般数据库用户和密码都是明文的，感觉很不安全。上网搜了一圈，博客帖子还不少，不过都跟Web应用服务器官方文档差不太多。 Tomcat坚持明文，理由是最终需要用原始用户名和密码去连接数据库，而Tomcat是开源的，攻击者很容易找到加密/解密方法，所以也得不到真正的保护。 另一方就是用AES/DES/3DES等密钥算法对明文密码进行加密，然后在程序某处进行解密，例如使用Tomcat连接池时用org.apache.tomcat.jdbc.pool.DataSourceFactory继承子类实现自己的数据源工厂时进行解密，使用Srping时用LocalSessionFactoryBean继承子类读取配置进行解密然后将其写回运行态的配置。这种方式说白了，如果程序不是很大，使用JAD等工具对程序进行反编译，找到如何加解密的算法还是不难的。 我个人认为，真正的Web应用实施肯定是要设置服务器访问权限及服务器内目录的访问权限的，一般人不应该能访问到Web服务器程序及配置，这样即使使用明文密码也能保证相同的安全等级。当然，如果开发一个不严肃的小项目，并且部署在一个公共访问机器上，做做障眼法瞒瞒那些不是码农的人也是可以的。
+Web应用服务器文档： - Tomcat Wiki：FAQ/Password - JBoss：Encrypting Data Source Passwords - JBoss EAP：Encrypting Data Source Passwords - TomEE：DataSource Password Encryption博客： - Encrypting passwords in Tomcat - Hibernate的配置文件中用户和密码的加密 - hibernate配置文件中数据库密码加密,该如何解决 - Hibernate的验证，而不存储在纯文本密码 - 如何给工程中的配置文件加密 解密 - 通过spring对hibernate/ibatis的配置文件加密 - jndi 数据源配置密码加密 - spring 属性文件加密码及解密 - 怎么实现数据库连接的密码加密 - Jboss数据源密码加密 - Tomcat数据源连接池加密 - 使用 Jasypt 保护数据库配置 - spring datasource 密码加密后运行时解密的解决办法</description>
+    </item>
+    
+  </channel>
+</rss>

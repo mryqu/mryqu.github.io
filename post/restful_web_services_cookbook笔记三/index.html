@@ -1,0 +1,540 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>RESTful Web Services Cookbook笔记（三） - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="RESTful Web Services Cookbook笔记（三）">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="RESTful Web Services Cookbook笔记（三） - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/" itemprop="url">
+        RESTful Web Services Cookbook笔记（三）
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-19">
+    2013-10-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">226 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h1 id="杂项">杂项</h1>
+
+<p>为了复制资源而不泄漏服务器实现细节，可以设计一个用于复制的控制器资源。客户端向控制器发送POST请求复制资源。为了实现条件POST，可以提供一次性URI。控制器创建副本后，返回状态码201 (Created)及Location头带有副本URI。
+为了合并两个或多个资源，可以设计一个用于合并的应用程序特定控制器资源。客户端想控制器发送GET请求，其查询参数包含待合并资源的URI或标识符。服务器返回Last-Modified、ETag头和包含待合并资源摘要的表述体。ETag由时戳和随机数连接串构成。为了验证摘要，客户端向同一地址发送带有If-Unmodified-Since和If-Match头的POST请求发起合并。服务器合并后在事务日志中保留If-Match头的值并返回状态码201 (Created)及含有合并后资源URI的Location头。如果客户端再发送相同If-Match头的POST请求，服务器返回状态码412 (Preconditon Failed)。
+为了移动资源，服务器会提供负责移动资源控制器的链接或链接模板以使客户端可以发送POST请求，并在完成请求后根据输出返回状态码201 (Created)或303 (See Other)。
+WebDAV （RFC 4918）是用于资源分布式创作和版本管理的HTTP扩展，它扩展了一些HTTP方法和头用于管理文件和文档。当Web服务是内容创作应用且服务器支持WebDAV时使用WebDAV特定方法，避免对其他类型应用使用WebDAV。</p>
+
+<p>|方法|介绍
+|&mdash;&ndash;
+|PROPFIND|WebDAV中的文档具有属性，客户端可用此方法获得属性
+|PROPPATCH|客户端用此方法设置、添加或修改资源属性
+|MKCOL|WebDAV可以将文档放入集合（文件夹），客户端可用此方法创建集合
+|COPY|客户端可用此方法复制资源
+|MOVE|客户端可用此方法移动资源
+|LOCK|客户端可用此方法对给定文档加锁，以支持悲观并发控制
+|UNLOCK|客户端可用此方法对给定文档去锁</p>
+
+<p>为了支持跨服务器边界的操作（例如，将用户配置从一个应用移植到另一个应用，将文档从草稿服务器发布到生产服务器），需要服务器之间彼此就数据格式、后台接口、并发控制、数据加载、范式化和存储等方面协作、设计和实现设计跨服务器操作。
+wiki的网页都会维护当前和过去的修订历史，以便客户可以获取、比较和评估页面改变。为了支持资源以往历史快照，服务器在收到客户端PUT请求更新资源时，在更新资源之前会默认创建快照（资源副本），并在更新后的资源表述中包含快照链接，快照表述中包含更新后资源链接。当用户发送DELETE请求，删除资源及所有快照。
+提供用于撤销操作的控制器资源。当客户端发送POST请求进行撤销操作，在事务日志中记录资源当前状态以用于审计。服务器将资源状态恢复到上一快照并将客户端重定向到资源URI。
+当资源很大而改动很小时，发送GET请求获取整个表述、进行小的修改、发送PUT请求将整个表述传回服务器进行更新很费时费带宽。为了支持对资源进行部分更新，可以将可修改的资源部分封装为一个新资源。客户端通过PUT请求更新该新资源，等效于部分更新原来的资源。
+HTTP PUT方法用于对资源的整个更新或替换，PATCH方法（RFC 5789）用于支持部分更新。PATCH方法不是安全和幂等的，请求体是一系列对资源进行改变的表述。当收到请求，服务器将整个补丁原子性地施加于资源，并返回响应码 200 (OK)或204 (No Content)。如果服务器无法将整体补丁施加于资源，就不会做任何局部修改。可以通过请求中包含If-Unmodified-Since和/或If-Match头支持条件PATCH请求，如果不匹配则返回状态码412 (Precondition Failed)。建议在OPTIONS响应的Allow头支持PATCH，并在PTACH方法包含Accept-Patch头，其值为支持的媒体类型。
+当客户端需要为不同资源提交若干类似请求时，只要对每个资源的操作是相同的且资源是类似的，可以将这些操作组合成一个针对集合资源的单个操作。使用POST请求和集合资源一次性批量创建若干资源。服务器为集合资源分配一个URI，并使用状态码303 (See Other)重定向到该集合资源，集合资源表述包含所有新创建资源的链接。使用PUT请求更新或DELETE请求删除若干资源与创建过程类似，以上操作必须是原子化的。
+客户端需要执行批量作业的用例不是少数。例如，为前一天销售订单做汇总、将一个或多个文档打包、批准选择的购买订单集合等等都需要批量执行。服务器需要设计一个控制器资源用于执行批量操作。如果客户端需要跟踪操作或客户端需要提交大量用于操作的数据，返回状态码202 (Accepted)以进行异步操作，否则返回200 (OK)或204 (No Content)。
+将几个HTTP组合成一个HTTP请求以支持批量处理的用例不是少数。下面列举了一些通常使用的技术实现：
+- 客户端将几个HTTP请求序列化到一个JSON对象、或一个XML文档、或multipart/mixed消息的一部分。
+- 客户端创建一个信封跟是将多个请求组合进入一个消息。
+- 客户端向服务器的分批终点（batch end point）资源发送POST请求。
+- 服务器接收到消息，打开信封，重构多个HTTP请求并分发到服务器的相关URI。或者服务器绕过HTTP将请求直接派发到能处理这种请求的代码。
+- 服务器收集每个请求的响应并序列化为一个消息返回到客户端。
+- 客户端打开信封并处理每个响应消息。</p>
+
+<p>避免这种将多个HTTP请求封装入一个POST请求隧道的做法。因为通常隧道方案有以下不利之处：</p>
+
+<p>|特性|介绍
+|&mdash;&ndash;
+|并发|HTTP通过Last-Modified和ETag头来实现乐观并发检查。将多个HTTP请求封装进一个HTTP请求隧道的批量操作使并发检查变得困难，因为服务器需要为批量操作中每一个任务进行并发检查。
+|原子性|HTTP请求是原子性的。每个请求执行单个任务，服务器在错误发生时确保数据的原子性和一致性。将多个任务混入一个请求、尤其是某些操作依赖于同一请求的前一操作是否成功的批量操作使Web服务很难确保原子性和进行错误恢复。
+|可见性|将多个操作封装到一个HTTP请求隧道使中间节点无法对批量处理内的操作响应可见。此外检测请求防止拒绝攻击的典型安全方法几乎不可能捕捉到批量操作中的可疑请求，因此可能导致拒绝服务攻击。
+|错误处理|用于批量操作的错误处理和报告更为复杂。单个批量请求的结构可能混杂成功和失败响应。
+|可扩展性|一般用于批量操作的理由依赖批量处理比执行每个单个请求更可扩展这样的假设。当单个服务器收到非常多的批量处理，请求会降低服务器的响应能力。发送很多批量客户端处理到单个服务器的应用比不支持批量处理的相同应用性能可能更低。</p>
+
+<p>分析导致促成使用隧道技术的用例，设计应用特有的控制器资源支持相同需求。由于请求使用的是处理请求资源的单个URI，所以请求可见。由于仅返回一个状态码，所以响应可见。
+RESTful web服务在下列场景可能会需要处理事务：
+- 客户端执行操作流的一些列步骤。客户端在取消操作流时要撤销所有已完成的数据变动。
+- 客户端同若干服务器顺序交互以实现应用操作流，客户端可能希望恢复任何状态改变或持久化存储状态。</p>
+
+<p>可以提供对数据进行原子化操作的资源。将未提交状态视为应用状态（并将其加入URI中）。如果服务器需要允许客户端撤销操作，使用适当的PUT、DELETE或POST抵消已有的改变。</p>
+
+<h1 id="安全">安全</h1>
+
+<p>系统安全可能需要：
+- 确保仅认证过的用户访问资源。
+- 确保信息从采集到存储及之后展现给授权实体或用户过程中信息的可靠性和完整性。
+- 防止未授权或恶意客户端滥用资源和数据。
+- 维持私密性并符合当地安全法规。</p>
+
+<p>认证协议，如基本认证和摘要认证，使用一种挑战-应答机制的协议。当客户端访问受限资源，服务器使用WWW-Authenticate头挑战客户端请求其应答，应答是客户端和服务器之间共享的密钥功能。认证可用于两类场景：客户端代表自己访问受限资源、客户端代表用于访问受限资源。
+基本认证（RFC 2617）中客户端会通过标识符和共享密钥来向服务器认证请求。当服务器收到客户端访问受限资源的请求，返回状态码401 (Authorization Required)及WWW-Authenticate头，WWW-Authenticate：Basic realm=&ldquo;some name&rdquo;。客户端会将客户端标识符（例如用户名）和共享密钥（例如密码）连接成:并通过Base64编码到Authorization头，Authorization: Basic 。服务器会对文本进行解码并验证密钥是否一致。如果客户端提前知道服务器对某资源需要基本认证，可以在请求中加入Authorization头以免收到401 (Unauthorized)状态码及WWW-Authoricate头。服务器文档可包含认证需求以帮助客户端开发人员了解这些信息。
+摘要认证（RFC 2617）同基本认证类似，客户端向服务器发送的是证书摘要而不是共享密钥。摘要认证也提供了防止重放攻击的机制。当服务器收到客户端访问受限资源的请求，返回状态码401 (Authorization Required)及WWW-Authenticate头，摘要认证方案、必要的realm和nonce指令及其他指令。nonce是仅一次或有限次数使用的数字或token。客户端会将客户端或用户标识符摘要、realm和共享密钥放入到Authorization头。服务器会将请求中的摘要与存储在服务器的证书摘要验证，并在响应中包含Authentication-Info头（Authorization头在服务器侧的等同体）。默认客户端使用MD5计算摘要，不同于基本认证，这种技术不会交换未加密的共享密钥。</p>
+
+<pre><code># Request
+GET /photos HTTP/1.1 
+Host: www.example.org
+
+# Response
+401 Unauthorized
+WWW-Authenticate: Digest realm=&quot;Sample app&quot;, nonce=&quot;6cf093043215da528d7b5039ed4694d3&quot;,
+      qop=&quot;auth&quot; 
+Content-Type: application/xml;charset=UTF-8
+  Unauthorized.
+
+# Request
+GET /photos HTTP/1.1
+Host: www.example.org
+Authorization: Digest username=&quot;photoapp.001&quot;, realm=&quot;Sample app&quot;,
+12.2  How to Use Digest Authentication to Authenticate Clients | 221
+      nonce=&quot;6cf093043215da528d7b5039ed4694d3&quot;,
+      uri=&quot;/photos&quot;, response=&quot;89fba5bf5e5f9dd69865258c21860956&quot;,
+      cnonce=&quot;c019e396409afe784ae9f203b8dfdf7e&quot;, nc=00000001, qop=&quot;auth&quot; 
+
+# Response
+HTTP/1.1 200 OK
+Content-Type: application/xml;charset-UTF8
+...
+</code></pre>
+
+<p>OAuth（<a href="http://oauth.net）是2007年开发的一种代理认证协议。使用该协议，用户可以不用泄漏自己的证书，让客户端访问其在服务器上的数据。OAuth认证协议由于协议中包含三种角色，所以称为三方认证：服务提供者（例如服务器）、OAuth消费者（例如客户端）和用户。">http://oauth.net）是2007年开发的一种代理认证协议。使用该协议，用户可以不用泄漏自己的证书，让客户端访问其在服务器上的数据。OAuth认证协议由于协议中包含三种角色，所以称为三方认证：服务提供者（例如服务器）、OAuth消费者（例如客户端）和用户。</a>
+<img src="/images/2013/10/0026uWfMty6FBehaYZa80.png" alt="RESTful Web Services Cookbook笔记（三）" />
+OAuth依赖服务器向客户端发布的三套令牌和密钥。
+- 消费者键值和消费者密钥：消费者键值是客户端的唯一标识符。客户端使用消费者密钥签署获得请求令牌的请求。
+- 请求令牌和令牌密钥：请求令牌是服务器发布的一次性临时标识符，用于请求用户向客户端授予权限。令牌密钥是用于签署获得访问令牌的请求。
+- 访问令牌和令牌密钥：访问令牌是客户端用于访问用户资源的标识符。拥有访问令牌的客户端能在令牌有效时访问用户资源。服务器可以由于令牌到期或用户撤销权限而随时撤销访问令牌。令牌密钥用于签署访问受限用户资源的请求。</p>
+
+<p>使用三方OAuth涉及以下步骤以获得访问令牌和密钥。服务器可能会授予对特定用户资源一段时间或一定访问次数的访问令牌。
+- 客户端带外向服务器请求消费者键值和消费者密钥。
+- 客户端使用消费者键值获得请求令牌和密钥。
+- 客户端重定向用户到服务器获得让客户端访问用户资源的权限，该过程产生认证过的请求令牌。
+- 客户端请求服务器提供访问令牌和密钥。
+- 当客户端发送请求访问受限资源时，客户端请求包含Authorization头（或查询参数），其含有消费者键值、访问令牌、签名方法和签名、时戳、nonce和可选的OAuth协议版本号。</p>
+
+<p>由于OAuth是HTTP层之上的协议，服务器文档应该提供：获得请求令牌的URI、鉴权服务器的URI和获得访问令牌的URI。OAuth建议使用POST获得请求和访问令牌。
+两方OAuth与客户端通过使用基本或摘要认证的Authorization头向服务器提供认证相类似，没有引入代理。注意OAuth协议没有指定这种认证方式，但是被广泛用于客户端与服务器之间的认证。
+使用三方OAuth涉及以下步骤：
+- 客户端带外向服务器请求消费者键值和消费者密钥。消费者键值是客户端的标识符。消费者密钥是客户端和服务器之间共享的密钥。
+- 当客户端发送请求访问受限资源时，客户端请求包含Authorization头，其含有消费者键值、访问令牌、签名方法和签名、时戳、nonce和可选的OAuth协议版本号。
+- 服务器在授予资源访问权限之前验证签名。</p>
+
+<p>服务器可能将应用程序状态编码到URI。在有些情况下，这些状态可能是敏感的。当URI被通过网络传输时使用TLS有助于状态的完整性，但是服务器无法控制客户端如何管理URI。在这种情况下，服务器需要确保URI不会被篡改且URI中的消息是可靠的。为了检测URI篡改，使用HMAC-SHA1和RSA-SHA1之类的机制对URI的数据计算摘要签名，将签名作为查询参数加入资源URI中。如果URI中数据是机密的，使用AES、Blowfish、DES、Triple DES、Serpent、Twofish等机制加密数据。确保在将其加入到URI之前使用对加密结果Base64进行编码。
+为了维持资源表述的可靠性和完整性，使用TLS，仅基于HTTPS的请求可以访问服务器受限资源。</p>
+
+<h1 id="可扩展性与版本控制">可扩展性与版本控制</h1>
+
+<p>在任何分布式CS环境管理变化都是困难的。在这些环境中，客户端依赖服务器来遵守契约，RESTfulweb服务也不例外。对于web服务，契约包含URI、资源、表述的结构和内容、格式及对每个资源所用的HTTP方法。任何对服务器的改变在后向兼容之前似乎都是良性的。当变化是后向兼容的，当修改服务器时无需升级客户端，客户端除了在服务器升级时宕机之外能够继续按照以往的方式使用服务器。当多个客户端和服务器在不同时刻升级，另一个比较重要的兼容性是前向兼容。在某些情况下，一些新客户端可能会和老服务器交互。前向兼容的目的是确保新客户端即使在老服务器功能缺失时能够继续使用老服务器。应用是否需要考虑后向兼容和前向兼容取决于操作环境，维护兼容性的手段是可扩展性。可扩展性是解决未来变化的设计过程。作为传输协议，HTTP是可扩展的，可以添加新方法或标头来扩展HTTP（须谨慎使用），但不意味着HTTP之上的应用也自动地可扩展。尽管维护兼容性是值得的，但并不总是有可能实现。
+为了使URI变化跟现有客户端兼容，必须保持URI持久不变。将相同查询参数但排序不同的请求URI视为相同。客户端必须能够对不同查询参数排序获得相同的结果。当对URI添加新参数，继续使用现有参数并将新参数视为可选。当改变查询参数数据格式，继续使用现有格式。如果行不通，通过新的查询参数或新URI引入格式变化。默认情况下，将URI中的查询参数视为可选，除非这些参数基于并发或安全使用。
+为了使XML/JSON表述变化跟现有客户端兼容，设计XML/JSON格式保持子节点无序。当对XML/JSON进行改动，保持现有分层结构以使客户端能够继续使用相同结构提取数据。使请求中新创建的数据节点可选以同现有客户端兼容。如果客户端发送新数据字段，服务器也必须能继续处理。不要删除或重命名响应体中表述的任何数据字段。
+Atom格式被设计成支持未来的扩展。Atom格式中的所有元素允许外来的XML元素和属性。可以通过下列方式扩展Atom：
+- 添加链接关系类型，例如&rdquo;种子分页和打包&rdquo;扩展（RFC5005）引入了fist、last、previous和next链接关系类型。
+- 在诸如atom:entry、atom:feed和atom:link之类的Atom元素内增加新元素。例如&rdquo;Atom跟帖扩展&rdquo;（RFC4685）引入了in-reply-to和total元素。
+- 在atom:content元素内嵌套外来的XML或其他文本内容。</p>
+
+<p>对atom:feed和atom:entry元素添加子元素或属性进行扩展，只要这些扩展不破坏客户端自身的功能且其他软件不了解这些扩展。当在atom:content元素下添加外来内容，在atom:summary元素下添加可读文本或XHTML。
+为了使链接变化跟现有客户端兼容，避免删除链接，不要改变链接的rel和href属性值。当引入新资源，使用链接向客户端提供资源的URI。
+当服务器作出兼容性改变，为了使客户端不操作失败，可让客户端解析表述体，仅寻找已知数据。不要假设从服务器接收到的表述是固定媒体类型、字符编码、内容语言或内容编码。
+当服务器无法维持兼容性时或某些客户端需要与其他客户端不同的行为或功能时考虑对某些或所有资源版本化以对客户端隔离改变。当对RESTfulweb服务版本化时，当资源行为或表述所含信息发生变化时使用新URI添加新资源，在子域名、路径片段或查询参数中使用例如v1或v2这样易于检测的模式分辨URI。避免对同一资源使用不同媒体类型的新表述视为一个版本。</p>
+
+<h1 id="服务发现">服务发现</h1>
+
+<p>当创建RESTful web服务时，需要解决设计时可发现性和运行时可发现性这两类可发现性。设计时可发现性有助于其他设计和创建客户端，它描述了客户端开发组和管理员用于构建和启动客户端的基本信息。运行时可发现性有助于维护客户端和服务器之间的松散耦合并使能即插即用式自动化。运行时可发现性解决了HTTP统一接口、媒体类型、链接和链接关系类型。本章是关于设计时可发现性的。
+设计时发现简单来说就是将web服务用散文描述，不管这些散文诗有工具生成还是设计者手工写作。客户端开发者可以查询散文以理解资源语义、媒体类型、链接类型等信息以实现客户端。
+下面这些信息需要在RESTful web服务文档中描述：
+- 所有资源及每个资源支持的方法
+- 请求和响应中资源的媒体类型和表述格式
+- 使用的链接关系、商业意义、所用的HTTP方法及链接标识的资源
+- 所用不通过链接提供的固定URI
+- 用于所有固定URI的查询参数
+- URI模板和符号替换规则
+- 访问资源的认证和安全证书</p>
+
+<p>对于XML表述，如果客户端和服务器支持XML schema，使用schema语言描述用于请求和响应中表述的XML结构。对于其他格式，使用散文描述表述。
+通过支持HTTP OPTIONS方法，有助于工具了解web服务中的资源。在服务器端，实现OPTIONS方法通过Allow头返回支持方法列表。当资源支持PATCH方法，添加Accept-Patch头列举支持PATCH请求的媒体类型。可选择性添加含有资源描述文档的链接的Link头。</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：RESTful Web Services Cookbook笔记（三）
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/rest" rel="tag" title="rest">#rest#</a>
+    
+    <a href="/tags/%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5%e6%89%8b%e5%86%8c" rel="tag" title="最佳实践手册">#最佳实践手册#</a>
+    
+    <a href="/tags/webservice" rel="tag" title="webservice">#webservice#</a>
+    
+    <a href="/tags/http" rel="tag" title="http">#http#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/rest%E7%9A%84richardson%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/" rel="next" title="REST的Richardson成熟度模型">
+        <i class="fa fa-chevron-left"></i> REST的Richardson成熟度模型
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/" rel="prev" title="RESTful Web Services Cookbook笔记（二）">
+        RESTful Web Services Cookbook笔记（二） <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/";
+this.page.identifier = "https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li><a href="#杂项">杂项</a></li>
+<li><a href="#安全">安全</a></li>
+<li><a href="#可扩展性与版本控制">可扩展性与版本控制</a></li>
+<li><a href="#服务发现">服务发现</a></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

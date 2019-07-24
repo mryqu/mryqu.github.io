@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>水平分区 on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/%E6%B0%B4%E5%B9%B3%E5%88%86%E5%8C%BA/</link>
+    <description>Recent content in 水平分区 on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 19 Jul 2013 07:01:23 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/%E6%B0%B4%E5%B9%B3%E5%88%86%E5%8C%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hibernate shards数据库分片</title>
+      <link>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</link>
+      <pubDate>Fri, 19 Jul 2013 07:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</guid>
+      <description>简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
+Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。 - 标准Hibernate编程模型 - 灵活的分片策略 - 支持虚拟分片 - 免费/开源
+实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
+|Hibernate Core接口|Hibernate Shards实现 |&amp;mdash;&amp;ndash; |org.hibernate.Session|org.hibernate.shards.session.ShardedSession |org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory |org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria |org.hibernate.Query|org.hibernate.shards.query.ShardedQuery
+唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。 首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。
+气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM(&#39;AFRICA&#39;, &#39;ANTARCTICA&#39;, &#39;ASIA&#39;, &#39;AUSTRALIA&#39;, &#39;EUROPE&#39;, &#39;NORTH AMERICA&#39;, &#39;SOUTH AMERICA&#39;), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP );  气象报告对象模型 @Entity @Table(name=&amp;quot;WEATHER_REPORT&amp;quot;) public class WeatherReport { @Id @GeneratedValue(generator=&amp;quot;WeatherReportIdGenerator&amp;quot;) @GenericGenerator(name=&amp;quot;WeatherReportIdGenerator&amp;quot;, strategy=&amp;quot;org.</description>
+    </item>
+    
+  </channel>
+</rss>

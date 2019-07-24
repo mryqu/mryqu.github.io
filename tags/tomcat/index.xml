@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tomcat on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/tomcat/</link>
+    <description>Recent content in Tomcat on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 08 Jun 2015 06:42:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/tomcat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spring FileUpload限制调整笔记</title>
+      <link>https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 08 Jun 2015 06:42:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/</guid>
+      <description>Tomcat配置 HTTP Connector - maxPostSize配置 maxPostSize: 在POST请求中容器FORMURL参数解析所能处理的最大字节数。该参数可以通过设置为小于零的负值禁掉该限制。如果没有设置，该属性为2097152(2M字节)。 该配置可在$CATALINA_BASE/conf/server.xml内修改: Tomcat 7.0.63之前maxPostSzie=&amp;ldquo;0&amp;rdquo;视为禁掉该限制。
+multipart-config配置 max-file-size: 单个上传文件允许的最大字节数。默认-1，无限制。 max-request-size: 真个请求允许的最大字节数。默认-1，无限制。
+这两个配置可在web.xml内修改： 如果上传文件超过限制，则会抛出Exception。示例：
+org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (61198097) exceeds the configured maximum (20971520) at org.apache.tomcat.util.http.fileupload.FileUploadBase$FileItemIteratorImpl.(FileUploadBase.java:811) at org.apache.tomcat.util.http.fileupload.FileUploadBase.getItemIterator(FileUploadBase.java:256) at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:280) at org.apache.catalina.connector.Request.parseParts(Request.java:2730) at org.apache.catalina.connector.Request.parseParameters(Request.java:3064) at org.apache.catalina.connector.Request.getParameter(Request.java:1093) at org.apache.catalina.connector.RequestFacade.getParameter(RequestFacade.java:380) at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:70) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.boot.actuate.autoconfigure.MetricsFilter.doFilterInternal(MetricsFilter.java:68) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.</description>
+    </item>
+    
+    <item>
+      <title>Tomcat中使用Connector/J连接MySQL的超时问题</title>
+      <link>https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 05 May 2014 20:58:54 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/</guid>
+      <description>最近玩的一个Web项目，上一个晚上做一些操作，第二天超时需要再登陆，却总是报密码不正确。需要重启tomcat才能解决。异常如下：
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 442,814,107 milliseconds ago. The last packet sent successfully to the server was 442,814,107 milliseconds ago. is longer than the server configured value of &#39;wait_timeout&#39;. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Co nnector/J connection property &#39;autoReconnect=true&#39; to avoid this problem.</description>
+    </item>
+    
+    <item>
+      <title>Tomcat的会话持久化</title>
+      <link>https://mryqu.github.io/post/tomcat%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+      <pubDate>Fri, 08 Nov 2013 20:17:47 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tomcat%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+      <description>《玩玩HTTP servlet和session资源监控器》提到我hello的一个web项目，刚开始我只是用监视器清除了Tomcat容器外部的文件资源，以为会话失效后Tomcat会自己清除会话属性，但后来发现想的太简单了。不但会话失效，并且重启Tomcat服务器，服务器端原来的会话及其属性都在,如果客户端浏览器的会话没有丢的话，刷新页面仍然可以获得以前的信息。原来Tomcat（起码5.x之后的版本）在默认的情况下提供了会话持久化这项功能，见$TOMCAT_HOME$/conf/context.xml：Tomcat的默认会话管理器是标准会话管理器(StandardManager)，用于非集群环境中对单个处于运行状态的Tomcat实例会话进行管理。当Tomcat关闭时，这些会话相关的数据会被写入磁盘上的一个名叫SESSION.ser的文件，并在Tomcat下次启动时读取此文件。 - 默认只有在Tomcat正常关闭时才会保存完整的用户会话信息 - 默认保存于$CATALINA_HOME$/work/Catalina/[host]/[webapp]/下的SESSIONS.ser文件中 - 若是自定义的虚拟主机则保存在$CATALINAHOME/work/Catalina/[host]//下的SESSIONS.ser文件中
+如果不想再获得失效会话属性的话，解决办法为： - 关闭Tomcat会话持久化功能。去掉context.xml中那句注释即可。 - HttpSessionListener实现类的sessionDestroyed方法删除该会话所有属性。
+参考 Apache Tomcat 5.5 Configuration ReferenceTomcat会话管理</description>
+    </item>
+    
+    <item>
+      <title>事务管理器同步机制应用</title>
+      <link>https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 27 Oct 2013 14:28:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/</guid>
+      <description>在我目前的项目中，缓存管理器需要根据事务提交状态对应用缓存进行管理。这里对其机制应用做一个小总结。
+事务管理器 javax.transaction.TransactionManager接口定义一些方法以便应用服务器管理事务边界，比如获取与当前线程绑定的事务、对事务执行resume和suspend方法。
+事务 javax.transaction.Transaction接口允许对目标事务对象执行相关的事务操作。在每个全局事务创建时，Transaction对象也对应的创建出来。 事务对象可以被用来做资源获取(resource enlistment)、同步器注册(synchronizationregistration)、事务结束(transaction completion)和状态查询(statusquery)操作。
+事务同步机制 事务管理器通过javax.transaction.Synchronization接口支持一种同步机制。通过对当前事务的目标Transaction对象调用registerSynchronization方法，应用服务器为该事务注册一个Synchronization对象。 事务管理器在启动2PC事务提交过程时,回调Synchronization对象的beforeCompletion方法通知有关部分事务将要被提交；事务管理器在事务已经提交或回滚后,回调Synchronization对象的afterCompletion方法通知有关部分事务的结束状态。 应用一般很少使用beforeCompletion方法，afterCompletion方法使用比较多。在我目前的项目中，就是使用afterCompletion方法来通知缓存管理器对缓存进行更新操作。
+实例代码 package com.yqu.transaction; import java.lang.reflect.Method; import javax.naming.InitialContext; import javax.transaction.RollbackException; import javax.transaction.Synchronization; import javax.transaction.SystemException; import javax.transaction.Transaction; import javax.transaction.TransactionManager; public class SynchronizationSample implements Synchronization { private static int wepsphereVer; private static final String WEBSPHERE_TM_FACTORY51 = &amp;quot;com.ibm.ws.Transaction.TransactionManagerFactory&amp;quot;; private static final String WEBSPHERE_TM_FACTORY50 = &amp;quot;com.ibm.ejs.jts.jta.TransactionManagerFactory&amp;quot;; private static final String WEBSPHERE_TM_FACTORY4 = &amp;quot;com.ibm.ejs.jts.jta.JTSXA&amp;quot;; private static final String WEBLOGIC_TM_OBJNAME = &amp;quot;javax.transaction.TransactionManager&amp;quot;; private static final String JBOSS_TM_OBJNAME = &amp;quot;java:/TransactionManager&amp;quot;; private static final String TOMCAT_TM_OBJNAME = &amp;quot;java:comp/env/TransactionManager&amp;quot;; private static final String WEBSPHERE_RECOG_CLASS = &amp;quot;com.</description>
+    </item>
+    
+    <item>
+      <title>tc Server与Atomikos集成</title>
+      <link>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</link>
+      <pubDate>Sun, 13 Oct 2013 17:15:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</guid>
+      <description>tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
+Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录： - atomikos-util.jar - transactions.jar - transactions-api.jar - transactions-jdbc.jar - transactions-jdbc-deprecated.jar - transactions-jms.jar - transactions-jms-deprecated.jar - transactions-jta.jar - transactions-osgi.jar - geronimo-jms_1.1_spec.jar - geronimo-jta_1.0.1B_spec.jar - JDBC驱动 - 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar
+复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
+com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false  复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
+package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.</description>
+    </item>
+    
+    <item>
+      <title>获取Tomcat版本的简单办法</title>
+      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Sun, 29 Sep 2013 21:28:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/</guid>
+      <description>[Tomcat]\bin\version.bat可以用来查看Tomcat版本。
+C:\tomcat6\bin&amp;gt;version.bat Using CATALINA_BASE: &amp;quot;C:\tomcat6&amp;quot; Using CATALINA_HOME: &amp;quot;C:\tomcat6&amp;quot; Using CATALINA_TMPDIR: &amp;quot;C:\tomcat6\temp&amp;quot; Using JRE_HOME: &amp;quot;C:\Program Files\Java\jdk1.6.0_45&amp;quot; Using CLASSPATH: &amp;quot;C:\tomcat6\bin\bootstrap.jar&amp;quot; Server version: Apache Tomcat/6.0.37 Server built: Apr 29 2013 11:34:47 Server number: 6.0.0.37 OS Name: Windows Server 2008 R2 OS Version: 6.1 Architecture: x86 JVM Version: 1.6.0_45-b06 JVM Vendor: Sun Microsystems Inc.  </description>
+    </item>
+    
+    <item>
+      <title>Eclipse中解决远程调试超时的设置</title>
+      <link>https://mryqu.github.io/post/eclipse%E4%B8%AD%E8%A7%A3%E5%86%B3%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E8%B6%85%E6%97%B6%E7%9A%84%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Fri, 07 Sep 2012 20:55:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/eclipse%E4%B8%AD%E8%A7%A3%E5%86%B3%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E8%B6%85%E6%97%B6%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
+      <description> 主要是加大调试器超时和启动超时设置 Tomcat设置 catalina.bat中添加如下：
+:doStart shift if &amp;quot;%TITLE%&amp;quot; == &amp;quot;&amp;quot; set TITLE=Tomcat set _EXECJAVA=start &amp;quot;%TITLE%&amp;quot; %_RUNJAVA% set CATALINA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=5558,server=y,suspend=n if not &amp;quot;&amp;quot;%1&amp;quot;&amp;quot; == &amp;quot;&amp;quot;-security&amp;quot;&amp;quot; goto execCmd shift echo Using Security Manager set &amp;quot;SECURITY_POLICY_FILE=%CTALINA_BASE%\conf\catalina.policy&amp;quot; goto execCmd  Eclipse设置 </description>
+    </item>
+    
+    <item>
+      <title>Tomcat JNDI 数据源配置</title>
+      <link>https://mryqu.github.io/post/tomcat_jndi_%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 22 Aug 2012 09:19:36 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/tomcat_jndi_%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/</guid>
+      <description>学写一下Tomcat:JNDI Datasource HOW-TO，JNDI数据源可以配置到两个位置。Tomcat详细介绍了第二种方式，我目前的项目使用的是第一种方式。第一种方式的好处是，多个Web应用程序可以共享Tomcat全局命名空间里的资源。 - Tomcat全局命名空间 $CATALINA_HOME$/conf/server.xml $CATALINA_HOME$/conf/localhost/javatest.xml - Web应用程序环境(Context)</description>
+    </item>
+    
+  </channel>
+</rss>

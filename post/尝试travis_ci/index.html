@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>尝试Travis CI - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="尝试Travis CI">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="尝试Travis CI - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95travis_ci/" itemprop="url">
+        尝试Travis CI
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-11-05">
+    2016-11-05
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">115 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>从GitHub上下载的很多项目都包含一个.travis.yml文件，一开始不知道是什么鬼，后来才知道是<a href="http://travis-ci.org/">Travis CI</a>配置文件。
+<a href="http://travis-ci.org/">Travis CI</a>是基于云的持续集成项目，供<a href="https://github.com/">GitHub</a>上的开源项目使用。对于<a href="https://github.com/">GitHub</a>上的项目来说，<a href="http://travis-ci.org/">Travis CI</a>无需自己部署服务器，仅需添加一个.travis.yml文件就可进行持续集成，入侵性很小，所以很多项目都纷纷采用了。</p>
+
+<h3 id="travis-ci与jenkins的比较">Travis CI与Jenkins的比较</h3>
+
+<p>对于企业开发来收，目前主流还是Jenkins/Hudson，下面可以看一下二者的功能比较。
+<table style="font-size: 11.2px; margin: 1em 0px; background-color: rgb(249, 249, 249); border: 1px solid rgb(170, 170, 170); border-collapse: collapse; color: rgb(0, 0, 0); text-align: center; width: auto;"><thead><tr><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">名称</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">平台</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">许可</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">构建器：Windows</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">构建器：Java</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">构建器：其他</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">通知</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">集成 IDE</th><th style="border: 1px solid rgb(170, 170, 170); background-color: rgb(242, 242, 242); text-align: center; cursor: pointer; background-repeat: no-repeat; background-position: right center;">集成 其他</th></tr></thead><tbody><tr><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><a href="https://en.wikipedia.org/wiki/Jenkins_(software)" title="Jenkins (software)">Jenkins</a>-<a href="https://en.wikipedia.org/wiki/Hudson_(software)" title="Hudson (software)">Hudson</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;">Web容器</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 255); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/Creative_Commons_license" title="Creative Commons license">Creative Commons</a>和 <a href="https://en.wikipedia.org/wiki/MIT_license" title="MIT license">MIT</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/MSBuild" title="MSBuild">MSBuild</a><br><a href="https://en.wikipedia.org/wiki/NAnt" title="NAnt">NAnt</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/Apache_Ant" title="Apache Ant">Ant</a><br><a href="https://en.wikipedia.org/wiki/Apache_Maven" title="Apache Maven">Maven</a>&nbsp;2<br>Kundo</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/Cmake" title="Cmake">Cmake</a><br>Gant<br>Gradle<br><a href="https://en.wikipedia.org/wiki/Grails_(framework)" title="Grails (framework)">Grails</a>, Phing<br><a href="https://en.wikipedia.org/wiki/Rake_(software)" title="Rake (software)">Rake</a><br><a href="https://en.wikipedia.org/wiki/Ruby_(programming_language)" title="Ruby (programming language)">Ruby</a><br><a href="https://en.wikipedia.org/wiki/SCons" title="SCons">SCons</a><br><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" title="Python (programming language)">Python</a><br><a href="https://en.wikipedia.org/wiki/Shell_script" title="Shell script">shell script</a><br><a href="https://en.wikipedia.org/wiki/Command-line_interface" title="Command-line interface">command-line</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><a href="https://en.wikipedia.org/wiki/Android_(operating_system)" title="Android (operating system)">Android</a><br><a href="https://en.wikipedia.org/wiki/Email" title="Email">Email</a><br><a href="https://en.wikipedia.org/wiki/Google_Calendar" title="Google Calendar">Google Calendar</a><br><a href="https://en.wikipedia.org/wiki/Internet_Relay_Chat" title="Internet Relay Chat">IRC</a><br><a href="https://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol" title="Extensible Messaging and Presence Protocol">XMPP</a><br><a href="https://en.wikipedia.org/wiki/RSS" title="RSS">RSS</a><br><a href="https://en.wikipedia.org/wiki/Twitter" title="Twitter">Twitter</a><br><a href="https://en.wikipedia.org/wiki/Slack_(software)" title="Slack (software)">Slack</a><br>Catlight<br>CCMenu<br>CCTray</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/Eclipse_(software)" title="Eclipse (software)">Eclipse</a><br><a href="https://en.wikipedia.org/wiki/IntelliJ_IDEA" title="IntelliJ IDEA">IntelliJ IDEA</a><br><a href="https://en.wikipedia.org/wiki/NetBeans" title="NetBeans">NetBeans</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/Bugzilla" title="Bugzilla">Bugzilla</a><br><a href="https://en.wikipedia.org/wiki/Google_Code" title="Google Code">Google Code</a><br><a href="https://en.wikipedia.org/wiki/Jira_(software)" title="Jira (software)">Jira</a><br><a href="https://en.wikipedia.org/wiki/Bitbucket" title="Bitbucket">Bitbucket</a><br><a href="https://en.wikipedia.org/wiki/Redmine" title="Redmine">Redmine</a><br><a href="https://en.wikipedia.org/wiki/FindBugs" title="FindBugs">FindBugs</a><br><a href="https://en.wikipedia.org/wiki/Checkstyle" title="Checkstyle">Checkstyle</a><br><a href="https://en.wikipedia.org/wiki/PMD_(software)" title="PMD (software)">PMD</a>&nbsp;and&nbsp;<a href="https://en.wikipedia.org/wiki/Mantis_Bug_Tracker" title="Mantis Bug Tracker">Mantis</a><br><a href="https://en.wikipedia.org/wiki/Trac" title="Trac">Trac</a><br><a href="https://en.wikipedia.org/wiki/HP_Application_Lifecycle_Management" title="HP Application Lifecycle Management">HP ALM</a></td></tr><tr><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><a href="https://en.wikipedia.org/wiki/Travis_CI" title="Travis CI">Travis CI</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;">已在云上部署</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 255); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/MIT_License" title="MIT License">MIT</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(255, 153, 153); vertical-align: middle;">无</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/Apache_Ant" title="Apache Ant">Ant</a><br><a href="https://en.wikipedia.org/wiki/Apache_Maven" title="Apache Maven">Maven</a><br><a href="https://en.wikipedia.org/wiki/Gradle" title="Gradle">Gradle</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/C_(programming_language)" title="C (programming language)">C</a><br><a href="https://en.wikipedia.org/wiki/C++" title="C++">C++</a><br><a href="https://en.wikipedia.org/wiki/Clojure_(programming_language)" title="Clojure (programming language)">Clojure</a><br><a href="https://en.wikipedia.org/wiki/Elixir_(programming_language)" title="Elixir (programming language)">Elixir</a><br><a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)" title="Erlang (programming language)">Erlang</a><br><a href="https://en.wikipedia.org/wiki/Go_(programming_language)" title="Go (programming language)">Go</a><br><a href="https://en.wikipedia.org/wiki/Groovy_(programming_language)" title="Groovy (programming language)">Groovy</a><br><a href="https://en.wikipedia.org/wiki/Haskell_(programming_language)" title="Haskell (programming language)">Haskell</a><br><a href="https://en.wikipedia.org/wiki/" title="">Java</a><br><a href="https://en.wikipedia.org/wiki/Node.js" title="Node.js">Node.js</a><br><a href="https://en.wikipedia.org/wiki/Perl" title="Perl">Perl</a><br><a href="https://en.wikipedia.org/wiki/PHP" title="PHP">PHP</a><br><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" title="Python (programming language)">Python</a><br><a href="https://en.wikipedia.org/wiki/Ruby_(programming_language)" title="Ruby (programming language)">Ruby</a><br><a href="https://en.wikipedia.org/wiki/Rust_(programming_language)" title="Rust (programming language)">Rust</a><br><a href="https://en.wikipedia.org/wiki/Scala_(programming_language)" title="Scala (programming language)">Scala</a><br><a href="https://en.wikipedia.org/wiki/Smalltalk" title="Smalltalk">Smalltalk</a></td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><a href="https://en.wikipedia.org/wiki/Email" title="Email">Email</a><br><a href="https://en.wikipedia.org/wiki/Campfire" title="Campfire">Campfire</a><br><a href="https://en.wikipedia.org/wiki/HipChat" title="HipChat">HipChat</a><br><a href="https://en.wikipedia.org/wiki/IRC" title="IRC">IRC</a><br><a href="https://en.wikipedia.org/wiki/Slack_(software)" title="Slack (software)">Slack</a><br>Catlight<br>CCMenu<br>CCTray</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(255, 153, 153); vertical-align: middle;">无</td><td style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; background: rgb(153, 255, 153); vertical-align: middle;"><a href="https://en.wikipedia.org/wiki/GitHub" title="GitHub">GitHub</a><br><a href="https://en.wikipedia.org/wiki/Heroku" title="Heroku">Heroku</a></td></tr></tbody></table>
+此外Jenkins支持AccuRev、BitKeeper、CA Harvest、ClearCase、CVS、Darcs、Git、GNU Bazaar、Integrity、Mercurial、Perforce、Plastic、PVCS、StarTeam、Subversion、Surround、Synergy、Team Concert、Team Foundation Server、Vault Visual SourceSafe这些源代码控制管理系统，而Travis CI仅支持Git。</p>
+
+<h3 id="我的尝试">我的尝试</h3>
+
+<p>最终选择我的C++项目<a href="https://github.com/mryqu/twitcurl">mryqu/twitcurl</a>采用Travis CI进行持续集成，测试一下整个编译是否能过。
+<img src="/images/2016/11/TravisCI_twitcurl.png" alt="TravisCi: twitcurl" /></p>
+
+<h3 id="参考">参考</h3>
+
+<hr />
+
+<p>网站：<a href="https://travis-ci.org/">travis-ci.org</a>（免费）<a href="https://travis-ci.com/">travis-ci.com</a>（企业版）<br />
+<a href="https://github.com/travis-ci/travis-ci">GitHub: travis-ci/travis-ci</a><br />
+<a href="https://en.wikipedia.org/wiki/Travis_CI">WIKI: Travis CI</a><br />
+<a href="https://en.wikipedia.org/wiki/Comparison_of_continuous_integration_software">WIKI: Comparison of continuous integration software</a><br />
+<a href="https://www.zhihu.com/question/38577259?from=profile_question_card">为什么国内做持续集成大家都选择 Jenkins ,用 travis-ci 的人那么少呢？</a><br />
+<a href="http://pinkyjie.com/2016/02/27/continuous-integration-with-travis-ci/">用TravisCI来做持续集成</a><br />
+<a href="http://www.larrycaiyu.com/2012/03/06/travis-ci-is-evolution.html">Travis CI会替代Jenkins吗？</a><br />
+<a href="http://ju.outofmemory.cn/entry/6600">Travis CI，翩翩而至的CI云</a><br />
+<a href="http://saberma.me/travis-ci-is-a-free-continuous-integration-test-server">免费的持续集成测试服务</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：尝试Travis CI
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/travis" rel="tag" title="travis">#travis#</a>
+    
+    <a href="/tags/ci" rel="tag" title="ci">#ci#</a>
+    
+    <a href="/tags/github" rel="tag" title="github">#github#</a>
+    
+    <a href="/tags/jenkins" rel="tag" title="jenkins">#jenkins#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E6%81%A2%E5%A4%8D%E8%AF%AF%E5%88%A0%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/" rel="next" title="恢复误删文件内容">
+        <i class="fa fa-chevron-left"></i> 恢复误删文件内容
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/update-alternatives%E4%B8%8Ejava_home/" rel="prev" title="update-alternatives与JAVA_HOME">
+        update-alternatives与JAVA_HOME <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95travis_ci/";
+this.page.identifier = "https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95travis_ci/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#travis-ci与jenkins的比较">Travis CI与Jenkins的比较</a></li>
+<li><a href="#我的尝试">我的尝试</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

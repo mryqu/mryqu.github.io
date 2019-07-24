@@ -1,0 +1,599 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>Hibernate缓存 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="Hibernate缓存">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="Hibernate缓存 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/" itemprop="url">
+        Hibernate缓存
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-25">
+    2013-05-25
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/cache" itemprop="url" rel="index">
+        <span itemprop="name">Cache</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">379 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h2 id="hibernate缓存">Hibernate缓存</h2>
+
+<p>Hibernate带有三种不同缓存机制：一级缓存、二级缓存和查询缓存。</p>
+
+<h3 id="sessionfactory和session">SessionFactory和Session</h3>
+
+<p>SessionFactory(在JEE中叫做EntityManager)的用途是创建会话，初始化JDBC链接并（使用例如C3P0之类的可插拔provider）进行池化。SessionFactory是非可变的，通过hibernate.cfg.cml文件或Springbean配置中提供的匹配信息、缓存信息等配置进行创建。会话是最低级的工作单元，对应一个数据库事物。当会话创建后并对Hibernate实体机型一些操作，比如设置实体的一个属性，Hibernate不会立即更新底层数据库表。相反Hibernate记录实体的状态（是否为脏数据），并在会话最终刷新更新到数据库。这就是Hibernate所谓的一级缓存。</p>
+
+<h3 id="一级缓存">一级缓存</h3>
+
+<p>一级缓存是Hibernate记录正在进行的会话加载和接触的实体有可能的脏数据状态。正在进行的会话代表工作单元，始终使用，无法关闭。一级缓存的用途是隐藏对数据库许多SQL查询或更新，并在会话最终批量一起执行。当想起一级缓存的时候就应该想到会话。</p>
+
+<h3 id="二级缓存">二级缓存</h3>
+
+<p>二级缓存是进程范围内的缓存，与一个SessionFactory绑定。二级缓存可被相同（通常一个应用程序仅一个）SessionFactory的所有会话共享。默认二级缓存没有使能。二级缓存不存储任何实体实例，而是存储“脱水”状态，即字符串或整形数组代表实体的属性，一个实体id指向“脱水”的实体。概念上可以认为它是一个映射，id作为键，数组作为值。或像下面用于缓存region的这些东西：</p>
+
+<pre><code>public class Person {
+  private Person parent;
+  private Set&lt;Person&gt; children;
+  
+  public void setParent(Person p) { parent = p; }
+  public void setChildren(Set&lt;Person&gt; set) { children = set; }
+  public Set&lt;Person&gt; getChildren() { return children; }
+  public Person getParent() { return parent; }
+}
+</code></pre>
+
+<p>Hibernate映射配置如下:</p>
+
+<pre><code>&lt;class name=&quot;org.javalobby.tnt.hibernate.Person&quot;&gt;
+  &lt;cache usage=&quot;read-write&quot;/&gt;
+  &lt;id name=&quot;id&quot; column=&quot;id&quot; type=&quot;long&quot;&gt;
+     &lt;generator class=&quot;identity&quot;/&gt;
+  &lt;/id&gt;
+  &lt;property name=&quot;firstName&quot; type=&quot;string&quot;/&gt;
+  &lt;property name=&quot;middleInitial&quot; type=&quot;string&quot;/&gt;
+  &lt;property name=&quot;lastName&quot; type=&quot;string&quot;/&gt;
+  &lt;many-to-one name=&quot;parent&quot; column=&quot;parent_id&quot; class=&quot;Person&quot;/&gt;
+  &lt;set name=&quot;children&quot;&gt;
+    &lt;key column=&quot;parent_id&quot;/&gt;
+    &lt;one-to-many class=&quot;Person&quot;/&gt;
+  &lt;/set&gt;
+&lt;/class&gt;
+</code></pre>
+
+<p>Hibernate概念上为此类持有如下记录:</p>
+
+<pre><code>*-----------------------------------------*
+|            Person Data Cache            |
+|-----------------------------------------|
+| 1 -&gt; [ &quot;John&quot; , &quot;Q&quot; , &quot;Public&quot; , null ] |
+| 2 -&gt; [ &quot;Joey&quot; , &quot;D&quot; , &quot;Public&quot; ,  1   ] |
+| 3 -&gt; [ &quot;Sara&quot; , &quot;N&quot; , &quot;Public&quot; ,  1   ] |
+*-----------------------------------------*
+</code></pre>
+
+<p>因此，本例中Hibernate保留三个字符串和一个用于“多对一”父子关系的可序列化标识符，而不是保留真正的对象实例。这非常重要：一、Hibernate不用担心客户代码操作对象会破坏缓存；二、关联关系和关联由于是简单标识符不会变得‘陈旧’，并易于更新到最新状态。缓存不是对象树，而是概念上的数组映射。概念一词被连续使用，是因为Hibernate为Cache做了更多的幕后工作，用户如果不想实现自己的provider则无需担心其内部实现。Hibernate将对象的状态称之为“脱水的”，因为它含有对象所有重要的信息，但是对Hibernate更为可控。
+你有可能注意到子关联在缓存中被省略掉了。Hibernate的控制颗粒度可以让你决定哪些关联应被加入缓存，从二级缓存恢复业务数据时哪些关联应重新判决。当关联有可能被其他类修改但不想对已缓存的类做显式级联修改时，提供了更多控制选项。
+默认设置是不缓存关联。如果你对此不了解并对Hibernate缓存如果工作一无所知，仅仅简单打开缓存，有可能仅仅增加了管理缓存的负担而没有获得相应的好处。毕竟，缓存的最大优点是无需通过N+1数据库查询而获得复杂关联。
+在此例中，我们仅处理person类，并知道关联能被适当地管理，因此更新映射以让子关联可以被缓存。</p>
+
+<pre><code>  &lt;set name=&quot;children&quot;&gt; 
+  &lt;cache usage=&quot;read-write&quot;/&gt;
+  &lt;key column=&quot;parent_id&quot;/&gt;
+  &lt;one-to-many class=&quot;Person&quot;/&gt;
+</code></pre>
+
+<p>下面是person数据缓存的更新版本:</p>
+
+<pre><code>*-----------------------------------------------------*
+|                     Person Data Cache               |
+|-----------------------------------------------------|
+| 1 -&gt; [ &quot;John&quot; , &quot;Q&quot; , &quot;Public&quot; , null , [ 2 , 3 ] ] |
+| 2 -&gt; [ &quot;Joey&quot; , &quot;D&quot; , &quot;Public&quot; ,  1   , []        ] |
+| 3 -&gt; [ &quot;Sara&quot; , &quot;N&quot; , &quot;Public&quot; ,  1   , []        ] |
+*-----------------------------------------------------*
+</code></pre>
+
+<p>需要再次指出的是仅仅缓存相关部分的ID。</p>
+
+<p>当我们从不使用缓存数据库加载ID为‘1’，将执行下列查询:</p>
+
+<pre><code>select * from Person where id=1 ; 加载id为1的person
+select * from Person where parent_id=1 ; 加载id为1的person的孩子(将返回2, 3)
+select * from Person where parent_id=2 ; 加载id为2的person的孩子(将返回none)
+select * from Person where parent_id=3 ; 加载id为3的person的孩子(将返回none)
+</code></pre>
+
+<p>当使用缓存（假设已完成全部加载）时，直接加载将<strong>不再</strong>对数据库进行查询，因为它能通过标识从缓存中查找。但假如我们没有对关联进行缓存，需要对数据库进行如下查询:</p>
+
+<pre><code>select * from Person where parent_id=1 ; 加载id为1的person的孩子(将返回2, 3) 
+select * from Person where parent_id=2 ; 加载id为2的person的孩子(将返回none) 
+select * from Person where parent_id=3 ; 加载id为3的person的孩子(将返回none)
+</code></pre>
+
+<p>SQL查询的数量同没有使用缓存近似一样。这就是尽可能缓存关联为什么很重要的原因。
+如果我们使用更复杂的不是基于ID进行查询，例如姓名，Hibernate在这种情况下仍会对数据库进行一次查询。示例代码如下：</p>
+
+<pre><code>Query query = session.createQuery(&quot;from Person as p wherep.firstName=?&quot;);
+query.setString(0, &quot;John&quot;);
+List l = query.list();
+</code></pre>
+
+<p>这会对数据库进行如下查询(即使所有关联已被缓存).</p>
+
+<pre><code>select * from Person where firstName='John'
+</code></pre>
+
+<p>查询结果为‘1’，然后缓存可以用来查询其他孩子信息。查询缓存可用于对上述的查询进行缓存。</p>
+
+<h3 id="查询缓存">查询缓存</h3>
+
+<p>Hibernate查询缓存默认没有使能。它使用两个叫做org.hibernate.cache.StandardQueryCache和org.hibernate.cache.UpdateTimestampsCache的缓存region。第一个将带有参数的查询作为键进行存储，第二个记录查询结果。如果缓存查询的实体部分被更新，查询缓冲逐出查询及查询结果。因此查询缓冲必须设置逐出则略。一个对ID的简单加载不会使用查询缓存，但是下面的这样查询就会使用查询缓存：</p>
+
+<pre><code>Query query = session.createQuery(&quot;from Person as p where p.parent.id=? and p.firstName=?&quot;);
+query.setInt(0, Integer.valueOf(1));
+query.setString(1, &lt;font color=&quot;red&quot;&gt;&quot;Joey&quot;);
+query.setCacheable(**true**);
+List l = query.list();
+</code></pre>
+
+<p>查询缓存:</p>
+
+<pre><code>*----------------------------------------------------------------------------------------*
+|                                           Query Cache                                  |
+|----------------------------------------------------------------------------------------|
+| [&quot;from Person as p where p.parent.id=? and p.firstName=?&quot;, [ 1 , &quot;Joey&quot;] ] -&gt; [  2 ] ] |
+*----------------------------------------------------------------------------------------*
+</code></pre>
+
+<p>键为查询和参数值组合，值为查询结果标识符列表。注意查询可能修改返回对象的关联时从内部看这将变得更为复杂更不要说查询可能不是对整个对象进行查询而是对对象部分标量属性的查询。也就是说，这仅仅是从概念上对查询缓存的一种看法。
+如果二级缓存使能(用于查询缓存返回的对象),id为2的Person及其他关联“脱水”对象将从二级缓存获取并转换成实体对象。</p>
+
+<h2 id="二级缓存并发策略">二级缓存并发策略</h2>
+
+<p>二级缓存有四个可选的并发策略：
+- 只读（Read-only）: 这种策略对于从来不修改、只需要频繁读取的数据是非常有用的，也是最简单、性能最好的缓存策略。但必须保证数据不会被修改或删除，否则就会出错。
+- 非严格读写（Nonstrict read/write）:这种策略不保证不能保证缓存与数据库中数据的一致性。如果存在两个事务并发地访问缓存数据的可能，则应该为该数据配置一个很短的过期时间，以减少读脏数据的可能。因此，更适用于频繁读取数据、偶尔修改数据并容忍偶尔脏读的场合。
+- 读写（Read/write）:如果数据需要被更新，Read/write缓存策略可能是比较合适的。这种策略比read-only消耗更多的资源。在非JTA环境中，每个事务必须在Session.close()或Session.disconnect()调用之前结束。Hibenate在此模式下作为轻量级XA协调器自己管理事务。所有数据库操作必须在一个事务中，无法使用自动提交模式。在flush时，Hibernate搜索会话并搜索所有更新的/插入的/删除的对象并刷新至数据库，之后锁定并更新缓存。此时其他事物无法读写缓存。如果事物回滚，仅释放锁并将这些对象逐出缓存，之后其他事物可以读写缓存。如果事物提交，仅释放锁，之后其他事物可以读写缓存。读写策略提供了“readcommitted&rdquo;数据库隔离级别。对于经常被读但很少修改的数据可以采用这种策略，它可以防止读脏数据。
+- 事物（Transactional）:这是一个完全事务支持的策略，可以在JTA环境中使用。它提供了RepeatableRead事务隔离级别。它可以防止脏读和不可重复读这类的并发问题。</p>
+
+<h2 id="注意事项">注意事项</h2>
+
+<ul>
+<li>Hibernate内部始终透明地使用一级缓存。当查询缓存关闭时，HQL查询会对数据库执行SQL查询而不是从一级缓存加载。Hibernate需要键用来从一级缓存加载对象。应此，如果已经获得键的情况下，使用load或者get比HQL查询更适合。此外Iterator方法读写一级缓存，List方法只写不读一级缓存。</li>
+<li>一级缓存不能禁用，但可以通过Session的clear方法和evict方法清理一级缓存，从而达到禁止写缓存的效果</li>
+<li>Get，Load，Iterator方法读写二级缓存，List方法只写不读二级缓存。在一次会话中可以通过设置会话的CacheMode为Put来禁用读操作，设置CacheMode为Get来禁用写操作。也可以通过SessionFacotry的evict方法清理二级缓存来达到禁止写二级缓存的效果。</li>
+<li>当会话的创建时戳(txTimestamp)比二级缓存中缓存对象的更新时戳大时，它会从二级缓存加载；否则，对数据库执行SQL查询。</li>
+<li>查询缓存会缓存Hibernate查询结果的键。这些键之后用于Hibernate从一级缓存或二级缓存加载对象。List方法读写查询缓存，Iterator不读查询缓存。</li>
+</ul>
+
+<h2 id="附注">附注</h2>
+
+<h3 id="1-hibernate二级缓存文档">1. Hibernate二级缓存文档</h3>
+
+<p><a href="http://docs.jboss.org/hibernate/orm/3.2/reference/en/html/performance.html#performance-cache">http://docs.jboss.org/hibernate/orm/3.2/reference/en/html/performance.html#performance-cache</a><br />
+<a href="http://docs.jboss.org/hibernate/orm/3.6/reference/en-US/html/performance.html">http://docs.jboss.org/hibernate/orm/3.6/reference/en-US/html/performance.html</a><br />
+<a href="http://docs.jboss.org/hibernate/orm/4.2/manual/en-US/html/ch20.html#performance-cache">http://docs.jboss.org/hibernate/orm/4.2/manual/en-US/html/ch20.html#performance-cache</a></p>
+
+<h3 id="2-hibernate缓存介绍">2. Hibernate缓存介绍</h3>
+
+<p><a href="http://acupof.blogspot.com/2008/01/background-hibernate-comes-with-three.htmlhttp://apmblog.compuware.com/2009/02/16/understanding-caching-in-hibernate-part-one-the-session-cache/ ">http://acupof.blogspot.com/2008/01/background-hibernate-comes-with-three.htmlhttp://apmblog.compuware.com/2009/02/16/understanding-caching-in-hibernate-part-one-the-session-cache/ </a>
+<a href="http://apmblog.compuware.com/2009/02/16/understanding-caching-in-hibernate-part-two-the-query-cache/ ">http://apmblog.compuware.com/2009/02/16/understanding-caching-in-hibernate-part-two-the-query-cache/ </a>
+<a href="http://apmblog.compuware.com/2009/03/24/understanding-caching-in-hibernate-part-three-the-second-level-cache/http://www.javalobby.org/java/forums/t48846.htmlhttp://www.javacodegeeks.com/2012/02/hibernate-cache-levels-tutorial.htmlhttp://consultingblogs.emc.com/manjunathasubbarya/archive/2011/10/30/cache-using-hibernate.aspx">http://apmblog.compuware.com/2009/03/24/understanding-caching-in-hibernate-part-three-the-second-level-cache/http://www.javalobby.org/java/forums/t48846.htmlhttp://www.javacodegeeks.com/2012/02/hibernate-cache-levels-tutorial.htmlhttp://consultingblogs.emc.com/manjunathasubbarya/archive/2011/10/30/cache-using-hibernate.aspx</a>
+<a href="http://itindex.net/detail/40549-hibernate-缓存-缓存">http://itindex.net/detail/40549-hibernate-缓存-缓存</a>
+<a href="http://blog.csdn.net/woshichenxu/article/details/586361">http://blog.csdn.net/woshichenxu/article/details/586361</a></p>
+
+<h3 id="3-hibernate二级缓存并发策略">3. Hibernate二级缓存并发策略</h3>
+
+<p><a href="http://stackoverflow.com/questions/8662609/hibernate-l2-cache-read-write-or-transactional-cache-concurrency-strategy-on-cl ">http://stackoverflow.com/questions/8662609/hibernate-l2-cache-read-write-or-transactional-cache-concurrency-strategy-on-cl </a>
+<a href="http://stackoverflow.com/questions/8186890/nonstrict-read-write-vs-read-write-in-hibernate">http://stackoverflow.com/questions/8186890/nonstrict-read-write-vs-read-write-in-hibernate</a><br />
+<a href="http://wangbt5191-hotmail-com.iteye.com/blog/1711129">http://wangbt5191-hotmail-com.iteye.com/blog/1711129</a></p>
+
+<h3 id="4-hibernate缓存限制">4. Hibernate缓存限制</h3>
+
+<p><a href="http://squirrel.pl/blog/2011/08/24/hibernate-cache-is-fundametanlly-broken/https://hibernate.atlassian.net/browse/HHH-6600">http://squirrel.pl/blog/2011/08/24/hibernate-cache-is-fundametanlly-broken/https://hibernate.atlassian.net/browse/HHH-6600</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：Hibernate缓存
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/hibernate" rel="tag" title="hibernate">#hibernate#</a>
+    
+    <a href="/tags/%e7%bc%93%e5%ad%98" rel="tag" title="缓存">#缓存#</a>
+    
+    <a href="/tags/%e4%b8%80%e7%ba%a7%e7%bc%93%e5%ad%98" rel="tag" title="一级缓存">#一级缓存#</a>
+    
+    <a href="/tags/%e4%ba%8c%e7%ba%a7%e7%bc%93%e5%ad%98" rel="tag" title="二级缓存">#二级缓存#</a>
+    
+    <a href="/tags/%e6%9f%a5%e8%af%a2%e7%bc%93%e5%ad%98" rel="tag" title="查询缓存">#查询缓存#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/servlet/" rel="next" title="Servlet">
+        <i class="fa fa-chevron-left"></i> Servlet
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/" rel="prev" title="JavaSE 新增特性">
+        JavaSE 新增特性 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/";
+this.page.identifier = "https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#hibernate缓存">Hibernate缓存</a>
+<ul>
+<li><a href="#sessionfactory和session">SessionFactory和Session</a></li>
+<li><a href="#一级缓存">一级缓存</a></li>
+<li><a href="#二级缓存">二级缓存</a></li>
+<li><a href="#查询缓存">查询缓存</a></li>
+</ul></li>
+<li><a href="#二级缓存并发策略">二级缓存并发策略</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+<li><a href="#附注">附注</a>
+<ul>
+<li><a href="#1-hibernate二级缓存文档">1. Hibernate二级缓存文档</a></li>
+<li><a href="#2-hibernate缓存介绍">2. Hibernate缓存介绍</a></li>
+<li><a href="#3-hibernate二级缓存并发策略">3. Hibernate二级缓存并发策略</a></li>
+<li><a href="#4-hibernate缓存限制">4. Hibernate缓存限制</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

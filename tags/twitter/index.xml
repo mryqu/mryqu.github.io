@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Twitter on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/twitter/</link>
+    <description>Recent content in Twitter on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 01 Jul 2016 05:34:09 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/twitter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>twitcurl获取访问令牌（AccessToken和AccessTokenSecret）的实现流程</title>
+      <link>https://mryqu.github.io/post/twitcurl%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E5%92%8Caccesstokensecret%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Fri, 01 Jul 2016 05:34:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitcurl%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E5%92%8Caccesstokensecret%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</guid>
+      <description>twitterClient.cpp中有一段代码是没有AccessToken和AccessTokenSecret的情况下，通过ConsumerKey、ConsumerKeySecret、UserName和UaserPassword获取AccessToken和AccessTokenSecret。 一般实现是通过重定向到Twitter页面去授权应用，通过callbackURL获得Twitter传过来的AccessToken和AccessTokenSecret信息。twitcurl既可以通过访问twitter.com获取PIN，也可以交由twitcurl自动获得。 如果通过twitter.com处理PIN，twitcurl会提供授权链接。进入链接后输入用户名和密码，会重定向到Twitter应用的callbackURL（例如http://www.mryqu.com/test.html?oauth_token={OAuthToken}&amp;amp;oauth_verifier={OAuthVerifier} ），其中oauth_verifier值即为所谓的PIN。 下面我们看一下twitcurl是如何实现不访问twitter.com获取AccessToken和AccessTokenSecret的。 - GET https://api.twitter.com/oauth/request_tokentwitCurl::oAuthRequestToken 方法实现该HTTP请求，允许消费者应用获得一个OAuth请求令牌以请求用户授权。除了HTTP OAuth头外，twitcurl实现没有其他HTTP头，也没有消息体内容。HTTP OAuth头包含如下项： - oauth_consumer_key - oauth_nonce - oauth_signature - oauth_signature_method - oauth_timestamp - oauth_version
+通过如下HTTP响应可以获得oauth_token和oauth_token_secret，保存在oAuth对象的m_oAuthTokenKey和m_oAuthTokenSecret变量中：
+ oauth_token=XXXXXX&amp;amp;oauth_token_secret=XXXXXX&amp;amp;oauth_callback_confirmed=true   GET https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXtwitterObj.oAuthHandlePIN 方法实现该HTTP请求，获取响应页面中表单的authenticity_token和oauth_token元素的值。除了HTTP OAuth头外，twitcurl实现没有其他HTTP头，也没有消息体内容。HTTP OAuth头包含如下项：  oauth_consumer_key oauth_nonce oauth_signature oauth_signature_method oauth_timestamp oauth_token （取自上一HTTP响应） oauth_version    HTTP响应片段：- POST https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXtwitterObj.oAuthHandlePIN 方法实现该HTTP请求，允许消费者应用使用OAuth请求令牌请求用户授权。HTTP OAuth头包含如下项： - oauth_consumer_key - oauth_nonce - oauth_signature - oauth_signature_method - oauth_timestamp - oauth_token （取自上一HTTP响应） - oauth_version
+HTTP请求消息体内容为：
+ oauth_token=XXXXXX&amp;amp;authenticity_token=XXXXXX&amp;amp;session[username_or_email]=**XXXXX**X&amp;amp;session[password]=XXXXXX  HTTP响应片段：通过如下HTTP响应可以获得oauth_verifier，保存在oAuth对象的m_oAuthPin变量中。 - GET https://api.</description>
+    </item>
+    
+    <item>
+      <title>处理Twitter API访问速率超限错误</title>
+      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86twitter_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Wed, 13 Jan 2016 05:54:56 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86twitter_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/</guid>
+      <description>与处理Facebook API访问速率超限错误需要对比好几个Facebook错误代码相比，Twitter的API访问速率超限错误只需要处理HTTP响应代码429即可，很轻松。</description>
+    </item>
+    
+    <item>
+      <title>twitcurl生成HTTP OAuth头的实现流程</title>
+      <link>https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Sun, 27 Dec 2015 06:12:09 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/</guid>
+      <description>对twitcurl代码做了一些修改，结果遇到了认证失败的错误：
+{“errors”:[{“message”:”Could not authenticate you”,”code”:32}]}  通过继续修改twitcurl代码改正问题，学习了twitcurl的认证授权部分代码。其授权部分主要在oauthlib.h和oauthlib.cpp中的oAuth类实现中。下面主要分析一下oAuth::getOAuthHeader方法。
+外部数据 Http URL: https://api.twitter.com/1.1/search/tweets.json Http头参数:
+|参数键|参数值 |&amp;mdash;&amp;ndash; |q|va |count|23 |result_type|recent
+Http授权参数:
+|参数键|参数值 |&amp;mdash;&amp;ndash; |oauth_consumer_key|xvz1evFS4wEEPTGEFPHBog |oauth_signature_method|HMAC-SHA1 |oauth_token|370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb |oauth_version|1.0
+oAuth::getOAuthHeader方法  通过buildOAuthHttpParameterKeyValPairs(params, true,rawKeyValuePairs);对Http头参数中参数值进行百分号编码（URL编码），编码后结果放在哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent
+ 假定HTTP内容是经过百分号编码的，通过buildOAuthRawDataKeyValPairs( rawData,false, rawKeyValuePairs );找到内容中的键值对，放入哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent 通过buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin,std::string( &amp;ldquo;&amp;rdquo; ), rawKeyValuePairs, true );创建认授权证： rawKeyValuePairs: 键值说明qvacount23result_typerecentoauth_consumer_keyxvz1evFS4wEEPTGEFPHBogoauth_nonce131862295819ctwitcurl实现就是时戳项加一个随机数oauth_signature_methodHMAC-SHA1固定值oauth_timestamp1318622958oauth_token370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEboauth_version1.0固定值 通过getSignature( eType, pureUrl, rawKeyValuePairs,oauthSignature );获得签名  生成 sigBase： 使用consumer_secret和token_secret组成signing_key，使用HMAC_SHA1算法通过sigBase和signing_key生成摘要strDigest：B6 79 C0 AF 18 F4 E9 C5 87 AB 8E 20 0A CD 4E 48 A9 3F 8C B6(非真实计算而得数据) 通过base64_encode进行编码：tnnArxj06cWHq44gCs1OSKk/jLY= (非真实计算而得数据) 通过百分比编码获得最终签名：(非真实计算而得数据)  通过rawKeyValuePairs.</description>
+    </item>
+    
+    <item>
+      <title>Twitter API访问频次限制处理</title>
+      <link>https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/</link>
+      <pubDate>Tue, 10 Nov 2015 06:11:32 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter_api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6%E5%A4%84%E7%90%86/</guid>
+      <description>在我前面的博文社交媒体API访问频次限制中，列举了Twitter API访问频次限制。
+Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。 当向Twitter发送请求后，可以通过解析响应头来获取限制信息。该信息是基于应用/用户上下文的： - X-Rate-Limit-Limit: 对给定请求的访问速率上限 - X-Rate-Limit-Remaining: 15分钟时间窗中剩余请求数 - X-Rate-Limit-Reset: 速率限制复位前（基于UTC）的剩余时间窗秒数
+一旦对Twitter的请求超过了频次限制，Twitter将返回HTTP 429 “Too ManyRequests”响应码及如下消息体：
+{ &amp;quot;errors&amp;quot;: [ { &amp;quot;code&amp;quot;: 88, &amp;quot;message&amp;quot;: &amp;quot;Rate limit exceeded&amp;quot; } ] }  除了通过解析响应头，还可以通过向Twitter发送rate_limit_status请求获取API访问限制信息。
+Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJSONImpl类用于处理响应头中的访问限制信息： Twitter4J的TwitterResponseImpl抽象类用于存放解析过的访问限制信息以供应用程序使用： 此外，还可以注册RateLimitStatusListener监听器实例。由Twitter4J的TwitterBaseImpl类可知，当解析到响应头中的API访问频次限制信息，RateLimitStatusListener监听器实例的onRateLimitStatus方法会被调用；当收到的响应码为420&amp;rdquo;Enhance Your Claim&amp;rdquo;、503 &amp;ldquo;Service Unavailable&amp;rdquo;或429 &amp;ldquo;Too ManyRequests&amp;rdquo;，RateLimitStatusListener监听器实例的onRateLimitReached方法将会被调用。</description>
+    </item>
+    
+    <item>
+      <title>Spring Accessing Twitter Data Guide调试笔记</title>
+      <link>https://mryqu.github.io/post/spring_accessing_twitter_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 04 Nov 2015 05:57:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_accessing_twitter_data_guide%E8%B0%83%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
+      <description>尝试Spring Accessing Twitter Data Guide时碰到几个问题，这里记录一下。
+连接超时问题 遇到I/O error on POST request for&amp;rdquo;https://api.twitter.com/oauth/request_token&amp;quot;错误:
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for &amp;quot;https://api.twitter.com/oauth/request_token&amp;quot;:Connection timed out: connect; nested exception is java.net.ConnectException: Connection timed out: connect at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:582) at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:547) at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:468) at org.springframework.social.oauth1.OAuth1Template.exchangeForToken(OAuth1Template.java:187) at org.springframework.social.oauth1.OAuth1Template.fetchRequestToken(OAuth1Template.java:115) at org.springframework.social.connect.web.ConnectSupport.fetchRequestToken(ConnectSupport.java:212) at org.springframework.social.connect.web.ConnectSupport.buildOAuth1Url(ConnectSupport.java:199) at org.springframework.social.connect.web.ConnectSupport.buildOAuthUrl(ConnectSupport.java:126) at org.springframework.social.connect.web.ConnectController.connect(ConnectController.java:226) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:497) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137) at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:775) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705) at org.</description>
+    </item>
+    
+    <item>
+      <title>Hello Spring Social Twitter</title>
+      <link>https://mryqu.github.io/post/hello_spring_social_twitter/</link>
+      <pubDate>Sun, 01 Nov 2015 06:03:04 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_spring_social_twitter/</guid>
+      <description>学习了Spring Accessing Twitter Data Guide，稍作修改，练习一下用Spring Social Twitter搜索推文。
+HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java package com.yqu.springtwitter; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  src/main/java/com/yqu/springtwitter/HelloController.java package com.yqu.springtwitter; import javax.inject.Inject; import org.springframework.social.connect.ConnectionRepository; import org.springframework.social.twitter.api.SearchResults; import org.springframework.social.twitter.api.Twitter; import org.springframework.stereotype.Controller; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RequestMethod; import org.springframework.web.bind.annotation.RequestParam; @Controller @RequestMapping(&amp;quot;/&amp;quot;) public class HelloController { private Twitter twitter; private ConnectionRepository connectionRepository; @Inject public HelloController(Twitter twitter, ConnectionRepository connectionRepository) { this.</description>
+    </item>
+    
+    <item>
+      <title>Twitter的高级搜索和过滤功能</title>
+      <link>https://mryqu.github.io/post/twitter%E7%9A%84%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E5%92%8C%E8%BF%87%E6%BB%A4%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Tue, 20 Oct 2015 06:08:31 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter%E7%9A%84%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E5%92%8C%E8%BF%87%E6%BB%A4%E5%8A%9F%E8%83%BD/</guid>
+      <description>刚接触Twitter的搜索功能，以为仅能用关键字搜索推文。后来才知道，Twitter搜索不仅支持关键字的与或非逻辑处理，还能根据日期、地理位置、推文是否有链接、图像、视频、转推、回复等条件进行过滤。例如：
+ 即包含&amp;rdquo;andrew&amp;rdquo;又包含&amp;rdquo;2015&amp;rdquo;的推文``` https://twitter.com/search?q=andrew 2015&amp;amp;src=typd   - 完全匹配&amp;quot;andrew 2015&amp;quot;的推文``` https://twitter.com/search?q=&amp;quot;andew 2015&amp;quot;&amp;amp;src=typd   包含&amp;rdquo;andrew&amp;rdquo;或&amp;rdquo;2015&amp;rdquo;的中文推文``` https://twitter.com/search?q=andew OR 2015 lang:zh&amp;amp;src=typd   - 包含&amp;quot;andrew&amp;quot;的推文（包括转推）``` https://twitter.com/search?q=andrew include:retweets&amp;amp;src=typd   包含&amp;rdquo;andrew&amp;rdquo;的推文（不包括转推）``` ttps://twitter.com/search?q=andrew exclude:retweets&amp;amp;src=typd   - 包含&amp;quot;andrew&amp;quot;且有URL链接的推文``` https://twitter.com/search?q=andrew filter:links&amp;amp;src=typd   包含&amp;rdquo;andrew&amp;rdquo;且没有URL链接的推文``` https://twitter.com/search?q=andrew -filter:links&amp;amp;src=typd  ```
+参考 Twitter Advanced Search
+Using Twitter Advanced Search
+How to Master Twitter Search: Basic Boolean Operators and Filters</description>
+    </item>
+    
+    <item>
+      <title>Hello Twitter4J</title>
+      <link>https://mryqu.github.io/post/hello_twitter4j/</link>
+      <pubDate>Mon, 19 Oct 2015 06:10:11 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hello_twitter4j/</guid>
+      <description>Twitter4J是Twitter API的第三方Java库。本演示用它通过关键字搜索推文。
+获取Twitter应用证书 示例代码
+package com.yqu.twitter4j; import twitter4j.Query; import twitter4j.QueryResult; import twitter4j.Status; import twitter4j.Twitter; import twitter4j.TwitterFactory; public class HelloTwitter4J { // I18NOK:CLS public static void main(String[] args) { try { // The factory instance is re-useable and thread safe. Twitter twitter = TwitterFactory.getSingleton(); Query query = new Query(&amp;quot;夏洛特烦恼&amp;quot;); query.setLang(&amp;quot;zh&amp;quot;); query.setCount(10); QueryResult result = twitter.search(query); for (Status status : result.getTweets()) { System.out.println(status.getCreatedAt()+&amp;quot;:&amp;quot;+status.getText()); } } catch (Exception e) { e.printStackTrace(); } } }  twitter.</description>
+    </item>
+    
+    <item>
+      <title>Twitter开发调试工具</title>
+      <link>https://mryqu.github.io/post/twitter%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Sun, 27 Sep 2015 05:58:02 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/</guid>
+      <description>Twitter开发调试工具主要位于https://dev.twitter.com/下。
+ API status: 显示Twitter API可用性和性能[](http://photo.blog.sina.com.cn/showpic.html#blogid=72ef7bea0102w3q5&amp;amp;url=http://album.sina.com.cn/pic/0026uWfMgy71J0epHONd1)![Twitter开发调试工具](/images/2015/9/0026uWfMgy71J0jgKtO60.jpg) API参考文档 API控制台工具：测试TwitterAPI 管理自己的应用：对自己的应用进行配置  我用的最多的是API参考文档，其次是API控制台工具。</description>
+    </item>
+    
+    <item>
+      <title>Twitter的访问令牌（AccessToken）不过期</title>
+      <link>https://mryqu.github.io/post/twitter%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E4%B8%8D%E8%BF%87%E6%9C%9F/</link>
+      <pubDate>Wed, 23 Sep 2015 06:19:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/twitter%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E4%B8%8D%E8%BF%87%E6%9C%9F/</guid>
+      <description>Twitter OAuth FAQ中提到了目前Twitter访问令牌不会过期，省事了。</description>
+    </item>
+    
+    <item>
+      <title>Python安装oauth2库</title>
+      <link>https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/</link>
+      <pubDate>Sat, 21 Sep 2013 13:50:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/</guid>
+      <description>玩一下用python和twitterAPI访问Twitter数据，首先需要安装oauth2库以获得身份验证。pip是PythonPackaging Authority(PyPA)推荐用于安装Python包的工具。首先下载get-pip.py，然后通过下面的命令安装python get-pip.py pip.</description>
+    </item>
+    
+  </channel>
+</rss>

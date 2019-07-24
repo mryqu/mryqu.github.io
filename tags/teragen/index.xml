@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Teragen on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/teragen/</link>
+    <description>Recent content in Teragen on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 25 May 2015 06:04:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/teragen/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Hadoop] 使用TeraSort测试集群性能</title>
+      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</link>
+      <pubDate>Mon, 25 May 2015 06:04:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</guid>
+      <description>Terasort是Hadoop自带的用于集群性能基准测试的工具，其源码位于https://github.com/apache/hadoop/tree/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/src/main/java/org/apache/hadoop/examples/terasort下。
+TeraSort用法 该性能基准测试工具针对Hadoop集群的HDFS和MapReduce层进行综合测试。完整的测试步骤为：
+ 使用TeraGen程序生成官方GraySort输入数据集。(注：SortBenchmark是JimGray自98年建立的一项排序竞技活动，其对排序的输入数据制定了详细规则，要求使用其提供的gensort工具生成输入数据。而Hadoop的TeraGen数据生成工具的算法与gensort一致。） 在输入数据上运行真正的TeraSort性能基准测试工具 通过TeraValidate程序验证排序后的输出数据  TeraGen程序生成数据的格式为（详见TeraSort.generateRecord方法实现）： - 10字节键：一个16字节随机数的高10字节 - 2字节常量：0x0011 - 32字节rowid - 4字节常量：0x8899AABB - 48字节填充：由一个16字节随机数的低48比特生成 - 4字节常量:0xCCDDEEFF
+也就是说TeraGen程序生成的一行数据有100字节。TeraGen程序参数需要指定行数，可指定单位： - t：1000,000,000,000 - b：1000,000,000 - m：1000,000 - k：1000
+TeraSort测试 依次运行teragen、terasort和teravalidate：
+hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar teragen 5m /user/hadoop/teragen-data hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.X.jar terasort /user/hadoop/teragen-data /user/hadoop/terasort-data 15/05/24 08:29:03 INFO terasort.TeraSort: starting 15/05/24 08:29:04 INFO input.FileInputFormat: Total input paths to process : 2 Spent 123ms computing base-splits. Spent 2ms computing TeraScheduler splits.</description>
+    </item>
+    
+  </channel>
+</rss>

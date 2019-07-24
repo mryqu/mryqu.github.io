@@ -1,0 +1,600 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[C&#43;&#43;] 使用readelf - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[C&#43;&#43;] 使用readelf">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[C&#43;&#43;] 使用readelf - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/" itemprop="url">
+        [C&#43;&#43;] 使用readelf
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-08">
+    2015-12-08
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1371 字 ~7分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>在计算机科学中，<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a>文件（Executableand LinkableFormat）是一种用于二进制文件、可执行文件、目标代码、共享库和核心转储格式文件，是UNIX系统实验室（USL）作为应用程序二进制接口（ApplicationBinaryInterface，ABI）而开发和发布的，也是Linux的主要可执行文件格式。1999年，被86open项目选为x86架构上的类Unix操作系统的二进制文件标准格式，用来取代COFF。因其可扩展性与灵活性，也可应用在其它处理器、计算机系统架构的操作系统上。
+ELF文件由4部分组成，分别是ELF头（ELF header）、程序头表（Program headertable）、节（Section）和节头表（Section headertable）。实际上，一个文件中不一定包含全部内容，而且他们的位置也未必如同所示这样安排，只有ELF头的位置是固定的，其余各部分的位置、大小等信息由ELF头中的各项值来决定。
+而<a href="https://linux.die.net/man/1/readelf">readelf</a>用于显示<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a>文件的信息。
+<img src="/images/2015/12/0026uWfMzy79UpY8B8m7a.png" alt="[C++] 使用readelf" /></p>
+
+<pre><code>Usage: readelf &lt;option(s)&gt; elf-file(s)
+ Display information about the contents of ELF format files
+ Options are:
+  -a --all               全部 Equivalent to: -h -l -S -s -r -d -V -A -I
+  -h --file-header       ELF头 Display the ELF file header
+  -l --program-headers   程序头表 Display the program headers
+     --segments          An alias for --program-headers
+  -S --section-headers   节头 Display the sections' header
+     --sections          An alias for --section-headers
+  -g --section-groups    节组 Display the section groups
+  -t --section-details   节细节 Display the section details
+  -e --headers           全部头 Equivalent to: -h -l -S
+  -s --syms              符号表 Display the symbol table
+     --symbols           An alias for --syms
+  --dyn-syms             动态符号表 Display the dynamic symbol table
+  -n --notes             核心注释 Display the core notes (if present)
+  -r --relocs            重定位 Display the relocations (if present)
+  -u --unwind            Display the unwind info (if present)
+  -d --dynamic           动态节 Display the dynamic section (if present)
+  -V --version-info      版本节 Display the version sections (if present)
+  -A --arch-specific     架构信息 Display architecture specific information (if any)
+  -c --archive-index     该架构下符号/文件索引 Display the symbol/file index in an archive
+  -D --use-dynamic       Use the dynamic section info when displaying symbols
+  -x --hex-dump=&lt;number|name&gt;
+                         Dump the contents of section &lt;number|name&gt; as bytes
+  -p --string-dump=&lt;number|name&gt;
+                         Dump the contents of section &lt;number|name&gt; as strings
+  -R --relocated-dump=&lt;number|name&gt;
+                         Dump the contents of section &lt;number|name&gt; as relocated bytes
+  -w[lLiaprmfFsoRt] or
+  --debug-dump[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,
+               =frames-interp,=str,=loc,=Ranges,=pubtypes,
+               =gdb_index,=trace_info,=trace_abbrev,=trace_aranges,
+               =addr,=cu_index]
+                         显示DWARF2调试节 Display the contents of DWARF2 debug sections
+  --dwarf-depth=N        Do not display DIEs at depth N or greater
+  --dwarf-start=N        Display DIEs starting with N, at the same depth
+                         or deeper
+  -I --histogram         柱状图 Display histogram of bucket list lengths
+  -W --wide              输出宽度 Allow output width to exceed 80 characters
+  @&lt;file&gt;                Read options from &lt;file&gt;
+  -H --help              帮助 Display this information
+  -v --version           版本 Display the version number of readelf
+</code></pre>
+
+<h4 id="练习-查看elf文件头">练习 - 查看ELF文件头</h4>
+
+<pre><code>hadoop@node51054:/usr/bin$ readelf -h curl
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x4023b1
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          152600 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         9
+  Size of section headers:           64 (bytes)
+  Number of section headers:         27
+</code></pre>
+
+<h4 id="练习-查看符号表">练习 - 查看符号表</h4>
+
+<pre><code>hadoop@node51054:/usr/bin$ readelf -s curl
+
+Symbol table '.dynsym' contains 108 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __errno_location@GLIBC_2.2.5 (2)
+     2: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_global_cleanup@CURL_OPENSSL_3 (3)
+     3: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __strdup@GLIBC_2.2.5 (4)
+     4: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strstr@GLIBC_2.2.5 (4)
+     5: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strtoul@GLIBC_2.2.5 (4)
+     6: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strerror@GLIBC_2.2.5 (4)
+     7: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_getinfo@CURL_OPENSSL_3 (3)
+     8: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strchr@GLIBC_2.2.5 (4)
+     9: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strlen@GLIBC_2.2.5 (4)
+    10: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND memcmp@GLIBC_2.2.5 (4)
+    11: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND mkdir@GLIBC_2.2.5 (4)
+    12: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strncpy@GLIBC_2.2.5 (4)
+    13: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND utime@GLIBC_2.2.5 (4)
+    14: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_slist_free_all@CURL_OPENSSL_3 (3)
+    15: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND memset@GLIBC_2.2.5 (4)
+    16: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_version_info@CURL_OPENSSL_3 (3)
+    17: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fcntl@GLIBC_2.2.5 (2)
+    18: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND geteuid@GLIBC_2.2.5 (4)
+    19: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND calloc@GLIBC_2.2.5 (4)
+    20: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND open@GLIBC_2.2.5 (2)
+    21: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_mvsnprintf@CURL_OPENSSL_3 (3)
+    22: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND localtime@GLIBC_2.2.5 (4)
+    23: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_getenv@CURL_OPENSSL_3 (3)
+    24: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_mvaprintf@CURL_OPENSSL_3 (3)
+    25: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strtod@GLIBC_2.2.5 (4)
+    26: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND inflate
+    27: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_formfree@CURL_OPENSSL_3 (3)
+    28: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND memcpy@GLIBC_2.14 (5)
+    29: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND inflateInit2_
+    30: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND setlocale@GLIBC_2.2.5 (4)
+    31: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND clock_gettime@GLIBC_2.17 (6)
+    32: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND time@GLIBC_2.2.5 (4)
+    33: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strcpy@GLIBC_2.2.5 (4)
+    34: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __isoc99_sscanf@GLIBC_2.7 (7)
+    35: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fclose@GLIBC_2.2.5 (4)
+    36: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __xstat@GLIBC_2.2.5 (4)
+    37: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_mvfprintf@CURL_OPENSSL_3 (3)
+    38: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND inflateEnd
+    39: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fileno@GLIBC_2.2.5 (4)
+    40: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __fxstat@GLIBC_2.2.5 (4)
+    41: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_init@CURL_OPENSSL_3 (3)
+    42: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __ctype_b_loc@GLIBC_2.3 (8)
+    43: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strrchr@GLIBC_2.2.5 (4)
+    44: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fseek@GLIBC_2.2.5 (4)
+    45: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __stack_chk_fail@GLIBC_2.4 (9)
+    46: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND tcgetattr@GLIBC_2.2.5 (4)
+    47: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fputs@GLIBC_2.2.5 (4)
+    48: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_strequal@CURL_OPENSSL_3 (3)
+    49: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND getpwuid@GLIBC_2.2.5 (4)
+    50: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+    51: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fflush@GLIBC_2.2.5 (4)
+    52: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fopen@GLIBC_2.2.5 (4)
+    53: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_getdate@CURL_OPENSSL_3 (3)
+    54: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND signal@GLIBC_2.2.5 (4)
+    55: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND free@GLIBC_2.2.5 (4)
+    56: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND getenv@GLIBC_2.2.5 (4)
+    57: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fputc@GLIBC_2.2.5 (4)
+    58: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND tcsetattr@GLIBC_2.2.5 (4)
+    59: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND malloc@GLIBC_2.2.5 (4)
+    60: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_msnprintf@CURL_OPENSSL_3 (3)
+    61: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND pipe@GLIBC_2.2.5 (4)
+    62: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_version@CURL_OPENSSL_3 (3)
+    63: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND ftruncate@GLIBC_2.2.5 (4)
+    64: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __memset_chk@GLIBC_2.3.4 (10)
+    65: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strcmp@GLIBC_2.2.5 (4)
+    66: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strtol@GLIBC_2.2.5 (4)
+    67: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_setopt@CURL_OPENSSL_3 (3)
+    68: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_free@CURL_OPENSSL_3 (3)
+    69: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND read@GLIBC_2.2.5 (2)
+    70: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_strnequal@CURL_OPENSSL_3 (3)
+    71: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_cleanup@CURL_OPENSSL_3 (3)
+    72: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fread@GLIBC_2.2.5 (4)
+    73: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND poll@GLIBC_2.2.5 (4)
+    74: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_slist_append@CURL_OPENSSL_3 (3)
+    75: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.2.5 (4)
+    76: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_perform@CURL_OPENSSL_3 (3)
+    77: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strtok@GLIBC_2.2.5 (4)
+    78: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fgets@GLIBC_2.2.5 (4)
+    79: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_maprintf@CURL_OPENSSL_3 (3)
+    80: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_mprintf@CURL_OPENSSL_3 (3)
+    81: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND gettimeofday@GLIBC_2.2.5 (4)
+    82: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND memmove@GLIBC_2.2.5 (4)
+    83: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND realloc@GLIBC_2.2.5 (4)
+    84: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_formadd@CURL_OPENSSL_3 (3)
+    85: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_pause@CURL_OPENSSL_3 (3)
+    86: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND access@GLIBC_2.2.5 (4)
+    87: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_strerror@CURL_OPENSSL_3 (3)
+    88: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND isatty@GLIBC_2.2.5 (4)
+    89: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+    90: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_mfprintf@CURL_OPENSSL_3 (3)
+    91: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fsetxattr@GLIBC_2.3 (8)
+    92: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND lseek@GLIBC_2.2.5 (2)
+    93: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.2.5 (4)
+    94: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+    95: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+    96: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_global_init@CURL_OPENSSL_3 (3)
+    97: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fwrite@GLIBC_2.2.5 (4)
+    98: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND close@GLIBC_2.2.5 (2)
+    99: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND curl_easy_escape@CURL_OPENSSL_3 (3)
+   100: 0000000000625340     8 OBJECT  GLOBAL DEFAULT   25 stdout@GLIBC_2.2.5 (4)
+   101: 0000000000625328     0 NOTYPE  GLOBAL DEFAULT   24 _edata
+   102: 0000000000625450     0 NOTYPE  GLOBAL DEFAULT   25 _end
+   103: 0000000000625348     8 OBJECT  GLOBAL DEFAULT   25 stdin@GLIBC_2.2.5 (4)
+   104: 0000000000401cc8     0 FUNC    GLOBAL DEFAULT   11 _init
+   105: 0000000000625350     8 OBJECT  GLOBAL DEFAULT   25 stderr@GLIBC_2.2.5 (4)
+   106: 0000000000625328     0 NOTYPE  GLOBAL DEFAULT   25 __bss_start
+   107: 000000000040f314     0 FUNC    GLOBAL DEFAULT   14 _fini
+</code></pre>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[C&#43;&#43;] 使用readelf
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/readelf" rel="tag" title="readelf">#readelf#</a>
+    
+    <a href="/tags/cpp" rel="tag" title="cpp">#cpp#</a>
+    
+    <a href="/tags/gcc" rel="tag" title="gcc">#gcc#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/sublime_text2&#43;ctags&#43;cscope%E4%BD%BF%E7%94%A8%E5%AE%9E%E8%B7%B5/" rel="next" title="Sublime Text2&#43;Ctags&#43;Cscope使用实践">
+        <i class="fa fa-chevron-left"></i> Sublime Text2&#43;Ctags&#43;Cscope使用实践
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" rel="prev" title="[C&#43;&#43;] 使用ldd">
+        [C&#43;&#43;] 使用ldd <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/";
+this.page.identifier = "https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#练习-查看elf文件头">练习 - 查看ELF文件头</a></li>
+<li><a href="#练习-查看符号表">练习 - 查看符号表</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

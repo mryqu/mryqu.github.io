@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Attachchange on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/attachchange/</link>
+    <description>Recent content in Attachchange on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 18 Jul 2019 06:36:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/attachchange/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[OpenUI5] 监控Model属性变动</title>
+      <link>https://mryqu.github.io/post/openui5_%E7%9B%91%E6%8E%A7model%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8A%A8/</link>
+      <pubDate>Thu, 18 Jul 2019 06:36:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/openui5_%E7%9B%91%E6%8E%A7model%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8A%A8/</guid>
+      <description>设计了某个OpenUI5控件，当对控件的某些子控件进行设置时，想监控模型的变动。
+下面的代码完成了这样的功能：
+1. 该控件绑定路径为/someItems/{itemId}/objInfo
+2. 当控件下某些子控件修改设置，则路径为/someItems/{itemId}/objInfo的模型属性会发生变动
+3. 路径为/someItems/{itemId}/isModified的模型属性将被设置为true
+(function () { &amp;quot;use strict&amp;quot;; .... var PATH_PART_OBJINFO = &amp;quot;/objInfo&amp;quot;; var PATH_PART_ISMODIFIED = &amp;quot;/isModified&amp;quot;; SomeControl.extend(&amp;quot;com.yqu.MySomeControl&amp;quot;, { metadata: { properties: {}, publicMethods: [], events: {} }, rb: sap.ui.getCore().getLibraryResourceBundle(&amp;quot;com.yqu&amp;quot;), renderer: &amp;quot;SomeControlRenderer&amp;quot;, init: function() { .... }, onBeforeRendering: function() { if(SomeControl.prototype.onBeforeRendering) SomeControl.prototype.onBeforeRendering.apply(this, arguments); .... var context = this.getBindingContext(); if (!!context &amp;amp;&amp;amp; !!context.oModel &amp;amp;&amp;amp; !!context.sPath) { var binding = new sap.ui.model.Binding(context.oModel, &amp;quot;/&amp;quot;, context); binding.attachChange($.proxy(this._onDataModified, this)); } }, _onDataModified: function() { var context = this.</description>
+    </item>
+    
+  </channel>
+</rss>

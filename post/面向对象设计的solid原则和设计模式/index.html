@@ -1,0 +1,598 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>面向对象设计的SOLID原则和设计模式 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="面向对象设计的SOLID原则和设计模式">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="面向对象设计的SOLID原则和设计模式 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84solid%E5%8E%9F%E5%88%99%E5%92%8C%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url">
+        面向对象设计的SOLID原则和设计模式
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2007-11-23">
+    2007-11-23
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tech" itemprop="url" rel="index">
+        <span itemprop="name">Tech</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">133 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h2 id="s-o-l-i-d">S.O.L.I.D</h2>
+
+<p>S.O.L.I.D是面向对象设计和编程(OOD&amp;OOP)中几个重要编码原则(ProgrammingPrinciple)的首字母缩写。
+- SRP :The Single Responsibility Principle单一责任原则 
+- OCP :The Open Closed Principle 开放封闭原则 
+- LSP :The Loskop Substitution Principle里氏替换原则 
+- DIP  :The Dependency Inversion Principle依赖倒置原则 
+- ISP  :The Interface Segregation Principle接口分离原则</p>
+
+<h3 id="单一责任原则">单一责任原则： </h3>
+
+<p>当需要修改某个类的时候原因有且只有一个（THERE SHOULD NEVER BE MORE THAN ONE REASONFOR A CLASS TOCHANGE）。换句话说就是让一个类只做一种类型责任，当这个类需要承当其他类型的责任的时候，就需要分解这个类。
+比如：报表的内容和报表的格式都会变化改变，但是这两种变化的性质不同，一个是实质内在，一个是表面上的，SRP认为这是问题的两个方面，其实代表不同的职责，应该将它们分离放入不同的类或模块中，而不应该放在一起，否则的话，因为不同原因发生变化，导致对方变动，比如报表格式变新的样式，这个变化是不应该涉及到内容的。
+反模式: 一个类处理的事情太多了, 应当进行分解</p>
+
+<h3 id="开放封闭原则">开放封闭原则 </h3>
+
+<p>软件实体应该是可扩展，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。这个原则是诸多面向对象编程原则中最抽象、最难理解的一个。
+反模式: 一个模块的修改将导致其他模块的修改</p>
+
+<h3 id="里氏替换原则">里氏替换原则 </h3>
+
+<p>当一个子类的实例应该能够替换任何其超类的实例时，它们之间才具有is-A关系
+子类可以代替基类, 客户使用基类, 他们不需要知道派生类所做的事情. 
+反模式: if(a instanceof TypeA) {&hellip;}
+这是一个针对行为职责可替代的原则，如果S是T的子类型，那么S对象就应该在不改变任何抽象属性情况下替换所有T对象。这里的抽象属性是指对象的字段属性。</p>
+
+<p>我们使用接口时经常碰到一个问题，需要使用接口子类中的方法，而接口中没有这个方法，那么只能要么修改接口，要么将接口downcast为具体子类。为什么会出现这个尴尬现象？有几种情况导致，其中一种情况是是将当前的类重构到接口时，没有将类中所有方法extract到接口中，可能因为这些被你漏掉的方法不属于当前接口，那么，它又违背了单一职责原理，说明你当前这个类的方法设计得又不合理。</p>
+
+<p>所以，如果单一职责设计的足够好，那么LSP原则则是检验的方法。LSP原则是对对象职责和协作的一种检验约束方法，此外还有DBC(designby contract)原则，为了保证实现接口的子类职责行为的约束，DBC三要素都必须被重视满足：
+1. Preconditions前置条件不能在子类中被强化。
+2. Postconditions后置条件不能在子类中被弱化。
+3. 子类自身不变性Invariants必须在子类自己中封装满足。这也是前面“不改变任何抽象属性”的意思。</p>
+
+<h3 id="依赖倒置原则">依赖倒置原则</h3>
+
+<ol>
+<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象 </li>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象</li>
+</ol>
+
+<p>要针对接口编程，不针对实现编程。</p>
+
+<h3 id="接口分离原则">接口分离原则 </h3>
+
+<p>不能强迫用户去依赖那些他们不使用的接口。换句话说，使用多个专门的接口比使用单一的总接口总要好。
+反模式：肥类(fat class), 有成堆的方法, 而且用户很少使用
+SOLID原则如今在DCI架构中能够得到真正实现和发展。</p>
+
+<p>包的设计原则： 
+1. 发布/重用等价原则（REP）我们创建包的目的是为了给别人重用，所以重用的粒度就是发布的粒度。 
+2. 公共闭合原则（CCP）因为相同原因而被修改的类应该放入一个包中，对应于“单一责任原则”。 
+3. 公共重用原则（CRP）应该尽可能地将只被一个客户使用的包与被多个不同客户使用到的包分开。对应于“接口隔离原则” 
+4. 非循环依赖原则（ADP）不要在包依赖图中出现循环依赖。如a依赖于b，b依赖于c，同时c又依赖于a。 
+5. 稳定依赖原则（SDP）要依赖于稳定的包，而不要依赖于经常变化的包。对应于“依赖倒置原则”。 
+6. 稳定抽象原则（SAP）稳定的包应当是抽象的。对应于“依赖倒置原则”。</p>
+
+<h2 id="设计模式-designpattern">设计模式 - DesignPattern</h2>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrFGw6T8b.jpg" alt="All Design Pattern" /></p>
+
+<h3 id="创建型">创建型 </h3>
+
+<h4 id="abstract-factory-抽象工厂模式-简单工厂模式">Abstract Factory（抽象工厂模式） -&gt;(简单工厂模式) </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOqOJ49L65.jpg" alt="Simple Factory" /><img src="/images/2007/11/0026uWfMty6EOqN5gasf0.jpg" alt="Abstract Factory" /></p>
+
+<h4 id="factory-method-工厂模式">Factory Method（工厂模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOqQK4Pn91.jpg" alt="Factory Method" /></p>
+
+<h4 id="builder-生成器模式">Builder（生成器模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOr0jFlk56.jpg" alt="Builder" /></p>
+
+<h4 id="singleton-单件模式-多例模式">Singleton（单件模式） -&gt;(多例模式) </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOr2oU0Z9d.png" alt="Singleton" /></p>
+
+<h4 id="prototype-原型模式">Prototype（原型模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOr5eluCbe.jpg" alt="Prototype" /></p>
+
+<h3 id="结构型">结构型 </h3>
+
+<h4 id="adapter-适配器模式">Adapter（适配器模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOr6bIGu22.jpg" alt="Adapter" /></p>
+
+<h4 id="bridge-桥接模式">Bridge（桥接模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOr6ZUg55d.jpg" alt="Bridge" /></p>
+
+<h4 id="composite-组合模式">Composite（组合模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOr8EXtG7c.jpg" alt="Composite" /></p>
+
+<h4 id="decorator-装饰模式">Decorator（装饰模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOraxt72e0.jpg" alt="Decorator" /></p>
+
+<h4 id="facade-外观模式-门面模式">Facade（外观模式，门面模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrck0eAc8.jpg" alt="Facade" /></p>
+
+<h4 id="flyweight-享元模式-不变模式">Flyweight（享元模式） -&gt;(不变模式) </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrdjcdtcb.jpg" alt="Flyweight" /></p>
+
+<h4 id="proxy-代理模式">Proxy（代理模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrgcvpW84.jpg" alt="Proxy" /></p>
+
+<h3 id="行为型">行为型 </h3>
+
+<h4 id="chain-of-responsibility-职责链模式">Chain of Responsibility（职责链模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrjzbhRb7.jpg" alt="Chain of Responsibility" /></p>
+
+<h4 id="command-命令模式">Command（命令模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrm2vi74f.jpg" alt="Command" /></p>
+
+<h4 id="interpreter-解释器模式">Interpreter（解释器模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrn0TRN73.jpg" alt="Interpreter" /></p>
+
+<h4 id="iterator-迭代器模式">Iterator（迭代器模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrpghlqa4.png" alt="Iterator" /></p>
+
+<h4 id="mediator-中介者模式">Mediator（中介者模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrq7gpR0b.jpg" alt="Mediator" /></p>
+
+<h4 id="memento-备忘录模式">Memento（备忘录模式）</h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrrnNWx09.jpg" alt="Memento" />
+ </p>
+
+<h4 id="observer-观察者模式">Observer（观察者模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrzF3Aoe4.jpg" alt="Observer" /></p>
+
+<h4 id="state-状态模式">State（状态模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrALV0re7.jpg" alt="State" /></p>
+
+<h4 id="strategy-策略模式">Strategy（策略模式）</h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrBSlfTed.png" alt="Strategy" /></p>
+
+<h4 id="templatemethod-模板方法模式">TemplateMethod（模板方法模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrD2BNI1e.jpg" alt="TemplateMethod" /></p>
+
+<h4 id="visitor-访问者模式">Visitor（访问者模式） </h4>
+
+<p><img src="/images/2007/11/0026uWfMty6EOrE85fZ53.png" alt="Visitor" /></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：面向对象设计的SOLID原则和设计模式
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/ooad" rel="tag" title="OOAD">#OOAD#</a>
+    
+    <a href="/tags/s.o.l.i.d" rel="tag" title="S.O.L.I.D">#S.O.L.I.D#</a>
+    
+    <a href="/tags/design-pattern" rel="tag" title="design pattern">#design pattern#</a>
+    
+    <a href="/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" rel="tag" title="设计模式">#设计模式#</a>
+    
+    <a href="/tags/uml" rel="tag" title="UML">#UML#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/" rel="next" title="敏捷开发">
+        <i class="fa fa-chevron-left"></i> 敏捷开发
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84solid%E5%8E%9F%E5%88%99%E5%92%8C%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/";
+this.page.identifier = "https://mryqu.github.io/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84solid%E5%8E%9F%E5%88%99%E5%92%8C%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#s-o-l-i-d">S.O.L.I.D</a>
+<ul>
+<li><a href="#单一责任原则">单一责任原则： </a></li>
+<li><a href="#开放封闭原则">开放封闭原则 </a></li>
+<li><a href="#里氏替换原则">里氏替换原则 </a></li>
+<li><a href="#依赖倒置原则">依赖倒置原则</a></li>
+<li><a href="#接口分离原则">接口分离原则 </a></li>
+</ul></li>
+<li><a href="#设计模式-designpattern">设计模式 - DesignPattern</a>
+<ul>
+<li><a href="#创建型">创建型 </a>
+<ul>
+<li><a href="#abstract-factory-抽象工厂模式-简单工厂模式">Abstract Factory（抽象工厂模式） -&gt;(简单工厂模式) </a></li>
+<li><a href="#factory-method-工厂模式">Factory Method（工厂模式） </a></li>
+<li><a href="#builder-生成器模式">Builder（生成器模式） </a></li>
+<li><a href="#singleton-单件模式-多例模式">Singleton（单件模式） -&gt;(多例模式) </a></li>
+<li><a href="#prototype-原型模式">Prototype（原型模式） </a></li>
+</ul></li>
+<li><a href="#结构型">结构型 </a>
+<ul>
+<li><a href="#adapter-适配器模式">Adapter（适配器模式） </a></li>
+<li><a href="#bridge-桥接模式">Bridge（桥接模式） </a></li>
+<li><a href="#composite-组合模式">Composite（组合模式） </a></li>
+<li><a href="#decorator-装饰模式">Decorator（装饰模式） </a></li>
+<li><a href="#facade-外观模式-门面模式">Facade（外观模式，门面模式） </a></li>
+<li><a href="#flyweight-享元模式-不变模式">Flyweight（享元模式） -&gt;(不变模式) </a></li>
+<li><a href="#proxy-代理模式">Proxy（代理模式） </a></li>
+</ul></li>
+<li><a href="#行为型">行为型 </a>
+<ul>
+<li><a href="#chain-of-responsibility-职责链模式">Chain of Responsibility（职责链模式） </a></li>
+<li><a href="#command-命令模式">Command（命令模式） </a></li>
+<li><a href="#interpreter-解释器模式">Interpreter（解释器模式） </a></li>
+<li><a href="#iterator-迭代器模式">Iterator（迭代器模式） </a></li>
+<li><a href="#mediator-中介者模式">Mediator（中介者模式） </a></li>
+<li><a href="#memento-备忘录模式">Memento（备忘录模式）</a></li>
+<li><a href="#observer-观察者模式">Observer（观察者模式） </a></li>
+<li><a href="#state-状态模式">State（状态模式） </a></li>
+<li><a href="#strategy-策略模式">Strategy（策略模式）</a></li>
+<li><a href="#templatemethod-模板方法模式">TemplateMethod（模板方法模式） </a></li>
+<li><a href="#visitor-访问者模式">Visitor（访问者模式） </a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

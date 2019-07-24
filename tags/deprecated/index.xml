@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deprecated on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/deprecated/</link>
+    <description>Recent content in Deprecated on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 20 Oct 2013 22:04:34 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/deprecated/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Hadoop] hadoop job -list已废弃</title>
+      <link>https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/</link>
+      <pubDate>Sun, 20 Oct 2013 22:04:34 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/</guid>
+      <description>执行hadoop job -list，显示该命令已废弃，不过还能执行成功。
+~$ hadoop job -list DEPRECATED: Use of this script to execute mapred command is deprecated. Instead use the mapred command for it.  看一下Hadoop 2.2.0的代码hadoop-common-project/hadoop-common/src/main/bin/hadoop：
+#hdfs commands namenode|secondarynamenode|datanode|dfs|dfsadmin|fsck|balancer|fetchdt|oiv|dfsgroups|portmap|nfs3) echo &amp;quot;DEPRECATED: Use of this script to execute hdfs command is deprecated.&amp;quot; 1&amp;gt;&amp;amp;2 echo &amp;quot;Instead use the hdfs command for it.&amp;quot; 1&amp;gt;&amp;amp;2 echo &amp;quot;&amp;quot; 1&amp;gt;&amp;amp;2 #try to locate hdfs and if present, delegate to it. shift if [ -f &amp;quot;${HADOOP_HDFS_HOME}&amp;quot;/bin/hdfs ]; then exec &amp;quot;${HADOOP_HDFS_HOME}&amp;quot;/bin/hdfs ${COMMAND/dfsgroups/groups} &amp;quot;$@&amp;quot; elif [ -f &amp;quot;${HADOOP_PREFIX}&amp;quot;/bin/hdfs ]; then exec &amp;quot;${HADOOP_PREFIX}&amp;quot;/bin/hdfs ${COMMAND/dfsgroups/groups} &amp;quot;$@&amp;quot; else echo &amp;quot;HADOOP_HDFS_HOME not found!</description>
+    </item>
+    
+  </channel>
+</rss>

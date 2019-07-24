@@ -1,0 +1,669 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[Hadoop] 安装Hadoop 2.7.x 集群 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[Hadoop] 安装Hadoop 2.7.x 集群">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[Hadoop] 安装Hadoop 2.7.x 集群 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/" itemprop="url">
+        [Hadoop] 安装Hadoop 2.7.x 集群
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-04-28">
+    2015-04-28
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">281 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<h3 id="集群规划">集群规划</h3>
+
+<p>|节点|角色
+|&mdash;&ndash;
+|node50064|NameNode RessourceManager
+|node50069|Datanode SecondNameNode
+|node51054|Datanade</p>
+
+<h3 id="准备工作">准备工作</h3>
+
+<h4 id="在全部机器上-创建hadoop用户">（在全部机器上）创建hadoop用户</h4>
+
+<pre><code>$ sudo useradd -m hadoop -s /bin/bash
+$ sudo passwd hadoop
+$ sudo adduser hadoop sudo
+</code></pre>
+
+<h4 id="在全部机器上-配置-etc-hosts">（在全部机器上）配置/etc/hosts</h4>
+
+<pre><code>10.120.12.135 node50064.mryqu.com node50064
+10.120.11.201 node50069.mryqu.com node50069
+10.120.14.226 node51054.mryqu.com node51054
+</code></pre>
+
+<h4 id="在全部机器上-禁止掉ipv6">（在全部机器上）禁止掉IPv6</h4>
+
+<p>参见之前的博文<a href="/post/在ubuntu中禁掉ipv6">在Ubuntu中禁掉IPv6</a>。</p>
+
+<h4 id="在全部机器上-关闭防火墙">（在全部机器上）关闭防火墙</h4>
+
+<pre><code>ufw disable   //关闭
+sudo apt-get remove  ufw   //卸载
+sudo ufw status   //查看
+</code></pre>
+
+<h4 id="在全部机器上-安装并配置java-jdk">（在全部机器上）安装并配置Java JDK</h4>
+
+<p>安装Java JDK：</p>
+
+<pre><code>$ sudo apt-get update
+$ sudo apt-get install openjdk-7-jre openjdk-7-jdk
+</code></pre>
+
+<p>通过下列命令确定JDK安装路径为/usr/lib/jvm/java-7-openjdk-amd64：
+<img src="/images/2015/4/0026uWfMzy76BZ6yRcSe2.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" />
+通过sudovi /etc/profile添加如下内容：</p>
+
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$JAVA_HOME/bin:$PATH
+</code></pre>
+
+<p>最后通过source/etc/profile刷新配置文件。</p>
+
+<p>Java环境变量既可以在/etc/profile下配置，也可以在~/.profile或~/.bashrc中配置。区别在于/etc/profile对所有登陆用户都生效，在~/.profile或~./bashrc中配置仅对当前用户有效。~/.profile与~./bashrc二者的区别为，~/.profile可以设定本用户专有的路径、环境变量等，它只能登入的时候执行一次；~/.bashrc也是某用户专有设定文档，可以设定路径、命令别名，每次shellscript的执行都会对其使用一次。</p>
+
+<h4 id="设置无密码ssh登录">设置无密码SSH登录</h4>
+
+<p>在node50064上生成公钥和私钥，公钥即为认证密钥：</p>
+
+<pre><code> $ ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+$ cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+$ chmod 0600 ~/.ssh/authorized_keys
+</code></pre>
+
+<p>将认证密钥通过ssh-copy-id命令复制给node50069和node51054：
+<img src="/images/2015/4/0026uWfMzy76B85fvBa94.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" />
+至此，可从node50064无密码SSH登录上node50069或node51054。</p>
+
+<h3 id="在node50064上-安装hadoop">（在node50064上）安装Hadoop</h3>
+
+<h4 id="下载并解压缩hadoop">下载并解压缩Hadoop</h4>
+
+<pre><code>wget http://apache.osuosl.org/hadoop/common/hadoop-2.7.x/hadoop-2.7.x.tar.gz
+tar -xzf hadoop-2.7.x.tar.gz 
+sudo mv hadoop-2.7.x /usr/local/hadoop
+sudo chown -R hadoop /usr/local/hadoop
+cd /usr/local/hadoop
+mkdir tmp
+mkdir tmp/dfs
+mkdir tmp/dfs/name
+mkdir tmp/dfs/data
+</code></pre>
+
+<h4 id="配置环境变量">配置环境变量</h4>
+
+<p>通过vi~/.bashrc添加如下内容：</p>
+
+<pre><code># Set HADOOP_HOME (deprecated)
+export HADOOP_HOME=/usr/local/hadoop
+
+# Set HADOOP_PREFIX
+export HADOOP_PREFIX=$HADOOP_HOME
+
+# Set HADOOP_CONF_DIR
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native
+export HADOOP_OPTS=&quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&quot;
+export JAVA_LIBRARY_PATH=$HADOOP_PREFIX/lib/native:$JAVA_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HADOOP_PREFIX/lib/native
+
+# Add Hadoop bin and sbin directory to PATH
+export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
+</code></pre>
+
+<p>最后通过source~/.bashrc刷新配置文件。</p>
+
+<h3 id="配置hadoop">配置Hadoop</h3>
+
+<p>这些配置文件路径为/usr/local/hadoop的相对路径。</p>
+
+<h4 id="etc-hadoop-hadoop-env-sh">etc/hadoop/hadoop-env.sh</h4>
+
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+</code></pre>
+
+<h4 id="etc-hadoop-core-site-xml-https-hadoop-apache-org-docs-r2-7-0-hadoop-project-dist-hadoop-common-core-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-common/core-default.xml">core-site.xml</a></h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76DUDTmf577.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="etc-hadoop-hdfs-site-xml-http-hadoop-apache-org-docs-r2-7-0-hadoop-project-dist-hadoop-hdfs-hdfs-default-xml">etc/hadoop/<a href="http://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml">hdfs-site.xml</a></h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76DVmBX81b5.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="etc-hadoop-yarn-site-xml-https-hadoop-apache-org-docs-r2-7-0-hadoop-yarn-hadoop-yarn-common-yarn-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-yarn/hadoop-yarn-common/yarn-default.xml">yarn-site.xml</a></h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76F4xpqR147.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="etc-hadoop-mapred-site-xml-https-hadoop-apache-org-docs-current-hadoop-mapreduce-client-hadoop-mapreduce-client-core-mapred-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml">mapred-site.xml</a></h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76F4P3xeLef.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="etc-hadoop-masters">etc/hadoop/masters</h4>
+
+<pre><code>node50064
+</code></pre>
+
+<h4 id="etc-hadoop-slaves">etc/hadoop/slaves</h4>
+
+<pre><code>node50069
+node51054
+</code></pre>
+
+<h3 id="复制hadoop及配置到其他主机">复制Hadoop及配置到其他主机</h3>
+
+<p>在node50064上执行：</p>
+
+<pre><code>scp ~/.bashrc node50069:~/
+scp ~/.bashrc node51054:~/
+scp -r /usr/local/hadoop node50069:~/
+scp -r /usr/local/hadoop node51054:~/
+</code></pre>
+
+<p>之后，在node50069和node51054上执行：</p>
+
+<pre><code>sudo mv ~/hadoop /usr/local/
+sudo chown -R hadoop /usr/local/hadoop
+source ~/.bashrc
+</code></pre>
+
+<h3 id="在node50064上-启动hadoop">（在node50064上）启动Hadoop</h3>
+
+<p>首次使用需要格式化NameNode</p>
+
+<pre><code>hdfs namenode -format
+
+</code></pre>
+
+<p>启动dfs和yarn</p>
+
+<pre><code>start-dfs.sh
+start-yarn.sh
+</code></pre>
+
+<p>启动MapReduce JobHistory服务器</p>
+
+<pre><code>mr-jobhistory-daemon.sh start historyserver
+</code></pre>
+
+<h3 id="检验安装结果">检验安装结果</h3>
+
+<h4 id="查看jvm进程状态">查看JVM进程状态</h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76F5JEmY313.png" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="运行hadoop范例">运行Hadoop范例</h4>
+
+<pre><code>hdfs dfs -mkdir /user
+hdfs dfs -mkdir /user/hadoop
+hdfs dfs -put etc/hadoop input
+hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar grep input output 'dfs[a-z.]+'
+hdfs dfs -cat output/*
+</code></pre>
+
+<h4 id="查看hdfs-web-ui">查看HDFS Web UI</h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76F8fa5t5ff.jpg" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="查看yarn资管管理器web-ui">查看YARN资管管理器Web UI</h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76F8CYxRA3e.jpg" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h4 id="查看mapreduce作业历史">查看MapReduce作业历史</h4>
+
+<p><img src="/images/2015/4/0026uWfMzy76F8NtoZ694.jpg" alt="[Hadoop] 安装Hadoop 2.7.x 集群" /></p>
+
+<h3 id="在node50064上-关闭hadoop">（在node50064上）关闭Hadoop</h3>
+
+<pre><code>mr-jobhistory-daemon.sh stop historyserver
+stop-dfs.sh
+stop-yarn.sh
+</code></pre>
+
+<h3 id="附注">附注</h3>
+
+<p>SecondNameNode可以在NameNode故障时快一点进行恢复，但它不是对NameNode的插入时更换，也没有提供自动故障切换的手段。更多HadoopHA配置可参考<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html">HDFS High Availability Using the Quorum Journal Manager</a>。</p>
+
+<h3 id="参考">参考</h3>
+
+<p><a href="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html">Hadoop: Setting up a Single Node Cluster.</a><br />
+<a href="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html">Hadoop Cluster Setup</a><br />
+<a href="http://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/">Hadoop Default Ports Quick Reference</a></p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[Hadoop] 安装Hadoop 2.7.x 集群
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/hadoop" rel="tag" title="hadoop">#hadoop#</a>
+    
+    <a href="/tags/cluster" rel="tag" title="cluster">#cluster#</a>
+    
+    <a href="/tags/install" rel="tag" title="install">#install#</a>
+    
+    <a href="/tags/yarn" rel="tag" title="yarn">#yarn#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/" rel="next" title="cURL速查表">
+        <i class="fa fa-chevron-left"></i> cURL速查表
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservice_design_patterns/" rel="prev" title="阅读《Microservice Design Patterns》">
+        阅读《Microservice Design Patterns》 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/";
+this.page.identifier = "https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#集群规划">集群规划</a></li>
+<li><a href="#准备工作">准备工作</a>
+<ul>
+<li><a href="#在全部机器上-创建hadoop用户">（在全部机器上）创建hadoop用户</a></li>
+<li><a href="#在全部机器上-配置-etc-hosts">（在全部机器上）配置/etc/hosts</a></li>
+<li><a href="#在全部机器上-禁止掉ipv6">（在全部机器上）禁止掉IPv6</a></li>
+<li><a href="#在全部机器上-关闭防火墙">（在全部机器上）关闭防火墙</a></li>
+<li><a href="#在全部机器上-安装并配置java-jdk">（在全部机器上）安装并配置Java JDK</a></li>
+<li><a href="#设置无密码ssh登录">设置无密码SSH登录</a></li>
+</ul></li>
+<li><a href="#在node50064上-安装hadoop">（在node50064上）安装Hadoop</a>
+<ul>
+<li><a href="#下载并解压缩hadoop">下载并解压缩Hadoop</a></li>
+<li><a href="#配置环境变量">配置环境变量</a></li>
+</ul></li>
+<li><a href="#配置hadoop">配置Hadoop</a>
+<ul>
+<li><a href="#etc-hadoop-hadoop-env-sh">etc/hadoop/hadoop-env.sh</a></li>
+<li><a href="#etc-hadoop-core-site-xml-https-hadoop-apache-org-docs-r2-7-0-hadoop-project-dist-hadoop-common-core-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-common/core-default.xml">core-site.xml</a></a></li>
+<li><a href="#etc-hadoop-hdfs-site-xml-http-hadoop-apache-org-docs-r2-7-0-hadoop-project-dist-hadoop-hdfs-hdfs-default-xml">etc/hadoop/<a href="http://hadoop.apache.org/docs/r2.7.0/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml">hdfs-site.xml</a></a></li>
+<li><a href="#etc-hadoop-yarn-site-xml-https-hadoop-apache-org-docs-r2-7-0-hadoop-yarn-hadoop-yarn-common-yarn-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/r2.7.0/hadoop-yarn/hadoop-yarn-common/yarn-default.xml">yarn-site.xml</a></a></li>
+<li><a href="#etc-hadoop-mapred-site-xml-https-hadoop-apache-org-docs-current-hadoop-mapreduce-client-hadoop-mapreduce-client-core-mapred-default-xml">etc/hadoop/<a href="https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml">mapred-site.xml</a></a></li>
+<li><a href="#etc-hadoop-masters">etc/hadoop/masters</a></li>
+<li><a href="#etc-hadoop-slaves">etc/hadoop/slaves</a></li>
+</ul></li>
+<li><a href="#复制hadoop及配置到其他主机">复制Hadoop及配置到其他主机</a></li>
+<li><a href="#在node50064上-启动hadoop">（在node50064上）启动Hadoop</a></li>
+<li><a href="#检验安装结果">检验安装结果</a>
+<ul>
+<li><a href="#查看jvm进程状态">查看JVM进程状态</a></li>
+<li><a href="#运行hadoop范例">运行Hadoop范例</a></li>
+<li><a href="#查看hdfs-web-ui">查看HDFS Web UI</a></li>
+<li><a href="#查看yarn资管管理器web-ui">查看YARN资管管理器Web UI</a></li>
+<li><a href="#查看mapreduce作业历史">查看MapReduce作业历史</a></li>
+</ul></li>
+<li><a href="#在node50064上-关闭hadoop">（在node50064上）关闭Hadoop</a></li>
+<li><a href="#附注">附注</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

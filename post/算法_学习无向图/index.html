@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+    <title>[算法] 学习无向图 - Mryqu&#39;s Notes</title>
+    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
+    
+    <meta property="og:title" content="[算法] 学习无向图">
+    <meta property="og:site_name" content="Mryqu&#39;s Notes">
+    <meta property="og:image" content="/img/author.jpg"> 
+    <meta name="title" content="[算法] 学习无向图 - Mryqu&#39;s Notes" />
+    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
+    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+     fancybox: true, 
+    motion: true
+  };
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="container one-collumn sidebar-position-left page-home  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-meta  custom-logo ">
+
+  <div class="custom-logo-site-title">
+    <a href="https://mryqu.github.io/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mryqu&#39;s Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+      
+      
+        <li class="menu-item ">
+          <a href="/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/tags/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/categories/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
+          </a>
+        </li>
+      
+        <li class="menu-item ">
+          <a href="/post/" rel="section">
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
+          </a>
+        </li>
+      
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
+      </li>
+    </ul>
+    <div class="site-search">
+      <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+<section id="posts" class="posts-expand">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/" itemprop="url">
+        [算法] 学习无向图
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-21">
+    2014-03-21
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/algorithm.datastruct" itemprop="url" rel="index">
+        <span itemprop="name">Algorithm.DataStruct</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">249 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    
+
+<p>本文是学习<a href="http://algs4.cs.princeton.edu/41graph/">http://algs4.cs.princeton.edu/41graph/</a>的吐槽和体会。</p>
+
+<h3 id="一点吐槽">一点吐槽</h3>
+
+<p>一开始对<a href="http://algs4.cs.princeton.edu/41graph/GraphClient.java.html">GraphClient.java</a>中numberOfSelfLoops函数进行count/2不解，翻回<a href="http://algs4.cs.princeton.edu/41graph/Graph.java.html">Graph.java</a>，看看addEdge函数才明白，合着对自循环连接，adj里面加两次。这么干有什么好处么？！！</p>
+
+<p>再后来看<a href="http://algs4.cs.princeton.edu/41graph/Cycle.java.html">Cycle.java</a>，对hasParallelEdges函数又不解，仔细想想<a href="http://algs4.cs.princeton.edu/41graph/Graph.java.html">Graph.java</a>不但接受addEdge(1,23)和addEdge(23, 1)，对执行多次addEdge(1,23)也不拒绝。一个无向图这么弄，对么？算不算检查不严格呀？！！</p>
+
+<h3 id="理解-cycle-java-http-algs4-cs-princeton-edu-41graph-cycle-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Cycle.java.html">Cycle.java</a></h3>
+
+<p>示例代码：</p>
+
+<pre><code>public static void main(String[] args) {
+  Graph G = new Graph(4);
+  G.addEdge(0, 1);
+  G.addEdge(1, 2);
+  G.addEdge(1, 3);
+  G.addEdge(2, 3);    
+  Cycle finder = new Cycle(G);
+  if (finder.hasCycle()) {
+    for (int v : finder.cycle()) {
+      StdOut.print(v + &quot; &quot;);
+    }
+    StdOut.println();
+  }
+  else {
+    StdOut.println(&quot;Graph is acyclic&quot;);
+  }
+}
+</code></pre>
+
+<p>dfs搜索：</p>
+
+<p>|上一节点u|当前节点v|下一节点w|注解
+|&mdash;&ndash;
+|-1|0|1|节点1没有标注，嵌套dfs
+|0|1|3|节点3没有标注，嵌套dfs
+|1|3|2|节点2没有标注，嵌套dfs
+|3|2|1|节点1已标注，发现cycle，创建栈，依次：
+- (在for循环中)push 2
+- (在for循环中)push 3
+- push 1
+- push 2说白了就是当发现下一节点w已经标注，那就返回去找w到v的路径，然后凑上w和v，就是一个环路。</p>
+
+<h3 id="理解-bipartite-java-http-algs4-cs-princeton-edu-41graph-bipartite-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Bipartite.java.html">Bipartite.java</a></h3>
+
+<p>二分图又称作二部图、两偶图，是图论中的一种特殊模型。设G=(V,E）是一个无向图，如果顶点V可分割为两个互不相交的子集(A,B），并且图中的每条边（i，j）所关联的两个顶点i和j分别属于这两个不同的顶点集（iin A,j in B），则称图G为一个二分图。</p>
+
+<p>简而言之，就是顶点集V可分割为两个互不相交的子集，并且图中每条边依附的两个顶点都分属于这两个互不相交的子集。</p>
+
+<p><a href="http://algs4.cs.princeton.edu/41graph/Bipartite.java.html">Bipartite.java</a>的控制流与<a href="http://algs4.cs.princeton.edu/41graph/CC.java.html">CC.java</a>差不多。设定图中节点为红黑两种颜色，为了使相邻节点不同颜色，dfs时下一节点颜色为当前节点反色。当遇到环路时，如果环路节点数为奇数个（下一节点已标注且颜色与当前节点相同），则该图非二分图。</p>
+
+<h3 id="理解-bridge-java-http-algs4-cs-princeton-edu-41graph-bridge-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Bridge.java.html">Bridge.java</a></h3>
+
+<p>桥（割边cut-edge）是一个边，当其被删除时连通组件个数会增多。同样道理，一个边仅没有被任何环路包含时才是一个桥。</p>
+
+<p>示例代码：</p>
+
+<pre><code>public static void main(String[] args) {
+        Graph G = new Graph(5);
+        G.addEdge(0, 1);
+        G.addEdge(1, 3);
+        G.addEdge(1, 2);
+        G.addEdge(2, 3);
+        G.addEdge(3, 4);        
+  StdOut.println(G);
+
+  Bridge bridge = new Bridge(G);
+  StdOut.println(&quot;Edge connected components = &quot; + bridge.components());
+}
+</code></pre>
+
+<p>dfs搜索：
+<img src="/images/2014/3/0026uWfMzy74GF8UudNef.jpg" alt="[算法] 学习无向图" />
+dfs过程中，发现环路后整个环路上所有节点low值降成环路中第一个处理节点的pre值。下一个节点pre值与最终low值一致的话，当前节点和下一节点之间的边为桥。</p>
+
+<p><font color="#ED1C24"><strong>注：对于连接组件的第一个处理节点，<a href="http://algs4.cs.princeton.edu/41graph/Cycle.java.html">Cycle.java</a>中dfs函数的u参数为-1，而<a href="http://algs4.cs.princeton.edu/41graph/Bridge.java.html">Bridge.java</a>中的dfs函数的u参数为当前节点v。</strong></font></p>
+
+<p>输出日志：</p>
+
+<pre><code>5 vertices, 5 edges 
+0: 1 
+1: 2 3 0 
+2: 3 1 
+3: 4 2 1 
+4: 3 
+
+3-4 is a bridge
+0-1 is a bridge
+Edge connected components = 3
+</code></pre>
+
+<h3 id="理解-biconnected-java-http-algs4-cs-princeton-edu-41graph-biconnected-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Biconnected.java.html">Biconnected.java</a></h3>
+
+<p>关节点（articulation vertex，又称割点cutvertex）是一个节点，当其被删除时连通组件个数会增多。当没有关节点时，图为双连通图。</p>
+
+<p>示例代码：</p>
+
+<pre><code>public static void main(String[] args) {
+  Graph G = new Graph(5);
+  G.addEdge(0, 1);
+  G.addEdge(1, 3);
+  G.addEdge(1, 2);
+  G.addEdge(2, 3);
+  G.addEdge(3, 4);
+  StdOut.println(G);
+
+  Biconnected bic = new Biconnected(G);
+
+  // print out articulation points
+  StdOut.println();
+  StdOut.println(&quot;Articulation points&quot;);
+  StdOut.println(&quot;-------------------&quot;);
+  for (int v = 0; v &lt; G.V(); v++)
+    if (bic.isArticulation(v)) StdOut.println(v);
+}
+</code></pre>
+
+<p>dfs搜索：
+<img src="/images/2014/3/0026uWfMzy74GJlR8cpa9.jpg" alt="[算法] 学习无向图" />
+dfs过程中，发现环路后整个环路上所有节点low值降成环路中第一个处理节点的pre值。当前节点pre值小于等于下一节点最终low值，且当前节点非连接组件第一个处理节点时，当前节点即为割点。</p>
+
+<p><font color="#ED1C24"><strong>注：对于连接组件的第一个处理节点，<a href="http://algs4.cs.princeton.edu/41graph/Cycle.java.html">Cycle.java</a>中dfs函数的u参数为-1，而<a href="http://algs4.cs.princeton.edu/41graph/Biconnected.java.html">Biconnected.java</a>中的dfs函数的u参数为当前节点v。</strong></font></p>
+
+<p>输出日志：</p>
+
+<pre><code>5 vertices, 5 edges 
+0: 1 
+1: 2 3 0 
+2: 3 1 
+3: 4 2 1 
+4: 3 
+
+
+Articulation points
+-------------------
+1
+3
+</code></pre>
+
+<h3 id="理解-euleriancycle-java-http-algs4-cs-princeton-edu-41graph-euleriancycle-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/EulerianCycle.java.html">EulerianCycle.java</a></h3>
+
+<p>通过图（无向图或有向图）中所有边且每边仅通过一次通路称为欧拉通路（Eulerian trail，Eulerianpath），相应的回路称为欧拉回路（ Eulerian circuit，Euleriancycle）。具有欧拉回路的图称为欧拉图（EulerGraph），具有欧拉通路而无欧拉回路的图称为半欧拉图（Semi-Eulerian）。</p>
+
+<p>|图论起源于18世纪，1736年瑞士数学家欧拉（Euler）发表了图论的第一篇论文“哥尼斯堡七桥问题”。在当时的哥尼斯堡城有一条横贯全市的普雷格尔河，河中的两个岛与两岸用七座桥连结起来。当时那里的居民热衷于一个难题：有游人怎样不重复地走遍七桥，最后回到出发点。为了解决这个问题，欧拉用A,B,C,D4个字母代替陆地，作为4个顶点，将联结两块陆地的桥用相应的线段表示，于是哥尼斯堡七桥问题就变成了图中，是否存在经过每条边一次且仅一次，经过所有的顶点的回路问题了。欧拉在论文中指出，这样的回路是不存在的。|<img src="/images/2014/3/0026uWfMzy74Ihg7rYeaa.jpg" alt="[算法] 学习无向图" /></p>
+
+<p>无向连通图G含有欧拉通路，当且仅当G有零个或两个奇数度的结点；无向连通图G是欧拉图，当且仅当G不含奇数度结点(G的所有结点度数为偶数)。</p>
+
+<p><a href="http://algs4.cs.princeton.edu/41graph/EulerianCycle.java.html">EulerianCycle.java</a>判断当某个节点度为奇数，则不是欧拉图。否则任选一点度大于零的点做起点，记录路径是否走过，一点接一点直到当前点对相邻点没有未走路径为止。最后判断所走路径上节点数是否为图所有节点个数+1，如不等则非欧拉图。（<strong>感觉即使是欧拉图靠贪婪查找也不确保能获得正确路径。</strong>）</p>
+
+<h3 id="平面图">平面图</h3>
+
+<p>一个图是片面的，指其画在平面时边没有交叉。Hopcroft-Tarjan算法基于dfs能在线性时间内判断图是否为平面的。</p>
+
+<h3 id="汉密尔顿图">汉密尔顿图</h3>
+
+<p>通过图（无向图或有向图）中所有节点且每节点仅通过一次的通路称为哈密顿通路（Hamiltonian path，Traceablepath），相应的回路称作汉密尔顿回路（Hamiltonian cycle）。</p>
+
+<p>美国图论数学家奥勒在1960年给出了一个图是哈密尔顿图的充分条件：对于顶点个数大于2的图，如果图中任意两点度的和大于或等于顶点总数，那这个图一定是哈密尔顿图。寻找哈密顿路径是一个典型的NP-完全问题。</p>
+
+    </div>
+    <footer class="post-footer">
+     <div class="post-nav">
+<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+    <div>
+        <p style="margin-top:0px;">
+            标题：[算法] 学习无向图
+        <br />作者：<a target="_blank" href="/">mryqu</a>
+        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+        </p>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+     
+ 
+<div class="post-tags">     
+     
+    <a href="/tags/algorithm" rel="tag" title="algorithm">#algorithm#</a>
+    
+    <a href="/tags/graph" rel="tag" title="graph">#graph#</a>
+    
+    <a href="/tags/cycle" rel="tag" title="cycle">#cycle#</a>
+    
+    <a href="/tags/bipartite" rel="tag" title="bipartite">#bipartite#</a>
+    
+    <a href="/tags/eulerian" rel="tag" title="eulerian">#eulerian#</a>
+    
+</div>
+
+
+
+     <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/" rel="next" title="玩一下LineNumberReader">
+        <i class="fa fa-chevron-left"></i> 玩一下LineNumberReader
+        </a>
+    
+    </div>
+
+    <div class="post-nav-prev post-nav-item">
+    
+        <a href="https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/" rel="prev" title="GitHub fork操作">
+        GitHub fork操作 <i class="fa fa-chevron-right"></i>
+        </a>
+    
+    </div>
+</div>
+      
+     
+     
+     
+     
+
+
+
+<div class="comments" id="comments">
+<div id="disqus_thread"></div>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/";
+this.page.identifier = "https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = '//mryqu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+    </footer>
+  </article>
+</section>
+
+          </div>
+        </div>
+        <div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner"> 
+
+  <ul class="sidebar-nav motion-element">
+    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
+    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
+  </ul>
+
+    <section class="site-overview sidebar-panel ">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+        src="/img/author.jpg"
+        alt="" />
+    <p class="site-author-name" itemprop="name"></p>
+    <p class="site-description motion-element" itemprop="description"> 
+        Programmer &amp; Architect</p>
+</div>
+      <nav class="site-state motion-element">
+    <div class="site-state-item site-state-posts">
+      <a href="/post/">
+        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-name">日志</span>
+      </a>
+    </div>
+    <div class="site-state-item site-state-categories">    
+        <a href="/categories/">      
+         
+        <span class="site-state-item-count">45</span>
+        
+        <span class="site-state-item-name">分类</span>
+        
+        </a>
+    </div>
+
+    <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+         
+        <span class="site-state-item-count">1508</span>
+        
+        <span class="site-state-item-name">标签</span>
+        </a>
+    </div>
+</nav>
+      
+      
+<div class="links-of-author motion-element">
+    
+        <span class="links-of-author-item">
+        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
+            <i class="fa fa-fw fa-github"></i>
+            GitHub
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
+            <i class="fa fa-fw fa-twitter"></i>
+            Twitter
+        </a>
+        </span>
+    
+        <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
+            <i class="fa fa-fw fa-facebook"></i>
+            FB Page
+        </a>
+        </span>
+    
+</div>
+
+      
+      <div class="links-of-blogroll motion-element inline">
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
+</div>
+
+    </section>
+    
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+    <div class="post-toc">
+        <div class="post-toc-content"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#一点吐槽">一点吐槽</a></li>
+<li><a href="#理解-cycle-java-http-algs4-cs-princeton-edu-41graph-cycle-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Cycle.java.html">Cycle.java</a></a></li>
+<li><a href="#理解-bipartite-java-http-algs4-cs-princeton-edu-41graph-bipartite-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Bipartite.java.html">Bipartite.java</a></a></li>
+<li><a href="#理解-bridge-java-http-algs4-cs-princeton-edu-41graph-bridge-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Bridge.java.html">Bridge.java</a></a></li>
+<li><a href="#理解-biconnected-java-http-algs4-cs-princeton-edu-41graph-biconnected-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/Biconnected.java.html">Biconnected.java</a></a></li>
+<li><a href="#理解-euleriancycle-java-http-algs4-cs-princeton-edu-41graph-euleriancycle-java-html">理解<a href="http://algs4.cs.princeton.edu/41graph/EulerianCycle.java.html">EulerianCycle.java</a></a></li>
+<li><a href="#平面图">平面图</a></li>
+<li><a href="#汉密尔顿图">汉密尔顿图</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></div>
+    </div>
+</section>
+
+  </div>
+</aside>
+
+      </div>
+    </main>
+   
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <span itemprop="copyrightYear">  &copy; 
+  2009 - 2019</span>
+  <span class="with-love"><i class="fa fa-heart"></i></span>
+  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
+</div>
+<div class="powered-by">
+  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
+</div>
+<div class="theme-info">
+  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
+  </a>
+</div>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      <span id="scrollpercent"><span>0</span>%</span>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
+<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/motion.js"></script>
+<script type="text/javascript" src="/js/affix.js"></script>
+<script type="text/javascript" src="/js/schemes/pisces.js"></script>
+
+<script type="text/javascript" src="/js/scrollspy.js"></script>
+<script type="text/javascript" src="/js/post-details.js"></script>
+<script type="text/javascript" src="/js/toc.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/search.js"></script>
+</body>
+</html>

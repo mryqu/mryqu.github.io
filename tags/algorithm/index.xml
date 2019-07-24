@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/algorithm/</link>
+    <description>Recent content in Algorithm on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 18 Jul 2019 20:17:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[JS] 图算法实践</title>
+      <link>https://mryqu.github.io/post/js_%E5%9B%BE%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Thu, 18 Jul 2019 20:17:16 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/js_%E5%9B%BE%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/</guid>
+      <description>最近需要用JavaScript处理图算法，没找到适合的库，就自己写一套玩玩。
+DiGraph.js 仿照Graph.java写的，实现无向图API。
+(function(){ return Graph = (function () { // create empty Graph with V vertices function Graph(V) { this._V = V; this._E = 0; this._adj = []; for(var i=0;i&amp;lt;V;i++) this._adj.push([]); } Object.defineProperty(Graph.prototype, &amp;quot;V&amp;quot;, { get: function () { return this._V; }, enumerable: true, configurable: true }); Object.defineProperty(Graph.prototype, &amp;quot;E&amp;quot;, { get: function () { return this._E; }, enumerable: true, configurable: true }); // Adds the undirected edge v-w to this graph.</description>
+    </item>
+    
+    <item>
+      <title>[C&#43;&#43;]遭遇error C2039: &#39;min&#39; : is not a member of &#39;std&#39;</title>
+      <link>https://mryqu.github.io/post/c&#43;&#43;_%E9%81%AD%E9%81%87error_c2039_min__is_not_a_member_of_std/</link>
+      <pubDate>Tue, 22 Dec 2015 05:31:50 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E9%81%AD%E9%81%87error_c2039_min__is_not_a_member_of_std/</guid>
+      <description>使用Visual Studio2013编译twitcurl遭遇下列错误：
+error C2039: &#39;min&#39; : is not a member of &#39;std&#39;  解决方法：
+#include &amp;lt;algorithm&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>[算法] 实证分析</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Tue, 03 Feb 2015 19:53:35 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/</guid>
+      <description>最近又重温了一下算法课中的实证分析。 - 首先针对不同大小的输入获取运行时长。 - 可以通过标准坐标图或双对数坐标图查看运行时常与输入大小的关系。 - 通过成倍增加输入量，可以更便利地估算T(N)与N之间的幂指数关系。 lg( T(N) ) = b lg( N ) + c 即 T(N) = a Nb, 其中 a = 2c b = ( lg( T(2N1) ) - lg( T(N1)) ) ) / ( lg(2N1)) - lg( N1) ) ) = lg( T(2N1)) ) -lg( T(N1)) ) a = T(2N1)) / (2N1))b 可以教程上第二行就可以计算出b，这就有点不对头了。时常为零，意味着取对数的结果是-∞。返回数值是以毫秒为单位的，因此一般时长也应该是为毫秒为单位的。估计教程上时常实际精度为三位而显示精度为一位，导致不一致的。 下图是我用Excel根据教程显示数据计算的结果： </description>
+    </item>
+    
+    <item>
+      <title>[算法] 学习无向图</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/</link>
+      <pubDate>Fri, 21 Mar 2014 21:40:18 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/</guid>
+      <description>本文是学习http://algs4.cs.princeton.edu/41graph/的吐槽和体会。
+一点吐槽 一开始对GraphClient.java中numberOfSelfLoops函数进行count/2不解，翻回Graph.java，看看addEdge函数才明白，合着对自循环连接，adj里面加两次。这么干有什么好处么？！！
+再后来看Cycle.java，对hasParallelEdges函数又不解，仔细想想Graph.java不但接受addEdge(1,23)和addEdge(23, 1)，对执行多次addEdge(1,23)也不拒绝。一个无向图这么弄，对么？算不算检查不严格呀？！！
+理解Cycle.java 示例代码：
+public static void main(String[] args) { Graph G = new Graph(4); G.addEdge(0, 1); G.addEdge(1, 2); G.addEdge(1, 3); G.addEdge(2, 3); Cycle finder = new Cycle(G); if (finder.hasCycle()) { for (int v : finder.cycle()) { StdOut.print(v + &amp;quot; &amp;quot;); } StdOut.println(); } else { StdOut.println(&amp;quot;Graph is acyclic&amp;quot;); } }  dfs搜索：
+|上一节点u|当前节点v|下一节点w|注解 |&amp;mdash;&amp;ndash; |-1|0|1|节点1没有标注，嵌套dfs |0|1|3|节点3没有标注，嵌套dfs |1|3|2|节点2没有标注，嵌套dfs |3|2|1|节点1已标注，发现cycle，创建栈，依次： - (在for循环中)push 2 - (在for循环中)push 3 - push 1 - push 2说白了就是当发现下一节点w已经标注，那就返回去找w到v的路径，然后凑上w和v，就是一个环路。</description>
+    </item>
+    
+    <item>
+      <title>[算法] Mergesort练习</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Thu, 20 Feb 2014 23:39:55 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/</guid>
+      <description>本作业帖用于练习http://algs4.cs.princeton.edu/22mergesort/里面的作业。
+ Merge with atmost log N compares per item. Design a mergingalgorithm such that each item is compared at most a logarithmicnumber of times. (In the standard merging algorithm, an item can becompared N/2 times when merging two subarrays of size N/2.) reference  Lower boundfor sorting a Youngtableaux. A _Youngtableaux_ is an N-by-N matrix such that theentries are sorted both column wise and row wise. Prove thatTheta(N^2 log N) compares are necessary to sort the N^2 entries(where you can access the data only through the pairwisecomparisons).</description>
+    </item>
+    
+    <item>
+      <title>[算法] 求数组中倒置个数</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/</link>
+      <pubDate>Wed, 19 Feb 2014 23:32:27 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/</guid>
+      <description>http://algs4.cs.princeton.edu/22mergesort/中有一道题是求数组中倒置个数的，原题如下：
+Inversions. Develop and implement alinearithmic algorithm Inversions.java forcomputing the number of inversions in a given array (the number ofexchanges that would be performed by insertion sort for thatarray). This quantity is related tothe Kendall tau distance; 解决思路： Inversions.java在做MergeSort的过程中顺便求出了数组中倒置个数。假设上图中已经获得左右两个子部分中的倒置个数并进行了MergeSort。现在学习一下做整个数组的Merge时如何顺便计算这一层的倒置个数。 - 当aux[0]和aux[5]进行比较时，A小于E，则可知A比左半部分都小（少比较了4次），倒置+5 - 当aux[0]和aux[6]进行比较时，C小于E，则可知C比左半部分都小（少比较了4次），倒置+5 - 当aux[2]和aux[7]进行比较时，E小于G，则可知E比左半部分中G及其之后的数都小（少比较了2次），倒置=+(4-2+1)=+3
+整个数组的倒置数为左边部分内部倒置数+右边部分内部倒置数+13。算法时间复杂度为NlogN。</description>
+    </item>
+    
+    <item>
+      <title>[算法] Elementary Sorts练习</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Mon, 17 Feb 2014 22:27:59 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/</guid>
+      <description>本作业帖用于练习http://algs4.cs.princeton.edu/21elementary/里面的作业。
+ Stoogesort. Analyze the running time andcorrectness of the following recursive sorting algorithm: if theleftmost item is larger than the rightmost item, swap them. Ifthere are 2 or more items in the current subarray, (i) sort theinitial two-thirds of the array recursively, (ii) sort the finaltwo-thirds of the array, (iii) sort the initial two-thirds of thearray again.StoogeSort时间复杂度为O(_n_log3 / log 1.5 )= O(_n_2.7095&amp;hellip;)，比合并排序慢，甚至比冒泡排序慢，仅用于低效简单排序示范。
+ Guess-sort. Pick two indices i and j atrandom; if a[i] &amp;gt; a[j], then swap them.</description>
+    </item>
+    
+    <item>
+      <title>[算法] UNION-FIND练习</title>
+      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Sat, 15 Feb 2014 21:36:28 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/</guid>
+      <description>本作业帖用于练习http://algs4.cs.princeton.edu/15uf/里面的作业。
+ True or false. Inthe quick union implementation, suppose weset id[p] to id[root(q)] insteadof setting id[root(p)] Would the resultingalgorithm be correct? _答案：_ 否。使用id[root(p)]可以将p所在连接全部合并到q所在连接，而使用id[p]仅会将p及其子连接合并到q所在连接。
+ Which of thefollowing arrays could not possibly occur during the execution ofweighted quick union with path compression:
+ 0 1 2 3 4 5 67 8 9 7 3 8 3 4 5 68 8 1 6 3 8 0 4 5 69 8 1 0 0 0 0 0 0 00 0 0 9 6 2 6 1 4 58 8 9 9 8 7 6 5 4 32 1 0 _答案：_ B,、C、E和F。</description>
+    </item>
+    
+  </channel>
+</rss>

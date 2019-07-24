@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Management on Mryqu&#39;s Notes</title>
+    <link>https://mryqu.github.io/tags/management/</link>
+    <description>Recent content in Management on Mryqu&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 22 Oct 2017 06:00:25 +0000</lastBuildDate>
+    
+	<atom:link href="https://mryqu.github.io/tags/management/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Golang] 使用dep</title>
+      <link>https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8dep/</link>
+      <pubDate>Sun, 22 Oct 2017 06:00:25 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8dep/</guid>
+      <description>之前的博文[Golang]Win10下Glide的安装和使用记录了对Glide的学习，本博将记录对Golang包管理工具dep的学习使用。
+dep介绍 在2012年，go get成为获取依赖包的方式。dep的FAQ中有一段描述dep是否要取代go get的解答，一句话概括就是：依赖管理工具是为应用管理代码的，go get是为GOPATH管理代码的。go get仅仅支持获取master branch上的latest代码，没有指定version、branch或revision的能力。这不符合gopher对自己项目所依赖的第三方包受控的期望。 在2015年，Russ Cox在Go 1.5发布前期以一个experiment feature身份紧急加入vendor机制，vendor标准化了项目依赖的第三方库的存放位置，隔离不同项目依赖的同一个包的不同版本。 Golang的包管理一直没有官方统一的解决方案，因此也产生了很多非官方的包管理工具。这些工具很多都很不错，但是相互兼容性差。随着Go语言在全球范围内应用的愈加广泛，缺少官方包管理工具这一问题变得日益突出。2016年GopherCon大会后，由微服务框架go-kit作者Peter Bourgon牵头， 在Go官方的组织下，Go包管理委员会经过各种头脑风暴和讨论后发布了“包管理建议书”，并启动了最有可能被接纳为官方包管理工具的项目dep的设计和开发。当前主导dep开发的是Sam Boyer，Sam也是dep底层包依赖分析引擎-gps的作者。2017年年初，dep项目正式对外开放。
+安装 我的实验平台是Win10，所以无法通过brew或者shell脚本安装，只能通过go get安装：
+go get -u github.com/golang/dep/cmd/dep  安装完，执行dep命令，出现帮助代表安装成功。
+$ dep Dep is a tool for managing dependencies for Go projects Usage: &amp;quot;dep [command]&amp;quot; Commands: init Set up a new Go project, or migrate an existing one status Report the status of the project&#39;s dependencies ensure Ensure a dependency is safely vendored in the project prune Pruning is now performed automatically by dep ensure.</description>
+    </item>
+    
+    <item>
+      <title>[Spring Boot] 监控和管理Spring Boot应用</title>
+      <link>https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 11 Jul 2015 06:53:41 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/</guid>
+      <description>本博文在[Spring Boot] Hello Spring LDAP 基础上稍作修改，尝试一下监控和管理Spring Boot应用。
+application.properties改动 server.context-path=/HelloSpringLdapOdm server.port=8080 spring.profiles.active=test,dev # spring.dao.exceptiontranslation.enabled=false yqu.ldap.url=ldap://127.0.0.1:18880 yqu.ldap.userDN=uid=admin,ou=system yqu.ldap.password=secret yqu.ldap.base=dc=jayway,dc=se yqu.ldap.clean=true management.port=8081 management.address=127.0.0.1 endpoints.shutdown.enabled=true applicationDefaultJvmArgs: [ &amp;quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=55558&amp;quot; ]  测试  autoconfig: Displays an auto-configuration report showing allauto-configuration candidates and the reason why they ‘were’ or‘were not’ applied. beans: Displays a complete list of all the Spring beans in yourapplication. configprops: Displays a collated list of all@ConfigurationProperties. dump: Performs a thread dump. env: Exposes properties from Spring’sConfigurableEnvironment.</description>
+    </item>
+    
+  </channel>
+</rss>
