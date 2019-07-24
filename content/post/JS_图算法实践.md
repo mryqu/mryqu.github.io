@@ -1,19 +1,19 @@
----
-title: '[JS] Í¼Ëã·¨Êµ¼ù'
+ï»¿---
+title: '[JS] å›¾ç®—æ³•å®è·µ'
 date: 2019-07-18 20:17:16
 categories: 
-- Ç°¶Ë
+- å‰ç«¯
 tags: 
 - javascript
 - algorithm
 - digraph
 ---
 
-×î½üĞèÒªÓÃJavaScript´¦ÀíÍ¼Ëã·¨£¬Ã»ÕÒµ½ÊÊºÏµÄ¿â£¬¾Í×Ô¼ºĞ´Ò»Ì×ÍæÍæ¡£
+æœ€è¿‘éœ€è¦ç”¨JavaScriptå¤„ç†å›¾ç®—æ³•ï¼Œæ²¡æ‰¾åˆ°é€‚åˆçš„åº“ï¼Œå°±è‡ªå·±å†™ä¸€å¥—ç©ç©ã€‚
 
 ### DiGraph.js
 
-·ÂÕÕ(Graph.java)[https://algs4.cs.princeton.edu/41graph/Graph.java.html]Ğ´µÄ£¬ÊµÏÖÎŞÏòÍ¼API¡£  
+ä»¿ç…§[Graph.java](https://algs4.cs.princeton.edu/41graph/Graph.java.html)å†™çš„ï¼Œå®ç°æ— å‘å›¾APIã€‚  
 ```
 (function(){ 
   return Graph = (function () {
@@ -59,12 +59,12 @@ tags:
 })();
 ```
 
-²âÊÔÊı¾İÊ¹ÓÃ[tinyG.txt](https://algs4.cs.princeton.edu/41graph/tinyG.txt)£¬½á¹ûÈçÏÂ£º  
-![Graph²âÊÔ](/images/2019/7/Graph.png) 
+æµ‹è¯•æ•°æ®ä½¿ç”¨[tinyG.txt](https://algs4.cs.princeton.edu/41graph/tinyG.txt)ï¼Œç»“æœå¦‚ä¸‹ï¼š  
+![Graphæµ‹è¯•](/images/2019/7/Graph.png) 
 
 ### CC.js
 
-·ÂÕÕ(CC.java)[https://algs4.cs.princeton.edu/41graph/CC.java.html]Ğ´µÄ£¬Ê¹ÓÃDFSËã·¨ÎªÎŞÏòÍ¼¼ÆËãÁ¬Í¨Í¼¡£
+ä»¿ç…§[CC.java](https://algs4.cs.princeton.edu/41graph/CC.java.html)å†™çš„ï¼Œä½¿ç”¨DFSç®—æ³•ä¸ºæ— å‘å›¾è®¡ç®—è¿é€šå›¾ã€‚
 ```
 (function(){ 
   return CC = (function () {
@@ -140,14 +140,14 @@ tags:
 })();
 ```
 
-²âÊÔÊı¾İÊ¹ÓÃ[tinyG.txt](https://algs4.cs.princeton.edu/41graph/tinyG.txt)£¬½á¹ûÈçÏÂ£º  
-![CC²âÊÔ](/images/2019/7/CC.png) 
+æµ‹è¯•æ•°æ®ä½¿ç”¨[tinyG.txt](https://algs4.cs.princeton.edu/41graph/tinyG.txt)ï¼Œç»“æœå¦‚ä¸‹ï¼š  
+![CCæµ‹è¯•](/images/2019/7/CC.png) 
 
-![CCÍ¼Ê¾](/images/2019/7/ccDiagram.png)  
+![CCå›¾ç¤º](/images/2019/7/ccDiagram.png)  
 
 ### DiGraph.js
 
-·ÂÕÕ(Digraph.java)[https://algs4.cs.princeton.edu/42digraph/Digraph.java.html]Ğ´µÄ£¬ÊµÏÖÓĞÏòÍ¼API¡£  
+ä»¿ç…§[Digraph.java](https://algs4.cs.princeton.edu/42digraph/Digraph.java.html)å†™çš„ï¼Œå®ç°æœ‰å‘å›¾APIã€‚  
 ```
 (function(){ 
   return DiGraph = (function () {
@@ -176,7 +176,7 @@ tags:
   configurable: true
   });
 
-  // add edge v¡úw
+  // add edge vâ†’w
   DiGraph.prototype.addEdge = function (v, w) {
   this._adj[v].unshift(w);
   this._E++;
@@ -204,12 +204,12 @@ tags:
 })();
 ```
 
-²âÊÔÊı¾İÊ¹ÓÃ[tinyDAG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt)£¬½á¹ûÈçÏÂ£º  
-![DiGraph²âÊÔ](/images/2019/7/DiGraph.png) 
+æµ‹è¯•æ•°æ®ä½¿ç”¨[tinyDAG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt)ï¼Œç»“æœå¦‚ä¸‹ï¼š  
+![DiGraphæµ‹è¯•](/images/2019/7/DiGraph.png) 
 
 ### DepthFirstOrder.js
 
-·ÂÕÕ(DepthFirstOrder.java)[https://algs4.cs.princeton.edu/42digraph/DepthFirstOrder.java.html]Ğ´µÄ£¬ÎªÓĞÏòÍ¼¼ÆËãÇ°ĞòºÍºóĞò¡£  
+ä»¿ç…§[DepthFirstOrder.java](https://algs4.cs.princeton.edu/42digraph/DepthFirstOrder.java.html)å†™çš„ï¼Œä¸ºæœ‰å‘å›¾è®¡ç®—å‰åºå’Œååºã€‚  
 ```
 (function(){ 
   return DepthFirstOrder = (function () {
@@ -293,12 +293,12 @@ tags:
 })();
 ```
 
-²âÊÔÊı¾İÊ¹ÓÃ[tinyDAG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt)£¬½á¹ûÈçÏÂ£º  
-![DepthFirstOrder²âÊÔ](/images/2019/7/DepthFirstOrder.png) 
+æµ‹è¯•æ•°æ®ä½¿ç”¨[tinyDAG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDAG.txt)ï¼Œç»“æœå¦‚ä¸‹ï¼š  
+![DepthFirstOrderæµ‹è¯•](/images/2019/7/DepthFirstOrder.png) 
 
 ### KosarajuSharirSCC.js
 
-·ÂÕÕ(KosarajuSharirSCC.java)[https://algs4.cs.princeton.edu/42digraph/KosarajuSharirSCC.java.html]Ğ´µÄ£¬Ê¹ÓÃKosaraju-SharirËã·¨ÎªÓĞÏòÍ¼¼ÆËãÇ¿Á¬Í¨Í¼¡£
+ä»¿ç…§[KosarajuSharirSCC.java](https://algs4.cs.princeton.edu/42digraph/KosarajuSharirSCC.java.html)å†™çš„ï¼Œä½¿ç”¨Kosaraju-Sharirç®—æ³•ä¸ºæœ‰å‘å›¾è®¡ç®—å¼ºè¿é€šå›¾ã€‚
 ```
 (function(){ 
   // Kosaraju-Sharir algorithm implementation to compute strong components in a DiGraph (with two DFSs).
@@ -373,7 +373,7 @@ tags:
 })();
 ```
 
-²âÊÔÊı¾İÊ¹ÓÃ[tinyDG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDG.txt)£¬½á¹ûÈçÏÂ£º  
-![KosarajuSharirSCC²âÊÔ](/images/2019/7/KosarajuSharirSCC.png) 
+æµ‹è¯•æ•°æ®ä½¿ç”¨[tinyDG.txt](https://algs4.cs.princeton.edu/42digraph/tinyDG.txt)ï¼Œç»“æœå¦‚ä¸‹ï¼š  
+![KosarajuSharirSCCæµ‹è¯•](/images/2019/7/KosarajuSharirSCC.png) 
   
-![SCCÍ¼Ê¾](/images/2019/7/SccDiagram.png)  
+![SCCå›¾ç¤º](/images/2019/7/SccDiagram.png)  
