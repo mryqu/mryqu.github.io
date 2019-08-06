@@ -113,6 +113,76 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/" itemprop="url">
+        [HBase] HBase Shell中的put操作解析
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-03">
+    2014-01-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hbase" itemprop="url" rel="index">
+        <span itemprop="name">HBase</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">144 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    阅读了HBase Shell datatype conversion一贴，感觉下列两个操作结果中的单元格数据值都像是文本类型的：
+put 'mytable', '2342', 'cf:c1', '67' put 'mytable', '2341', 'cf:c1', 23  预知真相，看来只好看HBase Shell代码了。HBase Shell是Ruby代码，首先找到这些代码的位置：
+cd $HBASE_HOME find . -name '*.rb' -print  找到了$HBASE_HOME/lib/ruby/shell/commands/put.rb，其GitHub代码库位置为https://github.com/apache/hbase/commits/master/hbase-shell/src/main/ruby/shell/commands/put.rb：
+def command(table, row, column, value, timestamp=nil, args = {}) put table(table), row, column, value, timestamp, args end def put(table, row, column, value, timestamp = nil, args = {}) format_simple_command do table._put_internal(row, column, value, timestamp, args) end end  继而找到了$HBASE_HOME/lib/ruby/hbase/table.rb，其GitHub代码库位置为https://github.com/apache/hbase/blob/master/hbase-shell/src/main/ruby/hbase/table.rb：
+def _put_internal(row, column, value, timestamp = nil, args = {}) p = org.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/" itemprop="url">
         [HBase] Java客户端程序构建脚本
         </a>
@@ -667,68 +737,6 @@ library(swirl) swirl()
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/" itemprop="url">
-        [JavaScript] 调试及console.log
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-12-21">
-    2013-12-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">108 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    最近玩一下javascipt，在回调里碰到一个问题，需要调试。加入了console.log函数打印日志，在我的chrome浏览器按Ctrl+Shift+J快捷键调出DevTool并显示控制台来查找问题。结合Wireshark，最后才发现对Json数据解析错误。下面介绍一下console.log的使用。javascript的代码示例如下：
-$(function () { $('#fileupload').fileupload({ url: url, dataType: 'json', done: function (e, data) { $.each(data.result.files, function (index, file) { $('').text(file.name).appendTo('#files'); }); }, progressall: function (e, data) { var progress = parseInt(data.loaded / data.total * 100, 10); console.log(&quot;complete:&quot;+progress); $('#progress .progress-bar').css( 'width', progress + '%' ); } }).prop('disabled', !$.support.fileInput) .parent().addClass($.support.fileInput ? undefined : 'disabled'); });  浏览器控制台使用 Firefox http://getfirebug.com/ (可以使用Firefox内建的开发工具Ctrl+Shift+J (Tools &gt; Web Developer &gt;Error Console)，但是Firebug更出色；建议使用Firebug)
-Safari和Chrome 使用方法基本相同。 https://developer.chrome.com/devtools/index https://developer.apple.com/technologies/safari/developer-tools.html
-Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模式。 http://msdn.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -924,7 +932,7 @@ Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -941,7 +949,7 @@ Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1508</span>
+        <span class="site-state-item-count">1511</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bgradle-jvmsrc-plugin/" itemprop="url">
+        玩一下gradle-jvmsrc-plugin
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-05-27">
+    2015-05-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gradle" itemprop="url" rel="index">
+        <span itemprop="name">Gradle</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">38 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    玩了一下gradle-jvmsrc-plugin插件，使用这个插件后执行gradlecreateJvmSrcDirs可以根据Gradle项目的JVM语言插件（(java、groovy、scala、android等），自动创建默认的源代码、测试和资源包目录。例如： - src/main/resources - src/main/java/ - src/main/groovy/ - src/test/java/ - src/test/groovy/ - src/test/resources
+刚上手总是报错，看了一下CreateJvmSourceDirs.groovy，定位到packageToDirectoryPath方法：
+* What went wrong: Execution failed for task ':HelloJvmsrc:createJvmSrcDirs'. &gt; character to be escaped is missing  按照如下gradle-jvmsrc-plugin的说明，要配置基础包名。可是真按它介绍的带有.分割的包名就会出错，简单改成&rdquo;com&rdquo;这种没有.分割的包名就可以避免错误。
+jvmsrc { packageName &quot;com.mycompany.myproject.mymodule&quot; }  此外，gradle-jvmsrc-plugin对空目录默认生成.gitkeep文件。 总体来说，用处不是很大，可以偷点懒！
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/openui5_sap.m.input%E7%9A%84change%E5%9B%9E%E8%B0%83/" itemprop="url">
         [OpenUI5] sap.m.Input的change回调
         </a>
@@ -659,80 +722,6 @@ io是英属印度洋领地（British Indian OceanTerritory，BIOT）的简写，
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" itemprop="url">
-        Apt-get代理配置
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-05-20">
-    2015-05-20
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">67 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
-DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子： - Docker apt-get update fails - Docker - Network calls fail during image build on corporate network - How do I set my DNS on Ubuntu 14.04?
-检查我ubuntu配置：
- cat /etc/resolv.conf  确认DNS没有问题。
-Ubuntu官方服务器？ 是不是我的机器连不上欧美的Ubuntu官方服务器，换成中国服务器试试。尝试了Ubuntu 14.04服务器列表上的中国服务器还是不成。
-Apt-get代理？ 照着how to install packages with apt-get on a system connected via proxy?设置一番，成功了
-设置/etc/apt/apt.conf：
-Acquire::http::proxy &quot;http://yourServer:yourPort/&quot;; Acquire::ftp::proxy &quot;ftp://yourServer:yourPort/&quot;; Acquire::https::proxy &quot;https://yourServer:yourPort/&quot;;  如需用户名、密码，则作如下修改：
-Acquire::http::proxy &quot;http://yourUsr:yourPwd@yourServer:yourPort/&quot;; Acquire::ftp::proxy &quot;ftp://yourUsr:yourPwd@yourServer:yourPort/&quot;; Acquire::https::proxy &quot;https://yourUsr:yourPwd@yourServer:yourPort/&quot;;  最好将上述配置也存入/etc/apt/apt.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -928,7 +917,7 @@ Acquire::http::proxy &quot;http://yourUsr:yourPwd@yourServer:yourPort/&quot;; Ac
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -945,7 +934,7 @@ Acquire::http::proxy &quot;http://yourUsr:yourPwd@yourServer:yourPort/&quot;; Ac
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1508</span>
+        <span class="site-state-item-count">1511</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

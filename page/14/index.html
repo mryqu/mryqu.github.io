@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/twitcurl%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E5%92%8Caccesstokensecret%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/" itemprop="url">
+        twitcurl获取访问令牌（AccessToken和AccessTokenSecret）的实现流程
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-07-01">
+    2016-07-01
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">107 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    twitterClient.cpp中有一段代码是没有AccessToken和AccessTokenSecret的情况下，通过ConsumerKey、ConsumerKeySecret、UserName和UaserPassword获取AccessToken和AccessTokenSecret。 一般实现是通过重定向到Twitter页面去授权应用，通过callbackURL获得Twitter传过来的AccessToken和AccessTokenSecret信息。twitcurl既可以通过访问twitter.com获取PIN，也可以交由twitcurl自动获得。 如果通过twitter.com处理PIN，twitcurl会提供授权链接。进入链接后输入用户名和密码，会重定向到Twitter应用的callbackURL（例如http://www.mryqu.com/test.html?oauth_token={OAuthToken}&amp;oauth_verifier={OAuthVerifier} ），其中oauth_verifier值即为所谓的PIN。 下面我们看一下twitcurl是如何实现不访问twitter.com获取AccessToken和AccessTokenSecret的。 - GET https://api.twitter.com/oauth/request_tokentwitCurl::oAuthRequestToken 方法实现该HTTP请求，允许消费者应用获得一个OAuth请求令牌以请求用户授权。除了HTTP OAuth头外，twitcurl实现没有其他HTTP头，也没有消息体内容。HTTP OAuth头包含如下项： - oauth_consumer_key - oauth_nonce - oauth_signature - oauth_signature_method - oauth_timestamp - oauth_version
+通过如下HTTP响应可以获得oauth_token和oauth_token_secret，保存在oAuth对象的m_oAuthTokenKey和m_oAuthTokenSecret变量中：
+ oauth_token=XXXXXX&amp;oauth_token_secret=XXXXXX&amp;oauth_callback_confirmed=true   GET https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXtwitterObj.oAuthHandlePIN 方法实现该HTTP请求，获取响应页面中表单的authenticity_token和oauth_token元素的值。除了HTTP OAuth头外，twitcurl实现没有其他HTTP头，也没有消息体内容。HTTP OAuth头包含如下项：  oauth_consumer_key oauth_nonce oauth_signature oauth_signature_method oauth_timestamp oauth_token （取自上一HTTP响应） oauth_version    HTTP响应片段：- POST https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXtwitterObj.oAuthHandlePIN 方法实现该HTTP请求，允许消费者应用使用OAuth请求令牌请求用户授权。HTTP OAuth头包含如下项： - oauth_consumer_key - oauth_nonce - oauth_signature - oauth_signature_method - oauth_timestamp - oauth_token （取自上一HTTP响应） - oauth_version
+HTTP请求消息体内容为：
+ oauth_token=XXXXXX&amp;authenticity_token=XXXXXX&amp;session[username_or_email]=**XXXXX**X&amp;session[password]=XXXXXX  HTTP响应片段：通过如下HTTP响应可以获得oauth_verifier，保存在oAuth对象的m_oAuthPin变量中。 - GET https://api.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/twitcurl%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E5%92%8Caccesstokensecret%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%BE%AE%E4%BF%A1%E8%AF%AD%E9%9F%B3%E5%AF%BC%E5%87%BA%E5%92%8C%E8%BD%AC%E6%8D%A2/" itemprop="url">
         微信语音导出和转换
         </a>
@@ -611,73 +674,6 @@ sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&q
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/" itemprop="url">
-        使用SpringFox自动生成Swagger文档
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-04-28">
-    2016-04-28
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/swagger" itemprop="url" rel="index">
-        <span itemprop="name">Swagger</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">312 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    前面的博文Swagger实践和总结总体上探索了一下Swagger，这里着重研究Springfox。 Springfox Java库源自MartyPitt创建的swagger-springmvc项目。Swagger是一系列对RESTful接口进行规范描述和页面展示的工具，而通过Springfox将Swagger与Spring-MVC整合,可以将代码中的注解转换为符合Swagger开放API声明(OpenAPI Specification，OAS)的swagger.json文件,springfox-swagger-ui提供了将swagger.json转换为html页面的服务。
-HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但是对于一个写程序的人来说，不亲自写一遍，总觉得可能会有陷阱和漏洞，缺乏那么一点点自信。 我的示例是以Building a Hypermedia-Driven RESTful Web Service为基础修改的，懒人总是要找个肩膀。build.gradle jar { baseName = 'hello-springfox' version = '0.1.0' } dependencies { compile(&quot;org.springframework.boot:spring-boot-starter-actuator&quot;) compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;) compile(&quot;org.springframework.boot:spring-boot-starter-hateoas&quot;) compile(&quot;io.springfox:springfox-swagger2:${springfoxVersion}&quot;) compile(&quot;io.springfox:springfox-swagger1:${springfoxVersion}&quot;) compile(&quot;io.springfox:springfox-swagger-ui:${springfoxVersion}&quot;) testCompile(&quot;com.jayway.jsonpath:json-path&quot;) testCompile(&quot;org.springframework.boot:spring-boot-starter-test&quot;) }  Application.java package com.yqu.hellospringfox; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  Greeting.java package com.yqu.hellospringfox; import org.springframework.hateoas.ResourceSupport; import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.JsonProperty; public class Greeting extends ResourceSupport { private final String content; @JsonCreator public Greeting(@JsonProperty(&quot;content&quot;) String content) { this.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -873,7 +869,7 @@ HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -890,7 +886,7 @@ HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1508</span>
+        <span class="site-state-item-count">1511</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

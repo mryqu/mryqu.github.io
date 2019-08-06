@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/" itemprop="url">
+        ActiveMQ集群
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-24">
+    2013-07-24
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/mq" itemprop="url" rel="index">
+        <span itemprop="name">MQ</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">296 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    ActiveMQ Introduction ActiveMQ is an open source (Apache 2.0 licensed) message brokerwhich fully implements the Java Message Service 1.1. It providesadvanced features like clustering, multiple message stores, andability to use file systems, and databases as a JMS persistenceprovider.
+ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages on a queue across consumers. If a consumer dies, anyunacknowledged messages are redelivered to other consumers on thequeue. If one consumer is faster than the others it gets moremessages etc.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/" itemprop="url">
         PostgreSQL数据库分区的update操作
         </a>
@@ -721,66 +788,6 @@ JTA组件 JTA的主要组件为：
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url">
-        小玩Java序列化
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-08">
-    2013-07-08
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">101 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    折腾GemFire，免不了要折腾序列化和发序列化。GemFire支持Java的序列化，同时也有自己的DataSerializable接口实现自己的序列化，此外还有Delta接口支持数据同步时仅传送上一次数据同步后的更新。 今天测试的实现先用Java的序列化，一开始玩java.io.Serializable接口，后来玩writeObject()和readObject()方法。顺便看看有writeObject方法后ObjectOutputStream调用堆栈与原有分支的不同。
-private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push(&quot;custom writeObject data (class \&quot;&quot; + slotDesc.getName() + &quot;\&quot;)&quot;); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1004,7 +1011,7 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -1021,7 +1028,7 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1508</span>
+        <span class="site-state-item-count">1511</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

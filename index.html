@@ -238,6 +238,69 @@ Graph.js 仿照Graph.java写的，实现无向图API。
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/ctrl_c%E6%97%A0%E6%B3%95%E4%B8%AD%E6%96%ADgitbash%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%9A%84spring-boot%E7%A8%8B%E5%BA%8F/" itemprop="url">
+        CTRL&#43;C无法中断Git Bash中运行的Spring Boot程序
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-07-12">
+    2019-07-12
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">68 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在Git Bash中通过gradle bootRun的方式运行Spring Boot程序，使用CTRL+C无法中断运行的程序，重启计算机才能重新运行Spring Boot程序。
+忍了很久，最近查了查，发现是Msys2使用的MinTTY终端无法争取地将CTRL+C传递给应用导致的。
+CTRL-C doesn&rsquo;t interrupt the running process #684
+CTRL-C doesn&rsquo;t stop running app in Windows #773
+Re: Ctrl-C and non-cygwin programs
+Unable to use CTRL-C, &lsquo;n&rsquo; and &lsquo;q&rsquo; keyboard commands in Cygwin and Msys2 shells #112
+Ctrl+C no longer kills running process in Git Bash
+在最后一个帖子中查找到适用于我使用场景的workaround：
+1. 通过文件浏览器在Git目录中删除usr\bin\mintty.exe文件
+2. 重新运行Git Bash（或在文件浏览器中直接双击git-bash.exe)
+# 删除mintty前 $ echo $TERM xterm # 删除mintty后 $ echo $TERM cygwin  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/" itemprop="url">
         学习使用Minikube
         </a>
@@ -713,69 +776,6 @@ Salesforce Connector - Mule 4
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/chrome-extension%E8%AE%B0%E5%BD%95/" itemprop="url">
-        Chrome Extension记录
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-01-23">
-    2019-01-23
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/chrome" itemprop="url" rel="index">
-        <span itemprop="name">Chrome</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">11 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    重装机器后发现Chrome扩展工具需要重装，现搜了事。为了便于以后重装，特此记录。
-- LinkedIn Extension
-- OneTab
-- 网页截图 - Screenshot Extension
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -974,7 +974,7 @@ Salesforce Connector - Mule 4
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -991,7 +991,7 @@ Salesforce Connector - Mule 4
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1508</span>
+        <span class="site-state-item-count">1511</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

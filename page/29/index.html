@@ -113,6 +113,76 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" itemprop="url">
+        apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-05">
+    2015-07-05
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/docker" itemprop="url" rel="index">
+        <span itemprop="name">Docker</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">91 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    首先，在Ubuntu的Docker官方镜像中是没有缓存Apt的软件包列表的。因此在做其他任何基础软件的安装前，都需要至少先做一次apt-get update。 有时为了加快apt-get安装软件的速度，还需要修改Apt源的列表文件/etc/apt/sources.list。相应的操作用命令表示如下：
+# 使用Ubuntu官方的Apt源，也可以根据实际需要修改为国内源的地址 echo &quot;deb http://archive.ubuntu.com/ubuntu trusty main universe\n&quot; &gt; /etc/apt/sources.list echo &quot;deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n&quot; &gt;&gt; /etc/apt/sources.list  在容器构建时，为了避免使用apt-get install安装基础软件的过程中需要进行的交互操作，使用-y参数来避免安装非必须的文件，从而减小镜像的体积。
+apt-get -y --no-install-recommends install  使用apt-get autoremove命令移除为了满足包依赖而安装的、但不再需要的包；使用apt-get clean命令清除所获得包文件的本地仓库。 DEBIAN_FRONTEND这个环境变量，告知操作系统应该从哪儿获得用户输入。如果设置为&rdquo;noninteractive&rdquo;，你就可以直接运行命令，而无需向用户请求输入（所有操作都是非交互式的）。这在运行apt-get命令的时候格外有用，因为它会不停的提示用户进行到了哪步并且需要不断确认。非交互模式会选择默认的选项并以最快的速度完成构建。请确保只在Dockerfile中调用的RUN命令中设置了该选项，而不是使用ENV命令进行全局的设置。因为ENV命令在整个容器运行过程中都会生效，所以当你通过BASH和容器进行交互时，如果进行了全局设置那就会出问题。
+# 正确的做法 - 只为这个命令设置ENV变量 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 # 错误地做法 - 为接下来的任何命令都设置ENV变量，包括正在运行地容器 ENV DEBIAN_FRONTEND noninteractive RUN apt-get install -y python3  我的示例如下：
+FROM ubuntu:trusty MAINTAINER mryqu RUN \ DEBIAN_FRONTEND=noninteractive apt-get update &amp;&amp; \ DEBIAN_FRONTEND=noninteractive apt-get -y install wget curl &amp;&amp; \ DEBIAN_FRONTEND=noninteractive apt-get -y autoremove &amp;&amp; \ DEBIAN_FRONTEND=noninteractive apt-get clean  参考 Ubuntu manuals: apt-get man page
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/docker%E7%9A%84%E9%95%9C%E5%83%8F%E5%AD%98%E5%82%A8%E5%9C%A8%E5%93%AA%E9%87%8C%E5%92%8C%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/" itemprop="url">
         Docker的镜像存储在哪里和长什么样子
         </a>
@@ -659,61 +729,6 @@ H2 Console
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%B6%E4%BD%9Cjavase8%E7%9A%84chm%E7%89%88%E6%9C%ACjavadoc/" itemprop="url">
-        制作JavaSE8的chm版本JavaDoc
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-25">
-    2015-06-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">26 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     Java8文档 在线版Java8文档: http://docs.oracle.com/javase/8/docs/ 下载版Java文档链接：http://www.oracle.com/technetwork/java/javase/downloads/index.html#docs - JavaSE6文档下载链接: http://www.oracle.com/technetwork/java/javase/downloads/jdk-6u25-doc-download-355137.html - JavaSE7文档下载链接: http://www.oracle.com/technetwork/java/javase/documentation/java-se-7-doc-download-435117.html - JavaSE8文档下载链接: http://www.oracle.com/technetwork/java/javase/documentation/jdk8-doc-downloads-2133158.html
-工具 Github：subchen/javadoc.chm
-制作过程  将javadoc.chm-master.zip的javadoc.chm-2.1.0.jar和lib目录解压缩到当前目录 将jdk-8u45-docs-all.zip的docs目录解压缩到当前目录  java -Xms256m -Xmx512m -cp javadoc.chm-2.1.0.jar;lib/commons-lang-2.6.jar;lib/commons-io-2.4.jar;lib/commons-collections-3.2.1.jar;lib/commons-logging-1.1.1.jar;lib/log4j-1.2.17.jar;lib/velocity-1.7.jar jerbrick.tools.chm.Application docs/api  执行docs/api/build.bat生成chm文件   
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -909,7 +924,7 @@ H2 Console
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">706</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -926,7 +941,7 @@ H2 Console
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1508</span>
+        <span class="site-state-item-count">1511</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

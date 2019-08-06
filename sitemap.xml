@@ -42,6 +42,28 @@ KosarajuSharirSCC.js 仿照KosarajuSharirSCC.java写的，使用Kosaraju-Sharir�
     </entry>
     
      <entry>
+        <title>CTRL&#43;C无法中断Git Bash中运行的Spring Boot程序</title>
+        <url>https://mryqu.github.io/post/ctrl_c%E6%97%A0%E6%B3%95%E4%B8%AD%E6%96%ADgitbash%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%9A%84spring-boot%E7%A8%8B%E5%BA%8F/</url>
+        <categories>
+          <category>Tool</category>
+        </categories>
+        <tags>
+          <tag>CTRL&#43;C</tag><tag>Git Bash</tag><tag>MinTTY</tag>
+        </tags>
+        <content type="html"> 在Git Bash中通过gradle bootRun的方式运行Spring Boot程序，使用CTRL&#43;C无法中断运行的程序，重启计算机才能重新运行Spring Boot程序。
+忍了很久，最近查了查，发现是Msys2使用的MinTTY终端无法争取地将CTRL&#43;C传递给应用导致的。
+CTRL-C doesn&amp;rsquo;t interrupt the running process #684
+CTRL-C doesn&amp;rsquo;t stop running app in Windows #773
+Re: Ctrl-C and non-cygwin programs
+Unable to use CTRL-C, &amp;lsquo;n&amp;rsquo; and &amp;lsquo;q&amp;rsquo; keyboard commands in Cygwin and Msys2 shells #112
+Ctrl&#43;C no longer kills running process in Git Bash
+在最后一个帖子中查找到适用于我使用场景的workaround：
+1. 通过文件浏览器在Git目录中删除usr\bin\mintty.exe文件
+2. 重新运行Git Bash（或在文件浏览器中直接双击git-bash.exe)
+# 删除mintty前 $ echo $TERM xterm # 删除mintty后 $ echo $TERM cygwin  </content>
+    </entry>
+    
+     <entry>
         <title>学习使用Minikube</title>
         <url>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/</url>
         <categories>
