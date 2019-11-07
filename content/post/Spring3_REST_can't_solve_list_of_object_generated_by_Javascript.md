@@ -71,7 +71,7 @@ public class ConfigurationController {
 
   @RequestMapping(value = "/configure", method = RequestMethod.POST)
   public @ResponseBody
-  List setConfiguration(@RequestBody List columns) {
+  List<ColumnVO> setConfiguration(@RequestBody List<ColumnVO> columns) {
     System.out.println(columns);
     return columns;
   }
@@ -86,7 +86,8 @@ java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to com.yqu.
 
 ### 问题原因
 
-通过阅读参考帖子，可知：public @ResponseBody List setConfiguration(@RequestBody List columns)在编译后经过泛型擦除就变成了public @ResponseBody List setConfiguration(@RequestBody List columns)而Jackson为List解编的默认类型是LinkedHashMap。
+通过阅读参考帖子，可知：  
+public @ResponseBody `List<ColumnVO>` setConfiguration(@RequestBody `List<ColumnVO>` columns)在编译后经过泛型擦除就变成了public @ResponseBody List setConfiguration(@RequestBody List columns)而Jackson为List解编的默认类型是LinkedHashMap。
 
 ### 解决方案
 

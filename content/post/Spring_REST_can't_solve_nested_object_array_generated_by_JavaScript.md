@@ -136,7 +136,7 @@ org.springframework.beans.InvalidPropertyException: Invalid property 'columns
 ```
 
 ### 问题原因
-通过阅读两篇参考帖子，可知对于下列对象：
+通过阅读两篇参考帖子，可知对于下列对象：  
 ```
 { 
   "columnMatchMethod": 2,
@@ -158,8 +158,8 @@ org.springframework.beans.InvalidPropertyException: Invalid property 'columns
   ]
 }
 ```
-
-JQuery是进行如下：
+  
+JQuery是进行如下：  
 ```
 columnMatchMethod: 2,
 ignoredHeaderCount: 1,
@@ -174,9 +174,9 @@ columns[2][varName]: "age",
 columns[2][varTitle]: "The Age",
 columns[2][varIndex]: 3
 ```
-
-但是Spring MVC期望的是如下参数格式：
-````
+  
+但是Spring MVC期望的是如下参数格式：  
+```
 columnMatchMethod: 2,
 ignoredHeaderCount: 1,
 ignoredFooterCount: 0,
@@ -193,16 +193,16 @@ columns[2].varIndex: 3
 
 ### 解决方案
 
-通过资料查找，采用参考帖子中的第二种方案解决问题。
-- 客户端代码：
+通过资料查找，采用参考帖子中的第二种方案解决问题。  
+- 客户端代码：    
   ```
   setConf = function (event) {
     $.ajax({
       url: "configure",
       type: "POST",
-      data: **JSON.stringify(metadata)**,
-      **dataType: "json",
-      contentType: "application/json",**
+      data: JSON.stringify(metadata),
+      dataType: "json",
+      contentType: "application/json",
       success: function (res) {
         $('#cfgContent').text(JSON.stringify(res));
         $('#cfgError').text("");
@@ -214,7 +214,9 @@ columns[2].varIndex: 3
     });
   };
   ```
-- 中间层代码：
+
+- 中间层代码：  
+
    ```
    package com.yqu.rest;
    
@@ -250,7 +252,7 @@ columns[2].varIndex: 3
    
      @RequestMapping(value = "/configure", method = RequestMethod.POST)
      public @ResponseBody
-     SheetVO setConfiguration(**@RequestBody** SheetVO metadata) {
+     SheetVO setConfiguration(@RequestBody SheetVO metadata) {
        System.out.println(metadata);
        return metadata;
      }
