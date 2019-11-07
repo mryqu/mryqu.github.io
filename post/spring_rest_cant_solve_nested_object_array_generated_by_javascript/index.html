@@ -156,7 +156,7 @@
     <i class="fa fa-eye"></i>
 </span>
 <span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">511 字 ~3分钟</span>
+<span class="leancloud-visitors-count">507 字 ~3分钟</span>
 </span>
       </div>
     </header>
@@ -326,89 +326,90 @@ columns[2][varTitle]: &quot;The Age&quot;,
 columns[2][varIndex]: 3
 </code></pre>
 
-<p>但是Spring MVC期望的是如下参数格式：
-````
-columnMatchMethod: 2,
+<p>但是Spring MVC期望的是如下参数格式：</p>
+
+<pre><code>columnMatchMethod: 2,
 ignoredHeaderCount: 1,
 ignoredFooterCount: 0,
-columns[0].varName: &ldquo;id&rdquo;,
-columns[0].varTitle: &ldquo;The Id&rdquo;,
+columns[0].varName: &quot;id&quot;,
+columns[0].varTitle: &quot;The Id&quot;,
 columns[0].varIndex: 1
-columns[1].varName: &ldquo;name&rdquo;,
-columns[1].varTitle: &ldquo;The Name&rdquo;,
+columns[1].varName: &quot;name&quot;,
+columns[1].varTitle: &quot;The Name&quot;,
 columns[1].varIndex: 2
-columns[2].varName: &ldquo;age&rdquo;,
-columns[2].varTitle: &ldquo;The Age&rdquo;,
-columns[2].varIndex: 3</p>
-
-<pre><code>
-### 解决方案
-
-通过资料查找，采用参考帖子中的第二种方案解决问题。
-- 客户端代码：
+columns[2].varName: &quot;age&quot;,
+columns[2].varTitle: &quot;The Age&quot;,
+columns[2].varIndex: 3
 </code></pre>
 
-<p>setConf = function (event) {
+<h3 id="解决方案">解决方案</h3>
+
+<p>通过资料查找，采用参考帖子中的第二种方案解决问题。<br />
+- 客户端代码：</p>
+
+<pre><code>  setConf = function (event) {
     $.ajax({
-      url: &ldquo;configure&rdquo;,
-      type: &ldquo;POST&rdquo;,
-      data: <strong>JSON.stringify(metadata)</strong>,
-      <strong>dataType: &ldquo;json&rdquo;,
-      contentType: &ldquo;application/json&rdquo;,</strong>
+      url: &quot;configure&quot;,
+      type: &quot;POST&quot;,
+      data: JSON.stringify(metadata),
+      dataType: &quot;json&quot;,
+      contentType: &quot;application/json&quot;,
       success: function (res) {
-        $(&lsquo;#cfgContent&rsquo;).text(JSON.stringify(res));
-        $(&lsquo;#cfgError&rsquo;).text(&ldquo;&rdquo;);
+        $('#cfgContent').text(JSON.stringify(res));
+        $('#cfgError').text(&quot;&quot;);
       },
       error: function (res) {
-        $(&lsquo;#cfgContent&rsquo;).text(&ldquo;&rdquo;);
-        $(&lsquo;#cfgError&rsquo;).text(res.responseText);
+        $('#cfgContent').text(&quot;&quot;);
+        $('#cfgError').text(res.responseText);
       }
     });
-  };</p>
-
-<pre><code>- 中间层代码：
+  };
 </code></pre>
 
-<p>package com.yqu.rest;</p>
+<ul>
+<li>中间层代码：<br /></li>
+</ul>
 
-<p>import org.springframework.beans.factory.annotation.Autowired;
+<pre><code>   package com.yqu.rest;
+   
+   import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.http.HttpStatus;
    import org.springframework.ui.Model;
    import org.springframework.web.bind.annotation.*;
-   import org.springframework.web.servlet.ModelAndView;</p>
-
-<p>import java.util.ArrayList;
-   import java.util.List;</p>
-
-<p>@RestController
+   import org.springframework.web.servlet.ModelAndView;
+   
+   import java.util.ArrayList;
+   import java.util.List;
+   
+   @RestController
    public class ConfigurationController {
-     @RequestMapping(value = &rdquo;/&ldquo;, method = RequestMethod.GET)
+     @RequestMapping(value = &quot;/&quot;, method = RequestMethod.GET)
      public ModelAndView home(Model m){
-       System.out.println(&ldquo;home&rdquo;);
-       return new ModelAndView(&ldquo;index&rdquo;);
-     }</p>
-
-<p>  @RequestMapping(value = &rdquo;/configure&rdquo;, method = RequestMethod.GET)
+       System.out.println(&quot;home&quot;);
+       return new ModelAndView(&quot;index&quot;);
+     }
+   
+     @RequestMapping(value = &quot;/configure&quot;, method = RequestMethod.GET)
      public @ResponseBody
      SheetVO getConfiguration() {
        List columns = new ArrayList();
-       columns.add(new ColumnVO(&ldquo;id&rdquo;,&ldquo;The Id&rdquo;,1));
-       columns.add(new ColumnVO(&ldquo;name&rdquo;,&ldquo;The Name&rdquo;,2));
-       columns.add(new ColumnVO(&ldquo;age&rdquo;,&ldquo;The Age&rdquo;,3));</p>
-
-<p>    SheetVO metadata = new SheetVO(SheetVO.TITLE_MATCHING, 1,0, columns);
-       System.out.println(&ldquo;getConfiguration:&ldquo;+metadata);
+       columns.add(new ColumnVO(&quot;id&quot;,&quot;The Id&quot;,1));
+       columns.add(new ColumnVO(&quot;name&quot;,&quot;The Name&quot;,2));
+       columns.add(new ColumnVO(&quot;age&quot;,&quot;The Age&quot;,3));
+   
+       SheetVO metadata = new SheetVO(SheetVO.TITLE_MATCHING, 1,0, columns);
+       System.out.println(&quot;getConfiguration:&quot;+metadata);
        return metadata;
-     }</p>
-
-<p>  @RequestMapping(value = &rdquo;/configure&rdquo;, method = RequestMethod.POST)
+     }
+   
+     @RequestMapping(value = &quot;/configure&quot;, method = RequestMethod.POST)
      public @ResponseBody
-     SheetVO setConfiguration(<strong>@RequestBody</strong> SheetVO metadata) {
+     SheetVO setConfiguration(@RequestBody SheetVO metadata) {
        System.out.println(metadata);
        return metadata;
      }
    }
-   ```</p>
+</code></pre>
 
 <h3 id="参考">参考</h3>
 
@@ -595,6 +596,7 @@ s.setAttribute('data-timestamp', +new Date());
 <li><a href="#中间层代码">中间层代码</a></li>
 <li><a href="#中间层异常">中间层异常</a></li>
 <li><a href="#问题原因">问题原因</a></li>
+<li><a href="#解决方案">解决方案</a></li>
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul></li>
