@@ -113,6 +113,78 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/" itemprop="url">
+        [Hive] Hive表文件存储格式
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-14">
+    2015-08-14
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hive" itemprop="url" rel="index">
+        <span itemprop="name">Hive</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">208 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Hive支持的内建表文件存储格式如下：
+|存储格式|介绍 |&mdash;&ndash; |TEXTFILE|按照纯文本文件格式存储。如果配置hive.default.fileformat没有设置的话，TEXTFILE是默认文件格式。
+此存储格式下，数据不做压缩的话，磁盘开销大，数据解析开销大。使用Gzip、Bzip2、Snappy等进行压缩使用（系统自动检查，执行查询时自动解压）的话，Hive不能对数据进行切分，从而无法对数据进行并行操作。 |SEQUENCEFILE|按照压缩的Sequence File格式存储。
+SequenceFile一般是在HDFS FileSystem中生成，供map调用的原始文件。Hive中的SequenceFile继承自Hadoop API 的SequenceFile，不过它的key为空，使用value存放实际的值，这样是为了避免MR在运行map阶段的排序过程。 |RCFILE|按照RCFile (Record Columnar File)格式存储。
+在Hive0.6.0引入。RCFile是在计算机集群中判断如何存储关系型表的数据存放结构，是Facebook、俄亥俄州立大学、中科院计算所联合研究成果。FCFile结构是由数据存储格式、数据压缩方式、数据读取优化技术等多种模块的系统组合，可以实现数据存放的四个要求：(1)快速加载，(2) 快速处理查询，(3) 高效利用存储空间 (4) 非常适用于动态数据访问模式。
+它遵循“先按行划分，再垂直划分”的设计理念。当查询过程中，针对它并不关心的列时，它会在IO上跳过这些列。需要说明的是，RCFile在map阶段从远端拷贝仍然是拷贝整个数据块，并且拷贝到本地目录后RCFile并不是真正直接跳过不需要的列，并跳到需要读取的列，而是通过扫描每一个row group的头部定义来实现的，但是在整个HDFS Block 级别的头部并没有定义每个列从哪个rowgroup起始到哪个row group结束。所以在读取所有列的情况下，RCFile的性能反而没有SequenceFile高。 |ORC|在Hive 0.11.0引入。ORC(Optimized RowColumnar)存储源自于RCFile。FCFile把每列都当作二进制blob处理，而ORC存储列元数据，针对列类型使用特定的读写器。ORC支持ACID、内建索引和复杂类型。官网上介绍“其性能显著快于RCFile或Parquet”。Facebook和Yahoo等大公司都在使用。 |PARQUET|在Hive 0.13.0引入。Parquet源自于google Dremel系统。Parquet最初的设计动机是存储嵌套式数据，将这类数据存储成列式格式，以方便对其高效压缩和编码，且使用更少的IO操作取出需要的数据，这也是Parquet相比于ORC的优势，它能够透明地将Protobuf和thrift类型的数据进行列式存储，在Protobuf和thrift被广泛使用的今天，与parquet进行集成，是一件非容易和自然的事情。除了上述优势外，相比于ORC,Parquet没有太多其他可圈可点的地方，比如它不支持update操作（数据写成后不可修改），不支持ACID等。 |AVRO|在Hive 0.13.0引入。Avro是数据序列化系统，由Hadoop项目开发的。
+测试 $ echo -e '1\x01foo' &gt; tabft.txt $ echo -e '2\x01bar' &gt;&gt; tabft.txt $ hive hive&gt; create table tabft (id int, name string); hive&gt; quit; $ hadoop fs -put tabft.txt /user/hive/warehouse/tabft $ hive hive&gt; create table tabft_txt (id int, name string) STORED AS TEXTFILE; hive&gt; insert into table tabft_txt select * from tabft; hive&gt; create table tabft_seq (id int, name string) STORED AS SEQUENCEFILE; hive&gt; insert into table tabft_seq select * from tabft; hive&gt; create table tabft_rc (id int, name string) STORED AS RCFILE; hive&gt; insert into table tabft_rc select * from tabft; hive&gt; create table tabft_orc (id int, name string) STORED AS ORC; hive&gt; insert into table tabft_orc select * from tabft; hive&gt; create table tabft_parq (id int, name string) STORED AS PARQUET; hive&gt; insert into table tabft_parq select * from tabft; hive&gt; create table tabft_avro (id int, name string) STORED AS AVRO; hive&gt; insert into table tabft_avro select * from tabft;  获取Sequence文件信息 在我的环境下，按照压缩的Sequence File格式存储后的文件是非压缩的。 获取ORC文件信息 参考 Hive 语言手册 - DDL
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
         [Hive] Hive数据类型
         </a>
@@ -670,67 +742,6 @@ Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/java_mail/" itemprop="url">
-        Java Mail
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-02">
-    2015-08-02
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">130 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    JavaMail API JavaMail最新版本为1.5.4。 支持的邮件协议有： - SMTP：简单邮件传输协议（Simple Mail Transfer Protocol），由RFC 821 定义，定义了发送电子邮件的机制。在JavaMailAPI环境中，基于JavaMail的程序将和公司或因特网服务供应商的SMTP服务器通信。SMTP 服务器会中转消息给接收方 SMTP服务器以便最终让用户经由 POP 或 IMAP 获得。这不是要求SMTP服务器成为开放的中继，尽管SMTP服务器支持身份验证，不过还是得确保它的配置正确。JavaMailAPI不支持像配置服务器来中继消息或添加/删除邮件账号这类任务的实现。 - POP：邮局协议（Post Office Protocol）。目前用的是版本 3，也称POP3，由RFC 1939定义。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。POP协议支持“离线”邮件处理。其具体过程是：邮件发送到服务器上，电子邮件客户端调用邮件客户机程序以连接服务器，并下载所有未阅读的电子邮件。使用POP时，用户熟悉的许多性能并不是由POP协议支持的，如查看有几封新邮件消息这一性能。这些性能内建于如Eudora或Microsoft Outlook之类的程序中，它们能记住一些事，诸如最近一次收到的邮件，还能计算出有多少是新的。所以当使用JavaMailAPI时，如果您想要这类信息，您就必须自己算。 - IMAP： 因特网消息访问协议（Internet Message Access Protocol）。目前用的是版本 4，也称IMAP4。由RFC 2060定义，是更高级的用于接收消息的协议。它与POP3协议的主要区别是用户可以不用把所有的邮件全部下载，可以通过客户端直接对服务器上的邮件进行操作。IMAP4改进了POP3的不足，用户可以通过浏览信件头来决定是否收取、删除和检索邮件的特定部分，还可以在服务器上创建或更改文件夹或邮箱。它除了支持POP3协议的脱机操作模式外，还支持联机操作和断连接操作。它为用户提供了有选择的从邮件服务器接收邮件的功能、基于服务器的信息处理功能和共享信箱功能。IMAP4的脱机模式不同于POP3，它不会自动删除在邮件服务器上已取出的邮件，其联机模式和断连接模式也是将邮件服务器作为“远程文件服务器”进行访问，更加灵活方便。IMAP4支持多个邮箱。
-MIME：多用途因特网邮件扩展标准（Multipurpose Internet MailExtensions）。它不是邮件传输协议。但对传输内容的消息、附件及其它的内容定义了格式。这里有很多不同的有效文档：RFC 822、RFC 2045、RFC 2046 和 RFC 2047。作为一个 JavaMailAPI的用户，您通常不必对这些格式操心。无论如何，一定存在这些格式而且程序会用到它。
-JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参考设计，其中包括SMTP、IMAP和POP3协议提供者。 JavaMail API 类包: - javax.mail： The JavaMailTM API提供为邮件系统建模的类。 - javax.mail.event： 用于JavaMail API的监听器和事件。 - javax.mail.internet：特定互联网邮件系统的类。 - javax.mail.search：用于JavaMail API的消息搜索术语。 - javax.mail.util： JavaMail API工具类。Sun参考设计的类包: - com.sun.mail.dsn：支持创建和解析传递状态通知。 - com.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/java_mail/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -926,7 +937,7 @@ JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -943,7 +954,7 @@ JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1511</span>
+        <span class="site-state-item-count">1512</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

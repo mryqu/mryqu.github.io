@@ -6,10 +6,25 @@
     <description>Recent content in Encoding on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 14 May 2013 21:20:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Nov 2019 21:15:17 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/tags/encoding/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gradle：解决error: unmappable character for encoding GBK</title>
+      <link>https://mryqu.github.io/post/gradle_%E8%A7%A3%E5%86%B3error-unmappable-character-for-encoding-gbk/</link>
+      <pubDate>Wed, 20 Nov 2019 21:15:17 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gradle_%E8%A7%A3%E5%86%B3error-unmappable-character-for-encoding-gbk/</guid>
+      <description>在学习某个项目时，.\gradlew build总是遇到error: unmappable character for encoding GBK。至少确定源文件至少会是UTF8的，所以尝试设置文件编码格式来解决这个问题。
+一般使用javac编译和java执行程序时，可以使用：
+javac -encoding UTF-8 test.java java -Dfile.encoding=UTF-8 test2  对于Gradle项目，可以设置gradlew.bat:
+set DEFAULT_JVM_OPTS=&amp;quot;-Dfile.encoding=UTF-8&amp;quot;  对于IntelliJ Idea，可在配置文件vmoption文件底部添加一行：
+-Dfile.encoding=UTF-8  经过上述尝试，问题依旧存在，仔细一看错误是发生在javadoc任务阶段，一个java文件注释中包含一个字符“ß”导致这个问题的出现。
+在build.gradle文件中添加：
+javadoc { options.encoding = &#39;UTF-8&#39; }  搞定！！！</description>
+    </item>
     
     <item>
       <title>为Unix终端或Windows命令行设置UTF-8编码</title>

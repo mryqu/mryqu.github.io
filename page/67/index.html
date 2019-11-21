@@ -113,6 +113,76 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/" itemprop="url">
+        Shell参数扩展
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-23">
+    2013-06-23
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">39 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在hadoop-env.sh中，有如下语句：
+export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-&quot;/etc/hadoop&quot;}  这种用法在Shell Parameter Expansion中进行了详尽的介绍，系统学习一下。 Bash中的$符号的作用是参数替换，将参数名替换为参数所代表的值。对于$来说，大括号是可选的，即$ABC和${ABC}代表同一个参数。但是它可以防止变量被错误解析，比如：${hello}world、${arr[1]}。 参数扩展 下列Bash对参数的测试项为未设置和null。如果略掉冒号，则仅测试未设置。
+|表达式|含义 |&mdash;&ndash; |${parameter:-word}|如果parameter没有被声明或者其值为空的话，则表达式替换成word；否则替换成parameter的值。 |${parameter:=word}|如果parameter没有被声明或者其值为空的话，则parameter设为word之后表达式返回parameter的值；否则替换成parameter的值。 |${parameter?word}|如果parameter没有被声明或者其值为空的话，则word被写往标准错误输出和Shell，非可交互的情况下退出；否则替换成parameter的值。 |${parameter:+word}|如果parameter没有被声明或者其值为空的话，则不进行替换；否则替换成parameter的值。 |${!varprefix}
+${!varprefix@}|匹配之前所有以varprefix开头进行声明的变量 |${!name[@]}
+${!name[]}|如果name是数组对象，返回数组下标列表；如果name以设置但不为数组对象，返回0；否则返回null。
+字符串操作 |表达式|含义 |&mdash;&ndash; |${% raw %}{#{% endraw %}parameter}|parameter的长度。 |${parameter:offset}|在parameter中，从位置offset开始提取子串。 |${parameter:offset:length}|在parameter中，从位置offset开始提取长度为length的子串。 |${parameter#word}
+${parameter##word}|从头开始扫描parameter对应值，将匹配word正则表达式的字符删除掉#为最短匹配，##为最长匹配。 |${parameter%word}
+${parameter%%word}|从尾开始扫描parameter对应值，将匹配word正则表达式的字符删除掉%为最短匹配，%%为最长匹配。 |${parameter/pattern/string}
+${parameter//pattern/string}|将parameter对应值的pattern代替为string。/表示只替换一次，//表示全部替换。 |${parameter^pattern}
+${parameter^^pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为大写。^表示只转换匹配的首字母，^^表示全部转换。 |${parameter,pattern}
+${parameter,,pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为小写。,表示只转换匹配的首字母，,,表示全部转换。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/" itemprop="url">
         Java对象的内存使用量分析
         </a>
@@ -682,77 +752,6 @@ Servlet 3.0 新特性详解
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/" itemprop="url">
-        Hibernate缓存
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-25">
-    2013-05-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/cache" itemprop="url" rel="index">
-        <span itemprop="name">Cache</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">379 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Hibernate缓存 Hibernate带有三种不同缓存机制：一级缓存、二级缓存和查询缓存。
-SessionFactory和Session SessionFactory(在JEE中叫做EntityManager)的用途是创建会话，初始化JDBC链接并（使用例如C3P0之类的可插拔provider）进行池化。SessionFactory是非可变的，通过hibernate.cfg.cml文件或Springbean配置中提供的匹配信息、缓存信息等配置进行创建。会话是最低级的工作单元，对应一个数据库事物。当会话创建后并对Hibernate实体机型一些操作，比如设置实体的一个属性，Hibernate不会立即更新底层数据库表。相反Hibernate记录实体的状态（是否为脏数据），并在会话最终刷新更新到数据库。这就是Hibernate所谓的一级缓存。
-一级缓存 一级缓存是Hibernate记录正在进行的会话加载和接触的实体有可能的脏数据状态。正在进行的会话代表工作单元，始终使用，无法关闭。一级缓存的用途是隐藏对数据库许多SQL查询或更新，并在会话最终批量一起执行。当想起一级缓存的时候就应该想到会话。
-二级缓存 二级缓存是进程范围内的缓存，与一个SessionFactory绑定。二级缓存可被相同（通常一个应用程序仅一个）SessionFactory的所有会话共享。默认二级缓存没有使能。二级缓存不存储任何实体实例，而是存储“脱水”状态，即字符串或整形数组代表实体的属性，一个实体id指向“脱水”的实体。概念上可以认为它是一个映射，id作为键，数组作为值。或像下面用于缓存region的这些东西：
-public class Person { private Person parent; private Set&lt;Person&gt; children; public void setParent(Person p) { parent = p; } public void setChildren(Set&lt;Person&gt; set) { children = set; } public Set&lt;Person&gt; getChildren() { return children; } public Person getParent() { return parent; } }  Hibernate映射配置如下:
-&lt;class name=&quot;org.javalobby.tnt.hibernate.Person&quot;&gt; &lt;cache usage=&quot;read-write&quot;/&gt; &lt;id name=&quot;id&quot; column=&quot;id&quot; type=&quot;long&quot;&gt; &lt;generator class=&quot;identity&quot;/&gt; &lt;/id&gt; &lt;property name=&quot;firstName&quot; type=&quot;string&quot;/&gt; &lt;property name=&quot;middleInitial&quot; type=&quot;string&quot;/&gt; &lt;property name=&quot;lastName&quot; type=&quot;string&quot;/&gt; &lt;many-to-one name=&quot;parent&quot; column=&quot;parent_id&quot; class=&quot;Person&quot;/&gt; &lt;set name=&quot;children&quot;&gt; &lt;key column=&quot;parent_id&quot;/&gt; &lt;one-to-many class=&quot;Person&quot;/&gt; &lt;/set&gt; &lt;/class&gt;  Hibernate概念上为此类持有如下记录:
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -981,7 +980,7 @@ public class Person { private Person parent; private Set&lt;Person&gt; children;
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -998,7 +997,7 @@ public class Person { private Person parent; private Set&lt;Person&gt; children;
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1511</span>
+        <span class="site-state-item-count">1512</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

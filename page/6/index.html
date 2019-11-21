@@ -113,6 +113,68 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/" itemprop="url">
+        [Golang] Go项目的国际化 
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-21">
+    2017-10-21
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/golang" itemprop="url" rel="index">
+        <span itemprop="name">Golang</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">556 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    因为我看的那些书里都没有提及Go项目的国际化实现，但在放狗搜索前，还是觉得跟Java/JS项目中的实践应该都差不多。搜了一下才发现自己Too young too simple！ 在Internationalization plan for Go中提到了Golang曾经的I18N路线图： * 对国际化文本提供全面支持 * 对国际化日期、时间等提供支持 * 对多语言消息提供支持
+这个2011年的讨论有人提及Golang已经支持UTF8/unicode，日期时间自己可以格式化，其他人纷纷表示不同意他的观点，然后就没有然后了。 Golang的标准库还有提供完整的I18N支持，所以还需要对众多的Golang I18N库进行技术选型。通过https://golanglibs.com/search?q=i18n可知go-i18n排名第一，而且使用者也比较多。i18n4go为大厂IBM的cloud CTO出品，从Cloud Foundary CLI中提取出来的，估计能遇到的坎都解决掉了，但是排名并不靠前。 最终决定开始我的go-18n学习之旅。
+通过go-bindata嵌入i18n properties文件 具体细节见之前的博文Go程序内嵌I18N properties文件。
+资源文件 i18n/resources/locale.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata-i18n example. mryqu.verinfo={{.Cli}} Version {{.Version}} (Build: {{.Build}})  i18n/resources/locale_en.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata-i18n example. mryqu.verinfo={{.Cli}} Version {{.Version}} (Build: {{.Build}})  i18n/resources/locale_zh-CN.properties mryqu.hello=欢迎来到Golang世界！ mryqu.intro=这是一个go-bindata-i18n示例。 mryqu.verinfo={{.Cli}} 版本 {{.Version}} (构建：{{.Build}})  其他源码 i18n/i18n.go 与之前的博文Go程序内嵌I18N properties文件相比，这里添加了下面内容： 1.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/" itemprop="url">
         [Golang] GOPATH和包导入
         </a>
@@ -649,72 +711,6 @@ char srcTest[] = &quot;abcdef&quot;; int srcTestL = strlen(srcTest); char srcTes
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/" itemprop="url">
-        swagger-codegen 2.2.3与2.1.5区别
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-07-23">
-    2017-07-23
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/swagger" itemprop="url" rel="index">
-        <span itemprop="name">Swagger</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">747 字 ~4分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    支持的语法 $ java -jar swagger-codegen-cli-2.1.6.jar langs Available languages: [android, aspnet5, async-scala, csharp, dart, flash, python-flask, go, java, jaxrs, jaxrs-cxf, jaxrs-resteasy, inflector, javascript, javascript-closure-angular, jmeter, nodejs-server, objc, perl, php, python, qt5cpp, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring-mvc, dynamic-html, html, swagger, swagger-yaml, swift, tizen, typescript-angular, typescript-node, akka-scala, CsharpDotNet2, clojure, haskell-servant] $ java -jar swagger-codegen-cli-2.2.3.jar langs Available languages: [akka-scala, android, apache2, apex, aspnet5, aspnetcore, async-scala, bash, csharp, clojure, cwiki, cpprest, CsharpDotNet2, dart, elixir, eiffel, erlang-server, finch, flash, python-flask, go, go-server, groovy, haskell, jmeter, jaxrs-cxf-client, jaxrs-cxf, java, inflector, jaxrs-cxf-cdi, jaxrs-spec, jaxrs, msf4j, java-play-framework, jaxrs-resteasy-eap, jaxrs-resteasy, javascript, javascript-closure-angular, java-vertx, kotlin, lumen, nancyfx, nodejs-server, objc, perl, php, php-symfony, powershell, pistache-server, python, qt5cpp, rails5, restbed, ruby, scala, scalatra, silex-PHP, sinatra, slim, spring, dynamic-html, html2, html, swagger, swagger-yaml, swift4, swift3, swift, tizen, typescript-angular2, typescript-angular, typescript-fetch, typescript-jquery, typescript-node, undertow, ze-ph]  swagger-codegen 2.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -910,7 +906,7 @@ char srcTest[] = &quot;abcdef&quot;; int srcTestL = strlen(srcTest); char srcTes
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -927,7 +923,7 @@ char srcTest[] = &quot;abcdef&quot;; int srcTestL = strlen(srcTest); char srcTes
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1511</span>
+        <span class="site-state-item-count">1512</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/" itemprop="url">
+        [C&#43;&#43;] 使用NM查看目标文件的符号列表
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-18">
+    2015-12-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">592 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    练习使用nm查看目标文件的符号列表。此外发现G++竟然创建了两套构造函数和析构函数。
+nm命令  -a或&ndash;debug-syms：显示调试符号。 -B：等同于&ndash;format=bsd，用来兼容MIPS的nm。 -C或&ndash;demangle：将低级符号名解码(demangle)成用户级名字。这样可以使得C++函数名具有可读性。 -D或&ndash;dynamic：显示动态符号。该任选项仅对于动态目标(例如特定类型的共享库)有意义。 -fformat：使用format格式输出。format可以选取bsd、sysv或posix，该选项在GNU的nm中有用。默认为bsd。 -g或&ndash;extern-only：仅显示外部符号。 -n、-v或&ndash;numeric-sort：按符号对应地址的顺序排序，而非按符号名的字符顺序。 -p或&ndash;no-sort：按目标文件中遇到的符号顺序显示，不排序。 -P或&ndash;portability：使用POSIX.2标准输出格式代替默认的输出格式。等同于使用任选项-fposix。 -s或&ndash;print-armap：当列出库中成员的符号时，包含索引。索引的内容包含：哪些模块包含哪些名字的映射。 -r或&ndash;reverse-sort：反转排序的顺序(例如，升序变为降序)。 &ndash;size-sort：按大小排列符号顺序。该大小是按照一个符号的值与它下一个符号的值进行计算的。 -tradix或&ndash;radix=radix：使用radix进制显示符号值。radix只能为&rdquo;d&rdquo;表示十进制、&rdquo;o&rdquo;表示八进制或&rdquo;x&rdquo;表示十六进制。 &ndash;target=bfdname：指定一个目标代码的格式，而非使用系统的默认格式。 -u或&ndash;undefined-only：仅显示没有定义的符号(那些外部符号)。 -l或&ndash;line-numbers：对每个符号，使用调试信息来试图找到文件名和行号。对于已定义的符号，查找符号地址的行号。对于未定义符号，查找指向符号重定位入口的行号。如果可以找到行号信息，显示在符号信息之后。 -V或&ndash;version：显示nm的版本号。 &ndash;help：显示nm的任选项。  练习 symtest.hpp #include &lt;iostream&gt; class SymTest { SymTest(); SymTest(int x); ~SymTest(); void foo(); };  symtest.cpp #include &quot;symtest.hpp&quot; SymTest::SymTest() { printf(&quot;SymTest::SymTest\n&quot;); } SymTest::SymTest(int x) { printf(&quot;SymTest::SymTest(int)\n&quot;); } SymTest::~SymTest() { printf(&quot;SymTest::~SymTest\n&quot;); } void SymTest::foo() { printf(&quot;SymTest::foo\n&quot;); }  编译 NM: -g 仅显示外部符号 -C 显示用户级名字 学习了StackOverflow上的帖子Dual emission of constructor symbols，才了解这是G++的一个已知问题，两套构造函数分别是complete objectconstructor和base object constructor。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8nm%E6%9F%A5%E7%9C%8B%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%97%E8%A1%A8/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/fileupload_streaming/" itemprop="url">
         FileUpload Streaming
         </a>
@@ -697,78 +764,6 @@ Application Master 启动流程与服务简介
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/" itemprop="url">
-        [MapR培训笔记]Hadoop基础
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-25">
-    2015-11-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">388 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    学习目标  大数据介绍: 理解大数据定义，判断是否存在大数据问题，描述如何用Hadoop解决大数据问题； Hadoop核心元素:描述分布式文件系统如何工作，map/reduce如何在分布式文件系统上处理数据； Hadoop工具生态系统: 了解Hadoop相关工具及其作用； 解决大数据用例: 描述Hadoop生态系统如何协同解决各种大数据用例，如何在不同场景下选择工具。  第一课 数据如何变大 学习目标  定义大数据及大数据问题 描述Hadoop主要部件  大数据 差不多是4V中的前三个,以及使数据难于描述、存储或处理的一些其他特性 - Volume（大量）:太大以至于系统无法处理 - Variety（多样）: 太多不同种类的数据，无法简单描述 - Velocity（高速）: 数据产生太快以至于系统无法处理 - Value（价值）:
-Hadoop主要部件 Google收到大数据挑战后，认识到无法用传统关系型数据库解决，创建了GFS+BigTabel+Map/Reduce。 - GFS将文件分割成块，分布在集群的节点上。文件块在不同节点进行复制，以防止节点故障导致的数据丢失。 - BigTable是使用GFS存储和获取数据的（分布式、多级）数据库系统。BigTable使用行键、列键和时戳映射到所存储的数据，可以不重写已有数据在不同时间对相同信息进行采集。行被分片为称之为Tablet的子表，分布到集群内。BigTable被设计成可以处理大量数据，可以无需重新配置已有文件的情况下向集群添加新的节点。 - 并行处理范式map/reduce被用于处理存储在GPS上的数据。map/reduce代表处理的两个步骤。在mapping阶段，所有数据在逻辑上分割，map函数应用于所有割片以生成键值对。框架对所有来自mapper的键值对进行排序然后在reducer之间分片。在reduce阶段，reduce函数应用于所有分片。map/reduce是一种分而治之的方式，将单个庞大的作业分解成一系列小的可管理的任务。
-Google实验多年后发表了论文阐述了他们的大数据解决方案。DougCutting以此在Yahoo开发一个项目，后来开源成Apache基金会项目下的Hadoop（Cutting儿子玩具象的名字）。 Mapr利用Hadoop理念，开发了更快、更稳定的企业版Hadoop。
-第二课 Hadoop核心 学习目标  本地&amp;分布式文件系统 MapR-FS中的数据管理 （使用命令行）执行数据管理 Map Reduce范式  本地文件系统 HFS/NTFS（读写）和CDFS（只读）都是本地文件系统。文件系统中每个文件都由一个iNode和一系列数据块构成。iNode存储文件元数据，例如文件类型、权限、所有者、文件名和最后一次修改时间等信息，它还存储文件所存储的数据块的指针。数据块用于存储文件的实际内容。 本地文件系统的常见问题 - 硬盘故障：本地硬盘镜像（RAID-1） - 丢失：云镜像 - 人为失误 - 误删：定期增量备份 - 空间不足：增加硬盘、硬盘阵列（RAID-0）
-分布式文件系统 分布式文件系统行为与RAID-0类似，但硬盘分布在多个服务器上。由Sun微系统公司开发的网络文件系统NFS仍广泛用于在网络内存储和获取数据。 分布式文件系统当处理数据时致力于透明性，即对于客户端程序来说，文件系统与本地文件系统类似，分布式文件系统不可见。由于数据在网络内多个机器内分布，分布式文件系统使用数据定位器存储数据位置信息。与本地文件系统中的iNode类似，数据定位器只想数据在分布式文件系统中存储的位置。
-MapR-FS存储 MapRFS是分布式文件系统，是Hadoop的MapR分发版的底层文件系统。它支持所有前面提到的本地文件系统特性，包括读写访问、本地或远程镜像，及在联机时对文件系统扩容的能力。此外，MapR文件系统可以加载并直接处理已有HDFS或NFS文件系统中的数据。
-物理存储 集群是一组使用分布文件系统（例如MapR-FS）的计算机。集群中每个计算机称为一个节点，每个节点有一或多个物理硬盘。 在MapR-FS中，硬盘组合成组，称为存储池（storagepool）。默认一个存储池有三块硬盘组成。当数据写往存储池，数据在三个磁盘拆分写入，增加写速度。每个节点包含一或多个存储池，所有节点上的所有存储池构成了MapR-FS上的全部可用存储。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -964,7 +959,7 @@ MapR-FS存储 MapRFS是分布式文件系统，是Hadoop的MapR分发版的底�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -981,7 +976,7 @@ MapR-FS存储 MapRFS是分布式文件系统，是Hadoop的MapR分发版的底�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1511</span>
+        <span class="site-state-item-count">1512</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
