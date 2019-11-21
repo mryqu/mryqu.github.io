@@ -14,8 +14,8 @@ tags:
 在学习某个项目时，`.\gradlew build`总是遇到**error: unmappable character for encoding GBK**。至少确定源文件至少会是UTF8的，所以尝试设置文件编码格式来解决这个问题。  
 一般使用javac编译和java执行程序时，可以使用：  
 ```
-javac -encoding UTF-8 test.java
-java -Dfile.encoding=UTF-8 test2
+javac -encoding UTF-8 Test.java
+java -Dfile.encoding=UTF-8 Test
 ```
 
 对于Gradle项目，可以设置gradlew.bat:  
