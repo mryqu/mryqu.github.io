@@ -1,0 +1,39 @@
+---
+title: 'Gradle：解决error: unmappable character for encoding GBK'
+date: 2019-11-20 21:15:17
+categories: 
+- Tool
+- Gradle
+tags: 
+- gradle
+- encoding
+- unmappable character
+- javadoc
+---
+
+在学习某个项目时，`.\gradlew build`总是遇到**error: unmappable character for encoding GBK**。至少确定源文件至少会是UTF8的，所以尝试设置文件编码格式来解决这个问题。  
+一般使用javac编译和java执行程序时，可以使用：  
+```
+javac -encoding UTF-8 test.java
+java -Dfile.encoding=UTF-8 test2
+```
+
+对于Gradle项目，可以设置gradlew.bat:  
+```
+set DEFAULT_JVM_OPTS="-Dfile.encoding=UTF-8"
+```
+
+对于IntelliJ Idea，可在配置文件vmoption文件底部添加一行：   
+```
+-Dfile.encoding=UTF-8
+```
+
+经过上述尝试，问题依旧存在，仔细一看错误是发生在javadoc任务阶段，一个java文件注释中包含一个字符“ß”导致这个问题的出现。  
+在build.gradle文件中添加：  
+```
+javadoc {
+    options.encoding = 'UTF-8'
+}
+```
+
+搞定！！！  
