@@ -113,6 +113,61 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/get_comments_count_using_facebook_graph_api/" itemprop="url">
+        Get comments count using Facebook Graph API
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-05-06">
+    2016-05-06
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">14 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    通过fields参数获取评论/回复个数 通过预判评论/回复个数，以决定是否发起/{object-id}/commentsAPI请求，可以显著减少API请求个数。
+获取帖子的评论数 https://graph.facebook.com/{YOUR_PAGE_ID}/feed?fields=id,XXXX,likes.limit(0).summary(1),comments.limit(0).summary(1),XXXX,with_tags&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;since=XXXX&amp;until=XXXX&amp;include_hidden=true&amp;access_token={YOUR_ACCESS_TOKEN}  获取评论的回复数 https://graph.facebook.com/{YOUR_POST_ID}/comments?fields=id,from,message,created_time,like_count,comments.limit(0).summary(1)&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;since=XXXX&amp;until=XXXX&amp;include_hidden=true&amp;access_token={YOUR_ACCESS_TOKEN}  comments.summary.total_count解读 在Facebook Graph指南中/{object-id}/comments提到了total_count数值是随filter变动的。 - filter为stream，total_count为该节点下所有评论及其回复的总数； - filter为toplevel，total_count为该节点下顶层评论/回复的总数。
+由于在我的使用场景中为设置filter，而其默认值为toplevel，则total_count为该节点下顶层评论/回复的总数。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/get_likes_count_using_fields_parameters_in_facebook_graph_api/" itemprop="url">
         Get likes count using fields parameters in Facebook Graph API
         </a>
@@ -663,66 +718,6 @@ C:\foo&gt;vagrant up Bringing machine 'xfoo' up with 'virtualbox' provider... ==
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%8D%87%E7%BA%A7windows%E7%89%88git%E5%AE%A2%E6%88%B7%E7%AB%AF/" itemprop="url">
-        升级Windows版Git客户端
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-03-17">
-    2016-03-17
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/git" itemprop="url" rel="index">
-        <span itemprop="name">Git</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">18 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    今天在公司收到通知，说Git又有安全漏洞了，需要升级到最新的2.7.3。扫了一眼Get ready to patch Git servers, clients – nasty-looking bugs surface，漏洞涉及到2.x、1.9和1.7版本。 我本机装的是git version 1.9.5.msysgit.0，这才发现MsysGit去年八月份就被Git for Windows 2.x取代了。这次顺手把Git Extensions也给升级到2.48.05了。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -918,7 +913,7 @@ C:\foo&gt;vagrant up Bringing machine 'xfoo' up with 'virtualbox' provider... ==
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -935,7 +930,7 @@ C:\foo&gt;vagrant up Bringing machine 'xfoo' up with 'virtualbox' provider... ==
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1512</span>
+        <span class="site-state-item-count">1514</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
@@ -992,7 +987,7 @@ C:\foo&gt;vagrant up Bringing machine 'xfoo' up with 'virtualbox' provider... ==
       <div class="footer-inner">
         <div class="copyright" >
   <span itemprop="copyrightYear">  &copy; 
-  2009 - 2019</span>
+  2009 - 2020</span>
   <span class="with-love"><i class="fa fa-heart"></i></span>
   <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
 </div>

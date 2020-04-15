@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9B%BF%E6%8D%A2javascript%E6%BA%90%E6%96%87%E4%BB%B6/" itemprop="url">
+        [OpenUI5] 加载时替换JavaScript源文件
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-16">
+    2015-08-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">107 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    我有一些自己定制的OpenUI5控件，有时会修改某个方法内的逻辑，这个好处理，在ChromedevTool直接修改加载后JS代码并保存就可以直接调试。如果修改了property、aggregation或者init方法内的逻辑的话，由于错过了初始化就不灵了，而重新加载的话又丢失了自己新加的调试代码。
+我的解决方法如下： - 清除Chrome缓存 - 在sap-ui-core-dbg.js里requireModule方法内设置断点，设置断点条件为response.indexOf(&ldquo;Dialog.extend(\&ldquo;mryqu.test.control.KexiaoDialog&rdquo;)&gt;0这样当OpenUI5加载KexiaoDialog.js文件时就会触发断点。 - 重新加载我的OpenUI5项目：http://www.mryqu.com/test123/?sap-ui-debug=true&amp;sap-ui-preload=false - 当断点被触发时，在Console执行：
+ response='(function ()\n\ {\n\ &quot;use strict&quot;;\n\ \n\ jQuery.sap.require(&quot;sap.m.Button&quot;);\n\ jQuery.sap.require(&quot;sap.m.Dialog&quot;);\n\ jQuery.sap.require(&quot;sap.m.HBox&quot;);\n\ jQuery.sap.require(&quot;sap.m.Input&quot;);\n\ jQuery.sap.require(&quot;sap.m.RadioButton&quot;);\n\ jQuery.sap.require(&quot;sap.m.VBox&quot;);\n\ jQuery.sap.require(&quot;sap.m.Text&quot;);\n\ \n\ var Button = sap.m.Button;\n\ var Dialog = sap.m.Dialog;\n\ var HBox = sap.m.HBox;\n\ var Icon = sap.ui.core.Icon;\n\ var Input = sap.m.Input;\n\ var RadioButton = sap.m.RadioButton;\n\ var Text = sap.m.Text;\n\ var VBox = sap.m.VBox;\n\ \n\ Dialog.extend(&quot;mryqu.test.control.KexiaoDialog&quot;, {\n\ metadata: {\n\ properties: {\n\ &quot;tableName&quot; : {type : &quot;string&quot;, defaultValue : &quot;&quot;},\n\ },\n\ associations: {\n\ invoker: {type: &quot;sap.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/openui5_%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9B%BF%E6%8D%A2javascript%E6%BA%90%E6%96%87%E4%BB%B6/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/" itemprop="url">
         [Hive] Hive表文件存储格式
         </a>
@@ -674,74 +735,6 @@ curl -X PUT -H 'application/json' -d '{&quot;Node&quot;: &quot;kexiao&quot;, &qu
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/" itemprop="url">
-        [Spring Boot] 创建超媒体驱动的Mail服务
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-03">
-    2015-08-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spring" itemprop="url" rel="index">
-        <span itemprop="name">Spring</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1399 字 ~7分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Spring与Mail的集成 Spring框架为邮件发送提供了一个有用的工具库，可为用户屏蔽底层邮件系统细节，并负责代表客户端负责低层资源处理。 org.springframework.mail包是Spring框架邮件支持的根级包。发送邮件的核心接口是MailSender 接口；封装了简单邮件_from_和_to_等属性的简单对象类是 SimpleMailMessage 。该包也包含对底层邮件系统进行更高级抽象的分层检查异常，其根异常为MailException。 org.springframework.mail.javamail.JavaMailSender 接口MailSender为添加了专业的_JavaMail_ 功能，例如MIME消息支持。JavaMailSender 也为JavaMailMIME消息提供了回调接口org.springframework.mail.javamail.MimeMessagePreparator。
-Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体即应用状态引擎)是REST应用架构的一个约束。Spring HATEOAS是一个用于支持实现超媒体驱动的RESTWeb服务的开发库。它提供一些API用于同Spring特别是SpringMVC一起使用时轻松创建遵循HATEOAS原则的REST表述，其试图解决的核心问题是链接创建和表述装配。功能： - 用于链接、资源表述模型的模型类 - 用于指向Spring MVC控制器方法的链接建造者API - 对HAL之类的多媒体格式的支持
-示例 Application.java package com.yqu.mail; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  MailServerVO.java package com.yqu.mail; import org.springframework.hateoas.ResourceSupport; import java.io.Serializable; import java.util.Properties; public class MailServerVO extends ResourceSupport implements Serializable { private String host; private Integer port; private String userName; private String password; private String defaultEncoding; private Properties properties; public MailServerVO() {} public MailServerVO( String host, Integer port, String userName, String password, String defaultEncoding, Properties properties) { this.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -937,7 +930,7 @@ Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -954,7 +947,7 @@ Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1512</span>
+        <span class="site-state-item-count">1514</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
@@ -1011,7 +1004,7 @@ Spring HATEOAS HATEOAS (Hypermedia as the Engine of ApplicationState，超媒体
       <div class="footer-inner">
         <div class="copyright" >
   <span itemprop="copyrightYear">  &copy; 
-  2009 - 2019</span>
+  2009 - 2020</span>
   <span class="with-love"><i class="fa fa-heart"></i></span>
   <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
 </div>
