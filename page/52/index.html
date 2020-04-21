@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        MongoDB主从复制实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-03">
+    2014-04-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
+        <span itemprop="name">db&#43;nosql</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">221 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    MongoDB主从复制（Master-slave replication）跟副本集（ReplicaSet）相比可以对主MongoDB节点设置多个从节点，并且可以将复制操作限制到特定数据库。但是MongoDB主从复制提供的冗余度更低而且无法自动故障切换，因此一般新的部署都倾向使用副本集而不是主从复制。
+实验环境 两个节点中，MongoDB都安装在c:\mongodb目录下且MongoDB配置文件（c:\mongodb\etc\mongo.conf）均为：
+systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: false net: http: enabled: true RESTInterfaceEnabled: true  启动MongoDB 主节点启动命令：
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --master --oplogSize=2048  从节点启动命令：
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10.120.8.231 --slavedelay 10 --autoresync  主从复制测试 检查主节点 &gt; show dbs; admin (empty) local 8.074GB test 0.078GB &gt; db.isMaster() { &quot;ismaster&quot; : true, &quot;maxBsonObjectSize&quot; : 16777216, &quot;maxMessageSizeBytes&quot; : 48000000, &quot;maxWriteBatchSize&quot; : 1000, &quot;localTime&quot; : ISODate(&quot;2014-04-03T01:47:49.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/" itemprop="url">
         差一点搞混了Transactional注解
         </a>
@@ -660,71 +723,6 @@ Octave相对于Scilab，对Matlab的语法兼容性更好，几乎没有差别�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/" itemprop="url">
-        [Hadoop] 压缩MapReduce的Mapper输出
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-03">
-    2014-03-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">17 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     介绍 压缩map输出是以压缩和解压缩的CPU消耗为代价来减少磁盘和网络IO开销。Hadoop中，mapper的输出数据是写到Mapper所在的本地磁盘的，并以网络传输的方式传送到Reducer所在的节点上。mapreduce.map.output.compress默认为false，即不对map输出进行压缩。如果中间数据不是二进制的，通常建议使用map输出压缩。
-Hadoop支持的的内建压缩编码如下： 如果设置mapreduce.map.output.compress为true且没有设置mapreduce.map.output.compression.codec的话，默认使用org.apache.hadoop.io.compress.DefaultCodec。
-|压缩格式|算法|工具|默认扩展名|说明 |&mdash;&ndash; |DEFLATE|DEFLATE|N/A|.deflate|DEFLATE是一种压缩算法，标准实现是zlib，尚没有命令行工具支持。文件扩展名.deflate是一个Hadoop的约定。所有的压缩算法都存在空间与时间的权衡：更快的压缩速率和解压速率是以牺牲压缩率为代价的。org.apache.hadoop.io.compress.zlib.ZlibCompressor.CompressionLevel中定义了0~9压缩级别，0为无压缩，9为最佳压缩。支持Java实现和原生库实现。 |GZip|DEFLATE|gzip|.gz|GZip与DEFLATE使用同样的压缩算法，不过相对于DEFLATE压缩格式增加了额外的头部和尾部。GZip是一种常规的压缩工具，空间与时间得到很好的权衡。支持Java实现和原生库实现。 |BZip2|BZip2|BZip2|.bz2|BZip2压缩率高于GZip，但压缩速度较慢；解析速度优于它的压缩速度，但还是较其它压缩算法偏慢。由上图可知，BZip2是Hadoop内嵌压缩算法中唯一可以被分割的，这样一个输入文件可分成多个InputSplit，便于本地数据加载并被Mapper处理。相关技术可见处理跨块边界的InputSplit一文。支持Java实现和原生库实现。 |LZ4|LZ4|N/A|.lz4|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.Lz4Codec.isNativeCodeLoaded()用于检查是否加载原生库，其调用者在没有加载原生库时会抛异常。 |Snappy|Snappy|N/A|.snappy|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.SnappyCodec.checkNativeCodeLoaded()在没有加载原生库时会抛异常。
-如果使用原生库压缩编码，需配置LD_LIBRARY_PATH。默认情况下，Hadoop自动在本地库路径（java.library.path）下查询并加载合适的本地库实现。通过设置属性io.native.lib.available为false禁用原生库，此时内建的Java实现将被使用。
-Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Context)和org.apache.hadoop.mapred.ReduceTask.initCodec()方法中检查mapreduce.map.output.compress属性，如果为true，则加载mapreduce.map.output.compression.codec属性所设的压缩编解码器。 MapTask当将数据spill到硬盘时使用压缩编码器进行数据压缩。 ReduceTask在使用Shuffle结果是使用压缩解码器进行数据解压缩。
-使用map输出压缩的应用示例 
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -920,7 +918,7 @@ Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Cont
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">709</span>
+        <span class="site-state-item-count">710</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

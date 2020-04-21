@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/" itemprop="url">
+        事务管理器同步机制应用
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-27">
+    2013-10-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">395 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在我目前的项目中，缓存管理器需要根据事务提交状态对应用缓存进行管理。这里对其机制应用做一个小总结。
+事务管理器 javax.transaction.TransactionManager接口定义一些方法以便应用服务器管理事务边界，比如获取与当前线程绑定的事务、对事务执行resume和suspend方法。
+事务 javax.transaction.Transaction接口允许对目标事务对象执行相关的事务操作。在每个全局事务创建时，Transaction对象也对应的创建出来。 事务对象可以被用来做资源获取(resource enlistment)、同步器注册(synchronizationregistration)、事务结束(transaction completion)和状态查询(statusquery)操作。
+事务同步机制 事务管理器通过javax.transaction.Synchronization接口支持一种同步机制。通过对当前事务的目标Transaction对象调用registerSynchronization方法，应用服务器为该事务注册一个Synchronization对象。 事务管理器在启动2PC事务提交过程时,回调Synchronization对象的beforeCompletion方法通知有关部分事务将要被提交；事务管理器在事务已经提交或回滚后,回调Synchronization对象的afterCompletion方法通知有关部分事务的结束状态。 应用一般很少使用beforeCompletion方法，afterCompletion方法使用比较多。在我目前的项目中，就是使用afterCompletion方法来通知缓存管理器对缓存进行更新操作。
+实例代码 package com.yqu.transaction; import java.lang.reflect.Method; import javax.naming.InitialContext; import javax.transaction.RollbackException; import javax.transaction.Synchronization; import javax.transaction.SystemException; import javax.transaction.Transaction; import javax.transaction.TransactionManager; public class SynchronizationSample implements Synchronization { private static int wepsphereVer; private static final String WEBSPHERE_TM_FACTORY51 = &quot;com.ibm.ws.Transaction.TransactionManagerFactory&quot;; private static final String WEBSPHERE_TM_FACTORY50 = &quot;com.ibm.ejs.jts.jta.TransactionManagerFactory&quot;; private static final String WEBSPHERE_TM_FACTORY4 = &quot;com.ibm.ejs.jts.jta.JTSXA&quot;; private static final String WEBLOGIC_TM_OBJNAME = &quot;javax.transaction.TransactionManager&quot;; private static final String JBOSS_TM_OBJNAME = &quot;java:/TransactionManager&quot;; private static final String TOMCAT_TM_OBJNAME = &quot;java:comp/env/TransactionManager&quot;; private static final String WEBSPHERE_RECOG_CLASS = &quot;com.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/eclipse_%E7%A1%AE%E8%AE%A4eclipse%E6%98%AF32%E6%88%9664bit%E7%9A%84%E6%96%B9%E6%B3%95/" itemprop="url">
         [Eclipse] 确认Eclipse是32/64bit的方法
         </a>
@@ -667,75 +730,6 @@ class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/" itemprop="url">
-        [Linux] 判断可执行文件或动态库是否包含符号表
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-24">
-    2013-10-24
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">111 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的&rdquo;-g&rdquo;选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
-srv01&gt; file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01&gt; file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped  显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
-如果文件包含调试符号表，可以通过objdump -t命令及选项打印文件的符号表：
-srv01&gt; objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -931,7 +925,7 @@ srv01&gt; objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL 
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">709</span>
+        <span class="site-state-item-count">710</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

@@ -113,6 +113,60 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_retrieve_data_table/" itemprop="url">
+        [JavaScript] retrieve data table
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-08-20">
+    2014-08-20
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">25 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    想学学怎么提交一个Form中的Table，放狗出去，结果不够给力。 曾经有很多年Table标签被用作格式对齐的工具，这使搜出来的页面很少讲的是数据表格。 看了看DataTables这个JQuery插件，可以加载和更新数据，但是没有找到存储所有表格数据的功能。 看了看ajaxsubmit，必须有formcontent，此外可以有可选的data。由于表格里有很多行，没想好path的设置问题。 最后还是用JS提取所有表格数据，生成JS数组，通过AJAX post函数发送给服务器侧。 JS侧的代码示例：http://jsfiddle.net/mryqu/d7rubzut/ 服务器侧的用于REST的Spring控制器代码如下：
+@RequestMapping(params=&quot;action=test&quot;, method = RequestMethod.POST) public @ResponseBody TestResultVO test(HttpServletRequest request, @ModelAttribute(&quot;tqs&quot;)ArrayList tqs) throws Exception { ...... }  运行结果正常
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/50%E4%B8%AA%E5%BF%85%E7%94%A8%E7%9A%84bootstrap%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6/" itemprop="url">
         50个必用的Bootstrap扩展插件
         </a>
@@ -635,63 +689,6 @@ TheClass.java package com.yqu.reflection.annotation; import java.lang.annotati
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/lxml.md.soupparser%E5%BC%95%E5%85%A5beautifulsoup_4%E7%9A%84work-around/" itemprop="url">
-        lxml.html.soupparser引入BeautifulSoup 4的work-around
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-22">
-    2014-06-22
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/python" itemprop="url" rel="index">
-        <span itemprop="name">Python</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">39 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    想用一下python的xpath功能分析一个html文件，lxml是比较不错的xml/html解析库，lxml功能强大，性能也不错，此外也包含了ElementTree，html5lib ，beautfulsoup 等库。 可惜我的html文件格式不是很严谨，lxml的ElementTree处理不了，就转而想用lxml的beautfulsoup来处理。 结果lxml找不到BeautifulSoup库。
-查了一下Anaconda装的库里面明明有Beautiful Soup 4.3.1，感觉很奇怪！! lxml.html.soupparser引入BeautifulSoup 4的work-around 原来Beautiful Soup 3目前已经停止开发，Beautiful Soup 4移植到了BS4。
-下面的语句就可以引入Beautiful Soup 4了，可是lxml还是无法引入beautfulsoup。
-from bs4 import BeautifulSoup  stackoverflow有一个帖子import error due to bs4 vs BeautifulSoup讲了一个work-around，可以欺骗lxml从而引入beautfulsoup。测试一下，果然工作正常了。
-import sys, bs4 sys.modules['BeautifulSoup'] = bs4 import lxml.html.soupparser as soupparser  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -887,7 +884,7 @@ import sys, bs4 sys.modules['BeautifulSoup'] = bs4 import lxml.html.soupparser a
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">709</span>
+        <span class="site-state-item-count">710</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

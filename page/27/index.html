@@ -113,6 +113,71 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        Consul服务设置实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-04">
+    2015-08-04
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/consul" itemprop="url" rel="index">
+        <span itemprop="name">Consul</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">37 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在向Consul注册/注销外部服务节点中，我实践对Consul节点注册和注销，本帖我实践一些对Consul服务的查看和注销。
+查看当前数据中心所有注册的服务：
+curl http://localhost:8500/v1/catalog/services  查看当前数据中心注册的服务foo的信息：
+curl http://localhost:8500/v1/catalog/service/foo  注销服务节点foo上关联的检查service:foo-192-168-0-123：
+curl -X PUT -H 'application/json' -d '{&quot;Node&quot;: &quot;kexiao&quot;, &quot;CheckID&quot;: &quot;service:foo-192-168-0-123&quot;}' http://localhost:8500/v1/catalog/deregister  注销服务节点foo上关联的服务foo-192-168-0-123：
+curl -X PUT -H 'application/json' -d '{&quot;Node&quot;: &quot;kexiao&quot;, &quot;ServiceID&quot;: &quot;foo-192-168-0-123&quot;}' http://localhost:8500/v1/catalog/deregister  参考 Consul - Catalog HTTP Endpoint
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/spring_boot_%E5%88%9B%E5%BB%BA%E8%B6%85%E5%AA%92%E4%BD%93%E9%A9%B1%E5%8A%A8%E7%9A%84mail%E6%9C%8D%E5%8A%A1/" itemprop="url">
         [Spring Boot] 创建超媒体驱动的Mail服务
         </a>
@@ -703,75 +768,6 @@ Ambari当前可在一些64位Linux系统上安装。
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/" itemprop="url">
-        [Hive] 安装Hive 1.2.x
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-24">
-    2015-07-24
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hive" itemprop="url" rel="index">
-        <span itemprop="name">Hive</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">197 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    我的Hadoop集群为node50064、node50069和node51054。本文的Hive和MySQL软件仅在node50064上安装。
-安装Hive-内嵌元数据存储模式 Hive驱动、元数据存储接口和数据库(derby)使用相同的JVM。元数据保持在内嵌的derby数据库，只允许一个会话连接到数据库。 下载并解压缩Hive wget http://apache.cs.utah.edu/hive/hive-1.2.x/apache-hive-1.2.x-bin.tar.gz tar -xzf apache-hive-1.2.x-bin.tar.gz sudo mv apache-hive-1.2.x-bin /usr/local/hive sudo chown -R &quot;hadoop:hadoop&quot; /usr/local/hive  环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&quot; export HIVE_HOME=/usr/local/hive export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$HIVE_HOME/bin  最后通过source~/.bashrc刷新配置文件。
-conf/hive-env.sh 首先通过cd $HIVE_HOME/conf;cp hive-env.sh.template hive-env.sh;chmod 774hive-env.sh创建并设置hive-env.sh执行权限。 修改后的主要部分内容如下：
-# Set HADOOP_HOME to point to a specific hadoop install directory export HADOOP_HOME=${HADOOP_HOME:-/usr/local/hadoop} # Hive Configuration Directory can be controlled by: export HIVE_CONF_DIR=/usr/local/hive/conf # Folder containing extra ibraries required for hive compilation/execution can be controlled by: export HIVE_AUX_JARS_PATH=/usr/local/hive/lib  conf/hive-site.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -967,7 +963,7 @@ conf/hive-env.sh 首先通过cd $HIVE_HOME/conf;cp hive-env.sh.template hive-env
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">709</span>
+        <span class="site-state-item-count">710</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

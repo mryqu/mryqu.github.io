@@ -113,6 +113,75 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%94%9F%E6%88%90jpa_entity%E7%B1%BB/" itemprop="url">
+        [Hibernate Tools] 通过数据库表生成JPA Entity类
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-30">
+    2015-08-30
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hibernate" itemprop="url" rel="index">
+        <span itemprop="name">Hibernate</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">307 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    本文与前一博文[Hibernate Tools] 通过JPA Entity类生成数据库表 正好相反，实践一下如何通过数据库表生成JPA Entity类。
+在Eclipse中安装JBoss Tools中的Hibernate Tools插件 创建JPA项目PetStoreDemo 使用向导创建JPA项目 项目基本设置 设置JPA Facet 此处选用了Generatic 2.1平台，用户库HIBERNATE_JPA包含如下jar文件： - hibernate-commons-annotations.jar - hibernate-core.jar - hibernate-jpa-2.1-api.jar
+通过数据库表生成JPA Entity类 执行“Generate Entities from Tables” 选择库表 设置库表关联关系 定制生成Entity的默认行为 设置单个Entity 生成结果 下面以Item为例，展示生成结果。
+package com.yqu.jpetstore; import java.io.Serializable; import javax.persistence.*; import java.math.BigDecimal; @Entity @Table(name=&quot;item&quot;) @NamedQuery(name=&quot;Item.findAll&quot;, query=&quot;SELECT i FROM Item i&quot;) public class Item implements Serializable { private static final long serialVersionUID = 1L; private String itemid; private String attr1; private String attr2; private String attr3; private String attr4; private String attr5; private BigDecimal listprice; private String status; private BigDecimal unitcost; private Product product; private Supplier supplierBean; public Item() { } @Id @GeneratedValue(strategy=GenerationType.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%94%9F%E6%88%90jpa_entity%E7%B1%BB/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87jpa_entity%E7%B1%BB%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8/" itemprop="url">
         [Hibernate Tools] 通过JPA Entity类生成数据库表
         </a>
@@ -680,72 +749,6 @@ Gerrit工作流
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/" itemprop="url">
-        [Hive] Hive Macro和UDF实践
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-18">
-    2015-08-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hive" itemprop="url" rel="index">
-        <span itemprop="name">Hive</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">608 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    测试数据库 hive&gt; describe empinfo; OK firstname string lastname string id int age int city string state string Time taken: 0.047 seconds, Fetched: 6 row(s) hive&gt; select * from empinfo; OK John Jones 99980 45 Payson Arizona Mary Jones 99982 25 Payson Arizona Eric Edwards 88232 32 San Diego California Mary Ann Edwards 88233 32 Phoenix Arizona Ginger Howell 98002 42 Cottonwood Arizona Sebastian Smith 92001 23 Gila Bend Arizona Gus Gray 22322 35 Bagdad Arizona Mary Ann May 32326 52 Tucson Arizona Erica Williams 32327 60 Show Low Arizona Leroy Brown 32380 22 Pinetop Arizona Elroy Cleaver 32382 22 Globe Arizona Time taken: 0.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -941,7 +944,7 @@ Gerrit工作流
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">709</span>
+        <span class="site-state-item-count">710</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
