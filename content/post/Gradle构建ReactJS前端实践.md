@@ -59,7 +59,7 @@ Spring指南里面有个示例[React.js and Spring Data REST](https://spring.io/
 [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)用于构建JavaScript部分：  
 * install-node-and-npm命令将安装node.js及其包管理工具npm到target目录。 （这确保这些二进制文件不在源代码控制范围内并且能被clean命令清除）。   
 * npm命令将执行使用参数install的npm二进制文件，它会安装定义在package.json内的模块。  
-* webpack命令将执行webpack二进制文件，它会基于webpack.config.js编译所有JavaScript代码。  
+* webpack命令将执行webpack二进制文件，它会基于webpack.config.js打包所有JavaScript代码。  
 
 这些步骤依次运行，完成安装node.js、下载JavaScript模块、构建JS部分。  
 
