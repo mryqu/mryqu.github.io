@@ -740,6 +740,11 @@ task webpack(type: Exec) {
 }
 ```
 
+### 关于本项目Webpack的用法的思考
+
+本项目中仅使用Webpack打包JS代码，没有对CSS文件进行打包。 因此把JS代码和CSS文件分开放置了，JS代码在main/js中，CSS文件放到main/resources/static里面了。  
+其实可以用babel-loader对js/jsx文件进行处理，用css-loader对css文件进行处理。这样就可以把JS代码和CSS文件统一放置到一起了。  
+
 ### 参考
 
 * [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)  
