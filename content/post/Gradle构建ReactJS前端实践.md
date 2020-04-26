@@ -754,3 +754,4 @@ task webpack(type: Exec) {
 * [Running Webpack with Gradle](https://guides.gradle.org/running-webpack-with-gradle/)  
 * [Angular + Spring Boot integration using Gradle](https://blog.marcnuri.com/angular-spring-boot-integration-gradle/)  
 * [Gradle Exec Task](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.Exec.html)  
+* [Integrating Java and npm Builds Using Gradle - Groovy or Kotlin DSL](https://dzone.com/articles/integrating-java-and-npm-builds-using-gradle)   
