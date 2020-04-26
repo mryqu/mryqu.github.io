@@ -113,6 +113,62 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E8%B0%83%E8%AF%95libcurl%E7%A8%8B%E5%BA%8F/" itemprop="url">
+        [C&#43;&#43;] 调试libcurl程序
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-12-25">
+    2016-12-25
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">30 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    最近在调试通过libcurl发送GoogleSheets API POST请求时，增加了一点经验，特此总结。
+GoogleSheets API 请求 POST /v4/spreadsheets?access_token={YOUR_ACCESSTOKEN}&amp;fields=spreadsheetId HTTP/1.1 Host: sheets.googleapis.com Content-Type: application/json;charset=UTF-8 Accept: application/json Cache-Control: no-cache {&quot;properties&quot;:{&quot;title&quot;:&quot;newhaha&quot;},&quot;sheets&quot;:[{&quot;properties&quot;:{&quot;title&quot;:&quot;Sheet1&quot;}}]}  libcurl调试 当GoogleSheets API 请求失败时，仅能获得返回的状态码和消息。感觉没有更多信息可以研究！后来通过CURLOPT_VERBOSE和CURLOPT_DEBUGFUNCTION获得了更多调试信息。
+使用CURLOPT_VERBOSE curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1L);  这样就可以看到请求报头、响应报头和消息体了。
+使用CURLOPT_DEBUGFUNCTION 使用libcurl API指南中CURLOPT_DEBUGFUNCTION示例代码即可。这样就可以看到完整的请求和响应内容了。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/openui5_jquery.sap.formatmessage%E7%9A%84%E4%B8%80%E7%82%B9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" itemprop="url">
         [OpenUI5] jQuery.sap.formatMessage的一点注意事项
         </a>
@@ -684,63 +740,6 @@ https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_ty
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hello_microsoft_onedrive_api/" itemprop="url">
-        Hello Microsoft OneDrive API
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-10-12">
-    2016-10-12
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">23 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
-测试源 为了省事，就用我自己私人的OneDrive做测试吧。获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&rdquo;050709大同&rdquo;子目录，该子目录的id为&rdquo;712B21FCE8E08C92!112&rdquo;。从整个响应内容可知，根目录包含&rdquo;文档&rdquo;子目录，其id为&rdquo;712B21FCE8E08C92!442&rdquo;。
-查看Drive &ldquo;文档&rdquo;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
-获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
-参考 Develop with the OneDrive API
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -936,7 +935,7 @@ https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_ty
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">710</span>
+        <span class="site-state-item-count">711</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -953,7 +952,7 @@ https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_ty
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1514</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

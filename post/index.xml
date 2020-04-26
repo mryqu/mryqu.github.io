@@ -6,10 +6,31 @@
     <description>Recent content in Posts on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 19 Apr 2020 12:01:23 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2020 12:01:23 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gradle构建ReactJS前端实践</title>
+      <link>https://mryqu.github.io/post/gradle%E6%9E%84%E5%BB%BAreactjs%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Sat, 25 Apr 2020 12:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/gradle%E6%9E%84%E5%BB%BAreactjs%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5/</guid>
+      <description>frontend-maven-plugin使用介绍 Spring指南里面有个示例React.js and Spring Data REST，技术架构为：
+* 后端采用Spring Data Rest
+* 前端采用React.js
+* 构建工具为Maven
+下面看一下其pom.xml构建前端的片段:
+&amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;com.github.eirslett&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;frontend-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.6&amp;lt;/version&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;installDirectory&amp;gt;target&amp;lt;/installDirectory&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;executions&amp;gt; &amp;lt;execution&amp;gt; &amp;lt;id&amp;gt;install node and npm&amp;lt;/id&amp;gt; &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;install-node-and-npm&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;nodeVersion&amp;gt;v10.11.0&amp;lt;/nodeVersion&amp;gt; &amp;lt;npmVersion&amp;gt;6.4.1&amp;lt;/npmVersion&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/execution&amp;gt; &amp;lt;execution&amp;gt; &amp;lt;id&amp;gt;npm install&amp;lt;/id&amp;gt; &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;npm&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;arguments&amp;gt;install&amp;lt;/arguments&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/execution&amp;gt; &amp;lt;execution&amp;gt; &amp;lt;id&amp;gt;webpack build&amp;lt;/id&amp;gt; &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;webpack&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt; &amp;lt;/execution&amp;gt; &amp;lt;/executions&amp;gt; &amp;lt;/plugin&amp;gt;  frontend-maven-plugin用于构建JavaScript部分：
+* install-node-and-npm命令将安装node.js及其包管理工具npm到target目录。 （这确保这些二进制文件不在源代码控制范围内并且能被clean命令清除）。
+* npm命令将执行使用参数install的npm二进制文件，它会安装定义在package.json内的模块。
+* webpack命令将执行webpack二进制文件，它会基于webpack.config.js编译所有JavaScript代码。
+这些步骤依次运行，完成安装node.js、下载JavaScript模块、构建JS部分。
+备选Gradle前端构建插件 frontend-maven-plugin是专用于Maven的插件，在Gradle上并没有直接对应的插件。
+我查找后，重点考察了下面两个插件：
+* Frontend Gradle plugin</description>
+    </item>
     
     <item>
       <title>React.js开发环境设置</title>

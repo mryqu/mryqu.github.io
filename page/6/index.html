@@ -113,6 +113,65 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/golang_%E6%8A%98%E8%85%BE%E4%B8%80%E4%B8%8Bgolang%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95/" itemprop="url">
+        [Golang] 折腾一下Golang项目调试
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-24">
+    2017-10-24
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/golang" itemprop="url" rel="index">
+        <span itemprop="name">Golang</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">73 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    想装个MinGW-W64玩玩64位GDB，才发现继上一博文MinGW安装和使用已三年了，不经意间到看到了下列帖子： - MinGW MinGW-w64 TDM-GCC等工具链之间的区别与联系 - 发现个新环境msys2 - MinGW、MinGW-w64 与TDM-GCC 应该如何选择？
+对于mingw-w64、tdm-gcc、Win-builds这三个小纠结一会，觉得自己本身也就是用一下GDB，还是去https://sourceforge.net/projects/mingw-w64/直接下载MinGW-W64好了。
+MinGW-W64安装 所用MinGW-W64安装配置：
+| 配置项 | 配置值 | | - | - | | Architecture | x86_64 | | Threads | posix | | Exception | seh |
+Golang项目编译 编译Golang项目采用 go build -gcflags “-N -l” 关闭内联优化。
+GDB调试 载入runtime-gdb.py脚本以对Go运行时结构进行完美打印和转换(例如显示slice和map值、查看goroutine等)： - 参数载入：gdb -d $GCROOT - 手工载入：source C:\Go\src\runtime\runtime-gdb.py 折腾一会，最后还是折在GDB on windows with golang: buildsym_init Assertion &ldquo;free_pendings == NULL&rdquo; failed.这个问题上，一调试就DDB崩了，貌似目前无解。
+Delve调试 不过Debugging Go Code with GDB里还介绍了另外一个对Golang支持更好的工具Delve。上手容易，有些命令跟GDB差不多。好了，就折腾到这里了。目前不太需要的东东就不花费力气了。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%B8%80%E4%B8%8Btoml/" itemprop="url">
         学习一下TOML
         </a>
@@ -647,61 +706,6 @@ go get -u github.com/nsf/gocode go get -u github.com/rogpeppe/godef mkdir %GOPAT
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/golang_%E5%AE%89%E8%A3%85go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" itemprop="url">
-        [Golang] 安装Go开发环境
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-13">
-    2017-10-13
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/golang" itemprop="url" rel="index">
-        <span itemprop="name">Golang</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">8 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    项目上有几个Story涉及GoLang。Go语言是谷歌2009发布的第二款开源编程语言。Go语言专门针对多处理器系统应用程序的编程进行了优化，使用Go编译的程序可以媲美C或C++代码的速度，而且更加安全、支持并行进程。 学习新语言从安装环境开始。到https://golang.org/下载一个Windows版的安装程序，就可以轻松搞定。 初次上手，习惯性地选了一个IDE。没下jetbrains家的GoLand，而是拿LiteIDE试试手。感觉有点卡顿，其他还好。 链接 https://golang.org/
-LiteIDE
-GoClipse installation
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -897,7 +901,7 @@ GoClipse installation
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">710</span>
+        <span class="site-state-item-count">711</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -914,7 +918,7 @@ GoClipse installation
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1514</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

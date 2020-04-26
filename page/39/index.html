@@ -113,6 +113,60 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%B2%97%E8%A7%88activiti_modeler%E5%B1%9E%E6%80%A7%E6%98%BE%E7%A4%BA%E5%92%8C%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81/" itemprop="url">
+        粗览Activiti Modeler属性显示和设置代码
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-03-06">
+    2015-03-06
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/workflow" itemprop="url" rel="index">
+        <span itemprop="name">workflow</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">46 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    我的博文粗览Activiti Modeler操作和源代码介绍了Activiti ModelEditor组件的常用操作和对应源代码分析，本文接着介绍一下ActivitiModeler里BPMN元素属性的显示和设置。 粗览Activiti Modeler操作和源代码里提到的stencilset.json除了含有每个BPMN元素应该使用什么图标，也定义了每个BPMN元素的所有属性。以UserTask元素为例，它含有以下的属性包： - &ldquo;overrideidpackage&rdquo; - &ldquo;namepackage&rdquo; - &ldquo;documentationpackage&rdquo; - &ldquo;asynchronousdefinitionpackage&rdquo; - &ldquo;exclusivedefinitionpackage&rdquo; - &ldquo;executionlistenerspackage&rdquo; - &ldquo;multiinstance_typepackage&rdquo; - &ldquo;multiinstance_cardinalitypackage&rdquo; - &ldquo;multiinstance_collectionpackage&rdquo; - &ldquo;multiinstance_variablepackage&rdquo; - &ldquo;multiinstance_conditionpackage&rdquo; - &ldquo;isforcompensationpackage&rdquo; - &ldquo;usertaskassignmentpackage&rdquo; - &ldquo;formkeydefinitionpackage&rdquo; - &ldquo;duedatedefinitionpackage&rdquo; - &ldquo;prioritydefinitionpackage&rdquo; - &ldquo;formpropertiespackage&rdquo; - &ldquo;tasklistenerspackage&rdquo;
+[tomcat]\webapps\activiti-explorer\editor-app\configuration\properties.js里提供了对各类BPMNstencil的所需要包含的HTML页面。 [tomcat]\webapps\activiti-explorer\editor-app\stencil-controller.js中对ORYX.CONFIG.EVENT_SELECTION_CHANGED事件注册了匿名函数监听器。当某一BPMN元素被选中后，该监听器会设置$scope.selectedItem和$scope.selectedShape，其中包含BPMN元素的所有属性，每个属性都有对应的stencilreadModeTemplateUrl、writeModeTemplateUrl和templateUrl。 [tomcat]\webapps\activiti-explorer\editor-app\editor.html是ActivitiModelEditor组件的显示页面，其ID为propertiesHelpWrapper的DIV元素内对所选择的BPMN元素的每个属性放置templateUrl、readModeTemplateUrl或writeModeTemplateUrl对应的HTML子页面用于显示和设置stencil属性。 用于设置BPMNstencil属性的页面都位于[tomcat]\webapps\activiti-explorer\editor-app\configuration\properties\下。 这些页面和Anjugar.JS控制器为： 
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/gojs%E5%AF%B9%E6%B5%8F%E8%A7%88%E5%99%A8%E5%92%8C%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E6%94%AF%E6%8C%81/" itemprop="url">
         GoJS对浏览器和移动设备的支持
         </a>
@@ -620,66 +674,6 @@ JS代码如下：
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%AEzookeeper%E8%BF%87%E7%A8%8B/" itemprop="url">
-        [HBase] 启动内置ZooKeeper过程
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-24">
-    2015-02-24
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hbase" itemprop="url" rel="index">
-        <span itemprop="name">HBase</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">26 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     start-hbase.sh  hbase-daemons.sh start zookeeper zookeepers.sh --hosts /usr/local/hbase/conf/regionservers--config /usr/local/hbase/conf cd /usr/local/hbase;/usr/local/hbase/bin/hbase-daemon.sh --config /usr/local/hbase/confstart zookeeper 检查配置HBASE_MANAGES_ZK，若不为true则终止处理。  ssh node51054 cd /usr/local/hbase;/usr/local/hbase/bin/hbase-daemon.sh --config /usr/local/hbase/confstart zookeeper hbase zookeeper start  java org.apache.hadoop.hbase.zookeeper.HQuorumPeer     
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -875,7 +869,7 @@ JS代码如下：
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">710</span>
+        <span class="site-state-item-count">711</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -892,7 +886,7 @@ JS代码如下：
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1514</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
