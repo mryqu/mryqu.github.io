@@ -165,7 +165,7 @@
 &lt;plugin&gt; &lt;groupId&gt;com.github.eirslett&lt;/groupId&gt; &lt;artifactId&gt;frontend-maven-plugin&lt;/artifactId&gt; &lt;version&gt;1.6&lt;/version&gt; &lt;configuration&gt; &lt;installDirectory&gt;target&lt;/installDirectory&gt; &lt;/configuration&gt; &lt;executions&gt; &lt;execution&gt; &lt;id&gt;install node and npm&lt;/id&gt; &lt;goals&gt; &lt;goal&gt;install-node-and-npm&lt;/goal&gt; &lt;/goals&gt; &lt;configuration&gt; &lt;nodeVersion&gt;v10.11.0&lt;/nodeVersion&gt; &lt;npmVersion&gt;6.4.1&lt;/npmVersion&gt; &lt;/configuration&gt; &lt;/execution&gt; &lt;execution&gt; &lt;id&gt;npm install&lt;/id&gt; &lt;goals&gt; &lt;goal&gt;npm&lt;/goal&gt; &lt;/goals&gt; &lt;configuration&gt; &lt;arguments&gt;install&lt;/arguments&gt; &lt;/configuration&gt; &lt;/execution&gt; &lt;execution&gt; &lt;id&gt;webpack build&lt;/id&gt; &lt;goals&gt; &lt;goal&gt;webpack&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;/executions&gt; &lt;/plugin&gt;  frontend-maven-plugin用于构建JavaScript部分：
 * install-node-and-npm命令将安装node.js及其包管理工具npm到target目录。 （这确保这些二进制文件不在源代码控制范围内并且能被clean命令清除）。
 * npm命令将执行使用参数install的npm二进制文件，它会安装定义在package.json内的模块。
-* webpack命令将执行webpack二进制文件，它会基于webpack.config.js编译所有JavaScript代码。
+* webpack命令将执行webpack二进制文件，它会基于webpack.config.js打包所有JavaScript代码。
 这些步骤依次运行，完成安装node.js、下载JavaScript模块、构建JS部分。
 备选Gradle前端构建插件 frontend-maven-plugin是专用于Maven的插件，在Gradle上并没有直接对应的插件。
 我查找后，重点考察了下面两个插件：
