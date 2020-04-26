@@ -46,7 +46,9 @@ Gradle Plugin for Node 胜出
 这两款插件都能胜任我当前的游戏要求。 所以我选择现阶段使用Gradle Plugin for Node，对Frontend Gradle plugin保持关注。
 执行Webpack的其他方式 Running Webpack with Gradle是Gradle的官方指南，它是用commandLine执行的。
 但是我发现这种方式有个缺陷，在Windows平台执行webpack shell命令就报错了，需要判断平台来决定使用webpack shell命令还是webpack.cmd命令。所以需要做如下修改：
-task webpack(type: Exec) { if (System.getProperty(&amp;quot;os.name&amp;quot;).toUpperCase().contains(&amp;quot;WINDOWS&amp;quot;)) { commandLine &amp;quot;$projectDir/node_modules/.bin/webpack.cmd&amp;quot;, &amp;quot;app/index.js&amp;quot;, &amp;quot;$buildDir/js/bundle.js&amp;quot; } else { commandLine &amp;quot;$projectDir/node_modules/.bin/webpack&amp;quot;, &amp;quot;app/index.js&amp;quot;, &amp;quot;$buildDir/js/bundle.js&amp;quot; } }  参考  frontend-maven-plugin
+task webpack(type: Exec) { if (System.getProperty(&amp;quot;os.name&amp;quot;).toUpperCase().contains(&amp;quot;WINDOWS&amp;quot;)) { commandLine &amp;quot;$projectDir/node_modules/.bin/webpack.cmd&amp;quot;, &amp;quot;app/index.js&amp;quot;, &amp;quot;$buildDir/js/bundle.js&amp;quot; } else { commandLine &amp;quot;$projectDir/node_modules/.bin/webpack&amp;quot;, &amp;quot;app/index.js&amp;quot;, &amp;quot;$buildDir/js/bundle.js&amp;quot; } }  关于本项目Webpack的用法的思考 本项目中仅使用Webpack打包JS代码，没有对CSS文件进行打包。 因此把JS代码和CSS文件分开放置了，JS代码在main/js中，CSS文件放到main/resources/static里面了。
+其实可以用babel-loader对js/jsx文件进行处理，用css-loader对css文件进行处理。这样就可以把JS代码和CSS文件统一放置到一起了。
+参考  frontend-maven-plugin
  React.js and Spring Data REST
  Frontend Gradle plugin
  Gradle Plugin for Node
