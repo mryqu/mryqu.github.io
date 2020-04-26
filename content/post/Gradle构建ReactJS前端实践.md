@@ -748,3 +748,4 @@ task webpack(type: Exec) {
 * [Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin)  
 * [Running Webpack with Gradle](https://guides.gradle.org/running-webpack-with-gradle/)  
 * [Angular + Spring Boot integration using Gradle](https://blog.marcnuri.com/angular-spring-boot-integration-gradle/)  
+* [Gradle Exec Task](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.Exec.html)  
