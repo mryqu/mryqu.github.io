@@ -27,7 +27,7 @@ npm install npm@latest -g   #安装最新稳定的NPM版本
 我在两台机器上安装了Node 12.16.2 TLS，其中一台机器上npm死活有问题，从Node 10.16版本开始总是报错`verbose stack TypeError: Cannot read property 'resolve' of undefined`。  
 最后在那台机器上重新安装了[Node 10.15.3](https://nodejs.org/download/release/v10.15.3/),才避免了问题。  
   
-### 安装Chrome插件[vue-devtools](https://github.com/vuejs/vue-devtools)  
+### 安装Chrome插件[Vue.js devtools](https://github.com/vuejs/vue-devtools)  
   
 在[vue-devtools](https://github.com/vuejs/vue-devtools) github项目页面里找到Chrome插件网址，进行安装。
 ![install Vue.js Dev Tools](/images/2020/4/ChromeExtension_VueDevTools.png) 
