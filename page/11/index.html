@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/" itemprop="url">
+        Microsoft OneDrive认证和登录
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-10-13">
+    2016-10-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">93 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
+OneDrive认证 OneDrive authentication and sign-in有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从https://dev.onedrive.com/auth/get-token.js中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为https://dev.onedrive.com/auth/callback.htm。而 OneDrive authentication and sign-in 中提到对于移动应用和桌面应用，跳转URI应设为https://login.live.com/oauth20_desktop.srf （注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。
+Token Flow测试 HTTP GET请求如下：
+https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;scope=onedrive.readonly+wl.signin&amp;response_type=code&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  响应如下，认证失败：
+https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;error_description=The+provided+value+for+the+input+parameter+'response_type'+is+not+allowed+for+this+client.+Expected+value+is+'code'.  找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！Code Flow测试  用于用户登录的HTTP GET请求如下：  https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;scope=onedrive.readonly+wl.signin&amp;response_type=token&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  请求用户授权：此时浏览器上地址变为：  https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;scope=onedrive.readonly+wl.signin&amp;response_type=code&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;uaid=78...e6&amp;pid=...16&amp;mkt=EN-US&amp;scft=DSA...hfC&amp;contextid=7F...D6&amp;mkt=EN-US&amp;uiflavor=host&amp;id=27...69&amp;uaid=78...e6&amp;client_id=00...42&amp;rd=none&amp;scope=&amp;cscope=onedrive.readonly+wl.signin  最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数：  POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;code=M9...5e-b...a-e...5-6685-d...06&amp;grant_type=authorization_code   在OneDrive API中使用获得的访问令牌：  参考 Getting started with OneDrive API
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hello_microsoft_onedrive_api/" itemprop="url">
         Hello Microsoft OneDrive API
         </a>
@@ -639,61 +702,6 @@ Tableau connector examples
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8google_api%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" itemprop="url">
-        在Google API中使用访问令牌的三种方式
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-09-29">
-    2016-09-29
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">31 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在Google Developers OAuth 2.0 playground 中设置OAuth2.0配置时，可以发现有一个访问令牌位置的选择框，其值为： - Authorization header w/ OAuth prefix - Authorization header w/ Bearer prefix - Access_token URL parameter
-按照前面博文《Google Sheets API认证和鉴权 》中的方法生成一个访问令牌。下面我就用这个访问令牌对这三种使用方式进行一下尝试。
-认证头使用OAuth前缀 认证头使用Bearer前缀 使用access_token URL参数 结论：这三种访问令牌位置的使用都工作正常，API结果相同！
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -716,6 +724,8 @@ Tableau connector examples
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -889,7 +899,7 @@ Tableau connector examples
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">711</span>
+        <span class="site-state-item-count">712</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

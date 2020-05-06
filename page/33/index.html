@@ -113,6 +113,75 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/" itemprop="url">
+        [Hadoop] 使用DFSIO测试集群I/O性能
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-05-23">
+    2015-05-23
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">483 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    DFSIO是Hadoop自带的用于集群分布式I/O性能基准测试的工具，其源码为https://github.com/apache/hadoop/blob/trunk/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/src/test/java/org/apache/hadoop/fs/TestDFSIO.java。
+DFSIO 用法 hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO 15/05/22 19:50:22 INFO fs.TestDFSIO: TestDFSIO.1.8 Missing arguments. Usage: TestDFSIO [genericOptions] -read [-random | -backward | -skip [-skipSize Size]] | -write | -append | -truncate | -clean [-compression codecClassName] [-n rFiles N] [-size Size[B|KB|MB|GB|TB]] [-resFile resultFileName] [-bufferSize Bytes]  DFSIO可以测试写操作和读操作，以MapReduce作业的方式运行，返回整个集群的I/O性能报告。DFSIO读写测试的位置在hdfs://namendoe:8020/benchmarks/TestDFSIO/io_data，其中读测试不会自己产生数据，必须先执行DFSIO写测试。
+ -read：读测试，对每个文件读-size指定的字节数 -write：写测试，对每个文件写-size指定的字节数 -append：追加测试，对每个文件追加-size指定的字节数 -truncate：截断测试，对每个文件截断至-size指定的字节数 -clean：清除TestDFSIO在HDFS上生成数据 -n：文件个数 -size：每个文件的大小 -resFile：生成测试报告的本地文件路径 -bufferSize：每个mapper任务读写文件所用到的缓存区大小，默认为1000000字节。
+DFSIO测试  写10个100MB的文件 hadoop@node50064:~$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 100MB -resFile /tmp/DFSIO-write.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/yaml/" itemprop="url">
         YAML
         </a>
@@ -671,75 +740,6 @@ Docker in OSX via boot2docker or Vagrant: getting over the hump
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/" itemprop="url">
-        了解用于Gerrit代码审查的GitHub插件
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-05-16">
-    2015-05-16
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/git" itemprop="url" rel="index">
-        <span itemprop="name">Git</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">108 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在网上看到了GitHub plugin for Gerrit，学习一下。
-对比GitHub与Gerrit的代码审查机制 GitHub一派的代码审查机制主要通过fork一个远程分支，进行本地修改并提交到远程分支，然后通过PULL REQUEST来请求代码审查及合并回原上游远程分支。 Gerrit一派的代码审查机制主要通过checkout一个分支(refs/for/master)。从Gerrit克隆获得本地分支，进行修改并提交到Gerrit的refs/for/master分支，中间还可以通过Amend commit修改之前的提交，经过评审人批准后，代码会提交到&rdquo;权威&rdquo;仓库。 GitHub BitBucket GitLab Gitorious阵营 这一派的PULL REQUEST基于两个分支的合并，注释可能会乱一点，有点惹人烦。不考虑将所有原子/相关修改作为一个提交。除了写注释无法知道审查打分情况。 Gerrit GitBlit阵营 这一派的每个提交有其审查结果，可以清晰查看以往历史。Gerrit审查可以强制成仅接受快进（fast-worward）或可rebase的提交。 用于Gerrit代码审查的GitHub插件 https://gerrit-review.googlesource.com/#/admin/projects/plugins/github 优点： - 引入Pull Requests -&gt;Gerrit改动/主题 - 使用Gerrit认证规则重用GitHub账户 - 复制: 代码继续存在于http://github.com 仓库 - 防止不可管理的fork激增 - 避免GitHub垃圾邮件 -&gt;每个改动一封电邮
-第一步：为Gerrit在GitHub上注册新的OAUTH应用 第二步：获取Client ID和Client Secret 第三步：下载并安装Gerrit 下载地址：https://gerrit-releases.storage.googleapis.com/index.html 为了确保安装成功，首先使用DEVELOPMENT_BECOME_ANY_ACCOUNT作为认证方式确保能登录进Gerrit。 使用Git Bash启动Gerrit。 登陆后，可以查看到当前安装的插件。 第四步：构建GitHub插件 git clone https://gerrit.googlesource.com/plugins/github &amp;&amp; cd github mvn install  第五步：安装OAUTH过滤器和GitHub插件 第六步：重新配置Gerrit 第七步：完成GitHub认证 参考 GitHub plugin for Gerrit
-Gerrit vs Github: for code review and codebase management
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -762,6 +762,8 @@ Gerrit vs Github: for code review and codebase management
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -935,7 +937,7 @@ Gerrit vs Github: for code review and codebase management
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">711</span>
+        <span class="site-state-item-count">712</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
