@@ -113,6 +113,75 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/" itemprop="url">
+        [C&#43;&#43;] GNU Binutils之ar和ranlib
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-06">
+    2015-12-06
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">69 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    GNU binutils是一组二进制工具集。包括：ld、as、addr2line、ar、gprof、nm、objcopy、objdump、ranlib、size、strings、strip等。本文重点学习一下其中的ar和ranlib。
+ar命令 ar用于建立、修改、提取档案文件(archive)。archive是一个包含多个被包含文件的单一文件（也称之为库文件），其结构保证了可以从中检索并得到原始的被包含文件（称之为archive中的member）。member的原始文件内容、模式（权限）、时间戳、所有者和组等属性都被保存在archive中。member被提取后，他们的属性被恢复到初始状态。 ar命令第一个参数可混合指令代码（operationcode p）和修饰符标志（modifier flags mod），可按意愿添加一个折线。
+ar [--plugin name] [-X32_64] [-]p[mod [relpos] [count]] archive [member...]  指令参数  d：删除档案文件中的成员文件。 m：移动在档案文件中的成员文件，改变次序。可以借助修饰符标志a、b、i移动到指定位置。 p：显示档案文件中的成员文件内容。 q：将文件快速附加在档案文件末端。不检查、不替换已有同名成员文件，也不更新档案文件的符号表索引，修饰符标志a、b、i无效。然而很多不同系统都假设q指令重建档案文件的符号表索引，因此GNU将其按照r指令进行相同实现。 r：将文件插入档案文件中。检查并替换已有同名成员文件，重建档案文件的符号表索引，借助修饰符标志a、b、i将文件插入到指定位置。 t：显示档案文件中所包含的文件。 x：自档案文件中取出成员文件。  修饰符标志  a &lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之后。 b&lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之前。 c：建立档案文件。当更新档案文件时，档案文件不存在则创建档案文件，但会告警。此标志可抑制告警。 D：以确定模式工作。 f：为避免过长的文件名不兼容于其他系统的ar指令指令，可利用此参数，截掉要放入档案文件中过长的成员文件名称。 i &lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之前。（等同标志b） I：可接受但不使用。 N：使用count参数。当档案文件中存在多个同名成员，用于指定提取/删除的个数。 o：保留档案文件中文件的日期。如无此参数，则输出文件的修改时间为提取时间。 s：若档案文件中包含了对象模式，可利用此参数建立档案文件的符号表。 S：不产生符号表。 T：使指定档案文件成为瘦档案文件。例如将多个档案文件加入目标档案文件，目标档案文件可以包含符号索引及对源档案文件中成员文件的引用。 u：只将日期较新文件插入档案文件中。 v：程序执行时显示详细的信息。 V：显示版本信息。  练习 # 将当前目录下所有.o打包成libyqutest.a档案文件：r插入，v显示操作信息，s生成符号表。 ar rvs libyqutest.a *.o # 制作瘦档案文件：r插入，c建立档案文件，T指定为瘦档案文件。 ar -rcT libkx.a libke.a libxiao.a  ranlib命令 为档案文件创建符号索引。
+ranlib [-vVt] archive  选项： - -v、-V或&ndash;version：显示版本 - -t：更新档案文件符号映射的时戳。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/" itemprop="url">
         [MapR培训笔记] Hadoop生态系统
         </a>
@@ -702,70 +771,6 @@ Twitter4J对Twitter API访问频次限制的处理 Twitter4J的RateLimitStatusJS
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6/" itemprop="url">
-        社交媒体API访问频次限制
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-07">
-    2015-11-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">132 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Facebook API访问频次限制  Facebook Graph API访问频次限制 Facebook Marketing API访问频次限制  FAcebook Graph API允许每用户每60分钟200次API调用。Facebook MarketingAPI随广告用户级别变化。
-Twitter API访问频次限制 TwitterAPI访问频次按15分钟为间隔。有两类桶：15分钟内允许15次调用，及15分钟内允许180次调用。Twitter搜索属于后者，在15分钟内允许180次调用。
-Google Analytics API Limits and Quotas  Google Analytics Core Reporting API - API Limits and Quotas Google Analytics Real Time Reporting API - API Limits and Quotas Google Analytics Multi-Channel Funnels Reporting API - API Limits and Quotas
- 每个项目每天50000个请求，可增加。
- 每个IP 10 QPS（query per second）。
- 在Developers Console上，该配额是指per-userlimit。默认设置为1秒1个查询，可被调整为最大值10。 如果你的应用从单个IP地址发出所有API请求，你需要考虑在每个请求中使用userIP或quotaUser参数以获取对每个用户QPS的满配额。    Understand YouTube Analytics API Quota Usage 暂时没有查到Youtube Analytics API固定配额，不过看起来查询维度对配额使用的影响更大。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api%E8%AE%BF%E9%97%AE%E9%A2%91%E6%AC%A1%E9%99%90%E5%88%B6/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -963,7 +968,7 @@ Google Analytics API Limits and Quotas  Google Analytics Core Reporting API - AP
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -980,7 +985,7 @@ Google Analytics API Limits and Quotas  Google Analytics Core Reporting API - AP
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

@@ -113,6 +113,72 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" itemprop="url">
+        Vagrant运行Docker的几种方法
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-15">
+    2015-06-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/vagrant" itemprop="url" rel="index">
+        <span itemprop="name">Vagrant</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">210 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Vagrant的docker provisioner能够自动安装Docker、下载Docker容器、随着vagrant up命令自动运行容器。 Vagrantfile Vagrant.configure(&quot;2&quot;) do |config| config.vm.provision &quot;docker&quot; do |d| d.pull_images &quot;consul&quot; d.run &quot;consul&quot; d.pull_images &quot;rabbitmq&quot; d.run &quot;rabbitmq&quot; end end  仅使用Vagrant的docker provisioner安装Docker，使用脚本下载并运行Docker容器 Vagrantfile # Install Docker config.vm.provision &quot;docker&quot; # Download Docker images, create and start containers config.vm.provision :shell, :path =&gt; &quot;runMyDockers.sh&quot;  runMyDockers.sh #!/bin/bash docker rm -f consul 2&gt;/dev/null docker create --hostname consul --name consul -v /data/consul1:/data --dns 127.0.0.1 --restart always -p 8500:8500 --env CONSUL_OPTIONS=-bootstrap consul:dev docker start consul docker rm -f rabbitmq 2&gt;/dev/null docker create --name rabbitmq --hostname rabbitmq -p 5672:5672 -v /data/rabbitmq:/data --dns 127.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/" itemprop="url">
         Consul实践
         </a>
@@ -686,67 +752,6 @@ Docker Compose安装 curl -L https://github.com/docker/compose/releases/download
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/" itemprop="url">
-        [OpenUI5] 自定义控件示例
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-05">
-    2015-06-05
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">284 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    最近在写一个OpenUI5自定义控件，参考了如下文章，搞定。
-需要注意的是，控件内的property在init函数内不会获得构造函数的属性值。通过源码可知，EventProvider.extend.constructor内先回调用init函数，然后再调用applySettings将构造函数内的属性设置进去。
-constructor : function(sId, mSettings, oScope) { EventProvider.call(this); // no use to pass our arguments if (typeof (sId) != &quot;string&quot; &amp;&amp; arguments.length &gt; 0) { // shift arguments in case sId was missing, but mSettings was given oScope = mSettings; mSettings = sId; if (mSettings &amp;&amp; mSettings.id) { sId = mSettings[&quot;id&quot;]; } else { sId = null; } } if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -944,7 +949,7 @@ constructor : function(sId, mSettings, oScope) { EventProvider.call(this); // no
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -961,7 +966,7 @@ constructor : function(sId, mSettings, oScope) { EventProvider.call(this); // no
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

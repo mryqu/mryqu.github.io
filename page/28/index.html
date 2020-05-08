@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E5%88%97%E4%B8%BE%E6%8F%92%E4%BB%B6/" itemprop="url">
+        [Gradle] 列举插件
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-27">
+    2015-07-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gradle" itemprop="url" rel="index">
+        <span itemprop="name">Gradle</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">6 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    下列方法可以列举出当前build.gradle牵涉的插件:
+project.plugins.each { println it }  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/ambari_%E4%BA%86%E8%A7%A3ambari/" itemprop="url">
         [Ambari] 了解Ambari
         </a>
@@ -650,67 +711,6 @@ fleet fleet 是一个通过Systemd对CoreOS 集群中进行控制和管理的�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%89%A7%E8%A1%8Cgradle_artifactorypublish%E4%BB%BB%E5%8A%A1%E6%97%B6%E7%A2%B0%E5%88%B0http_409_conflict%E9%94%99%E8%AF%AF/" itemprop="url">
-        执行Gradle artifactoryPublish任务时碰到HTTP 409 Conflict错误
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-13">
-    2015-07-13
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gradle" itemprop="url" rel="index">
-        <span itemprop="name">Gradle</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">31 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    这篇博文算是《尝试Artifactory》的姐妹篇。我打算将《尝试Artifactory》中的&rsquo;libs-snapshot-local&rsquo;和&rsquo;libs-snapshot&rsquo;换成&rsquo;libs-release-local&rsquo;和&rsquo;libs-release&rsquo;，以便将我的构件发布到发布版仓库里。结果遭遇如下错误：
-C:\test123\HelloArtifactory&gt;gradlew artifactoryPublish [buildinfo] Not using buildInfo properties file for this build. :generatePomFileForMavenJavaPublication :compileJava  查看Artifactory日志，才知道根本原因在于创建的是SNAPSHOT而libs-release-local只处理发布版构建。The repository &lsquo;libs-release-local&rsquo; rejected the artifact&rsquo;libs-release-local:com/yqu/HelloArtifactory/0.1.0-SNAPSHOT/HelloArtifactory-0.1.0-SNAPSHOT.jar&rsquo;due to its snapshot/release handling policy。 解决方案有如下两种： - 修改libs-release-local属性，勾选Handle Snapshots选择框（工作流不正规啦） - 将gradle.properties中的version由0.1.0-SNAPSHOT改成0.1.0即可
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -908,7 +908,7 @@ C:\test123\HelloArtifactory&gt;gradlew artifactoryPublish [buildinfo] Not using 
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -925,7 +925,7 @@ C:\test123\HelloArtifactory&gt;gradlew artifactoryPublish [buildinfo] Not using 
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

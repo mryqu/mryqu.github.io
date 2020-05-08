@@ -2,6 +2,95 @@
 <search>
     
      <entry>
+        <title>ESLint和Prettier学习</title>
+        <url>https://mryqu.github.io/post/eslint%E5%92%8Cprettier%E5%AD%A6%E4%B9%A0/</url>
+        <categories>
+          <category>前端</category>
+        </categories>
+        <tags>
+          <tag>JavaScript</tag><tag>ESLint</tag><tag>Prettier</tag>
+        </tags>
+        <content type="html">  Devias Kit - React Admin Dashboard使用了ESLint进行代码检测，使用Prettier进行代码格式化。
+下面就其代码devias-io/react-material-dashboard进行学习。
+ESLint简介 ESLint是一个用来识别ECMAScript/JavaScript并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次ESLint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。
+在许多方面，它和 JSLint、JSHint 相似，除了少数的例外：
+* ESLint使用Espree解析JavaScript。
+* ESLint使用AST去分析代码中的模式。
+* ESLint是完全插件化的。 每一个规则都是一个插件并且你可以在运行时添加更多的规则。
+Prettier简介 Prettier是一个opinionated(有态度的)代码格式化工具，支持多种语言，可以和绝大多数编辑器集成，选项少。
+什么是opinionated？就是有态度有倾向，尽量减少配置项，相反的意思是Unopinionated。 像Spring Boot也是宣称有态度的。
+devias-io/react-material-dashboard开发环境依赖 &amp;quot;devDependencies&amp;quot;: { &amp;quot;eslint&amp;quot;: &amp;quot;5.16.0&amp;quot;, &amp;quot;eslint-plugin-prettier&amp;quot;: &amp;quot;^3.0.1&amp;quot;, &amp;quot;eslint-plugin-react&amp;quot;: &amp;quot;^7.12.4&amp;quot;, &amp;quot;prettier&amp;quot;: &amp;quot;^1.17.1&amp;quot;, &amp;quot;prettier-eslint&amp;quot;: &amp;quot;^8.8.2&amp;quot;, &amp;quot;prettier-eslint-cli&amp;quot;: &amp;quot;^4.7.1&amp;quot;, &amp;quot;typescript&amp;quot;: &amp;quot;^3.5.1&amp;quot; }  ESLint包是代码检测工具，Prettier包是代码格式化工具。 ESLint既能完成传统的语法检测，也能检查风格是否符合要求。可以用ESLint完成一切工作，也可以结合ESLint完成代码格式化和错误检测。
+其他包：
+* ESLint-plugin-React包：ESLint原生支持JSX，但ESLint并不支持React特定的JSX符号，所以要使用ESLint-plugin-React包；
+* prettier-eslint包：prettier-eslint会先调用Prettier完成代码格式化，然后将执行eslint --fix按照配置进行语法修复；
+* prettier-eslint-cli包：prettier-eslint的CLI；
+* eslint-plugin-prettier包：作为ESLint的一个规则运行Prettier。
+devias-io/react-material-dashboard项目没有介绍怎么使用ESLint和Prettier。 如果使用prettier-eslint/prettier-eslint-cli，那就是次序使用Prettier和ESLint；如果使用eslint-plugin-prettier，就是Prettier作为ESLint的插件，在CLI仅仅使用ESLint，而ESLint会调用Prettier。
+通过.eslintrc分析，ESLint仅使用了react插件，而没有prettier插件，而且ESLint规则里面也没有prettier，所以其实没有使用eslint-plugin-prettier包。
+&amp;quot;plugins&amp;quot;: [ &amp;quot;react&amp;quot; ]  CLI 上面的开发环境依赖所安装的包共有三个CLI可以使用：
+.\node_modules\.bin\eslint -h .\node_modules\.bin\prettier -h .\node_modules\.bin\prettier-eslint -h  Prettier配置 .prettierrc .prettierrc存储的是Prettier配置：
+{ &amp;quot;bracketSpacing&amp;quot;: true, &amp;quot;jsxBracketSameLine&amp;quot;: true, &amp;quot;printWidth&amp;quot;: 80, &amp;quot;singleQuote&amp;quot;: true, &amp;quot;trailingComma&amp;quot;: &amp;quot;none&amp;quot;, &amp;quot;tabWidth&amp;quot;: 2, &amp;quot;useTabs&amp;quot;: false, &amp;quot;react/jsx-max-props-per-line&amp;quot;: [1, { &amp;quot;when&amp;quot;: &amp;quot;always&amp;quot; }] }  规则项分析：
+* bracketSpacing：为true的话，在对象字面符和括号之间打印空格。 例如{ foo: bar }；
+* jsxBracketSameLine：为true的话，将多行JSX元素的&amp;gt;放在最后一行的末尾，而不是单独一行；
+* printWidth：为80的话，行宽超过80字符的会折行；
+* singleQuote：为true的话，使用单引号而不是双引号；
+* trailingComma：为&amp;rdquo;none&amp;rdquo;的话，数组最后一个元素不可以尾随逗号；
+* tabWidth：为2的话，缩进级别为2个空格；
+* useTabs：为false的话，使用空格而不是tab进行缩进；
+* react/jsx-max-props-per-line：为1的话，限制JSX单行中prop最大个数为1。该规则定义见ESLint-plugin-React包。
+.prettierignore .prettierignore存储的是让Prettier忽略的文件的路径模式，该项目中为空。
+ESLint配置 .eslintrc .eslintrc存储的是ESLint配置：
+{ &amp;quot;parser&amp;quot;: &amp;quot;babel-eslint&amp;quot;, &amp;quot;rules&amp;quot;: { &amp;quot;comma-dangle&amp;quot;: 0, &amp;quot;indent&amp;quot;: [ 2, 2, { &amp;quot;SwitchCase&amp;quot;: 1 } ], &amp;quot;jsx-quotes&amp;quot;: 1, &amp;quot;linebreak-style&amp;quot;: [ 2, &amp;quot;unix&amp;quot; ], &amp;quot;quotes&amp;quot;: [ 2, &amp;quot;single&amp;quot; ], &amp;quot;react/display-name&amp;quot;: 1, &amp;quot;react/forbid-prop-types&amp;quot;: 0, &amp;quot;react/sort-prop-types&amp;quot;: 1, &amp;quot;react/jsx-boolean-value&amp;quot;: 1, &amp;quot;react/jsx-first-prop-new-line&amp;quot;: [ 1, &amp;quot;multiline&amp;quot; ], &amp;quot;react/jsx-closing-bracket-location&amp;quot;: 1, &amp;quot;react/jsx-curly-spacing&amp;quot;: 1, &amp;quot;react/jsx-indent-props&amp;quot;: [ 2, 2 ], &amp;quot;react/jsx-max-props-per-line&amp;quot;: 1, &amp;quot;react/jsx-no-duplicate-props&amp;quot;: 1, &amp;quot;react/jsx-no-literals&amp;quot;: 0, &amp;quot;react/jsx-no-undef&amp;quot;: 1, &amp;quot;react/jsx-sort-props&amp;quot;: 1, &amp;quot;react/jsx-uses-react&amp;quot;: 1, &amp;quot;react/jsx-uses-vars&amp;quot;: 1, &amp;quot;react/no-danger&amp;quot;: 1, &amp;quot;react/no-did-mount-set-state&amp;quot;: 0, &amp;quot;react/no-did-update-set-state&amp;quot;: 1, &amp;quot;react/no-direct-mutation-state&amp;quot;: 1, &amp;quot;react/no-multi-comp&amp;quot;: 1, &amp;quot;react/no-set-state&amp;quot;: 1, &amp;quot;react/no-unknown-property&amp;quot;: 1, &amp;quot;react/prefer-es6-class&amp;quot;: 1, &amp;quot;react/prop-types&amp;quot;: 1, &amp;quot;react/react-in-jsx-scope&amp;quot;: 1, &amp;quot;react/self-closing-comp&amp;quot;: 1, &amp;quot;react/sort-comp&amp;quot;: 0, &amp;quot;semi&amp;quot;: 0 }, &amp;quot;env&amp;quot;: { &amp;quot;es6&amp;quot;: true, &amp;quot;browser&amp;quot;: true }, &amp;quot;extends&amp;quot;: &amp;quot;eslint:recommended&amp;quot;, &amp;quot;ecmaFeatures&amp;quot;: { &amp;quot;jsx&amp;quot;: true, &amp;quot;experimentalObjectRestSpread&amp;quot;: true }, &amp;quot;plugins&amp;quot;: [ &amp;quot;react&amp;quot; ] }  配置项分析：
+* plugins里指定react插件，所以规则里支持ESLint-plugin-React里面的规则；
+* parser指定的是babel-eslint。ESLint默认的分析器Espree仅支持最新的ECMAScript标准（以及JSX），但是不支持Babel提供的实验性和非标语法（例如Flow或TypeScript类型）。使用babel-eslint分析器后，这些抽象语法树结果将被转换成可被ESLint理解的ESTree兼容结构； * extends指定的是eslint:recommended。extends可以指定配置文件路径，也可以指定可共享的配置名（例如eslint:recommended或eslint:all）。ESLint rules里面列举了ESLint所有核心规则，其中推荐的标对号；
+* ecmaFeatures使能JSX，通过experimentalObjectRestSpread支持rest/spread操作符。（注：experimentalObjectRestSpread已废除，ESLint第五版将ecmaFeatures: { experimentalObjectRestSpread: true }视作ecmaVersion: 2018别名，ESLint第六版将取消）；
+* env指定的是es6和browser，即该项目被设计成运行在es6和browser环境，这两个环境都包含一套预定义全局变量。ESLint的environments.js里除了有一些ESLint特有环境定义，其他都是来自globals包的globals.json。
+本配置中规则项分析：
+* comma-dangle： 为0的话，关闭结尾逗号的规则；
+* indent：为[2,2,{&amp;ldquo;SwitchCase&amp;rdquo;: 1}]的话，缩进级别为2空格，Switch语句的Case子句的缩进级别为1，违反则报错；
+* jsx-quotes：为1的话，JSX属性混使单引号和双引号则告警；
+* linebreak-style： 为[2,&amp;ldquo;unix&amp;rdquo;]的话，换行使用Unix风格（换行），违反则报错；
+* quotes：为[2,&amp;ldquo;single&amp;rdquo;]的话，对字符串的定义统一使用单引号，违反则报错；
+* react/display-name：为1的话，React组件定义中缺少displayName的话告警；
+* react/forbid-prop-types：为0的话，关闭对propTypes使用PropTypes的any、array、object检查的规则；
+* react/sort-prop-types：为1的话，对propTypes中使用不符合排序的告警；
+* react/jsx-boolean-value：为1的话，JSX属性赋值为{true}则告警；
+* react/jsx-first-prop-new-line：为[1,&amp;ldquo;multiline&amp;rdquo;]的话，当JSX标记为当行时第一个prop不在新行则告警；
+* react/jsx-closing-bracket-location：为1的话，对JSX标记的&amp;gt;没有和&amp;lt;对其的告警；
+* react/jsx-curly-spacing：为1的话，对JSX属性和表达式中大括号没有空格的告警；
+* react/jsx-indent-props：为[2,2]的话，对JSX的props没有采用2空格缩进的报错；
+* react/jsx-max-props-per-line：为1的话，对每行包含多余一个JSXprops的告警；
+* react/jsx-no-duplicate-props：为1的话，对JSX的props有重复的告警；
+* react/jsx-no-literals：为0的话，关闭字面量必须在JSX容器内的规则（var Hello = &amp;lt;div&amp;gt;test&amp;lt;/div&amp;gt;;var Hello = &amp;lt;div&amp;gt;{&#39;test&#39;}&amp;lt;/div&amp;gt;;该规则打开的话，第一个语句会告警，第二个语句不报警）；
+* react/jsx-no-undef：为1的话，对没宣称的变量告警；
+* react/jsx-sort-props：为1的话，对组件实例的props未排序告警；
+* react/jsx-uses-react：阻止React被错误标记为未使用；
+* react/jsx-uses-vars：阻止JSX中使用的变量被错误标记为未使用；
+* react/no-danger：阻止使用危险JSX属性（dangerouslySetInnerHTML）；
+* react/no-did-mount-set-state：为0的话，关闭在componentDidMount不可以设状态state的规则；
+* react/no-did-update-set-state：为1的话，在componentDidUpdate设状态state则告警；
+* react/no-direct-mutation-state：为1的话，对直接修改state而不使用setState的告警；
+* react/no-multi-comp：为1的话，对一个文件有多个组件定义的告警；
+* react/no-set-state：为1的话，对使用setState进行告警（使用Flux、React Redux架构时能分离组件和应用状态）；
+* react/no-unknown-property：为1的话，在JSX中使用未知DOM属性则告警；
+* react/prefer-es6-class：为1的话，对ES5的create-react-class使用进行告警；
+* react/prop-types：为1的话，对没有propTypes进行告警；
+* react/react-in-jsx-scope：为1的话，对React不是全局变量，且在JSX范围内没有React变量的告警；
+* react/self-closing-comp：为1的话，对没有子孙的且使用额外结束标签的组件进行告警；
+* react/sort-comp：为0的话，关闭组件方法次序一致性的规则；
+* semi：为0的话，关闭分号的规则，修复的话也不会进行分号自动插入；
+其他配置 .editorconfig .editorconfig存储的是编码风格，被各种IDE和编辑器支持：
+root = true [*.js] end_of_line = lf insert_final_newline = true charset = utf-8 [*.js] indent_style = space indent_size = 2 [Makefile] indent_style = tab  这里指定的换行也是unix风格，与.eslintrc一只，这样ESLint才不会报错或告警。
+jsconfig.json jsconfig.json是Visual Studio Code的配置，跟ESLint和Prettier无关。具体见Visual Studio Code文档。
+题外话 devias-io/react-material-dashboard里面缺少git提交的钩子设置，因此代码格式化和监测只能手动进行。
+参考  Prettier配置项
+ Configuring ESLint
+ 让你的代码更Prettier！代码风格统一终极方案！
+ 使用ESLint&#43;Prettier来统一前端代码风格
+  </content>
+    </entry>
+    
+     <entry>
         <title>Gradle构建ReactJS前端实践</title>
         <url>https://mryqu.github.io/post/gradle%E6%9E%84%E5%BB%BAreactjs%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5/</url>
         <categories>

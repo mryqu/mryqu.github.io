@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" itemprop="url">
+        [OpenUI5] jQuery.sap.require源码分析
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-22">
+    2015-08-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">982 字 ~5分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    jQuery.sap.require用于解析一个或多个模块依赖。
+jQuery.sap.require函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
+通过下面的源代码可知，jQuery.sap.require首先通过ui5ToRJS将javascript类名转换为js文件名，例如sap.m.Dialog转换为sap/m/Dialog.js，然后执行requireModule函数。
+requireModule函数查找该模块在sap.ui.core.Core对象的mModules中是否存在，不存在则添加并设为INITIAL状态，判断模块是否已经被加载、执行过，如果没有则设为LOADING状态并通过ajax以同步方式加载代码（如果当前是debug模式则选择-dbg版本的js文件URL），加载失败设为FAILED状态，加载成功则设为LOADED状态并执行代码，执行失败设为FAILED状态，执行成功设为READY状态。
+jQuery.sap.require = function(vModuleName, fnCallback) { if ( arguments.length &gt; 1 ) { // legacy mode with multiple arguments, each representing a dependency for (var i = 0; i &lt; arguments.length; i++) { jQuery.sap.require(arguments[i]); } return this; } // check for an object as parameter for sModuleName // in case of this the object contains the module name and the type // which could be {modName: &quot;sap.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/" itemprop="url">
         [Hive] Hive 表UDTF和汇聚UDAF学习
         </a>
@@ -693,68 +756,6 @@ var mTypes = { &quot;any&quot; : createType(&quot;any&quot;, { defaultValue : nu
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/" itemprop="url">
-        在Ubuntu中安装rpm包
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-08-07">
-    2015-08-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">49 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。 APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。 Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。 Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用sudo apt-get install alien命令进行安装。
-Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统直接安装rpm：sudo alien -i --script(filename).rpm - deb转rpm：sudo alien --to-rpm (filename).deb - tar.gz转deb：sudo alien -k (filename).tar.gz - tar.bz2转deb：sudo alien -d (filename).tar.bz2 - tgz转deb：sudo alien --to-deb ~/(filename).tgz
-由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -952,7 +953,7 @@ Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -969,7 +970,7 @@ Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

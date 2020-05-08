@@ -113,6 +113,70 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/" itemprop="url">
+        [算法] 学习无向图
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-21">
+    2014-03-21
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/algorithm.datastruct" itemprop="url" rel="index">
+        <span itemprop="name">Algorithm.DataStruct</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">249 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    本文是学习http://algs4.cs.princeton.edu/41graph/的吐槽和体会。
+一点吐槽 一开始对GraphClient.java中numberOfSelfLoops函数进行count/2不解，翻回Graph.java，看看addEdge函数才明白，合着对自循环连接，adj里面加两次。这么干有什么好处么？！！
+再后来看Cycle.java，对hasParallelEdges函数又不解，仔细想想Graph.java不但接受addEdge(1,23)和addEdge(23, 1)，对执行多次addEdge(1,23)也不拒绝。一个无向图这么弄，对么？算不算检查不严格呀？！！
+理解Cycle.java 示例代码：
+public static void main(String[] args) { Graph G = new Graph(4); G.addEdge(0, 1); G.addEdge(1, 2); G.addEdge(1, 3); G.addEdge(2, 3); Cycle finder = new Cycle(G); if (finder.hasCycle()) { for (int v : finder.cycle()) { StdOut.print(v + &quot; &quot;); } StdOut.println(); } else { StdOut.println(&quot;Graph is acyclic&quot;); } }  dfs搜索：
+|上一节点u|当前节点v|下一节点w|注解 |&mdash;&ndash; |-1|0|1|节点1没有标注，嵌套dfs |0|1|3|节点3没有标注，嵌套dfs |1|3|2|节点2没有标注，嵌套dfs |3|2|1|节点1已标注，发现cycle，创建栈，依次： - (在for循环中)push 2 - (在for循环中)push 3 - push 1 - push 2说白了就是当发现下一节点w已经标注，那就返回去找w到v的路径，然后凑上w和v，就是一个环路。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/" itemprop="url">
         GitHub fork操作
         </a>
@@ -658,80 +722,6 @@ H1示例 ========= H2示例 ---------  H1示例 H2示例 水平分割线 通过�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/" itemprop="url">
-        [Git] 裸代码仓库和镜像代码仓库
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-02-15">
-    2014-02-15
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/git" itemprop="url" rel="index">
-        <span itemprop="name">Git</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">243 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    注：本文中操作都没有设置$GIT_DIR环境变量。
-Git init和clone命令对bare和mirror参数的支持 ||&ndash;bare参数|&ndash;mirror参数 |&mdash;&ndash; |git init命令|支持|/ |git clone命令|支持|支持
-裸代码仓库与普通代码仓库的区别 普通代码仓库裸代码仓库git init命令git init命令会创建一个空的Git代码仓库，一个在当前目录下包含hooks、info、objects和refs子目录和config、description和HEAD文件的.git目录。当前目录下可以创建工作树（工作文件和目录）。
-config文件内容如下：
- [core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true hideDotFiles = dotGitOnlygit init --bare命令会创建一个空的裸Git代码仓库，当前目录下直接创建hooks、info、objects和refs子目录和config、description和HEAD文件。裸Git代码仓库只包含版本控制信息而不包含工作树。
-config文件内容如下：
- [core] repositoryformatversion = 0 filemode = false bare = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly git clone命令git clone命令会创建的一个包含.git子目录的目录，其中.git目录包含branches、hooks、info、logs、objects和refs子目录和config、description、HEAD、index和packed-refs文件。git clone命令所创建的目录中包含克隆的工作树（工作文件和目录）。
-config文件内容如下：
- [core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly [remote "
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -929,7 +919,7 @@ config文件内容如下：
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -946,7 +936,7 @@ config文件内容如下：
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

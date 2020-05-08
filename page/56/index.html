@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        [Hadoop] MapReduce输出SequenceFile实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-01">
+    2014-01-01
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">14 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+     Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示： - NONE: 对记录不进行压缩; - RECORD: 仅压缩每一个记录中的值; - BLOCK: 将一个块中的所有记录压缩在一起;
+输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class);  输出SequenceFile示例 
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/" itemprop="url">
         *nux中的Here documents和Here strings
         </a>
@@ -644,63 +705,6 @@ jQuery源码分析：http://www.cnblogs.com/chyingp/archive/2013/06/03/jquery-so
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
-        [JavaScript] 原始数据类型
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-12-07">
-    2013-12-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">24 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    原始数据类型 JavaScript共有5种原始数据类型：
-|原始数据类型|包装对象|介绍 |&mdash;&ndash; |string|String|字符串遇到加号之外的计算操作符，会转换成数值。内容为不为数值的字符串转换成NaN。当用比较操作符比较两个字符串时，比较的是第一个字母的unicode。 |number|Number|十进制数：123八进制数：0123十六进制数：0x123指数：1e1、1E+1、2E-3无穷：Infinity、-Infinity非数字：NaN |Boolean|Boolean| |null||与undefined的区别在于，已定义但没有值 |undefined||
-typeof操作符 typeof的返回值有六种可能：number、string、boolean、object、function、undefined。条件判断或3元条件运算符(?:)判断 |值|Boolean结果 |&mdash;&ndash; |undefined|false |null|false |number|0和NaN为false，其他为true |string|空字符串&rdquo;&ldquo;为false，其他为true |对象|不为null的对象始终为true
-参考 MDN：Primitive data type
-MDN：typeof operator
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -898,7 +902,7 @@ MDN：typeof operator
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -915,7 +919,7 @@ MDN：typeof operator
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

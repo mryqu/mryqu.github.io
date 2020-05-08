@@ -6,10 +6,37 @@
     <description>Recent content in Javascript on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 18 Jul 2019 20:17:16 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2020 06:01:23 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ESLint和Prettier学习</title>
+      <link>https://mryqu.github.io/post/eslint%E5%92%8Cprettier%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Fri, 01 May 2020 06:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/eslint%E5%92%8Cprettier%E5%AD%A6%E4%B9%A0/</guid>
+      <description>Devias Kit - React Admin Dashboard使用了ESLint进行代码检测，使用Prettier进行代码格式化。
+下面就其代码devias-io/react-material-dashboard进行学习。
+ESLint简介 ESLint是一个用来识别ECMAScript/JavaScript并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次ESLint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。
+在许多方面，它和 JSLint、JSHint 相似，除了少数的例外：
+* ESLint使用Espree解析JavaScript。
+* ESLint使用AST去分析代码中的模式。
+* ESLint是完全插件化的。 每一个规则都是一个插件并且你可以在运行时添加更多的规则。
+Prettier简介 Prettier是一个opinionated(有态度的)代码格式化工具，支持多种语言，可以和绝大多数编辑器集成，选项少。
+什么是opinionated？就是有态度有倾向，尽量减少配置项，相反的意思是Unopinionated。 像Spring Boot也是宣称有态度的。
+devias-io/react-material-dashboard开发环境依赖 &amp;quot;devDependencies&amp;quot;: { &amp;quot;eslint&amp;quot;: &amp;quot;5.16.0&amp;quot;, &amp;quot;eslint-plugin-prettier&amp;quot;: &amp;quot;^3.0.1&amp;quot;, &amp;quot;eslint-plugin-react&amp;quot;: &amp;quot;^7.12.4&amp;quot;, &amp;quot;prettier&amp;quot;: &amp;quot;^1.17.1&amp;quot;, &amp;quot;prettier-eslint&amp;quot;: &amp;quot;^8.8.2&amp;quot;, &amp;quot;prettier-eslint-cli&amp;quot;: &amp;quot;^4.7.1&amp;quot;, &amp;quot;typescript&amp;quot;: &amp;quot;^3.5.1&amp;quot; }  ESLint包是代码检测工具，Prettier包是代码格式化工具。 ESLint既能完成传统的语法检测，也能检查风格是否符合要求。可以用ESLint完成一切工作，也可以结合ESLint完成代码格式化和错误检测。
+其他包：
+* ESLint-plugin-React包：ESLint原生支持JSX，但ESLint并不支持React特定的JSX符号，所以要使用ESLint-plugin-React包；
+* prettier-eslint包：prettier-eslint会先调用Prettier完成代码格式化，然后将执行eslint --fix按照配置进行语法修复；
+* prettier-eslint-cli包：prettier-eslint的CLI；
+* eslint-plugin-prettier包：作为ESLint的一个规则运行Prettier。
+devias-io/react-material-dashboard项目没有介绍怎么使用ESLint和Prettier。 如果使用prettier-eslint/prettier-eslint-cli，那就是次序使用Prettier和ESLint；如果使用eslint-plugin-prettier，就是Prettier作为ESLint的插件，在CLI仅仅使用ESLint，而ESLint会调用Prettier。
+通过.eslintrc分析，ESLint仅使用了react插件，而没有prettier插件，而且ESLint规则里面也没有prettier，所以其实没有使用eslint-plugin-prettier包。
+&amp;quot;plugins&amp;quot;: [ &amp;quot;react&amp;quot; ]  CLI 上面的开发环境依赖所安装的包共有三个CLI可以使用：
+.\node_modules\.bin\eslint -h .\node_modules\.bin\prettier -h .</description>
+    </item>
     
     <item>
       <title>[JS] 图算法实践</title>

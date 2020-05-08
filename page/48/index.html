@@ -113,6 +113,82 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/" itemprop="url">
+        [Hadoop] 通过MultipleOutputs生成多输出文件
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-09-29">
+    2014-09-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">50 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    即前一博文[Hadoop] 通过MultipleInputs处理多输入文件展示如何处理MapReduce多输入问题，本文将展示一下如何处理MapReduce多输出的方法。
+MultipleOutputs示例 MultipleOutputsDemo.java源码 Scores.txt Tomas,100 Edward,81 Henry,59 Gordon,60 James,97 Percy,93 Toby,77 Emily,87 Duke,68 Donald,47 Douglas,35  执行 hadoop jar YquMapreduceDemo.jar MultipleOutputsDemo /user/hadoop/mos_input/scores.txt /user/hadoop/mos_output  测试结果 MultipleOutputs分析 普通Driver |API|Job属性 |&mdash;&ndash; |Job.setOutputFormatClass|mapreduce.job.outputformat.class示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat |Job.setOutputKeyClass|mapreduce.job.output.key.class示例：org.apache.hadoop.io.Text |Job.setOutputValueClass|mapreduce.job.output.value.class示例：org.apache.hadoop.io.IntWritable
+使用MultipleOutputs的Driver |API|Job属性 |&mdash;&ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs
+示例：pass fail
+mapreduce.multipleoutputs.namedOutput.pass.format
+示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+mapreduce.multipleoutputs.namedOutput.pass.key
+示例：org.apache.hadoop.io.NullWritable
+mapreduce.multipleoutputs.namedOutput.pass.value
+示例：org.apache.hadoop.io.Text
+mapreduce.multipleoutputs.namedOutput.fail.format
+示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+mapreduce.multipleoutputs.namedOutput.fail.key
+示例：org.apache.hadoop.io.NullWritable
+mapreduce.multipleoutputs.namedOutput.fail.value
+示例：org.apache.hadoop.io.Text
+通过调用org.apache.hadoop.mapreduce.lib.output.MultipleOutputs.write方法，根据相应NamedOutput相应的OutputFormat、OutputKeyClass和OutputValueClass创建NamedOutput自己的RecordWriter，完成相应的输出。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/" itemprop="url">
         [Hadoop] 通过MultipleInputs处理多输入文件
         </a>
@@ -649,66 +725,6 @@ Javascript的继承要在原型链上进行，没有super()可以调用父类，
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ejson%E6%95%B0%E6%8D%AE%E4%BA%92%E8%BD%AC/" itemprop="url">
-        [JavaScript] 字符串与JSON数据互转
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-08-26">
-    2014-08-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">63 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    字符串-&gt;JSON 转换方法有3种:
-使用浏览器内置window.JSON.parse方法 原生方法，速度最快，首选方案。老版本浏览器不支持。
-|浏览器|支持版本 |&mdash; |Chrome|(Yes) |Firefox (Gecko)|3.5 (1.9.1) |Internet Explorer|8.0 |Opera|10.5 |Safari|4.0 |Android|(Yes) |Chrome for Android|(Yes) |Firefox Mobile (Gecko)|1.0 (1.0) |IE Mobile|(Yes) ||Opera Mobile|(Yes) |Safari Mobile|(Yes)
-使用Funtion()构造函数 较eval_r()快
-使用 eval_r() 函数 功能强大，能解析任何JS代码,但是执行效率和安全性都不好示例代码：
-var jsonStr = '{&quot;name&quot;:&quot;kxeg&quot;,&quot;data&quot;:[{&quot;key&quot;:&quot;Alpha&quot;,&quot;color&quot;:&quot;lightblue&quot;},{&quot;key&quot;:&quot;Beta&quot;,&quot;color&quot;:&quot;orange&quot;}]}'; //JSON.parse() if (window &amp;&amp; window.JSON &amp;&amp; window.JSON.parse) jsonObj1 = window.JSON.parse(jsonStr); //Function 创建一个闭包,返回一个json数据对象 jsonObj2 = (new Function('return'+jsonStr))(); //eval_r() jsonObj3 = eval_r('('+jsonStr+')');  JSON-&gt;字符串 使用浏览器内置window.JSON.stringify方法
-参考 js中字符串数据转为json对象的方法
-MDN：JSON
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -906,7 +922,7 @@ MDN：JSON
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">712</span>
+        <span class="site-state-item-count">713</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -923,7 +939,7 @@ MDN：JSON
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1515</span>
+        <span class="site-state-item-count">1517</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
