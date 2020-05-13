@@ -113,6 +113,79 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/" itemprop="url">
+        twitcurl生成HTTP OAuth头的实现流程
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-27">
+    2015-12-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">105 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    对twitcurl代码做了一些修改，结果遇到了认证失败的错误：
+{“errors”:[{“message”:”Could not authenticate you”,”code”:32}]}  通过继续修改twitcurl代码改正问题，学习了twitcurl的认证授权部分代码。其授权部分主要在oauthlib.h和oauthlib.cpp中的oAuth类实现中。下面主要分析一下oAuth::getOAuthHeader方法。
+外部数据 Http URL: https://api.twitter.com/1.1/search/tweets.json Http头参数:
+|参数键|参数值 |&mdash;&ndash; |q|va |count|23 |result_type|recent
+Http授权参数:
+|参数键|参数值 |&mdash;&ndash; |oauth_consumer_key|xvz1evFS4wEEPTGEFPHBog |oauth_signature_method|HMAC-SHA1 |oauth_token|370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb |oauth_version|1.0
+oAuth::getOAuthHeader方法  通过buildOAuthHttpParameterKeyValPairs(params, true,rawKeyValuePairs);对Http头参数中参数值进行百分号编码（URL编码），编码后结果放在哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent
+ 假定HTTP内容是经过百分号编码的，通过buildOAuthRawDataKeyValPairs( rawData,false, rawKeyValuePairs );找到内容中的键值对，放入哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent 通过buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin,std::string( &ldquo;&rdquo; ), rawKeyValuePairs, true );创建认授权证： rawKeyValuePairs: 键值说明qvacount23result_typerecentoauth_consumer_keyxvz1evFS4wEEPTGEFPHBogoauth_nonce131862295819ctwitcurl实现就是时戳项加一个随机数oauth_signature_methodHMAC-SHA1固定值oauth_timestamp1318622958oauth_token370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEboauth_version1.0固定值 通过getSignature( eType, pureUrl, rawKeyValuePairs,oauthSignature );获得签名  生成 sigBase： 使用consumer_secret和token_secret组成signing_key，使用HMAC_SHA1算法通过sigBase和signing_key生成摘要strDigest：B6 79 C0 AF 18 F4 E9 C5 87 AB 8E 20 0A CD 4E 48 A9 3F 8C B6(非真实计算而得数据) 通过base64_encode进行编码：tnnArxj06cWHq44gCs1OSKk/jLY= (非真实计算而得数据) 通过百分比编码获得最终签名：(非真实计算而得数据)  通过rawKeyValuePairs.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E8%A1%A8%E6%83%85%E7%AC%A6%E5%8F%B7%E4%B9%8Bunicode%E5%92%8Cutf-8%E7%BC%96%E7%A0%81/" itemprop="url">
         表情符号之Unicode和UTF-8编码
         </a>
@@ -653,74 +726,6 @@ nm命令  -a或&ndash;debug-syms：显示调试符号。 -B：等同于&ndash;fo
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" itemprop="url">
-        [C&#43;&#43;] 使用ldd
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-07">
-    2015-12-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1441 字 ~7分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    ldd是用来查看共享库依赖的Shell脚本命令。下面来看一下ldd命令的参数。 - -v：显示所有信息，例如包括符号版本信息。 - -u：显示没有使用的直接依赖。 - -d：执行重新定位，报告任何缺失对象（仅针对ELF） - -r：对数据对象和函数执行重新定位，报告任何缺失对象或函数（仅针对ELF）
-Oracle - Linker and Libraries Guide - Relocations介绍了重新定位技术的来龙去脉，也介绍了ldd命令的相关使用。
-ldd练习 hadoop@node51054:/usr/bin$ ldd curl linux-vdso.so.1 =&gt; (0x00007ffefe989000) libcurl.so.4 =&gt; /usr/lib/x86_64-linux-gnu/libcurl.so.4 (0x00007fb86cf8f000) libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007fb86cd76000) libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb86cb58000) libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb86c790000) libidn.so.11 =&gt; /usr/lib/x86_64-linux-gnu/libidn.so.11 (0x00007fb86c55d000) librtmp.so.0 =&gt; /usr/lib/x86_64-linux-gnu/librtmp.so.0 (0x00007fb86c343000) libssl.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fb86c0e4000) libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fb86bd08000) libgssapi_krb5.so.2 =&gt; /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007fb86bac1000) liblber-2.4.so.2 =&gt; /usr/lib/x86_64-linux-gnu/liblber-2.4.so.2 (0x00007fb86b8b2000) libldap_r-2.4.so.2 =&gt; /usr/lib/x86_64-linux-gnu/libldap_r-2.4.so.2 (0x00007fb86b661000) /lib64/ld-linux-x86-64.so.2 (0x00007fb86d1f6000) libgnutls.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -918,7 +923,7 @@ ldd练习 hadoop@node51054:/usr/bin$ ldd curl linux-vdso.so.1 =&gt; (0x00007ffef
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">713</span>
+        <span class="site-state-item-count">714</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -935,7 +940,7 @@ ldd练习 hadoop@node51054:/usr/bin$ ldd curl linux-vdso.so.1 =&gt; (0x00007ffef
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1517</span>
+        <span class="site-state-item-count">1520</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

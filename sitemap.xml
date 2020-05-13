@@ -2,6 +2,30 @@
 <search>
     
      <entry>
+        <title>React-Redux Action链式调用</title>
+        <url>https://mryqu.github.io/post/react-redux-action%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/</url>
+        <categories>
+          <category>前端</category>
+        </categories>
+        <tags>
+          <tag>React</tag><tag>Redux</tag><tag>Action</tag><tag>Chain</tag>
+        </tags>
+        <content type="html">  在进行React-Redux实践时，碰到下面这样一个场景，执行一个UI操作需要链式次序分发多个Action。
+例如，删除一个post时，需要通过axios删除选中的post，然后通过axios获取所有post以刷新post列表，最后将选中的post id设为空。 前两个action为异步action，后一个action为同步action。
+下面就对我的实践进行一下总结。
+实现 PostActions.js:
+...... export const handleSelectIdChange = selectedId =&amp;gt; ({ type: types.UPDATE_SELECTED_ID, payload: { data: selectedId } }); ...... export const getPosts = () =&amp;gt; { return dispatch =&amp;gt; { dispatch(getPostsStarted()); return axios .get(&#39;/api/posts&#39;) .then(res =&amp;gt; { dispatch(getPostsSuccess(res.data)); }) .catch(err =&amp;gt; { dispatch(getPostsFailure(err.message)); }); }; } export const getPostsSuccess = posts =&amp;gt; ({ type: types.GET_POSTS_SUCCESS, payload: { data: posts } }); export const getPostsStarted = () =&amp;gt; ({ type: types.GET_POSTS_STARTED }); export const getPostsFailure = error =&amp;gt; ({ type: types.GET_POSTS_FAILURE, payload: { error: error } }); export const getPost = (id) =&amp;gt; { return dispatch =&amp;gt; { dispatch(getPostStarted()); return axios .get(&#39;/api/posts/&#39;&#43;id) .then(res =&amp;gt; { dispatch(getPostSuccess(res.data)); }) .catch(err =&amp;gt; { dispatch(getPostFailure(err.message)); }); }; }; export const getPostSuccess = post =&amp;gt; { return { type: types.GET_POST_SUCCESS, payload: { data: post } } }; export const getPostStarted = () =&amp;gt; ({ type: types.GET_POST_STARTED }); export const getPostFailure = error =&amp;gt; ({ type: types.GET_POST_FAILURE, payload: { error: error } }); export const createPost = (post) =&amp;gt; { return dispatch =&amp;gt; { dispatch(createPostStarted()); return axios .post(&#39;/api/posts/&#39;, post) .then(res =&amp;gt; { dispatch(createPostSuccess(res.data)); }) .catch(err =&amp;gt; { dispatch(createPostFailure(err.message)); }); }; }; export const createPostSuccess = post =&amp;gt; ({ type: types.CREATE_POST_SUCCESS, payload: { data: post } }); export const createPostStarted = () =&amp;gt; ({ type: types.CREATE_POST_STARTED }); export const createPostFailure = error =&amp;gt; ({ type: types.CREATE_POST_FAILURE, payload: { error: error } }); export const updatePost = (post) =&amp;gt; { return dispatch =&amp;gt; { dispatch(updatePostStarted()); return axios .put(&#39;/api/posts/&#39;&#43;post.id, post) .then(res =&amp;gt; { dispatch(updatePostSuccess(res.data)); }) .catch(err =&amp;gt; { dispatch(updatePostFailure(err.message)); }); }; }; export const updatePostSuccess = post =&amp;gt; ({ type: types.UPDATE_POST_SUCCESS, payload: { data: post } }); export const updatePostStarted = () =&amp;gt; ({ type: types.UPDATE_POST_STARTED }); export const updatePostFailure = error =&amp;gt; ({ type: types.UPDATE_POST_FAILURE, payload: { error: error } }); export const deletePost = (id) =&amp;gt; { return dispatch =&amp;gt; { dispatch(deletePostStarted()); return axios .delete(&#39;/api/posts/&#39;&#43;id) .then(res =&amp;gt; { dispatch(deletePostSuccess(res.data)); }) .catch(err =&amp;gt; { dispatch(deletePostFailure(err.message)); }); }; }; export const deletePostSuccess = post =&amp;gt; ({ type: types.DELETE_POST_SUCCESS, payload: { data: post } }); export const deletePostStarted = () =&amp;gt; ({ type: types.DELETE_POST_STARTED }); export const deletePostFailure = error =&amp;gt; ({ type: types.DELETE_POST_FAILURE, payload: { error: error } });  PostToolbar.js:
+const mapDispatchToProps = (dispatch) =&amp;gt; { return { ...... handleDelete: (selectedId) =&amp;gt; { dispatch(deletePost(selectedId)) .then(() =&amp;gt; dispatch(getPosts())) .then(() =&amp;gt; dispatch(handleSelectIdChange(null))) } } };  探讨 同时分发多个Action 一个操作需要同时分发多个Action的话，多次调用dispatch即可。这些Action如果为异步的话，不保证Action返回结果的次序。
+handleOperation: () =&amp;gt; { dispatch(action1); dispatch(action2); dispatch(action3); }  链式次序分发多个Action 如果需要action1执行完，再执行action2，&amp;hellip;&amp;hellip;，最后再执行actionN。 通过查看React-Redux的dispatch方法，可知它最后返回的是输入值action。
+function dispatch(action) { if (!isPlainObject(action)) { throw new Error(&#39;Actions must be plain objects. &#39; &#43; &#39;Use custom middleware for async actions.&#39;); } if (typeof action.type === &#39;undefined&#39;) { throw new Error(&#39;Actions may not have an undefined &amp;quot;type&amp;quot; property. &#39; &#43; &#39;Have you misspelled a constant?&#39;); } if (isDispatching) { throw new Error(&#39;Reducers may not dispatch actions.&#39;); } try { isDispatching = true; currentState = currentReducer(currentState, action); } finally { isDispatching = false; } var listeners = currentListeners = nextListeners; for (var i = 0; i &amp;lt; listeners.length; i&#43;&#43;) { var listener = listeners[i]; listener(); } return action; }  如果每个Action都返回的是Promise对象，那就可以通过Promise对象的then特性可以实现链式次序分发多个Action。 我上面的实现即通过这种方式实现的。示例中的handleSelectIdChange Action后面如果还需要执行其他Action，就需要改写handleSelectIdChange Action使其返回Promise对象。
+export const handleSelectIdChange = selectedId =&amp;gt; { return dispatch =&amp;gt; { return new Promise( (resolve) =&amp;gt; { dispatch({ type: types.UPDATE_SELECTED_ID, payload: { data: selectedId } }) resolve(); }) } };  其他需求 上面的实现中，deletePost Action中axios.delete方法成功和失败后分发的Action是固定的，然后通过then方法分发的后继Action是不固定的。但如果想让deletePost Action中axios.delete成功/失败要分发的Action不是固定的呢？更进一步的，如果想通过PostActions.js中Action组合包含同时分发多个Action和链式次序分发多个Action的Action流呢？
+那要求Action返回的不仅仅是Promise对象，还含有resolve和reject结果，以便后继用于判断Action流的分支走向。
+参考  How to chain async actions?
+ How do I chain actions with Redux Promise Middleware?
+  </content>
+    </entry>
+    
+     <entry>
         <title>ESLint和Prettier学习</title>
         <url>https://mryqu.github.io/post/eslint%E5%92%8Cprettier%E5%AD%A6%E4%B9%A0/</url>
         <categories>

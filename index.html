@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/react-redux-action%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/" itemprop="url">
+        React-Redux Action链式调用
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2020-05-10">
+    2020-05-10
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">554 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在进行React-Redux实践时，碰到下面这样一个场景，执行一个UI操作需要链式次序分发多个Action。
+例如，删除一个post时，需要通过axios删除选中的post，然后通过axios获取所有post以刷新post列表，最后将选中的post id设为空。 前两个action为异步action，后一个action为同步action。
+下面就对我的实践进行一下总结。
+实现 PostActions.js:
+...... export const handleSelectIdChange = selectedId =&gt; ({ type: types.UPDATE_SELECTED_ID, payload: { data: selectedId } }); ...... export const getPosts = () =&gt; { return dispatch =&gt; { dispatch(getPostsStarted()); return axios .get('/api/posts') .then(res =&gt; { dispatch(getPostsSuccess(res.data)); }) .catch(err =&gt; { dispatch(getPostsFailure(err.message)); }); }; } export const getPostsSuccess = posts =&gt; ({ type: types.GET_POSTS_SUCCESS, payload: { data: posts } }); export const getPostsStarted = () =&gt; ({ type: types.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/react-redux-action%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/eslint%E5%92%8Cprettier%E5%AD%A6%E4%B9%A0/" itemprop="url">
         ESLint和Prettier学习
         </a>
@@ -705,83 +768,6 @@ Ctrl+C no longer kills running process in Git Bash
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/" itemprop="url">
-        学习使用Minikube
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-06-13">
-    2019-06-13
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/kubernetes" itemprop="url" rel="index">
-        <span itemprop="name">kubernetes</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1083 字 ~6分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在管理容器化应用方面，Kubernetes是目前最好的工具之一。而Minikube能够在macOS、Linux和Windows平台上实现一个本地Kubernetes集群，用于Kubernetes的学习。
-Minikube是由Go语言实现，当前支持如下Kubernetes特性：
-- DNS
-- NodePort
-- ConfigMap和Secret
-- 仪表盘
-- 容器运行时: Docker、rkt、CRI-O和containerd
-- 使能容器网络接口
-- Ingres
-由上图可知，要使用Minikube，需要安装Minikube、kubectl和虚拟机。好在有Katacoda提供浏览器内的带有Kubernetes环境的免费虚拟终端，省却了安装这一步骤。
-按照Kubernetes的Hello Minikube教程走了一遍。
-minikube version; minikube start $ $ minikube version; minikube start minikube version: v0.28.2 Starting local Kubernetes v1.10.0 cluster... Starting VM... Getting VM IP address... Moving files into cluster... Setting up certs... Connecting to cluster... Setting up kubeconfig... Starting cluster components... Kubectl is now configured to use the cluster. Loading cached images from config file.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8minikube/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -982,7 +968,7 @@ minikube version; minikube start $ $ minikube version; minikube start minikube v
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">713</span>
+        <span class="site-state-item-count">714</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -999,7 +985,7 @@ minikube version; minikube start $ $ minikube version; minikube start minikube v
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1517</span>
+        <span class="site-state-item-count">1520</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

@@ -6,10 +6,23 @@
     <description>Recent content in React on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 19 Apr 2020 12:01:23 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2020 06:01:23 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React-Redux Action链式调用</title>
+      <link>https://mryqu.github.io/post/react-redux-action%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/</link>
+      <pubDate>Sun, 10 May 2020 06:01:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/react-redux-action%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/</guid>
+      <description>在进行React-Redux实践时，碰到下面这样一个场景，执行一个UI操作需要链式次序分发多个Action。
+例如，删除一个post时，需要通过axios删除选中的post，然后通过axios获取所有post以刷新post列表，最后将选中的post id设为空。 前两个action为异步action，后一个action为同步action。
+下面就对我的实践进行一下总结。
+实现 PostActions.js:
+...... export const handleSelectIdChange = selectedId =&amp;gt; ({ type: types.UPDATE_SELECTED_ID, payload: { data: selectedId } }); ...... export const getPosts = () =&amp;gt; { return dispatch =&amp;gt; { dispatch(getPostsStarted()); return axios .get(&#39;/api/posts&#39;) .then(res =&amp;gt; { dispatch(getPostsSuccess(res.data)); }) .catch(err =&amp;gt; { dispatch(getPostsFailure(err.message)); }); }; } export const getPostsSuccess = posts =&amp;gt; ({ type: types.GET_POSTS_SUCCESS, payload: { data: posts } }); export const getPostsStarted = () =&amp;gt; ({ type: types.</description>
+    </item>
     
     <item>
       <title>React.js开发环境设置</title>
