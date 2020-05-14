@@ -277,6 +277,20 @@ export const handleSelectIdChange = selectedId => {
   }
 };
 ```
+或者  
+```
+export const handleSelectIdChange = selectedId => {
+  return dispatch => {
+    dispatch({
+      type: types.UPDATE_SELECTED_ID,
+      payload: {
+        data: selectedId
+      }
+    });
+    return Promise.resolve();    
+  }
+};
+```
 
 #### 其他需求  
 
