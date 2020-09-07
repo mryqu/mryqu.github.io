@@ -113,296 +113,6 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/" itemprop="url">
-        Java NaN小结
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-08-05">
-    2013-08-05
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">45 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     Double.NAN介绍 Double类有个NaN常量，是Not a Number的缩写，其值等于Double.longBitsToDouble(0x7ff8000000000000L) ，用于表示非数值。NaN必须使用isNaN(double)方法来判断，NaN与任何double数值进行加减乘除等数学运算后的结果仍然是NaN，且NaN使用==运算符与自身进行判断返回结果为false。测试代码如下：测试结果如下：
-Double.NaN==Double.NaN :false Double.isNaN(Double.NaN*0) :true Double.NaN*0==0 :false Double.isNaN(Double.NaN/0) :true Double.NaN/0==0 :false Double.isNaN(0/Double.NaN) :true 0/Double.NaN==0 :false Double.isNaN(Double.NaN+0) :true Double.NaN+0==0 :false Double.isNaN(Double.NaN-0) :true Double.NaN-0==0 :false Double.isNaN(Double.NaN*Double.NaN) :true Double.NaN*Double.NaN==0 :false  自定义NAN介绍 Double.NaN可以用来表示计算结果发生异常，但是无法获知异常原因。我们可以通过自定义NAN来解决这一问题。使用Double类的isNaN(double)方法判断自定义NAN，其返回结果为true，我们可以通过自己的方法判决到底是那种NaN。测试代码如下：测试结果如下：
-Double.isNaN(Double.NaN) :true MyNaN.isMyNaN(Double.NaN) :false Double.isNaN(MyNaN.INVALID_PARAMETER_NAN) :true MyNaN.isMyNaN(MyNaN.INVALID_PARAMETER_NAN) :true Double.isNaN(Double.longBitsToDouble(0xffff000000000123L)) :true MyNaN.isMyNaN(Double.longBitsToDouble(0xffff000000000123L)) :false  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/" itemprop="url">
-        在Ubuntu上修改主机名
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-08-05">
-    2013-08-05
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">24 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     显示主机名 hostname -s  更多细节见hostname帮助文档。
-修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" itemprop="url">
-        Java线程是否会被垃圾回收？
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-30">
-    2013-07-30
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">234 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    如果将线程启动后，然后线程变量置空，线程会怎么样？
-import java.lang.ref.WeakReference; public class TestThread { public static void testUnreferencedThread() { // anonymous class extends Thread Thread t = new Thread() { public void run() { // infinite loop while (true) { try { Thread.sleep(1000); } catch (InterruptedException e) {} // as long as this line printed out, you know it is alive. System.out.println(&quot;thread is running...&quot;); } } }; t.start(); WeakReference&lt;Thread&gt; wr = new WeakReference&lt;Thread&gt;(t); t = null; // no more references for Thread t // another infinite loop while (true) { try { Thread.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/" itemprop="url">
-        显示jar文件中某个类的公开方法
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-26">
-    2013-07-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">144 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    使用jar命令显示jar文件的内容 C:\&gt;jar tvf log4j.jar 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/ 262 Sat Aug 25 00:29:44GMT+08:00 2007 META-INF/MANIFEST.MF 0 SatAug 25 00:10:04 GMT+08:00 2007 org/ 0 SatAug 25 00:10:04 GMT+08:00 2007 org/apache/ 0 SatAug 25 00:10:06 GMT+08:00 2007 org/apache/log4j/ ................. 676 Sat Aug 25 00:10:04GMT+08:00 2007 org/apache/log4j/Appender.class 2567 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Logger.class 1038 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Layout.class ................. 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/log4j/ 17780 Sat Aug 25 00:09:44 GMT+08:00 2007META-INF/maven/log4j/log4j/pom.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/java_rmi_%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E8%B0%83callback/" itemprop="url">
-        Java RMI 客户端回调（callback）
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-26">
-    2013-07-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">5 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    项目的代码用到了Java RMI 客户端回调，了解一下这方面资料。 http://docs.oracle.com/cd/E13211_01/wle/rmi/callbak.htm
-http://blog.sina.com.cn/s/blog_6a1928130100mmk5.html
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/python_dictionary_practice/" itemprop="url">
         Python dictionary practice
         </a>
@@ -730,6 +440,363 @@ Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/" itemprop="url">
+        PostgreSQL与MySQL数据库分区
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-16">
+    2013-07-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
+        <span itemprop="name">db&#43;nosql</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">1268 字 ~6分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
+分类 分区主要有两种形式：
+水平分区 水平分区是将不同的行放入不同的表中。比如将邮编小于50000的客户放入“东部客户”表中，将邮编等于或大于50000的客户放入“西部客户”表中。该例中有两个分区表“东部客户”和“西部客户”，其合集视图就是所有客户的完整视图。 通过这样的方式不同分区里面的物理列分割的数据集得以组合，从而进行个体分割（单分区）或集体分割（1个或多个分区）。所有在表中定义的列在每个数据集中都能找到，所以表的特性依然得以保持。
+垂直分区 垂直分区创建含有（主键加上）较少列的表并使用额外的表存储（主键加上）剩余的列，每个分区表中都含有其中列所对应的行。范式化是内在包含垂直分区的过程。 垂直分区被称为“行分割”，通常用于分割表中（查找很慢的）动态数据和（查找很快的、使用较动态数据更频繁的）静态数据。这样在保证数据相关性的同时，在诸如统计分析之类的查询中访问静态数据还能提高性能。 不同的物理存储也可以用于垂直分区，例如不频繁使用的列或者宽列被存入不同的设备。 其缺点是需要管理冗余列，查询所有数据需要join操作。
+分区标准 当前高端关系数据库管理系统提供分割数据库的不同标准。这些标准使用分区键基于一定标准分配分区。常用的标准为：
+基于范围的分区 通过判断分区键是否在一定范围内选择分区。例如所有邮编列在70000和79999之间的行可以是一个分区。
+基于列表的分区 一个分区分配给一列数值。如果分区键为这些值之一，该分区被选中。例如所有国家列为冰岛、挪威、瑞典、芬兰或丹麦的行可以是一个北欧国家分区。
+基于哈希的分区 哈希函数的返回值决定分区归属。假设有四个分区，哈希函数返回值为0到3。 组合分区允许上述分区方案的一定组合。例如先使用基于范围的分区，然后使用基于哈希的分区。
+PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以PostgreSQL 9.1为例介绍一下PostgreSQL数据库分区。
+优点 分区具有下列优点： - 在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 - 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 - 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 - 很少使用的数据可被移往更便宜更慢的存储媒体。
+这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
+表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
+CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities);  父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
+SELECT name, altitude FROM cities WHERE altitude &gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。  支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/" itemprop="url">
+        R语言字符处理
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-13">
+    2013-07-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">777 字 ~4分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    字符处理Encoding(x)
+Encoding(x)  ## x is intended to be in latin1  x Encoding(x) [1] "latin1"  Encoding(x) xx Encoding(c(x, xx)) [1] "latin1" "UTF-8"  Encoding(xx) cat("xx = ", xx, "\n", sep = "") xx = fa\xc3\xa7ilenchar(x, type = "chars", allowNA = FALSE)
+返回字符长度，在我的测试中allowNA参数没有作用？
+nzchar(x) 判断是否空字符
+对于缺失值NA，nchar和nzchar函数认为是字符数为2的字符串。
+所以在对字符串进行测量之前，最好先使用is.na()函数判断一下是否是NA。
+对于NULL，nchar和nzchar函数会忽略掉。 nchar(c("em","yqu","",NA)) [1] 2 3 0 2  nzchar(c("em","yqu","",NA)) [1] TRUE TRUE FALSE TRUE  nzchar(c("em","yqu",NULL,"",NA)) [1] TRUE TRUE FALSE TRUE  nchar(c("
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" itemprop="url">
+        R语言数值计算
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-13">
+    2013-07-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">622 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    R中数值计算的对象一般是向量或列表，不同长度的对象进行计算时，短的对象元素将被循环使用。
+运算操作符+ - * /
+& | ！
+== !=  =  aba/b [1] 1.000000 7.000000 4.166667 4.000000 Warning message: In a/b : longer object length is not a multiple of shorter object length  2^5 [1] 32  25%%6 [1] 1  13%/%5 [1] 2  7&8 [1] TRUE无归类的函数sign 取符号 sign(-2:2) [1] -1 -1 0 1 1abs 取绝对值sqrt 取平方根 sqrt(-2:2) [1] NaN NaN 0.000000 1.000000 1.414214 Warning message: In sqrt(-2:2) : NaNs produced对数与指数函数log(x, base = exp(1)) 取base为底的对数，base缺省的情况下取自然对数
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/" itemprop="url">
+        git资料
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-13">
+    2013-07-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/git" itemprop="url" rel="index">
+        <span itemprop="name">Git</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">74 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    综合 Pro Git 英文版 中文版
+Git Community Book 英文版 中文版
+GotGitHub
+Git使用详解
+项目主页 Creating Project Pages manually
+Setup GitHub Pages &ldquo;gh-pages&rdquo; branch and &ldquo;master&rdquo; branch as subfolders of a parent project folder (&ldquo;grandmaster&rdquo;).
+Setup GitHub Pages &ldquo;gh-pages&rdquo; branch as a subfolder within the &ldquo;master&rdquo; project on your local checkout - a step-by-step guide.
+其他 Collaborative Github Workflow
+如何理解git reset 取消提交的操作？
+Git Document
+Atlassian Git Tutorial
+版本管理svn,git,cvs比较
+learnGitBranching
+a successful git branching model
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">
+        [Hadoop] mapred和mapreduce包的区别
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-12">
+    2013-07-12
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">44 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
+区别 本文将通过WordCount示例代码，介绍一下二者的区别。WordCount示例代码分别取自0.19和0.23.9版本的Hadoop源码。
+0.19版WordCount示例 0.23.9版WordCount示例 区别新API老API包新API位于org.apache.hadoop.mapreduce包内老API位于org.apache.hadoop.mapred.包内Mapper和Reducer类型新API使用Mapper和Reducer抽象类
+抽象类更容易扩展，Hadoop实现可以轻松向其抽象类中添加方法(用默认的实现)而不会对已有Hadoop应用造成影响老API使用Mapper和Reduceer接口使用对象新API使用Configuration和一些Helper类完成作业配置；
+新API使用Job完成作业控制；
+新API使用Context完成用户代码与MapReduce系统的通信。老API使用JobConf
+完成作业配置，它是Configuration子类；
+老API使用JobClient完成作业控制；
+老API使用OutputCollector和Reporter完成用户代码与MapReduce系统的通信。
+方法map() reduce() clearup() setup() run()；
+所有方法可抛IOException或InterruptedException；
+Reduce()输入值为java.lang.Iterable；键值对输出通过Context对象的write方法实现；
+map() reduce()；
+所有方法可抛IOException；
+Reduce()输入值为java.lang.Iterator；
+键值对输出通过OutputCollector对象的collect方法实现；输出文件part-m-nnnnn和part-r-nnnnn
+(nnnnn为从0开始的整数)part-nnnnn
+注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
+参考 Upgrading To The New Map Reduce API
+Difference between Hadoop OLD API and NEW API
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
 </section>
 
 
@@ -878,6 +945,10 @@ Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
         
     
         
+        
+          <a class="page-number" href="/page/63/">63</a>
+        
+        
     
         
         
@@ -919,8 +990,6 @@ Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
     
         
     
-        
-    
     <a class="extend next" rel="next" href="/page/66/"><i class="fa fa-angle-right"></i></a>
 </nav>
 
@@ -951,14 +1020,14 @@ Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">714</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">44</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -968,7 +1037,7 @@ Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1520</span>
+        <span class="site-state-item-count">1510</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
