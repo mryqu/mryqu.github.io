@@ -113,71 +113,6 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservices_monoliths_and_noops/" itemprop="url">
-        阅读《Microservices, Monoliths, and NoOps》
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-04-25">
-    2015-04-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tech" itemprop="url" rel="index">
-        <span itemprop="name">Tech</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">132 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Java Code Geeks有一篇文章Microservices, Monoliths, and NoOps，分析了单体应用与微服务的优缺点，并建议使用微服务重构现有的应用程序。
-单体应用 通俗地讲，“单体应用（monolithapplication）”就是将应用程序的所有功能都打包成一个独立的单元，可以是JAR、WAR、EAR或其它归档格式。
-单体应用优点 单体应用有如下优点： - 为人所熟知：现有的大部分工具、应用服务器、框架和脚本都是这种应用程序； - IDE 友好：像NetBeans、Eclipse、IntelliJ这些开发环境都是针对开发、部署、调试这样的单个应用而设计的； - 便于共享：单个归档文件包含所有功能，便于在团队之间以及不同的部署阶段之间共享； - 易于测试：单体应用一旦部署，所有的服务或特性就都可以使用了，这简化了测试过程，因为没有额外的依赖，每项测试都可以在部署完成后立刻开始； - 容易部署：只需将单个归档文件复制到单个目录下。
-单体应用缺点 目前为止，单体应用已经很好地服务了我们，未来无疑还会继续发挥重要作用。但是，不管如何模块化，单体应用最终都会因为团队壮大、成员变动、应用范围扩展等出现问题。下面是单体应用的一些不足： - 不够灵活：对应用程序做任何细微的修改都需要将整个应用程序重新构建、重新部署。开发人员需要等到整个应用程序部署完成后才能看到变化。如果多个开发人员共同开发一个应用程序，那么还要等待其他开发人员完成了各自的开发。这降低了团队的灵活性和功能交付频率； - 妨碍持续交付：单体应用可能会比较大，构建和部署时间也相应地比较长，不利于频繁部署，阻碍持续交付。在移动应用开发中，这个问题会显得尤为严重； - 受技术栈限制：对于这类应用，技术是在开发之前经过慎重评估后选定的，每个团队成员都必须使用相同的开发语言、持久化存储及消息系统，而且要使用类似的工具，无法根据具体的场景做出其它选择； - 技术债务：“不坏不修（Not broken，don’tfix）”，这在软件开发中非常常见，单体应用尤其如此。系统设计或写好的代码难以修改，因为应用程序的其它部分可能会以意料之外的方式使用它。随着时间推移、人员更迭，这必然会增加应用程序的技术债务。
-什么是微服务？ 而随着业务需求的快速发展变化，敏捷性、灵活性和可扩展性需求不断增长，迫切需要一种更加快速高效的软件交付方式。微服务就是一种可以满足这种需求的软件架构风格。单体应用被分解成多个更小的服务，每个服务有自己的归档文件，单独部署，然后共同组成一个应用程序。这里的“微”不是针对代码行数而言，而是说服务的范围限定到单个功能。
-微服务的特征 微服务有如下特征： - 领域驱动设计：应用程序功能分解可以通过Eric Evans在《领域驱动设计》中明确定义的规则实现，领域驱动设计不是分解应用程序的唯一方法，但肯定是很常用的一种；每个团队负责与一个领域或业务功能相关的全部开发；团队遵循全栈开发方法拥有全系列的开发人员，具备用户界面、业务逻辑和持久化存储等方面的开发技能； - 单一职责原则：每个服务应该负责该功能的一个单独的部分，这是SOLID原则之一，Unix工具程序很好地证明这一原则的重要性； - 明确发布接口：每个服务都会发布一个定义明确的接口，而且保持不变；服务消费者只关心接口，而对于被消费的服务没有任何运行依赖；服务之间就业务模型、API、负载或其他契约达成一致并使用符合契约的方式进行通信。接口可能会产生新版本，但接口的老版本可以继续使用，且新服务保持后续兼容。不可以通过改变契约破坏兼容性。 - 独立部署、升级、扩展和替换：每个服务都可以单独部署及重新部署而不影响整个系统。这使得服务很容易升级，例如增加更多的功能点。每个服务都可以沿着《Art of Scalability》一书定义的X轴（水平复制）和Z轴（面向查询的分割，数据分区）进行独立扩展；由于其他服务仅依赖发布的接口，只要发布相同的契约，服务实现甚至是底层技术栈都可以修改； - 可以异构/采用多种语言：每个服务的实现细节都与其它服务无关，这使得服务之间能够解耦，团队可以针对每个服务选择最合适的开发语言、持久化存储、工具和方法；一个需要在关系型数据库存储数据的服务可以选择MySQL，另一个需要存储文档的服务可以选择MongoDB。不同的团队可以根据自己的需求选择JavaEE、NodeJS、Python、Vert.x或其他对本团队最有效的技术； - 轻量级通信：服务通信使用轻量级的通信协议，例如在HTTP上承载的REST。由于REST本质是同步的，可能会有某些潜在的瓶颈。另一个可选机制是使用支持异步消息的发布/订阅机制。任何符合需求的消息协议，例如AMQP、STOMP、MQTT或WebSocket，都可以使用。简单消息实现，例如ActiveMQ，提供了可靠的异步组构尤其适用于这种用途。每个开发团队可以根据服务的具体需求对同步还是异步消息做适宜的选择，当然也可以混用。
-Netflix是微服务的一个典型代表，这里有几篇文章介绍他们对微服务的应用。 - Netflix&rsquo;s Viewing Data: How We Know Where You Are in House of Cards - A Microscope on Microservices - Scalable Microservices at Netflix.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservices_monoliths_and_noops/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/" itemprop="url">
         了解OSM和Esri
         </a>
@@ -729,6 +664,73 @@ gradlew clean --refresh-dependencies build bootRun
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0gradle/" itemprop="url">
+        学习Gradle
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-04-12">
+    2015-04-12
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gradle" itemprop="url" rel="index">
+        <span itemprop="name">Gradle</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">29 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    当前参与的SAS Workflow2.0原型开发项目，美国那边的项目组经营将代码编译脚本从Ant切换成Gradle了。此外我司已经在去年就将Gradle列入了技术雷达的正式采用象限，感觉有必要学习一下Gradle，扩充自己的开发能力。 Gradle官网上提供的图书信息链接中有两本免费O&rsquo;Reilly出版社图书： - Building and Testing With Gradle - Gradle Beyond the Basics一般软件官网文档质量不错的情况下，我优先阅读最新的官网文档，所以我先看了《Gradle入门》和《Gradle用户指南》。
+参考 Gradle官网
+Gradle文档
+Spring提供的Gradle入门
+Gradle用户指南
+Groovy官网
+Groovy++
+Java Build Tools: Ant vs Maven vs Gradle
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
 </section>
 
 
@@ -924,7 +926,7 @@ gradlew clean --refresh-dependencies build bootRun
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">709</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -941,7 +943,7 @@ gradlew clean --refresh-dependencies build bootRun
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1510</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
