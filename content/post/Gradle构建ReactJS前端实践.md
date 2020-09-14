@@ -12,7 +12,8 @@ tags:
 
 ### [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)使用介绍
 
-Spring指南里面有个示例[React.js and Spring Data REST](https://spring.io/guides/tutorials/react-and-spring-data-rest/)，技术架构为：  
+Spring指南里面有个示例[React.js and Spring Data REST](https://spring.io/guides/tutorials/react-and-spring-data-rest/) ，技术架构为：  
+
 * 后端采用Spring Data Rest  
 * 前端采用React.js  
 * 构建工具为Maven  
@@ -56,7 +57,8 @@ Spring指南里面有个示例[React.js and Spring Data REST](https://spring.io/
 </plugin>
 ```
 
-[frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)用于构建JavaScript部分：  
+[frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) 用于构建JavaScript部分：  
+
 * install-node-and-npm命令将安装node.js及其包管理工具npm到target目录。 （这确保这些二进制文件不在源代码控制范围内并且能被clean命令清除）。   
 * npm命令将执行使用参数install的npm二进制文件，它会安装定义在package.json内的模块。  
 * webpack命令将执行webpack二进制文件，它会基于webpack.config.js打包所有JavaScript代码。  
@@ -65,8 +67,9 @@ Spring指南里面有个示例[React.js and Spring Data REST](https://spring.io/
 
 ### 备选Gradle前端构建插件
 
-[frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)是专用于Maven的插件，在Gradle上并没有直接对应的插件。  
+[frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) 是专用于Maven的插件，在Gradle上并没有直接对应的插件。  
 我查找后，重点考察了下面两个插件：  
+
 * [Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin)  
 * [Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin)  
 
@@ -401,7 +404,7 @@ BUILD SUCCESSFUL in 6s
 1 actionable task: 1 executed
 ```
 
-### [Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin)实践  
+### [Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) 实践  
 
 #### 代码修改
 
@@ -713,8 +716,8 @@ BUILD SUCCESSFUL in 9s
 [Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin) 胜出
 
 #### 支持系统
-[Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin) 支持[NodeJS](https://nodejs.org/)、[Npm](https://www.npmjs.com/)、[Yarn](https://yarnpkg.com/)；  
-[Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) 支持[NodeJS](https://nodejs.org/)、[Npm](https://www.npmjs.com/)、[Yarn](https://yarnpkg.com/)、[Grunt](https://gruntjs.com/)、[Gulp](https://gulpjs.com/)；    
+[Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin) 支持[NodeJS](https://nodejs.org/) 、[Npm](https://www.npmjs.com/) 、[Yarn](https://yarnpkg.com/)；  
+[Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) 支持[NodeJS](https://nodejs.org/) 、[Npm](https://www.npmjs.com/) 、[Yarn](https://yarnpkg.com/) 、[Grunt](https://gruntjs.com/) 、[Gulp](https://gulpjs.com/)；    
 [Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) 胜出
 
 #### Node/Npm配置
@@ -723,12 +726,12 @@ BUILD SUCCESSFUL in 9s
 [Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) 胜出  
 
 #### 总结
-[Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin)项目星数远远高于[Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin)，不过当前支持的特性却不如后者多。  
-这两款插件都能胜任我当前的游戏要求。 所以我选择现阶段使用[Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin)，对[Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin)保持关注。   
+[Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin) 项目星数远远高于[Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) ，不过当前支持的特性却不如后者多。  
+这两款插件都能胜任我当前的游戏要求。 所以我选择现阶段使用[Gradle Plugin for Node](https://github.com/srs/gradle-node-plugin) ，对[Frontend Gradle plugin](https://github.com/Siouan/frontend-gradle-plugin) 保持关注。   
 
 ### 执行Webpack的其他方式
 
-[Running Webpack with Gradle](https://guides.gradle.org/running-webpack-with-gradle/)是Gradle的官方指南，它是用commandLine执行的。  
+[Running Webpack with Gradle](https://guides.gradle.org/running-webpack-with-gradle/) 是Gradle的官方指南，它是用commandLine执行的。  
 但是我发现这种方式有个缺陷，在Windows平台执行webpack shell命令就报错了，需要判断平台来决定使用webpack shell命令还是webpack.cmd命令。所以需要做如下修改：  
 ```
 task webpack(type: Exec) { 

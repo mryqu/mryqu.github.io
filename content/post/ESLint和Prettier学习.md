@@ -9,21 +9,22 @@ tags:
 - Prettier
 ---
 
-[Devias Kit - React Admin Dashboard](https://material-ui.com/store/items/devias-kit/)使用了ESLint进行代码检测，使用Prettier进行代码格式化。  
-下面就其代码[devias-io/react-material-dashboard](https://github.com/devias-io/react-material-dashboard)进行学习。  
+[Devias Kit - React Admin Dashboard](https://material-ui.com/store/items/devias-kit/) 使用了ESLint进行代码检测，使用Prettier进行代码格式化。  
+下面就其代码[devias-io/react-material-dashboard](https://github.com/devias-io/react-material-dashboard) 进行学习。  
 
 ### ESLint简介  
 
-[ESLint](https://eslint.org/)是一个用来识别ECMAScript/JavaScript并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次ESLint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。  
+[ESLint](https://eslint.org/) 是一个用来识别ECMAScript/JavaScript并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次ESLint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。  
 
 在许多方面，它和 JSLint、JSHint 相似，除了少数的例外：  
+
 * ESLint使用Espree解析JavaScript。  
 * ESLint使用AST去分析代码中的模式。  
 * ESLint是完全插件化的。 每一个规则都是一个插件并且你可以在运行时添加更多的规则。  
 
 ### Prettier简介  
 
-[Prettier](https://prettier.io/)是一个opinionated(有态度的)代码格式化工具，支持多种语言，可以和绝大多数编辑器集成，选项少。  
+[Prettier](https://prettier.io/) 是一个opinionated(有态度的)代码格式化工具，支持多种语言，可以和绝大多数编辑器集成，选项少。  
 什么是opinionated？就是有态度有倾向，尽量减少配置项，相反的意思是Unopinionated。 像Spring Boot也是宣称有态度的。  
 ![Prettier supportted languanges and editors](/images/2020/5/PrettierSupport.png)  
 
@@ -41,16 +42,17 @@ tags:
 }
 ```
 
-[ESLint包](https://www.npmjs.com/package/eslint)是代码检测工具，[Prettier包](https://www.npmjs.com/package/prettier)是代码格式化工具。 ESLint既能完成传统的语法检测，也能检查风格是否符合要求。可以用ESLint完成一切工作，也可以结合ESLint完成代码格式化和错误检测。  
+[ESLint包](https://www.npmjs.com/package/eslint) 是代码检测工具，[Prettier包](https://www.npmjs.com/package/prettier) 是代码格式化工具。 ESLint既能完成传统的语法检测，也能检查风格是否符合要求。可以用ESLint完成一切工作，也可以结合ESLint完成代码格式化和错误检测。  
 
 其他包：  
+
 * [ESLint-plugin-React包](https://www.npmjs.com/package/eslint-plugin-react)：ESLint原生支持JSX，但ESLint并不支持React特定的JSX符号，所以要使用ESLint-plugin-React包；  
 * [prettier-eslint包](https://www.npmjs.com/package/prettier-eslint)：prettier-eslint会先调用Prettier完成代码格式化，然后将执行`eslint --fix`按照配置进行语法修复；  
 * [prettier-eslint-cli包](https://www.npmjs.com/package/prettier-eslint-cli)：prettier-eslint的CLI；  
 * [eslint-plugin-prettier包](https://www.npmjs.com/package/eslint-plugin-prettier)：作为ESLint的一个规则运行Prettier。  
 
 
-[devias-io/react-material-dashboard](https://github.com/devias-io/react-material-dashboard)项目没有介绍怎么使用ESLint和Prettier。 如果使用prettier-eslint/prettier-eslint-cli，那就是次序使用Prettier和ESLint；如果使用eslint-plugin-prettier，就是Prettier作为ESLint的插件，在CLI仅仅使用ESLint，而ESLint会调用Prettier。  
+[devias-io/react-material-dashboard](https://github.com/devias-io/react-material-dashboard) 项目没有介绍怎么使用ESLint和Prettier。 如果使用prettier-eslint/prettier-eslint-cli，那就是次序使用Prettier和ESLint；如果使用eslint-plugin-prettier，就是Prettier作为ESLint的插件，在CLI仅仅使用ESLint，而ESLint会调用Prettier。  
 通过.eslintrc分析，ESLint仅使用了react插件，而没有prettier插件，而且ESLint规则里面也没有prettier，所以其实没有使用eslint-plugin-prettier包。  
 ```
 "plugins": [
@@ -88,6 +90,7 @@ tags:
 ```
 
 规则项分析：  
+
 * bracketSpacing：为true的话，在对象字面符和括号之间打印空格。 例如`{ foo: bar }`；  
 * jsxBracketSameLine：为true的话，将多行JSX元素的`>`放在最后一行的末尾，而不是单独一行；  
 * printWidth：为80的话，行宽超过80字符的会折行；  
@@ -178,13 +181,15 @@ tags:
 ```
 
 配置项分析：  
-* plugins里指定react插件，所以规则里支持[ESLint-plugin-React](https://www.npmjs.com/package/eslint-plugin-react)里面的规则；  
-* parser指定的是[babel-eslint](https://github.com/babel/babel/tree/master/eslint/babel-eslint-parser)。ESLint默认的分析器[Espree](https://github.com/eslint/espree)仅支持最新的ECMAScript标准（以及JSX），但是不支持Babel提供的实验性和非标语法（例如Flow或TypeScript类型）。使用[babel-eslint](https://github.com/babel/babel/tree/master/eslint/babel-eslint-parser)分析器后，这些抽象语法树结果将被转换成可被ESLint理解的ESTree兼容结构；
-* extends指定的是eslint:recommended。extends可以指定配置文件路径，也可以指定可共享的配置名（例如eslint:recommended或eslint:all）。[ESLint rules](https://eslint.org/docs/rules/)里面列举了ESLint所有核心规则，其中推荐的标对号；  
-* ecmaFeatures使能JSX，通过experimentalObjectRestSpread支持[rest/spread操作符](https://v8.dev/features/object-rest-spread)。（注：experimentalObjectRestSpread已废除，ESLint第五版将ecmaFeatures: { experimentalObjectRestSpread: true }视作ecmaVersion: 2018别名，ESLint第六版将取消）；  
-* env指定的是es6和browser，即该项目被设计成运行在es6和browser环境，这两个环境都包含一套预定义全局变量。[ESLint的environments.js](https://github.com/eslint/eslint/blob/master/conf/environments.js)里除了有一些ESLint特有环境定义，其他都是来自[globals包的globals.json](https://github.com/sindresorhus/globals/blob/master/globals.json)。
+
+* plugins里指定react插件，所以规则里支持[ESLint-plugin-React](https://www.npmjs.com/package/eslint-plugin-react) 里面的规则；  
+* parser指定的是[babel-eslint](https://github.com/babel/babel/tree/master/eslint/babel-eslint-parser) 。ESLint默认的分析器[Espree](https://github.com/eslint/espree) 仅支持最新的ECMAScript标准（以及JSX），但是不支持Babel提供的实验性和非标语法（例如Flow或TypeScript类型）。使用[babel-eslint](https://github.com/babel/babel/tree/master/eslint/babel-eslint-parser) 分析器后，这些抽象语法树结果将被转换成可被ESLint理解的ESTree兼容结构；
+* extends指定的是eslint:recommended。extends可以指定配置文件路径，也可以指定可共享的配置名（例如eslint:recommended或eslint:all）。[ESLint rules](https://eslint.org/docs/rules/) 里面列举了ESLint所有核心规则，其中推荐的标对号；  
+* ecmaFeatures使能JSX，通过experimentalObjectRestSpread支持[rest/spread操作符](https://v8.dev/features/object-rest-spread) 。（注：experimentalObjectRestSpread已废除，ESLint第五版将ecmaFeatures: { experimentalObjectRestSpread: true }视作ecmaVersion: 2018别名，ESLint第六版将取消）；  
+* env指定的是es6和browser，即该项目被设计成运行在es6和browser环境，这两个环境都包含一套预定义全局变量。[ESLint的environments.js](https://github.com/eslint/eslint/blob/master/conf/environments.js) 里除了有一些ESLint特有环境定义，其他都是来自[globals包的globals.json](https://github.com/sindresorhus/globals/blob/master/globals.json) 。
 
 本配置中规则项分析：  
+
 * [comma-dangle](https://eslint.org/docs/rules/comma-dangle)： 为0的话，关闭结尾逗号的规则；  
 * [indent](https://eslint.org/docs/rules/indent)：为[2,2,{"SwitchCase": 1}]的话，缩进级别为2空格，Switch语句的Case子句的缩进级别为1，违反则报错；  
 * [jsx-quotes](https://eslint.org/docs/rules/jsx-quotes)：为1的话，JSX属性混使单引号和双引号则告警；    
@@ -245,11 +250,11 @@ indent_style = tab
 
 #### jsconfig.json  
 
-jsconfig.json是Visual Studio Code的配置，跟ESLint和Prettier无关。具体见[Visual Studio Code文档](https://code.visualstudio.com/docs/languages/jsconfig)。  
+jsconfig.json是Visual Studio Code的配置，跟ESLint和Prettier无关。具体见[Visual Studio Code文档](https://code.visualstudio.com/docs/languages/jsconfig) 。  
 
 ### 题外话  
 
-[devias-io/react-material-dashboard](https://github.com/devias-io/react-material-dashboard)里面缺少git提交的钩子设置，因此代码格式化和监测只能手动进行。
+[devias-io/react-material-dashboard](https://github.com/devias-io/react-material-dashboard) 里面缺少git提交的钩子设置，因此代码格式化和监测只能手动进行。
 
 ### 参考
 
