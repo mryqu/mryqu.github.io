@@ -6,26 +6,25 @@
     <description>Recent content in Ipv4 on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 18 May 2015 06:14:43 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Aug 2013 22:49:19 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/tags/ipv4/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>在Ubuntu中强制Apt-get使用IPv4或IPv6</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</link>
-      <pubDate>Mon, 18 May 2015 06:14:43 +0000</pubDate>
+      <title>Ubuntu操作笔记</title>
+      <link>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate>
       
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</guid>
-      <description>快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
-apt-get --version  结果近似于:
-apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14  版本核实后，可以通过如下命令强制使用IPv4:
-apt-get -o Acquire::ForceIPv4=true update  或IPv6:
-apt-get -o Acquire::ForceIPv6=true update  这会将_sources.list_中的URL仅解析成IPv4并更新仓库。
-持久化的选项 为了让设置持久化，在/etc/apt/apt.conf.d/下创建99force-ipv4文件。
-sudoedit /etc/apt/apt.conf.d/99force-ipv4  在该文件放入如下内容：
-Acquire::ForceIPv4 &amp;quot;true&amp;quot;;  保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的4改成6即可。
-原文: https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian</description>
+      <guid>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid>
+      <description>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s  更多细节见hostname帮助文档。
+修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
+在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
+apt-get install net-tools  在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p  之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.</description>
     </item>
     
   </channel>

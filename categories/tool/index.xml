@@ -334,18 +334,6 @@ root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGR
     </item>
     
     <item>
-      <title>在Ubuntu中识别当前Init系统</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/</link>
-      <pubDate>Fri, 05 Aug 2016 05:53:58 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/</guid>
-      <description>Ubuntu 14.04 首先用uname命令查看一下系统信息：
-ubuntu@node50069:~$ uname -a Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是init：可以下面几个命令查看init进程所用的命令信息： - ps -efa|grep init - type init - sudo stat /proc/1/exe
-最终通过&amp;rdquo;sudo init &amp;ndash;version&amp;rdquo;可知当前的Init系统为upstart：Ubuntu 15.04 首先查看一下系统信息：
-vagrant@vagrant-ubuntu-trusty:~$ uname -a Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是systemd：参考 WIKI：init</description>
-    </item>
-    
-    <item>
       <title>微信语音导出和转换</title>
       <link>https://mryqu.github.io/post/%E5%BE%AE%E4%BF%A1%E8%AF%AD%E9%9F%B3%E5%AF%BC%E5%87%BA%E5%92%8C%E8%BD%AC%E6%8D%A2/</link>
       <pubDate>Sat, 18 Jun 2016 05:23:05 +0000</pubDate>
@@ -635,17 +623,6 @@ DOCKER ONLINE MEETUP: KITEMATIC IN ACTION</description>
 gitdir=$(git rev-parse --git-dir); scp -p -P 29418 [your username]@[your Gerrit review server]:hooks/commit-msg {gitdir}/hooks/  参考
 Gerrit：commit-msg Hook
 Gerrit工作流</description>
-    </item>
-    
-    <item>
-      <title>在Ubuntu中安装rpm包</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</link>
-      <pubDate>Fri, 07 Aug 2015 05:46:42 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</guid>
-      <description>RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。 APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。 Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。 Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用sudo apt-get install alien命令进行安装。
-Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统直接安装rpm：sudo alien -i --script(filename).rpm - deb转rpm：sudo alien --to-rpm (filename).deb - tar.gz转deb：sudo alien -k (filename).tar.gz - tar.bz2转deb：sudo alien -d (filename).tar.bz2 - tgz转deb：sudo alien --to-deb ~/(filename).tgz
-由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。</description>
     </item>
     
     <item>
@@ -1036,23 +1013,6 @@ Acquire::http::proxy &amp;quot;http://yourUsr:yourPwd@yourServer:yourPort/&amp;q
     </item>
     
     <item>
-      <title>在Ubuntu中强制Apt-get使用IPv4或IPv6</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</link>
-      <pubDate>Mon, 18 May 2015 06:14:43 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</guid>
-      <description>快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
-apt-get --version  结果近似于:
-apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14  版本核实后，可以通过如下命令强制使用IPv4:
-apt-get -o Acquire::ForceIPv4=true update  或IPv6:
-apt-get -o Acquire::ForceIPv6=true update  这会将_sources.list_中的URL仅解析成IPv4并更新仓库。
-持久化的选项 为了让设置持久化，在/etc/apt/apt.conf.d/下创建99force-ipv4文件。
-sudoedit /etc/apt/apt.conf.d/99force-ipv4  在该文件放入如下内容：
-Acquire::ForceIPv4 &amp;quot;true&amp;quot;;  保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的4改成6即可。
-原文: https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian</description>
-    </item>
-    
-    <item>
       <title>尝试boot2docker和Vagrant-boot2docker box</title>
       <link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95boot2docker%E5%92%8Cvagrant-boot2docker_box/</link>
       <pubDate>Sun, 17 May 2015 20:40:31 +0000</pubDate>
@@ -1279,18 +1239,6 @@ Java Build Tools: Ant vs Maven vs Gradle</description>
       <guid>https://mryqu.github.io/post/gradle_%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/</guid>
       <description> 命令行 gradle bootRun -PyquPropKey=yquPropValue  build.properties yquPropKey=yquPropValue  gradle.properties 添加ext块：
 ext { yquPropKey=yquPropValue }  </description>
-    </item>
-    
-    <item>
-      <title>在Ubuntu中禁掉IPv6</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</link>
-      <pubDate>Fri, 20 Mar 2015 08:38:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</guid>
-      <description>为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
-net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
-sudo sysctl -p  之后，运行:
-$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 </description>
     </item>
     
     <item>
@@ -1642,16 +1590,6 @@ Java 的多行字符串 Here Document 的实现
     </item>
     
     <item>
-      <title>在Ubuntu Linux上安装netstat</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</link>
-      <pubDate>Wed, 01 Jan 2014 13:52:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</guid>
-      <description>在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools。net-tools是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
-apt-get install net-tools  </description>
-    </item>
-    
-    <item>
       <title>Windows常用命令汇总</title>
       <link>https://mryqu.github.io/post/windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</link>
       <pubDate>Sun, 22 Dec 2013 13:12:02 +0000</pubDate>
@@ -1839,15 +1777,6 @@ mryqu:~/ctest$ g++ -g -c wvc.cpp -o wvc mryqu:~/ctest$ chmod a+x wvc mryqu:~/cte
     </item>
     
     <item>
-      <title>Ubuntu下显示本机IP</title>
-      <link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</link>
-      <pubDate>Sun, 20 Oct 2013 12:05:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</guid>
-      <description>命令为：ip addr show 感觉比ifconfig eth0更通用些！</description>
-    </item>
-    
-    <item>
       <title>在Vi中搜索多字节unicode字符</title>
       <link>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</link>
       <pubDate>Sun, 20 Oct 2013 09:00:49 +0000</pubDate>
@@ -1997,14 +1926,19 @@ source [-h] filename [arguments] The shell reads and executes commands from name
     </item>
     
     <item>
-      <title>在Ubuntu上修改主机名</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</link>
+      <title>Ubuntu操作笔记</title>
+      <link>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate>
       
-      <guid>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</guid>
-      <description> 显示主机名 hostname -s  更多细节见hostname帮助文档。
+      <guid>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid>
+      <description>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s  更多细节见hostname帮助文档。
 修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  </description>
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
+在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
+apt-get install net-tools  在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p  之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.</description>
     </item>
     
     <item>

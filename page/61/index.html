@@ -113,396 +113,6 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/" itemprop="url">
-        RESTful Web Services Cookbook笔记（一）
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-19">
-    2013-10-19
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">353 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    使用统一接口 HTTP是一种应用层协议，它定义了客户端与服务器之间的转移操作的表述形式。在此协议中，诸如GET，POST和DELETE之类的方法是对资源的操作。有了它，无须创造createOrder,getOrder,updateOrder等应用程序特定的操作了。 作为应用协议，HTTP的设计目标是在客户端和服务器之间保持对库、服务器、代理、缓存和其他工具的可见性。可见性是HTTP的一个核心特征。 一旦识别并设计资源，就可以使用GET方法获取资源的表述，使用PUT方法更新资源，使用DELETE方法删除资源，以及使用POST方法执行各种不安全和非幂等的操作。可以添加适当的HTTP标头来描述请求和相应。 以下特性完全取决于保持请求和相应的可见性： - 缓存：缓存响应内容，并在资源修改时使缓存自动失效。 - 乐观并发控制：检测并发写入，并在操作过期的表述时防止资源发生变更。 - 内容协商：在给定资源的多个可用表述中，选择合适的表述。 - 安全性和幂等性：确保客户端可以重复或重试特定的HTTP请求。
-HTTP通过以下途径来实现可见性： - HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和响应的意义，而无须关联过去和将来的请求和响应。 - HTTP使用一个统一接口，包括有OPTIONS，GET，HEAD，POST，DELETE和TRACE方法。接口中的每一个方法操作一个且仅一个资源。每个方法的语法和含义不会因应用程序和资源的不同而发生改变。 - HTTP使用一种与MIME类似的信封格式进行表述编码。这种格式明确区分标头和内容。标头是可见的，除了创建、处理消息的部分，软件的其他部分都可以不用关心消息的内容。
-保持可见性的另一方面是使用适当的状态码和状态消息，以便代理、缓冲和客户端可以决定请求的结果。 在某些情况下，可能需要权衡其他特性，如网络效率、客户端的便利性以及分离关注点，为此放弃可见性。当进行这种权衡时，应仔细分析对缓存、幂等性、安全性等特性的影响。 当有多个共享数据的资源，或一个操作修改多个资源时，需要权衡是否降低可见性（例如是否禁止缓存）以便获得更好的信息抽象、更松散的耦合程度、更好地网络效率、更好地资源粒度，或纯粹为了方便客户端使用。 可以通过带有应用程序状态的URI链接来保持应用程序状态而无需依赖服务器中内存中的会话。 安全性和幂等性是服务器要实现的HTTP方法的特征。当客户端发送GET、HEAD、OPTIONS、PUT或DELETE请求时，如果没有使用并发条件限制时，确保服务器提供相同响应。
-|方法|是否安全?|是否幂等? |&mdash;&ndash; |GET|是|是 |HEAD|是|是 |OPTIONS|是|是 |PUT|否|是 |DELETE|否|是 |POST|否|否
-客户端通过下列方法实现幂等的/安全的HTTP请求： - 将GET、OPTIONS和HEAD视为只读操作，可按需随时可发送请求。 - 在网络或软件异常的情况下，通过If-Unmodified-Since/If-Match条件标头重发GET、PUT和DELETE请求。 - 不要重发POST请求，除非客户端（通过服务器文档）知道对特定资源的POST实现是幂等的。
-Web基础设施严重依赖于GET方法的幂等性和安全性。客户端期望能够重复发起GET请求，而不必担心造成副作用。缓存依赖于不需访问源服务器就能提供已缓存表述的能力。 不要把GET方法用于不安全和非幂等操作。因为这样做可能造成永久性的、意想不到的、不符合需要的资源改变。 可以使用POST方法或PUT方法创建新资源。只有在客户端可以决定资源的URI时才使用PUT方法创建新资源；否则使用POST，由服务器决定新创建资源的URI（客户端请求可以使用Slug头建议新资源的URI）。 在以下场合中使用POST方法： - 创建新的资源，把资源作为一个工厂 - 通过一个控制器资源来修改一个或多个资源 - 执行需要大数据输入的查询 - 在其他HTTP方法看上去不合适时，执行不安全或非幂等的操作。（缓存不会缓存这一方法的响应）
-使用POST方式实现异步任务：服务器在接受到POST请求时，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，如服务器还在执行中，返回响应码200（OK）及包含当前状态的任务资源表述；如服务器成功完成，返回响应码303（SeeOther）以及包含新资源URL的Location头；如服务器任务失败，返回响应码200（OK）及任务失败的表述。 使用DELETE方法实现异步请求：服务器在收到DELETE请求，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，服务器返回响应码200（OK）及包含当前状态的任务资源表述。 避免使用非标准的自定义HTTP方法。当前比较有名的自定义方法包括WebDAV定义的方法、PATCH和MERGE。 HTTP服务器可能会使用自定义HTTP标头，比较有名的自定义HTTP包括X-Powered-By、X-Cache、X-Pingback、X-Forwarded-For及X-HTTP-Method-Override。实现客户端和服务器时，要让他们在没有发现需要的自定义标头时也不会失败。避免使用自定义HTTP标头改变HTTP方法的行为。
-识别资源 从领域名词中识别资源。 直接将领域实体映射为资源可能导致资源效率低下且难以使用，可以通过网络效率、表述的多少以及客户端的应用程度来帮助确定资源的粒度。 粗粒度设计便于富客户端应用程序，更精细的资源颗粒可以更好地忙族缓存的要求。因此，应从客户端和网络的角度确定资源的粒度。下列原书可能会进一步影响资源粒度： - 可缓存性 - 修改频率 - 可变性
-仔细设计资源粒度，以确保使用更多缓存，减少修改频率，或将不可变数据从使用缓存较少、修改频率更高或可变数据分离出来，这样可以改善客户端和服务器端的效率。 基于应用程序特有的条件来识别相似的资源（例如共享同一数据库schema的资源，有相同特性或属性的资源），可以将这些有共性的资源组织成为集合。 基于客户端的使用模式、性能和延时要求，确定一些新的聚合其他资源的复合资源，来减少客户端与服务器的交互。 符合资源降低了统一接口的可见性，应为它们的表述中包含了和其他资源相重叠的资源。因此，在提供复合资源前,需要考虑一下几点： - 如果在应用程序的请求很少，那么它可能不是一个好的选择。依赖缓存代理，从缓存中获取这些资源，也许能让客户端收益匪浅。 - 另一个因素是网络开销&ndash;客户端与服务器之间的网络开销，服务区和后端服务或他所依赖的数据存储之间的网络开销。如果后者开销很大，那获取大量数据并在服务器上将他们组合成复合资源可能会增加客户端的延时，降低服务器的吞吐量。 - 想要改善延时，可以在客户端和服务器之间增加一个缓存层，并避免复合资源，进行一些负载测试来验证复合资源是否能起到改善作用。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%80/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/" itemprop="url">
-        [Hadoop] Ubuntu 13.10下构建Mahout项目
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-18">
-    2013-10-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">82 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    JDK  在Oracle网站下载jdk-6u45-linux-i586.bin到/opt目录 进入/opt目录安装JDK:  chmod +x jdk-6u45-linux-i586.bin sudo ./jdk-6u45-linux-i586.bin  进入/etc目录配置profile文件: sudo vi profile 在文件末尾添加：  JAVA_HOME=/opt/jdk1.6.0_45 export JRE_HOME=$JAVA_HOME/jre export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH  运行source /etc/profile 使其生效。 运行java -version 检验:  java version &quot;1.6.0_45&quot;   Eclipse  在Eclipse网站下载eclipse-jee-juno-SR2-linux-gtk.tar.gz到/opt目录 进入/opt目录解压缩Eclipse:  $ sudo tar -zxvf eclipse-jee-juno-SR2-linux-gtk.tar.gz$ sudo rm ./eclipse-jee-juno-SR2-linux-gtk.tar.gz  创建Eclipse启动快捷方式： $ sudo gedit /usr/share/applications/eclipse.desktop  [Desktop Entry] Type=Application Name=Eclipse Comment=Eclipse IDE Icon=/opt/eclipse/icon.xpm Exec=/opt/eclipse/eclipse Terminal=false StartupNotify=true Type=Application Categories=Development;IDE;Java; Exec=env UBUNTU_MENUPROXY= /opt/eclipse/eclipse   m2eclipse  通过下列update site安装:http://download.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/" itemprop="url">
-        Linux包管理速查表
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-18">
-    2013-10-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">118 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&mdash;&ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
-搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&mdash;&ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/" itemprop="url">
-        Debian软件包管理速查表：dpkg、apt-get、apt-cache
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-18">
-    2013-10-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">194 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    dpkg是Debian系统底层包管理器，apt-get是高层包管理工具，apt-cache是高层包查询工具。
-dpkg速查表 dpkg是Debian Linux用于安装/管理单个软件包的命令行工具：
-语法描述示例dpkg -i {.deb package}安装软件包dpkg -i zip_2.31-3_i386.debdpkg -i {.deb package}安装新的软件包。如果软件包已安装则尝试更新到最新版本dpkg -i zip_2.31-3_i386.debdpkg -R {Directory-name}递归地安装目录下所有软件包dpkg -R /tmp/downloadsdpkg -r {package}移除一个已安装的软件包，保留配置文件dpkg -r zipdpkg -P {package}移除一个已安装的软件包及配置dpkg -P apache-perl dpkg -l列举所有安装的软件包、及包版本和简短描述dpkg -l dokg -l | less dpkg -l '*apache*' dpkg -l | grep -i 'sudo'dpkg -l {package}列举单个安装的软件包、及包版本和简短描述dpkg -l apache-perldpkg -L {package}找出安装的软件包所提供的文件，例如列出安装的文件dpkg -L apache-perl dpkg -L perldpkg -c {.Deb package}列出软件包所提供的文件，例如deb包文件内的所有文件，这对找出将要安装什么文件非常有帮助dpkg -c dc_1.06-19_i386.debdpkg -S {/path/to/file}找出拥有该文件的包，例如找出该文件归属的包dpkg -S /bin/netstat
-dpkg -S /sbin/ippooldpkg -p {package}显示包的详细信息，包组、版本、维护者、架构、依赖包、描述等dpkg -p lsofdpkg -s {package} | grep Status找出Debian包是否安装(状态)dpkg -s lsof | grep Status apt-get速查表 apt-get是Debian Linux用于管理软件包的命令行工具：
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/" itemprop="url">
-        FilenameFilter和FileFilter介绍
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-18">
-    2013-10-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">240 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    FilenameFilter和FileFilter说明 java.io.File类提供了四个方法用于列举某个路径下的文件和目录，但不会递归列举子目录下的内容。其中两个是列举路径下的所有文件和目录。 - String[] list() - File[] listFiles()另外两个是列举路径满足指定过滤器的文件和目录。 - String[] list(FilenameFilter filter) - File[] listFiles(FileFilter filter)
-示例 要求：返回当前目录下所有以yqu开头且以.tmp结尾的文件和目录。
-代码 package com.yqu.file; import java.io.File; import java.io.FileFilter; import java.io.FilenameFilter; public class HelloFileListing { public static void main(String[] args) { File f = new File(&quot;c:/test&quot;); System.out.println(&quot;\n====Method listFiles() example====&quot;); File[] files = f.listFiles(); for (File fl : files) { String type = fl.isFile() ? &quot;File: &quot; : &quot;Directory: &quot;; try { System.out.println(type + fl.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8ul%E5%92%8C%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8ol/" itemprop="url">
-        玩玩无序列表ul和有序列表ol
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-18">
-    2013-10-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">236 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    写博客有时候用到列表，这里好好玩一玩。
-CSS list-style-type 属性 属性介绍 |值|描述 |&mdash;&ndash; |none|无标记。 |disc|默认。标记是实心圆。 |circle|标记是空心圆。 |square|标记是实心方块。 |decimal|标记是数字。 |decimal-leading-zero|0开头的数字标记。(01, 02, 03, 等。) |lower-roman|小写罗马数字(i, ii, iii, iv, v, 等。) |upper-roman|大写罗马数字(I, II, III, IV, V, 等。) |lower-alpha|小写英文字母The marker is lower-alpha (a, b, c, d, e, 等。) |upper-alpha|大写英文字母The marker is upper-alpha (A, B, C, D, E, 等。) |lower-greek|小写希腊字母(alpha, beta, gamma, 等。) |lower-latin|小写拉丁字母(a, b, c, d, e, 等。) |upper-latin|大写拉丁字母(A, B, C, D, E, 等。) |hebrew|传统的希伯来编号方式 |armenian|传统的亚美尼亚编号方式 |georgian|传统的乔治亚编号方式(an, ban, gan, 等。) |cjk-ideographic|简单的表意数字 |hiragana|标记是：a, i, u, e, o, ka, ki, 等。（日文片假名） |katakana|标记是：A, I, U, E, O, KA, KI, 等。（日文片假名） |hiragana-iroha|标记是：i, ro, ha, ni, ho, he, to, 等。（日文片假名） |katakana-iroha|标记是：I, RO, HA, NI, HO, HE, TO, 等。（日文片假名） |inherit|规定应该从父元素继承 list-style-type 属性的值。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8ul%E5%92%8C%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8ol/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%9Exa%E9%A9%B1%E5%8A%A8%E5%92%8Cxa%E9%A9%B1%E5%8A%A8%E5%88%97%E8%A1%A8/" itemprop="url">
         数据库非XA驱动和XA驱动列表
         </a>
@@ -765,6 +375,384 @@ PS C:\sas\Config\Lev1\Web\WebServer\bin&gt; .\httpdctl.ps1 status httpdctl.ps1 -
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%BC%80%E6%BA%90%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%88%97%E8%A1%A8/" itemprop="url">
+        开源事务管理器列表
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-15">
+    2013-10-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">58 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    WebLogic、WebSphere和JBoss这些Web应用服务器都自带事务管理器，而Tomcat和tcServer需要额外使用第三方事务管理器。公司选择了AtomikosTransactionEssentials作为JTA/XA提供者，这里列一下当前使用较多的开源事务管理器。
+|事务管理器|开源许可证|当前版本|介绍 |&mdash;&ndash; |JOTM|BSD样式|2.1.9 (2010-1-14)|JOTM(Java Open TransactionManager)是由ObjectWeb协会开发的功能完整的且资源开放的独立的事务管理器。 它提供了JAVA 应用程序的事务支持，而且与JTA（JAVA事务API）兼容。
+JOTM内嵌了一些开源项目。例如CAROL用于事务上下文传播；XAPool是一个XA兼容的JDBC连接池；HOWL是用于事务恢复的日志。 |Bitronix JTA Transaction Manager|LGPL|2.1.4 (2013-9-15)|Bitronix Transaction Manager (BTM)是JTA 1.1 API的一个简单但完整的实现。 |SimpleJTA|Apache 2.0|2.02 (2007-4-10)|SimpleJTA实现了一个单独的JTA兼容事务处理器，仅支持Oracle 9i和ApacheDerby数据库，不支持JTS。 |Atomikos TransactionsEssentials|Apache 2.0|3.9.0.M1 (2013-6-8)|Atomikos分两个：一个是开源的TransactionEssentials，一个是商业的ExtremeTransactions。（功能对比）
+Atomikos TransactionsEssentials是对JDBC/XA池,JMS/XA池和JTA/XA提供基本支持的开源事务处理系统。 |Narayana(JBossTS)|LGPL v2.1|5.0.0.M6 (2013-10-11)|Narayana（JBossTS）前身是最初纽卡斯尔大学在1986到1995开发的Arjuna系统，后由JBoss从Arjuna和HP手中收购并开源的。
+它支持下列事务处理协议标准:JTA、JTS、Web服务事务、REST事务、STM、XATMI/TX
+Stack Overflow有一篇文章对上面的一些事务管理器进行了对比： - JOTM 用户抱怨的比较多 - GeronimoTM/Jencks(Jencks是Apache Geronimo中使用的JCA容器，并使用ApacheGeronimo的事务管理器) 缺乏文档。 - SimpleJTA 没有实现JTS (Java Transaction Service)而且不是活跃的。 - Bitronix 有不错的文档但是不提供技术支持。 - Atomikos 是一个另人钦佩的产品。有丰富的文档，而且提供技术支持。 - JBossTS 从收购通告可见肯定是一个成熟的产品，而且提供技术支持。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/" itemprop="url">
+        [Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-14">
+    2013-10-14
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">17 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+     即mapred和mapreduce包的区别后，本文再次从源码角度分析新老API（mapred.mapper.new-api/ mapred.reducer.new-api）的设置与区别。 mapred.mapper.new-api /mapred.reducer.new-api这两个参数很少显式去设置，默认为false，即使用mapred包下的老API。 不过MapReduce框架也会去自动识别应该使用老API还是新API。作业提交有两种方式，异步方式用submit，同步方式用waitForCompletion。不过org.apache.hadoop.mapreduce.Job.waitForCompletion(boolean)里调用了org.apache.hadoop.mapreduce.Job.submit()方法，submit方法又调用了org.apache.hadoop.mapreduce.Job.setUseNewAPI()方法。setUseNewAPI方法里面对新老API做了判断： - 是否设置了mapred.mapper.class属性，则mapred.mapper.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setMapperClass(Class)还是org.apache.hadoop.mapred.JobConf.setMapperClass(Class)设置的Mapper，前者设置的是mapreduce.job.map.class属性，后者设置的是mapred.mapper.class属性。 - 如果mapreduce.job.reduces属性值不为0，则看是否设置了mapred.reducer.class属性，则mapred.reducer.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setReducerClass(Class)还是org.apache.hadoop.mapred.JobConf.setReducerClass(Class)设置的Mapper，前者设置的是mapreduce.job.reducer.class属性，后者设置的是mapred.reducer.class属性。
+new-api相关区别 使用new-api不使用new-api不允许设置下列属性：
+mapred.input.format.classmapred.mapper.classmapred.partitioner.classmapred.reducer.classmapred.output.format.class不允许设置下列属性：
+mapreduce.job.inputformat.classmapreduce.job.map.classmapreduce.job.partitioner.classmapreduce.job.reducer.classmapreduce.job.outputformat.class使用下列类或接口的实现：
+o.a.h.conf.Configurationo.a.h.mapreduce.Mapper抽象类o.a.h.mapreduce.Reducer抽象类o.a.h.mapreduce.OutputFormat抽象类o.a.h.mapreduce.OutputCommitter抽象类o.a.h.mapreduce.TaskIDo.a.h.mapreduce.TaskAttemptIDo.a.h.mapreduce.TaskAttemptContext接口o.a.h.mapreduce.InputFormat抽象类o.a.h.mapreduce.InputSplit抽象类使用下列类或接口的实现：
+o.a.h.mapred.JobConfo.a.h.mapred.Mapper接口o.a.h.mapred.Reducer接口o.a.h.mapred.OutputFormat接口o.a.h.mapred.OutputCommitter抽象类o.a.h.mapred.TaskIDo.a.h.mapred.TaskAttemptIDo.a.h.mapred.TaskAttemptContext接口o.a.h.mapred.InputFormat接口o.a.h.mapred.InputSplit接口使用方法：
+o.a.h.mapred.MapTask.runNewMappero.a.h.mapreduce.JobSubmitter.writeNewSplitso.a.h.mapred.ReduceTask.runNewReducer使用方法：
+o.a.h.mapred.MapTask.runOldMappero.a.h.mapreduce.JobSubmitter.writeOldSplitso.a.h.mapred.ReduceTask.runOldReducer 
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/" itemprop="url">
+        Servlet URL映射模式
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-13">
+    2013-10-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">16 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Servlet 2.5规范中的映射规则:  完全匹配URL 匹配通配符路径 匹配扩展名 匹配默认servlet  特殊URL模式: url-pattern:/* servlet上的/* 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将/* 用于过滤器。它能通过调用FilterChain#doFilter()让请求继续由监听另外一个特定URL模式的任何servlet处理。
+url-pattern:/ / 不会压制其他servlet。它仅会替换servlet容器内建的默认servlet，用于无法匹配任何已注册servlet的所有请求。一般仅调用在静态资源(CSS/JS/image/etc)和列举目录上。servlet容器内建默认servlet也能处理HTTP缓存请求、媒体（音视频）流和文件重新下载。由于必须负责默认servlet的所有任务，工作量不小，通常不会想要替换默认servlet。这也是一种不好的URL模式。关于为什么JSP页面不会调用这个servlet，是因为servlet容器的内建JSPservlet默认映射到*.jsp并被调用。
+url-pattern: 这也有一个空字符串URL模式。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/" itemprop="url">
+        tc Server与Atomikos集成
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-13">
+    2013-10-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">271 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
+Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录： - atomikos-util.jar - transactions.jar - transactions-api.jar - transactions-jdbc.jar - transactions-jdbc-deprecated.jar - transactions-jms.jar - transactions-jms-deprecated.jar - transactions-jta.jar - transactions-osgi.jar - geronimo-jms_1.1_spec.jar - geronimo-jta_1.0.1B_spec.jar - JDBC驱动 - 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar
+复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
+com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false  复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
+package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/dig%E7%AC%94%E8%AE%B0/" itemprop="url">
+        dig笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-12">
+    2013-10-12
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/network" itemprop="url" rel="index">
+        <span itemprop="name">NetWork</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">710 字 ~4分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    dig是域信息搜索器（domain informationgroper）。dig和nslookup作用有些类似，都是DNS查询工具。它与nslookup的区别在于：dig使用操作系统的解析库而nslookup使用自己的一套。Bind开发组已经宣布废弃nslookup，但Unix和Linux系统一般都安装了这两个工具。一些专业的DNS管理员在追查DNS问题时，都乐于使用dig命令，是看中了dig设置灵活、输出清晰、功能强大的特点。
+如果Ubuntu下没有dig命令，可通过如下命令安装：
+sudo apt-get install dnsutils  dig使用说明 dig选项 -b address设置所要询问地址的源 IP 地址。这必须是主机网络接口上的某一合法的地址。-c class缺省查询类（IN forinternet）由选项-c重设。class可以是任何合法类，比如查询Hesiod记录的HS类或查询CHAOSNET记录的CH 类。-f filename使dig在批处理模式下运行，通过从文件filename读取一系列搜索请求加以处理。文件包含许多查询；每行一个。文件中的每一项都应该以和使用命令行接口对dig的查询相同的方法来组织。-h当使用选项-h时，显示一个简短的命令行参数和选项摘要。-k filename要签署由dig发送的DNS查询以及对它们使用事务签名（TSIG）的响应，用选项-k指定TSIG密钥文件。-n缺省情况下，使用IP6.ARPA域和RFC2874定义的二进制标号搜索IPv6地址。为了使用更早的、使用IP6.INT域和nibble标签的RFC1886方法，指定选项-n（nibble）。-p port#如果需要查询一个非标准的端口号，则使用选项-p。port#是dig将发送其查询的端口号，而不是标准的DNS端口号53。该选项可用于测试已在非标准端口号上配置成侦听查询的域名服务器。-t type设置查询类型为type。可以是BIND9支持的任意有效查询类型。缺省查询类型是A，除非提供-x选项来指示一个逆向查询。通过指定AXFR的type可以请求一个区域传输。当需要增量区域传输（IXFR）时，type设置为ixfr=N。增量区域传输将包含自从区域的SOA记录中的序列号改为N之后对区域所做的更改。-x addr逆向查询（将地址映射到名称）可以通过-x选项加以简化。addr是一个以小数点为界的IPv4地址或冒号为界的IPv6地址。当使用这个选项时，无需提供name、class和type参数。dig自动运行类似11.12.13.10.in-addr.arpa的域名查询，并分别设置查询类型和类为PTR和IN。-y name:key您可以通过命令行上的-y选项指定TSIG密钥；name是TSIG密码的名称，key是实际的密码。密码是64位加密字符串，通常由dnssec-keygen（8）生成。当在多用户系统上使用选项-y时应该谨慎，因为密码在ps（1）的输出或shell 的历史文件中可能是可见的。当同时使用dig和TSCG认证时，被查询的名称服务器需要知道密码和解码规则。在BIND中，通过提供正确的密码和named.conf中的服务器声明实现。
+dig的查询选项 dig提供查询选项，它影响搜索方式和结果显示。一些在查询请求报头设置或复位标志位，一部分决定显示哪些回复信息，其它的确定超时和重试战略。每个查询选项被带前缀（+）的关键字标识。一些关键字设置或复位一个选项。通常前缀是求反关键字含义的字符串no。其他关键字分配各选项的值，比如超时时间间隔。它们的格式形如+keyword=value。查询选项是： +[no]tcp查询域名服务器时使用[不使用]TCP。缺省行为是使用 UDP，除非是 AXFR 或 IXFR 请求，才使用 TCP连接。+[no]vc查询名称服务器时使用[不使用]TCP。+[no]tcp的备用语法提供了向下兼容。vc代表虚电路。+[no]ignore忽略 UDP 响应的中断，而不是用 TCP 重试。缺省情况运行 TCP 重试。+domain=somename设定包含单个域somename的搜索列表，好像被/etc/resolv.conf中的域伪指令指定，并且启用搜索列表处理，好像给定了+search选项。+[no]search使用[不使用]搜索列表或resolv.conf中的域伪指令（如果有的话）定义的搜索列表。缺省情况不使用搜索列表。+[no]defname不建议看作+[no]search的同义词。+[no]aaonly该选项不做任何事。它用来提供对设置成未实现解析器标志的dig的旧版本的兼容性。+[no]adflag在查询中设置 [不设置]AD（真实数据）位。目前AD位只在响应中有标准含义，而查询中没有，但是出于完整性考虑在查询中这种性能可以设置。+[no]cdflag在查询中设置 [不设置] CD（检查禁用）位。它请求服务器不运行响应信息的DNSSEC合法性。+[no]recursive切换查询中的 RD（要求递归）位设置。在缺省情况下设置该位，也就是说 dig正常情形下发送递归查询。当使用查询选项+nssearch或+trace时，递归自动禁用。+[no]nssearch这个选项被设置时，dig试图寻找包含待搜名称的网段的权威域名服务器，并显示网段中每台域名服务器的SOA记录。+[no]trace切换为待查询名称从根名称服务器开始的代理路径跟踪。缺省情况不使用跟踪。一旦启用跟踪，dig使用迭代查询解析待查询名称。它将按照从根服务器的参照，显示来自每台使用解析查询的服务器的应答。+[no]cmd设定在输出中显示指出dig版本及其所用的查询选项的初始注释。缺省情况下显示注释。+[no]short提供简要答复。缺省值是以冗长格式显示答复信息。+[no]identify当启用+short选项时，显示[或不显示]提供应答的IP地址和端口号。如果请求简短格式应答，缺省情况不显示提供应答的服务器的源地址和端口号。+[no]comments切换输出中的注释行显示。缺省值是显示注释。+[no]stats该查询选项设定显示统计信息：查询进行时，应答的大小等等。缺省显示查询统计信息。+[no]qr显示 [不显示] 发送的查询请求。缺省不显示。+[no]question当返回应答时，显示 [不显示] 查询请求的问题部分。缺省作为注释显示问题部分。+[no]answer显示 [不显示] 应答的回答部分。缺省显示。+[no]authority显示 [不显示] 应答的权限部分。缺省显示。+[no]additional显示 [不显示] 应答的附加部分。缺省显示。+[no]all设置或清除所有显示标志。+time=T为查询设置超时时间为T秒。缺省是5秒。如果将T设置为小于1的数，则以1秒作为查询超时时间。+tries=A设置向服务器发送 UDP 查询请求的重试次数为A，代替缺省的 3次。如果把A小于或等于 0，则采用 1 为重试次数。+ndots=D出于完全考虑，设置必须出现在名称D的点数。缺省值是使用在/etc/resolv.conf中的ndots语句定义的，或者是 1，如果没有ndots语句的话。带更少点数的名称被解释为相对名称，并通过搜索列表中的域或文件/etc/resolv.conf 中的域伪指令进行搜索。+bufsize=B设置使用 EDNS0 的 UDP消息缓冲区大小为B字节。缓冲区的最大值和最小值分别为65535和0。超出这个范围的值自动舍入到最近的有效值。+[no]multiline以详细的多行格式显示类似SOA的记录，并附带可读注释。缺省值是每单个行上显示一条记录，以便于计算机解析dig的输出。
+全局查询参数（global-d-opt）和（在主机名之前的）服务器影响所有查询。局部查询参数和（在主机名之后的）服务器仅影响当前查询。
+dig使用 mryqu&gt; dig ; &lt;&lt;&gt;&gt; DiG 9.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/dig%E7%AC%94%E8%AE%B0/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">
+        Ubuntu下安装部署MySQL数据库
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-11">
+    2013-10-11
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
+        <span itemprop="name">db&#43;nosql</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">186 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
+sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java  查看是否安装成功:
+sudo netstat -tap | grep mysql  查看上述软件包所提供的文件:
+dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev  通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
+MySQL服务操作 查看状态 - 使用service查看状态：sudo service mysql status - 使用mysql脚本查看状态：/etc/inint.d/mysql status - 使用mysqladmin查看状态：mysqladmin -u root -p status
+启动 - 使用service启动：sudo service mysql start - 使用mysql脚本启动：/etc/inint.d/mysql start - 使用mysqld_safe启动：mysqld_safe&amp;
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
 </section>
 
 
@@ -911,6 +899,10 @@ PS C:\sas\Config\Lev1\Web\WebServer\bin&gt; .\httpdctl.ps1 status httpdctl.ps1 -
         
     
         
+        
+          <a class="page-number" href="/page/62/">62</a>
+        
+        
     
         
         
@@ -928,8 +920,6 @@ PS C:\sas\Config\Lev1\Web\WebServer\bin&gt; .\httpdctl.ps1 status httpdctl.ps1 -
         
           <a class="page-number" href="/page/65/">65</a>
         
-        
-    
         
     
         
@@ -972,7 +962,7 @@ PS C:\sas\Config\Lev1\Web\WebServer\bin&gt; .\httpdctl.ps1 status httpdctl.ps1 -
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -989,7 +979,7 @@ PS C:\sas\Config\Lev1\Web\WebServer\bin&gt; .\httpdctl.ps1 status httpdctl.ps1 -
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1502</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

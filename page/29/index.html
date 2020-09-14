@@ -113,130 +113,6 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E6%89%A7%E8%A1%8Cgradle_artifactorypublish%E4%BB%BB%E5%8A%A1%E6%97%B6%E7%A2%B0%E5%88%B0http_409_conflict%E9%94%99%E8%AF%AF/" itemprop="url">
-        执行Gradle artifactoryPublish任务时碰到HTTP 409 Conflict错误
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-13">
-    2015-07-13
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gradle" itemprop="url" rel="index">
-        <span itemprop="name">Gradle</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">31 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    这篇博文算是《尝试Artifactory》的姐妹篇。我打算将《尝试Artifactory》中的&rsquo;libs-snapshot-local&rsquo;和&rsquo;libs-snapshot&rsquo;换成&rsquo;libs-release-local&rsquo;和&rsquo;libs-release&rsquo;，以便将我的构件发布到发布版仓库里。结果遭遇如下错误：
-C:\test123\HelloArtifactory&gt;gradlew artifactoryPublish [buildinfo] Not using buildInfo properties file for this build. :generatePomFileForMavenJavaPublication :compileJava  查看Artifactory日志，才知道根本原因在于创建的是SNAPSHOT而libs-release-local只处理发布版构建。The repository &lsquo;libs-release-local&rsquo; rejected the artifact&rsquo;libs-release-local:com/yqu/HelloArtifactory/0.1.0-SNAPSHOT/HelloArtifactory-0.1.0-SNAPSHOT.jar&rsquo;due to its snapshot/release handling policy。 解决方案有如下两种： - 修改libs-release-local属性，勾选Handle Snapshots选择框（工作流不正规啦） - 将gradle.properties中的version由0.1.0-SNAPSHOT改成0.1.0即可
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_git_plugin%E4%BB%8B%E7%BB%8D/" itemprop="url">
-        Gradle Git Plugin介绍
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-12">
-    2015-07-12
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gradle" itemprop="url" rel="index">
-        <span itemprop="name">Gradle</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">64 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Grgit和gradle-git Git是一个很流行的分布式版本管理工具。能在构建过程中与Git进行交互，可以提供更强大和更一致的结果。
-JGit提供了与Git仓库交互的强大JavaAPI。然而，在Groovy上下本使用它会笨重，需要在所要执行的表达式包一堆换七八糟的东东。Grgit是Andre wOberstar实现的JGit封装器，为基于Groovy的工具与Git仓库交互提供了更简洁流畅的API。 gradle-git同样是由Andrew Oberstar实现的一系列Gradle插件： - org.ajoberstar.grgit - 提供一个Grgit实例，允许与Gradle项目所在的Git仓库交互 - org.ajoberstar.github-pages - 向Github仓库的gh-pages分支发布文件 - org.ajoberstar.release-base -提供用于从项目状态和所在Git仓库推断当前项目版本和创建新版本的通用结构 - org.ajoberstar.release-opinion -用于org.ajoberstar.release-base的默认选项，遵从语义版本控制（Semantic Versioning）下面是一个Gradle任务示例，用于从Git仓库克隆项目。
-build.gradle buildscript { repositories { mavenCentral() } dependencies { classpath 'org.ajoberstar:gradle-git:1.2.0' } } import org.ajoberstar.gradle.git.tasks.* task cloneGitRepo(type: GitClone) { def destination = file(&quot;destination_folder&quot;) uri = &quot;your_git_repo_uri&quot; destinationPath = destination bare = false enabled = !destination.exists() //to clone only once }  参考 GitHub：ajoberstar/gradle-git
-GitHub：ajoberstar/grgit
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/spring_boot_%E7%9B%91%E6%8E%A7%E5%92%8C%E7%AE%A1%E7%90%86spring_boot%E5%BA%94%E7%94%A8/" itemprop="url">
         [Spring Boot] 监控和管理Spring Boot应用
         </a>
@@ -740,6 +616,128 @@ JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/icu4j%E4%BB%8B%E7%BB%8D/" itemprop="url">
+        ICU4J介绍
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-02">
+    2015-07-02
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">209 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    ICU (International Components for Unicode)是为软件应用提供Unicode和全球化支持的一套成熟、广泛使用的C/C++和Java类库集，可在所有平台的C/C++和Java软件上获得一致的结果。 ICU首先是由Taligent公司开发的，Taligent公司被合并为IBM公司全球化认证中心的Unicode研究组后，ICU由IBM和开源组织合作继续开发。开始ICU只有Java平台的版本，后来这个平台下的ICU类被吸纳入SUN公司开发的JDK1.1，并在JDK以后的版本中不断改进。 C++和C平台下的ICU是由JAVA平台下的ICU移植过来的，移植过的版本被称为ICU4C，来支持这C/C++两个平台下的国际化应用。ICU4J和ICU4C区别不大，但由于ICU4C是开源的，并且紧密跟进Unicode标准，ICU4C支持的Unicode标准总是最新的；同时，因为JAVA平台的ICU4J的发布需要和JDK绑定，ICU4C支持Unicode标准改变的速度要比ICU4J快的多。 ICU的功能主要有: - 代码页转换:对文本数据进行Unicode、几乎任何其他字符集或编码的相互转换。ICU的转化表基于IBM过去几十年收集的字符集数据，在世界各地都是最完整的。 - 排序规则（Collation）:根据特定语言、区域或国家的管理和标准比较字数串。ICU的排序规则基于Unicode排序规则算法加上来自公共区域性数据仓库（Commonlocale data repository）的区域特定比较规则。 - 格式化:根据所选区域设置的惯例，实现对数字、货币、时间、日期、和利率的格式化。包括将月和日名称转换成所选语言、选择适当缩写、正确对字段进行排序等。这些数据也取自公共区域性数据仓库。 - 时间计算: 在传统格里历基础上提供多种历法。提供一整套时区计算API。 - Unicode支持:ICU紧密跟进Unicode标准，通过它可以很容易地访问Unicode标准制定的很多Unicode字符属性、Unicode规范化、大小写转换和其他基础操作。 - 正则表达式: ICU的正则表达式全面支持Unicode并且性能极具竞争力。 - Bidi: 支持不同文字书写顺序混合文字（例如从左到右书写的英语，或者从右到左书写的阿拉伯文和希伯来文）的处理。 - 文本边界: 在一段文本内定位词、句或段落位置、或标识最适合显示文本的自动换行位置。
+下面的示例是使用ICU4J检测文本编码：
+package com.yqu.icu4j; import java.io.IOException; import java.nio.file.Files; import java.nio.file.Path; import java.nio.file.Paths; import com.ibm.icu.text.CharsetDetector; import com.ibm.icu.text.CharsetMatch; public class EncodingDetector { public static void tryEncoding(String fileName) throws IOException { System.out.println(&quot;===Getting encoding of &quot; + fileName); Path path = Paths.get(fileName); byte[] data = Files.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/icu4j%E4%BB%8B%E7%BB%8D/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/" itemprop="url">
+        Java解析YAML
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-01">
+    2015-07-01
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">394 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    继前博文YAML介绍了YAML语法，本文将着重研究Java解析YAML。当前还在维护的YAML解析器/生成器有： - SnakeYAML - 完整的YAML 1.1解析器，尤其是SnakeYAML能够分析来自于规范的所有示例 - 支持Unicode，包括UTF-8/UTF-16的输入/输出 - 为序列化和反序列化本地的Java对象提供了高级API - 支持YAML类型库中的所有类型 - 比较理性的错误信息 - YamlBeans：支持YAML 1.0和1.1 - FasterXML/jackson-dataformat-yaml：处于原型阶段
+SnakeYAML和YamlBeans都在GoogleCode仓库时，SnakeYAML的使用人数和提交者均优于YamlBeans。目前大多数帖子还是推荐选用SnakeYAML，而SpringBoot读取YAML配置采用的就是SnakeYAML。为了测试SnakeYAML，我首先创建了一个HelloSnakeYAML项目。
+conf.yaml spring: application: name: cruncher datasource: driverClassName: com.mysql.jdbc.Driver url: jdbc:mysql://localhost/test server: port: 9000  Contact.java package com.yqu.yaml; import java.util.List; public class Contact { private String name; private int age; private List phoneNumbers; public Contact(String name, int age, List phoneNumbers) { this.name = name; this.age = age; this.phoneNumbers = phoneNumbers; } public String getName() { return name; } public void setName(String name) { this.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
 </section>
 
 
@@ -762,8 +760,6 @@ JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件�
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left"></i></a>
-    
-        
     
         
     
@@ -935,7 +931,7 @@ JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -952,7 +948,7 @@ JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1502</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

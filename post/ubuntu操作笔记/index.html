@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>在Ubuntu中识别当前Init系统 - Mryqu&#39;s Notes</title>
+    <title>Ubuntu操作笔记 - Mryqu&#39;s Notes</title>
     <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
     
-    <meta property="og:title" content="在Ubuntu中识别当前Init系统">
+    <meta property="og:title" content="Ubuntu操作笔记">
     <meta property="og:site_name" content="Mryqu&#39;s Notes">
     <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="在Ubuntu中识别当前Init系统 - Mryqu&#39;s Notes" />
+    <meta name="title" content="Ubuntu操作笔记 - Mryqu&#39;s Notes" />
     <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
     
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -110,8 +110,8 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/" itemprop="url">
-        在Ubuntu中识别当前Init系统
+        <a class="post-title-link" href="https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/" itemprop="url">
+        Ubuntu操作笔记
         </a>
       </h1>
       <div class="post-meta">
@@ -120,8 +120,8 @@
     <i class="fa fa-calendar-o"></i>
 </span>
 <span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-05">
-    2016-08-05
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-08-05">
+    2013-08-05
 </time>
 </span> 
       
@@ -156,14 +156,136 @@
     <i class="fa fa-eye"></i>
 </span>
 <span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">58 字 ~1分钟</span>
+<span class="leancloud-visitors-count">209 字 ~1分钟</span>
 </span>
       </div>
     </header>
     <div class="post-body" itemprop="articleBody">
     
 
-<h3 id="ubuntu-14-04">Ubuntu 14.04</h3>
+<h3 id="在ubuntu上修改主机名-2013-08-05">在Ubuntu上修改主机名 (2013-08-05)</h3>
+
+<h4 id="显示主机名">显示主机名</h4>
+
+<pre><code>hostname -s
+</code></pre>
+
+<p>更多细节见<a href="http://manpages.ubuntu.com/manpages/xenial/en/man1/hostname.1.html">hostname</a>帮助文档。</p>
+
+<h4 id="修改主机名">修改主机名</h4>
+
+<pre><code>sudo hostname your-new-name
+# Ubuntu专有
+hostnamectl set-hostname new-hostname
+</code></pre>
+
+<p>更多细节见<a href="http://manpages.ubuntu.com/manpages/xenial/en/man1/hostnamectl.1.html">hostnamectl</a>帮助文档。
+上述命令重启服务器后失效。</p>
+
+<h4 id="修改主机名配置">修改主机名配置</h4>
+
+<pre><code>sudo -H vi /etc/hostname
+sudo -H vi /etc/hosts
+</code></pre>
+
+<h3 id="ubuntu下显示本机ip-2013-10-20">Ubuntu下显示本机IP (2013-10-20)</h3>
+
+<p>命令为：ip addr show
+感觉比ifconfig eth0更通用些！</p>
+
+<h3 id="在ubuntu-linux上安装netstat-2014-01-01">在Ubuntu Linux上安装netstat (2014-01-01)</h3>
+
+<p>在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装<a href="http://sourceforge.net/projects/net-tools/">net-tools</a> 。<a href="http://sourceforge.net/projects/net-tools/">net-tools</a> 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。</p>
+
+<pre><code>apt-get install net-tools
+</code></pre>
+
+<h3 id="在ubuntu中禁掉ipv6-2015-03-20">在Ubuntu中禁掉IPv6 (2015-03-20)</h3>
+
+<p>为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：</p>
+
+<pre><code>net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+</code></pre>
+
+<p>如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：</p>
+
+<pre><code>sudo sysctl -p
+</code></pre>
+
+<p>之后，运行:</p>
+
+<pre><code>$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+</code></pre>
+
+<p>它将返回1，这表示IPv6被成功禁止掉。
+<img src="/images/2015/3/0026uWfMzy77TWiBwcr7b.png" alt="在Ubuntu中禁掉IPv6" /></p>
+
+<h3 id="在ubuntu中强制apt-get使用ipv4或ipv6-2015-05-18">在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18)</h3>
+
+<h4 id="快速命令行选项">快速命令行选项</h4>
+
+<p>如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在<code>apt-get</code>的<code>0.9.7.9~exp1</code>版本后可用。首先，通过如下命令确认<code>apt-get</code>版本高于<code>0.9.7.9~exp1</code>：</p>
+
+<pre><code>apt-get --version
+</code></pre>
+
+<p>结果近似于:</p>
+
+<pre><code>apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14
+</code></pre>
+
+<p>版本核实后，可以通过如下命令强制使用IPv4:</p>
+
+<pre><code>apt-get -o Acquire::ForceIPv4=true update
+</code></pre>
+
+<p>或IPv6:</p>
+
+<pre><code>apt-get -o Acquire::ForceIPv6=true update
+</code></pre>
+
+<p>这会将_sources.list_中的URL仅解析成IPv4并更新仓库。</p>
+
+<h4 id="持久化的选项">持久化的选项</h4>
+
+<p>为了让设置持久化，在<code>/etc/apt/apt.conf.d/</code>下创建<code>99force-ipv4</code>文件。</p>
+
+<pre><code>sudoedit /etc/apt/apt.conf.d/99force-ipv4
+</code></pre>
+
+<p>在该文件放入如下内容：</p>
+
+<pre><code>Acquire::ForceIPv4 &quot;true&quot;;
+</code></pre>
+
+<p>保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的<strong>4</strong>改成<strong>6</strong>即可。<br />
+原文: <a href="https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian">https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian</a></p>
+
+<h3 id="在ubuntu中安装rpm包-2015-08-07">在Ubuntu中安装rpm包 (2015-08-07)</h3>
+
+<p>RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。
+APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。
+Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。
+Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用<code>sudo apt-get install alien</code>命令进行安装。</p>
+
+<p>Alien使用：</p>
+
+<ul>
+<li><strong>rpm转deb</strong>：<code>sudo alien --script (filename).rpm</code><br /></li>
+<li><strong>Debian系统直接安装rpm</strong>：<code>sudo alien -i --script(filename).rpm</code><br /></li>
+<li><strong>deb转rpm</strong>：<code>sudo alien --to-rpm (filename).deb</code><br /></li>
+<li><strong>tar.gz转deb</strong>：<code>sudo alien -k (filename).tar.gz</code><br /></li>
+<li><strong>tar.bz2转deb</strong>：<code>sudo alien -d (filename).tar.bz2</code><br /></li>
+<li><strong>tgz转deb</strong>：<code>sudo alien --to-deb ~/(filename).tgz</code><br /></li>
+</ul>
+
+<p>由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。</p>
+
+<h3 id="在ubuntu中识别当前init系统-2016-08-05">在Ubuntu中识别当前Init系统 (2016-08-05)</h3>
+
+<h4 id="ubuntu-14-04">Ubuntu 14.04</h4>
 
 <p>首先用uname命令查看一下系统信息：</p>
 
@@ -171,14 +293,18 @@
 Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 </code></pre>
 
-<p>用pstree命令查看一下ID为1的进程，原来是init：<img src="/images/2016/8/0026uWfMzy759cAy8UU58.png" alt="在Ubuntu中识别当前Init系统" /> 可以下面几个命令查看init进程所用的命令信息：
+<p>用pstree命令查看一下ID为1的进程，原来是init：
+<img src="/images/2016/8/0026uWfMzy759cAy8UU58.png" alt="在Ubuntu中识别当前Init系统" /></p>
+
+<p>可以下面几个命令查看init进程所用的命令信息：
 - ps -efa|grep init
 - type init
 - sudo stat /proc/1/exe</p>
 
-<p>最终通过&rdquo;sudo init &ndash;version&rdquo;可知当前的Init系统为upstart：<img src="/images/2016/8/0026uWfMzy759d8PJcKd2.jpg" alt="在Ubuntu中识别当前Init系统" /></p>
+<p>最终通过&rdquo;sudo init &ndash;version&rdquo;可知当前的Init系统为upstart：
+<img src="/images/2016/8/0026uWfMzy759d8PJcKd2.jpg" alt="在Ubuntu中识别当前Init系统" /></p>
 
-<h3 id="ubuntu-15-04">Ubuntu 15.04</h3>
+<h4 id="ubuntu-15-04">Ubuntu 15.04</h4>
 
 <p>首先查看一下系统信息：</p>
 
@@ -186,9 +312,10 @@ Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC
 Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 </code></pre>
 
-<p>用pstree命令查看一下ID为1的进程，原来是systemd：<img src="/images/2016/8/0026uWfMzy75azKHvSWf2.jpg" alt="在Ubuntu中识别当前Init系统" /></p>
+<p>用pstree命令查看一下ID为1的进程，原来是systemd：
+<img src="/images/2016/8/0026uWfMzy75azKHvSWf2.jpg" alt="在Ubuntu中识别当前Init系统" /></p>
 
-<h3 id="参考">参考</h3>
+<h4 id="参考">参考</h4>
 
 <p><a href="https://zh.wikipedia.org/zh-cn/Init">WIKI：init</a></p>
 
@@ -198,7 +325,7 @@ Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37
 <div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
     <div>
         <p style="margin-top:0px;">
-            标题：在Ubuntu中识别当前Init系统
+            标题：Ubuntu操作笔记
         <br />作者：<a target="_blank" href="/">mryqu</a>
         <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
         </p>
@@ -210,11 +337,21 @@ Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37
  
 <div class="post-tags">     
      
-    <a href="/tags/unix" rel="tag" title="unix">#unix#</a>
+    <a href="/tags/ubuntu" rel="tag" title="ubuntu">#ubuntu#</a>
     
     <a href="/tags/linux" rel="tag" title="linux">#linux#</a>
     
-    <a href="/tags/init" rel="tag" title="init">#init#</a>
+    <a href="/tags/hostname" rel="tag" title="hostname">#hostname#</a>
+    
+    <a href="/tags/netstat" rel="tag" title="netstat">#netstat#</a>
+    
+    <a href="/tags/ip" rel="tag" title="ip">#ip#</a>
+    
+    <a href="/tags/ipv4" rel="tag" title="ipv4">#ipv4#</a>
+    
+    <a href="/tags/ipv6" rel="tag" title="ipv6">#ipv6#</a>
+    
+    <a href="/tags/rpm" rel="tag" title="rpm">#rpm#</a>
     
 </div>
 
@@ -223,16 +360,16 @@ Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37
      <div class="post-nav">
     <div class="post-nav-next post-nav-item">
     
-        <a href="https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/" rel="next" title="[RabbitMQ] 在Widnows平台安装配置RabbitMQ">
-        <i class="fa fa-chevron-left"></i> [RabbitMQ] 在Widnows平台安装配置RabbitMQ
+        <a href="https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/" rel="next" title="Java NaN小结">
+        <i class="fa fa-chevron-left"></i> Java NaN小结
         </a>
     
     </div>
 
     <div class="post-nav-prev post-nav-item">
     
-        <a href="https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/" rel="prev" title="[Spark]Spark和Hive集成">
-        [Spark]Spark和Hive集成 <i class="fa fa-chevron-right"></i>
+        <a href="https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="prev" title="Java线程是否会被垃圾回收？">
+        Java线程是否会被垃圾回收？ <i class="fa fa-chevron-right"></i>
         </a>
     
     </div>
@@ -251,8 +388,8 @@ Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37
 
 
 var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/";
-this.page.identifier = "https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/";
+this.page.url = "https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/";
+this.page.identifier = "https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/";
 };
 (function() { 
 var d = document, s = d.createElement('script');
@@ -298,7 +435,7 @@ s.setAttribute('data-timestamp', +new Date());
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -315,7 +452,7 @@ s.setAttribute('data-timestamp', +new Date());
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1502</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
@@ -363,9 +500,27 @@ s.setAttribute('data-timestamp', +new Date());
 <ul>
 <li>
 <ul>
+<li><a href="#在ubuntu上修改主机名-2013-08-05">在Ubuntu上修改主机名 (2013-08-05)</a>
+<ul>
+<li><a href="#显示主机名">显示主机名</a></li>
+<li><a href="#修改主机名">修改主机名</a></li>
+<li><a href="#修改主机名配置">修改主机名配置</a></li>
+</ul></li>
+<li><a href="#ubuntu下显示本机ip-2013-10-20">Ubuntu下显示本机IP (2013-10-20)</a></li>
+<li><a href="#在ubuntu-linux上安装netstat-2014-01-01">在Ubuntu Linux上安装netstat (2014-01-01)</a></li>
+<li><a href="#在ubuntu中禁掉ipv6-2015-03-20">在Ubuntu中禁掉IPv6 (2015-03-20)</a></li>
+<li><a href="#在ubuntu中强制apt-get使用ipv4或ipv6-2015-05-18">在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18)</a>
+<ul>
+<li><a href="#快速命令行选项">快速命令行选项</a></li>
+<li><a href="#持久化的选项">持久化的选项</a></li>
+</ul></li>
+<li><a href="#在ubuntu中安装rpm包-2015-08-07">在Ubuntu中安装rpm包 (2015-08-07)</a></li>
+<li><a href="#在ubuntu中识别当前init系统-2016-08-05">在Ubuntu中识别当前Init系统 (2016-08-05)</a>
+<ul>
 <li><a href="#ubuntu-14-04">Ubuntu 14.04</a></li>
 <li><a href="#ubuntu-15-04">Ubuntu 15.04</a></li>
 <li><a href="#参考">参考</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>

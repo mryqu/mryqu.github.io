@@ -2773,22 +2773,6 @@ RabbitMQ for Windows: Introduction
     </entry>
     
      <entry>
-        <title>在Ubuntu中识别当前Init系统</title>
-        <url>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E8%AF%86%E5%88%AB%E5%BD%93%E5%89%8Dinit%E7%B3%BB%E7%BB%9F/</url>
-        <categories>
-          <category>Tool</category><category>Linux</category>
-        </categories>
-        <tags>
-          <tag>unix</tag><tag>linux</tag><tag>init</tag>
-        </tags>
-        <content type="html">  Ubuntu 14.04 首先用uname命令查看一下系统信息：
-ubuntu@node50069:~$ uname -a Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是init：可以下面几个命令查看init进程所用的命令信息： - ps -efa|grep init - type init - sudo stat /proc/1/exe
-最终通过&amp;rdquo;sudo init &amp;ndash;version&amp;rdquo;可知当前的Init系统为upstart：Ubuntu 15.04 首先查看一下系统信息：
-vagrant@vagrant-ubuntu-trusty:~$ uname -a Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是systemd：参考 WIKI：init
-</content>
-    </entry>
-    
-     <entry>
         <title>[Spark]Spark和Hive集成</title>
         <url>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</url>
         <categories>
@@ -5028,21 +5012,6 @@ var mTypes = { &amp;quot;any&amp;quot; : createType(&amp;quot;any&amp;quot;, { d
     </entry>
     
      <entry>
-        <title>在Ubuntu中安装rpm包</title>
-        <url>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%AE%89%E8%A3%85rpm%E5%8C%85/</url>
-        <categories>
-          <category>Tool</category><category>Linux</category>
-        </categories>
-        <tags>
-          <tag>ubuntu</tag><tag>rpm</tag><tag>alien</tag><tag>apt</tag>
-        </tags>
-        <content type="html"> RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。 APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。 Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。 Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用sudo apt-get install alien命令进行安装。
-Alien使用： - rpm转deb：sudo alien --script (filename).rpm - Debian系统直接安装rpm：sudo alien -i --script(filename).rpm - deb转rpm：sudo alien --to-rpm (filename).deb - tar.gz转deb：sudo alien -k (filename).tar.gz - tar.bz2转deb：sudo alien -d (filename).tar.bz2 - tgz转deb：sudo alien --to-deb ~/(filename).tgz
-由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。
-</content>
-    </entry>
-    
-     <entry>
         <title>[JavaScript] 判断jQuery版本</title>
         <url>https://mryqu.github.io/post/javascript_%E5%88%A4%E6%96%ADjquery%E7%89%88%E6%9C%AC/</url>
         <categories>
@@ -6220,27 +6189,6 @@ UI Framework related
     </entry>
     
      <entry>
-        <title>在Ubuntu中强制Apt-get使用IPv4或IPv6</title>
-        <url>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E5%BC%BA%E5%88%B6apt-get%E4%BD%BF%E7%94%A8ipv4%E6%88%96ipv6/</url>
-        <categories>
-          <category>Tool</category><category>Linux</category>
-        </categories>
-        <tags>
-          <tag>ubuntu</tag><tag>debian</tag><tag>apt-get</tag><tag>ipv4</tag><tag>ipv6</tag>
-        </tags>
-        <content type="html">  快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
-apt-get --version  结果近似于:
-apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14  版本核实后，可以通过如下命令强制使用IPv4:
-apt-get -o Acquire::ForceIPv4=true update  或IPv6:
-apt-get -o Acquire::ForceIPv6=true update  这会将_sources.list_中的URL仅解析成IPv4并更新仓库。
-持久化的选项 为了让设置持久化，在/etc/apt/apt.conf.d/下创建99force-ipv4文件。
-sudoedit /etc/apt/apt.conf.d/99force-ipv4  在该文件放入如下内容：
-Acquire::ForceIPv4 &amp;quot;true&amp;quot;;  保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的4改成6即可。
-原文: https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian
-</content>
-    </entry>
-    
-     <entry>
         <title>尝试boot2docker和Vagrant-boot2docker box</title>
         <url>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95boot2docker%E5%92%8Cvagrant-boot2docker_box/</url>
         <categories>
@@ -7084,21 +7032,6 @@ MSDN: Functional Programming vs. Imperative Programming
 Compiling github activiti-designer project
 Eclipse plug-in unable to instantiate class &amp;ldquo;org.activiti.designer.eclipse.editor.ActivitiDiagramEditor&amp;rdquo;
 </content>
-    </entry>
-    
-     <entry>
-        <title>在Ubuntu中禁掉IPv6</title>
-        <url>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%AD%E7%A6%81%E6%8E%89ipv6/</url>
-        <categories>
-          <category>Tool</category><category>Linux</category>
-        </categories>
-        <tags>
-          <tag>ubuntu</tag><tag>ipv6</tag><tag>disable</tag>
-        </tags>
-        <content type="html"> 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
-net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
-sudo sysctl -p  之后，运行:
-$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 </content>
     </entry>
     
      <entry>
@@ -10194,19 +10127,6 @@ Web应用服务器文档： - Tomcat Wiki：FAQ/Password - JBoss：Encrypting Da
     </entry>
     
      <entry>
-        <title>在Ubuntu Linux上安装netstat</title>
-        <url>https://mryqu.github.io/post/%E5%9C%A8ubuntu_linux%E4%B8%8A%E5%AE%89%E8%A3%85netstat/</url>
-        <categories>
-          <category>Tool</category><category>Linux</category>
-        </categories>
-        <tags>
-          <tag>apt-get</tag><tag>ubuntu</tag><tag>linux</tag><tag>netstat</tag><tag>install</tag>
-        </tags>
-        <content type="html"> 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools。net-tools是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
-apt-get install net-tools  </content>
-    </entry>
-    
-     <entry>
         <title>swirl介绍</title>
         <url>https://mryqu.github.io/post/swirl%E4%BB%8B%E7%BB%8D/</url>
         <categories>
@@ -10867,19 +10787,6 @@ mryqu:~/ctest$ g&#43;&#43; -g wvc.cpp -o wvc mryqu:~/ctest$ file wvc wvc: ELF 64
 批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
 @echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in (&#39;dir /A:-D /S /B *.jar&#39;) do 7z l %%i | findstr %WHICH_CLASS% &amp;amp;&amp;amp; echo %WHICH_CLASS% found in: &amp;quot;%%i&amp;quot; echo &amp;quot;Finished class finding...&amp;quot; echo &amp;quot;======================================&amp;quot; ENDLOCAL  命令运行格式：
 findclass com\\yqu\\kxmt\\TestFindClass.class  </content>
-    </entry>
-    
-     <entry>
-        <title>Ubuntu下显示本机IP</title>
-        <url>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E6%98%BE%E7%A4%BA%E6%9C%AC%E6%9C%BAip/</url>
-        <categories>
-          <category>Tool</category><category>Linux</category>
-        </categories>
-        <tags>
-          <tag>ubuntu</tag><tag>linux</tag><tag>show</tag><tag>ipaddress</tag>
-        </tags>
-        <content type="html"> 命令为：ip addr show 感觉比ifconfig eth0更通用些！
-</content>
     </entry>
     
      <entry>
@@ -11871,17 +11778,44 @@ Double.isNaN(Double.NaN) :true MyNaN.isMyNaN(Double.NaN) :false Double.isNaN(MyN
     </entry>
     
      <entry>
-        <title>在Ubuntu上修改主机名</title>
-        <url>https://mryqu.github.io/post/%E5%9C%A8ubuntu%E4%B8%8A%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/</url>
+        <title>Ubuntu操作笔记</title>
+        <url>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</url>
         <categories>
           <category>Tool</category><category>Linux</category>
         </categories>
         <tags>
-          <tag>ubuntu</tag><tag>hostname</tag>
+          <tag>ubuntu</tag><tag>linux</tag><tag>hostname</tag><tag>netstat</tag><tag>ip</tag><tag>ipv4</tag><tag>ipv6</tag><tag>rpm</tag>
         </tags>
-        <content type="html">  显示主机名 hostname -s  更多细节见hostname帮助文档。
+        <content type="html">  在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s  更多细节见hostname帮助文档。
 修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  </content>
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
+在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
+apt-get install net-tools  在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p  之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
+apt-get --version  结果近似于:
+apt 1.0.1ubuntu2 for amd64 compiled on Oct 28 2014 20:55:14  版本核实后，可以通过如下命令强制使用IPv4:
+apt-get -o Acquire::ForceIPv4=true update  或IPv6:
+apt-get -o Acquire::ForceIPv6=true update  这会将_sources.list_中的URL仅解析成IPv4并更新仓库。
+持久化的选项 为了让设置持久化，在/etc/apt/apt.conf.d/下创建99force-ipv4文件。
+sudoedit /etc/apt/apt.conf.d/99force-ipv4  在该文件放入如下内容：
+Acquire::ForceIPv4 &amp;quot;true&amp;quot;;  保存文件即可。如果相反想强制使用IPv6，将文件名及其内容中的4改成6即可。
+原文: https://www.vultr.com/docs/force-apt-get-to-ipv4-or-ipv6-on-ubuntu-or-debian
+在Ubuntu中安装rpm包 (2015-08-07) RPM(RPM Package Manager，原Red Hat PackageManager)是基于RedHat的Linux分发版的包管理系统，用于rpm包的管理（诸如安装、卸载、升级等），其原始设计理念是开放式的，现在包括OpenLinux、Mandrake、SuSE以及TurboLinux等Linux分发版都有采用。 APT软件管理系统是Debian 系统(包含Debian和 Ubuntu)的包管理系统，用于deb包的的管理（诸如安装、卸载、升级等）。deb格式是Debian系统专属安装包格式，进入2.x时代之后由Cydia作者JayFreeman（saurik）将其与APT软件管理系统一起移植到iPhone平台上。 Alien是一个将不同Linux包分发文件转换成deb的程序，支持Linux标准规范, RPM、deb、Stampede(.slp)和Slackware (tgz)包之间的转换。 Alien工具安装： 在Ubuntu下，alien已经添加在源中,可以使用sudo apt-get install alien命令进行安装。
+Alien使用：
+ rpm转deb：sudo alien --script (filename).rpm
+ Debian系统直接安装rpm：sudo alien -i --script(filename).rpm
+ deb转rpm：sudo alien --to-rpm (filename).deb
+ tar.gz转deb：sudo alien -k (filename).tar.gz
+ tar.bz2转deb：sudo alien -d (filename).tar.bz2
+ tgz转deb：sudo alien --to-deb ~/(filename).tgz
+  由于Teradata数据库的安装文件仅支持Redhat、SUSE和IBM s390xLinux，而我的docker容器是基于Debian系统的，所以今天尝试了一下Alien。但是效果不佳：ttu14中的rpm可以转换成deb，但是直接安装失败；ttu15中的rpm直接安装失败，但是转换deb失败。
+在Ubuntu中识别当前Init系统 (2016-08-05) Ubuntu 14.04 首先用uname命令查看一下系统信息：
+ubuntu@node50069:~$ uname -a Linux node50069 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是init： 可以下面几个命令查看init进程所用的命令信息： - ps -efa|grep init - type init - sudo stat /proc/1/exe
+最终通过&amp;rdquo;sudo init &amp;ndash;version&amp;rdquo;可知当前的Init系统为upstart： Ubuntu 15.04 首先查看一下系统信息：
+vagrant@vagrant-ubuntu-trusty:~$ uname -a Linux vagrant-ubuntu-trusty 3.19.0-15-generic #15-Ubuntu SMP Thu Apr 16 23:32:37 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux  用pstree命令查看一下ID为1的进程，原来是systemd： 参考 WIKI：init
+</content>
     </entry>
     
      <entry>
@@ -13294,21 +13228,6 @@ BUILD FAILEDbuild.xml:54: Problem: failed to create task or typecobertura-instru
           <tag>jboss</tag>
         </tags>
         <content type="html"> 剑出偏锋 JBoss的过去现在和未来 JBoss的确很好用，全是拜Marc老兄带人稳扎稳打做出来的。学习，实践，平常心!
-</content>
-    </entry>
-    
-     <entry>
-        <title>周末看JMF</title>
-        <url>https://mryqu.github.io/post/%E5%91%A8%E6%9C%AB%E7%9C%8Bjmf/</url>
-        <categories>
-          <category>Java</category>
-        </categories>
-        <tags>
-          <tag>jmf</tag><tag>java</tag><tag>media</tag><tag>framework</tag>
-        </tags>
-        <content type="html"> 继续hello之旅。
-JavaTM Media FrameworkAPI Guide http://java.sun.com/javase/technologies/desktop/media/jmf/2.1.1/guide/index.html
-JMF开发指南1.0 中文版 http://hi.baidu.com/bigbigant/blog/item/43021ad8f240123033fa1ce8.html/cmtid/916ed31677780f11972b430a
 </content>
     </entry>
     

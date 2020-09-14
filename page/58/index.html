@@ -113,310 +113,6 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/jpa_cascadetype.remove%E4%B8%8Eorphanremoval%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">
-        [JPA] CascadeType.REMOVE与orphanRemoval的区别
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
-    2013-10-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
-        <span itemprop="name">db&#43;nosql</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">46 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Cascading Remove 将引用字段标注为CascadeType.REMOVE（或包含REMOVE的CascadeType.ALL）表明删除操作将应该自动级联到由该字段引用的实体对象（多个实体对象可以由集合字段引用）:
-@Entity class Employee { : @OneToOne(cascade=CascadeType.REMOVE) private Address address; : }  Orphan Removal JPA2额外支持一种更积极的删除级联模式，可以通过@OneToOne和@OneToMany注释的orphanRemoval元素设置:
-@Entity class Employee { : @OneToOne(orphanRemoval=true) private Address address; : }  区别 两个设置的区别在于关系断开的响应。 例如，将地址字段设置为null或另一个Address对象时，不同设置的结果是不同。 - 如果指定了 orphanRemoval = true，则断开关系的的Address实例将被自动删除。这对于清除没有所有者对象（例如Employee）引用的、不该存在的依赖对象（例如Address）很有用。 - 如果仅指定 cascade = CascadeType.REMOVE，则不会执行上述自动删除操作，因为断开关系不是删除操作。
-参考 Deleting JPA Entity Objects
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" itemprop="url">
-        nohup命令笔记
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
-    2013-10-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">44 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
-/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;  但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &amp;结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
-nohup COMMAND [ARG]...  nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&amp;到命令的尾部。
-如果不将 nohup 命令的输出重定向，输出将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
-nohup command &gt; myout.file 2&gt;&amp;1  该命令返回下列出口值：
- 126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%87%E8%AE%B0java%E4%B8%ADlong%E5%AD%97%E9%9D%A2%E9%87%8F%E4%BB%A5l%E7%BB%93%E5%B0%BE/" itemprop="url">
-        切记：Java中long字面量以L结尾
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
-    2013-10-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">25 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    最近碰到一个问题，输入是int，要求按无符号整数使用。为了实现要求，升级成long然后与上0xffffffff，结果不正常。问了几个基友，都有点茫然。 问题出在0xffffffff上了，现在就操练一下。
-将0xffffffff赋给一个long变量，它的值是多少？
-long n = 0xffffffff; System.out.println(Long.toHexString(n));  结果是0xffffffffffffffff呦！
-ffffffffffffffff  将0x000000008fffffff赋给一个long变量，它的值是多少？
-long = 0x000000008fffffff; System.out.println(Long.toHexString(n));  结果是0xffffffff8fffffff呦！！！
-ffffffff8fffffff  int转换成long的规则是，一个负的int数，会自动扩展符号位，升级成负的long数的。 正确的用法是0xffffffffL，字面量表明是long类型，所以头32位才会全是0。
-long = 0xffffffffL; System.out.println(Long.toHexString(n));  输出结果：
-ffffffff  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/" itemprop="url">
-        [C&#43;&#43;] 重温函数隐藏和重写
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
-    2013-10-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">760 字 ~4分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    首先回顾一下C++的重载、隐藏和重写概念：
- 在相同作用域中，同名不同参的函数称为重载，这是c++多态的一种表现。对相同名字的成员函数，编译器可以根据传递的参数类型调用相应的成员函数。同名不同参的全局函数和类成员函数由于作用域不同，不是重载。不能通过函数返回值进行重载。像int和float这样不同的参数类型，可能会由于隐式转换隐患而无法通过编译。 当派生类中的成员函数/变量和基类中的成员函数/变量同名时，会隐藏基类的成员函数/变量，也就是指在派生类调用这个同名的成员函数/变量，调用的是派生类的成员函数/变量，而不是基类的那个成员函数/变量。可以通过类名::成员函数/变量去访问基类中同名的成员函数/变量。 派生类中的成员函数与基类的成员函数同名同参，就称为重写。当直接访问成员函数调用的是在派生类中重写的函数而不是从基类继承下来的成员函数，如果要访问从基类继承下来的成员函数也是通过类名::成员函数这种方式去调用基类的成员函数。  下面的小示例testOverride.cpp用于测试添加virtual与否对重写的影响：
-class BaseClass { public: BaseClass() { cout &lt;&lt; &quot;BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } BaseClass(const BaseClass&amp;) { cout &lt;&lt; &quot;BaseClass(BaseClass) on &quot; &lt;&lt; this &lt;&lt; endl; } virtual void vfun1() { cout &lt;&lt; &quot;BaseClass:vfun1() on &quot; &lt;&lt; this &lt;&lt; endl; } virtual void vfun2() { cout &lt;&lt; &quot;BaseClass:vfun2() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; &quot;BaseClass:fun1() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; &quot;BaseClass:fun2() on &quot; &lt;&lt; this &lt;&lt; endl; } virtual ~BaseClass() { cout &lt;&lt; &quot;~BaseClass() on &quot; &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string(&quot;NULL&quot;)) { cout &lt;&lt; &quot;DerivedClass() on &quot; &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string&amp; n):name(new string(n)) { cout &lt;&lt; &quot;DerivedClass(string) on &quot; &lt;&lt; this &lt;&lt; endl; } void vfun1() { cout &lt;&lt; &quot;DerivedClass:vfun1() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; &quot;DerivedClass:fun1() on &quot; &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; &quot;~DerivedClass(): name has been deleted on &quot; &lt;&lt; this &lt;&lt; endl; } private: void vfun2() { cout &lt;&lt; &quot;DerivedClass:vfun2() on &quot; &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; &quot;DerivedClass:fun2() on &quot; &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; &quot;=== test bo1 ===&quot; &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); bo1-&gt;vfun1(); bo1-&gt;vfun2(); bo1-&gt;fun1(); bo1-&gt;fun2(); delete bo1; cout &lt;&lt; &quot;=== test do1 ===&quot; &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); do1-&gt;vfun1(); // error: 'virtual void DerivedClass::vfun2()' is private // within this context // do1-&gt;vfun2(); do1-&gt;fun1(); // error: 'void DerivedClass::fun2()' is private // within this context // do1-&gt;fun2(); delete do1; cout &lt;&lt; &quot;=== test bo2 ===&quot; &lt;&lt; endl; BaseClass* bo2 = new DerivedClass(&quot;123&quot;); bo2-&gt;vfun1(); bo2-&gt;vfun2(); bo2-&gt;fun1(); bo2-&gt;fun2(); delete bo2; return 0; }  vfun2和fun2在BaseClass类中是public访问权限，而在DerivedClass类中是private访问权限。 - 对DerivedClass指针，vfun2和fun2无法访问，这个满足期望。 - 对于指向DerivedClass对象的BaseClass指针，vfun2和fun2仍然可以访问。我只能在心里留一个&rdquo;?
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/eclipse_find_the_override_method_implementation_in_subclasses/" itemprop="url">
-        [Eclipse] Find the override method implementation in subclasses
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-26">
-    2013-10-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/eclipse" itemprop="url" rel="index">
-        <span itemprop="name">Eclipse</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">34 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    已知当前对象为org.apache.hadoop.hdfs.client.HdfsDataInputStream实例，调用其祖宗抽象类java.io.InputStream的publicint read(byte b[], int off, int len) throwsIOException方法，究竟最后使用的是那个类的实现呢？ 由如上类继承图可知，应该从对象类往上依次查找方法实现：HdfsDataInputStream、FSDataInputStream、&hellip;&hellip;。工作很繁琐，挑战眼力！
-一个快捷的方式就是进入java.io.InputStream类，选中read(byte b[], int off, intlen) 方法，按住CTRL键后点击鼠标左键，这样会出现一个菜单： 选择OpenImplementation菜单，输入HdfsDataInputStream、FSDataInputStream、&hellip;&hellip;，可以更轻松的找到重写该方法的子类。 最终可知使用的是java.io.DataInputStream类中的实现：
-public final int read(byte b[], int off, int len) throws IOException { return in.read(b, off, len); }  
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/" itemprop="url">
         学习十二要素应用宣言
         </a>
@@ -742,6 +438,300 @@ mryqu&gt; g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in pro
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/" itemprop="url">
+        *nux下导出文件16进制内容的命令xxd
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-24">
+    2013-10-24
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">16 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page
+5 Unix Commands I Wish I’d Discovered Years Earlier
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/" itemprop="url">
+        [C&#43;&#43;] 从静态库获取GCC版本和编译平台
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-24">
+    2013-10-24
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">68 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    获取GCC版本：strings -a {library} | grep &ldquo;GCC: (&rdquo;
+mryqu&gt; strings -a libcurl.a | grep &quot;GCC: (&quot; GCC: (GNU) 4.4.5 20110214 (Red Hat 4.4.5-6)  获取编译平台信息：ar -x {library}file *.o
+mryqu&gt; ar -x libcurl.a mryqu&gt;file libcurl_la-url.o libcurl_la-url.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped  参考 How to retrieve the GCC version used to compile a given ELF executable?
+How to see the compilation platform of a static library file
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8find%E5%92%8Cgrep%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E5%85%B3%E9%94%AE%E5%AD%97/" itemprop="url">
+        用find和grep搜索特定目录下特定文件中的特定关键字
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-23">
+    2013-10-23
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">10 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    下例为递归搜索当前目录下所有以yqu为后缀的文件中的关键字123：
+find . -name &quot;*.yqu&quot; | xargs grep -H &quot;123&quot;  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" itemprop="url">
+        cut命令笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-22">
+    2013-10-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">77 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+     cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
+命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号('-')，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（'-'）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成''name:shell''对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38  个人体会  cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&ndash;output-delimiter=STRING选项控制输出字符分隔符。  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/" itemprop="url">
+        grep命令笔记
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-22">
+    2013-10-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">149 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+     使用grep时一直没有使用什么命令选项，这里过一遍grep帮助，试一遍不明白的选项。
+grep简介 grep是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
+grep命令帮助 示例: grep -i 'hello world' menu.h main.c 正则选择和解释: -E, --extended-regexp PATTERN为扩展正则表达式（ERE） -F, --fixed-strings PATTERN是一套新行分割字符串 -G, --basic-regexp PATTERN为基本正则表达式（BRE） -P, --perl-regexp PATTERN为Perl正则表达式 -e, --regexp=PATTERN 使用PATTERN作为正则表达式 -f, --file=FILE 从文件中获得PATTERN -i, --ignore-case 忽略大小写 -w, --word-regexp 强制PATTERN仅匹配整个单词 -x, --line-regexp 强制PATTERN仅匹配整行 -z, --null-data 数据行以0字节而不是新行截至（打印整个文件了） 杂项: -s, --no-messages 抑制错误消息 -v, --invert-match 选择非匹配行 -V, --version 显示版本信息并退出 --help 显示该帮助并退出 -J, --bz2decompress 在进行搜索前解压缩bzip压缩输入 -Z, --decompress 在进行搜索前解压缩输入(HAVE_LIBZ=1) --mmap 如可能使用内存映射输入 输出控制: -m, --max-count=NUM 在NUM个匹配后停止工作 -b, --byte-offset 在输出行显示字节偏移 -n, --line-number 显示行号 --line-buffered 对每行都清除缓存强制输出 -H, --with-filename 对每个匹配结果显示文件名 -h, --no-filename 抑制输出中前缀的文件名 --label=LABEL 将LABEL作为标准输入的文件名显示（输入为管道有用） -o, --only-matching 仅显示行匹配PATTERN部分 -q, --quiet, --silent 抑制所有正常输出。通常用于脚本条件语句中，判断匹配结果是1还是0 --binary-files=TYPE 将二进制文件假定为类型，分别为'binary'、'text'或 'without-match'。默认为'binary'，对二进制文件进行搜索 而不显示；'text'，一概视为文本文件，搜索并显示； 'without-match'，对二进制文件直接忽略，不搜索不显示。 -a, --text 等同于--binary-files=text -I 等同于--binary-files=without-match -d, --directories=ACTION 如何处理目录的操作项，分别为'read'、'recurse'或'skip'。 -D, --devices=ACTION 如何处理设备、FIFO和socket的操作项，分别为'read'或'skip'。 -R, -r, --recursive 等同于--directories=recurse --include=PATTERN 匹配PATTERN的文件将被检查 --exclude=PATTERN 匹配PATTERN的文件将被忽略 --exclude-from=FILE 匹配模式文件中PATTERN的文件将被忽略 -L, --files-without-match 仅显示不包含匹配的文件名 -l, --files-with-matches 仅显示包含匹配的文件名 -c, --count 仅显示每个文件匹配行数 --null 在文件名后显示0字节（跟不带这个选项就少一个冒号？） 上下文控制: -B, --before-context=NUM 输出匹配结果及其前NUM行 -A, --after-context=NUM 输出匹配结果及其后NUM行 -C, --context=NUM 输出匹配结果及其前后各NUM行 -NUM 等同--context=NUM --color[=WHEN], --colour[=WHEN] 使用标记突显匹配字符串，WHEN可为'always'、'never'或'auto' 默认项为'never'，'always'总是使用标记，而'auto'仅输出 在没有被管道到其他命令或重定向到文件时才使用标记。 -U, --binary 在行结尾EOL不除去回车换行CR字符(MSDOS) -u, --unix-byte-offsets 如果没有回车换行则报告字节偏移(MSDOS)  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
 </section>
 
 
@@ -888,7 +878,9 @@ mryqu&gt; g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in pro
         
     
         
-    
+        
+          <a class="page-number" href="/page/62/">62</a>
+        
         
     
         
@@ -937,7 +929,7 @@ mryqu&gt; g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in pro
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">701</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -954,7 +946,7 @@ mryqu&gt; g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in pro
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1502</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
