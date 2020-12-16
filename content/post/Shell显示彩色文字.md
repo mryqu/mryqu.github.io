@@ -1,5 +1,5 @@
 ---
-title: 'Shell参数扩展'
+title: 'Shell显示彩色文字'
 date: 2020-11-26 08:25:00
 categories: 
 - Tool
