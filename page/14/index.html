@@ -113,6 +113,145 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/" itemprop="url">
+        [RabbitMQ] Hello RabbitMQ
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-07">
+    2016-08-07
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/mq" itemprop="url" rel="index">
+        <span itemprop="name">MQ</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">226 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    为了快速入门RabbitMQ，我主要学习了下列参考中的两个链接：RabbitMQ教程和SpringAMQP范例。这里对所学教程做一个小笔记。
+准备工作 由于我不打算跑本机上的RabbitMQ服务器，所有对代码稍有修改。
+TutorialConfiguration.java public class TutorialConfiguration { public static final String HOST = &quot;mryqu-rabbitmq-server&quot;; public static final String USERNAME = &quot;mryqu&quot;; public static final String PASSWORD = &quot;mryqu-pwd&quot;; }  对原有代码进行修改 // factory.setHost(&quot;localhost&quot;); factory.setHost(TutorialConfiguration.HOST); factory.setUsername(TutorialConfiguration.USERNAME); factory.setPassword(TutorialConfiguration.PASSWORD); }  RabbitMQ函数 发布方和消费方首先要创建连接，通过连接创建通道。通过通道也可以声明交换器，也可以直接声明队列。 - 函数Exchange.DeclareOk exchangeDeclare(String exchange, Stringtype, boolean durable, boolean autoDelete, boolean internal, Maparguments)用于声明交换器。其中exchange为队列名；type为交换器类型，例如fanout、direct、header和topic，注意无法改变已存在交换器的类型；durable为true时为持久交换器，在服务器重启后仍将存在，默认为false；autoDelete为true时，当所有的消费者使用完交换器后，服务器会自动删除交换器。服务器必须为判断交换器未使用提供一个合理时延，起码允许客户端能够创建一个代理并将其与队列绑定。默认为false；internal为true时为内部交换器，客户端不能直接向其发布消息，默认为false。 - 函数Queue.DeclareOk queueDeclare(String queue, boolean durable,boolean exclusive, boolean autoDelete, Map arguments)用于声明队列，其中queue为队列名；durable为true时为持久队列，在服务器重启后仍将存在。默认为false；exclusive为true时为私有队列，仅在当前连接中可以访问队列，当连接关闭时删除该队列。默认为true；autoDelete为true时，当所有的消费者使用完队列后，服务器会自动删除队列。最后一个消费者可被显式取消或由于通道关闭而取消。如果队列从没有消费者，队列将不会被删除。应用可以像对普通队列一样使用Delete方法显式删除自动删除队列。默认为true。 函数Queue.BindOk queueBind(String queue, String exchange, StringroutingKey, Map arguments)用于通过路由关键字将队列与交换器进行绑定。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/" itemprop="url">
+        [RabbitMQ] 在Widnows平台安装配置RabbitMQ
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-08-06">
+    2016-08-06
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/mq" itemprop="url" rel="index">
+        <span itemprop="name">MQ</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">136 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    RabbitMQ介绍 RabbitMQ是基于高级消息队列协议的消息代理软件。RabiitMQ服务器由Erlang语言开发，客户端支持多种主流编程语言。 RabbitMQ由LShift和CohesiveFT合营公司Rabbit技术有限公司开发，在2010年4月被SpringSource收购，2013年5月归入Pivotal软件。 RabbitMQ项目包括： - RabbitMQ交换服务器自身 - 用于HTTP、流文本定向消息协议(STOMP)和消息队列遥测传输协议(MQTT)的网关 - Java、.NET Framework和Erlang语言的AMQP客户端库 - 支持定制插件的插件平台，内建插件集合为: - Shovel插件，负责从一个消息代理（broker）向另一个移动/复制消息。 - Federation插件，在消息代理之间有效共享消息(基于exchange这一级) - Management插件，监控和管理消息代理 - STOMP插件，提供STOMP协议支持 - MQTT插件，提供MQTT协议支持 - LDAP插件，RabbitMQ通过外部LDAP服务器进行认证和授权
+在Widnows平台安装RabbitMQ 根据http://www.rabbitmq.com/install-windows.html安装Erlang和RabbitMQ服务器，运行RabbitMQ安装程序时需要选择“Runas Administrator”，否则事后需要执行下列命令修正.erlang.cookie位置错误。
+copy /Y %SystemRoot%\.erlang.cookie %HOMEDRIVE%%HOMEPATH%  设置环境变量（及安装并启动RabbitMQ服务）
+SET　ERLANG_HOME=C:\tools\erl8.0 SET RABBITMQ_SERVER＝C:\tools\RabbitMQ_Server\rabbitmq_server-3.6.5 SET　RABBITMQ_BASE=C:\rabbitmq-data ECHO []. &gt; C:\rabbitmq-data\rabbitmq.config %RABBITMQ_SERVER%\sbin\rabbitmq-service.bat install %RABBITMQ_SERVER%\sbin\rabbitmq-service.bat start  安装管理插件 rabbitmq-management插件提供用于管理和监控RabbitMQ服务器的基于HTTP的API，以及基于浏览器的界面和一个控制台工具rabbitmqadmin。功能包括： - 声明、列举和删除exchange、queue、binding、用户、虚拟主机和权限。 - 监控队列长度、消息总速率和每通道速率、连接数据速率等。 - 发送和接受消息。 - 监控Erlang进程、文件描述符和内存使用。 - 导出/导入对象定义到JSON格式 - 强制关闭连接、清除队列。重启RabbitMQ后登录http://guest:guest@localhost:15672/，即可见到管理页面。 rabbitmqctl 通过rabbitmqctl创建一个管理员用户admin和一个对虚拟主机有读写权限的普通用户mryqu： 自建管理员用户admin的默认用户guest的区别在于：guest仅能本机访问RabbitMQ，除非在rabbitmq.config增加loopback_users设置。
+使用HTTP管理API 将配置导出成JSON格式：
+curl -i -u guest:guest http://localhost:15672/api/definitions  激活其他插件 例如激活shovel插件：
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/rabbitmq_%E5%9C%A8widnows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AErabbitmq/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/" itemprop="url">
         [Spark]Spark和Hive集成
         </a>
@@ -606,119 +745,6 @@ build.gradle buildscript { repositories { mavenCentral() } dependencies { classp
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8outlook_2013%E4%B8%AD%E6%9F%A5%E7%9C%8B%E9%82%AE%E4%BB%B6%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%B4/" itemprop="url">
-        在Outlook 2013中查看邮件的消息头
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-06-09">
-    2016-06-09
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">2 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    双击邮件后选择File菜单，点击Porperties按钮：查看Internet headers：
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/" itemprop="url">
-        [OpenUI5] 复习Controller lifecycle
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-05-27">
-    2016-05-27
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">181 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    昨天看到有同事添加了几个Controller的回调，对其中的onBeforeExit、beforeExit没一点印象。
-sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&quot;foo onInit called&quot;); }, onBeforeExit: function(){ console.info(&quot;foo onBeforeExit called&quot;) ; } , beforeExit: function() { console.info(&quot;foo beforeExit called&quot;) ; }, onBeforeRendering: function() { console.info(&quot;foo onBeforeRendering called&quot;); }, onExit: function() { console.info(&quot;foo onExit called&quot;); } });  查了一下如下OpenUI5开发指南 MVC中关于Controllers的介绍。 &gt; SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event handlers or other functions tothe controller and the controller can fire events, for which othercontrollers or entities can register.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -741,6 +767,8 @@ sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&q
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -912,14 +940,14 @@ sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&q
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -929,7 +957,7 @@ sap.ui.controller(&quot;kx123.foo&quot;, { onInit: function () { console.info(&q
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1506</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

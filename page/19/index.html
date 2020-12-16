@@ -113,6 +113,132 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/" itemprop="url">
+        twitcurl生成HTTP OAuth头的实现流程
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-27">
+    2015-12-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/databuilder" itemprop="url" rel="index">
+        <span itemprop="name">DataBuilder</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
+        <span itemprop="name">C&#43;&#43;</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">105 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    对twitcurl代码做了一些修改，结果遇到了认证失败的错误：
+{“errors”:[{“message”:”Could not authenticate you”,”code”:32}]}  通过继续修改twitcurl代码改正问题，学习了twitcurl的认证授权部分代码。其授权部分主要在oauthlib.h和oauthlib.cpp中的oAuth类实现中。下面主要分析一下oAuth::getOAuthHeader方法。
+外部数据 Http URL: https://api.twitter.com/1.1/search/tweets.json Http头参数:
+|参数键|参数值 |&mdash;&ndash; |q|va |count|23 |result_type|recent
+Http授权参数:
+|参数键|参数值 |&mdash;&ndash; |oauth_consumer_key|xvz1evFS4wEEPTGEFPHBog |oauth_signature_method|HMAC-SHA1 |oauth_token|370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb |oauth_version|1.0
+oAuth::getOAuthHeader方法  通过buildOAuthHttpParameterKeyValPairs(params, true,rawKeyValuePairs);对Http头参数中参数值进行百分号编码（URL编码），编码后结果放在哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent
+ 假定HTTP内容是经过百分号编码的，通过buildOAuthRawDataKeyValPairs( rawData,false, rawKeyValuePairs );找到内容中的键值对，放入哈希表rawKeyValuePairs中 rawKeyValuePairs: 键值qvacount23result_typerecent 通过buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin,std::string( &ldquo;&rdquo; ), rawKeyValuePairs, true );创建认授权证： rawKeyValuePairs: 键值说明qvacount23result_typerecentoauth_consumer_keyxvz1evFS4wEEPTGEFPHBogoauth_nonce131862295819ctwitcurl实现就是时戳项加一个随机数oauth_signature_methodHMAC-SHA1固定值oauth_timestamp1318622958oauth_token370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEboauth_version1.0固定值 通过getSignature( eType, pureUrl, rawKeyValuePairs,oauthSignature );获得签名  生成 sigBase： 使用consumer_secret和token_secret组成signing_key，使用HMAC_SHA1算法通过sigBase和signing_key生成摘要strDigest：B6 79 C0 AF 18 F4 E9 C5 87 AB 8E 20 0A CD 4E 48 A9 3F 8C B6(非真实计算而得数据) 通过base64_encode进行编码：tnnArxj06cWHq44gCs1OSKk/jLY= (非真实计算而得数据) 通过百分比编码获得最终签名：(非真实计算而得数据)  通过rawKeyValuePairs.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/twitcurl%E7%94%9F%E6%88%90http_oauth%E5%A4%B4%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E8%A1%A8%E6%83%85%E7%AC%A6%E5%8F%B7%E4%B9%8Bunicode%E5%92%8Cutf-8%E7%BC%96%E7%A0%81/" itemprop="url">
+        表情符号之Unicode和UTF-8编码
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-26">
+    2015-12-26
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tech" itemprop="url" rel="index">
+        <span itemprop="name">Tech</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">37 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    最近在玩表情符号，这个表情符号Unicode表格，还挺全： http://apps.timwhitlock.info/emoji/tables/unicode 此外也常用这个在线编码转换工具进行验证：http://tool.oschina.net/encode 表情符号的Unicode范围在Android - How to filter emoji (emoticons) from a string?有提到过： - U+2190 to U+21FF - U+2600 to U+26FF - U+2700 to U+27BF - U+3000 to U+303F - U+1F300 to U+1F64F - U+1F680 to U+1F6FF
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E6%88%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84gcc%E7%89%88%E6%9C%AC%E4%B8%8D%E6%94%AF%E6%8C%81c&#43;&#43;11%E7%89%B9%E6%80%A7/" itemprop="url">
         [C&#43;&#43;] 我服务器上的GCC版本不支持C&#43;&#43;11特性
         </a>
@@ -600,143 +726,6 @@ nm命令  -a或&ndash;debug-syms：显示调试符号。 -B：等同于&ndash;fo
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" itemprop="url">
-        [C&#43;&#43;] 使用ldd
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-07">
-    2015-12-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1441 字 ~7分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    ldd是用来查看共享库依赖的Shell脚本命令。下面来看一下ldd命令的参数。 - -v：显示所有信息，例如包括符号版本信息。 - -u：显示没有使用的直接依赖。 - -d：执行重新定位，报告任何缺失对象（仅针对ELF） - -r：对数据对象和函数执行重新定位，报告任何缺失对象或函数（仅针对ELF）
-Oracle - Linker and Libraries Guide - Relocations介绍了重新定位技术的来龙去脉，也介绍了ldd命令的相关使用。
-ldd练习 hadoop@node51054:/usr/bin$ ldd curl linux-vdso.so.1 =&gt; (0x00007ffefe989000) libcurl.so.4 =&gt; /usr/lib/x86_64-linux-gnu/libcurl.so.4 (0x00007fb86cf8f000) libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007fb86cd76000) libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb86cb58000) libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb86c790000) libidn.so.11 =&gt; /usr/lib/x86_64-linux-gnu/libidn.so.11 (0x00007fb86c55d000) librtmp.so.0 =&gt; /usr/lib/x86_64-linux-gnu/librtmp.so.0 (0x00007fb86c343000) libssl.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fb86c0e4000) libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fb86bd08000) libgssapi_krb5.so.2 =&gt; /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007fb86bac1000) liblber-2.4.so.2 =&gt; /usr/lib/x86_64-linux-gnu/liblber-2.4.so.2 (0x00007fb86b8b2000) libldap_r-2.4.so.2 =&gt; /usr/lib/x86_64-linux-gnu/libldap_r-2.4.so.2 (0x00007fb86b661000) /lib64/ld-linux-x86-64.so.2 (0x00007fb86d1f6000) libgnutls.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/" itemprop="url">
-        [C&#43;&#43;] GNU Binutils之ar和ranlib
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-06">
-    2015-12-06
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">69 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    GNU binutils是一组二进制工具集。包括：ld、as、addr2line、ar、gprof、nm、objcopy、objdump、ranlib、size、strings、strip等。本文重点学习一下其中的ar和ranlib。
-ar命令 ar用于建立、修改、提取档案文件(archive)。archive是一个包含多个被包含文件的单一文件（也称之为库文件），其结构保证了可以从中检索并得到原始的被包含文件（称之为archive中的member）。member的原始文件内容、模式（权限）、时间戳、所有者和组等属性都被保存在archive中。member被提取后，他们的属性被恢复到初始状态。 ar命令第一个参数可混合指令代码（operationcode p）和修饰符标志（modifier flags mod），可按意愿添加一个折线。
-ar [--plugin name] [-X32_64] [-]p[mod [relpos] [count]] archive [member...]  指令参数  d：删除档案文件中的成员文件。 m：移动在档案文件中的成员文件，改变次序。可以借助修饰符标志a、b、i移动到指定位置。 p：显示档案文件中的成员文件内容。 q：将文件快速附加在档案文件末端。不检查、不替换已有同名成员文件，也不更新档案文件的符号表索引，修饰符标志a、b、i无效。然而很多不同系统都假设q指令重建档案文件的符号表索引，因此GNU将其按照r指令进行相同实现。 r：将文件插入档案文件中。检查并替换已有同名成员文件，重建档案文件的符号表索引，借助修饰符标志a、b、i将文件插入到指定位置。 t：显示档案文件中所包含的文件。 x：自档案文件中取出成员文件。  修饰符标志  a &lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之后。 b&lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之前。 c：建立档案文件。当更新档案文件时，档案文件不存在则创建档案文件，但会告警。此标志可抑制告警。 D：以确定模式工作。 f：为避免过长的文件名不兼容于其他系统的ar指令指令，可利用此参数，截掉要放入档案文件中过长的成员文件名称。 i &lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之前。（等同标志b） I：可接受但不使用。 N：使用count参数。当档案文件中存在多个同名成员，用于指定提取/删除的个数。 o：保留档案文件中文件的日期。如无此参数，则输出文件的修改时间为提取时间。 s：若档案文件中包含了对象模式，可利用此参数建立档案文件的符号表。 S：不产生符号表。 T：使指定档案文件成为瘦档案文件。例如将多个档案文件加入目标档案文件，目标档案文件可以包含符号索引及对源档案文件中成员文件的引用。 u：只将日期较新文件插入档案文件中。 v：程序执行时显示详细的信息。 V：显示版本信息。  练习 # 将当前目录下所有.o打包成libyqutest.a档案文件：r插入，v显示操作信息，s生成符号表。 ar rvs libyqutest.a *.o # 制作瘦档案文件：r插入，c建立档案文件，T指定为瘦档案文件。 ar -rcT libkx.a libke.a libxiao.a  ranlib命令 为档案文件创建符号索引。
-ranlib [-vVt] archive  选项： - -v、-V或&ndash;version：显示版本 - -t：更新档案文件符号映射的时戳。
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -759,6 +748,8 @@ ranlib [-vVt] archive  选项： - -v、-V或&ndash;version：显示版本 - -t�
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -930,14 +921,14 @@ ranlib [-vVt] archive  选项： - -v、-V或&ndash;version：显示版本 - -t�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -947,7 +938,7 @@ ranlib [-vVt] archive  选项： - -v、-V或&ndash;version：显示版本 - -t�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1506</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

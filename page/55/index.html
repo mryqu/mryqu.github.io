@@ -113,6 +113,137 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/" itemprop="url">
+        [HBase] HBase Shell中的put操作解析
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-03">
+    2014-01-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hbase" itemprop="url" rel="index">
+        <span itemprop="name">HBase</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">144 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    阅读了HBase Shell datatype conversion一贴，感觉下列两个操作结果中的单元格数据值都像是文本类型的：
+put 'mytable', '2342', 'cf:c1', '67' put 'mytable', '2341', 'cf:c1', 23  预知真相，看来只好看HBase Shell代码了。HBase Shell是Ruby代码，首先找到这些代码的位置：
+cd $HBASE_HOME find . -name '*.rb' -print  找到了$HBASE_HOME/lib/ruby/shell/commands/put.rb，其GitHub代码库位置为https://github.com/apache/hbase/commits/master/hbase-shell/src/main/ruby/shell/commands/put.rb：
+def command(table, row, column, value, timestamp=nil, args = {}) put table(table), row, column, value, timestamp, args end def put(table, row, column, value, timestamp = nil, args = {}) format_simple_command do table._put_internal(row, column, value, timestamp, args) end end  继而找到了$HBASE_HOME/lib/ruby/hbase/table.rb，其GitHub代码库位置为https://github.com/apache/hbase/blob/master/hbase-shell/src/main/ruby/hbase/table.rb：
+def _put_internal(row, column, value, timestamp = nil, args = {}) p = org.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/" itemprop="url">
+        [HBase] Java客户端程序构建脚本
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-03">
+    2014-01-03
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hbase" itemprop="url" rel="index">
+        <span itemprop="name">HBase</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">15 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    上一博文[HBase] 原始数据类型存储中所用到的构建脚本build.sh如下：
+#!/bin/bash HADOOP_HOME=/usr/local/hadoop HBASE_HOME=/usr/local/hbase CLASSPATH=.:$HBASE_HOME/conf:$(hbase classpath) javac -cp $CLASSPATH HBasePrimitiveDataTypeTest.java java -cp $CLASSPATH HBasePrimitiveDataTypeTest  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/" itemprop="url">
         [HBase] 原始数据类型存储
         </a>
@@ -607,120 +738,6 @@ Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/jquery%E8%B5%84%E6%96%99%E5%B8%96/" itemprop="url">
-        jQuery资料帖
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-12-20">
-    2013-12-20
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">15 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    学习网站 http://jqfundamentals.com/
-http://try.jquery.com/
-http://www./tracks/jquery
-http://www.w3school.com.cn/jquery/
-图书 jQuery基础教程：官方培训教材 jQuery实战：书不错，就是内容有点 老锋利的jQuery
-代码组织 http://learn.jquery.com/code-organization/
-其他 jQuery设计思想：http://www.ruanyifeng.com/blog/2011/07/jquery_fundamentals.html
-jQuery最佳实践：http://www.ruanyifeng.com/blog/2011/08/jquery_best_practices.html
-jQuery源码分析：http://www.cnblogs.com/chyingp/archive/2013/06/03/jquery-souce-code-study.html
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E7%89%B9%E6%AE%8A%E8%A1%8C%E4%B8%BA/" itemprop="url">
-        [JavaScript] 逻辑操作符的特殊行为
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-12-07">
-    2013-12-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">3 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Javascript中并不要求逻辑运算的两个操作数为布尔类型，并且返回值也不一定为布尔类型。&amp;&amp;操作符，如果第一个操作表达式能被转换成false，返回第一个操作表达式；否则返回第二个操作表达式。当用于两个布尔类型值时，两个值都为true时返回ture，否则返回false。||操作符，如果第一个操作表达式能被转换成true，返回第一个操作表达式；否则返回第二个操作表达式。当用于两个布尔类型值时，任一个值为true时返回ture，否则返回false。示例：参考 MDN：Logical operators
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -743,6 +760,8 @@ jQuery源码分析：http://www.cnblogs.com/chyingp/archive/2013/06/03/jquery-so
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/54/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -914,14 +933,14 @@ jQuery源码分析：http://www.cnblogs.com/chyingp/archive/2013/06/03/jquery-so
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -931,7 +950,7 @@ jQuery源码分析：http://www.cnblogs.com/chyingp/archive/2013/06/03/jquery-so
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1506</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

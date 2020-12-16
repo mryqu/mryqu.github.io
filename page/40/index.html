@@ -113,6 +113,134 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%B2%97%E8%A7%88activiti_modeler%E6%93%8D%E4%BD%9C%E5%92%8C%E6%BA%90%E4%BB%A3%E7%A0%81/" itemprop="url">
+        粗览Activiti Modeler操作和源代码
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-15">
+    2015-02-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/workflow" itemprop="url" rel="index">
+        <span itemprop="name">workflow</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">467 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Activiti Model Editor组件 我的了解Activiti Explorer及其Vaadin实现方式博文里提到ActivitiExplorer使用的是Vaadin架构，但是Activiti 模型编辑器组件却没用使用Vaadin架构，而是采用Angular.JS的MVC模式。Activiti模型编辑器组件的客户端代码位于Activiti\modules\activiti-webapp-explorer2\src\main\webapp\editor-app\。 该目录下的editor.html是Activiti Modeler Editor的主界面HTML代码 其中palette区是通过Angular.JS使用stencilsets\bpmn2.0\icons下多个子目录内的PNG图像形成的多组列表。其节点层次关系获取相关代码为： - stencil-controller.js - Activiti\modules\activiti-modeler\src\main\java\org\activiti\rest\editor\main\StencilsetRestResource.java - Activiti\modules\activiti-webapp-explorer2\src\main\resources\stencilset.json
+editor.html中的视图与两个控制器进行了绑定: - stencil-controller.js：处理对canvas中BPMN元素的操作，很多处理是通过editor目录下的QRYX库完成的 - toolbar-controller.js：处理对工具栏的操作，很多处理由configuration\toolbar-default-actions.js完成
+保存模型操作 保存模型操作，是通过toolbar-default-actions.js中的SaveModel方法完成的，它需要将三部分信息传给服务器： - 模型的元数据：例如模型名称、分类、创建时间、最后一次更新时间等等 - 模型JSON数据：将canvas内的图像数据转换成JSON数据UTF8字符串
+ { &quot;resourceId&quot;: 53, &quot;properties&quot;: { &quot;process_id&quot;: &quot;process&quot;, &quot;name&quot;: &quot;&quot;, &quot;documentation&quot;: &quot;&quot;, &quot;process_author&quot;: &quot;&quot;, &quot;process_version&quot;: &quot;&quot;, &quot;process_namespace&quot;: &quot;http://www.activiti.org/processdef&quot;, &quot;executionlisteners&quot;: &quot;&quot;, &quot;eventlisteners&quot;: &quot;&quot; }, &quot;stencil&quot;: { &quot;id&quot;: &quot;BPMNDiagram&quot; }, &quot;childShapes&quot;: [ { &quot;resourceId&quot;: &quot;sid-4F7484B9-11EC-4FCE-8950-FEFFB723D88B&quot;, &quot;properties&quot;: { &quot;overrideid&quot;: &quot;&quot;, &quot;name&quot;: &quot;&quot;, &quot;documentation&quot;: &quot;&quot;, &quot;executionlisteners&quot;: &quot;&quot;, &quot;initiator&quot;: &quot;&quot;, &quot;formkeydefinition&quot;: &quot;&quot;, &quot;formproperties&quot;: &quot;&quot; }, &quot;stencil&quot;: { &quot;id&quot;: &quot;StartNoneEvent&quot; }, &quot;childShapes&quot;: [], &quot;outgoing&quot;: [ { &quot;resourceId&quot;: &quot;sid-B589A0D9-FA79-4C12-95B7-253E72480384&quot; } ], &quot;bounds&quot;: { &quot;lowerRight&quot;: { &quot;x&quot;: 259, &quot;y&quot;: 139 }, &quot;upperLeft&quot;: { &quot;x&quot;: 229, &quot;y&quot;: 109 } }, &quot;dockers&quot;: [] }, { &quot;resourceId&quot;: &quot;sid-1A762474-62B9-4F3D-A81C-1ADD46AF7D2F&quot;, &quot;properties&quot;: { &quot;overrideid&quot;: &quot;&quot;, &quot;name&quot;: &quot;&quot;, &quot;documentation&quot;: &quot;&quot;, &quot;asynchronousdefinition&quot;: &quot;false&quot;, &quot;exclusivedefinition&quot;: &quot;false&quot;, &quot;executionlisteners&quot;: &quot;&quot;, &quot;multiinstance_type&quot;: &quot;None&quot;, &quot;multiinstance_cardinality&quot;: &quot;&quot;, &quot;multiinstance_collection&quot;: &quot;&quot;, &quot;multiinstance_variable&quot;: &quot;&quot;, &quot;multiinstance_condition&quot;: &quot;&quot;, &quot;isforcompensation&quot;: &quot;false&quot;, &quot;usertaskassignment&quot;: &quot;&quot;, &quot;formkeydefinition&quot;: &quot;&quot;, &quot;duedatedefinition&quot;: &quot;&quot;, &quot;prioritydefinition&quot;: &quot;&quot;, &quot;formproperties&quot;: &quot;&quot;, &quot;tasklisteners&quot;: &quot;&quot; }, &quot;stencil&quot;: { &quot;id&quot;: &quot;UserTask&quot; }, &quot;childShapes&quot;: [], &quot;outgoing&quot;: [ { &quot;resourceId&quot;: &quot;sid-4134C10E-B589-42FF-AACC-463D35D52016&quot; } ], &quot;bounds&quot;: { &quot;lowerRight&quot;: { &quot;x&quot;: 746, &quot;y&quot;: 172 }, &quot;upperLeft&quot;: { &quot;x&quot;: 646, &quot;y&quot;: 92 } }, &quot;dockers&quot;: [] }, { &quot;resourceId&quot;: &quot;sid-B22A5CAB-94D0-419E-BB1E-E8538C6A7283&quot;, &quot;properties&quot;: { &quot;overrideid&quot;: &quot;&quot;, &quot;name&quot;: &quot;&quot;, &quot;documentation&quot;: &quot;&quot;, &quot;executionlisteners&quot;: &quot;&quot; }, &quot;stencil&quot;: { &quot;id&quot;: &quot;EndNoneEvent&quot; }, &quot;childShapes&quot;: [], &quot;outgoing&quot;: [], &quot;bounds&quot;: { &quot;lowerRight&quot;: { &quot;x&quot;: 1089, &quot;y&quot;: 138 }, &quot;upperLeft&quot;: { &quot;x&quot;: 1061, &quot;y&quot;: 110 } }, &quot;dockers&quot;: [] }, { &quot;resourceId&quot;: &quot;sid-B589A0D9-FA79-4C12-95B7-253E72480384&quot;, &quot;properties&quot;: { &quot;overrideid&quot;: &quot;&quot;, &quot;name&quot;: &quot;&quot;, &quot;documentation&quot;: &quot;&quot;, &quot;conditionsequenceflow&quot;: &quot;&quot;, &quot;executionlisteners&quot;: &quot;&quot;, &quot;defaultflow&quot;: &quot;false&quot; }, &quot;stencil&quot;: { &quot;id&quot;: &quot;SequenceFlow&quot; }, &quot;childShapes&quot;: [], &quot;outgoing&quot;: [ { &quot;resourceId&quot;: &quot;sid-1A762474-62B9-4F3D-A81C-1ADD46AF7D2F&quot; } ], &quot;bounds&quot;: { &quot;lowerRight&quot;: { &quot;x&quot;: 645.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E7%B2%97%E8%A7%88activiti_modeler%E6%93%8D%E4%BD%9C%E5%92%8C%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/activiti_5.17_jndi%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/" itemprop="url">
+        Activiti 5.17 JNDI数据源配置
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-12">
+    2015-02-12
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/workflow" itemprop="url" rel="index">
+        <span itemprop="name">workflow</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">87 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Activiti演示环境采用的是h2内存数据库。为了便于研究代码，所以将其迁移到我已有的MySQL/PostgreSQL数据库上去。
+MySQL MySQL配置 activiti数据库DDL文件位于activiti-engine-5.17.0.jar\org\activiti\db\create\，MySQL 5.6.4及其之后版本与之前的版本使用的是不同的DDL文件。将下列用于MySQL5.6.4+的DDL文件提取保存到某一目录下。 - activiti.mysql.create.engine.sql - activiti.mysql.create.identity.sql - activiti.mysql.create.history.sql
+MySQL命令如下：
+create database ActivitiDB character set utf8 collate utf8_general_ci; use ActivitiDB; source c:/activiti.mysql.create.engine.sql; source c:/activiti.mysql.create.identity.sql; source c:/activiti.mysql.create.history.sql;  Tomcat配置 删除下列MyBatis配置文件： - apache-tomcat-7\webapps\activiti-explorer\WEB-INF\classes\db.properties - apache-tomcat-7\webapps\activiti-rest\WEB-INF\classes\db.properties
+修改下列Spring配置文件： - apache-tomcat-7\webapps\activiti-explorer\WEB-INF\classes\activiti-custom-context.xml - apache-tomcat-7\webapps\activiti-rest\WEB-INF\classes\activiti-custom-context.xml
+去掉XMl注释，删除&rdquo;dbProperties&rdquo;bean，将&rdquo;dataSource&rdquo;bean改成JNDI数据源。 修改下列Tomcat上下文，配置Tomcat JNDI资源： - apache-tomcat-7\webapps\activiti-explorer\META-INF\context.xml- apache-tomcat-7\webapps\activiti-rest\META-INF\context.xmlPostgreSQL PostgreSQL配置 activiti数据库DDL文件位于activiti-engine-5.17.0.jar\org\activiti\db\create\，将下列用于PostgreSQL的DDL文件提取保存到某一目录下。 - activiti.postgres.create.engine.sql - activiti.postgres.create.identity.sql - activiti.postgres.create.history.sql
+PostgreSQL命令如下：
+CREATE DATABASE ActivitiDB WITH ENCODING 'UTF8' TEMPLATE=template0; \c ActivitiDB; \i c:/activiti.postgres.create.engine.sql; \i c:/activiti.postgres.create.identity.sql; \i c:/activiti.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/activiti_5.17_jndi%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/activiti%E6%A8%A1%E5%9E%8B%E7%BC%96%E8%BE%91%E5%99%A8%E4%B9%8B%E5%89%8D%E5%89%8D%E8%BA%ABoryx_editor/" itemprop="url">
         Activiti模型编辑器之前前身：Oryx editor
         </a>
@@ -574,123 +702,6 @@ csdn站内Activiti相关博文
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/" itemprop="url">
-        [算法] 实证分析
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-03">
-    2015-02-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/algorithm.datastruct" itemprop="url" rel="index">
-        <span itemprop="name">Algorithm.DataStruct</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">59 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    最近又重温了一下算法课中的实证分析。 - 首先针对不同大小的输入获取运行时长。 - 可以通过标准坐标图或双对数坐标图查看运行时常与输入大小的关系。 - 通过成倍增加输入量，可以更便利地估算T(N)与N之间的幂指数关系。 lg( T(N) ) = b lg( N ) + c 即 T(N) = a Nb, 其中 a = 2c b = ( lg( T(2N1) ) - lg( T(N1)) ) ) / ( lg(2N1)) - lg( N1) ) ) = lg( T(2N1)) ) -lg( T(N1)) ) a = T(2N1)) / (2N1))b 可以教程上第二行就可以计算出b，这就有点不对头了。时常为零，意味着取对数的结果是-∞。返回数值是以毫秒为单位的，因此一般时长也应该是为毫秒为单位的。估计教程上时常实际精度为三位而显示精度为一位，导致不一致的。 下图是我用Excel根据教程显示数据计算的结果： 
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E6%A8%A1%E5%BC%8F/" itemprop="url">
-        [OpenUI5] 数据绑定模式
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-02">
-    2015-02-02
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">50 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    OpenUI5数据绑定模式概念 OpenUI5开发指南-数据绑定模式介绍了OpenUI5数据绑定模式概念和不同模型的默认值。
-绑定模式 绑定模式定义了数据源如何绑定。不同模型实现需要特定绑定模式。例如资源模型仅支持模型到视图的一次性绑定。 SAPUI5提供如下绑定模式： - 单向绑定：单向绑定意味着模型到视图的绑定；模型中的数据变化将更新相应的绑定和视图。 - 双向绑定：双向绑定意味着模型到视图及视图到模型的绑定；模型/视图中的数据变化将更新相应的绑定和视图/模型。 - 一次性绑定：一次性绑定意味着模型到视图的绑定。
-下表展示了不同模型分别支持的绑定模式：
-|模型|一次性绑定|双向绑定|单向绑定 |&mdash;&ndash; |资源模型|&ndash;|&ndash;|X |JSON模型|X|X|X |XML模型|X|X|X |OData模型|X|X|X
-资源模型仅处理静态文本，所以仅支持一次性绑定模式
-模型的默认绑定模式 当模型实例被创建后，该实例具有一个默认绑定模式。该模型实例的所有绑定会采用他们自己默认绑定模式。 下表展示了不同模式实现的默认绑定模式。
-|模型|默认绑定模式 |&mdash;&ndash; |资源模型|一次性绑定 |JSON模型|双向绑定 |XML模型|双向绑定 |OData模型|单向绑定
-OpenUI5数据绑定模式范例 OpenUI5开发指南-数据绑定入门介绍了数据绑定使用范例。
-OpenUI5数据绑定模式源代码研究 数据绑定模式在sap.ui.model.BindingMode中定义。 通过如上类图可知，JSON模型类和XML模型类继承自客户端模型类，资源模型和OData模型直接继承自模型类。 客户端模型具有额外的setData方法。客户端模型相对模型类多了一层客户端数据，可以存储视图属性变化相应的数据，应此能够在不跟服务器端交互的情况下实现双向绑定。网上的很多演示采用客户端模型，就是因为无需搭建服务器，易于实现。 模型类原型有一个checkUpdate方法，用于在模型数据发生变化后，检查模型的所有绑定是否需要更新以实现模型到视图的绑定。其调用情况如下： - JSON模型和XML模型：被setData和setProperty方法调用 - OData模型：被loadData、setProperty和refresh方法调用 - 资源模型：无调用
-视图到模型的绑定，主要在sap.ui.base.ManagedObject类实现。 ManagedObject是所有视图控件的祖宗类，ManagedObject原型的_bindProperty方法判别绑定模式是否是一次性绑定，是的话就将绑定上的事件和模型数据变化处理程序卸载掉。 ManagedObject原型的updateModelProperty方法判别绑定模式是否是双向绑定，是的话就将视图属性变化写入绑定，从而将数据写入模型。
-参考 OpenUI5 API参考指南
-sap.ui.model包源代码 - GitHub
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -713,6 +724,8 @@ sap.ui.model包源代码 - GitHub
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/39/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -884,14 +897,14 @@ sap.ui.model包源代码 - GitHub
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -901,7 +914,7 @@ sap.ui.model包源代码 - GitHub
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1506</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

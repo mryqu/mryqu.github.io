@@ -6,10 +6,35 @@
     <description>Recent content in Linux on Mryqu&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 20 May 2015 00:03:27 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Dec 2020 07:31:23 +0000</lastBuildDate>
     
 	<atom:link href="https://mryqu.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>sed正则表达式捕获组实践</title>
+      <link>https://mryqu.github.io/post/sed%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E7%BB%84%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Fri, 04 Dec 2020 07:31:23 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/sed%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E7%BB%84%E5%AE%9E%E8%B7%B5/</guid>
+      <description> mryqu&amp;gt; cat test.txt Hello from=&amp;quot;Beijing&amp;quot; via=&amp;quot;Nanjing&amp;quot; to=&amp;quot;Shanghai&amp;quot;. test 123 mryqu&amp;gt; sed -e &#39;s/^Hello.*from=&amp;quot;[^&amp;quot;]\+&amp;quot;.*$/abc/g&#39; test.txt abc test 123 mryqu&amp;gt; sed -e &#39;s/^Hello.*from=&amp;quot;\([^&amp;quot;]\+\)&amp;quot;.*$/\1/g&#39; test.txt Beijing test 123 mryqu&amp;gt; sed -e &#39;s/^\(Hello.*from=&amp;quot;\)\([^&amp;quot;]\+\)\(&amp;quot;.*\)$/\1********\3/g&#39; test.txt Hello from=&amp;quot;********&amp;quot; via=&amp;quot;Nanjing&amp;quot; to=&amp;quot;Shanghai&amp;quot;. test 123 mryqu&amp;gt; sed -e &#39;s/^\(Hello.*from=&amp;quot;\)\([^&amp;quot;]\+\)\(&amp;quot;.*\)$/\1********\3/g&#39; -e &#39;s/^\(Hello.*to=&amp;quot;\)\([^&amp;quot;]\+\)\(&amp;quot;.*\)$/\1********\3/g&#39; test.txt Hello from=&amp;quot;********&amp;quot; via=&amp;quot;Nanjing&amp;quot; to=&amp;quot;********&amp;quot;. test 123 mryqu&amp;gt;  注：sed不支持非贪婪模式。
+参考  Sed教程-正则表达式
+ grep、sed、awk、perl等对正则表达式的支持的差别
+ How to output only captured groups with sed?
+  </description>
+    </item>
+    
+    <item>
+      <title>Shell参数扩展</title>
+      <link>https://mryqu.github.io/post/shell%E6%98%BE%E7%A4%BA%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97/</link>
+      <pubDate>Thu, 26 Nov 2020 08:25:00 +0000</pubDate>
+      
+      <guid>https://mryqu.github.io/post/shell%E6%98%BE%E7%A4%BA%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97/</guid>
+      <description>昨天学习一下如何使用shell在屏幕显示彩色文字。解决方案有两种：1. 转义字符 2. tput设置文本颜色。
+在Linux上这两种方式都正常工作，在FreeBSD上第二种方式不起作用。
+代码如下：
+#!/bin/ksh println() { printf &amp;quot;%s\n&amp;quot; $* } ########################## # Solution 1 ########################## colorsEnabled() { if [ $TERM == &#39;TERM&#39; ] then return 0 fi return 1 } printlnColor() { c=$1 shift msg=$*; colorsEnabled if [ $? == 1 ] then printf &amp;quot;\033[0;%dm%s\033[0m\n&amp;quot; $c &amp;quot;$msg&amp;quot; else printf &amp;quot;%s\n&amp;quot; &amp;quot;$msg&amp;quot; fi } # Success printlnSuccess() { printlnColor 32 $* } # Warning printlnWarning() { printlnColor 33 $* } # Failure printlnFailure() { printlnColor 31 $* } # Verbose printlnVerbose() { printlnColor 35 $* } # Emphasis printlnEmphasis() { printlnColor 36 $* } # Note printlnNote() { printlnColor 37 $* } ########################## # Solution 2 ########################## println_color() { c=$1 shift msg=$*; tput setaf $c printf &amp;quot;%s\n&amp;quot; &amp;quot;$msg&amp;quot; tput sgr0 } # Success println_success() { println_color 2 $* } # Warning println_warning() { println_color 3 $* } # Failure println_failure() { println_color 1 $* } # Verbose println_verbose() { println_color 5 $* } # Emphasis println_emphasis() { println_color 6 $* } # Note println_note() { println_color 7 $* } printlnEmphasis hahaha 123 echo &amp;quot;=====================&amp;quot; println_emphasis hahaha 123  参考  ANSI Escape sequences</description>
+    </item>
     
     <item>
       <title>Apt-get代理配置</title>

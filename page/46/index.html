@@ -113,6 +113,124 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90_%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C/" itemprop="url">
+        [社交网络分析课] 小世界网络
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-11-10">
+    2014-11-10
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/datascience" itemprop="url" rel="index">
+        <span itemprop="name">DataScience</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">150 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    本文为Social NetworkAnalysis学习笔记，课程地址为https://www.coursera.org/course/sna 。
+小世界网络 在网络理论中，小世界网络是一类特殊的复杂网络结构，在这种网络中大部份的节点彼此并不相连，但绝大部份节点之间经过少数几布就可到达。 在日常生活中，有时你会发现，某些你觉得与你隔得很“遥远”的人，其实与你“很近”。小世界网络就是对这种现象（也称为小世界现象）的数学描述。用数学中图论的语言来说，小世界网络就是一个由大量顶点构成的图，其中任意两点之间的平均路径长度比顶点数量小得多。除了社会人际网络以外，小世界网络的例子在生物学、物理学、计算机科学等领域也有出现。 二十世纪60年代，美国哈佛大学社会心理学家斯坦利·米尔格伦（StanleyMilgram）做了一个连锁信实验。他将一些信件交给自愿的参加者，要求他们通过自己的熟人将信传到信封上指明的收信人手里，他发现，20%的信件最终送到了目标人物手中。而在成功传递的信件中，平均只需要6.5次转发，就能够到达目标。也就是说，在社会网络中，任意两个人之间的“距离”是6。这就是所谓的“六度分隔”理论。
+全局集聚系数(Global Clustering Coefficient) 全局集聚系数基于节点的三点组。一个三点组由三个节点组成，其中可以两边连接(为闭三点组)或三边连接(开三点组)，统称连通三点组。 全局集聚系数是闭三点组个数(或三倍三角形个数)除以全部连通三点组个数。 该方法首次由Luce和Perry使用 (1949)。该指标指示了整个网络的集聚程度，可被用于无方向和有向网络。 定义： 局部集聚系数(Local Clustering Coefficient, Watts&amp;Strogatz1998) 对于每个节点i，ni是节点i的邻居节点个数。 平均本地集聚系数： 示例1： 示例2： 示例3： 我用Gephi做了一个例子，Gephi不计算全局集聚系数，它会计算平均集聚系数和每个节点的局部集聚系数。 平均集聚系数 = (1+0.667+0.667+1)/4 = 0.833，同软件所得一致。
+下面手动算一下全局集聚系数： 闭三点组有6个： B-&gt;A&lt;-C; A-&gt;B&lt;-C; A-&gt;C&lt;-B; C-&gt;B&lt;-D;B-&gt;C&lt;-D; B-&gt;D&lt;-C 开三点组有2个： A-&gt;C&lt;-D; A-&gt;B&lt;-D 全局集聚系数=6/(6+2)=3&frasl;4=0.75
+强联系(A strong tie)  联系频繁 亲密 许多共同的联系人  连接边嵌入性(edge embeddeness) 嵌入性(embeddeness)：两个端点所共同拥有的邻居节点个数。 邻居节点重叠(neighborhood overlap)： 分解局部结构：网络基序(Network motif) 网络的复杂性本质上就是关系的复杂性。但是，研究者通过对真实网络的分析，发现各种关系种类的出现频率是非随机性的。某些特定的关系种类在网络中反复出现，形成网络的典型连接方式；不同类型的网络具有不同的典型连接方式。研究者把这些特定的关系种类称为“网络基序”，认为它们是一个网络的基本构造单元。 基序是从功能的角度来分析网络的构成，着眼于网络内各种成分之间连接的模式或关系。 所有三节点基序 网络基序示例(三节点) 网络基序示例(四节点) 真实网络与随机网络的网络基序对比 网络基序探测 跟随机网络相比，一些网络基序更容易在真实网络中出现。
+技术： 使用相同数量的节点和边构造随机网络(相同的节点度分布？) 计算图中的基序个数 计算Z-评分：给定基序个数偶然在真实网络出现的概率
+基序软件 Uri AlonLab mfinder： 网络基序探测工具 Uri AlonLab mDraw： 网络基序可视化工具 FANMOD：网络基序快速探测工具(开发者S.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90_%E5%B0%8F%E4%B8%96%E7%95%8C%E7%BD%91%E7%BB%9C/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/" itemprop="url">
+        开玩OpenUI5
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-11-09">
+    2014-11-09
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">7 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    OpenUI5是SAP推出的开源HTML5Javascript用户界面库，网址为http://sap.github.io/openui5/index.html 前不久SAP宣布我司成了签署OpenUI5企业贡献者许可协议的第一个组织(BjornGoerkee的Tweet)，从此我司产品中的Flex就要纷纷下岗，让位HTML5了。 据说SAP在UI框架上的选择纠结了十多年了，甚至投奔过微软的silverlight，后来才成为HTML5的拥拓。 我司的富客户端技术用过Swing，中间打算换成Eclipse RCP，再后来决定全面采用Flex技术，兜了一圈又一圈，花了时间费了钱，最后决定采用HTML5。 虽然各浏览器厂商还在HTML5上进行利益博弈，W3C与WHATWG分道扬镳，Facebook和Linkedin抛弃HTML5转投原生App应用，但是为了将我司的产品转向云应用，HTML5对于我们这种企业级应用来说还算是很靠谱的了。 今天下载了openui5-sdk-1.24.3.zip，直接解压到Tomcat的webapps目录下，开始学文档做demo。 
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/javascript%E4%B8%AD%E7%9A%84%E7%82%B9%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%96%B9%E6%8B%AC%E5%8F%B7%E7%AC%A6%E5%8F%B7/" itemprop="url">
         JavaScript中的点符号和方括号符号
         </a>
@@ -568,133 +686,6 @@ Bonacich’s Centrality
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90_%E9%9A%8F%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/" itemprop="url">
-        [社交网络分析课] 随机网络模型
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-10-21">
-    2014-10-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/datascience" itemprop="url" rel="index">
-        <span itemprop="name">DataScience</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">114 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    本文为Social NetworkAnalysis学习笔记，课程地址为https://www.coursera.org/course/sna。
-网络模型 为什么建立网络模型？ - 复杂网络的简单表达 - 可以通过数学推导出属性 - 可以预测属性和输出 - 可以对比真实网络与假设模型的不同之处，从中获得顿悟
-随机图模型：Erdös-Renyi模型 假设  节点随机连接 网络是无向网络  除了节点数N之外的关键参数：p或M  p=任意两个节点连接的概率 M=图中边的总数  度分布 (N,p)模型：对每个潜在的边，概率p添加边，概率(1-p)不添加边。 每节点边数 每个节点最多可能（N-1）条边，每条边以概率p的可能性存在。二项分布提供了节点具有度K的概率： 度的平均数为：z = (n-1)*p度的方差为：s2=(n-1)p(1-p)近似值：ER图模型认知 社交中心(hub) 该模型下无法获得大的社交中心。
-巨分量 上述实验中，每个点有可变的概率P表示渗透。当P等于1/2的时候，图中会出现一个明显的巨分量。
-平均最短路径 每对节点的平均跳数是多少？假如你的朋友与z（=度平均值）个你的其他朋友相连，忽略回路的话与你距离l跳的人有zl个。 介绍模型(Introduction Model) 任意两个节点连接的概率prob-link仍然是p，此外增加了连接邻居节点的邻居节点概率prob-intro，不再完全随机。 与ER模型相比，介绍模型具有： - 更多的闭三点组（朋友将他的朋友介绍给你） - 更长的平均最短距离（边更局部连接） - 更多不均匀的度分布（有更多连接的节点更容易增加边） - 低概率p的情况更小的巨分量
-静态地理模型(Static Geographical model) 每个节点与最接近的节点中的num-neighbors个相连。 与ER模型相比，静态地理模型具有： - 更窄的度分布(每个节点邻居节点目标一样，num-neighbors) - 更长的平均最短距离（地理局部连接） - 更小的巨分量(更少的机会进行随机连接)
-随机遭遇模型(Random encounter) 节点随机移动，与偶遇的节点相连。 与ER模型相比，随机遭遇模型具有： - 更长的平均最短距离 - 更小的巨分量 - 更多的闭三点组
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90_%E9%9A%8F%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%9B%E5%BB%BAmysql%E8%A1%A8%E5%A4%B1%E8%B4%A5show_tables%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E8%A1%A8%E5%AD%98%E5%9C%A8%E5%8D%B4%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4/" itemprop="url">
-        创建MySQL表失败，“show tables”命令显示表存在却无法删除
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-10-19">
-    2014-10-19
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
-        <span itemprop="name">db&#43;nosql</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">92 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在MySQL表中创建一个表table_c失败了，返回错误ERROR 1146(42S02)；结果发现MySQL显示有这个表，却无法查询和删除。```
-mysql&gt; create table table_c (&hellip;&hellip;&hellip;); ERROR 1146 (42S02): Table &lsquo;yqutesting.table_c&rsquo; doesn&rsquo;t exist mysql&gt; show tables; +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+ | Tables_in_yqutesting | +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+ | table_a | | table_b | | table_c | +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+ 3 rows in set (0.00 sec)
-mysql&gt; select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.table_c&rsquo; doesn&rsquo;t exist mysql&gt; drop table table_c; ERROR 1051 (42S02): Unknown table &lsquo;table_c&rsquo;
-``` 结果还是drop掉yqutesting数据库，修正了table_c的定义重新创建数据库和所有表完事。 参考：MySQL Create Table Error - Table Doesn&rsquo;t ExistMySQL &gt; Table doesn&rsquo;t exist.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E5%88%9B%E5%BB%BAmysql%E8%A1%A8%E5%A4%B1%E8%B4%A5show_tables%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E8%A1%A8%E5%AD%98%E5%9C%A8%E5%8D%B4%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -717,6 +708,8 @@ mysql&gt; select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.tab
 
 <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-angle-left"></i></a>
+    
+        
     
         
     
@@ -888,14 +881,14 @@ mysql&gt; select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.tab
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">701</span>
+        <span class="site-state-item-count">703</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
     <div class="site-state-item site-state-categories">    
         <a href="/categories/">      
          
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         
         <span class="site-state-item-name">分类</span>
         
@@ -905,7 +898,7 @@ mysql&gt; select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.tab
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1502</span>
+        <span class="site-state-item-count">1506</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
