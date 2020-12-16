@@ -113,6 +113,75 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_%E5%AE%89%E8%A3%85hbase_1.2.x_&#43;_zookeeper_3.4.x_%E9%9B%86%E7%BE%A4/" itemprop="url">
+        [HBase] 安装HBase 1.2.x &#43; ZooKeeper 3.4.x 集群
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-02-29">
+    2016-02-29
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hbase" itemprop="url" rel="index">
+        <span itemprop="name">HBase</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">449 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    安装HBase，首先需要参考一下The versions of Hadoop supported with each version of HBase，以便确定Hadoop和HBase各自的版本。
+集群规划 |节点|角色 |&mdash;&ndash; |node50064|NameNode RessourceManager QuorumPeerMain HMaster |node50069|Datanode SecondNameNode QuorumPeerMain HMasterHRegionServer |node51054|Datanade QuorumPeerMain HRegionServer
+ZooKeeper在HBase集群中的作用  HBase regionserver向ZooKeeper注册，提供HBase regionserver状态信息（是否在线） HMaster启动时候会将HBase 系统表-ROOT-加载到ZooKeeper集群，通过zookeeper集群可以获取当前系统表.META.的存储所对应的regionserver信息。  HMaster主要作用在于，通过HMaster维护系统表-ROOT-,.META.，记录regionserver所对应region变化信息。此外还负责监控处理当前HBase集群中regionserver状态变化信息。
+Zookeeper安装 （在node50064上）下载并配置ZooKeeper wget http://apache.mirrors.tds.net/zookeeper/zookeeper-3.4.x/zookeeper-3.4.x.tar.gz tar -xzf zookeeper-3.4.x.tar.gz sudo mv zookeeper-3.4.x /usr/local/zookeeper sudo chown -R &quot;hadoop:hadoop&quot; /usr/local/zookeeper sudo mkdir /var/log/zookeeper sudo chown -R &quot;hadoop:hadoop&quot; /var/log/zookeeper sudo mkdir /var/lib/zookeeper sudo chown -R &quot;hadoop:hadoop&quot; /var/lib/zookeeper cd /var/lib/zookeeper touch myid echo 1 &gt; myid cd /usr/local/zookeeper/conf  通过cpzoo_sample.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hbase_%E5%AE%89%E8%A3%85hbase_1.2.x_&#43;_zookeeper_3.4.x_%E9%9B%86%E7%BE%A4/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_hadoop3%E4%BF%A1%E6%81%AF/" itemprop="url">
         [Hadoop] Hadoop3信息
         </a>
@@ -647,62 +716,6 @@ comments字段还制定了二级字段attachment、id和from。这样comments字
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%A4%84%E7%90%86facebook_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E8%B6%85%E9%99%90%E9%94%99%E8%AF%AF/" itemprop="url">
-        处理Facebook API访问速率超限错误
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2016-01-12">
-    2016-01-12
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">58 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    对于下列Facebook通用错误，我个人觉的#2、#4、#9、#17、#18和#32错误都可以向客户端报告FacebookAPI访问速率超限，至于#5不确定。
-|Error number|PHP Constant name|Error description|Generated by methods |&mdash;&ndash; |2|API_EC_SERVICE|Service temporarily unavailable|(all) |4|API_EC_TOO_MANY_CALLS|Application request limit reached|(all) |5|API_EC_BAD_IP|Unauthorized source IP address|(all) |9|API_EC_RATE|User is performing too many actions| |17|API_EC_USER_TOO_MANY_CALLS|User request limit reached| |18|API_EC_REQUEST_RESOURCES_EXCEEDED|This API call could not be completed due to resourcelimits| |32||Page request limit reached|
-参考 Rate Limiting on the Facebook Graph API
-Facebook API Error Codes for Developers
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -898,7 +911,7 @@ Facebook API Error Codes for Developers
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -915,7 +928,7 @@ Facebook API Error Codes for Developers
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1506</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

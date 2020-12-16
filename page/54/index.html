@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/" itemprop="url">
+        处理注解@RequestParam的&#34;Required String parameter is not present&#34;
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-02-04">
+    2014-02-04
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spring" itemprop="url" rel="index">
+        <span itemprop="name">Spring</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">99 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    最近玩一下SpringMVC，代码如下：
+@Controller @RequestMapping(&quot;/test.do&quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(&quot;fid&quot;) String fid, @RequestParam(&quot;sid&quot;) String sid) throws Exception { if(fid==null || sid==null) { m.addAttribute(&quot;file&quot;, new FileMetaDAO()); return new ModelAndView(ViewProvider.UPLOAD); } else { m.addAttribute(&quot;sync&quot;, new SyncDAO()); return new ModelAndView(ViewProvider.HR_SYNC); } } }  访问http://localhost:8080/hellorest/test.do 时发生如下问题：查了一下Annotation Type RequestParam的javadoc，加上可选参数required解决战斗。
+@Controller @RequestMapping(&quot;/test.do&quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(value=&quot;fid&quot;, required = false) String fid, @RequestParam(value=&quot;sid&quot;, required = false) String sid) throws Exception { if(fid==null || sid==null) { m.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%85%8D%E8%B4%B9%E7%A7%81%E6%9C%89%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/" itemprop="url">
         免费私有代码托管平台
         </a>
@@ -641,62 +709,6 @@ ClusterShell在线文档为http://clustershell.readthedocs.io/。
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/cran%E4%BB%BB%E5%8A%A1%E8%A7%86%E5%9B%BE%E4%BD%BF%E7%94%A8/" itemprop="url">
-        CRAN任务视图使用
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-07">
-    2014-01-07
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/datascience" itemprop="url" rel="index">
-        <span itemprop="name">DataScience</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">51 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    一般都是从CRAN（Comprehensive R ArchiveNetwork）安装R的各种包（package）来满足我们的编程需求。CRAN将包按照应用范畴归类，并公布在如下链接：http://cran.r-project.org/web/views/我们可以通过安装视图的命令把所有同一应用范畴的包都安装上。
-为了自动安装视图，需要安装ctv包。
-install.packages(&quot;ctv&quot;) library(&quot;ctv&quot;)  通过如下命令安装或更新视图。
-install.views(&quot;Econometrics&quot;) update.views(&quot;MachineLearning&quot;)  CRAN任务视图 |视图|说明 |&mdash; |Bayesian|贝叶斯推断 |ChemPhys|化学计量学和计算物理学 |ClinicalTrials|临床试验设计、监控和分析 |Cluster|聚类分析和有限混合模型 |DifferentialEquations|微分方程 |Distributions|概率分布 |Econometrics|计量经济学 |Environmetrics|生态与环境数据分析 |ExperimentalDesign|实验设计和数据分析 |Finance|实证金融 |Genetics|统计遗传学 |Graphics|图形显示 &amp; 动态图 &amp; 图形设备 &amp; 可视化 |HighPerformanceComputing|高性能计算和并行计算 |MachineLearning|机器学习与统计学习 |MedicalImaging|医学图像分析 |MetaAnalysis|元分析 |Multivariate|多元统计 |NaturalLanguageProcessing|自然语言处理 |NumericalMathematics|数值数学 |OfficialStatistics|官方统计和调查方法 |Optimization|优化和数学规划 |Pharmacokinetics|药物动力学数据分析 |Phylogenetics|系统发育、进化和遗传学分析 |Psychometrics|心理测量模型和方法 |ReproducibleResearch|可重复性研究 |Robust|稳健统计方法 |SocialSciences|社会科学统计 |Spatial|空间数据分析 |SpatioTemporal|时空数据处理和分析 |Survival|存活分析 |TimeSeries|时间序列分析 |WebC++nologies|Web技术与服务 |gR|图模型
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -892,7 +904,7 @@ install.views(&quot;Econometrics&quot;) update.views(&quot;MachineLearning&quot;
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -909,7 +921,7 @@ install.views(&quot;Econometrics&quot;) update.views(&quot;MachineLearning&quot;
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1506</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

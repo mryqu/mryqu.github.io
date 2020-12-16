@@ -113,6 +113,77 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/" itemprop="url">
+        Hibernate shards数据库分片
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-19">
+    2013-07-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hibernate" itemprop="url" rel="index">
+        <span itemprop="name">Hibernate</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">480 字 ~3分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
+Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。 - 标准Hibernate编程模型 - 灵活的分片策略 - 支持虚拟分片 - 免费/开源
+实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
+|Hibernate Core接口|Hibernate Shards实现 |&mdash;&ndash; |org.hibernate.Session|org.hibernate.shards.session.ShardedSession |org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory |org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria |org.hibernate.Query|org.hibernate.shards.query.ShardedQuery
+唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。 首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。
+气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM('AFRICA', 'ANTARCTICA', 'ASIA', 'AUSTRALIA', 'EUROPE', 'NORTH AMERICA', 'SOUTH AMERICA'), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP );  气象报告对象模型 @Entity @Table(name=&quot;WEATHER_REPORT&quot;) public class WeatherReport { @Id @GeneratedValue(generator=&quot;WeatherReportIdGenerator&quot;) @GenericGenerator(name=&quot;WeatherReportIdGenerator&quot;, strategy=&quot;org.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/" itemprop="url">
         PostgreSQL与MySQL数据库分区
         </a>
@@ -722,68 +793,6 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/" itemprop="url">
-        初探ANTLR
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-03">
-    2013-07-03
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tech" itemprop="url" rel="index">
-        <span itemprop="name">Tech</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">111 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    当前的项目是基于多维数据集市的RTOLAP财务系统，其中的公式使用ANTLR 3进行语法解析和编译。 此外看Hibernate源码的时候也接触到ANTLR，Hibernate使用ANTLR产生查询分析器。
-ANTLR简介 ANTLR的全称是ANother Tool for LanguageRecognition，其前身是PCCTS，和YACC、LEX、JavaCC、Coco/R等工具一样，都是编译器的编译程序。 ANTLR对语法树构造、遍历和转换、错误修复和报告提供出色的支持，它为包括Java，C++，C#和Python在内的语言提供了一个通过语法描述来自动构造自定义语言的识别器、解析器、编译器和转换器的框架。 ANTLR可以通过断言（Predicate）解决识别冲突；支持动作（Action）和返回值（ReturnValue）来；更棒的是，它可以根据输入自动生成语法树并可视化的显示出来。由此，计算机语言的翻译变成了一项普通的任务。 ANTLR是由旧金山大学的Terence Parr博士领导下完成的，最新版本为4.1。
-编译器工作主要分有词法分析，语法分析，代码生成三个步骤。ANTLR分别提供了三个东西: 1. 词法分析器（Lexer） 词法分析器又称为Scanner，Lexicalanalyser和Tokenizer。程序设计语言通常由关键字和严格定义的语法结构组成。编译的最终目的是将程序设计语言的高层指令翻译成物理机器或虚拟机可以执行的指令。词法分析器的工作是分析量化那些本来毫无意义的字符流，将他们翻译成离散的字符组（也就是一个一个的Token），包括关键字、标识符、符号和操作符供语法分析器使用。 1. 语法分析器（Parser） 编译器又称为Syntacticalanalyser。在分析字符流的时候，Lexer不关心所生成的单个Token的语法意义及其与上下文之间的关系，而这就是Parser的工作。语法分析器将收到的Tokens组织起来，并转换成为目标语言语法定义所允许的序列。 无论是Lexer还是Parser都是一种识别器，Lexer是字符序列识别器而Parser是Token序列识别器。他们在本质上是类似的东西，而只是在分工上有所不同而已。 1. 抽象语法树遍历器 (Tree walker) 树分析器可以用于对语法分析生成的抽象语法树进行遍历，并能执行一些相关的操作，可以进行语义匹配生成代码。
-ANTLR 3的Eclipse插件 ANTLR IDE用于ANTLR3的一个Eclipse插件。 - 支持ANTLR 3.0、3.1、3.2、3.3和3.4。 - ANTLR启动器和调试器(仅限Java) - ANTLR内建解析器。 - 代码格式化工具(Ctrl+Shift+F) - 语法图（铁路图） - 定制目标 - 自动生成资源 - 对语法文件中错误和告警自动标注 - 高级文本编辑器、代码选择(F3)和代码补全(Ctrl+Space) - 对（Java、C#、Python和C等）目标语言自动语法高亮 - 标注生成的资源 - 高级字符串模板(StringTemplate)编辑器(*.st and .stg) - 高级语法单元测试(gUnit)编辑器(.gunit and *.testsuite)使用ANTLR生成代码的ANT设置 &lt;property name=&quot;lib.dir&quot; value=&quot;lib&quot; /&gt; &lt;property name=&quot;gensrc.dir&quot; value=&quot;gen-source/Java&quot; /&gt; &lt;property name=&quot;parser.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1007,7 +1016,7 @@ ANTLR 3的Eclipse插件 ANTLR IDE用于ANTLR3的一个Eclipse插件。 - 支持A
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -1024,7 +1033,7 @@ ANTLR 3的Eclipse插件 ANTLR IDE用于ANTLR3的一个Eclipse插件。 - 支持A
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1506</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

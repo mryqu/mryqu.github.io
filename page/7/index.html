@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6/" itemprop="url">
+        [Golang] Go程序内嵌I18N properties文件
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-19">
+    2017-10-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/golang" itemprop="url" rel="index">
+        <span itemprop="name">Golang</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">213 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    本博文将介绍一下如何将I18N properties文件内嵌到Go程序中。一般来说，go-i18n等Go包官方示例使用JSON文件保存I18N消息，而我的示例还是采用properties文件。
+go-bindata go-bindata包可以将任何文件转换为可管理的Go源代码，在将二进制数据嵌入Go程序时是非常有帮助的。文件数据在转换成原始字节切片之前可做选择性的gzip压缩。 在我的示例中，我选择用go-bindata将i18n/resources下的i18n properties文件嵌入Go程序。
+安装 go get -u github.com/jteeuwen/go-bindata/...  地址最后的三个点 &hellip;会分析所有子目录并下载依赖编译子目录内容，而go-bindata的命令行工具在子目录中。go-bindata命令行工具将被安装到$GOPATH/bin目录中。 资源文件 i18n/resources/locale.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata example.  i18n/resources/locale_en.properties mryqu.hello=Welcome to Golang world! mryqu.intro=This is a go-bindata example.  i18n/resources/locale_zh-Hans.properties mryqu.hello=欢迎来到Golang世界！ mryqu.intro=这是一个go-bindata示例。  操练 看了go-bindata的帮助后，感觉go-bindata简单易用。这里就探索一下nocompress选项吧。
+cd {MyPrj}/i18n go-bindata -pkg i18n -o resources.go resources/ go-bindata -pkg i18n -o resources-nocompress.go -nocompress resources/  通过对比resources.go和resources-nocompress.go可以看出，resources.go里面多引入了bytes、compress/gzip和io包，多生成了一个bindataRead函数用于读取gzip压缩后的数据。 在resources.go中的内嵌数据：
+var _resourcesLocaleProperties = []byte(&quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xca\x2d\xaa\x2c\x2c\xd5\xcb\x48\xcd\xc9\xc9\xb7\x0d\x4f\xcd\x49\xce\xcf\x4d\x55\x28\xc9\x57\x70\xcf\xcf\x49\xcc\x4b\x57\x28\xcf\x2f\xca\x49\x51\xe4\xe5\x82\xa8\xca\xcc\x2b\x29\xca\xb7\x0d\xc9\xc8\x2c\x56\xc8\x2c\x56\x48\x54\x48\xcf\xd7\x4d\xca\xcc\x4b\x49\x2c\x49\x54\x48\xad\x48\xcc\x2d\xc8\x49\xd5\x03\x04\x00\x00\xff\xff\x45\xdc\x42\x7f\x4f\x00\x00\x00&quot;) var _resourcesLocale_enProperties = []byte(&quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xca\x2d\xaa\x2c\x2c\xd5\xcb\x48\xcd\xc9\xc9\xb7\x0d\x4f\xcd\x49\xce\xcf\x4d\x55\x28\xc9\x57\x70\xcf\xcf\x49\xcc\x4b\x57\x28\xcf\x2f\xca\x49\x51\xe4\xe5\x82\xa8\xca\xcc\x2b\x29\xca\xb7\x0d\xc9\xc8\x2c\x56\xc8\x2c\x56\x48\x54\x48\xcf\xd7\x4d\xca\xcc\x4b\x49\x2c\x49\x54\x48\xad\x48\xcc\x2d\xc8\x49\xd5\x03\x04\x00\x00\xff\xff\x45\xdc\x42\x7f\x4f\x00\x00\x00&quot;) var _resourcesLocale_zhHansProperties = []byte(&quot;\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xca\x2d\xaa\x2c\x2c\xd5\xcb\x48\xcd\xc9\xc9\xb7\x7d\xb6\x66\xd1\x8b\xfd\x7d\xcf\xe6\x2e\x7d\xda\xb1\xc1\x3d\x3f\x27\x31\x2f\xfd\xc9\x8e\x69\xcf\xa7\xf6\xbc\xdf\xd3\xc8\xcb\x05\x51\x98\x99\x57\x52\x94\x6f\xfb\x62\xff\xcc\x67\x33\xd6\x3f\xd9\xd1\xf0\x64\xc7\xaa\xf4\x7c\xdd\xa4\xcc\xbc\x94\xc4\x92\xc4\xe7\x4b\x76\x3d\xd9\xd7\xfd\xb8\xa1\x09\x10\x00\x00\xff\xff\xf7\xd1\x50\xc9\x54\x00\x00\x00&quot;)  在resources-nocompress.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8makefile%E5%AE%9E%E7%8E%B0go%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9E%84%E5%BB%BA/" itemprop="url">
         [Golang] 使用Makefile实现Go项目的跨平台构建
         </a>
@@ -662,79 +725,6 @@ Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/spring_cloud_consul_config/" itemprop="url">
-        Spring Cloud Consul Config
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-06-23">
-    2017-06-23
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spring" itemprop="url" rel="index">
-        <span itemprop="name">Spring</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">278 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Spring Cloud是在Spring Boot的基础上构建的，用于简化分布式系统构建的工具集，为开发人员提供快速建立分布式系统中的一些常见的模式。例如：分布式版本可控配置(Distributed/versioned configuration)，服务注册与发现(Service registration and discovery)、智能路由(intelligent routing)、服务间调用、负载均衡、断路器(circuit breakers)、微代理(micro-proxy)、控制总线(control bus)、一次性令牌(one-time tokens)、全局锁(global locks)、领导选举和集群状态(leadership election and cluster state)、分布式消息、分布式会话等。 Spring Cloud Config项目快速入门示例展示了用于分布式系统中由Git仓库支持的中央外部配置。但是偶在项目中是用Consul的，而Spring Cloud Consul项目的快速入门示例并没有展示如何使用Consul进行配置管理，所以还是自己攒一下吧。
-Spring Cloud Consul简介 HashiCorp公司的Consul是用于基础架构中服务发现和配置的工具，支持服务发现、健康检查、用于不同用途的键值对存储、多数据中心支持。 Spring Cloud Consul通过自动配置及Spring环境和其他Spring编程模型进行绑定实现Cosul与Spring Boot应用的集成。通过一些简单的注释，即可激活应用内的通用模式，使用Hashicorp的Consul构建大型分布式系统。其功能如下： * 服务发现: 实例可以向Consul agent注册，客户端可以使用Spring管理的bean发现这些实例 * 支持Ribbon: 通过Spring Cloud Netflix提供的客户端负载均衡 * 支持Zuul: 通过Spring Cloud Netflix提供的动态路由和过滤 * 分布式配置: 使用Consul键值对存储 * 控制总线: 使用Consul事件的分布式控制事件
-安装并启动Consul 每个集群需要最少三台Consul server，以建立仲裁(quorum)，每个机器上必须运行一个consul agent。 Consul Agent: - 健康检查
-- 转发查询
-Consul Server: - 存储数据
-- 响应查询
-- 领导选举
-根据参考二Consul安装指南，可以很轻松地在本机安装Consul。用于开发环境启动本地单Consul实例的脚本可以使用参考一Spring Cloud Consul指南中所提到的src/main/bash/local_run_consul.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/spring_cloud_consul_config/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -930,7 +920,7 @@ Consul Server: - 存储数据
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -947,7 +937,7 @@ Consul Server: - 存储数据
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1506</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

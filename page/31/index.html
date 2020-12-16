@@ -113,6 +113,82 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/" itemprop="url">
+        使用Consul的十二要素应用（Twelve-Factor App）
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-16">
+    2015-06-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/consul" itemprop="url" rel="index">
+        <span itemprop="name">Consul</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">106 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    十二要素应用（The Twelve-Factor App）主张web应用应该从环境变量里获取其配置。这一实践很快被现代PaaS服务采用以用于允许简单的配置变更。 使用Consul，很容易将这一实践用于你自己的数据中心。如果你基础架构的某些方面部分使用PaaS，Consul是配置数据中心化的一个很好的方式。 在这篇文章中，我们将展示Consul和envconsul如何在不修改应用程序的情况下被用于设置配置值和在配置变更时触发自动重启。
+为什么使用环境变量? 根据十二要素应用，web应用配置应该使用环境变量。跟配置文件或Java系统属性这样的机制比，环境变量有很多优点： - 环境变量是一个与开发语言和操作系统无关的标准。 - 环境变量更难被意外提交到代码库。 - 环境变量跟易于在development、staging、QA这样不同的环境之间改变。 - 无论如何部署，环境变量易于设置和更新。
+例如Heroku这样的完整PaaS解决方案公开一些有用的API以用于为应用自动设置/读取环境变量。 当手动部署应用时，以往这样的事会更复杂一些。而使用Consul，程序员就可以很容易地设置和读取配置，运营工程师就可以很容易地提供支持和维护。
+Consul键值对和Envconsul Consul能够存储键值对数据。对于设置和获取键值对数据，Consul拥有简单的API和美丽且直观的web界面。对于存储配置数据来说，它是完美的。 很容易看到如何设置和读取配置数据，但是对于配置数据如何变成应用的环境变量还不是很清楚。envconsul是一个解决该类问题的轻量级解决方案。 使用envconsul，环境变量存储在ConsulKV中并具有某些（以&rdquo;/&ldquo;分割的）前缀。例如，为了配置服务&rdquo;foo&rdquo;，我们可能存储如下配置：
+$ curl -X PUT -d 'false' http://localhost:8500/v1/kv/foo/enabled true  这会在键foo/enabled中存储值false。 之后，使用envconsul, 我们可以将这些键转换为环境变量：
+$ envconsul foo env ENABLED=false  envconsul是一个对UNIX非常友好的应用。他有两个必需的参数：一个用于查找数据的KV前缀和一个应用及其可选参数。在上例中，我们告诉envconsul配置位于前缀foo下，且我们想运行应用env，该应用仅仅是输出环境变量。 在示例结果中，我们可以清楚地看到ENABLED如我们在ConsulKV中所设置的false。
+如果将env改成你自己的应用，那么环境变量将暴露给你的应用。例如，为了运行一个Rails服务器你可能做如下操作。注意在真实生产场景中，你可能不直接运行Rails内建服务器，但是它不失为一个好案例：
+$ envconsul foo bin/rails server ...  自动重载 使用PaaS，当你修改任何配置时你的应用将自动重启。我们可以以最小的代价通过Consul和Envconsul实现相同效果。 通过对envconsul添加-reload标志，一旦配置键发生增删改，envconsul将中断(SIGTERM)并重启你的应用：
+$ envconsul -reload foo bin/rails server ...  注：该功能已经在0.4.0版本移除。 Consul HTTP API支持对给定前缀KV中的变更进行长轮询。一旦KV中发生变更，Envconsul通过这种方式可以高效地进行检测。
+改良流程 对应用配置使用Consul和envconsul可以将PaaS化应用配置易用性带入你自己的原生环境。 对于开发者而言，他们可以无需跟运营工程师沟通或重新部署应用就可以设置配置。 对于运营来说，Consul对整个基础架构的服务发现和配置提供了统一的解决方案。Consul自动复制数据并存储在磁盘上以方便备份，运营工程师也可以高枕无忧了。
+我的实践 Envconsul获取的环境变量既可以直接给启动服务器的命令使用（例如上面启动Rails内建服务器的bin/rails命令）；也可以通过python之类的脚本存成Java系统属性文件，通过chpst这样可以加载环境变量/系统属性文件的命令间接给Java命令使用。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" itemprop="url">
         Vagrant运行Docker的几种方法
         </a>
@@ -681,77 +757,6 @@ org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/" itemprop="url">
-        Docker Compose笔记
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-06">
-    2015-06-06
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/docker" itemprop="url" rel="index">
-        <span itemprop="name">Docker</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">117 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    Docker Compose概述 DockerCompose
-前身 Fig
- Compose是用于在Docker内定义和运行多容器应用程序的工具。使用Compose，可以在一个文件内定义多容器应用程序，然后使用一个命令运行应用。 Compose对开发环境、交付准备服务器（stagingservers）和持续集成（CI）很有帮助，不建议用于生产环境。 使用Compose基本上是三步流程： - 通过一个Dockerfile定义应用环境，以便在其他地方复制； - 在docker-compose.yml中定义组成应用的服务，因此他们可以在一个隔离的环境一起运行； - 最后，运行docker-compose up，Compose将启动并运行整个应用。
-docker-compose.yml大概是这个样子的:
-web: build: . ports: - &quot;5000:5000&quot; volumes: - .:/code links: - redis redis: image: redis  Compose包含管理应用整个生命周期的命令: - 启动、停止和重建服务 - 查看运行的服务状态 - 对运行的服务的日志输出生成数据流 - 对一个服务运行一次性命令
-Docker Compose安装 curl -L https://github.com/docker/compose/releases/download/VERSION_NUM/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose $ chmod +x /usr/local/bin/docker-compose  Docker Compose命令 更新整个应用 mryqu$ docker-compose stop # stop the containers mryqu$ docker-compose pull # download updated images mryqu# docker-compose up -d # creates new containers and starts them  更新单个服务 mryqu$ docker-compose stop foo # stop the foo service mryqu$ docker-compose pull foo # download foo service mryqu$ docker-compose up -d foo # start the new foo service  参考 Overview of Docker Compose
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -947,7 +952,7 @@ Docker Compose安装 curl -L https://github.com/docker/compose/releases/download
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -964,7 +969,7 @@ Docker Compose安装 curl -L https://github.com/docker/compose/releases/download
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1506</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

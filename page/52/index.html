@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/" itemprop="url">
+        MongoDB副本集实践
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-05">
+    2014-04-05
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
+        <span itemprop="name">db&#43;nosql</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">425 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    副本集（ReplicaSet）就是有自动故障恢复功能的主从集群。副本集和主从集群最为明显的区别就是副本集没有固定的“主节点”：整个集群会选取出一个“主节点”，当其不能工作时则变更到其他节点。然而，两者看上去非常相似：副本集总会有一个活跃节点（primary）和一个或多个备份节点（secondary）。副本集中可以有以下类型的节点： - 常规节点（standard）：存储一份完整的数据副本，参与选举投票，有可能成为活跃节点。 - 被动节点（passive）：存储完整的数据副本，参与投票，不能成为活跃节点。 - 仲裁节点（arbiter）：仅参与投票，不接受复制的数据，也不能成为活跃节点。
+副本集对数据库管理员和开发者都是非常友好的。副本集的管理是自动化的，无需数据库管理员频繁监控和干预，可以自动提升备份节点成为活跃节点，以确保运转正常。对于开发者而言，仅需为副本集指定一下服务器，驱动程序就会自动找到副本集的节点集群。 每个参与节点（非仲裁节点）都有一个权重，权重值取值范围0-1000，默认值为1。权重为0的节点不能成为活跃节点。活跃节点选举根据高优先级优先、优先级相同时数据较新优先的原则进行比较。应用仅能向活跃节点进行写操作。默认情况下，应用会向活跃节点进行读操作也获取最新数据。如果无需获得最新数据时，可以为了提高读操作吞吐量或减少应用延迟而向备份节点进行读操作。读操作偏好模式如下： - primary - primaryPreferred - secondary - secondaryPreferred - nearestMongoDB命令行提供了下列关于副本集的指令：
+&gt; rs.help() rs.status() { replSetGetStatus : 1 } checks repl set status rs.initiate() { replSetInitiate : null } initiates set with default settings rs.initiate(cfg) { replSetInitiate : cfg } initiates set with configuration cfg rs.conf() get the current configuration object from local.system.replset rs.reconfig(cfg) updates the configuration of a running replica set with cfg (disconnects) rs.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/" itemprop="url">
         MongoDB主从复制实践
         </a>
@@ -665,64 +726,6 @@ stackOverflow: What is the difference between origin and upstream in github
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E8%BD%AC%E6%88%98octave/" itemprop="url">
-        转战Octave
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-16">
-    2014-03-16
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tech" itemprop="url" rel="index">
-        <span itemprop="name">Tech</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">11 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    可赶上机器学习的课了，原来学过《集体编程智慧》里面机器学习算法的Python实现，这次想着有个巩固提高。可是老师偏偏使用Octave，杂就杂吧，学学matlab风格的编程也不错。 Matlab是一款数值计算和分析的优秀软件，可是价格昂贵。其开源替代品就是Scilab和Octave。
-Scilab是由INRIA（法国国立计算机及自动化研究院）和ENPC（法国国立桥梁学院）开发的开源科学计算自由软件。与Matlab类似，Scilab数据类型丰富，可以很方便地实现各种矩阵运算与图形显示，能应用于科学计算、数学建模、信号处理、决策优化、线性/非线性控制等各个方面。它还提供可以满足不同工程与科学需要的工具箱，例如Scicos，信号处理工具箱，图与网络工具箱等。可以说，就基本的功能如科学计算、矩阵处理及图形显示而言，Matlab能完成的工作Scilab都可以实现。由于Scilab的语法与Matlab非常接近，熟悉Matlab编程的人很快就会掌握Scilab的使用。有意思的是，Scilab提供的语言转换函数可以自动将用Matlab语言编写的程序翻译为Scilab语言。
-GNU Octave是自由软件基金会支持的遵循GPL协议的一个自由再发布的软件，作者是以John W.Eaton为首的一些志愿者。它提供了一个环境，该环境支持叫做GNUOctave的高级语言，这种语言与Matlab兼容，主要用于数值计算。它提供了一个方便的命令行方式，可以数值求解线性和非线性问题，以及做一些数值模拟。 Octave也提供了一些工具包，可以解决一般的线性代数问题，非线性方程求根，常规函数积分，处理多项式，处理常微分方程和微分代数方程。它也很容易的使用Octave自带的接口方式扩展和定制功能。
-Octave相对于Scilab，对Matlab的语法兼容性更好，几乎没有差别。比如，Octave也使用M文件的形式来扩展功能和定义函数。因此熟悉Matlab的用户更容易接受Octave环境。 它可编程的性能更好，Octave语言功能更为强大，几乎提供所有系统函数的支持，Octave在语法上也更接近C的语法，比如提供++和&ndash;这样的预算符。这样，我们可以在Octave环境里面增加一些更为强大和易用的扩展。不象在Matlab和Scilab环境中限制比较多，有时无法充分的利用系统资源。它的计算库都是用C写，而Scilab则基本是Fortran的编写的。这也是一份有用的资源。和GNU下面的其他软件也可以较多协作。劣势就是Octave的功能比起Scilab要简单一些，这使得Octave对一些用户来说意义不如Scilab大。而且Octave目前没有图形界面，只能以命令行方式进行交互。
-第一次编程作业的效果图：
-将原来的一些编程思路转换成矩阵和矢量是一个挑战，对于复杂一些编程，还是逃不开纠结和调试。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -918,7 +921,7 @@ Octave相对于Scilab，对Matlab的语法兼容性更好，几乎没有差别�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">703</span>
+        <span class="site-state-item-count">704</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -935,7 +938,7 @@ Octave相对于Scilab，对Matlab的语法兼容性更好，几乎没有差别�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1506</span>
+        <span class="site-state-item-count">1509</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
