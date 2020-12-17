@@ -2,7 +2,7 @@
 title: 'Shell逐行读取、解析并export变量实践'
 date: 2020-12-15 12:31:23
 categories: 
-- Tools
+- Tool
 - Linux
 tags: 
 - shell

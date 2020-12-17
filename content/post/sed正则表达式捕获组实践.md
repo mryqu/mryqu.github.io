@@ -2,7 +2,7 @@
 title: 'sed正则表达式捕获组实践'
 date: 2020-12-04 07:31:23
 categories: 
-- Tools
+- Tool
 - Linux
 tags: 
 - sed
