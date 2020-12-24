@@ -113,6 +113,72 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E8%A7%A3%E5%86%B3error-unmappable-character-for-encoding-gbk/" itemprop="url">
+        Gradle：解决error: unmappable character for encoding GBK
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-11-20">
+    2019-11-20
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gradle" itemprop="url" rel="index">
+        <span itemprop="name">Gradle</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">30 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在学习某个项目时，.\gradlew build总是遇到error: unmappable character for encoding GBK。至少确定源文件至少会是UTF8的，所以尝试设置文件编码格式来解决这个问题。
+一般使用javac编译和java执行程序时，可以使用：
+javac -encoding UTF-8 Test.java java -Dfile.encoding=UTF-8 Test  对于Gradle项目，可以设置gradlew.bat:
+set DEFAULT_JVM_OPTS=&quot;-Dfile.encoding=UTF-8&quot;  对于IntelliJ Idea，可在配置文件vmoption文件底部添加一行：
+-Dfile.encoding=UTF-8  经过上述尝试，问题依旧存在，仔细一看错误是发生在javadoc任务阶段，一个java文件注释中包含一个字符“ß”导致这个问题的出现。
+在build.gradle文件中添加：
+javadoc { options.encoding = 'UTF-8' }  搞定！！！
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/js_%E5%9B%BE%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/" itemprop="url">
         [JS] 图算法实践
         </a>
@@ -714,68 +780,6 @@ Salesforce Connector - Mule 4
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%8D%87%E7%BA%A7idea-intellij/" itemprop="url">
-        升级Idea IntelliJ
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-02-21">
-    2019-02-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/intellij" itemprop="url" rel="index">
-        <span itemprop="name">IntelliJ</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">8 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    上次重装机器时，看看自己用的IntelliJ是ideaIU-2016.3.5，而可以升级的最新版本是ideaIU-2018.3.3。犹豫了一下，害怕万一将来跟公司的插件、设置冲突没法用，就没敢升级那么大，只升到ideaIU-2016.3.8而已。
-结果从已有项目导入Idea，不仅报错&rdquo;Failed to notify progress listener.&ldquo;，而且依赖库也找不到。上网查了查才发现ideaIU-2018.2之前的版本不支持Gradle 5。
-好吧，升级到ideaIU-2018.3.4了。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -974,7 +978,7 @@ Salesforce Connector - Mule 4
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -991,7 +995,7 @@ Salesforce Connector - Mule 4
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1510</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

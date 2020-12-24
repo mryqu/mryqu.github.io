@@ -113,6 +113,73 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/" itemprop="url">
+        Shell读取文件修改时间并格式化输出
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2020-12-23">
+    2020-12-23
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/linux" itemprop="url" rel="index">
+        <span itemprop="name">Linux</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">388 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    最近有一些golang代码实现的功能需要移植到低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。 通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
+package main import ( &quot;fmt&quot; &quot;log&quot; &quot;os&quot; &quot;path/filepath&quot; &quot;time&quot; ) // Infrastructrue var basedir string func init() { exe, err := os.Executable() if err != nil { os.Exit(1) } basedir = filepath.Dir(exe) } func main() { fmt.Printf(&quot;now=%s\n&quot;, time.Now().Format(&quot;02Jan06:15:04:05&quot;)) fmt.Printf(&quot;now.UTC()=%s\n&quot;, time.Now().UTC().Format(&quot;02Jan06:15:04:05&quot;)) fmt.Printf(&quot;now.Local()=%s\n&quot;, time.Now().Local().Format(&quot;02Jan06:15:04:05&quot;)) f, ferr := os.Lstat(basedir) if ferr != nil { fmt.Printf(&quot;Unable to access %s. Skipping...\n&quot;, basedir) os.Exit(1) } mode := f.Mode() if mode&amp;os.ModeSymlink != 0 { fmt.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/" itemprop="url">
         Shell逐行读取、解析并export变量实践
         </a>
@@ -710,72 +777,6 @@ npm -v #查看NPM版本 npm install npm@latest -g #安装最新稳定的NPM版�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E8%A7%A3%E5%86%B3error-unmappable-character-for-encoding-gbk/" itemprop="url">
-        Gradle：解决error: unmappable character for encoding GBK
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2019-11-20">
-    2019-11-20
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/gradle" itemprop="url" rel="index">
-        <span itemprop="name">Gradle</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">30 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在学习某个项目时，.\gradlew build总是遇到error: unmappable character for encoding GBK。至少确定源文件至少会是UTF8的，所以尝试设置文件编码格式来解决这个问题。
-一般使用javac编译和java执行程序时，可以使用：
-javac -encoding UTF-8 Test.java java -Dfile.encoding=UTF-8 Test  对于Gradle项目，可以设置gradlew.bat:
-set DEFAULT_JVM_OPTS=&quot;-Dfile.encoding=UTF-8&quot;  对于IntelliJ Idea，可在配置文件vmoption文件底部添加一行：
--Dfile.encoding=UTF-8  经过上述尝试，问题依旧存在，仔细一看错误是发生在javadoc任务阶段，一个java文件注释中包含一个字符“ß”导致这个问题的出现。
-在build.gradle文件中添加：
-javadoc { options.encoding = 'UTF-8' }  搞定！！！
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -974,7 +975,7 @@ javadoc { options.encoding = 'UTF-8' }  搞定！！！
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -991,7 +992,7 @@ javadoc { options.encoding = 'UTF-8' }  搞定！！！
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1510</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

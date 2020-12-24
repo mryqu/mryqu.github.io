@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/" itemprop="url">
+        [Golang] GOPATH和包导入
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-20">
+    2017-10-20
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/golang" itemprop="url" rel="index">
+        <span itemprop="name">Golang</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">81 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    才开始玩GoLang，碰到一些与包导入相关的问题： * go build没有找到vendor目录下的包 * local import &ldquo;./XXX&rdquo; in non-local package
+GoLang自定义包的特点  Go的package不局限于一个文件，可以由多个文件组成。组成一个package的多个文件，编译后实际上和一个文件类似，组成包的不同文件相互之间可以直接引用变量和函数，不论是否导出；因此，组成包的多个文件中不能有相同的全局变量和函数（这里有一个例外就是包的初始化函数：init函数） Go不要求package的名称和所在目录名相同，但是你最好保持相同，否则容易引起歧义。因为引入包的时候，go会使用子目录名作为包的路径，而你在代码中真正使用时，却要使用你package的名称。 每个子目录中只能存在一个package，否则编译时会报错。 Go的package是以绝对路径GOPATH来寻址的，不要用相对路径来导入  包的初始化函数init 包中可以有多个初始化函数init，每个初始化函数都会被调用，且顺序固定。 1. 对同一个Go文件的init()调用顺序是从上到下的 2. 对同一个package中不同文件是按文件名字符串比较“从小到大”顺序调用各文件中的init()函数。 3. 对于对不同的package，如果不相互依赖的话，按照main包中&rdquo;先import的后调用&rdquo;的顺序调用其包中的init() 4. 如果package存在依赖，则先调用最早被依赖的包中的init()
+GOPATH go命令依赖一个重要的环境变量：$GOPATH。从go 1.8开始，GOPATH环境变量现在有一个默认值，如果它没有被设置。 它在Unix上默认为$HOME/go,在Windows上默认为%USERPROFILE%/go。GOPATH支持多个目录。
+$GOPATH src |--github.com |-mryqu |-prj1 |-vendor |--prj2 |-vendor pkg |--相应平台 |-github.com |--mryqu |-prj1 |-XXX.a |-YYY.a |-ZZZ.a |-prj2 |-AAA.a |-BBB.a |-CCC.a  Go加载包时会从vendor tree、 $GOROOT下的src目录以及$GOPATH中的多目录下的src目录查找。
+相对路径导入 通过go build无法完成非本地导入（non-local imports），必须使用go build main.go。go install根本不支持非本地导入。 相对路径导入文档位于https://golang.org/cmd/go/#hdr-Relative_import_paths 更多细节见： * https://groups.google.com/forum/#!topic/golang-nuts/1XqcS8DuaNc/discussion * https://github.com/golang/go/issues/12502 * https://github.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6/" itemprop="url">
         [Golang] Go程序内嵌I18N properties文件
         </a>
@@ -652,79 +715,6 @@ char srcTest[] = &quot;abcdef&quot;; int srcTestL = strlen(srcTest); char srcTes
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/" itemprop="url">
-        Ribbon和Spring Cloud Consul
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-06-29">
-    2017-06-29
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spring" itemprop="url" rel="index">
-        <span itemprop="name">Spring</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">621 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    学习一下Client Side Load Balancing with Ribbon and Spring Cloud快速入门指南，这里的客户端负载平衡是借助Netflix Ribbon实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。
-@RibbonClient和@LoadBalanced的区别 Difference between @RibbonClient and @LoadBalanced讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。
-restTemplate.getForObject(&quot;http://some-service-name/user/{id}&quot;, String.class, 1);  @RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。 在下列两种情况下需要使用@RibbonClient注解： * 需要对特定Robbon客户端使用定制Ribbon设置 * 没有使用任何服务发现
-定制Robbon设置：
-@Configuration @RibbonClient(name = &quot;foo&quot;, configuration = FooConfiguration.class) public class TestConfiguration { }  注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。
-Spring Cloud Consul和Ribbon 在没用使用任何服务发现时，Ribbon从listOfServers配置里的服务器列表进行选择的。偶在项目中是用Consul的，它主业就是干服务发现的工作，而且还支持Netflix Ribbon。 网上有现成的Spring Cloud Consul和Ribbon示例spring-boot-consul-demo-tax和spring-boot-consul-demo-invoice。使用默认Ribbon设置，所以bootstrap.yml/application.yml里没有Ribbon设置，代码也没有使用@RibbonClient。 启动两个spring-boot-consul-demo-tax微服务实例和一个spring-boot-consul-demo-invoice微服务实例，在浏览器访问spring-boot-consul-demo-invoice微服务，就会发现spring-boot-consul-demo-invoice微服务实例以RoundRobin轮询方式调用两个spring-boot-consul-demo-tax微服务实例了。
-Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包含的几个重要组件/属性，正是这几个组件为Ribbon的功能提供支持:
-| 组件 | 描述 | | - | - | |Rule | 负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。| |Ping | 判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。| |ServerList | 服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。| |LoadBalancerStats | 负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。|
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -920,7 +910,7 @@ Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">704</span>
+        <span class="site-state-item-count">705</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -937,7 +927,7 @@ Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1509</span>
+        <span class="site-state-item-count">1510</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
