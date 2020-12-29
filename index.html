@@ -164,7 +164,8 @@
       </div>
     </header>
     <div class="post-body" itemprop="articleBody">
-    最近有一些golang代码实现的功能需要移植到低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。 通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
+    最近有一些golang代码实现的功能需要移植到用于低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。
+通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
 package main import ( &quot;fmt&quot; &quot;log&quot; &quot;os&quot; &quot;path/filepath&quot; &quot;time&quot; ) // Infrastructrue var basedir string func init() { exe, err := os.Executable() if err != nil { os.Exit(1) } basedir = filepath.Dir(exe) } func main() { fmt.Printf(&quot;now=%s\n&quot;, time.Now().Format(&quot;02Jan06:15:04:05&quot;)) fmt.Printf(&quot;now.UTC()=%s\n&quot;, time.Now().UTC().Format(&quot;02Jan06:15:04:05&quot;)) fmt.Printf(&quot;now.Local()=%s\n&quot;, time.Now().Local().Format(&quot;02Jan06:15:04:05&quot;)) f, ferr := os.Lstat(basedir) if ferr != nil { fmt.Printf(&quot;Unable to access %s. Skipping...\n&quot;, basedir) os.Exit(1) } mode := f.Mode() if mode&amp;os.ModeSymlink != 0 { fmt.
     </div>
     

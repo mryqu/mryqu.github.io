@@ -17,7 +17,8 @@
       <pubDate>Wed, 23 Dec 2020 12:31:23 +0000</pubDate>
       
       <guid>https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
-      <description>最近有一些golang代码实现的功能需要移植到低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。 通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
+      <description>最近有一些golang代码实现的功能需要移植到用于低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。
+通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;log&amp;quot; &amp;quot;os&amp;quot; &amp;quot;path/filepath&amp;quot; &amp;quot;time&amp;quot; ) // Infrastructrue var basedir string func init() { exe, err := os.Executable() if err != nil { os.Exit(1) } basedir = filepath.Dir(exe) } func main() { fmt.Printf(&amp;quot;now=%s\n&amp;quot;, time.Now().Format(&amp;quot;02Jan06:15:04:05&amp;quot;)) fmt.Printf(&amp;quot;now.UTC()=%s\n&amp;quot;, time.Now().UTC().Format(&amp;quot;02Jan06:15:04:05&amp;quot;)) fmt.Printf(&amp;quot;now.Local()=%s\n&amp;quot;, time.Now().Local().Format(&amp;quot;02Jan06:15:04:05&amp;quot;)) f, ferr := os.Lstat(basedir) if ferr != nil { fmt.Printf(&amp;quot;Unable to access %s. Skipping...\n&amp;quot;, basedir) os.Exit(1) } mode := f.Mode() if mode&amp;amp;os.ModeSymlink != 0 { fmt.</description>
     </item>
     
