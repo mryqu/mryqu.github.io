@@ -11,8 +11,8 @@ tags:
 
 ---
 
-最近有一些golang代码实现的功能需要移植到低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。
-通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
+最近有一些golang代码实现的功能需要移植到用于低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。  
+通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。  
 ```
 package main
 
@@ -76,9 +76,9 @@ func main() {
 ```
 
 ### AIX与Linux的区别
-通过研究发现，AIX与Linux下通过`ls -l`均可获得不带秒数的修改时间，除此之外的实现还是有很大的不同的。
+通过研究发现，AIX与Linux下通过`ls -l`均可获得不带秒数的修改时间，除此之外的实现还是有很大的不同的。  
 
-Linux下通过stat获取文件信息，可以指定参数单独读取mtime。此外通过GNU date可以一步到位获得想要的格式化后修改时间。
+Linux下通过stat获取文件信息，可以指定参数单独读取mtime。此外通过GNU date可以一步到位获得想要的格式化后修改时间。  
 ```
 mryqulax> uname
 Linux
@@ -100,7 +100,7 @@ mryqulax> date -r metaparms.sas "+%d%b%y:%H:%M:%S"
 16Dec20:22:08:49
 ```
 
-AIX下通过istat获取文件信息，无法单独读取mtime。AIX默认也没有安装GNU date。只能通过拼接字符串来获得最终的格式化后修改时间。
+AIX下通过istat获取文件信息，无法单独读取mtime。AIX默认也没有安装GNU date。只能通过拼接字符串来获得最终的格式化后修改时间。  
 ```
 $ uname
 AIX
@@ -126,8 +126,8 @@ $ echo "$mtimeDate$mtimeMonth$mtimeYear:$(echo $mtimeStr | cut -d' ' -f4)"
 
 ### AIX与Linux的通用解决方案
 
-强制用户安装GNU date貌似不可取，而我又想尽可能在AIX与Linux通用。最后找到了一个解决方案就是用perl：）
-使用perl标准库的实现如下：
+强制用户安装GNU date貌似不可取，而我又想尽可能在AIX与Linux通用。最后找到了一个解决方案就是用perl：）  
+使用perl标准库的实现如下：  
 ```
 # Linux
 mryqulax> perl -le "use Time::Piece;print(localtime((stat shift)[9])->strftime('%d%b%y:%H:%M:%S'))" metaparms.sas
