@@ -113,6 +113,121 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E7%BB%A7%E6%89%BF/" itemprop="url">
+        [JavaScript] 继承
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-08-27">
+    2014-08-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">64 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    示例：
+function BaseClass() {}; BaseClass.prototype.method1 = function() { console.log(&quot;BaseClass#method1&quot;) }; BaseClass.prototype.method2 = function() { console.log(&quot;BaseClass#method2&quot;) }; BaseClass.prototype.method3 = function() { return &quot;BaseClass#method3&quot;; }; ChildClass.prototype = new BaseClass(); function ChildClass() { //BaseClass.call(this); }; ChildClass.prototype.method2 = function() { console.log(&quot;ChildClass#method2&quot;) }; ChildClass.prototype.method3 = function() { console.log(BaseClass.prototype.method3.call(this)+&quot; by ChildClass!&quot;); }; ChildClass.prototype.method4 = function() { console.log(&quot;ChildClass#method4&quot;) }; var myobj = new ChildClass(); myobj.method1(); myobj.method2(); myobj.method3(); myobj.method4();  测试： 注解：
+Javascript的继承要在原型链上进行，没有super()可以调用父类，覆盖父类函数时只能通过父类原型以call或apply函数的形式调用父类的方法。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ejson%E6%95%B0%E6%8D%AE%E4%BA%92%E8%BD%AC/" itemprop="url">
+        [JavaScript] 字符串与JSON数据互转
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-08-26">
+    2014-08-26
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">63 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    字符串-&gt;JSON 转换方法有3种:
+使用浏览器内置window.JSON.parse方法 原生方法，速度最快，首选方案。老版本浏览器不支持。
+|浏览器|支持版本 |&mdash; |Chrome|(Yes) |Firefox (Gecko)|3.5 (1.9.1) |Internet Explorer|8.0 |Opera|10.5 |Safari|4.0 |Android|(Yes) |Chrome for Android|(Yes) |Firefox Mobile (Gecko)|1.0 (1.0) |IE Mobile|(Yes) ||Opera Mobile|(Yes) |Safari Mobile|(Yes)
+使用Funtion()构造函数 较eval_r()快
+使用 eval_r() 函数 功能强大，能解析任何JS代码,但是执行效率和安全性都不好示例代码：
+var jsonStr = '{&quot;name&quot;:&quot;kxeg&quot;,&quot;data&quot;:[{&quot;key&quot;:&quot;Alpha&quot;,&quot;color&quot;:&quot;lightblue&quot;},{&quot;key&quot;:&quot;Beta&quot;,&quot;color&quot;:&quot;orange&quot;}]}'; //JSON.parse() if (window &amp;&amp; window.JSON &amp;&amp; window.JSON.parse) jsonObj1 = window.JSON.parse(jsonStr); //Function 创建一个闭包,返回一个json数据对象 jsonObj2 = (new Function('return'+jsonStr))(); //eval_r() jsonObj3 = eval_r('('+jsonStr+')');  JSON-&gt;字符串 使用浏览器内置window.JSON.stringify方法
+参考 js中字符串数据转为json对象的方法
+MDN：JSON
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84prototype%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/" itemprop="url">
         [JavaScript] 函数的prototype对象属性
         </a>
@@ -579,125 +694,6 @@ mysql Tips
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3cas%E9%9B%86%E4%B8%AD%E5%BC%8F%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1/" itemprop="url">
-        了解CAS（集中式认证服务）
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-07-11">
-    2014-07-11
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tech" itemprop="url" rel="index">
-        <span itemprop="name">Tech</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">27 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    集中式认证服务（Central AuthenticationService，缩写CAS）是一种针对万维网的单点登录协议。它的目的是允许一个用户访问多个应用程序，而只需提供一次凭证（如用户名和密码）。它还允许web应用程序在没有获得用户的安全凭据（如密码）的情况下对用户进行身份验证。“CAS”也指实现了该协议的软件包。 CAS协议涉及到至少三个方面：客户端Web浏览器、Web应用请求的身份验证和CAS服务器。它还可能涉及一个后台服务（例如数据库服务器），它并没有自己的HTTP接口，但与一个Web应用程序进行通信。 当客户端访问访问应用程序，请求身份验证时，应用程序重定向到CAS。CAS验证客户端是否被授权，通常通过在数据库对用户名和密码进行检查（例如Kerberos、LDAP或ActiveDirectory）。 如果身份验证成功，CAS令客户端返回到应用程序，并传递身份验证票（Securityticket）。然后，应用程序通过安全连接连接CAS，并提供自己的服务标识和验证票。之后CAS给出了关于特定用户是否已成功通过身份验证的应用程序授信信息。 CAS允许通过代理服务器进行多层身份验证。后端服务（如数据库或邮件服务器）可以组成CAS，通过从Web应用程序接收到的信息验证用户是否被授权。因此，网页邮件客户端和邮件服务器都可以实现CAS。 历史 CAS是由耶鲁大学的Shawn Bayern创始的，后来由耶鲁大学的Drew Mazurek维护。CAS1.0实现了单点登录。CAS2.0引入了多级代理认证（Multi-tier proxyauthentication）。CAS其他几个版本已经有了新的功能。 2004年12月，CAS成为Jasig（Java in Administration Special InterestGroup）的一个项目，2008年该组织负责CAS的维护和发展。CAS原名“Yale CAS”，现在则被称为“JasigCAS”。
-参考 Wiki：Central Authentication Service
-Jasig CAS主页
-GitHub：Jasig/java-cas-client
-GitHub：Jasig/cas
-CAS协议规范 3.0
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/" itemprop="url">
-        玩一下SQLite3命令
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-07-10">
-    2014-07-10
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
-        <span itemprop="name">db&#43;nosql</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">253 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    SQLite介绍 SQLite是实现自包含、无需服务器、零配置和事务SQL数据库引擎的软件库。它占用资源非常低，既可以用于Windows/Linux/Unix等主流的操作系统，也广泛用于嵌入式产品中。它能够跟很多程序语言相结合，比如Tcl、C#、PHP、Java等，还有ODBC接口。 不像常见的客户-服务器范例，SQLite引擎不是个程序与之通信的独立进程，而是连接到程序中成为它的一个主要部分。所以主要的通信协议是在编程语言内的直接API调用。这在消耗总量、延迟时间和整体简单性上有积极的作用。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。它的简单的设计是通过在开始一个事务的时候锁定整个数据文件而完成的。
-SQLITE常用命令使用 SQLite命令行解释器除了支持SQL语句（大小写不敏感），还支持以.开头、大小写敏感的专有命令。SQLite网站有个帖子Command Line Shell For SQLite介绍了支持的所有命令，这里挑一些常用的玩一下。 - .help命令：给出所有命令的帮助介绍
- sqlite&gt; .help   .prompt：更换提示符  sqlite&gt; .prompt &gt;&gt; &gt;&gt; &gt;&gt;.prompt sqlite&gt; sqlite&gt;  .show：显示当前设置  sqlite&gt;.show echo: off eqp: off explain: off headers: off mode: list nullvalue: &quot;&quot; output: stdout separator: &quot;|&quot; stats: off width:  .database：显示数据库信息  sqlite&gt;.database seq name file --- --------------- ---------------------------------------------------------- 0 main E:\gitws\datasci_course_materials\assignment2\reuters.db 1 temp  .tables：显示表信息  sqlite&gt;.tables Frequency  .
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -893,7 +889,7 @@ SQLITE常用命令使用 SQLite命令行解释器除了支持SQL语句（大小�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">705</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -910,7 +906,7 @@ SQLITE常用命令使用 SQLite命令行解释器除了支持SQL语句（大小�
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1510</span>
+        <span class="site-state-item-count">1513</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

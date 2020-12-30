@@ -113,6 +113,140 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/" itemprop="url">
+        [MapR培训笔记]Hadoop基础
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-25">
+    2015-11-25
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">388 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    学习目标  大数据介绍: 理解大数据定义，判断是否存在大数据问题，描述如何用Hadoop解决大数据问题； Hadoop核心元素:描述分布式文件系统如何工作，map/reduce如何在分布式文件系统上处理数据； Hadoop工具生态系统: 了解Hadoop相关工具及其作用； 解决大数据用例: 描述Hadoop生态系统如何协同解决各种大数据用例，如何在不同场景下选择工具。  第一课 数据如何变大 学习目标  定义大数据及大数据问题 描述Hadoop主要部件  大数据 差不多是4V中的前三个,以及使数据难于描述、存储或处理的一些其他特性 - Volume（大量）:太大以至于系统无法处理 - Variety（多样）: 太多不同种类的数据，无法简单描述 - Velocity（高速）: 数据产生太快以至于系统无法处理 - Value（价值）:
+Hadoop主要部件 Google收到大数据挑战后，认识到无法用传统关系型数据库解决，创建了GFS+BigTabel+Map/Reduce。 - GFS将文件分割成块，分布在集群的节点上。文件块在不同节点进行复制，以防止节点故障导致的数据丢失。 - BigTable是使用GFS存储和获取数据的（分布式、多级）数据库系统。BigTable使用行键、列键和时戳映射到所存储的数据，可以不重写已有数据在不同时间对相同信息进行采集。行被分片为称之为Tablet的子表，分布到集群内。BigTable被设计成可以处理大量数据，可以无需重新配置已有文件的情况下向集群添加新的节点。 - 并行处理范式map/reduce被用于处理存储在GPS上的数据。map/reduce代表处理的两个步骤。在mapping阶段，所有数据在逻辑上分割，map函数应用于所有割片以生成键值对。框架对所有来自mapper的键值对进行排序然后在reducer之间分片。在reduce阶段，reduce函数应用于所有分片。map/reduce是一种分而治之的方式，将单个庞大的作业分解成一系列小的可管理的任务。
+Google实验多年后发表了论文阐述了他们的大数据解决方案。DougCutting以此在Yahoo开发一个项目，后来开源成Apache基金会项目下的Hadoop（Cutting儿子玩具象的名字）。 Mapr利用Hadoop理念，开发了更快、更稳定的企业版Hadoop。
+第二课 Hadoop核心 学习目标  本地&amp;分布式文件系统 MapR-FS中的数据管理 （使用命令行）执行数据管理 Map Reduce范式  本地文件系统 HFS/NTFS（读写）和CDFS（只读）都是本地文件系统。文件系统中每个文件都由一个iNode和一系列数据块构成。iNode存储文件元数据，例如文件类型、权限、所有者、文件名和最后一次修改时间等信息，它还存储文件所存储的数据块的指针。数据块用于存储文件的实际内容。 本地文件系统的常见问题 - 硬盘故障：本地硬盘镜像（RAID-1） - 丢失：云镜像 - 人为失误 - 误删：定期增量备份 - 空间不足：增加硬盘、硬盘阵列（RAID-0）
+分布式文件系统 分布式文件系统行为与RAID-0类似，但硬盘分布在多个服务器上。由Sun微系统公司开发的网络文件系统NFS仍广泛用于在网络内存储和获取数据。 分布式文件系统当处理数据时致力于透明性，即对于客户端程序来说，文件系统与本地文件系统类似，分布式文件系统不可见。由于数据在网络内多个机器内分布，分布式文件系统使用数据定位器存储数据位置信息。与本地文件系统中的iNode类似，数据定位器只想数据在分布式文件系统中存储的位置。
+MapR-FS存储 MapRFS是分布式文件系统，是Hadoop的MapR分发版的底层文件系统。它支持所有前面提到的本地文件系统特性，包括读写访问、本地或远程镜像，及在联机时对文件系统扩容的能力。此外，MapR文件系统可以加载并直接处理已有HDFS或NFS文件系统中的数据。
+物理存储 集群是一组使用分布文件系统（例如MapR-FS）的计算机。集群中每个计算机称为一个节点，每个节点有一或多个物理硬盘。 在MapR-FS中，硬盘组合成组，称为存储池（storagepool）。默认一个存储池有三块硬盘组成。当数据写往存储池，数据在三个磁盘拆分写入，增加写速度。每个节点包含一或多个存储池，所有节点上的所有存储池构成了MapR-FS上的全部可用存储。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6%E7%9A%84propertyaggregation%E5%92%8Cassociation%E5%A6%82%E4%BD%95%E8%87%AA%E5%8A%A8%E5%85%B7%E6%9C%89%E7%9A%84getter%E5%92%8Csetter/" itemprop="url">
+        [OpenUI5] 控件的Property、Aggregation和Association如何自动具有的Getter和Setter？
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-13">
+    2015-11-13
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
+        <span itemprop="name">前端</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">239 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    定义了OpenUI5控件的Property、Aggregation、Association和Event后，该控件就会出现这些Property、Aggregation和Association的Getter和Setter，是什么机制自动生成的这些Getter和Setter的？
+OpenUI5控件都继承自sap.ui.core.Control，其父类为sap.ui.core.Element，在祖父类为sap.ui.base.ManagedObject。sap.ui.base.ManagedObject类定义了Properties、Aggregations、Associations和Events这些管理特性。
+Getter和Setter的生成机制都在sap.ui.core.ManagedObjectMetadata中实现的。首先我们看一下sap.ui.core.ManagedObjectMetadata这个类的源代码片段：
+ManagedObjectMetadata.prototype.generateAccessors = function() { var proto = this.getClass().prototype, prefix = this.getName() + &quot;.&quot;, methods = this._aPublicMethods, n; function add(name, fn, info) { if ( !proto[name] ) { proto[name] = (info &amp;&amp; info.deprecated) ? deprecation(fn, prefix + info.name) : fn; } methods.push(name); } for (n in this._mProperties) { this._mProperties[n].generate(add); } for (n in this._mAggregations) { this._mAggregations[n].generate(add); } for (n in this._mAssociations) { this._mAssociations[n].generate(add); } for (n in this._mEvents) { this.
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/openui5_%E6%8E%A7%E4%BB%B6%E7%9A%84propertyaggregation%E5%92%8Cassociation%E5%A6%82%E4%BD%95%E8%87%AA%E5%8A%A8%E5%85%B7%E6%9C%89%E7%9A%84getter%E5%92%8Csetter/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/git_%E6%93%8D%E4%BD%9Cgit%E4%BB%93%E5%BA%93%E5%B7%B2%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/" itemprop="url">
         [Git] 操作Git仓库已删除文件
         </a>
@@ -626,120 +760,6 @@ LinkedIn developer program transition
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hello_spring_social_twitter/" itemprop="url">
-        Hello Spring Social Twitter
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-11-01">
-    2015-11-01
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">240 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    学习了Spring Accessing Twitter Data Guide，稍作修改，练习一下用Spring Social Twitter搜索推文。
-HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java package com.yqu.springtwitter; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } }  src/main/java/com/yqu/springtwitter/HelloController.java package com.yqu.springtwitter; import javax.inject.Inject; import org.springframework.social.connect.ConnectionRepository; import org.springframework.social.twitter.api.SearchResults; import org.springframework.social.twitter.api.Twitter; import org.springframework.stereotype.Controller; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RequestMethod; import org.springframework.web.bind.annotation.RequestParam; @Controller @RequestMapping(&quot;/&quot;) public class HelloController { private Twitter twitter; private ConnectionRepository connectionRepository; @Inject public HelloController(Twitter twitter, ConnectionRepository connectionRepository) { this.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/hello_spring_social_twitter/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/cisco_anyconnect_secure_mobility_client%E7%9A%84vpn_profile%E4%BD%8D%E7%BD%AE/" itemprop="url">
-        Cisco AnyConnect Secure Mobility Client的VPN profile位置
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-10-31">
-    2015-10-31
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">9 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在其安装路径C:\Program Files\Cisco\Cisco AnyConnect Secure MobilityClient搜寻未果。
-全盘搜索后，发现在这个位置：C:\ProgramData\Cisco\Cisco AnyConnect Secure MobilityClient\Profile
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -935,7 +955,7 @@ HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java pa
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">705</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -952,7 +972,7 @@ HelloSpringTwitter代码 src/main/java/com/yqu/springtwitter/Application.java pa
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1510</span>
+        <span class="site-state-item-count">1513</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

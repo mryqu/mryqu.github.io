@@ -113,6 +113,139 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/" itemprop="url">
+        Hibernate缓存
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-25">
+    2013-05-25
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/cache" itemprop="url" rel="index">
+        <span itemprop="name">Cache</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">379 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    Hibernate缓存 Hibernate带有三种不同缓存机制：一级缓存、二级缓存和查询缓存。
+SessionFactory和Session SessionFactory(在JEE中叫做EntityManager)的用途是创建会话，初始化JDBC链接并（使用例如C3P0之类的可插拔provider）进行池化。SessionFactory是非可变的，通过hibernate.cfg.cml文件或Springbean配置中提供的匹配信息、缓存信息等配置进行创建。会话是最低级的工作单元，对应一个数据库事物。当会话创建后并对Hibernate实体机型一些操作，比如设置实体的一个属性，Hibernate不会立即更新底层数据库表。相反Hibernate记录实体的状态（是否为脏数据），并在会话最终刷新更新到数据库。这就是Hibernate所谓的一级缓存。
+一级缓存 一级缓存是Hibernate记录正在进行的会话加载和接触的实体有可能的脏数据状态。正在进行的会话代表工作单元，始终使用，无法关闭。一级缓存的用途是隐藏对数据库许多SQL查询或更新，并在会话最终批量一起执行。当想起一级缓存的时候就应该想到会话。
+二级缓存 二级缓存是进程范围内的缓存，与一个SessionFactory绑定。二级缓存可被相同（通常一个应用程序仅一个）SessionFactory的所有会话共享。默认二级缓存没有使能。二级缓存不存储任何实体实例，而是存储“脱水”状态，即字符串或整形数组代表实体的属性，一个实体id指向“脱水”的实体。概念上可以认为它是一个映射，id作为键，数组作为值。或像下面用于缓存region的这些东西：
+public class Person { private Person parent; private Set&lt;Person&gt; children; public void setParent(Person p) { parent = p; } public void setChildren(Set&lt;Person&gt; set) { children = set; } public Set&lt;Person&gt; getChildren() { return children; } public Person getParent() { return parent; } }  Hibernate映射配置如下:
+&lt;class name=&quot;org.javalobby.tnt.hibernate.Person&quot;&gt; &lt;cache usage=&quot;read-write&quot;/&gt; &lt;id name=&quot;id&quot; column=&quot;id&quot; type=&quot;long&quot;&gt; &lt;generator class=&quot;identity&quot;/&gt; &lt;/id&gt; &lt;property name=&quot;firstName&quot; type=&quot;string&quot;/&gt; &lt;property name=&quot;middleInitial&quot; type=&quot;string&quot;/&gt; &lt;property name=&quot;lastName&quot; type=&quot;string&quot;/&gt; &lt;many-to-one name=&quot;parent&quot; column=&quot;parent_id&quot; class=&quot;Person&quot;/&gt; &lt;set name=&quot;children&quot;&gt; &lt;key column=&quot;parent_id&quot;/&gt; &lt;one-to-many class=&quot;Person&quot;/&gt; &lt;/set&gt; &lt;/class&gt;  Hibernate概念上为此类持有如下记录:
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/" itemprop="url">
+        JavaSE 新增特性
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-22">
+    2013-05-22
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">33 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    参考 Wiki：Java version history
+JDK各版本很cool的特性
+JDK6中httpserver实例
+IBM developerWorks：JDK 7 新特性 - 总览
+Try-with-resources in Java 7
+Java 7 的新特性一览表
+编程没有银弹：探讨 Java 8 新增特性的优缺点
+IBM developerWorks：Java 8 新特性概述
+Java 8 的新特性和改进总览
+Java 8 正式发布，新特性全搜罗
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Amybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" itemprop="url">
         用GemFire做Mybatis二级缓存
         </a>
@@ -672,116 +805,6 @@ MD5+Salt加密机制
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/" itemprop="url">
-        尝试了一下jacob
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-02-18">
-    2013-02-18
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">6 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    JACOB开源项目 Jacob是Java与COM组件桥接的缩写，即JAVA-COMBridge。通过使用Jacob类库，我们可以很方便地在Java程序中使用JNI来进行本地调用COM库。它可运行在x86和（支持32位和64位Java虚拟机的）X64环境。Jacob最初是由美国人DanAlder在Inventure公司担任CTO时编写的，目的是为了方便众多的程序员在Java2虚拟机上，调用Win32平台上COM自动化服务器中的组件。当Jacob项目以开源的方式在网络上公布以后，越来越多的人开始参与项目的研发与改进中去。
-JACOB 相关博文： Jacob的简单介绍
-Jacob使用入门及问题解析
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AD%94%E5%A4%9A%E5%A1%9E%E6%8A%95%E7%A5%A8%E6%82%96%E8%AE%BA/" itemprop="url">
-        孔多塞投票悖论
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-01-20">
-    2013-01-20
-</time>
-</span> 
-      
-
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">59 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    简介 投票悖论指的是在通过“多数原则”实现个人选择到集体选择的转换过程中所遇到的障碍或非传递性，这是阿罗的不可能定理衍生出的难题。公共选择理论对投票行为的研究假设投票是那些其福利受到投票结果影响的人们进行的，投票行为的作用是将个人偏好转化为社会偏好。在多数投票原则下，可能没有稳定一致的结果。 投票悖论是公共选择理论中的概念，又称为循环的大多数，是指在集体投票时容易出现投票结果随投票次序的不同变化，大部分甚至全部备选方案在比较过程中都有机会轮流当选的循环现象。 18世纪时，法国著名思想家提出了所谓的“投票悖论”，后人称其为“孔多塞投票悖论”。其描述为：设有A、B、C三个人，他们对X、Y、Z的偏好如下： A： X&gt;Y&gt;Z B： Y&gt;Z&gt;X C： Z&gt;X&gt;Y
-如果按照社会少数服从多数的原则，对X与Y进行民主表决，那么结果如下： A： X&gt;Y B： Y&gt;X C： X&gt;Y 社会偏好：X&gt;Y
-因为A、C两个人都偏好X，只有一个人B偏好Y，所以根据少数服从多数原则，我们最后得到X&gt;Y的社会偏好。 同理，我们如果再按照少数服从多数的原则，对Y与Z以及X与Z进行民主表决。通过三次选择，于是我们得到一个矛盾的社会偏好： X&gt;Y；Y&gt;Z；Z&gt;X
-从上面的论述中，孔多塞认为，大众投票并不会真正传递社会偏好，投票制度并不能真正保证社会合意的结果。因为，根据常理推断，社会偏好应该具有某种传递特征。因此，大众投票并不能保证出最优的，投票从本质上不具有传递性，甚至会有某种非理性。
-同时，孔多塞悖论还给我们另一层的其实：认为设计的投票顺序和规则，可以对投票的结果产生非常重大的影响。
-例如三个女孩A、B、C一块出去吃午饭，可以选择肯德基、麦当劳、必胜客其中之一。她们的喜好如下： A： 麦当劳&gt;肯德基&gt;必胜客 B： 肯德基&gt;麦当劳&gt;必胜客 C： 必胜客&gt;麦当劳&gt;肯德基
-由于偏好难以达成一致，于是三人决定投票，并定投票规则为：先在麦当劳和必胜客之间选一个，然后再在胜者和肯德基之间选一个。
-假如三人都毫无心机，那么第一轮麦当劳胜出；第二轮又将胜出。这实际上是最佳选择，也就是说麦当劳在三人中的综合评论是最高的。
-但是如果B为了达到自己的目的而动用一些策略，投票的结果将完全改变。B可以在第一轮故意投票给必胜客，淘汰掉麦当劳，必胜客胜出，第二轮肯德基铁定胜出，因此B通过策略实现了自己的最爱，但是这一结果却不符合总体的最大利益。
-发展 1972年诺贝尔经济学奖的获得者肯尼思·阿罗，在他的《社会选择与个人价值》（1951）中，证明了著名的阿罗不可能性定理，把这个投票悖论形式化了。在该书中，他运用数学工具把孔多塞的观念严格化和一般化了。那么，能不能设计出一个消除循环投票，做出合理决策的投票方案呢？
-阿罗的结论 根本不存在一种能保证效率、尊重个人偏好、并且不依赖程序 (agenda)的多数规则的投票方案。
-阿罗证明 不存在同时满足如下四个基本公理的社会选择函数： 1）个人偏好的无限制性，即对一个社会可能存在的所有状态，逻辑上可能的个人偏好都不应当先验地被排除； 2）弱帕累托原则， 3）非相关目标独立性，即关于一对社会目标的社会偏好序不受其它目标偏好序变化的影响； 4）社会偏好的非独裁性。
-简单地说，阿罗的不可能定理意味着，在通常情况下，当社会所有成员的偏好为已知时，不可能通过一定的方法从个人偏好次序得出社会偏好次序，不可能通过一定的程序准确地表达社会全体成员的个人偏好或者达到合意的公共决策。投票悖论表明：根本不存在一种能满足阿罗五个假设条件的社会选择原理。解决投票悖论的方法是限制投票偏好，即将多峰偏好改为单峰偏好。
-解决 1998年诺贝尔经济学奖获得者阿马蒂亚·森在20世纪70年代提出对“投票悖论”的解决方法。阿马蒂亚·森所提出的解决投票悖论、绕过“阿罗不可能定理”的方法就是改变甲、乙、丙其中一个人的偏好次序，以解决投票悖论的问题。
-举例 比如将A的偏好次序从（X&gt;Y&gt;Z）改变为（X&gt;Z&gt;Y），新的偏好次序排列如下： A：X&gt;Z&gt;Y B：Y&gt;Z&gt;X C：Z&gt;X&gt;Y
-于是得到三个社会偏好次序——（X&gt;Y）（Z&gt;Y）（Z&gt;X），这样就能避开投票悖论，当然它却改变了A的偏好次序。
-阿马蒂亚·森选择模式 阿马蒂亚·森把这个发现加以延伸和拓展，得出了解决投票悖论的三种选择模式： 一、所有人都同意其中一项选择方案并非是最佳； 二、所有人都同意其中一项选择方案并非是次佳； 三、所有人都同意其中一项选择方案并非是最差。
-阿马蒂亚·森表示在上述三种选择模式下，投票悖论不会再出现，取而代之的结果是得大多数票者获胜的规则总是能达到唯一的决定。但是有一个问题是为了追求一致性，改变、忽略、牺牲了个人偏好次序。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1006,7 +1029,7 @@ Jacob使用入门及问题解析
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">705</span>
+        <span class="site-state-item-count">707</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -1023,7 +1046,7 @@ Jacob使用入门及问题解析
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1510</span>
+        <span class="site-state-item-count">1513</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
