@@ -156,7 +156,7 @@
     <i class="fa fa-eye"></i>
 </span>
 <span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">26 字 ~1分钟</span>
+<span class="leancloud-visitors-count">162 字 ~1分钟</span>
 </span>
       </div>
     </header>
@@ -180,6 +180,65 @@ SP( Service Pack) 指服务补丁版本，包括一些不能等到下一个TL推
 <p>在<a href="ftp://ftp.software.ibm.com/aix/freeSoftware/aixtoolbox/RPMS/ppc/">ftp://ftp.software.ibm.com/aix/freeSoftware/aixtoolbox/RPMS/ppc/</a> 查找到所需软件的链接，然后通过rpm进行安装。例如：</p>
 
 <pre><code>rpm -Uvh ftp://ftp.software.ibm.com/aix/freeSoftware/aixtoolbox/RPMS/ppc/curl/curl-7.9.3-2.aix4.3.ppc.rpm
+</code></pre>
+
+<h3 id="软件差异">软件差异</h3>
+
+<h4 id="sed不支持-s">sed不支持\s</h4>
+
+<p>解决方法：使用空格和Tab代替。</p>
+
+<h4 id="find不支持maxdepth">find不支持maxdepth</h4>
+
+<p>解决方法：通过find {dir} ! -path {dir} -prune -type f -name {filemask}不进行递归遍历。</p>
+
+<pre><code>$ find . -name &quot;*.ksh&quot;
+./codecheck.ksh
+./inventory.ksh
+./lib/logging.ksh
+./lib/utility.ksh
+./lib/validation.ksh
+./lib/versioninfo.ksh
+./profile.ksh
+./publish.ksh
+$ find . ! -path . -prune -type f -name &quot;*.ksh&quot;
+./codecheck.ksh
+./inventory.ksh
+./profile.ksh
+./publish.ksh
+</code></pre>
+
+<h4 id="tr在utf8环境有问题">tr在utf8环境有问题</h4>
+
+<p>解决办法：不适用tr进行字符串的大小写转换，改用typeset</p>
+
+<pre><code>$ export LANG=en_US.UTF-8
+$ export LC_ALL=en_US.UTF-8
+$ val=$(echo dbcs | tr '[a-z]' '[A-Z]');if [ &quot;$val&quot; != &quot;DBCS&quot; ]; then echo &quot;$val&quot;; fi
+ⅾBⅽS
+$ typeset -u val=&quot;dbcs&quot;;if [ &quot;$val&quot; != &quot;DBCS&quot; ]; then echo &quot;$val&quot;; fi
+
+</code></pre>
+
+<h4 id="date跟linux上的gnu-date功能较少">date跟Linux上的GNU date功能较少</h4>
+
+<ul>
+<li>缺少-d参数，无法通过时间字符串进行操作，仅能对当前时间进行操作；<br /></li>
+<li>缺少-r参数，无法查看文件的修改时间；<br /></li>
+</ul>
+
+<p>GNU date使用：</p>
+
+<pre><code>mryquLAX&gt; date -u -d @0
+Thu Jan  1 00:00:00 UTC 1970
+mryquLAX&gt; date -u -d &quot;Thu Jan  1 00:00:00 UTC 1970&quot; &quot;+%s&quot;
+0
+mryquLAX&gt; date -u -d &quot;Jan  1 00:00:00 UTC 0001&quot; &quot;+%s&quot;
+-62135596800
+mryquLAX&gt; date -r codecheck.ksh
+Tue Jan  5 02:16:01 EST 2021
+mryquLAX&gt; date -r codecheck.ksh &quot;+%s&quot;
+1609830961
 </code></pre>
 
     </div>
@@ -284,7 +343,7 @@ s.setAttribute('data-timestamp', +new Date());
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -301,7 +360,7 @@ s.setAttribute('data-timestamp', +new Date());
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1513</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
@@ -351,6 +410,13 @@ s.setAttribute('data-timestamp', +new Date());
 <ul>
 <li><a href="#查看版本">查看版本</a></li>
 <li><a href="#安装软件">安装软件</a></li>
+<li><a href="#软件差异">软件差异</a>
+<ul>
+<li><a href="#sed不支持-s">sed不支持\s</a></li>
+<li><a href="#find不支持maxdepth">find不支持maxdepth</a></li>
+<li><a href="#tr在utf8环境有问题">tr在utf8环境有问题</a></li>
+<li><a href="#date跟linux上的gnu-date功能较少">date跟Linux上的GNU date功能较少</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>

@@ -113,6 +113,69 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/" itemprop="url">
+        [Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-15">
+    2014-04-15
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop&#43;Spark</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/hadoop" itemprop="url" rel="index">
+        <span itemprop="name">Hadoop</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">45 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在Windows平台编译Hadoop时遇到了compile-ms-winutils执行失败的问题。Hadoop默认需要用VS2010编译，但是我的环境只有VS2013。
+问题及解决方案如下： - Cannot run program &ldquo;msbuild&rdquo; 将C:\Windows\Microsoft.NET\Framework\v4.0.30319放入PATH环境变量 - Command execution failed. Process exited with an error: 1(Exitvalue: 1) -&gt; [Help 1] 打开hadoop-common\hadoop-hdfs-project\hadoop-hdfs\pom.xml，将&rsquo;VisualStudio 10 Win64&rsquo;改成&rsquo;Visual Studio 12 Win64&rsquo;。 将如下两个Visual Studio项目用VS2013打开，手动编译。 - hadoop-common\hadoop-common-project\hadoop-common\src\main\winutils\winutils.sln - hadoop-common\hadoop-common-project\hadoop-common\src\main\native\winutils.sln
+重新执行：
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat mvn install -DskipTests  上述问题不再出现。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/" itemprop="url">
         在R作图系统中自定义坐标轴
         </a>
@@ -647,59 +710,6 @@ sc create MongoDB binPath= &quot;C:\mongodb\bin\mongod.exe--config=C:\mongodb\et
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%87%8D%E6%B8%A9mvc%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A5%BD%E7%9A%84mvc%E5%9B%BE/" itemprop="url">
-        重温MVC:一个很好的MVC图
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-26">
-    2014-03-26
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tech" itemprop="url" rel="index">
-        <span itemprop="name">Tech</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">16 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    今天看了一个帖子A terrific Model View Controller (MVC) diagram，感觉文中说的很对：一个技术如果能简洁地表达出来，才容易被人记住并记的牢。该文中的Model/View/ControllerUML图共有两个，第一个图非常简单，仅展示作者用于控制器、视图和模型的符号。第二个图展示了MVC模式允许的操作和禁止的操作。- 用户与视图对象交互。 - 视图对象和控制器对象可以相互访问调用。 - 不同的控制器对象之间可以相互访问调用。 - 控制器对象可以访问调用模型对象。 - 除了上面这四种访问方式，禁止对象之间的其他通信方法。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -895,7 +905,7 @@ sc create MongoDB binPath= &quot;C:\mongodb\bin\mongod.exe--config=C:\mongodb\et
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -912,7 +922,7 @@ sc create MongoDB binPath= &quot;C:\mongodb\bin\mongod.exe--config=C:\mongodb\et
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1513</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

@@ -113,6 +113,61 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/activiti_modeler%E4%B8%ADsid%E7%94%9F%E6%88%90%E6%9C%BA%E5%88%B6/" itemprop="url">
+        Activiti Modeler中sid生成机制
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-28">
+    2015-02-28
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/workflow" itemprop="url" rel="index">
+        <span itemprop="name">workflow</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">47 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    昨天跟同事说Activiti Modeler中的sid比GoJS中的元素ID讲究，估计是由时戳和随机数混合生成的。 今天看了一下，发现原来就是一个纯随机数。
+[tomcat]\webapps\activiti-explorer\editor-app\editor.html里对类为stencil-item的HTML元素设置的拖拽处理函数在[tomcat]\webapps\activiti-explorer\editor-app\stencil-controller.js中定义。 sid生成方法在[tomcat]\webapps\activiti-explorer\editor-app\editor\oryx.debug.js中定义。
+ORYX.Editor.provideId = function() { var res=[], hex='0123456789ABCDEF'; for(var i=0; i&lt;36; i ) res[i]=Math.floor(Math.random()*0x10); res[14]=4; res[19]=(res[19] &amp; 0x3) | 0x8; for(var i=0; i&lt;36; i ) res[i] = hex[res[i]]; res[8] = res[13] = res[18] = res[23] = '-'; return &quot;sid-&quot; res.join(''); };  当然，GoJSBPMN样例中的ID就更简单的不得了，全都是预定义的简单数字。例如，userTask的key预定义为7，当一个BPMN元素加入GoJSmodel时，GoJS会让model中的key变成唯一的（代码混淆过，我猜估计没混淆前叫makeUniqueKeyFunction）。在我的小测试中，第一个userTask的key仍然为7，第二个userTask的key被改成了-3。 感觉要是借鉴MongoDB的ObjectId生成机制，ID的冲撞概率可能会更低。
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%B0%86gojs%E5%92%8Cactiviti_explorer%E7%86%AC%E6%88%90%E4%B8%80%E9%94%85%E7%B2%A5/" itemprop="url">
         将GoJS和Activiti Explorer熬成一锅粥
         </a>
@@ -648,62 +703,6 @@ General NameCreatorPlatform / OSBPMN VersionFeaturesFirst ReleaseLatest ReleaseS
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3activiti_explorer%E5%8F%8A%E5%85%B6vaadin%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" itemprop="url">
-        了解Activiti Explorer及其Vaadin实现方式
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-02-10">
-    2015-02-10
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/workflow" itemprop="url" rel="index">
-        <span itemprop="name">workflow</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">59 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    通过ActivitiModeler架构图可知，Activiti Explorer采用的是Vaadin框架。 Vaadin 是一种 Java Web 应用程序的开发框架, 其设计目标是便利地创建和维护高质量的 Web UI 应用程序.Vaadin 支持两种不同的开发模式: 服务器端开发和客户端开发. 服务器端开发方式是这二者中更为强大的一种. 它能帮助开发者忘记Web 程序的各种实现细节, 使得 Web 应用程序的开发变得就象过去使用便利的Java开发工具(如AWT, Swing,SWT)来开发桌面应用程序一样, 甚至更简单。 Vaadin 应用程序中基本上所有的逻辑都是运行在服务器端的 Java Servlet API 上的，如下图中Vaadin的运行时结构图所示，Vaadin运行时结构主要由服务器端框架和客户端引擎两部分构成。服务器端框架包含了用来与客户端引擎通讯的服务器端集成层以及一系列的 server端 UI 组件。客户端引擎则由 Google Web toolkit(GWT) 页面渲染模块和客户端集成层两部分组成。 ActivitiExplorer的代码位于Activiti\modules\activiti-explorer下： 参考资料 vaadin官方网站
-book of vaadin 中文版
-Vaadin - 来自北欧的 Web 应用开发利器，第 1 部分: Vaadin 的基本概况和基础开发
-Vaadin - 来自北欧的 Web 应用开发利器，第 2 部分: Vaadin 的体系结构和功能扩展
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -899,7 +898,7 @@ Vaadin - 来自北欧的 Web 应用开发利器，第 2 部分: Vaadin 的体系
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -916,7 +915,7 @@ Vaadin - 来自北欧的 Web 应用开发利器，第 2 部分: Vaadin 的体系
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1513</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>

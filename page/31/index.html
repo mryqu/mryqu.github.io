@@ -113,6 +113,72 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">
+        [Spring Data] 调试H2数据库
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-28">
+    2015-06-28
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/spring" itemprop="url" rel="index">
+        <span itemprop="name">Spring</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">50 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    我将Spring的两个入门指南Building a RESTful Web Service和Accessing Data with JPA融到一起，测试成功。那接下来的一个问题就是怎么查看H2数据库内容并进行调试？
+配置H2 Web控制台 为了解决这个问题，我首先增加了src/resources/application.properties配置文件，内容如下：
+spring.profiles.active=dev spring.h2.console.enabled=true  在H2 Web控制台上操作 启动Spring Boot应用，在浏览器中进入http://localhost:8080/h2_console/即可进入H2数据库的Web控制台了。 配置IDEA IntelliJ数据源 如果不使用H2 Web控制台的话，在IDEA IntelliJ集成开发环境中也可以通过配置H2数据源进行数据库操作。 解决数据库表不存在问题 上面的玩法有个问题，那就是没看到Accessing Data with JPA里面创建的CUSTOMER表，对不对？为了解决这个问题，在src/resources/application.properties配置文件增加如下内容：
+spring.profiles.active=dev spring.h2.console.enabled=true spring.datasource.url=jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE spring.datasource.driverClassName=org.h2.Driver spring.datasource.username=sa spring.datasource.password=  搞定，收工！
+参考 Using H2’s web console in Spring Boot
+Common application properties for Spring Boot
+H2 Console
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%B6%E4%BD%9Cjavase8%E7%9A%84chm%E7%89%88%E6%9C%ACjavadoc/" itemprop="url">
         制作JavaSE8的chm版本JavaDoc
         </a>
@@ -685,67 +751,6 @@ Core.prototype.registerElement = function(oElement) { var sId = oElement.getId()
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%80%9A%E8%BF%87%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BF%AE%E6%94%B9vagrant_box%E5%8F%82%E6%95%B0/" itemprop="url">
-        通过环境变量修改VAGRANT BOX参数
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-12">
-    2015-06-12
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/vagrant" itemprop="url" rel="index">
-        <span itemprop="name">Vagrant</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">34 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在如下示例Vagrantfile文件片段，VAGRANTBOX的内存和CPU核数首先查询环境变量，如果没有设相关环境变量的话则使用默认值。
-config.vm.provider &quot;virtualbox&quot; do |v| v.memory = ENV.has_key?('VAGRANTBOX_MEM') ? ENV['VAGRANTBOX_MEM'].to_i : 1024 v.cpus = ENV.has_key?('VAGRANTBOX_CPUS') ? ENV['VAGRANTBOX_CPUS'].to_i : 2 v.customize [&quot;modifyvm&quot;, :id, &quot;--natdnshostresolver1&quot;, &quot;on&quot;] v.customize [&quot;modifyvm&quot;, :id, &quot;--cpuexecutioncap&quot;, &quot;75&quot;] end  参考 Vagrant VirtualBox Configuration
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -941,7 +946,7 @@ config.vm.provider &quot;virtualbox&quot; do |v| v.memory = ENV.has_key?('VAGRAN
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">707</span>
+        <span class="site-state-item-count">708</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
@@ -958,7 +963,7 @@ config.vm.provider &quot;virtualbox&quot; do |v| v.memory = ENV.has_key?('VAGRAN
     <div class="site-state-item site-state-tags">
         <a href="/tags/">
          
-        <span class="site-state-item-count">1513</span>
+        <span class="site-state-item-count">1515</span>
         
         <span class="site-state-item-name">标签</span>
         </a>
