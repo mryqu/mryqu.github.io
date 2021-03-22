@@ -113,6 +113,74 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/" itemprop="url">
+        [Gradle] 输出依赖包
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-04-16">
+    2015-04-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gradle" itemprop="url" rel="index">
+        <span itemprop="name">Gradle</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">89 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    下面我以https://spring.io/guides/gs/spring-boot/中的gs-spring-boot项目为例，使用Gradle输出依赖包。
+首先对build.gradle做如下修改：
+buildscript { repositories { mavenCentral() } dependencies { classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE&quot;) } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: 'spring-boot' jar { baseName = 'gs-spring-boot' version = '0.1.0' } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 task copyToLib(type: Copy) { print configurations into &quot;$buildDir/dep-libs&quot; from configurations.runtime } build.dependsOn(copyToLib) dependencies { compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;) // tag::actuator[] compile(&quot;org.springframework.boot:spring-boot-starter-actuator&quot;) // end::actuator[] // tag::tests[] testCompile(&quot;org.springframework.boot:spring-boot-starter-test&quot;) // end::tests[] }  首先可以在命令行中看到：  [configuration &lsquo;:archives&rsquo;, configuration &lsquo;:compile&rsquo;, configuration &lsquo;:default&rsquo;, configuration &lsquo;:runtime&rsquo;, configuration &lsquo;:testCompile&rsquo;, configur:clean&rsquo;:testRuntime&rsquo;, configuration &lsquo;:versionManagement&rsquo;]
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/" itemprop="url">
         [Gradle] 执行Java类
         </a>
@@ -652,67 +720,6 @@ ext { yquPropKey=yquPropValue }
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/python_installing_pymongo_with_anaconda/" itemprop="url">
-        Python: installing pymongo with Anaconda
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-04-04">
-    2015-04-04
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/python" itemprop="url" rel="index">
-        <span itemprop="name">Python</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">590 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    在Anaconda发行版Python上通过conda install pymongo安装MongoDBpython驱动，结果失败了，最终通过conda install -c https://conda.binstar.org/anaconda pymongo安装成功。
-BinstarBinstar和Anaconda都是同一家的产品，是Continuum Analytics推出的一个包管理服务，托管公开的pip和conda。 安装记录如下：
-C:\tools\Anaconda&gt;conda list # packages in environment at C:\tools\Anaconda: # _license 1.1 py27_0 anaconda 2.0.1 np18py27_0 argcomplete 0.6.7 py27_0 astropy 0.3.2 np18py27_0 atom 0.3.7 py27_0 backports.ssl-match-hostname 3.4.0.2 beautiful-soup 4.3.1 py27_0 beautifulsoup4 4.3.1 binstar 0.5.3 py27_0 bitarray 0.8.1 py27_1 blaze 0.5.0 np18py27_1 blz 0.6.2 np18py27_0 bokeh 0.4.4 np18py27_1 boto 2.28.0 py27_0 casuarius 1.1 py27_0 cdecimal 2.3 py27_1 chaco 4.4.1 np18py27_0 colorama 0.2.7 py27_0 conda 3.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/python_installing_pymongo_with_anaconda/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -908,7 +915,7 @@ C:\tools\Anaconda&gt;conda list # packages in environment at C:\tools\Anac
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

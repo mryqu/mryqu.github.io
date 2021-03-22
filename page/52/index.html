@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/" itemprop="url">
+        [Gradle] 在build.gradle中添加本地包依赖
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-04-16">
+    2014-04-16
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/gradle" itemprop="url" rel="index">
+        <span itemprop="name">Gradle</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">49 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    一直在Gradle中用的依赖包都是来自仓库，头一次添加本地包依赖。
+buildscript { repositories { mavenCentral() } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' jar { baseName = 'HelloAlgs' version = '0.1.0' } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 dependencies { runtime files('libs/algs4.jar') } task wrapper(type: Wrapper) { gradleVersion = '2.3' }  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/" itemprop="url">
         [Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common
         </a>
@@ -646,70 +707,6 @@ package com.yqu.mongodb; import java.net.UnknownHostException; import java.ut
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/windows%E4%B8%8Bmongodb%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" itemprop="url">
-        Windows下MongoDB安装与配置
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-03-30">
-    2014-03-30
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/db&#43;nosql" itemprop="url" rel="index">
-        <span itemprop="name">db&#43;nosql</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">72 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    到官网http://www.mongodb.org/downloads下载MongoDB并安装在c:mongodb目录下，安装后需要进行配置才能启动MongoDB。首先创建如下目录： - md c:\mongodb\data - md c:\mongodb\db - md c:\mongodb\log - md c:\mongodb\etc 接着创建MongoDB配置文件：c:\mongodb\etc\mongo.conf
-systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: true net: http: enabled: true RESTInterfaceEnabled: true  通过如下命令启动MongoDB：
-C:\mongodb\bin\mongod.exe --config C:\mongodb\etc\mongo.conf  可以通过以下三种方式验证MongoDB是否安装成功： - 访问MongoDB监听端口 http://localhost:27017/ ，确认出现类似信息。- 通过C:\mongodb\bin\mongo.exe登录Javascript shell并使用 - 访问HTTP接口 http://localhost:28017/ 并查看MongoDB服务器信息
-在启动MongoDB的窗口通过Ctrl+ C停止MongoDB的运行。 最后通过如下命令将MongoDB配置成Windows服务：
-C:\mongodb\bin\mongod.exe --config C:\mongodb\etc\mongo.conf--install  当然也可以通过如下命令手工配置Windows服务：
-sc create MongoDB binPath= &quot;C:\mongodb\bin\mongod.exe--config=C:\mongodb\etc\mongo.conf--service&quot; start= demand DisplayName= &quot;MongoDB&quot;  参考 Install MongoDB on Windows
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/windows%E4%B8%8Bmongodb%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -905,7 +902,7 @@ sc create MongoDB binPath= &quot;C:\mongodb\bin\mongod.exe--config=C:\mongodb\et
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

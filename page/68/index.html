@@ -113,6 +113,66 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/" itemprop="url">
+        多维数据遍历
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-31">
+    2013-05-31
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/java" itemprop="url" rel="index">
+        <span itemprop="name">Java</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">365 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在联机分析处理（OLAP）系统中，需要对存储在数据库或数据仓库中的数据提供分析。由于数据维数不定，无法采用多重for循环进行数据遍历。我在开发过程中一般使用扁平化下标对多维数据进行遍历，今天尝试了一下递归方式，效率更高一些，但是对栈的消耗也更多一些。下面的代码示例使用两种不同的方式对多维数据进行遍历： - 递归 - 采用扁平化下标
+示例代码 package com.yqu.collection; import java.util.ArrayList; import java.util.List; public class MultipleDimensionTraveling &lt;T&gt;{ private List&lt;List&lt;T&gt;&gt; mdList; public MultipleDimensionTraveling(){ mdList = new ArrayList&lt;List&lt;T&gt;&gt;(); } public MultipleDimensionTraveling(List&lt;List&lt;T&gt;&gt; mdList){ this.mdList = mdList; } public void addDimension(List&lt;T&gt; dim){ mdList.add(dim); } public void travelByRecursion(){ if(!mdList.isEmpty()) travelByRecursion(0, new ArrayList&lt;T&gt;(mdList.size())); } private void travelByRecursion(int dimIdx, List&lt;T&gt; crossing){ for(int i=0;i&lt;mdList.get(dimIdx).size();i++){ if(crossing.size()&lt;mdList.size()) crossing.add(dimIdx, mdList.get(dimIdx).get(i)); else crossing.set(dimIdx, mdList.get(dimIdx).get(i)); if(dimIdx==mdList.size()-1){ System.out.println(crossing.toString()); } else { travelByRecursion(dimIdx+1, crossing); } } } public void travelByFlatIndice(){ if(!
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/servlet/" itemprop="url">
         Servlet
         </a>
@@ -738,61 +798,6 @@ PERSISTENT_OVERFLOWPERSISTENT_PARTITION  1LRU_HEAPOVERFLOW_TO_DISKREPLICATEREPLI
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/windows%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E6%9F%A5%E8%AF%A2%E5%8F%8A%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C/" itemprop="url">
-        Windows服务的创建、查询及删除操作
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-05-14">
-    2013-05-14
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">14 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    SC是与Windows服务管理器和服务通信的命令行程序。
-查询SC帮助 创建Windows服务 示例：sc create akxService binPath= C:\Test\akxService.exe
-查询Windows服务 删除Windows服务 示例：sc delete akxService 如果服务名含有空格，可在服务名上加双引号。
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -1017,7 +1022,7 @@ PERSISTENT_OVERFLOWPERSISTENT_PARTITION  1LRU_HEAPOVERFLOW_TO_DISKREPLICATEREPLI
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

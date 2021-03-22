@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%81%AD%E9%81%87python%E9%87%8D%E5%A4%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%99%B7%E9%98%B1/" itemprop="url">
+        遭遇Python*重复运算符陷阱
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-18">
+    2014-01-18
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/python" itemprop="url" rel="index">
+        <span itemprop="name">Python</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">123 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    在python中有个特殊的符号“*”，可以用做数值运算的乘法算子，也是用作对象的重复算子，但在作为重复算子使用时一定要注意* 重复出来的对象有可能是指向在内存中同一块地址的同一对象。
+测试代码：
+grid_width=2 grid_height=2 def modify_grid(cells, row, col, val): cells[row][col]=val print cells #testing 1 print '\ntesting 1' cells=[ [88 for col in range(grid_width)] for row in range(grid_height)] print cells modify_grid(cells,0,1,66) #testing 2: In the trap print '\ntesting 2' cells=[[88]*grid_width]*grid_height print cells modify_grid(cells,0,1,66) print '\n' cells=[[&quot;88&quot;]*grid_width]*grid_height print cells modify_grid(cells,0,1,&quot;66&quot;) #testing 3 print '\ntesting 3' cells=[] for idx in range(grid_height): cells.append([88]*grid_width) print cells modify_grid(cells,0,1,66) #testing 4 print '\ntesting 4' cells=[123]*(grid_height*grid_width) print cells cells[1]=321 print cells  结果
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/%E9%81%AD%E9%81%87python%E9%87%8D%E5%A4%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%99%B7%E9%98%B1/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BDjre%E6%88%96jdk%E6%97%B6%E5%87%BA%E7%8E%B0error_1723%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="url">
         安装和卸载JRE或JDK时出现Error 1723的解决办法
         </a>
@@ -654,67 +715,6 @@ byte[] cf = Bytes.toBytes(CF_DEFAULT); Put put = new Put(Bytes.toBytes(&quot;tes
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/" itemprop="url">
-        [Hadoop] MapReduce输出SequenceFile实践
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-01-01">
-    2014-01-01
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">14 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-     Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示： - NONE: 对记录不进行压缩; - RECORD: 仅压缩每一个记录中的值; - BLOCK: 将一个块中的所有记录压缩在一起;
-输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class);  输出SequenceFile示例 
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -910,7 +910,7 @@ byte[] cf = Bytes.toBytes(CF_DEFAULT); Put put = new Put(Bytes.toBytes(&quot;tes
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

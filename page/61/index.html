@@ -113,6 +113,70 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/" itemprop="url">
+        RESTful Web Services Cookbook笔记（三）
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-19">
+    2013-10-19
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
+        <span itemprop="name">Service&#43;JavaEE</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">226 字 ~2分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    杂项 为了复制资源而不泄漏服务器实现细节，可以设计一个用于复制的控制器资源。客户端向控制器发送POST请求复制资源。为了实现条件POST，可以提供一次性URI。控制器创建副本后，返回状态码201 (Created)及Location头带有副本URI。 为了合并两个或多个资源，可以设计一个用于合并的应用程序特定控制器资源。客户端想控制器发送GET请求，其查询参数包含待合并资源的URI或标识符。服务器返回Last-Modified、ETag头和包含待合并资源摘要的表述体。ETag由时戳和随机数连接串构成。为了验证摘要，客户端向同一地址发送带有If-Unmodified-Since和If-Match头的POST请求发起合并。服务器合并后在事务日志中保留If-Match头的值并返回状态码201 (Created)及含有合并后资源URI的Location头。如果客户端再发送相同If-Match头的POST请求，服务器返回状态码412 (Preconditon Failed)。 为了移动资源，服务器会提供负责移动资源控制器的链接或链接模板以使客户端可以发送POST请求，并在完成请求后根据输出返回状态码201 (Created)或303 (See Other)。 WebDAV （RFC 4918）是用于资源分布式创作和版本管理的HTTP扩展，它扩展了一些HTTP方法和头用于管理文件和文档。当Web服务是内容创作应用且服务器支持WebDAV时使用WebDAV特定方法，避免对其他类型应用使用WebDAV。
+|方法|介绍 |&mdash;&ndash; |PROPFIND|WebDAV中的文档具有属性，客户端可用此方法获得属性 |PROPPATCH|客户端用此方法设置、添加或修改资源属性 |MKCOL|WebDAV可以将文档放入集合（文件夹），客户端可用此方法创建集合 |COPY|客户端可用此方法复制资源 |MOVE|客户端可用此方法移动资源 |LOCK|客户端可用此方法对给定文档加锁，以支持悲观并发控制 |UNLOCK|客户端可用此方法对给定文档去锁
+为了支持跨服务器边界的操作（例如，将用户配置从一个应用移植到另一个应用，将文档从草稿服务器发布到生产服务器），需要服务器之间彼此就数据格式、后台接口、并发控制、数据加载、范式化和存储等方面协作、设计和实现设计跨服务器操作。 wiki的网页都会维护当前和过去的修订历史，以便客户可以获取、比较和评估页面改变。为了支持资源以往历史快照，服务器在收到客户端PUT请求更新资源时，在更新资源之前会默认创建快照（资源副本），并在更新后的资源表述中包含快照链接，快照表述中包含更新后资源链接。当用户发送DELETE请求，删除资源及所有快照。 提供用于撤销操作的控制器资源。当客户端发送POST请求进行撤销操作，在事务日志中记录资源当前状态以用于审计。服务器将资源状态恢复到上一快照并将客户端重定向到资源URI。 当资源很大而改动很小时，发送GET请求获取整个表述、进行小的修改、发送PUT请求将整个表述传回服务器进行更新很费时费带宽。为了支持对资源进行部分更新，可以将可修改的资源部分封装为一个新资源。客户端通过PUT请求更新该新资源，等效于部分更新原来的资源。 HTTP PUT方法用于对资源的整个更新或替换，PATCH方法（RFC 5789）用于支持部分更新。PATCH方法不是安全和幂等的，请求体是一系列对资源进行改变的表述。当收到请求，服务器将整个补丁原子性地施加于资源，并返回响应码 200 (OK)或204 (No Content)。如果服务器无法将整体补丁施加于资源，就不会做任何局部修改。可以通过请求中包含If-Unmodified-Since和/或If-Match头支持条件PATCH请求，如果不匹配则返回状态码412 (Precondition Failed)。建议在OPTIONS响应的Allow头支持PATCH，并在PTACH方法包含Accept-Patch头，其值为支持的媒体类型。 当客户端需要为不同资源提交若干类似请求时，只要对每个资源的操作是相同的且资源是类似的，可以将这些操作组合成一个针对集合资源的单个操作。使用POST请求和集合资源一次性批量创建若干资源。服务器为集合资源分配一个URI，并使用状态码303 (See Other)重定向到该集合资源，集合资源表述包含所有新创建资源的链接。使用PUT请求更新或DELETE请求删除若干资源与创建过程类似，以上操作必须是原子化的。 客户端需要执行批量作业的用例不是少数。例如，为前一天销售订单做汇总、将一个或多个文档打包、批准选择的购买订单集合等等都需要批量执行。服务器需要设计一个控制器资源用于执行批量操作。如果客户端需要跟踪操作或客户端需要提交大量用于操作的数据，返回状态码202 (Accepted)以进行异步操作，否则返回200 (OK)或204 (No Content)。 将几个HTTP组合成一个HTTP请求以支持批量处理的用例不是少数。下面列举了一些通常使用的技术实现： - 客户端将几个HTTP请求序列化到一个JSON对象、或一个XML文档、或multipart/mixed消息的一部分。 - 客户端创建一个信封跟是将多个请求组合进入一个消息。 - 客户端向服务器的分批终点（batch end point）资源发送POST请求。 - 服务器接收到消息，打开信封，重构多个HTTP请求并分发到服务器的相关URI。或者服务器绕过HTTP将请求直接派发到能处理这种请求的代码。 - 服务器收集每个请求的响应并序列化为一个消息返回到客户端。 - 客户端打开信封并处理每个响应消息。
+避免这种将多个HTTP请求封装入一个POST请求隧道的做法。因为通常隧道方案有以下不利之处：
+|特性|介绍 |&mdash;&ndash; |并发|HTTP通过Last-Modified和ETag头来实现乐观并发检查。将多个HTTP请求封装进一个HTTP请求隧道的批量操作使并发检查变得困难，因为服务器需要为批量操作中每一个任务进行并发检查。 |原子性|HTTP请求是原子性的。每个请求执行单个任务，服务器在错误发生时确保数据的原子性和一致性。将多个任务混入一个请求、尤其是某些操作依赖于同一请求的前一操作是否成功的批量操作使Web服务很难确保原子性和进行错误恢复。 |可见性|将多个操作封装到一个HTTP请求隧道使中间节点无法对批量处理内的操作响应可见。此外检测请求防止拒绝攻击的典型安全方法几乎不可能捕捉到批量操作中的可疑请求，因此可能导致拒绝服务攻击。 |错误处理|用于批量操作的错误处理和报告更为复杂。单个批量请求的结构可能混杂成功和失败响应。 |可扩展性|一般用于批量操作的理由依赖批量处理比执行每个单个请求更可扩展这样的假设。当单个服务器收到非常多的批量处理，请求会降低服务器的响应能力。发送很多批量客户端处理到单个服务器的应用比不支持批量处理的相同应用性能可能更低。
+分析导致促成使用隧道技术的用例，设计应用特有的控制器资源支持相同需求。由于请求使用的是处理请求资源的单个URI，所以请求可见。由于仅返回一个状态码，所以响应可见。 RESTful web服务在下列场景可能会需要处理事务： - 客户端执行操作流的一些列步骤。客户端在取消操作流时要撤销所有已完成的数据变动。 - 客户端同若干服务器顺序交互以实现应用操作流，客户端可能希望恢复任何状态改变或持久化存储状态。
+    </div>
+    
+    <div class="post-more-link text-center">
+    <a class="btn" href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%B8%89/" rel="contents">
+      阅读全文 &raquo;
+    </a>
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/restful_web_services_cookbook%E7%AC%94%E8%AE%B0%E4%BA%8C/" itemprop="url">
         RESTful Web Services Cookbook笔记（二）
         </a>
@@ -684,74 +748,6 @@ vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对�
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/" itemprop="url">
-        vFabric Web Server 5.2模块和库
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-16">
-    2013-10-16
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/web-application-server" itemprop="url" rel="index">
-        <span itemprop="name">Web Application Server</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">121 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    vFabric Web Server 是VMware的vFabric套件中的Web服务器和负载均衡组件。vFabric WebServer 5.2基于Apache HTTP Server 2.2版本。 其大部分模块可见链接
-核心功能和多处理模块 |模块|介绍 |&mdash;&ndash; |core|Apache HTTP服务器核心提供的功能，始终有效。 |mpm_common|收集了被多个多路处理模块(MPM)实现的公共指令。 |beos|专门针对BeOS优化过的多路处理模块(MPM) |event|一个标准workerMPM的实验性变种。 |mpm_netware|专门为Novell NetWare优化的线程化的多路处理模块(MPM) |mpmt_os2|专门针对OS/2优化过的混合多进程多线程多路处理模块(MPM) |prefork|一个非线程型的、预派生的MPM |mpm_winnt|用于Windows NT/2000/XP/2003 系列的MPM |worker|线程型的MPM，实现了一个混合的多线程多处理MPM，允许一个子进程中包含多个线程。
-其它普通模块 |模块|介绍 |&mdash;&ndash; |mod_actions|根据特定的媒体类型或请求方法，激活特定的CGI脚本 |mod_alias|提供从文件系统的不同部分到文档树的映射和URL重定向 |mod_asis|发送自己包含HTTP头内容的文件 |mod_auth_basic|使用基本认证 |mod_auth_digest|使用MD5摘要认证(更安全，但是只有最新的浏览器才支持) |mod_authn_alias|基于实际认证支持者创建扩展的认证支持者，并为它起一个别名以便于引用 |mod_authn_anon|提供匿名用户认证支持 |mod_authn_dbd|使用SQL数据库为认证提供支持 |mod_authn_dbm|使用DBM数据库为认证提供支持 |mod_authn_default|在未正确配置认证模块的情况下简单拒绝一切认证信息 |mod_authn_file|使用纯文本文件为认证提供支持 |mod_authnz_ldap|允许使用一个LDAP目录存储用户名和密码数据库来执行基本认证和授权 |mod_authz_dbm|使用DBM数据库文件为组提供授权支持 |mod_authz_default|在未正确配置授权支持模块的情况下简单拒绝一切授权请求 |mod_authz_groupfile|使用纯文本文件为组提供授权支持 |mod_authz_host|供基于主机名、IP地址、请求特征的访问控制 |mod_authz_owner|基于文件的所有者进行授权 |mod_authz_user|基于每个用户提供授权支持 |mod_autoindex|自动对目录中的内容生成列表，类似于&rdquo;ls&rdquo;或&rdquo;dir&rdquo;命令 |mod_cache|基于URI键的内容动态缓冲(内存或磁盘) |mod_cern_meta|允许Apache使用CERN httpd元文件，从而可以在发送文件时对头进行修改 |mod_cgi|在非线程型MPM(prefork)上提供对CGI脚本执行的支持 |mod_cgid|在线程型MPM(worker)上用一个外部CGI守护进程执行CGI脚本 |mod_charset_lite|允许对页面进行字符集转换 |mod_dav|允许Apache提供DAV协议支持 |mod_dav_fs|为mod_dav访问服务器上的文件系统提供支持 |mod_dav_lock|为mod_dav锁定服务器上的文件提供支持 |mod_dbd|管理SQL数据库连接，为需要数据库功能的模块提供支持 |mod_deflate|压缩发送给客户端的内容 |mod_dir|指定目录索引文件以及为目录提供&rdquo;尾斜杠&rdquo;重定向 |mod_disk_cache|基于磁盘的缓冲管理器 |mod_dumpio|将所有I/O操作转储到错误日志中 |mod_echo|一个很简单的协议演示模块 |mod_env|允许Apache修改或清除传送到CGI脚本和SSI页面的环境变量 |mod_example|一个很简单的Apache模块API演示模块 |mod_expires|允许通过配置文件控制HTTP的&rdquo;Expires:&ldquo;和&rdquo;Cache-Control:&ldquo;头内容 |mod_ext_filter|使用外部程序作为过滤器 |mod_file_cache|提供文件描述符缓存支持，从而提高Apache性能 |mod_filter|根据上下文实际情况对输出过滤器进行动态配置 |mod_headers|允许通过配置文件控制任意的HTTP请求和应答头信息 |mod_ident|实现RFC1413规定的ident查找 |mod_imagemap|处理服务器端图像映射 |mod_include|实现服务端包含文档(SSI)处理 |mod_info|生成Apache配置情况的Web页面 |mod_isapi|仅限于在Windows平台上实现ISAPI扩展 |mod_ldap|为其它LDAP模块提供LDAP连接池和结果缓冲服务 |mod_log_config|允许记录日志和定制日志文件格式 |mod_log_forensic|实现&rdquo;对比日志&rdquo;，即在请求被处理之前和处理完成之后进行两次记录 |mod_logio|对每个请求的输入/输出字节数以及HTTP头进行日志记录 |mod_mem_cache|基于内存的缓冲管理器 |mod_mime|根据文件扩展名决定应答的行为(处理器/过滤器)和内容(MIME类型/语言/字符集/编码) |mod_mime_magic|通过读取部分文件内容自动猜测文件的MIME类型 |mod_negotiation|提供内容协商支持 |mod_nw_ssl|仅限于在NetWare平台上实现SSL加密支持 |mod_proxy|提供HTTP/1.
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/vfabric_web_server_5.2%E6%A8%A1%E5%9D%97%E5%92%8C%E5%BA%93/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -959,7 +955,7 @@ vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对�
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>

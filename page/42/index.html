@@ -113,6 +113,67 @@
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link" href="https://mryqu.github.io/post/git_create_patch_with_untracked_files/" itemprop="url">
+        [Git] Create patch with untracked files
+        </a>
+      </h1>
+      <div class="post-meta">
+      <span class="post-time">
+<span class="post-meta-item-icon">
+    <i class="fa fa-calendar-o"></i>
+</span>
+<span class="post-meta-item-text">时间：</span>
+<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-01-27">
+    2015-01-27
+</time>
+</span> 
+      
+
+  <span class="post-category" >
+  &nbsp; | &nbsp;
+  <span class="post-meta-item-icon">
+    <i class="fa fa-folder-o"></i>
+  </span>
+  <span class="post-meta-item-text">分类：</span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/tool" itemprop="url" rel="index">
+        <span itemprop="name">Tool</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+      <a href="/categories/git" itemprop="url" rel="index">
+        <span itemprop="name">Git</span>
+      </a>
+      &nbsp; 
+    </span>
+  
+</span>
+
+
+       <span>
+&nbsp; | &nbsp;
+<span class="post-meta-item-icon">
+    <i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读：</span>
+<span class="leancloud-visitors-count">19 字 ~1分钟</span>
+</span>
+      </div>
+    </header>
+    <div class="post-body" itemprop="articleBody">
+    前一博文Create patch with untracked files using Git format-patch/diff/stash中的方案比较绕，今天有了一个更好一点的法子:
+git add . git diff --cached &gt; yqu.patch git reset origin/master  
+    </div>
+    
+    <footer class="post-footer"><div class="post-eof"></div></footer>
+  </article>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
         <a class="post-title-link" href="https://mryqu.github.io/post/git_create_patch_with_untracked_files_using_git_format-patch_diff_stash/" itemprop="url">
         [Git] Create patch with untracked files using Git format-patch/diff/stash
         </a>
@@ -641,69 +702,6 @@ C:\test&gt;mkdir GitTest C:\test&gt;cd GitTest C:\test\GitTest&gt;git init Initi
     <footer class="post-footer"><div class="post-eof"></div></footer>
   </article>
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_mvc%E8%AE%BF%E9%97%AE%E5%85%B6%E4%BB%96view%E6%88%96controller%E7%9A%84%E6%96%B9%E6%B3%95/" itemprop="url">
-        [OpenUI5] MVC：访问其他View/Controller的方法
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-01-08">
-    2015-01-08
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">50 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    访问其他视图/控件的方法 在创建视图/控件实例时，设置ID：
-var oViewLeft = sap.ui.jsview(&quot;leftView&quot;, &quot;com.yqu.view.Left&quot;); var oPanelRight = new sap.ui.commons.Panel(&quot;panel2&quot;);  通过sap.ui.getCore().byId(&ldquo;compID&rdquo;)获取上述视图/控件。控制器可以通过getView()函数获取自身对应的视图，但是该视图内部的控件还得通过这种方式获取：
-var refViewLeft = sap.ui.getCore().byId(&quot;leftView&quot;); var refPanelRight = sap.ui.getCore().byId(&quot;panel2&quot;);  需要注意的是，上面讲的是JS视图最简单的一种情况。 对于使用了静态视图ID的XML、HTML和JSON视图，其内部的控件ID会自动添加视图ID做前缀。JS视图中，在动态实例化控件时通过oController.createId(&ldquo;ID&rdquo;)也可以生成用视图ID做前缀的唯一ID。
-var refSubView = oViewParent.byId(&quot;subViewId&quot;); refSubView.byId(&quot;ctrId&quot;);  JS、XML、HTML和JSON片断(Fragment)是更轻量级的分割和UI重用单元，每个片段示例化时为了保证唯一性，即使没有定义片段ID也会自动生成，其内部的控件ID会自动添加视图ID和片段ID做前缀。 - 当没有给定片段ID：myControl = sap.ui.getCore().byId(&ldquo;myControl&rdquo;) - 当给定片段ID &ldquo;myFrag&rdquo; ：myControl =sap.ui.core.Fragment.byId(&ldquo;myFrag&rdquo;, &ldquo;myControl&rdquo;)
-访问其他Controller的方法  最简单的方法是使用一个全局变量引用所需控制器 不推荐 通过获取其他控制器对应的视图来访问该控制器的函数：sap.ui.getCore().byId(&ldquo;viewId&rdquo;).getController().method(); 直接调用控制器的函数：sap.ui.controller(&ldquo;namespace.Controllername&rdquo;).method(); 最推荐的是在控制器(或应用组件)之间的通信使用sap.ui.core.EventBus，这种事件/消息总线模式可以更好进行解耦。  在jsbin上做了个Retrive other component示例：http://jsbin.com/xufeyo/1/edit?html,output 这个示例演示了一个视图如何控制另外一个视图的控件是否显示，一个视图调用了另外一个视图控制器的方法。但是它完全违反了我以前有篇学习帖子重温MVC:一个很好的MVC中的规则，不可以在实际工作中使用！
-    </div>
-    
-    <div class="post-more-link text-center">
-    <a class="btn" href="https://mryqu.github.io/post/openui5_mvc%E8%AE%BF%E9%97%AE%E5%85%B6%E4%BB%96view%E6%88%96controller%E7%9A%84%E6%96%B9%E6%B3%95/" rel="contents">
-      阅读全文 &raquo;
-    </a>
-    </div>
-    
-    <footer class="post-footer"><div class="post-eof"></div></footer>
-  </article>
-
 </section>
 
 
@@ -899,7 +897,7 @@ var refSubView = oViewParent.byId(&quot;subViewId&quot;); refSubView.byId(&quot;
       <nav class="site-state motion-element">
     <div class="site-state-item site-state-posts">
       <a href="/post/">
-        <span class="site-state-item-count">708</span>
+        <span class="site-state-item-count">709</span>
         <span class="site-state-item-name">日志</span>
       </a>
     </div>
