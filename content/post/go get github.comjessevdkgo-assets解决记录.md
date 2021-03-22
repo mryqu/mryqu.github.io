@@ -36,16 +36,16 @@ sudo make install
 
 调试一下ssh方式：  
 ```
-racerd1520570> ssh -vT git@github.com
+MRYQULAX> ssh -vT git@github.com
 OpenSSH_5.3p1, OpenSSL 1.0.0-fips 29 Mar 2010
-debug1: Reading configuration data /users/scnydq/.ssh/config
+debug1: Reading configuration data /users/mryqu/.ssh/config
 debug1: Reading configuration data /etc/ssh/ssh_config
 debug1: Applying options for *
 debug1: Connecting to github.com [140.82.113.3] port 22.
 debug1: Connection established.
-debug1: identity file /users/scnydq/.ssh/identity type -1
-debug1: identity file /users/scnydq/.ssh/id_rsa type 1
-debug1: identity file /users/scnydq/.ssh/id_dsa type -1
+debug1: identity file /users/mryqu/.ssh/identity type -1
+debug1: identity file /users/mryqu/.ssh/id_rsa type 1
+debug1: identity file /users/mryqu/.ssh/id_dsa type -1
 debug1: Remote protocol version 2.0, remote software version babeld-8514a139
 debug1: no match: babeld-8514a139
 debug1: Enabling compatibility mode for protocol 2.0
@@ -59,7 +59,7 @@ debug1: expecting SSH2_MSG_KEX_DH_GEX_GROUP
 debug1: SSH2_MSG_KEX_DH_GEX_INIT sent
 debug1: expecting SSH2_MSG_KEX_DH_GEX_REPLY
 debug1: Host 'github.com' is known and matches the RSA host key.
-debug1: Found key in /users/scnydq/.ssh/known_hosts:543
+debug1: Found key in /users/mryqu/.ssh/known_hosts:543
 debug1: ssh_rsa_verify: signature correct
 debug1: SSH2_MSG_NEWKEYS sent
 debug1: expecting SSH2_MSG_NEWKEYS
@@ -68,10 +68,10 @@ debug1: SSH2_MSG_SERVICE_REQUEST sent
 debug1: SSH2_MSG_SERVICE_ACCEPT received
 debug1: Authentications that can continue: publickey
 debug1: Next authentication method: publickey
-debug1: Trying private key: /users/scnydq/.ssh/identity
-debug1: Offering public key: /users/scnydq/.ssh/id_rsa
+debug1: Trying private key: /users/mryqu/.ssh/identity
+debug1: Offering public key: /users/mryqu/.ssh/id_rsa
 debug1: Authentications that can continue: publickey
-debug1: Trying private key: /users/scnydq/.ssh/id_dsa
+debug1: Trying private key: /users/mryqu/.ssh/id_dsa
 debug1: No more authentication methods to try.
 Permission denied (publickey).
 ```
@@ -87,15 +87,15 @@ host *github.com
 
 再次测试：  
 ```
-racerd1520570> ssh -vT git@github.com
+MRYQULAX> ssh -vT git@github.com
 OpenSSH_5.3p1, OpenSSL 1.0.0-fips 29 Mar 2010
-debug1: Reading configuration data /users/scnydq/.ssh/config
+debug1: Reading configuration data /users/mryqu/.ssh/config
 debug1: Applying options for *github.com
 debug1: Reading configuration data /etc/ssh/ssh_config
 debug1: Applying options for *
 debug1: Connecting to github.com [140.82.112.4] port 22.
 debug1: Connection established.
-debug1: identity file /users/scnydq/.ssh/github_rsa type 1
+debug1: identity file /users/mryqu/.ssh/github_rsa type 1
 debug1: Remote protocol version 2.0, remote software version babeld-8514a139
 debug1: no match: babeld-8514a139
 debug1: Enabling compatibility mode for protocol 2.0
@@ -109,7 +109,7 @@ debug1: expecting SSH2_MSG_KEX_DH_GEX_GROUP
 debug1: SSH2_MSG_KEX_DH_GEX_INIT sent
 debug1: expecting SSH2_MSG_KEX_DH_GEX_REPLY
 debug1: Host 'github.com' is known and matches the RSA host key.
-debug1: Found key in /users/scnydq/.ssh/known_hosts:543
+debug1: Found key in /users/mryqu/.ssh/known_hosts:543
 debug1: ssh_rsa_verify: signature correct
 debug1: SSH2_MSG_NEWKEYS sent
 debug1: expecting SSH2_MSG_NEWKEYS
@@ -118,7 +118,7 @@ debug1: SSH2_MSG_SERVICE_REQUEST sent
 debug1: SSH2_MSG_SERVICE_ACCEPT received
 debug1: Authentications that can continue: publickey
 debug1: Next authentication method: publickey
-debug1: Offering public key: /users/scnydq/.ssh/github_rsa
+debug1: Offering public key: /users/mryqu/.ssh/github_rsa
 debug1: Server accepts key: pkalg ssh-rsa blen 277
 debug1: read PEM private key done: type RSA
 debug1: Authentication succeeded (publickey).
