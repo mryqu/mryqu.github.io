@@ -3,14 +3,14 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
 <input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/replace-hexo-with-hugo-for-blog/ itemprop=url>博客从Hexo转向Hugo</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2018-12-14">2018-12-14</time></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>541 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody><h1 id=起因>起因</h1><p>使用Hexo构建我的博客网站，感觉功能丰富、插件齐全，使用的不能再爽。<br>但是我开始把我以前的新浪博客帖子搬家，就不美了。我就搬了自己原创的部分，总共六百多个帖子，总是内存溢出。</p><pre tabindex=0><code>&lt;--- Last few GCs ---&gt;
+<span class=leancloud-visitors-count>679 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody><h1 id=起因>起因</h1><p>使用Hexo构建我的博客网站，感觉功能丰富、插件齐全，使用的不能再爽。<br>但是我开始把我以前的新浪博客帖子搬家，就不美了。我就搬了自己原创的部分，总共六百多个帖子，总是内存溢出。</p><pre tabindex=0><code>&lt;--- Last few GCs ---&gt;
 
 17611169 ms: Mark-sweep 1389.3 (1404.7) -&gt; 1388.2 (1406.7) MB, 529.2 / 0.0 ms [allocation failure] [GC in old space requested].
 17611746 ms: Mark-sweep 1388.2 (1406.7) -&gt; 1388.2 (1406.7) MB, 577.3 / 0.0 ms [allocation failure] [GC in old space requested].
@@ -104,7 +104,54 @@ after_script:
 branches:
   only:
     - hugo   
-</code></pre><p>至此，大功告成！<br><img src=/images/2018/12/TravisDashboard.png alt="Travis Dashboard"><br><img src=/images/2018/12/GitHubSubmit.png alt="GitHub Submits"></p><h1 id=参考>参考</h1><hr><p><a href=http://topspeedsnail.com/static-website-generators_or_tools/>11个最流行的静态(博客)网站生成工具</a><br><a href=https://www.cnblogs.com/morang/p/7228488.html>使用travis-ci自动部署github上的项目</a><br><a href=https://www.sidorenko.io/post/2018/12/hugo-on-github-pages-with-travis-ci/>Hugo on GitHub Pages with Travis CI</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：博客从Hexo转向Hugo<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/github rel=tag title=github>#github#</a>
+</code></pre><p>至此，大功告成！<br><img src=/images/2018/12/TravisDashboard.png alt="Travis Dashboard"><br><img src=/images/2018/12/GitHubSubmit.png alt="GitHub Submits"></p><h1 id=使用github-actions>使用Github Actions</h1><p>最近又想更新博客了，发现免费的travis-ci.org迁移到travis-ci.com后即使有free plan也要用点数。好吧，改用Github Actions了。
+在https://github.com/mryqu/mryqu.github.io/ 的hugo分支提交.github/workflows/hugo.yaml，又可以工作了。</p><pre tabindex=0><code># Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Deploy Hugo site to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: [&#34;hugo&#34;]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+
+      - name: Build 
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == &#39;refs/heads/hugo&#39; }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}          
+          publish_branch: master
+          publish_dir: ./public
+          commit_message: ${{ github.event.head_commit.message }}
+</code></pre><h1 id=参考>参考</h1><hr><p><a href=http://topspeedsnail.com/static-website-generators_or_tools/>11个最流行的静态(博客)网站生成工具</a><br><a href=https://www.cnblogs.com/morang/p/7228488.html>使用travis-ci自动部署github上的项目</a><br><a href=https://www.sidorenko.io/post/2018/12/hugo-on-github-pages-with-travis-ci/>Hugo on GitHub Pages with Travis CI</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：博客从Hexo转向Hugo<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/github rel=tag title=github>#github#</a>
 <a href=/tags/hexo rel=tag title=hexo>#hexo#</a>
 <a href=/tags/hugo rel=tag title=hugo>#hugo#</a>
 <a href=/tags/theme-next rel=tag title="theme next">#theme next#</a>
