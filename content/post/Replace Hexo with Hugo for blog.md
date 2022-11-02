@@ -204,6 +204,60 @@ branches:
 ![Travis Dashboard](/images/2018/12/TravisDashboard.png)  
 ![GitHub Submits](/images/2018/12/GitHubSubmit.png)  
 
+# 使用Github Actions
+
+
+最近又想更新博客了，发现免费的travis-ci.org迁移到travis-ci.com后即使有free plan也要用点数。好吧，改用Github Actions了。
+在https://github.com/mryqu/mryqu.github.io/ 的hugo分支提交.github/workflows/hugo.yaml，又可以工作了。
+
+```
+# Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Deploy Hugo site to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["hugo"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+
+      - name: Build 
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/hugo' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}          
+          publish_branch: master
+          publish_dir: ./public
+          commit_message: ${{ github.event.head_commit.message }}
+```
 
 # 参考
 ****
