@@ -1,123 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Spark on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/spark/</link>
-    <description>Recent content in Spark on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 17 Jul 2018 06:09:41 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/spark/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spark] 使用Spark的REST服务Livy</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</link>
-      <pubDate>Tue, 17 Jul 2018 06:09:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</guid>
-      <description>Apache Livy简介 Apache Livy是由Cloudera Labs贡献的基于Apache Spark的开源REST服务，它不仅以REST的方式代替了Spark传统的处理交互方式，同时也提供企业应用中不可忽视的多用户，安全，以及容错的支持。其功能如下：- 拥有可用于多Spark作业或多客户端长时间运行的SparkContext； - 同时管理多个SparkContext，并在集群（YARN / Mesos）而不是Livy服务器上运行它们，以实现良好的容错性和并发性； - 可以通过预先编译好的JAR、代码片段或是java/scala客户端API将Spark作业提交到远端的Spark集群上执行。
-建立测试环境 今天在GitHub: mryqu/vagrant-hadoop-hive-spark提交了add livy support，因此可以在Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中使用Livy 0.5.0服务。 使用Livy的REST API 创建交互式会话 curl -X POST -d &#39;{&amp;quot;kind&amp;quot;: &amp;quot;spark&amp;quot;}&#39; -H &amp;quot;Content-Type: application/json&amp;quot; http://10.211.55.101:8998/sessions { &amp;quot;id&amp;quot;:0, &amp;quot;appId&amp;quot;:null, &amp;quot;owner&amp;quot;:null, &amp;quot;proxyUser&amp;quot;:null, &amp;quot;state&amp;quot;:&amp;quot;starting&amp;quot;, &amp;quot;kind&amp;quot;:&amp;quot;spark&amp;quot;, &amp;quot;appInfo&amp;quot;:{ &amp;quot;driverLogUrl&amp;quot;:null, &amp;quot;sparkUiUrl&amp;quot;:null }, &amp;quot;log&amp;quot;:[ &amp;quot;stdout: &amp;quot;, &amp;quot; stderr: &amp;quot; ] }  成功创建会话0，kind指定为spark，如果之后提交的代码中没有指定kind，则使用此处的会话默认kind。
-查询交互式会话列表 curl http://10.211.55.101:8998/sessions { &amp;quot;from&amp;quot;:0, &amp;quot;total&amp;quot;:1, &amp;quot;sessions&amp;quot;:[ { &amp;quot;id&amp;quot;:0, &amp;quot;appId&amp;quot;:null, &amp;quot;owner&amp;quot;:null, &amp;quot;proxyUser&amp;quot;:null, &amp;quot;state&amp;quot;:&amp;quot;idle&amp;quot;, &amp;quot;kind&amp;quot;:&amp;quot;spark&amp;quot;, &amp;quot;appInfo&amp;quot;:{ &amp;quot;driverLogUrl&amp;quot;:null, &amp;quot;sparkUiUrl&amp;quot;:null }, &amp;quot;log&amp;quot;:[ &amp;quot;2018-07-18 03:19:16 INFO BlockManager:54 - Using org.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] SparkCatalogAPI使用</title>
-      <link>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</link>
-      <pubDate>Mon, 16 Jul 2018 06:12:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</guid>
-      <description>Catalog API简介 Spark中的DataSet和Dataframe API支持结构化分析。结构化分析的一个重要的方面是管理元数据。这些元数据可能是一些临时元数据（比如临时表）、SQLContext上注册的UDF以及持久化的元数据（比如Hivemeta store或者HCatalog）。 Spark2中添加了标准的API（称为catalog）来访问Spark SQL中的元数据。这个API既可以操作Spark SQL，也可以操作Hive元数据。
-Catalog API使用 查询数据库 scala&amp;gt; spark.catalog.listDatabases.show(false) +-------+---------------------+----------------------------------------+ |name |description |locationUri | +-------+---------------------+----------------------------------------+ |default|Default Hive database|hdfs://10.211.55.101/user/hive/warehouse| +-------+---------------------+----------------------------------------+ scala&amp;gt; spark.catalog.currentDatabase res4: String = default  查询表 scala&amp;gt; spark.catalog.listTables.show(false) +----+--------+----------------------------------------+---------+-----------+ |name|database|description |tableType|isTemporary| +----+--------+----------------------------------------+---------+-----------+ |emp |default |null |MANAGED |false | |emp2|default |Imported by sqoop on 2018/07/10 04:23:26|MANAGED |false | |emp3|default |Imported by sqoop on 2018/07/10 06:13:17|MANAGED |false | |yqu1|default |null |MANAGED |false | |yqu2|default |null |MANAGED |false | +----+--------+----------------------------------------+---------+-----------+  下面的示例用于创建不同TableType的表： - MANAGED: 当表被删除时，内容与元数据一同删除 - EXTERNAL: 当表被删除时，仅元数据会被删除 - VIEW: 持久视图 - TEMPORARY: 临时视图</description>
-    </item>
-    
-    <item>
-      <title>[Spark] Spark读取HBase</title>
-      <link>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</link>
-      <pubDate>Thu, 12 Jul 2018 05:40:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</guid>
-      <description>Spark读取Hbase有以下几张方式： - Spark的JavaSparkContext.newAPIHadoopRDD / SparkContext.newAPIHadoopRDD方法 - HBase的hbase-spark - Hortonworks的Spark HBase Connector - Cloudera labs的SparkOnHBase 本文就Spark自带的方法进行示范和演示。
-HBase数据库 Spark范例 HelloSparkHBase.java import org.apache.spark.SparkContext; import org.apache.spark.api.java.JavaPairRDD; import org.apache.spark.api.java.JavaRDD; import org.apache.spark.api.java.JavaSparkContext; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import org.apache.spark.api.java.function.Function; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.hbase.HBaseConfiguration; import org.apache.hadoop.hbase.TableName; import org.apache.hadoop.hbase.client.*; import org.apache.hadoop.hbase.mapreduce.TableInputFormat; import org.apache.hadoop.hbase.io.ImmutableBytesWritable; import org.apache.hadoop.hbase.util.Bytes; import scala.Tuple2; public class HelloSparkHBase { public static void main(String[] args) { try { Configuration conf = HBaseConfiguration.create(); conf.set(TableInputFormat.INPUT_TABLE, &amp;quot;student&amp;quot;); SparkSession spark = SparkSession .</description>
-    </item>
-    
-    <item>
-      <title>[Zeppelin] 尝试Zeppelin</title>
-      <link>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</link>
-      <pubDate>Tue, 10 Jul 2018 05:50:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</guid>
-      <description>Zeppelin简介 Apache Zeppelin是一个让交互式数据分析变得可行的基于网页的开源框架。Zeppelin提供了数据捏取、发现、分析、可视化与协作等功能。 Zeppelin 是一个提供交互数据分析且基于Web的笔记本。方便你做出可数据驱动的、可交互且可协作的精美文档，并且支持多种语言，包括 Scala(使用 Apache Spark)、Python(Apache Spark)、SparkSQL、 Hive、 Markdown、Shell等等。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>spark on Mryqu's Notes</title><link>https://mryqu.github.io/tags/spark/</link><description>Recent content in spark on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 17 Jul 2018 06:09:41 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/spark/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spark] 使用Spark的REST服务Livy</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</link><pubDate>Tue, 17 Jul 2018 06:09:41 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</guid><description>Apache Livy简介 Apache Livy是由Cloudera Labs贡献的基于Apache Spark的开源REST服务，它不仅以REST的方式代替了Spark传统的处理交互方式，同时也提供企业应用中不可忽视的多用户，安全，以及容错的支持。其功能如下：- 拥有可用于多Spark作业或多客户端长时间运行的SparkContext；
+同时管理多个SparkContext，并在集群（YARN / Mesos）而不是Livy服务器上运行它们，以实现良好的容错性和并发性； 可以通过预先编译好的JAR、代码片段或是java/scala客户端API将Spark作业提交到远端的Spark集群上执行。 建立测试环境 今天在GitHub: mryqu/vagrant-hadoop-hive-spark提交了add livy support，因此可以在Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中使用Livy 0.5.0服务。 使用Livy的REST API 创建交互式会话 curl -X POST -d &amp;#39;{&amp;#34;kind&amp;#34;: &amp;#34;spark&amp;#34;}&amp;#39; -H &amp;#34;Content-Type: application/json&amp;#34; http://10.211.55.101:8998/sessions { &amp;#34;id&amp;#34;:0, &amp;#34;appId&amp;#34;:null, &amp;#34;owner&amp;#34;:null, &amp;#34;proxyUser&amp;#34;:null, &amp;#34;state&amp;#34;:&amp;#34;starting&amp;#34;, &amp;#34;kind&amp;#34;:&amp;#34;spark&amp;#34;, &amp;#34;appInfo&amp;#34;:{ &amp;#34;driverLogUrl&amp;#34;:null, &amp;#34;sparkUiUrl&amp;#34;:null }, &amp;#34;log&amp;#34;:[ &amp;#34;stdout: &amp;#34;, &amp;#34; stderr: &amp;#34; ] } 成功创建会话0，kind指定为spark，如果之后提交的代码中没有指定kind，则使用此处的会话默认kind。
+查询交互式会话列表 curl http://10.211.55.101:8998/sessions { &amp;#34;from&amp;#34;:0, &amp;#34;total&amp;#34;:1, &amp;#34;sessions&amp;#34;:[ { &amp;#34;id&amp;#34;:0, &amp;#34;appId&amp;#34;:null, &amp;#34;owner&amp;#34;:null, &amp;#34;proxyUser&amp;#34;:null, &amp;#34;state&amp;#34;:&amp;#34;idle&amp;#34;, &amp;#34;kind&amp;#34;:&amp;#34;spark&amp;#34;, &amp;#34;appInfo&amp;#34;:{ &amp;#34;driverLogUrl&amp;#34;:null, &amp;#34;sparkUiUrl&amp;#34;:null }, &amp;#34;log&amp;#34;:[ &amp;#34;2018-07-18 03:19:16 INFO BlockManager:54 - Using org.</description></item><item><title>[Spark] SparkCatalogAPI使用</title><link>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</link><pubDate>Mon, 16 Jul 2018 06:12:39 +0000</pubDate><guid>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</guid><description>Catalog API简介 Spark中的DataSet和Dataframe API支持结构化分析。结构化分析的一个重要的方面是管理元数据。这些元数据可能是一些临时元数据（比如临时表）、SQLContext上注册的UDF以及持久化的元数据（比如Hivemeta store或者HCatalog）。 Spark2中添加了标准的API（称为catalog）来访问Spark SQL中的元数据。这个API既可以操作Spark SQL，也可以操作Hive元数据。
+Catalog API使用 查询数据库 scala&amp;gt; spark.catalog.listDatabases.show(false) +-------+---------------------+----------------------------------------+ |name |description |locationUri | +-------+---------------------+----------------------------------------+ |default|Default Hive database|hdfs://10.211.55.101/user/hive/warehouse| +-------+---------------------+----------------------------------------+ scala&amp;gt; spark.catalog.currentDatabase res4: String = default 查询表 scala&amp;gt; spark.catalog.listTables.show(false) +----+--------+----------------------------------------+---------+-----------+ |name|database|description |tableType|isTemporary| +----+--------+----------------------------------------+---------+-----------+ |emp |default |null |MANAGED |false | |emp2|default |Imported by sqoop on 2018/07/10 04:23:26|MANAGED |false | |emp3|default |Imported by sqoop on 2018/07/10 06:13:17|MANAGED |false | |yqu1|default |null |MANAGED |false | |yqu2|default |null |MANAGED |false | +----+--------+----------------------------------------+---------+-----------+ 下面的示例用于创建不同TableType的表：</description></item><item><title>[Spark] Spark读取HBase</title><link>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</link><pubDate>Thu, 12 Jul 2018 05:40:01 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</guid><description>Spark读取Hbase有以下几张方式：
+Spark的JavaSparkContext.newAPIHadoopRDD / SparkContext.newAPIHadoopRDD方法 HBase的hbase-spark Hortonworks的Spark HBase Connector Cloudera labs的SparkOnHBase 本文就Spark自带的方法进行示范和演示。 HBase数据库 Spark范例 HelloSparkHBase.java import org.apache.spark.SparkContext; import org.apache.spark.api.java.JavaPairRDD; import org.apache.spark.api.java.JavaRDD; import org.apache.spark.api.java.JavaSparkContext; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import org.apache.spark.api.java.function.Function; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.hbase.HBaseConfiguration; import org.apache.hadoop.hbase.TableName; import org.apache.hadoop.hbase.client.*; import org.apache.hadoop.hbase.mapreduce.TableInputFormat; import org.apache.hadoop.hbase.io.ImmutableBytesWritable; import org.apache.hadoop.hbase.util.Bytes; import scala.Tuple2; public class HelloSparkHBase { public static void main(String[] args) { try { Configuration conf = HBaseConfiguration.create(); conf.set(TableInputFormat.INPUT_TABLE, &amp;#34;student&amp;#34;); SparkSession spark = SparkSession .builder() .appName(&amp;#34; .</description></item><item><title>[Zeppelin] 尝试Zeppelin</title><link>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</link><pubDate>Tue, 10 Jul 2018 05:50:35 +0000</pubDate><guid>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</guid><description>Zeppelin简介 Apache Zeppelin是一个让交互式数据分析变得可行的基于网页的开源框架。Zeppelin提供了数据捏取、发现、分析、可视化与协作等功能。 Zeppelin 是一个提供交互数据分析且基于Web的笔记本。方便你做出可数据驱动的、可交互且可协作的精美文档，并且支持多种语言，包括 Scala(使用 Apache Spark)、Python(Apache Spark)、SparkSQL、 Hive、 Markdown、Shell等等。
 试验环境搭建 跟之前的博文[Spark] 使用Spark2.30读写Hive2.3.3一样，本文的环境继续使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。不过当前scripts/common.sh中ZEPPELIN_VERSION=0.7.2，而Zeppelin 0.7.2已不可访问，需要改成最新版0.8.0。 按照GitHub: martinprobson/vagrant-hadoop-hive-spark说明执行zeppelin-daemon.sh start，结果说权限不足，因此我只好兜一圈开启Zeppelin守护进程。
-vagrant@node1:~$ zeppelin-daemon.sh start find: File system loop detected; ‘/home/ubuntu/zeppelin/zeppelin-0.8.0-bin-netinst’ is part of the same file system loop as ‘/home/ubuntu/zeppelin’. Pid dir doesn&#39;t exist, create /home/ubuntu/zeppelin/run mkdir: cannot create directory ‘/home/ubuntu/zeppelin/run’: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 187: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 189: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] 使用Spark2.30读写MySQL</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</link>
-      <pubDate>Wed, 04 Jul 2018 06:36:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</guid>
-      <description>本博文是[Spark] 使用Spark2.30读写Hive2.3.3的姊妹篇，环境及Java项目也是使用上一博文中的。
-Spark项目 目录结构 vagrant@node1:~/HelloSparkHive$ ls build build.gradle src vagrant@node1:~/HelloSparkHive$ rm -rf build vagrant@node1:~/HelloSparkHive$ tree . ├── build.gradle └── src └── main └── java └── com └── yqu └── sparkhive ├── HelloSparkHiveDriver.java └── HelloSparkMysqlDriver.java 6 directories, 3 files  src/main/java/com/yqu/sparkhive/HelloSparkMysqlDriver.java 该范例加载Hive中的emp表，存储到MySQL的test数据库中，然后读取MySQL数据库加载emp表，由此完成MySQL读写示例。
-package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import java.io.File; import java.sql.*; public class HelloSparkMysqlDriver { private static boolean setup() { Connection conn = null; Statement stmt = null; try { Class.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] 使用Spark2.30读写Hive2.3.3</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</link>
-      <pubDate>Tue, 03 Jul 2018 06:04:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</guid>
-      <description>试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
-在Hive上加载emp表 hive&amp;gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;|&#39; ; hive&amp;gt; LOAD DATA LOCAL INPATH &#39;/usr/local/hive/examples/files/emp2.txt&#39; OVERWRITE INTO TABLE emp;  安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
-vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.</description>
-    </item>
-    
-    <item>
-      <title>[Spark]Spark和Hive集成</title>
-      <link>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</link>
-      <pubDate>Wed, 03 Aug 2016 06:10:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</guid>
-      <description>在前一博文[Spark] Spark2集群安装实践中安装了Spark后，发现和Hive还没有集成在一起，此外Hive自己也不好使了。
-hadoop@node50064:~$hive ls: cannot access /usr/local/spark/lib/spark-assembly-*.jar: No such file or directory .................  原来Spark assemblyjar在Spark2中已经不存在了，而Hive脚本判断系统存在Spark后仍要使用，需要将$HIVE_HOME/bin/hive中的这部分代码注释掉：
-# add Spark assembly jar to the classpath #if [[ -n &amp;quot;$SPARK_HOME&amp;quot; ]] #then # sparkAssemblyPath=`ls ${SPARK_HOME}/lib/spark-assembly-*.jar` # CLASSPATH=&amp;quot;${CLASSPATH}:${sparkAssemblyPath}&amp;quot; #fi  至此，Hive本身工作正常。下面开始Spark和Hive集成配置工作。 - Spark SQL CLI需要使用到Hive Metastore，因此需要在[Hive] 安装Hive 1.2.x的基础上继续修改$HIVE_HOME/conf/hive-site.xml：- 将$HIVE_HOME/conf/hive-site.xml软连接到$SPARK_HOME/conf目录中:
- cd $SPARK_HOME/conf ln -s $HIVE_HOME/conf/hive-site.xml   启动Hive Metastore和HiveServer2：  hive --service metastore &amp;amp; hive --service hiveserver2 &amp;amp;   下面进行验证工作：
-hadoop@node50064:~$ hive hive&amp;gt; use default; OK Time taken: 0.</description>
-    </item>
-    
-    <item>
-      <title>Hive与Spark的版本搭配</title>
-      <link>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</link>
-      <pubDate>Tue, 02 Aug 2016 05:46:59 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</guid>
-      <description>Hive on Spark: Getting Started里面介绍了如果Hive的查询引擎选择Spark的话，Hive所需相关配置。如果用一个不兼容的Hive和Spark版本，有潜在风险，例如Spark2就没有spark-assembly-*.jar可供低版本Hive使用。 问题来了，么查找已测试的Hive和Spark版本对呢？ 网上有人说看Hive代码根路径下的pom.xml。例如Hive branch-1.2中pom.xml包含spark.version为1.3.1，这说明官方在进行Hive1.2.0测试时用的Spark 1.3.1。 此外，也可借鉴C家、H家和MapR技术栈的版本搭配： - CDH 5 Packaging and Tarball Information中列出了CHD5中技术栈的版本情况。 - 在Hortonworks Data Platform列出了HDP所用的技术栈的版本情况。- MapR Ecosystem Support Matrix中列出了MapR中技术栈的版本情况。</description>
-    </item>
-    
-    <item>
-      <title>[Spark] Set spark.yarn.archive</title>
-      <link>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</link>
-      <pubDate>Mon, 01 Aug 2016 05:30:15 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</guid>
-      <description>提交Spark作业时，遇到没有设置spark.yarn.jars和spark.yarn.archive的告警：
-16/08/01 05:01:19 INFO yarn.Client: Preparing resources for our AM container 16/08/01 05:01:20 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME. 16/08/01 05:01:23 INFO yarn.Client: Uploading resource file:/tmp/spark-AA-BB-CC-DD-EE/__spark_libs__XXX.zip -&amp;gt; hdfs://node50064.mryqu.com:9000/user/hadoop/.sparkStaging/application_1469998883123_0001/__spark_libs__XXX.zip  解决方案：
-cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archive.zip echo &amp;quot;spark.yarn.archive=hdfs:///node50064.mryqu.com:9000/user/hadoop/spark-archive.zip&amp;quot; &amp;gt;&amp;gt; conf/spark-defaults.conf  如系统没有安装zip，可执行sudoapt-get install zip进行安装。 这样就不用每次上传Spark的jar文件到HDFS，YARN会找到Spark的库以用于运行作业。</description>
-    </item>
-    
-    <item>
-      <title>[Spark]Spark2集群安装实践</title>
-      <link>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Thu, 28 Jul 2016 05:47:45 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</guid>
-      <description>从Spark2.0.0开始，Spark使用Scala2.11构建，不再对Java7和Python2.6进行支持。当然不编译Spark源码的话，无需安装Scala。
-Spark集群模型 Spark应用作为集群上一组独立进程运行，由你的主程序（即驱动程序）的SparkContext对象管理。为了在集群上运行，SparkContext可以与若干类型集群管理器（Spark自带的独立集群管理器、Mesos、YARN）连接，集群管理器为应用分配资源。Spark需要集群节点上的执行者（executor）为应用执行计算或存储数据。接下来，它将应用代码发送给执行者，最后SparkContext将人物发往执行者进行运行。准备工作 安装Scala # Scala Installation wget www.scala-lang.org/files/archive/scala-2.11.8.deb sudo dpkg -i scala-2.11.8.deb # sbt Installation echo &amp;quot;deb https://dl.bintray.com/sbt/debian /&amp;quot; | sudo tee -a /etc/apt/sources.list.d/sbt.list sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823 sudo apt-get update sudo apt-get install sbt  安装Java8 sudo apt-add-repository ppa:webupd8team/java -y sudo apt-get update -y sudo apt-get install oracle-java8-installer -y sudo apt-get install oracle-java8-set-default  环境变量设置 在~/.bashrc中添加：
-# Set SPARK_HOME export SPARK_HOME=/usr/local/spark export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin  最后通过source~/.</description>
-    </item>
-    
-  </channel>
-</rss>
+vagrant@node1:~$ zeppelin-daemon.sh start find: File system loop detected; ‘/home/ubuntu/zeppelin/zeppelin-0.8.0-bin-netinst’ is part of the same file system loop as ‘/home/ubuntu/zeppelin’. Pid dir doesn&amp;#39;t exist, create /home/ubuntu/zeppelin/run mkdir: cannot create directory ‘/home/ubuntu/zeppelin/run’: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 187: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 189: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.</description></item><item><title>[Spark] 使用Spark2.30读写MySQL</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</link><pubDate>Wed, 04 Jul 2018 06:36:25 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</guid><description>本博文是[Spark] 使用Spark2.30读写Hive2.3.3的姊妹篇，环境及Java项目也是使用上一博文中的。
+Spark项目 目录结构 vagrant@node1:~/HelloSparkHive$ ls build build.gradle src vagrant@node1:~/HelloSparkHive$ rm -rf build vagrant@node1:~/HelloSparkHive$ tree . ├── build.gradle └── src └── main └── java └── com └── yqu └── sparkhive ├── HelloSparkHiveDriver.java └── HelloSparkMysqlDriver.java 6 directories, 3 files src/main/java/com/yqu/sparkhive/HelloSparkMysqlDriver.java 该范例加载Hive中的emp表，存储到MySQL的test数据库中，然后读取MySQL数据库加载emp表，由此完成MySQL读写示例。
+package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import java.io.File; import java.sql.*; public class HelloSparkMysqlDriver { private static boolean setup() { Connection conn = null; Statement stmt = null; try { Class.</description></item><item><title>[Spark] 使用Spark2.30读写Hive2.3.3</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</link><pubDate>Tue, 03 Jul 2018 06:04:31 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</guid><description>试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
+在Hive上加载emp表 hive&amp;gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY &amp;#39;|&amp;#39; ; hive&amp;gt; LOAD DATA LOCAL INPATH &amp;#39;/usr/local/hive/examples/files/emp2.txt&amp;#39; OVERWRITE INTO TABLE emp; 安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
+vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.</description></item><item><title>[Spark]Spark和Hive集成</title><link>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</link><pubDate>Wed, 03 Aug 2016 06:10:01 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</guid><description>在前一博文[Spark] Spark2集群安装实践中安装了Spark后，发现和Hive还没有集成在一起，此外Hive自己也不好使了。
+hadoop@node50064:~$hive ls: cannot access /usr/local/spark/lib/spark-assembly-*.jar: No such file or directory ................. 原来Spark assemblyjar在Spark2中已经不存在了，而Hive脚本判断系统存在Spark后仍要使用，需要将$HIVE_HOME/bin/hive中的这部分代码注释掉：
+# add Spark assembly jar to the classpath #if [[ -n &amp;#34;$SPARK_HOME&amp;#34; ]] #then # sparkAssemblyPath=`ls ${SPARK_HOME}/lib/spark-assembly-*.jar` # CLASSPATH=&amp;#34;${CLASSPATH}:${sparkAssemblyPath}&amp;#34; #fi 至此，Hive本身工作正常。下面开始Spark和Hive集成配置工作。
+Spark SQL CLI需要使用到Hive Metastore，因此需要在[Hive] 安装Hive 1.2.x的基础上继续修改$HIVE_HOME/conf/hive-site.xml： 将$HIVE_HOME/conf/hive-site.xml软连接到$SPARK_HOME/conf目录中: cd $SPARK_HOME/conf ln -s $HIVE_HOME/conf/hive-site.xml 启动Hive Metastore和HiveServer2： hive --service metastore &amp;amp; hive --service hiveserver2 &amp;amp; 下面进行验证工作：
+hadoop@node50064:~$ hive hive&amp;gt; use default; OK Time taken: 0.942 seconds hive&amp;gt; show tables; OK apachelog b complex_datatypes_example dummy empinfo irisdata primitive_dataytpes_example testhivedrivertable Time taken: 0.</description></item><item><title>Hive与Spark的版本搭配</title><link>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</link><pubDate>Tue, 02 Aug 2016 05:46:59 +0000</pubDate><guid>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</guid><description> Hive on Spark: Getting Started里面介绍了如果Hive的查询引擎选择Spark的话，Hive所需相关配置。如果用一个不兼容的Hive和Spark版本，有潜在风险，例如Spark2就没有spark-assembly-*.jar可供低版本Hive使用。 问题来了，么查找已测试的Hive和Spark版本对呢？ 网上有人说看Hive代码根路径下的pom.xml。例如Hive branch-1.2中pom.xml包含spark.version为1.3.1，这说明官方在进行Hive1.2.0测试时用的Spark 1.3.1。 此外，也可借鉴C家、H家和MapR技术栈的版本搭配：
+CDH 5 Packaging and Tarball Information中列出了CHD5中技术栈的版本情况。 在Hortonworks Data Platform列出了HDP所用的技术栈的版本情况。 MapR Ecosystem Support Matrix中列出了MapR中技术栈的版本情况。</description></item><item><title>[Spark] Set spark.yarn.archive</title><link>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</link><pubDate>Mon, 01 Aug 2016 05:30:15 +0000</pubDate><guid>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</guid><description>提交Spark作业时，遇到没有设置spark.yarn.jars和spark.yarn.archive的告警：
+16/08/01 05:01:19 INFO yarn.Client: Preparing resources for our AM container 16/08/01 05:01:20 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME. 16/08/01 05:01:23 INFO yarn.Client: Uploading resource file:/tmp/spark-AA-BB-CC-DD-EE/__spark_libs__XXX.zip -&amp;gt; hdfs://node50064.mryqu.com:9000/user/hadoop/.sparkStaging/application_1469998883123_0001/__spark_libs__XXX.zip 解决方案：
+cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archive.zip echo &amp;#34;spark.yarn.archive=hdfs:///node50064.mryqu.com:9000/user/hadoop/spark-archive.zip&amp;#34; &amp;gt;&amp;gt; conf/spark-defaults.conf 如系统没有安装zip，可执行sudoapt-get install zip进行安装。 这样就不用每次上传Spark的jar文件到HDFS，YARN会找到Spark的库以用于运行作业。</description></item><item><title>[Spark]Spark2集群安装实践</title><link>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</link><pubDate>Thu, 28 Jul 2016 05:47:45 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</guid><description>从Spark2.0.0开始，Spark使用Scala2.11构建，不再对Java7和Python2.6进行支持。当然不编译Spark源码的话，无需安装Scala。
+Spark集群模型 Spark应用作为集群上一组独立进程运行，由你的主程序（即驱动程序）的SparkContext对象管理。为了在集群上运行，SparkContext可以与若干类型集群管理器（Spark自带的独立集群管理器、Mesos、YARN）连接，集群管理器为应用分配资源。Spark需要集群节点上的执行者（executor）为应用执行计算或存储数据。接下来，它将应用代码发送给执行者，最后SparkContext将人物发往执行者进行运行。
+准备工作 安装Scala # Scala Installation wget www.scala-lang.org/files/archive/scala-2.11.8.deb sudo dpkg -i scala-2.11.8.deb # sbt Installation echo &amp;#34;deb https://dl.bintray.com/sbt/debian /&amp;#34; | sudo tee -a /etc/apt/sources.list.d/sbt.list sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823 sudo apt-get update sudo apt-get install sbt 安装Java8 sudo apt-add-repository ppa:webupd8team/java -y sudo apt-get update -y sudo apt-get install oracle-java8-installer -y sudo apt-get install oracle-java8-set-default 环境变量设置 在~/.bashrc中添加：
+# Set SPARK_HOME export SPARK_HOME=/usr/local/spark export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin 最后通过source~/.bashrc刷新配置文件。
+安装Spark （在node50064上）下载并配置Spark wget http://d3kbcqa49mib13.</description></item></channel></rss>

@@ -1,50 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Microsoft on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/microsoft/</link>
-    <description>Recent content in Microsoft on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Oct 2016 05:59:43 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/microsoft/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Microsoft OneDrive认证和登录</title>
-      <link>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
-      <pubDate>Thu, 13 Oct 2016 05:59:43 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
-      <description>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>microsoft on Mryqu's Notes</title><link>https://mryqu.github.io/tags/microsoft/</link><description>Recent content in microsoft on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 13 Oct 2016 05:59:43 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/microsoft/index.xml" rel="self" type="application/rss+xml"/><item><title>Microsoft OneDrive认证和登录</title><link>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link><pubDate>Thu, 13 Oct 2016 05:59:43 +0000</pubDate><guid>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid><description>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
 OneDrive认证 OneDrive authentication and sign-in有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从https://dev.onedrive.com/auth/get-token.js中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为https://dev.onedrive.com/auth/callback.htm。而 OneDrive authentication and sign-in 中提到对于移动应用和桌面应用，跳转URI应设为https://login.live.com/oauth20_desktop.srf （注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。
 Token Flow测试 HTTP GET请求如下：
-https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  响应如下，认证失败：
-https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;amp;error_description=The+provided+value+for+the+input+parameter+&#39;response_type&#39;+is+not+allowed+for+this+client.+Expected+value+is+&#39;code&#39;.  找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！Code Flow测试  用于用户登录的HTTP GET请求如下：  https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=token&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  请求用户授权：此时浏览器上地址变为：  https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;uaid=78...e6&amp;amp;pid=...16&amp;amp;mkt=EN-US&amp;amp;scft=DSA...hfC&amp;amp;contextid=7F...D6&amp;amp;mkt=EN-US&amp;amp;uiflavor=host&amp;amp;id=27...69&amp;amp;uaid=78...e6&amp;amp;client_id=00...42&amp;amp;rd=none&amp;amp;scope=&amp;amp;cscope=onedrive.readonly+wl.signin  最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数：  POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code=M9...5e-b...a-e...5-6685-d...06&amp;amp;grant_type=authorization_code   在OneDrive API中使用获得的访问令牌：  参考 Getting started with OneDrive API</description>
-    </item>
-    
-    <item>
-      <title>Hello Microsoft OneDrive API</title>
-      <link>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</link>
-      <pubDate>Wed, 12 Oct 2016 06:14:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</guid>
-      <description>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
-测试源 为了省事，就用我自己私人的OneDrive做测试吧。获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&amp;rdquo;050709大同&amp;rdquo;子目录，该子目录的id为&amp;rdquo;712B21FCE8E08C92!112&amp;rdquo;。从整个响应内容可知，根目录包含&amp;rdquo;文档&amp;rdquo;子目录，其id为&amp;rdquo;712B21FCE8E08C92!442&amp;rdquo;。
-查看Drive &amp;ldquo;文档&amp;rdquo;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
+https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf 响应如下，认证失败：
+https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;amp;error_description=The+provided+value+for+the+input+parameter+&amp;#39;response_type&amp;#39;+is+not+allowed+for+this+client.+Expected+value+is+&amp;#39;code&amp;#39;. 找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！
+Code Flow测试 用于用户登录的HTTP GET请求如下： https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=token&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf 请求用户授权：此时浏览器上地址变为： https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;uaid=78...e6&amp;amp;pid=...16&amp;amp;mkt=EN-US&amp;amp;scft=DSA...hfC&amp;amp;contextid=7F...D6&amp;amp;mkt=EN-US&amp;amp;uiflavor=host&amp;amp;id=27...69&amp;amp;uaid=78...e6&amp;amp;client_id=00...42&amp;amp;rd=none&amp;amp;scope=&amp;amp;cscope=onedrive.readonly+wl.signin 最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数： POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code=M9...5e-b...a-e...5-6685-d...06&amp;amp;grant_type=authorization_code 在OneDrive API中使用获得的访问令牌： 参考 Getting started with OneDrive API SDKs for OneDrive integration Registering your app for OneDrive API OneDrive authentication and sign-in Sign-in Microsoft Account &amp;amp; Azure AD users in a single app Develop with the OneDrive API getting #error=unsupported_response_type&amp;amp;error_description=AADSTS70005: with token request</description></item><item><title>Hello Microsoft OneDrive API</title><link>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</link><pubDate>Wed, 12 Oct 2016 06:14:09 +0000</pubDate><guid>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</guid><description>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
+测试源 为了省事，就用我自己私人的OneDrive做测试吧。 获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。
+测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&amp;quot;050709大同&amp;quot;子目录，该子目录的id为&amp;quot;712B21FCE8E08C92!112&amp;quot;。从整个响应内容可知，根目录包含&amp;quot;文档&amp;quot;子目录，其id为&amp;quot;712B21FCE8E08C92!442&amp;quot;。
+查看Drive &amp;ldquo;文档&amp;quot;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
 获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
-参考 Develop with the OneDrive API</description>
-    </item>
-    
-    <item>
-      <title>Tableau不支持导入OneDrive文件？</title>
-      <link>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Sun, 02 Oct 2016 05:39:38 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</guid>
-      <description>没有发现Tableau的Microsoft OneDrive连接器，OData连接器和WebData连接器都不成。查了一下Tableau社区，就寥寥无几的几个帖子提到OneDrive。其中一个帖子提到了Using OneDrive as a Tableau Data Source。这个博文在2015年5月提到Tableau还不支持直连OneDrive上的文件，建议用OneDrive SyncApp同步到Tableau服务器上再导入。 貌似现在还是如此！！</description>
-    </item>
-    
-  </channel>
-</rss>
+参考 Develop with the OneDrive API</description></item><item><title>Tableau不支持导入OneDrive文件？</title><link>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</link><pubDate>Sun, 02 Oct 2016 05:39:38 +0000</pubDate><guid>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</guid><description>没有发现Tableau的Microsoft OneDrive连接器，OData连接器和WebData连接器都不成。查了一下Tableau社区，就寥寥无几的几个帖子提到OneDrive。其中一个帖子提到了Using OneDrive as a Tableau Data Source。这个博文在2015年5月提到Tableau还不支持直连OneDrive上的文件，建议用OneDrive SyncApp同步到Tableau服务器上再导入。 貌似现在还是如此！！</description></item></channel></rss>

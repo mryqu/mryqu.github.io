@@ -1,166 +1,21 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>通过Java反射操作注解 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="通过Java反射操作注解">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="通过Java反射操作注解 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/" itemprop="url">
-        通过Java反射操作注解
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-06-29">
-    2014-06-29
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">469 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。</p>
-
-<h4 id="myannotation-java">MyAnnotation.java</h4>
-
-<pre><code>package com.yqu.reflection.annotation;
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>通过Java反射操作注解 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="通过Java反射操作注解"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="通过Java反射操作注解 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/ itemprop=url>通过Java反射操作注解</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-29">2014-06-29</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>456 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。</p><h4 id=myannotationjava>MyAnnotation.java</h4><pre tabindex=0><code>package com.yqu.reflection.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -170,52 +25,33 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 //@Target(ElementType.TYPE)
 public @interface MyAnnotation {
-  public String name() default &quot;[unknown name]&quot;;
-  public String value() default &quot;[unassigned value]&quot;;
+  public String name() default &#34;[unknown name]&#34;;
+  public String value() default &#34;[unassigned value]&#34;;
 }
-</code></pre>
-
-<p>定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。
-@Target指定此注解的作用域：
-- TYPE：用于类、接口、注解类和枚举
-- CONSTRUCTOR：用于构造方法
-- LOCAL_VARIABLE：用于本地变量
-- FIELD：用于类的属性(包括枚举常量)
-- METHOD：用于方法
-- PACKAGE：用于包
-- PARAMETER：用于方法的参数
-- ANNOTATION_TYPE：用于注解类
-- TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前
-- TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期：
-- SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。
-- CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。
-- RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。</p>
-
-<h4 id="theclass-java">TheClass.java</h4>
-
-<pre><code>package com.yqu.reflection.annotation;
+</code></pre><p>定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。
+@Target指定此注解的作用域：</p><ul><li>TYPE：用于类、接口、注解类和枚举</li><li>CONSTRUCTOR：用于构造方法</li><li>LOCAL_VARIABLE：用于本地变量</li><li>FIELD：用于类的属性(包括枚举常量)</li><li>METHOD：用于方法</li><li>PACKAGE：用于包</li><li>PARAMETER：用于方法的参数</li><li>ANNOTATION_TYPE：用于注解类</li><li>TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前</li><li>TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期：</li><li>SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。</li><li>CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。</li><li>RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。</li></ul><h4 id=theclassjava>TheClass.java</h4><pre tabindex=0><code>package com.yqu.reflection.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@MyAnnotation(name = &quot;classAnnotation&quot;, value = &quot;Hello Class&quot;)
+@MyAnnotation(name = &#34;classAnnotation&#34;, value = &#34;Hello Class&#34;)
 // I18NOK:CLS
 public class TheClass {
- @MyAnnotation(name = &quot;fieldAnnotation&quot;, value = &quot;Hello Field&quot;)
+ @MyAnnotation(name = &#34;fieldAnnotation&#34;, value = &#34;Hello Field&#34;)
  public String theField = null;
 
  public TheClass() {
  }
 
- @MyAnnotation(name = &quot;methodAnnotation&quot;, value = &quot;Hello Method&quot;)
+ @MyAnnotation(name = &#34;methodAnnotation&#34;, value = &#34;Hello Method&#34;)
  public void doSomething() {
-  System.out.println(&quot;doSomething&quot;);
+  System.out.println(&#34;doSomething&#34;);
  }
 
  public static void doSomethingElse(
-   @MyAnnotation(name = &quot;paramAnnotation&quot;, value = &quot;Hello Parameter&quot;) String param) {
-  System.out.println(&quot;doSomethingElse:&quot; + param);
+   @MyAnnotation(name = &#34;paramAnnotation&#34;, value = &#34;Hello Parameter&#34;) String param) {
+  System.out.println(&#34;doSomethingElse:&#34; + param);
  }
 
  public static void testClassAnnotation() {
@@ -225,38 +61,38 @@ public class TheClass {
   for (Annotation annotation : annotations) {
    if (annotation instanceof MyAnnotation) {
     MyAnnotation myAnnotation = (MyAnnotation) annotation;
-    System.out.println(&quot;name: &quot; + myAnnotation.name());
-    System.out.println(&quot;value: &quot; + myAnnotation.value());
+    System.out.println(&#34;name: &#34; + myAnnotation.name());
+    System.out.println(&#34;value: &#34; + myAnnotation.value());
    }
   }
 
   Annotation annotation = aClass.getAnnotation(MyAnnotation.class);
   if (annotation instanceof MyAnnotation) {
    MyAnnotation myAnnotation = (MyAnnotation) annotation;
-   System.out.println(&quot;name: &quot; + myAnnotation.name());
-   System.out.println(&quot;value: &quot; + myAnnotation.value());
+   System.out.println(&#34;name: &#34; + myAnnotation.name());
+   System.out.println(&#34;value: &#34; + myAnnotation.value());
   }
  }
 
  public static void testMethodAnnotation() throws NoSuchMethodException,
    SecurityException {
   Class aClass = TheClass.class;
-  Method method = aClass.getMethod(&quot;doSomething&quot;, null);
+  Method method = aClass.getMethod(&#34;doSomething&#34;, null);
 
   Annotation[] annotations = method.getDeclaredAnnotations();
   for (Annotation annotation : annotations) {
    if (annotation instanceof MyAnnotation) {
     MyAnnotation myAnnotation = (MyAnnotation) annotation;
-    System.out.println(&quot;name: &quot; + myAnnotation.name());
-    System.out.println(&quot;value: &quot; + myAnnotation.value());
+    System.out.println(&#34;name: &#34; + myAnnotation.name());
+    System.out.println(&#34;value: &#34; + myAnnotation.value());
    }
   }
 
   Annotation annotation = method.getAnnotation(MyAnnotation.class);
   if (annotation instanceof MyAnnotation) {
    MyAnnotation myAnnotation = (MyAnnotation) annotation;
-   System.out.println(&quot;name: &quot; + myAnnotation.name());
-   System.out.println(&quot;value: &quot; + myAnnotation.value());
+   System.out.println(&#34;name: &#34; + myAnnotation.name());
+   System.out.println(&#34;value: &#34; + myAnnotation.value());
   }
 
  }
@@ -264,7 +100,7 @@ public class TheClass {
  public static void testParameterAnnotation() throws NoSuchMethodException,
    SecurityException {
   Class aClass = TheClass.class;
-  Method method = aClass.getMethod(&quot;doSomethingElse&quot;,
+  Method method = aClass.getMethod(&#34;doSomethingElse&#34;,
     new Class[] { String.class });
 
   Annotation[][] parameterAnnotations = method.getParameterAnnotations();
@@ -277,9 +113,9 @@ public class TheClass {
    for (Annotation annotation : annotations) {
     if (annotation instanceof MyAnnotation) {
      MyAnnotation myAnnotation = (MyAnnotation) annotation;
-     System.out.println(&quot;param: &quot; + parameterType.getName());
-     System.out.println(&quot;name : &quot; + myAnnotation.name());
-     System.out.println(&quot;value: &quot; + myAnnotation.value());
+     System.out.println(&#34;param: &#34; + parameterType.getName());
+     System.out.println(&#34;name : &#34; + myAnnotation.name());
+     System.out.println(&#34;value: &#34; + myAnnotation.value());
     }
    }
   }
@@ -288,44 +124,40 @@ public class TheClass {
  public static void testFieldAnnotation() throws NoSuchFieldException,
    SecurityException {
   Class aClass = TheClass.class;
-  Field field = aClass.getField(&quot;theField&quot;);
+  Field field = aClass.getField(&#34;theField&#34;);
 
   Annotation[] annotations = field.getDeclaredAnnotations();
   for (Annotation annotation : annotations) {
    if (annotation instanceof MyAnnotation) {
     MyAnnotation myAnnotation = (MyAnnotation) annotation;
-    System.out.println(&quot;name: &quot; + myAnnotation.name());
-    System.out.println(&quot;value: &quot; + myAnnotation.value());
+    System.out.println(&#34;name: &#34; + myAnnotation.name());
+    System.out.println(&#34;value: &#34; + myAnnotation.value());
    }
   }
 
   Annotation annotation = field.getAnnotation(MyAnnotation.class);
   if (annotation instanceof MyAnnotation) {
    MyAnnotation myAnnotation = (MyAnnotation) annotation;
-   System.out.println(&quot;name: &quot; + myAnnotation.name());
-   System.out.println(&quot;value: &quot; + myAnnotation.value());
+   System.out.println(&#34;name: &#34; + myAnnotation.name());
+   System.out.println(&#34;value: &#34; + myAnnotation.value());
   }
  }
 
  public static void main(String[] args) throws Exception {
   testClassAnnotation();
 
-  System.out.println(&quot;------------------&gt;&quot;);
+  System.out.println(&#34;------------------&gt;&#34;);
   testMethodAnnotation();
 
-  System.out.println(&quot;------------------&gt;&quot;);
+  System.out.println(&#34;------------------&gt;&#34;);
   testParameterAnnotation();
 
-  System.out.println(&quot;------------------&gt;&quot;);
+  System.out.println(&#34;------------------&gt;&#34;);
   testFieldAnnotation();
  }
 
 }
-</code></pre>
-
-<h4 id="测试结果">测试结果</h4>
-
-<pre><code>name: classAnnotation
+</code></pre><h4 id=测试结果>测试结果</h4><pre tabindex=0><code>name: classAnnotation
 value: Hello Class
 name: classAnnotation
 value: Hello Class
@@ -343,251 +175,47 @@ name: fieldAnnotation
 value: Hello Field
 name: fieldAnnotation
 value: Hello Field
-</code></pre>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：通过Java反射操作注解
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/java" rel="tag" title="java">#java#</a>
-    
-    <a href="/tags/annotation" rel="tag" title="annotation">#annotation#</a>
-    
-    <a href="/tags/reflection" rel="tag" title="reflection">#reflection#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/sql%E4%B8%AD%E7%9A%84%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/" rel="next" title="SQL中的（稀疏）矩阵运算">
-        <i class="fa fa-chevron-left"></i> SQL中的（稀疏）矩阵运算
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/lxml.md.soupparser%E5%BC%95%E5%85%A5beautifulsoup_4%E7%9A%84work-around/" rel="prev" title="lxml.html.soupparser引入BeautifulSoup 4的work-around">
-        lxml.html.soupparser引入BeautifulSoup 4的work-around <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/";
-this.page.identifier = "https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#myannotation-java">MyAnnotation.java</a></li>
-<li><a href="#theclass-java">TheClass.java</a></li>
-<li><a href="#测试结果">测试结果</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：通过Java反射操作注解<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/java rel=tag title=java>#java#</a>
+<a href=/tags/annotation rel=tag title=annotation>#annotation#</a>
+<a href=/tags/reflection rel=tag title=reflection>#reflection#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/sql%E4%B8%AD%E7%9A%84%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/ rel=next title=SQL中的（稀疏）矩阵运算><i class="fa fa-chevron-left"></i> SQL中的（稀疏）矩阵运算</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/lxml.md.soupparser%E5%BC%95%E5%85%A5beautifulsoup_4%E7%9A%84work-around/ rel=prev title=lxml.html.soupparser引入BeautifulSoup 4的work-around>lxml.html.soupparser引入BeautifulSoup 4的work-around <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/",this.page.identifier="https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

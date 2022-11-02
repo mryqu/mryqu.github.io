@@ -1,53 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Modularization on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/modularization/</link>
-    <description>Recent content in Modularization on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 23 Aug 2015 06:35:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/modularization/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[OpenUI5] sap.ui.define源码分析</title>
-      <link>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
-      <pubDate>Sun, 23 Aug 2015 06:35:00 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
-      <description>jQuery.sap.define通过名字、依赖、模块值或工厂定义一个Javascript模块。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>modularization on Mryqu's Notes</title><link>https://mryqu.github.io/tags/modularization/</link><description>Recent content in modularization on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 23 Aug 2015 06:35:00 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/modularization/index.xml" rel="self" type="application/rss+xml"/><item><title>[OpenUI5] sap.ui.define源码分析</title><link>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link><pubDate>Sun, 23 Aug 2015 06:35:00 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_sap.ui.define%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid><description>jQuery.sap.define通过名字、依赖、模块值或工厂定义一个Javascript模块。
 jQuery.sap.define函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
 通过判断jQuery.sap.define的sModuleName参数类型是否为string类型，获得参数实际对应使用用途，通过移换参数获得真实的sResourceName（js文件路径）、vFactory（模块工厂）、aDependencies（依赖模块）及bExport。
 通过[OpenUI5] jQuery.sap.declare源码分析里介绍过的declareModule函数宣称当前模块已存在，通过[OpenUI5] jQuery.sap.require源码分析里介绍过的requireModule函数解析当前模块的每一个依赖。
-sap.ui.define = function(sModuleName, aDependencies, vFactory, bExport) { var sResourceName, i; // optional id if ( typeof sModuleName === &#39;string&#39; ) { sResourceName = sModuleName + &#39;.js&#39;; } else { // shift parameters bExport = vFactory; vFactory = aDependencies; aDependencies = sModuleName; sResourceName = _execStack[_execStack.length - 1]; } // convert module name to UI5 module name syntax (might fail!) sModuleName = urnToUI5(sResourceName); // optional array of dependencies if ( !</description>
-    </item>
-    
-    <item>
-      <title>[OpenUI5] jQuery.sap.declare源码分析</title>
-      <link>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
-      <pubDate>Sun, 23 Aug 2015 00:03:20 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
-      <description>jQuery.sap.declare用于宣称一个模块已存在。
+sap.ui.define = function(sModuleName, aDependencies, vFactory, bExport) { var sResourceName, i; // optional id if ( typeof sModuleName === &amp;#39;string&amp;#39; ) { sResourceName = sModuleName + &amp;#39;.js&amp;#39;; } else { // shift parameters bExport = vFactory; vFactory = aDependencies; aDependencies = sModuleName; sResourceName = _execStack[_execStack.length - 1]; } // convert module name to UI5 module name syntax (might fail!) sModuleName = urnToUI5(sResourceName); // optional array of dependencies if ( !</description></item><item><title>[OpenUI5] jQuery.sap.declare源码分析</title><link>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link><pubDate>Sun, 23 Aug 2015 00:03:20 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_jquery.sap.declare%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid><description>jQuery.sap.declare用于宣称一个模块已存在。
 在OpenUI5开发指南&amp;ndash;精粹&amp;ndash;优化应用&amp;ndash;模块化和依赖管理中对declare介绍是:
- Modules can declare themselves by calling the static jQuery.sap.declare functionwith their name. This helpsSAPUI5tocheck at runtime whether a loaded module contains the expectedcontent by comparing the required name against the declared name.As a side effect,jQuery.sap.declare ensures that the parent namespace of the module name exists in the currentglobal namespace (window).Formore information, see jQuery.sap.declare.
-For modules without declaration, the framework assumes that themodule has the expected content and declares it with the name thatwas used for loading.</description>
-    </item>
-    
-    <item>
-      <title>[OpenUI5] jQuery.sap.require源码分析</title>
-      <link>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
-      <pubDate>Sat, 22 Aug 2015 07:32:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
-      <description>jQuery.sap.require用于解析一个或多个模块依赖。
+Modules can declare themselves by calling the static jQuery.sap.declare functionwith their name. This helpsSAPUI5tocheck at runtime whether a loaded module contains the expectedcontent by comparing the required name against the declared name.As a side effect,jQuery.sap.declare ensures that the parent namespace of the module name exists in the currentglobal namespace (window).Formore information, see jQuery.sap.declare.
+For modules without declaration, the framework assumes that themodule has the expected content and declares it with the name thatwas used for loading.</description></item><item><title>[OpenUI5] jQuery.sap.require源码分析</title><link>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link><pubDate>Sat, 22 Aug 2015 07:32:23 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_jquery.sap.require%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid><description>jQuery.sap.require用于解析一个或多个模块依赖。
 jQuery.sap.require函数源码在jquery.sap.global.js，执行时可在sap-ui-core.js中找到。
 通过下面的源代码可知，jQuery.sap.require首先通过ui5ToRJS将javascript类名转换为js文件名，例如sap.m.Dialog转换为sap/m/Dialog.js，然后执行requireModule函数。
 requireModule函数查找该模块在sap.ui.core.Core对象的mModules中是否存在，不存在则添加并设为INITIAL状态，判断模块是否已经被加载、执行过，如果没有则设为LOADING状态并通过ajax以同步方式加载代码（如果当前是debug模式则选择-dbg版本的js文件URL），加载失败设为FAILED状态，加载成功则设为LOADED状态并执行代码，执行失败设为FAILED状态，执行成功设为READY状态。
-jQuery.sap.require = function(vModuleName, fnCallback) { if ( arguments.length &amp;gt; 1 ) { // legacy mode with multiple arguments, each representing a dependency for (var i = 0; i &amp;lt; arguments.length; i++) { jQuery.sap.require(arguments[i]); } return this; } // check for an object as parameter for sModuleName // in case of this the object contains the module name and the type // which could be {modName: &amp;quot;sap.</description>
-    </item>
-    
-  </channel>
-</rss>
+jQuery.sap.require = function(vModuleName, fnCallback) { if ( arguments.length &amp;gt; 1 ) { // legacy mode with multiple arguments, each representing a dependency for (var i = 0; i &amp;lt; arguments.length; i++) { jQuery.sap.require(arguments[i]); } return this; } // check for an object as parameter for sModuleName // in case of this the object contains the module name and the type // which could be {modName: &amp;#34;sap.ui.core.Dev&amp;#34;, type: &amp;#34;view&amp;#34;} if (typeof (vModuleName) === &amp;#34;object&amp;#34;) { jQuery.</description></item></channel></rss>

@@ -1,433 +1,86 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[算法] Mergesort练习 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[算法] Mergesort练习">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[算法] Mergesort练习 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/" itemprop="url">
-        [算法] Mergesort练习
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-02-20">
-    2014-02-20
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/algorithm.datastruct" itemprop="url" rel="index">
-        <span itemprop="name">Algorithm.DataStruct</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">650 字 ~4分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    <p>本作业帖用于练习<a href="http://algs4.cs.princeton.edu/22mergesort/">http://algs4.cs.princeton.edu/22mergesort/</a>里面的作业。</p>
-
-<ul>
-<li><strong>Merge with atmost log N compares per item.</strong> Design a mergingalgorithm such that each item is compared at most a logarithmicnumber of times. (In the standard merging algorithm, an item can becompared N/2 times when merging two subarrays of size N/2.)
-<a href="http://www.reddit.com/comments/9jqsi/how_to_merge_sorted_lists_with_olog_n_comparisons/"> reference</a>
-<img src="/images/2014/2/0026uWfMzy744H2x64bd3.jpg" alt="[算法] Mergesort练习" /></li>
-<li><strong>Lower boundfor sorting a Youngtableaux.</strong> A _Youngtableaux_ is an N-by-N matrix such that theentries are sorted both column wise and row wise. Prove thatTheta(N^2 log N) compares are necessary to sort the N^2 entries(where you can access the data only through the pairwisecomparisons).
-_Solution sketch._ If entry (i, j) iswithin <sup>1</sup>&frasl;<sub>2</sub> of i + j, then all of the 2N-1 grid diagonals areindependent of one another. Sorting the diagonals takes N^2 log Ncompares.</li>
-<li>Given anarray a of size 2N with N items insorted order in positions 0 through N-1, and anarray b of size N with N items inascending order, merge the array b into a sothat a contains all of the items inascending order. Use O(1) extra memory.
-_Hint:_ merge from right to left.
-<img src="/images/2014/2/0026uWfMzy744KieasP13.png" alt="[算法] Mergesort练习" /></li>
-<li><strong>k-near-sorting.</strong> Suppose you have anarray a[] of N distinct items whichis nearly sorted: each item at most k positions away from itsposition in the sorted order. Design an algorithm to sort the arrayin time proportional to N log k.
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[算法] Mergesort练习 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[算法] Mergesort练习"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[算法] Mergesort练习 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/ itemprop=url>[算法] Mergesort练习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-20">2014-02-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/algorithm.datastruct itemprop=url rel=index><span itemprop=name>Algorithm.DataStruct</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>650 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>本作业帖用于练习<a href=http://algs4.cs.princeton.edu/22mergesort/>http://algs4.cs.princeton.edu/22mergesort/</a>里面的作业。</p><ul><li><strong>Merge with atmost log N compares per item.</strong> Design a mergingalgorithm such that each item is compared at most a logarithmicnumber of times. (In the standard merging algorithm, an item can becompared N/2 times when merging two subarrays of size N/2.)
+<a href=http://www.reddit.com/comments/9jqsi/how_to_merge_sorted_lists_with_olog_n_comparisons/>reference</a>
+<img src=/images/2014/2/0026uWfMzy744H2x64bd3.jpg alt=[算法] Mergesort练习></li><li><strong>Lower boundfor sorting a Youngtableaux.</strong> A <em>Youngtableaux</em> is an N-by-N matrix such that theentries are sorted both column wise and row wise. Prove thatTheta(N^2 log N) compares are necessary to sort the N^2 entries(where you can access the data only through the pairwisecomparisons).
+<em>Solution sketch.</em> If entry (i, j) iswithin 1/2 of i + j, then all of the 2N-1 grid diagonals areindependent of one another. Sorting the diagonals takes N^2 log Ncompares.</li><li>Given anarray a of size 2N with N items insorted order in positions 0 through N-1, and anarray b of size N with N items inascending order, merge the array b into a sothat a contains all of the items inascending order. Use O(1) extra memory.
+<em>Hint:</em> merge from right to left.
+<img src=/images/2014/2/0026uWfMzy744KieasP13.png alt=[算法] Mergesort练习></li><li><strong>k-near-sorting.</strong> Suppose you have anarray a[] of N distinct items whichis nearly sorted: each item at most k positions away from itsposition in the sorted order. Design an algorithm to sort the arrayin time proportional to N log k.
 <em>Hint</em>: First, sort the subarray from 0 to 2k; the smallestk items will be in their correct position. Next, sort the subarrayfrom k to 3k; the smallest 2k items will now be in their correctposition.
-<img src="/images/2014/2/0026uWfMzy745wTVVHa40.png" alt="[算法] Mergesort练习" /></li>
-<li>Find a family ofinputs for which mergesort makes strictly fewer than <sup>1</sup>&frasl;<sub>2</sub> N lg Ncompares to sort an array of N distinct keys.
-_Solution:_ a reverse-sorted array of N =2^k + 1 keys uses approximately <sup>1</sup>&frasl;<sub>2</sub> N lg N - (k/2 - 1)compares.</li>
-<li>Write aprogram <a href="http://algs4.cs.princeton.edu/22mergesort/SecureShuffle.java.html">SecureShuffle.java</a> toread in a sequence of string from standard input and securelyshuffle them. Use the following algorithm: associate each card witha random real number between 0 and 1. Sort the values based ontheir associated real numbers. Use java.security.SecureRandom to generate therandom real numbers. Use Merge.indexSort() toget the random permutation.</li>
-<li><strong>Merging twoarrays of different lengths.</strong> Given two sortedarrays a[] and b[] of sizes M and N where M ≥ N, devisean algorithm to merge them into a new sortedarray c[] using ~ N lg M compares.
+<img src=/images/2014/2/0026uWfMzy745wTVVHa40.png alt=[算法] Mergesort练习></li><li>Find a family ofinputs for which mergesort makes strictly fewer than 1/2 N lg Ncompares to sort an array of N distinct keys.
+<em>Solution:</em> a reverse-sorted array of N =2^k + 1 keys uses approximately 1/2 N lg N - (k/2 - 1)compares.</li><li>Write aprogram <a href=http://algs4.cs.princeton.edu/22mergesort/SecureShuffle.java.html>SecureShuffle.java</a> toread in a sequence of string from standard input and securelyshuffle them. Use the following algorithm: associate each card witha random real number between 0 and 1. Sort the values based ontheir associated real numbers. Use java.security.SecureRandom to generate therandom real numbers. Use Merge.indexSort() toget the random permutation.</li><li><strong>Merging twoarrays of different lengths.</strong> Given two sortedarrays a[] and b[] of sizes M and N where M ≥ N, devisean algorithm to merge them into a new sortedarray c[] using ~ N lg M compares.
 <em>Hint</em>: use binary search.
-<em>Note</em>: there is a <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15210-f12/www/recis/rec10.pdf">lower bound</a> of Omega(N log (1 + M/N)) compares. Thisfollows because there are M+N choose N possible merged outcomes. Adecision tree argument shows that this requires at least lg (M+Nchoose N) compares. We note that n choose r &gt;= (n/r)^r.
-<img src="/images/2014/2/0026uWfMzy746ovVqKb3f.jpg" alt="[算法] Mergesort练习" />
-测试结果：
-<code>
-1 2 3 4 5 7 
+<em>Note</em>: there is a <a href=http://www.cs.cmu.edu/afs/cs/academic/class/15210-f12/www/recis/rec10.pdf>lower bound</a> of Omega(N log (1 + M/N)) compares. Thisfollows because there are M+N choose N possible merged outcomes. Adecision tree argument shows that this requires at least lg (M+Nchoose N) compares. We note that n choose r >= (n/r)^r.
+<img src=/images/2014/2/0026uWfMzy746ovVqKb3f.jpg alt=[算法] Mergesort练习>
+测试结果：<pre tabindex=0><code>1 2 3 4 5 7 
 merge=4 ,mergeBinary=4 ,2*lg4=4.0
 1 2 3 4 5 6 7 8 9 10 11 12 13 15 
 merge=12 ,mergeBinary=16 ,6*lg8=17.999999999999996
 1 2 3 4 5 6 7 8 9 
 merge=8 ,mergeBinary=4 ,1*lg8=3.0
-</code>
-使用二分法查找的合并比较次数有可能反而更多，但是它能保证最差情况下比较次数~ N lgM。例如最后一个案例merge跟mergeBinary相比比较次数差距悬殊。</li>
-<li><strong>Merging threearrays.</strong> Given three sortedarrays a[], b[], and c[], each of size N,design an algorithm to merge them into a new sortedarray d[] using at most ~ 6 Ncompares in the worst case (or, even better, ~ 5 N compares).
-<img src="/images/2014/2/0026uWfMzy746pUA1FQe6.jpg" alt="[算法] Mergesort练习" />
-测试结果：
-<code>
-N=4:merge=21 ,mergeBy2Steps=18 ,binaryMergeBy2Steps=17
+</code></pre>使用二分法查找的合并比较次数有可能反而更多，但是它能保证最差情况下比较次数~ N lgM。例如最后一个案例merge跟mergeBinary相比比较次数差距悬殊。</li><li><strong>Merging threearrays.</strong> Given three sortedarrays a[], b[], and c[], each of size N,design an algorithm to merge them into a new sortedarray d[] using at most ~ 6 Ncompares in the worst case (or, even better, ~ 5 N compares).
+<img src=/images/2014/2/0026uWfMzy746pUA1FQe6.jpg alt=[算法] Mergesort练习>
+测试结果：<pre tabindex=0><code>N=4:merge=21 ,mergeBy2Steps=18 ,binaryMergeBy2Steps=17
 N=4:merge=12 ,mergeBy2Steps=12 ,binaryMergeBy2Steps=7
 N=4:merge=12 ,mergeBy2Steps=8 ,binaryMergeBy2Steps=20
 N=8:merge=45 ,mergeBy2Steps=38 ,binaryMergeBy2Steps=44
-</code>
-从测试结果来看，三种方式都能满足最欢情况下不超过6N， 其中mergeBy2Steps没有出现高出另两种方式的比较次数。</li>
-<li><strong>Merging threearrays.</strong> Given three sortedarrays a[], b[], and c[], each of size N,prove that no compare-based algorithm can merge them into a newsorted array d[] using fewer than ~4.754887503 N compares in the worst case.</li>
-<li><strong>Arrays withN^(<sup>3</sup>&frasl;<sub>2</sub>) inversions.</strong> Prove that anycompare-based algorithms that can sort arrays with N^(<sup>3</sup>&frasl;<sub>2</sub>) or fewerinversions must make ~ <sup>1</sup>&frasl;<sub>2</sub> N lg N compares in the worst case.
-<em>Proof sketch</em>: divide up the array into sqrt(N) consecutivesubarrays of sqrt(N) items each, such that the there are noinversion between items in different subarrays but the order ofitems within each subarray is arbitrary. Such an array has at mostN^(<sup>3</sup>&frasl;<sub>2</sub>) inversions—at most ~N/2 inversions in each of the sqrt(N)subarrays. By the sorting lower bound, it takes ~ sqrt(N) lgsqrt(N) compares to sort each subarray, for a total of ~ <sup>1</sup>&frasl;<sub>2</sub> N lgN.</li>
-</ul>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[算法] Mergesort练习
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/algorithm" rel="tag" title="algorithm">#algorithm#</a>
-    
-    <a href="/tags/mergesort" rel="tag" title="mergesort">#mergesort#</a>
-    
-    <a href="/tags/exercise" rel="tag" title="exercise">#exercise#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/" rel="next" title="[Hadoop] 压缩MapReduce的Mapper输出">
-        <i class="fa fa-chevron-left"></i> [Hadoop] 压缩MapReduce的Mapper输出
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/" rel="prev" title="[算法] 求数组中倒置个数">
-        [算法] 求数组中倒置个数 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/";
-this.page.identifier = "https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre>从测试结果来看，三种方式都能满足最欢情况下不超过6N， 其中mergeBy2Steps没有出现高出另两种方式的比较次数。</li><li><strong>Merging threearrays.</strong> Given three sortedarrays a[], b[], and c[], each of size N,prove that no compare-based algorithm can merge them into a newsorted array d[] using fewer than ~4.754887503 N compares in the worst case.</li><li><strong>Arrays withN^(3/2) inversions.</strong> Prove that anycompare-based algorithms that can sort arrays with N^(3/2) or fewerinversions must make ~ 1/2 N lg N compares in the worst case.
+<em>Proof sketch</em>: divide up the array into sqrt(N) consecutivesubarrays of sqrt(N) items each, such that the there are noinversion between items in different subarrays but the order ofitems within each subarray is arbitrary. Such an array has at mostN^(3/2) inversions—at most ~N/2 inversions in each of the sqrt(N)subarrays. By the sorting lower bound, it takes ~ sqrt(N) lgsqrt(N) compares to sort each subarray, for a total of ~ 1/2 N lgN.</li></ul></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[算法] Mergesort练习<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/algorithm rel=tag title=algorithm>#algorithm#</a>
+<a href=/tags/mergesort rel=tag title=mergesort>#mergesort#</a>
+<a href=/tags/exercise rel=tag title=exercise>#exercise#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/ rel=next title=[Hadoop] 压缩MapReduce的Mapper输出><i class="fa fa-chevron-left"></i> [Hadoop] 压缩MapReduce的Mapper输出</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/ rel=prev title=[算法] 求数组中倒置个数>[算法] 求数组中倒置个数 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/",this.page.identifier="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

@@ -1,27 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Distributed on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/distributed/</link>
-    <description>Recent content in Distributed on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 28 Jun 2013 21:30:09 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/distributed/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Hadoop] 分布式缓存</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link>
-      <pubDate>Fri, 28 Jun 2013 21:30:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</guid>
-      <description>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>distributed on Mryqu's Notes</title><link>https://mryqu.github.io/tags/distributed/</link><description>Recent content in distributed on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 28 Jun 2013 21:30:09 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/distributed/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hadoop] 分布式缓存</title><link>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link><pubDate>Fri, 28 Jun 2013 21:30:09 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</guid><description>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
 adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。 应用程序通过URL（hdfs://或http://）指定通过JobConf进行缓存的文件。分布式缓存假定URL所指定的文件已经存在于Hadoop分布式文件系统或本地文件系统中并可被集群中所有机器访问到。Hadoop框架会在任何作业在节点执行之前将必须的缓存文件复制到任务节点以供使用。为了节省网络带宽，这些文件只会为每个作业复制一次，且归档类型的缓存文件会在任务节点中解压缩。分布式缓存能用于分发简单只读数据或文本文件及复杂文件（存档文件、Jar文件等）。归档文件（zip、tar和tgz/tar.gz文件）在任务节点中解压缩。Jar文件可选择加入任务的类路径，这是基本的软件分发机制。 分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。
-下面的示例介绍了如何使用DistributedCache： 1. 将所需文件复制到FileSystem:
- $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz   设置应用程序的JobConf:  JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI(&amp;quot;/myapp/lookup.dat&amp;quot;), job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/map.zip&amp;quot;, job); DistributedCache.addFileToClassPath(new Path(&amp;quot;/myapp/mylib.jar&amp;quot;), job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytar.tar&amp;quot;, job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytgz.tgz&amp;quot;, job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytargz.</description>
-    </item>
-    
-  </channel>
-</rss>
+下面的示例介绍了如何使用DistributedCache：
+将所需文件复制到FileSystem: $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz 设置应用程序的JobConf: JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI(&amp;#34;/myapp/lookup.dat&amp;#34;), job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/map.zip&amp;#34;, job); DistributedCache.addFileToClassPath(new Path(&amp;#34;/myapp/mylib.jar&amp;#34;), job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytar.tar&amp;#34;, job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytgz.tgz&amp;#34;, job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytargz.tar.gz&amp;#34;, job); 在Mapper或Reducer中使用缓存的文件: public static class MapClass extends MapReduceBase implements Mapper{ private Path[] localArchives; private Path[] localFiles; public void configure(JobConf job) { // Get the cached archives/files File f = new File(&amp;#34;.</description></item></channel></rss>

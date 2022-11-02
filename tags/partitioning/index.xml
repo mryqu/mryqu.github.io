@@ -1,23 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Partitioning on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/partitioning/</link>
-    <description>Recent content in Partitioning on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 16 Jul 2013 21:10:39 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/partitioning/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>PostgreSQL与MySQL数据库分区</title>
-      <link>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</link>
-      <pubDate>Tue, 16 Jul 2013 21:10:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</guid>
-      <description>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>partitioning on Mryqu's Notes</title><link>https://mryqu.github.io/tags/partitioning/</link><description>Recent content in partitioning on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 16 Jul 2013 21:10:39 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/partitioning/index.xml" rel="self" type="application/rss+xml"/><item><title>PostgreSQL与MySQL数据库分区</title><link>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</link><pubDate>Tue, 16 Jul 2013 21:10:39 +0000</pubDate><guid>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</guid><description>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
 分类 分区主要有两种形式：
 水平分区 水平分区是将不同的行放入不同的表中。比如将邮编小于50000的客户放入“东部客户”表中，将邮编等于或大于50000的客户放入“西部客户”表中。该例中有两个分区表“东部客户”和“西部客户”，其合集视图就是所有客户的完整视图。 通过这样的方式不同分区里面的物理列分割的数据集得以组合，从而进行个体分割（单分区）或集体分割（1个或多个分区）。所有在表中定义的列在每个数据集中都能找到，所以表的特性依然得以保持。
 垂直分区 垂直分区创建含有（主键加上）较少列的表并使用额外的表存储（主键加上）剩余的列，每个分区表中都含有其中列所对应的行。范式化是内在包含垂直分区的过程。 垂直分区被称为“行分割”，通常用于分割表中（查找很慢的）动态数据和（查找很快的、使用较动态数据更频繁的）静态数据。这样在保证数据相关性的同时，在诸如统计分析之类的查询中访问静态数据还能提高性能。 不同的物理存储也可以用于垂直分区，例如不频繁使用的列或者宽列被存入不同的设备。 其缺点是需要管理冗余列，查询所有数据需要join操作。
@@ -26,12 +7,8 @@
 基于列表的分区 一个分区分配给一列数值。如果分区键为这些值之一，该分区被选中。例如所有国家列为冰岛、挪威、瑞典、芬兰或丹麦的行可以是一个北欧国家分区。
 基于哈希的分区 哈希函数的返回值决定分区归属。假设有四个分区，哈希函数返回值为0到3。 组合分区允许上述分区方案的一定组合。例如先使用基于范围的分区，然后使用基于哈希的分区。
 PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以PostgreSQL 9.1为例介绍一下PostgreSQL数据库分区。
-优点 分区具有下列优点： - 在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 - 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 - 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 - 很少使用的数据可被移往更便宜更慢的存储媒体。
-这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
+优点 分区具有下列优点：
+在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 很少使用的数据可被移往更便宜更慢的存储媒体。 这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
 表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
-CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities);  父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
-SELECT name, altitude FROM cities WHERE altitude &amp;gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &amp;gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。  支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</description>
-    </item>
-    
-  </channel>
-</rss>
+CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities); 父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
+SELECT name, altitude FROM cities WHERE altitude &amp;gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &amp;gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</description></item></channel></rss>

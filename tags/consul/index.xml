@@ -1,149 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Consul on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/consul/</link>
-    <description>Recent content in Consul on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 21 Jun 2018 06:08:53 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/consul/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>使用Consul DNS接口</title>
-      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consuldns%E6%8E%A5%E5%8F%A3/</link>
-      <pubDate>Thu, 21 Jun 2018 06:08:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consuldns%E6%8E%A5%E5%8F%A3/</guid>
-      <description>Consul提供了两个查询接口：HTTP和DNS。DNS接口允许应用程序在没有与consul高度集成的情况下使用服务发现。 以下面这个小Consul集群为例：
-root@consul:/# /usr/bin/consul members Node Address Status Type Build Protocol DC configuration 172.17.0.7:8301 alive client X.Y.Z 2 dc1 consul 172.17.0.2:8301 alive server X.Y.Z 2 dc1 httpd 172.17.0.4:8301 alive client X.Y.Z 2 dc1 logon 172.17.0.8:8301 alive client X.Y.Z 2 dc1 postgres 172.17.0.3:8301 alive client X.Y.Z 2 dc1 rabbitmq 172.17.0.6:8301 alive client X.Y.Z 2 dc1  可以通过DNS接口以&amp;lt;dnode&amp;gt;.node[.datacenter].&amp;lt;domain&amp;gt;的形式查询节点地址，也可以[tag.]&amp;lt;dservice&amp;gt;.service[.datacenter].&amp;lt;domain&amp;gt;的形式查询服务地址。
-root@httpd:/# dig @127.0.0.1 -p53 postgres.node.consul ANY ; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.9.5-9-Debian &amp;lt;&amp;lt;&amp;gt;&amp;gt; @127.0.0.1 -p53 postgres.</description>
-    </item>
-    
-    <item>
-      <title>Ribbon和Spring Cloud Consul</title>
-      <link>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</link>
-      <pubDate>Thu, 29 Jun 2017 05:45:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</guid>
-      <description>学习一下Client Side Load Balancing with Ribbon and Spring Cloud快速入门指南，这里的客户端负载平衡是借助Netflix Ribbon实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>consul on Mryqu's Notes</title><link>https://mryqu.github.io/tags/consul/</link><description>Recent content in consul on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 21 Jun 2018 06:08:53 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/consul/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Consul DNS接口</title><link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consuldns%E6%8E%A5%E5%8F%A3/</link><pubDate>Thu, 21 Jun 2018 06:08:53 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consuldns%E6%8E%A5%E5%8F%A3/</guid><description>Consul提供了两个查询接口：HTTP和DNS。DNS接口允许应用程序在没有与consul高度集成的情况下使用服务发现。 以下面这个小Consul集群为例：
+root@consul:/# /usr/bin/consul members Node Address Status Type Build Protocol DC configuration 172.17.0.7:8301 alive client X.Y.Z 2 dc1 consul 172.17.0.2:8301 alive server X.Y.Z 2 dc1 httpd 172.17.0.4:8301 alive client X.Y.Z 2 dc1 logon 172.17.0.8:8301 alive client X.Y.Z 2 dc1 postgres 172.17.0.3:8301 alive client X.Y.Z 2 dc1 rabbitmq 172.17.0.6:8301 alive client X.Y.Z 2 dc1 可以通过DNS接口以&amp;lt;dnode&amp;gt;.node[.datacenter].&amp;lt;domain&amp;gt;的形式查询节点地址，也可以[tag.]&amp;lt;dservice&amp;gt;.service[.datacenter].&amp;lt;domain&amp;gt;的形式查询服务地址。
+root@httpd:/# dig @127.0.0.1 -p53 postgres.node.consul ANY ; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.9.5-9-Debian &amp;lt;&amp;lt;&amp;gt;&amp;gt; @127.0.0.1 -p53 postgres.node.consul ANY ; (1 server found) ;; global options: +cmd ;; Got answer: ;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 57064 ;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1 ;; OPT PSEUDOSECTION: ; EDNS: version: 0, flags:; udp: 4096 ;; QUESTION SECTION: ;postgres.</description></item><item><title>Ribbon和Spring Cloud Consul</title><link>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</link><pubDate>Thu, 29 Jun 2017 05:45:01 +0000</pubDate><guid>https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/</guid><description>学习一下Client Side Load Balancing with Ribbon and Spring Cloud快速入门指南，这里的客户端负载平衡是借助Netflix Ribbon实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。
 @RibbonClient和@LoadBalanced的区别 Difference between @RibbonClient and @LoadBalanced讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。
-restTemplate.getForObject(&amp;quot;http://some-service-name/user/{id}&amp;quot;, String.class, 1);  @RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。 在下列两种情况下需要使用@RibbonClient注解： * 需要对特定Robbon客户端使用定制Ribbon设置 * 没有使用任何服务发现
-定制Robbon设置：
-@Configuration @RibbonClient(name = &amp;quot;foo&amp;quot;, configuration = FooConfiguration.class) public class TestConfiguration { }  注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。
+restTemplate.getForObject(&amp;#34;http://some-service-name/user/{id}&amp;#34;, String.class, 1); @RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。 在下列两种情况下需要使用@RibbonClient注解：
+需要对特定Robbon客户端使用定制Ribbon设置 没有使用任何服务发现 定制Robbon设置：
+@Configuration @RibbonClient(name = &amp;#34;foo&amp;#34;, configuration = FooConfiguration.class) public class TestConfiguration { } 注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。
 Spring Cloud Consul和Ribbon 在没用使用任何服务发现时，Ribbon从listOfServers配置里的服务器列表进行选择的。偶在项目中是用Consul的，它主业就是干服务发现的工作，而且还支持Netflix Ribbon。 网上有现成的Spring Cloud Consul和Ribbon示例spring-boot-consul-demo-tax和spring-boot-consul-demo-invoice。使用默认Ribbon设置，所以bootstrap.yml/application.yml里没有Ribbon设置，代码也没有使用@RibbonClient。 启动两个spring-boot-consul-demo-tax微服务实例和一个spring-boot-consul-demo-invoice微服务实例，在浏览器访问spring-boot-consul-demo-invoice微服务，就会发现spring-boot-consul-demo-invoice微服务实例以RoundRobin轮询方式调用两个spring-boot-consul-demo-tax微服务实例了。
 Ribbon组件 通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包含的几个重要组件/属性，正是这几个组件为Ribbon的功能提供支持:
-| 组件 | 描述 | | - | - | |Rule | 负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。| |Ping | 判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。| |ServerList | 服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。| |LoadBalancerStats | 负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。|</description>
-    </item>
-    
-    <item>
-      <title>Spring Cloud Consul Config</title>
-      <link>https://mryqu.github.io/post/spring_cloud_consul_config/</link>
-      <pubDate>Fri, 23 Jun 2017 05:40:36 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spring_cloud_consul_config/</guid>
-      <description>Spring Cloud是在Spring Boot的基础上构建的，用于简化分布式系统构建的工具集，为开发人员提供快速建立分布式系统中的一些常见的模式。例如：分布式版本可控配置(Distributed/versioned configuration)，服务注册与发现(Service registration and discovery)、智能路由(intelligent routing)、服务间调用、负载均衡、断路器(circuit breakers)、微代理(micro-proxy)、控制总线(control bus)、一次性令牌(one-time tokens)、全局锁(global locks)、领导选举和集群状态(leadership election and cluster state)、分布式消息、分布式会话等。 Spring Cloud Config项目快速入门示例展示了用于分布式系统中由Git仓库支持的中央外部配置。但是偶在项目中是用Consul的，而Spring Cloud Consul项目的快速入门示例并没有展示如何使用Consul进行配置管理，所以还是自己攒一下吧。
-Spring Cloud Consul简介 HashiCorp公司的Consul是用于基础架构中服务发现和配置的工具，支持服务发现、健康检查、用于不同用途的键值对存储、多数据中心支持。 Spring Cloud Consul通过自动配置及Spring环境和其他Spring编程模型进行绑定实现Cosul与Spring Boot应用的集成。通过一些简单的注释，即可激活应用内的通用模式，使用Hashicorp的Consul构建大型分布式系统。其功能如下： * 服务发现: 实例可以向Consul agent注册，客户端可以使用Spring管理的bean发现这些实例 * 支持Ribbon: 通过Spring Cloud Netflix提供的客户端负载均衡 * 支持Zuul: 通过Spring Cloud Netflix提供的动态路由和过滤 * 分布式配置: 使用Consul键值对存储 * 控制总线: 使用Consul事件的分布式控制事件
-安装并启动Consul 每个集群需要最少三台Consul server，以建立仲裁(quorum)，每个机器上必须运行一个consul agent。 Consul Agent: - 健康检查
-- 转发查询
-Consul Server: - 存储数据
-- 响应查询
-- 领导选举
-根据参考二Consul安装指南，可以很轻松地在本机安装Consul。用于开发环境启动本地单Consul实例的脚本可以使用参考一Spring Cloud Consul指南中所提到的src/main/bash/local_run_consul.</description>
-    </item>
-    
-    <item>
-      <title>搞清楚CONSUL_PORT_8500_TCP_ADDR</title>
-      <link>https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/</link>
-      <pubDate>Mon, 22 Aug 2016 05:41:54 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/</guid>
-      <description>Consul集群里既有Server也有Client。那除了Consul serverleader，其他节点怎么加入这个Consul集群里呢？我目前看到的Docker方案是其他节点使用consul agent -join$CONSUL_PORT_8500_TCP_ADDR加入Consul集群的。那么CONSUL_PORT_8500_TCP_ADDR是怎么设置到其他容器节点的？
-root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGRANT_CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 HOSTNAME=httpd CONSUL_PORT_8301_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP_PORT=8302 VAGRANT_CONSUL_1_PORT_53_UDP_PROTO=udp CONSUL_1_PORT_8300_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_53_UDP=udp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PROTO=tcp APACHE_RUN_USER=www-data VAGRANT_CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8301_UDP=udp://172.17.0.2:8301 VAGRANT_CONSUL_1_PORT_8400_TCP_ADDR=172.17.0.2 CONSUL_PORT_53_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PORT=8301 CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PORT_START=8300 CONSUL_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP=tcp://172.17.0.2:8302 VAGRANT_CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_1_NAME=/vagrant_httpd_1/consul_1 CONSUL_1_PORT_8300_UDP_PORT_END=8302 VAGRANT_CONSUL_1_PORT_53_TCP_PROTO=tcp CONSUL_1_PORT_8500_TCP=tcp://172.17.0.2:8500 CONSUL_PORT_53_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP_PORT_START=8300 CONSUL_1_PORT_53_TCP_PORT=53 CONSUL_1_PORT_8302_UDP_PORT=8302 VAGRANT_CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_PORT_8302_UDP_PORT=8302 CONSUL_PORT_8302_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PROTO=udp CONSUL_1_PORT_8302_TCP_PORT=8302 CONSUL_1_PORT_8301_TCP=tcp://172.17.0.2:8301 CONSUL_ENV_CONSUL_OPTIONS=-bootstrap -client 0.0.0.0 VAGRANT_CONSUL_1_PORT_8302_UDP_PORT=8302 CONSUL_1_PORT_8302_UDP=udp://172.17.0.2:8302 CONSUL_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 CONSUL_PORT_8302_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8302_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8400_TCP=tcp://172.17.0.2:8400 VAGRANT_CONSUL_1_PORT_8500_TCP_PROTO=tcp CONSUL_PORT_8301_TCP_PORT=8301 VAGRANT_CONSUL_1_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8300_TCP_PROTO=tcp CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 APACHE_LOG_DIR=/var/log/apache2 CONSUL_PORT_53_TCP=tcp://172.17.0.2:53 VAGRANT_CONSUL_1_PORT_8301_TCP_PORT=8301 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin CONSUL_PORT_8500_TCP_ADDR=172.</description>
-    </item>
-    
-    <item>
-      <title>Consul服务设置实践</title>
-      <link>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 04 Aug 2015 05:54:36 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</guid>
-      <description>在向Consul注册/注销外部服务节点中，我实践对Consul节点注册和注销，本帖我实践一些对Consul服务的查看和注销。
+组件 描述 Rule 负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。 Ping 判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。 ServerList 服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。 LoadBalancerStats 负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。 负载均衡策略 IRule | 策略名 | 策略描述 | 实现说明 | | - | - | | BestAvailableRule | 选择一个最小并发请求的服务器 | 逐个考察服务器的LoadBalancerStats信息，如果服务器被断路器断了则忽略，在其中选择ActiveRequestsCount最小的服务器。 | | AvailabilityFilteringRule | 过滤掉那些因为一直连接失败的被断路器断了的服务器，并过滤掉那些高并发的服务器（活跃连接数超过配置的阈值） | 使用一个AvailabilityPredicate来包含过滤服务器的逻辑，其实就是检查LoadBalancerStats里记录各个服务器的断路器状态和ActiveRequestsCount状态。当尝试十次后还无法选出合适的服务器，则通关过轮训策略选出一个。 | | ZoneAvoidanceRule | 通过组合判断服务器所在zone的性能和服务器可用性来选择server | 使用ZoneAvoidancePredicate和AvailabilityPredicate来判断是否选择某个服务器，前一个判断判定一个zone的运行性能是否可用，剔除不可用的zone（的所有服务器），AvailabilityPredicate用于过滤掉连接数过多的服务器。 | | RoundRobinRule | roundRobin方式轮询选择服务器 | 维护一个AtomicInteger类型的轮询下标，尝试十次从allServers选择下标对应位置的可用服务器（服务器不可用，则下标原子加一取模）。有点疑问，allServers中前十个服务器不可用而第十一服务器可用，RoundRobinRule会取不到服务器，为什么不从reachableServers挑选呢？ | | WeightedResponseTimeRule | 根据响应时间为每个服务器分配一个权重，使用加权RoundRobin方式选择服务器。 | 一个定时器线程从ServerStats里面读取评估响应时间，为每个服务器计算一个权重。权重为所有服务器平均响应时间总和减去服务器自己的平均响应时间。当刚开始运行，没有形成统计时，使用RoundRobin策略选择服务器。 | | RandomRule | 随机选择一个服务器 | 在allServers随机选择下标，在reachableServers选择对应下标的可用服务器。还是如上的疑问，为什么从allServers随机选择下标，而在reachableServers选择？ | | RetryRule | 对已有的负载均衡策略加上重试机制。 | 在一个配置时间段内使用subRule的方式无法选择到可用服务器时，重新尝试。 |</description></item><item><title>Spring Cloud Consul Config</title><link>https://mryqu.github.io/post/spring_cloud_consul_config/</link><pubDate>Fri, 23 Jun 2017 05:40:36 +0000</pubDate><guid>https://mryqu.github.io/post/spring_cloud_consul_config/</guid><description>Spring Cloud是在Spring Boot的基础上构建的，用于简化分布式系统构建的工具集，为开发人员提供快速建立分布式系统中的一些常见的模式。例如：分布式版本可控配置(Distributed/versioned configuration)，服务注册与发现(Service registration and discovery)、智能路由(intelligent routing)、服务间调用、负载均衡、断路器(circuit breakers)、微代理(micro-proxy)、控制总线(control bus)、一次性令牌(one-time tokens)、全局锁(global locks)、领导选举和集群状态(leadership election and cluster state)、分布式消息、分布式会话等。 Spring Cloud Config项目快速入门示例展示了用于分布式系统中由Git仓库支持的中央外部配置。但是偶在项目中是用Consul的，而Spring Cloud Consul项目的快速入门示例并没有展示如何使用Consul进行配置管理，所以还是自己攒一下吧。
+Spring Cloud Consul简介 HashiCorp公司的Consul是用于基础架构中服务发现和配置的工具，支持服务发现、健康检查、用于不同用途的键值对存储、多数据中心支持。 Spring Cloud Consul通过自动配置及Spring环境和其他Spring编程模型进行绑定实现Cosul与Spring Boot应用的集成。通过一些简单的注释，即可激活应用内的通用模式，使用Hashicorp的Consul构建大型分布式系统。其功能如下：
+服务发现: 实例可以向Consul agent注册，客户端可以使用Spring管理的bean发现这些实例 支持Ribbon: 通过Spring Cloud Netflix提供的客户端负载均衡 支持Zuul: 通过Spring Cloud Netflix提供的动态路由和过滤 分布式配置: 使用Consul键值对存储 控制总线: 使用Consul事件的分布式控制事件 安装并启动Consul 每个集群需要最少三台Consul server，以建立仲裁(quorum)，每个机器上必须运行一个consul agent。 Consul Agent:
+健康检查 转发查询 Consul Server:
+存储数据 响应查询 领导选举 根据参考二Consul安装指南，可以很轻松地在本机安装Consul。用于开发环境启动本地单Consul实例的脚本可以使用参考一Spring Cloud Consul指南中所提到的src/main/bash/local_run_consul.sh。本文中采用如下命令：
+consul agent -dev -ui consul-config-demo build.gradle buildscript { repositories { mavenCentral() maven { url &amp;#34;http://repo.</description></item><item><title>搞清楚CONSUL_PORT_8500_TCP_ADDR</title><link>https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/</link><pubDate>Mon, 22 Aug 2016 05:41:54 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%90%9E%E6%B8%85%E6%A5%9Aconsul_port_8500_tcp_addr/</guid><description>Consul集群里既有Server也有Client。那除了Consul serverleader，其他节点怎么加入这个Consul集群里呢？我目前看到的Docker方案是其他节点使用consul agent -join$CONSUL_PORT_8500_TCP_ADDR加入Consul集群的。那么CONSUL_PORT_8500_TCP_ADDR是怎么设置到其他容器节点的？
+root@httpd:/# env CONSUL_PORT_8300_TCP_PORT=8300 CONSUL_PORT_53_TCP_PORT=53 VAGRANT_CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 HOSTNAME=httpd CONSUL_PORT_8301_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP_PORT=8302 VAGRANT_CONSUL_1_PORT_53_UDP_PROTO=udp CONSUL_1_PORT_8300_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_53_UDP=udp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PROTO=tcp APACHE_RUN_USER=www-data VAGRANT_CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8301_UDP=udp://172.17.0.2:8301 VAGRANT_CONSUL_1_PORT_8400_TCP_ADDR=172.17.0.2 CONSUL_PORT_53_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PORT=8301 CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8300_TCP_PORT_START=8300 CONSUL_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_8302_TCP=tcp://172.17.0.2:8302 VAGRANT_CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_1_NAME=/vagrant_httpd_1/consul_1 CONSUL_1_PORT_8300_UDP_PORT_END=8302 VAGRANT_CONSUL_1_PORT_53_TCP_PROTO=tcp CONSUL_1_PORT_8500_TCP=tcp://172.17.0.2:8500 CONSUL_PORT_53_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP_PORT_START=8300 CONSUL_1_PORT_53_TCP_PORT=53 CONSUL_1_PORT_8302_UDP_PORT=8302 VAGRANT_CONSUL_1_PORT_8400_TCP=tcp://172.17.0.2:8400 CONSUL_1_PORT_8300_UDP_END=udp://172.17.0.2:8302 CONSUL_PORT_8302_UDP_PORT=8302 CONSUL_PORT_8302_TCP_ADDR=172.17.0.2 VAGRANT_CONSUL_1_PORT_8301_UDP_PROTO=udp CONSUL_1_PORT_8302_TCP_PORT=8302 CONSUL_1_PORT_8301_TCP=tcp://172.17.0.2:8301 CONSUL_ENV_CONSUL_OPTIONS=-bootstrap -client 0.0.0.0 VAGRANT_CONSUL_1_PORT_8302_UDP_PORT=8302 CONSUL_1_PORT_8302_UDP=udp://172.17.0.2:8302 CONSUL_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 CONSUL_PORT_8302_UDP_ADDR=172.17.0.2 CONSUL_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8302_TCP_ADDR=172.17.0.2 CONSUL_1_PORT_53_TCP_PROTO=tcp VAGRANT_CONSUL_1_PORT_53_TCP=tcp://172.17.0.2:53 CONSUL_1_PORT_8302_UDP_PROTO=udp VAGRANT_CONSUL_1_PORT_8300_TCP=tcp://172.17.0.2:8300 CONSUL_1_PORT_8301_TCP_PROTO=tcp CONSUL_PORT_8400_TCP=tcp://172.17.0.2:8400 VAGRANT_CONSUL_1_PORT_8500_TCP_PROTO=tcp CONSUL_PORT_8301_TCP_PORT=8301 VAGRANT_CONSUL_1_PORT_53_UDP_PORT=53 VAGRANT_CONSUL_1_PORT_8300_TCP_PROTO=tcp CONSUL_1_PORT_8301_UDP_ADDR=172.17.0.2 CONSUL_1_PORT_8300_TCP_START=tcp://172.17.0.2:8300 APACHE_LOG_DIR=/var/log/apache2 CONSUL_PORT_53_TCP=tcp://172.17.0.2:53 VAGRANT_CONSUL_1_PORT_8301_TCP_PORT=8301 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin CONSUL_PORT_8500_TCP_ADDR=172.</description></item><item><title>Consul服务设置实践</title><link>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 04 Aug 2015 05:54:36 +0000</pubDate><guid>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</guid><description>在向Consul注册/注销外部服务节点中，我实践对Consul节点注册和注销，本帖我实践一些对Consul服务的查看和注销。
 查看当前数据中心所有注册的服务：
-curl http://localhost:8500/v1/catalog/services  查看当前数据中心注册的服务foo的信息：
-curl http://localhost:8500/v1/catalog/service/foo  注销服务节点foo上关联的检查service:foo-192-168-0-123：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;kexiao&amp;quot;, &amp;quot;CheckID&amp;quot;: &amp;quot;service:foo-192-168-0-123&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister  注销服务节点foo上关联的服务foo-192-168-0-123：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;kexiao&amp;quot;, &amp;quot;ServiceID&amp;quot;: &amp;quot;foo-192-168-0-123&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister  参考 Consul - Catalog HTTP Endpoint</description>
-    </item>
-    
-    <item>
-      <title>向Consul注册/注销外部服务节点</title>
-      <link>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</link>
-      <pubDate>Sat, 01 Aug 2015 07:00:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</guid>
-      <description>已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
-docker-compose stop foo docker-compose rm foo curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;, &amp;quot;Address&amp;quot;: &amp;quot;foo.cluster.yqu.com&amp;quot;, &amp;quot;Service&amp;quot;: {&amp;quot;Service&amp;quot;:&amp;quot;foo&amp;quot;, &amp;quot;tags&amp;quot;: [&amp;quot;controller&amp;quot;], &amp;quot;port&amp;quot;: 12221}}&#39; http://localhost:8500/v1/catalog/register docker-compose restart consul  切换回系统内部过程的foo服务节点操作过程如下：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul  注销foo服务节点操作过程如下：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul  参考 Consul Guide：Registering An External Service</description>
-    </item>
-    
-    <item>
-      <title>了解Registrator</title>
-      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/</link>
-      <pubDate>Thu, 18 Jun 2015 05:50:21 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/</guid>
-      <description>支持 DNS和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。在使用Docker的场景里，有了Registrator的帮助，只需要很小的工作量就可以自动化地向Consul注册Docker容器，使得管理基于容器技术的配置更加容易。 Registrator通过检查Docker容器是否上线，自动为Docker容器注册/注销服务。Registrator支持可插拔服务注册中心，当前包括Consul、etcd和SkyDNS 2。
-用法  运行Consul容器  $ docker run -d --name=consul --net=host consul-server -bootstrap  运行Registrator容器 Registrator被设计为在每个主机运行一次。也可以在每个集群仅运行一个Registrator，但是通过确保Registrator运行在每个主机上可以获得更好的伸缩性和更简化的配置。假定使用某种程度的自动化，在所有地方都运行反而讽刺性地比某个地方运行更简单。  $ docker run -d \ --name=registrator \ --net=host \ --volume=/var/run/docker.sock:/tmp/docker.sock \ gliderlabs/registrator:latest \ consul://localhost:8500  &amp;ndash;volume=/var/run/docker.sock:/tmp/docker.sock可以让Registrator访问DockerAPI； &amp;ndash;net=host有助于Registrator获得主机级IP和主机名； consul://localhost:8500是服务注册中心URI。 运行其他服务的容器 $ docker run -d -P --name=redis redis Registrator通过Docker API可以监听Docker容器的启动/关闭，并自动注册/注销服务: ``` $ curl $(boot2docker ip):8500/v1/catalog/services {&amp;ldquo;consul&amp;rdquo;:[],&amp;ldquo;redis&amp;rdquo;:[]}   $ curl $(boot2docker ip):8500/v1/catalog/service/redis [{&amp;ldquo;Node&amp;rdquo;:&amp;ldquo;boot2docker&amp;rdquo;,&amp;ldquo;Address&amp;rdquo;:&amp;ldquo;10.0.2.15&amp;rdquo;,&amp;ldquo;ServiceID&amp;rdquo;:&amp;ldquo;boot2docker:redis:6379&amp;rdquo;,&amp;ldquo;ServiceName&amp;rdquo;:&amp;ldquo;redis&amp;rdquo;,&amp;ldquo;ServiceTags&amp;rdquo;:null,&amp;ldquo;ServiceAddress&amp;rdquo;:&amp;ldquo;&amp;rdquo;,&amp;ldquo;ServicePort&amp;rdquo;:32768}] ```
-参考 Github：gliderlabs/registrator
+curl http://localhost:8500/v1/catalog/services 查看当前数据中心注册的服务foo的信息：
+curl http://localhost:8500/v1/catalog/service/foo 注销服务节点foo上关联的检查service:foo-192-168-0-123：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;kexiao&amp;#34;, &amp;#34;CheckID&amp;#34;: &amp;#34;service:foo-192-168-0-123&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister 注销服务节点foo上关联的服务foo-192-168-0-123：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;kexiao&amp;#34;, &amp;#34;ServiceID&amp;#34;: &amp;#34;foo-192-168-0-123&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister 参考 Consul - Catalog HTTP Endpoint</description></item><item><title>向Consul注册/注销外部服务节点</title><link>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</link><pubDate>Sat, 01 Aug 2015 07:00:25 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</guid><description>已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
+docker-compose stop foo docker-compose rm foo curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;foo&amp;#34;, &amp;#34;Address&amp;#34;: &amp;#34;foo.cluster.yqu.com&amp;#34;, &amp;#34;Service&amp;#34;: {&amp;#34;Service&amp;#34;:&amp;#34;foo&amp;#34;, &amp;#34;tags&amp;#34;: [&amp;#34;controller&amp;#34;], &amp;#34;port&amp;#34;: 12221}}&amp;#39; http://localhost:8500/v1/catalog/register docker-compose restart consul 切换回系统内部过程的foo服务节点操作过程如下：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;foo&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul 注销foo服务节点操作过程如下：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;foo&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul 参考 Consul Guide：Registering An External Service</description></item><item><title>了解Registrator</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/</link><pubDate>Thu, 18 Jun 2015 05:50:21 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/</guid><description>支持 DNS和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。在使用Docker的场景里，有了Registrator的帮助，只需要很小的工作量就可以自动化地向Consul注册Docker容器，使得管理基于容器技术的配置更加容易。 Registrator通过检查Docker容器是否上线，自动为Docker容器注册/注销服务。Registrator支持可插拔服务注册中心，当前包括Consul、etcd和SkyDNS 2。
+用法 运行Consul容器 $ docker run -d --name=consul --net=host consul-server -bootstrap 运行Registrator容器 Registrator被设计为在每个主机运行一次。也可以在每个集群仅运行一个Registrator，但是通过确保Registrator运行在每个主机上可以获得更好的伸缩性和更简化的配置。假定使用某种程度的自动化，在所有地方都运行反而讽刺性地比某个地方运行更简单。 $ docker run -d \ --name=registrator \ --net=host \ --volume=/var/run/docker.sock:/tmp/docker.sock \ gliderlabs/registrator:latest \ consul://localhost:8500 &amp;ndash;volume=/var/run/docker.sock:/tmp/docker.sock可以让Registrator访问DockerAPI； &amp;ndash;net=host有助于Registrator获得主机级IP和主机名； consul://localhost:8500是服务注册中心URI。 运行其他服务的容器 $ docker run -d -P --name=redis redis Registrator通过Docker API可以监听Docker容器的启动/关闭，并自动注册/注销服务: $ curl $(boot2docker ip):8500/v1/catalog/services {&amp;#34;consul&amp;#34;:[],&amp;#34;redis&amp;#34;:[]} $ curl $(boot2docker ip):8500/v1/catalog/service/redis [{&amp;#34;Node&amp;#34;:&amp;#34;boot2docker&amp;#34;,&amp;#34;Address&amp;#34;:&amp;#34;10.0.2.15&amp;#34;,&amp;#34;ServiceID&amp;#34;:&amp;#34;boot2docker:redis:6379&amp;#34;,&amp;#34;ServiceName&amp;#34;:&amp;#34;redis&amp;#34;,&amp;#34;ServiceTags&amp;#34;:null,&amp;#34;ServiceAddress&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;ServicePort&amp;#34;:32768}] 参考 Github：gliderlabs/registrator
 Registrator Quickstart
 Docker Hub：gliderlabs/registrator
-Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</description>
-    </item>
-    
-    <item>
-      <title>了解Consul template</title>
-      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3consul_template/</link>
-      <pubDate>Wed, 17 Jun 2015 06:22:19 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3consul_template/</guid>
-      <description>支持 DNS 和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。ConsulTemplate守护进程提供了一个便捷方式直接使用Consul的信息来填充配置文件。 consul-template 查询一个Consul实例并对文件系统任意数量模板进行更新。此外，consul-template 在更新过程结束后可选地执行任意多个命令。 consul-template 项目提供了一些例子，通过Consul信息生成负载均衡器HAProxy、缓存引擎Varnish和web服务器Apachehttpd的配置文件。
-参考 Github：hashicorp/consul-template
-Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</description>
-    </item>
-    
-    <item>
-      <title>使用Consul的十二要素应用（Twelve-Factor App）</title>
-      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/</link>
-      <pubDate>Tue, 16 Jun 2015 05:36:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/</guid>
-      <description>十二要素应用（The Twelve-Factor App）主张web应用应该从环境变量里获取其配置。这一实践很快被现代PaaS服务采用以用于允许简单的配置变更。 使用Consul，很容易将这一实践用于你自己的数据中心。如果你基础架构的某些方面部分使用PaaS，Consul是配置数据中心化的一个很好的方式。 在这篇文章中，我们将展示Consul和envconsul如何在不修改应用程序的情况下被用于设置配置值和在配置变更时触发自动重启。
-为什么使用环境变量? 根据十二要素应用，web应用配置应该使用环境变量。跟配置文件或Java系统属性这样的机制比，环境变量有很多优点： - 环境变量是一个与开发语言和操作系统无关的标准。 - 环境变量更难被意外提交到代码库。 - 环境变量跟易于在development、staging、QA这样不同的环境之间改变。 - 无论如何部署，环境变量易于设置和更新。
-例如Heroku这样的完整PaaS解决方案公开一些有用的API以用于为应用自动设置/读取环境变量。 当手动部署应用时，以往这样的事会更复杂一些。而使用Consul，程序员就可以很容易地设置和读取配置，运营工程师就可以很容易地提供支持和维护。
-Consul键值对和Envconsul Consul能够存储键值对数据。对于设置和获取键值对数据，Consul拥有简单的API和美丽且直观的web界面。对于存储配置数据来说，它是完美的。 很容易看到如何设置和读取配置数据，但是对于配置数据如何变成应用的环境变量还不是很清楚。envconsul是一个解决该类问题的轻量级解决方案。 使用envconsul，环境变量存储在ConsulKV中并具有某些（以&amp;rdquo;/&amp;ldquo;分割的）前缀。例如，为了配置服务&amp;rdquo;foo&amp;rdquo;，我们可能存储如下配置：
-$ curl -X PUT -d &#39;false&#39; http://localhost:8500/v1/kv/foo/enabled true  这会在键foo/enabled中存储值false。 之后，使用envconsul, 我们可以将这些键转换为环境变量：
-$ envconsul foo env ENABLED=false  envconsul是一个对UNIX非常友好的应用。他有两个必需的参数：一个用于查找数据的KV前缀和一个应用及其可选参数。在上例中，我们告诉envconsul配置位于前缀foo下，且我们想运行应用env，该应用仅仅是输出环境变量。 在示例结果中，我们可以清楚地看到ENABLED如我们在ConsulKV中所设置的false。
+Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</description></item><item><title>了解Consul template</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3consul_template/</link><pubDate>Wed, 17 Jun 2015 06:22:19 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3consul_template/</guid><description>支持 DNS 和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。ConsulTemplate守护进程提供了一个便捷方式直接使用Consul的信息来填充配置文件。 consul-template 查询一个Consul实例并对文件系统任意数量模板进行更新。此外，consul-template 在更新过程结束后可选地执行任意多个命令。 consul-template 项目提供了一些例子，通过Consul信息生成负载均衡器HAProxy、缓存引擎Varnish和web服务器Apachehttpd的配置文件。
+参考 Github：hashicorp/consul-template Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</description></item><item><title>使用Consul的十二要素应用（Twelve-Factor App）</title><link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/</link><pubDate>Tue, 16 Jun 2015 05:36:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/</guid><description>十二要素应用（The Twelve-Factor App）主张web应用应该从环境变量里获取其配置。这一实践很快被现代PaaS服务采用以用于允许简单的配置变更。 使用Consul，很容易将这一实践用于你自己的数据中心。如果你基础架构的某些方面部分使用PaaS，Consul是配置数据中心化的一个很好的方式。 在这篇文章中，我们将展示Consul和envconsul如何在不修改应用程序的情况下被用于设置配置值和在配置变更时触发自动重启。
+为什么使用环境变量? 根据十二要素应用，web应用配置应该使用环境变量。跟配置文件或Java系统属性这样的机制比，环境变量有很多优点：
+环境变量是一个与开发语言和操作系统无关的标准。 环境变量更难被意外提交到代码库。 环境变量跟易于在development、staging、QA这样不同的环境之间改变。 无论如何部署，环境变量易于设置和更新。 例如Heroku这样的完整PaaS解决方案公开一些有用的API以用于为应用自动设置/读取环境变量。 当手动部署应用时，以往这样的事会更复杂一些。而使用Consul，程序员就可以很容易地设置和读取配置，运营工程师就可以很容易地提供支持和维护。
+Consul键值对和Envconsul Consul能够存储键值对数据。对于设置和获取键值对数据，Consul拥有简单的API和美丽且直观的web界面。对于存储配置数据来说，它是完美的。 很容易看到如何设置和读取配置数据，但是对于配置数据如何变成应用的环境变量还不是很清楚。envconsul是一个解决该类问题的轻量级解决方案。 使用envconsul，环境变量存储在ConsulKV中并具有某些（以&amp;quot;/&amp;ldquo;分割的）前缀。例如，为了配置服务&amp;quot;foo&amp;rdquo;，我们可能存储如下配置：
+$ curl -X PUT -d &amp;#39;false&amp;#39; http://localhost:8500/v1/kv/foo/enabled true 这会在键foo/enabled中存储值false。 之后，使用envconsul, 我们可以将这些键转换为环境变量：
+$ envconsul foo env ENABLED=false envconsul是一个对UNIX非常友好的应用。他有两个必需的参数：一个用于查找数据的KV前缀和一个应用及其可选参数。在上例中，我们告诉envconsul配置位于前缀foo下，且我们想运行应用env，该应用仅仅是输出环境变量。 在示例结果中，我们可以清楚地看到ENABLED如我们在ConsulKV中所设置的false。
 如果将env改成你自己的应用，那么环境变量将暴露给你的应用。例如，为了运行一个Rails服务器你可能做如下操作。注意在真实生产场景中，你可能不直接运行Rails内建服务器，但是它不失为一个好案例：
-$ envconsul foo bin/rails server ...  自动重载 使用PaaS，当你修改任何配置时你的应用将自动重启。我们可以以最小的代价通过Consul和Envconsul实现相同效果。 通过对envconsul添加-reload标志，一旦配置键发生增删改，envconsul将中断(SIGTERM)并重启你的应用：
-$ envconsul -reload foo bin/rails server ...  注：该功能已经在0.4.0版本移除。 Consul HTTP API支持对给定前缀KV中的变更进行长轮询。一旦KV中发生变更，Envconsul通过这种方式可以高效地进行检测。
+$ envconsul foo bin/rails server ... 自动重载 使用PaaS，当你修改任何配置时你的应用将自动重启。我们可以以最小的代价通过Consul和Envconsul实现相同效果。 通过对envconsul添加-reload标志，一旦配置键发生增删改，envconsul将中断(SIGTERM)并重启你的应用：
+$ envconsul -reload foo bin/rails server ... 注：该功能已经在0.4.0版本移除。 Consul HTTP API支持对给定前缀KV中的变更进行长轮询。一旦KV中发生变更，Envconsul通过这种方式可以高效地进行检测。
 改良流程 对应用配置使用Consul和envconsul可以将PaaS化应用配置易用性带入你自己的原生环境。 对于开发者而言，他们可以无需跟运营工程师沟通或重新部署应用就可以设置配置。 对于运营来说，Consul对整个基础架构的服务发现和配置提供了统一的解决方案。Consul自动复制数据并存储在磁盘上以方便备份，运营工程师也可以高枕无忧了。
-我的实践 Envconsul获取的环境变量既可以直接给启动服务器的命令使用（例如上面启动Rails内建服务器的bin/rails命令）；也可以通过python之类的脚本存成Java系统属性文件，通过chpst这样可以加载环境变量/系统属性文件的命令间接给Java命令使用。</description>
-    </item>
-    
-    <item>
-      <title>Consul实践</title>
-      <link>https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Sun, 14 Jun 2015 23:08:40 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/</guid>
-      <description>Consul简介 最近除了在用Hashicorp公司的Vagrant，也使用了Consul。Consul是一款以跨数据中心、高可用的方式提供服务注册、发现、配置和编排的工具。Consul可以用来回答一个企业的基础设施中，诸如下列这些问题：
- “服务X在哪里” “服务Y的实例是否健康” “当前正在运行的服务是什么” “服务Z的配置是怎样的” “在我的平台上是否还有其他人在执行操作A？”  Consul通过DNS或HTTP API提供服务发现功能，同时支持跨数据中心的内部服务或外部服务的发现。使用shell脚本实现了健康检查，并允许创建自定义的服务验证协议。Consul还提供了高可用的键值对存储，由此可以暴露一致的存储值，用于配置参数的调优，而不必非要执行配置管理工具。可调优的操动实例包括指定服务的位置、指明系统处于维护模式，或者设置服务的QoS参数。Consul还提供了一套编排原语、通过UDP协议跨数据中心广播异步“事件”、通过TCP协议让指定的计算机同步执行“exec”指令，以及通过实现长轮询、react、事件机制或者其他操作实现定制化的监控。
-安装Consul echo Installing dependencies... sudo apt-get install -y unzip curl echo Fetching Consul... cd /tmp/ wget https://dl.bintray.com/mitchellh/consul/0.5.2_linux_amd64.zip -O consul.zip echo Installing Consul... unzip consul.zip sudo chmod +x consul sudo mv consul /usr/mryqu/consul echo Fetching Consul UI... cd /tmp/ wget https://dl.bintray.com/mitchellh/consul/0.5.2_web_ui.zip -O dist.zip echo Installing Consul UI... unzip dist.zip sudo chmod +x dist sudo mv dist /usr/mryqu/consul/dist  引导一个数据中心 首先以服务器模式运行第一个Consul代理。Consul需要使用-bootstrap-expect指定集群节点个数，使用-data-dirparameter指定一个数据目录名，使用-ui-dir参数指定Consul UI目录:</description>
-    </item>
-    
-  </channel>
-</rss>
+我的实践 Envconsul获取的环境变量既可以直接给启动服务器的命令使用（例如上面启动Rails内建服务器的bin/rails命令）；也可以通过python之类的脚本存成Java系统属性文件，通过chpst这样可以加载环境变量/系统属性文件的命令间接给Java命令使用。
+envconsul \ -once \ -log-level info \ -consul localhost:8500 \ -upcase=false \ -prefix config/foo/jvm \ foo env /usr/local/tomcat/bin/catalina.</description></item><item><title>Consul实践</title><link>https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/</link><pubDate>Sun, 14 Jun 2015 23:08:40 +0000</pubDate><guid>https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/</guid><description>Consul简介 最近除了在用Hashicorp公司的Vagrant，也使用了Consul。Consul是一款以跨数据中心、高可用的方式提供服务注册、发现、配置和编排的工具。Consul可以用来回答一个企业的基础设施中，诸如下列这些问题：
+“服务X在哪里” “服务Y的实例是否健康” “当前正在运行的服务是什么” “服务Z的配置是怎样的” “在我的平台上是否还有其他人在执行操作A？” Consul通过DNS或HTTP API提供服务发现功能，同时支持跨数据中心的内部服务或外部服务的发现。使用shell脚本实现了健康检查，并允许创建自定义的服务验证协议。Consul还提供了高可用的键值对存储，由此可以暴露一致的存储值，用于配置参数的调优，而不必非要执行配置管理工具。可调优的操动实例包括指定服务的位置、指明系统处于维护模式，或者设置服务的QoS参数。Consul还提供了一套编排原语、通过UDP协议跨数据中心广播异步“事件”、通过TCP协议让指定的计算机同步执行“exec”指令，以及通过实现长轮询、react、事件机制或者其他操作实现定制化的监控。
+安装Consul echo Installing dependencies... sudo apt-get install -y unzip curl echo Fetching Consul... cd /tmp/ wget https://dl.bintray.com/mitchellh/consul/0.5.2_linux_amd64.zip -O consul.zip echo Installing Consul... unzip consul.zip sudo chmod +x consul sudo mv consul /usr/mryqu/consul echo Fetching Consul UI... cd /tmp/ wget https://dl.bintray.com/mitchellh/consul/0.5.2_web_ui.zip -O dist.zip echo Installing Consul UI... unzip dist.zip sudo chmod +x dist sudo mv dist /usr/mryqu/consul/dist 引导一个数据中心 首先以服务器模式运行第一个Consul代理。Consul需要使用-bootstrap-expect指定集群节点个数，使用-data-dirparameter指定一个数据目录名，使用-ui-dir参数指定Consul UI目录:
+$&amp;gt;consul agent -server -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldata -ui-dir /usr/mryqu/consul/dist UI默认地址是http://localhost:8500/ui 如果UI没有启动，需要添加额外的-client 0.</description></item></channel></rss>

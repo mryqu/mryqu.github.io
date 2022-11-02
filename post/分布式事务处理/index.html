@@ -1,242 +1,31 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>分布式事务处理 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="分布式事务处理">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="分布式事务处理 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/" itemprop="url">
-        分布式事务处理
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-07-11">
-    2013-07-11
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">137 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<h2 id="事务">事务</h2>
-
-<h3 id="概念">概念</h3>
-
-<p>企业级应用程序经常需要访问多个组件共享的分布式数据并执行操作。这些程序应该在下列情况下保持（由应用程序商业规则所定义的）数据完整性：
-- 分布式访问单个数据资源
-- 从单个应用组件访问分布式资源</p>
-
-<p>在这种情况下，对（分布式）资源上的一组操作可能需要被作为一个工作单元来对待。在一个工作单元中的所有操作必须全部成功或在失败时一起回滚到之前的状态。</p>
-
-<p>下列情况下情况会更加复杂，需要应用程序维护工作单元的成功或失败信息：
-- 在一组分布式组件上实现的工作单元对多个资源上的数据进行操作
-- 串行或在并行线程中执行的操作需要协调或同步</p>
-
-<p>事务(Transaction)以及事务管理器（或事务处理服务）降低了企业级分布式应用程序构建难度，维护了数据的完整性。</p>
-
-<h3 id="特性">特性</h3>
-
-<p>事务是恢复和并发控制的基本单位。
-事务应该具有4个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为ACID特性。
-- 原子性（atomicity）。一个事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做。当任一操作失败，事务中的所有操作需要撤销，数据恢复到之前的状态。
-- 一致性（consistency）。事务必须保持定义在数据上的不变属性（例如完整性约束）。在事务成功结束后，数据必须处于一致状态。换句话说，事务必须是使资源从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。
-- 隔离性（isolation）。一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰。这需要：在事务执行期间，数据的（可能不一致的）中间状态不会暴露给其他事务；两个并发事务不能对同一数据进行操作。数据库管理系统通常使用锁机制实现这一功能。
-- 持久性（durability）。持续性也称永久性（permanence），指一个事务一旦提交，它对资源中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。</p>
-
-<h3 id="嵌套事务">嵌套事务</h3>
-
-<h2 id="事务处理组件">事务处理组件</h2>
-
-<h3 id="应用程序组件">应用程序组件</h3>
-
-<p>应用程序组件是事务型资源的客户端，包含商业事务程序。在事务管理器的帮助下，这些组件创建全局事务并划分事务界限，在必要时传播事务上下文，在事务范围内通过资源管理器对事务型资源进行操作。这些组件不负责实现事务语义。然而，作为应用逻辑的一部分，这些组件通常决定是否提交还是回滚事务。</p>
-
-<h3 id="资源管理器">资源管理器</h3>
-
-<p>资源管理器是管理持久化和稳定数据存储系统的组件，并同事务管理器一起参与两阶段提交和恢复协议。
-资源管理器通常是稳定数据存储系统的驱动或者包装器，提供两套接口接口：一套接口用于应用程序组件获得连接并操作数据、另一套接口用于事务管理器参与两阶段提交和恢复协议。该组件可能也直接或间接向事务管理器注册资源，以便事务管理器能够跟踪所有参与事务的资源。该过程称之为资源征集（enlistment）。为了实现两阶段提交和恢复协议，资源管理器应该实现辅助机制用于事务恢复。</p>
-
-<h3 id="事务管理器">事务管理器</h3>
-
-<p>事务管理器是事务处理环境中的核心组件。主要职责是应应用程序组件请求创建事务、允许资源征集（enlistment）和遣散（delistment）、同资源管理器一起实施两阶段提交和恢复协议。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>分布式事务处理 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="分布式事务处理"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="分布式事务处理 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/ itemprop=url>分布式事务处理</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-11">2013-07-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>120 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><h2 id=事务>事务</h2><h3 id=概念>概念</h3><p>企业级应用程序经常需要访问多个组件共享的分布式数据并执行操作。这些程序应该在下列情况下保持（由应用程序商业规则所定义的）数据完整性：</p><ul><li>分布式访问单个数据资源</li><li>从单个应用组件访问分布式资源</li></ul><p>在这种情况下，对（分布式）资源上的一组操作可能需要被作为一个工作单元来对待。在一个工作单元中的所有操作必须全部成功或在失败时一起回滚到之前的状态。</p><p>下列情况下情况会更加复杂，需要应用程序维护工作单元的成功或失败信息：</p><ul><li>在一组分布式组件上实现的工作单元对多个资源上的数据进行操作</li><li>串行或在并行线程中执行的操作需要协调或同步</li></ul><p>事务(Transaction)以及事务管理器（或事务处理服务）降低了企业级分布式应用程序构建难度，维护了数据的完整性。</p><h3 id=特性>特性</h3><p>事务是恢复和并发控制的基本单位。
+事务应该具有4个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为ACID特性。</p><ul><li>原子性（atomicity）。一个事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做。当任一操作失败，事务中的所有操作需要撤销，数据恢复到之前的状态。</li><li>一致性（consistency）。事务必须保持定义在数据上的不变属性（例如完整性约束）。在事务成功结束后，数据必须处于一致状态。换句话说，事务必须是使资源从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。</li><li>隔离性（isolation）。一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰。这需要：在事务执行期间，数据的（可能不一致的）中间状态不会暴露给其他事务；两个并发事务不能对同一数据进行操作。数据库管理系统通常使用锁机制实现这一功能。</li><li>持久性（durability）。持续性也称永久性（permanence），指一个事务一旦提交，它对资源中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。</li></ul><h3 id=嵌套事务>嵌套事务</h3><h2 id=事务处理组件>事务处理组件</h2><h3 id=应用程序组件>应用程序组件</h3><p>应用程序组件是事务型资源的客户端，包含商业事务程序。在事务管理器的帮助下，这些组件创建全局事务并划分事务界限，在必要时传播事务上下文，在事务范围内通过资源管理器对事务型资源进行操作。这些组件不负责实现事务语义。然而，作为应用逻辑的一部分，这些组件通常决定是否提交还是回滚事务。</p><h3 id=资源管理器>资源管理器</h3><p>资源管理器是管理持久化和稳定数据存储系统的组件，并同事务管理器一起参与两阶段提交和恢复协议。
+资源管理器通常是稳定数据存储系统的驱动或者包装器，提供两套接口接口：一套接口用于应用程序组件获得连接并操作数据、另一套接口用于事务管理器参与两阶段提交和恢复协议。该组件可能也直接或间接向事务管理器注册资源，以便事务管理器能够跟踪所有参与事务的资源。该过程称之为资源征集（enlistment）。为了实现两阶段提交和恢复协议，资源管理器应该实现辅助机制用于事务恢复。</p><h3 id=事务管理器>事务管理器</h3><p>事务管理器是事务处理环境中的核心组件。主要职责是应应用程序组件请求创建事务、允许资源征集（enlistment）和遣散（delistment）、同资源管理器一起实施两阶段提交和恢复协议。
 一个典型事务型应用程序发起事务，向事务管理器发出请求初始化一个事务。作为应答，事务管理器启动一个事务并与当前线程关联。事务管理器也会创建一个事务上下文。所有参与事务的应用程序组件/线程共享事务上下文。发起事务的线程或其他线程在事务管理器允许的情况下通过发出提交或回滚请求来终止事务。
 在事务终止之前，任意数量的组件或线程可在事务管理器已知的任意数量事务型资源上执行事务型操作。在资源管理器允许的情况下，事务在最终终止之前可以被挂起或恢复。
-一旦应用程序发出提交请求，事务管理器（通过投票）准备用于提交操作的所有资源，并基于是否所有资源准备好提交向所有资源发出提交或回滚请求。在两阶段提交和恢复协议处理过程前后调用应用程序组件synchronization回调。</p>
-
-<h2 id="两阶段提交-2pc">两阶段提交（2PC）</h2>
-
-<p>两阶段提交分为两个阶段：投票阶段和决策阶段。
-- 在投票（或准备）阶段，事务管理器会询问每个资源管理器是否同意成功执行。资源管理器有可能返回否定应答，例如当超时导致数据库回滚。如果资源管理器做肯定应答的话，它应该确信它始终可以将工作持久化（这暗示它不会应为内部超时取消工作），
-- 事务管理器接收到所有应答（也称之为选票），会对事务结果作出全局决策。该决策取决于收集的应答:
-- 如果所有应答都是肯定的（意味着每个稳定数据存储系统都可以将工作持久化），事务管理器会指示每个资源管理器进行提交。
-- 如果有一个应答是否定的（或丢失），则回滚决策会发给剩余的资源，剩余资源取消该事务中的工作。</p>
-
-<p>有两件事需要注意:
-- 每个资源必须有能力理解两阶段提交：它需要回复来自事务管理器的准备请求，并能在事务管理器决定回滚时取消工作。
-- 如果资源在准备阶段投肯定票之后跟事务管理器联系中断（例如事务管理器崩溃），它将不知道如何去做。由于两阶段提交协议规则它不能自己取消，因此它需要无期限地记着这个事务。此外，这限制了其他事务的并发访问。在这种情况下，该资源被称为不确定的。
-资源处于不确定状态并限制并发访问令很多厂商烦恼。为了减少限制，两阶段提交协议的实践变种包含一种叫做试探性决策：太长时间处于不确定状态的资源会决定单方面回滚（或提交）事务，有可能导致违背全部接受或全部不接受的特性。</p>
-
-<h2 id="事务处理标准和技术">事务处理标准和技术</h2>
-
-<p>X/Open 分布式事务处理(DTP)模型是厂商协会OpenGroup提出的一个分布式处理模型，在事务处理和数据库领域中多数商业厂商间的一个标准。
+一旦应用程序发出提交请求，事务管理器（通过投票）准备用于提交操作的所有资源，并基于是否所有资源准备好提交向所有资源发出提交或回滚请求。在两阶段提交和恢复协议处理过程前后调用应用程序组件synchronization回调。</p><h2 id=两阶段提交2pc>两阶段提交（2PC）</h2><p>两阶段提交分为两个阶段：投票阶段和决策阶段。</p><ul><li>在投票（或准备）阶段，事务管理器会询问每个资源管理器是否同意成功执行。资源管理器有可能返回否定应答，例如当超时导致数据库回滚。如果资源管理器做肯定应答的话，它应该确信它始终可以将工作持久化（这暗示它不会应为内部超时取消工作），</li><li>事务管理器接收到所有应答（也称之为选票），会对事务结果作出全局决策。该决策取决于收集的应答:</li><li>如果所有应答都是肯定的（意味着每个稳定数据存储系统都可以将工作持久化），事务管理器会指示每个资源管理器进行提交。</li><li>如果有一个应答是否定的（或丢失），则回滚决策会发给剩余的资源，剩余资源取消该事务中的工作。</li></ul><p>有两件事需要注意:</p><ul><li>每个资源必须有能力理解两阶段提交：它需要回复来自事务管理器的准备请求，并能在事务管理器决定回滚时取消工作。</li><li>如果资源在准备阶段投肯定票之后跟事务管理器联系中断（例如事务管理器崩溃），它将不知道如何去做。由于两阶段提交协议规则它不能自己取消，因此它需要无期限地记着这个事务。此外，这限制了其他事务的并发访问。在这种情况下，该资源被称为不确定的。
+资源处于不确定状态并限制并发访问令很多厂商烦恼。为了减少限制，两阶段提交协议的实践变种包含一种叫做试探性决策：太长时间处于不确定状态的资源会决定单方面回滚（或提交）事务，有可能导致违背全部接受或全部不接受的特性。</li></ul><h2 id=事务处理标准和技术>事务处理标准和技术</h2><p>X/Open 分布式事务处理(DTP)模型是厂商协会OpenGroup提出的一个分布式处理模型，在事务处理和数据库领域中多数商业厂商间的一个标准。
 对象事务服务(OTS)是由对象管理组织(OMG)规定的分布式事务处理服务。这个规范扩展了 CORBA 模型并定义了一系列跨越多个CORBA 对象完成事务处理的接口。
 JTA和JTS是Sun提出的事务处理和事务服务的Java规范。
 微软事务服务器（MTS）是一个基于构件的事务服务器，它的构件基于微软的构件对象模型(COM)。MTS编程模型为建造事务性COM构件提供接口，而MTS运行环境提供一个部署和管理这些构件和管理事务的方法。使用了MTS，由多个COM构件做的工作可被组合在一个单一的事务中。
-企业级Java Beans (EJB)是Sun提出的一个技术规范。它规定了一个建造基于构件的分布式应用的框架。</p>
-
-<h2 id="jta">JTA</h2>
-
-<h3 id="概念-1">概念</h3>
-
-<p>JTA是Java事务API的缩写，定义了在事务管理器与分布式事务系统的资源管理器、应用服务器、事务型应用程序之间的标准Java接口，包括javax.transaction和javax.transaction.xa包。在实际系统中还需要厂商专有的JTA实现。JTA是JavaEE平台的标准部分和每个EJB应用服务器都包含了JTA实现。</p>
-
-<h3 id="jta组件">JTA组件</h3>
-
-<p>JTA的主要组件为：</p>
-
-<h4 id="transactionmanager">TransactionManager</h4>
-
-<p>TransactionManager可用于创建事务，获取、挂起和恢复当前事务,设置事务超时值属性。其方法为线程安全的，多个并发线程可以创建自己的事务，获取仅自己创建的事务。</p>
-
-<p>|begin|创建一个新事务并与当前线程关联
+企业级Java Beans (EJB)是Sun提出的一个技术规范。它规定了一个建造基于构件的分布式应用的框架。</p><h2 id=jta>JTA</h2><h3 id=概念-1>概念</h3><p>JTA是Java事务API的缩写，定义了在事务管理器与分布式事务系统的资源管理器、应用服务器、事务型应用程序之间的标准Java接口，包括javax.transaction和javax.transaction.xa包。在实际系统中还需要厂商专有的JTA实现。JTA是JavaEE平台的标准部分和每个EJB应用服务器都包含了JTA实现。</p><h3 id=jta组件>JTA组件</h3><p>JTA的主要组件为：</p><h4 id=transactionmanager>TransactionManager</h4><p>TransactionManager可用于创建事务，获取、挂起和恢复当前事务,设置事务超时值属性。其方法为线程安全的，多个并发线程可以创建自己的事务，获取仅自己创建的事务。</p><p>|begin|创建一个新事务并与当前线程关联
 |commit|提交当前线程关联的事务
 |getStatus|获取当前线程关联的事务状态
 |getTransaction|获取当前线程关联的事务
@@ -244,357 +33,60 @@ JTA和JTS是Sun提出的事务处理和事务服务的Java规范。
 |rollback|回滚当前线程关联的事务
 |setRollbackOnly|修改当前线程关联的事务以致事务的唯一可能结果是回滚
 |setTransactionTimeout|修改当前线程使用begin方法启动的事务的超时值
-|suspend|挂起调用线程当前关联的事务并返回代表正在挂起事务上下文的事务对象</p>
-
-<h4 id="transaction">Transaction</h4>
-
-<p>Transaction允许对有效的事务进行操作。一个事务对象对应着一个全局事务，它可用于资源征集/遣散、synchronization注册、结束事务和状态查询操作。</p>
-
-<p>|commit|提交事务对象代表的事务
+|suspend|挂起调用线程当前关联的事务并返回代表正在挂起事务上下文的事务对象</p><h4 id=transaction>Transaction</h4><p>Transaction允许对有效的事务进行操作。一个事务对象对应着一个全局事务，它可用于资源征集/遣散、synchronization注册、结束事务和状态查询操作。</p><p>|commit|提交事务对象代表的事务
 |delistResource|接触资源与目标事务对象代表的事务之间的关联
 |enlistResource|关联资源与目标事务对象代表的事务
 |getStatus|获得目标事务对象代表的事务
 |registerSynchronization|向目标事务对象代表的事务注册Synchronization
 |rollback|回滚事务对象代表的事务
-|setRollbackOnly|修改目标事务对象代表的事务以致事务的唯一可能结果是回滚</p>
-
-<h4 id="xid">Xid</h4>
-
-<p>该接口对于事务管理器和在XAResource后面的稳定数据存储系统之间的通信十分重要。XAResource基本上是同稳定数据存储系统之间的连接，任意多个不同事务使用相同的连接。
-每次事务管理器发起和结束事务，它需要使用稳定数据存储系统能够理解的事务标识。最后要说的是，一个事务可能关联一个甚至多个Xid实例。</p>
-
-<h4 id="xaresource">XAResource</h4>
-
-<p>XAResource是事务管理器同数据源的连接。对于每个应用级别连接，需要一个XAResource让应用程序通过JTA事务的连接部分进行工作。</p>
-
-<h4 id="synchronization">Synchronization</h4>
-
-<p>该接口是注册应用级回调的一种方式，它允许应用程序接收两阶段提交事件通知。可以在应用程序中通过实现该接口来使用上述功能。
-注意：synchronizations不是持久化的。在事务崩溃并恢复后synchronizations将丢失。</p>
-
-<ul>
-<li>beforeCompletion: 该方法在事务开始提交前调用。该方法的一个典型使用是向数据库写挂起的更新。</li>
-<li>afterCompletion: 该方法在提交或回滚结束后调用，指示事务是否成功。</li>
-</ul>
-
-<h4 id="usertransaction">UserTransaction</h4>
-
-<p>该接口是JTA功能的简单受限版本，是EJB中处理的典型应用级事务服务，使用该接口仅向应用程序暴露JTA功能的一个子集。</p>
-
-<h4 id="exceptions">Exceptions</h4>
-
-<p>JTA中有异常是关于试探性（heuristic）终止的。只要发生试探性错误，事务管理器应该保留该事务的日志，以便管理员能够人力解决冲突。
-- HeuristicCommitException：所有资源在两阶段提交的准备阶段返回肯定应答，之后跟事务管理器联系中断、长时间处于不确定状态，可能通过试探性决策提交或回滚。如果事务管理器之后跟这部分资源重新建立联系并指示这些资源回滚，则此类型异常抛给应用程序。它表明所有资源由于处于不确定状态选择试探性提交后的事务结果失常。意味着尽管期望回滚，整个事务却提交了。
-- HeuristicRollbackException:尽管事务管理器的最终决策是提交，所有资源进行试探性回滚。意味着尽管期望提交，整个事务却回滚了。
-- HeuristicMixedException:这是当部分资源提交而部分资源回滚的更复杂错误。它表明事务仅部分生效，明显违反事务语义。需要记住的是，更多信息需要记录到日志中。</p>
-
-<h3 id="jta交互">JTA交互</h3>
-
-<p>本节主要介绍用于数据库数据源的典型JTA交互。对于其他资源（例如JMS队列），仅在XAResource获取上有所不同。</p>
-
-<h4 id="激活事务">激活事务</h4>
-
-<p><img src="/images/2013/7/0026uWfMty6DEMbjFhf69.jpg" alt="分布式事务处理" /></p>
-
-<h4 id="事务提交">事务提交</h4>
-
-<p><img src="/images/2013/7/0026uWfMty6DEMc43nZfb.jpg" alt="分布式事务处理" /></p>
-
-<h4 id="事务回滚">事务回滚</h4>
-
-<p>下面展示一个可能发生的回滚场景:应用程序请求提交，但是一个XAResource超时并在请求资源准备之前回滚。结果就是事务回滚并返回应用级回滚异常。
-<img src="/images/2013/7/0026uWfMty6DEMdORAE74.jpg" alt="分布式事务处理" /></p>
-
-<h4 id="事务出错终止">事务出错终止</h4>
-
-<p>下面展示一个可能发生的试探性场景:应用程序请求提交，但是一个XAResource收到资源准备请求之后不可达。结果就是试探性回滚（heuristicrollback）并返回应用级试探性混合异常。
-<img src="/images/2013/7/0026uWfMty6DEMeBncl91.jpg" alt="分布式事务处理" /></p>
-
-<h2 id="参考">参考</h2>
-
-<p><a href="http://www.oracle.com/technetwork/java/javaee/jta/index.html">JTA规范</a><br />
-<a href="http://jcp.org/aboutJava/communityprocess/final/jsr318/">EJB规范(见事务章节)</a><br />
-<a href="http://download.oracle.com/otndocs/jcp/javaee-5.0-fr--oth-JSpec/">JavaEE5规范(见事务章节)</a><br />
-JavaDocs: <a href="http://download.oracle.com/javaee/5/api/javax/transaction/package-summary.html"> javax.transaction</a>、<a href="http://docs.oracle.com/javaee/5/api/javax/transaction/xa/package-summary.html">javax.transaction.xa</a>和<a href="http://download.oracle.com/docs/cd/E17802_01/products/products/jts/javadoc/index.html">JTS</a><br />
-<a href="http://static.springsource.org/spring/docs/current/spring-framework-reference/html/transaction.html"> Spring事务</a><br />
-Atomikos Transactions Guide
-<a href="http://www.theserverside.com/news/1364193/Nuts-and-Bolts-of-Transaction-Processing">Nuts and Bolts of Transaction Processing</a><a href="http://docs.huihoo.com/middleware/tpm/transaction.html">中文翻译版</a><br />
-<a href="http://www.infoq.com/cn/minibooks/JTDS">Java事务设计策略</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：分布式事务处理
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/%e4%ba%8b%e5%8a%a1" rel="tag" title="事务">#事务#</a>
-    
-    <a href="/tags/transaction" rel="tag" title="transaction">#transaction#</a>
-    
-    <a href="/tags/jta" rel="tag" title="jta">#jta#</a>
-    
-    <a href="/tags/2pc" rel="tag" title="2pc">#2pc#</a>
-    
-    <a href="/tags/dtp" rel="tag" title="dtp">#dtp#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/eclipse_rcp%E8%B5%84%E6%96%99/" rel="next" title="Eclipse RCP资料">
-        <i class="fa fa-chevron-left"></i> Eclipse RCP资料
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/" rel="prev" title="小玩Java序列化">
-        小玩Java序列化 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/";
-this.page.identifier = "https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#事务">事务</a>
-<ul>
-<li><a href="#概念">概念</a></li>
-<li><a href="#特性">特性</a></li>
-<li><a href="#嵌套事务">嵌套事务</a></li>
-</ul></li>
-<li><a href="#事务处理组件">事务处理组件</a>
-<ul>
-<li><a href="#应用程序组件">应用程序组件</a></li>
-<li><a href="#资源管理器">资源管理器</a></li>
-<li><a href="#事务管理器">事务管理器</a></li>
-</ul></li>
-<li><a href="#两阶段提交-2pc">两阶段提交（2PC）</a></li>
-<li><a href="#事务处理标准和技术">事务处理标准和技术</a></li>
-<li><a href="#jta">JTA</a>
-<ul>
-<li><a href="#概念-1">概念</a></li>
-<li><a href="#jta组件">JTA组件</a>
-<ul>
-<li><a href="#transactionmanager">TransactionManager</a></li>
-<li><a href="#transaction">Transaction</a></li>
-<li><a href="#xid">Xid</a></li>
-<li><a href="#xaresource">XAResource</a></li>
-<li><a href="#synchronization">Synchronization</a></li>
-<li><a href="#usertransaction">UserTransaction</a></li>
-<li><a href="#exceptions">Exceptions</a></li>
-</ul></li>
-<li><a href="#jta交互">JTA交互</a>
-<ul>
-<li><a href="#激活事务">激活事务</a></li>
-<li><a href="#事务提交">事务提交</a></li>
-<li><a href="#事务回滚">事务回滚</a></li>
-<li><a href="#事务出错终止">事务出错终止</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+|setRollbackOnly|修改目标事务对象代表的事务以致事务的唯一可能结果是回滚</p><h4 id=xid>Xid</h4><p>该接口对于事务管理器和在XAResource后面的稳定数据存储系统之间的通信十分重要。XAResource基本上是同稳定数据存储系统之间的连接，任意多个不同事务使用相同的连接。
+每次事务管理器发起和结束事务，它需要使用稳定数据存储系统能够理解的事务标识。最后要说的是，一个事务可能关联一个甚至多个Xid实例。</p><h4 id=xaresource>XAResource</h4><p>XAResource是事务管理器同数据源的连接。对于每个应用级别连接，需要一个XAResource让应用程序通过JTA事务的连接部分进行工作。</p><h4 id=synchronization>Synchronization</h4><p>该接口是注册应用级回调的一种方式，它允许应用程序接收两阶段提交事件通知。可以在应用程序中通过实现该接口来使用上述功能。
+注意：synchronizations不是持久化的。在事务崩溃并恢复后synchronizations将丢失。</p><ul><li>beforeCompletion: 该方法在事务开始提交前调用。该方法的一个典型使用是向数据库写挂起的更新。</li><li>afterCompletion: 该方法在提交或回滚结束后调用，指示事务是否成功。</li></ul><h4 id=usertransaction>UserTransaction</h4><p>该接口是JTA功能的简单受限版本，是EJB中处理的典型应用级事务服务，使用该接口仅向应用程序暴露JTA功能的一个子集。</p><h4 id=exceptions>Exceptions</h4><p>JTA中有异常是关于试探性（heuristic）终止的。只要发生试探性错误，事务管理器应该保留该事务的日志，以便管理员能够人力解决冲突。</p><ul><li>HeuristicCommitException：所有资源在两阶段提交的准备阶段返回肯定应答，之后跟事务管理器联系中断、长时间处于不确定状态，可能通过试探性决策提交或回滚。如果事务管理器之后跟这部分资源重新建立联系并指示这些资源回滚，则此类型异常抛给应用程序。它表明所有资源由于处于不确定状态选择试探性提交后的事务结果失常。意味着尽管期望回滚，整个事务却提交了。</li><li>HeuristicRollbackException:尽管事务管理器的最终决策是提交，所有资源进行试探性回滚。意味着尽管期望提交，整个事务却回滚了。</li><li>HeuristicMixedException:这是当部分资源提交而部分资源回滚的更复杂错误。它表明事务仅部分生效，明显违反事务语义。需要记住的是，更多信息需要记录到日志中。</li></ul><h3 id=jta交互>JTA交互</h3><p>本节主要介绍用于数据库数据源的典型JTA交互。对于其他资源（例如JMS队列），仅在XAResource获取上有所不同。</p><h4 id=激活事务>激活事务</h4><p><img src=/images/2013/7/0026uWfMty6DEMbjFhf69.jpg alt=分布式事务处理></p><h4 id=事务提交>事务提交</h4><p><img src=/images/2013/7/0026uWfMty6DEMc43nZfb.jpg alt=分布式事务处理></p><h4 id=事务回滚>事务回滚</h4><p>下面展示一个可能发生的回滚场景:应用程序请求提交，但是一个XAResource超时并在请求资源准备之前回滚。结果就是事务回滚并返回应用级回滚异常。
+<img src=/images/2013/7/0026uWfMty6DEMdORAE74.jpg alt=分布式事务处理></p><h4 id=事务出错终止>事务出错终止</h4><p>下面展示一个可能发生的试探性场景:应用程序请求提交，但是一个XAResource收到资源准备请求之后不可达。结果就是试探性回滚（heuristicrollback）并返回应用级试探性混合异常。
+<img src=/images/2013/7/0026uWfMty6DEMeBncl91.jpg alt=分布式事务处理></p><h2 id=参考>参考</h2><p><a href=http://www.oracle.com/technetwork/java/javaee/jta/index.html>JTA规范</a><br><a href=http://jcp.org/aboutJava/communityprocess/final/jsr318/>EJB规范(见事务章节)</a><br><a href=http://download.oracle.com/otndocs/jcp/javaee-5.0-fr--oth-JSpec/>JavaEE5规范(见事务章节)</a><br>JavaDocs: <a href=http://download.oracle.com/javaee/5/api/javax/transaction/package-summary.html>javax.transaction</a>、<a href=http://docs.oracle.com/javaee/5/api/javax/transaction/xa/package-summary.html>javax.transaction.xa</a>和<a href=http://download.oracle.com/docs/cd/E17802_01/products/products/jts/javadoc/index.html>JTS</a><br><a href=http://static.springsource.org/spring/docs/current/spring-framework-reference/html/transaction.html>Spring事务</a><br>Atomikos Transactions Guide
+<a href=http://www.theserverside.com/news/1364193/Nuts-and-Bolts-of-Transaction-Processing>Nuts and Bolts of Transaction Processing</a><a href=http://docs.huihoo.com/middleware/tpm/transaction.html>中文翻译版</a><br><a href=http://www.infoq.com/cn/minibooks/JTDS>Java事务设计策略</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：分布式事务处理<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/%e4%ba%8b%e5%8a%a1 rel=tag title=事务>#事务#</a>
+<a href=/tags/transaction rel=tag title=transaction>#transaction#</a>
+<a href=/tags/jta rel=tag title=jta>#jta#</a>
+<a href=/tags/2pc rel=tag title=2pc>#2pc#</a>
+<a href=/tags/dtp rel=tag title=dtp>#dtp#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/eclipse_rcp%E8%B5%84%E6%96%99/ rel=next title=Eclipse RCP资料><i class="fa fa-chevron-left"></i> Eclipse RCP资料</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/ rel=prev title=小玩Java序列化>小玩Java序列化 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/",this.page.identifier="https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#事务>事务</a><ul><li><a href=#概念>概念</a></li><li><a href=#特性>特性</a></li><li><a href=#嵌套事务>嵌套事务</a></li></ul></li><li><a href=#事务处理组件>事务处理组件</a><ul><li><a href=#应用程序组件>应用程序组件</a></li><li><a href=#资源管理器>资源管理器</a></li><li><a href=#事务管理器>事务管理器</a></li></ul></li><li><a href=#两阶段提交2pc>两阶段提交（2PC）</a></li><li><a href=#事务处理标准和技术>事务处理标准和技术</a></li><li><a href=#jta>JTA</a><ul><li><a href=#概念-1>概念</a></li><li><a href=#jta组件>JTA组件</a></li><li><a href=#jta交互>JTA交互</a></li></ul></li><li><a href=#参考>参考</a></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

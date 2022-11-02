@@ -1,191 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Linux on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/linux/</link>
-    <description>Recent content in Linux on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 23 Mar 2017 06:14:57 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[C&#43;&#43;] Compile JsonCpp library using CMake</title>
-      <link>https://mryqu.github.io/post/c&#43;&#43;_compile_jsoncpp_library_using_cmake/</link>
-      <pubDate>Thu, 23 Mar 2017 06:14:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/c&#43;&#43;_compile_jsoncpp_library_using_cmake/</guid>
-      <description>本文为升级JsonCpp库操作过程的备份笔记。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on Mryqu's Notes</title><link>https://mryqu.github.io/tags/linux/</link><description>Recent content in linux on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 23 Mar 2017 06:14:57 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>[C++] Compile JsonCpp library using CMake</title><link>https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/</link><pubDate>Thu, 23 Mar 2017 06:14:57 +0000</pubDate><guid>https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/</guid><description>本文为升级JsonCpp库操作过程的备份笔记。
 Linux/Unix平台 下载JsonCpp 从JsonCpp releases页面可知，当前最高版本为1.8.0。
-wget https://github.com/open-source-parsers/jsoncpp/archive/1.8.0.tar.gz tar xzvf 1.8.0.tar.gz cd jsoncpp-1.8.0 mkdir build/release  升级gcc 这里我选择使用gcc 5:
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test sudo apt-get update sudo apt-get install gcc-5 g++-5 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1  升级cmake JsonCpp 1.8.0要求cmake&amp;gt;=3.1
-sudo apt-get install software-properties-common sudo add-apt-repository ppa:george-edison55/cmake-3.x sudo apt-get update sudo apt-get upgrade cmake  编译JsonCpp cmake -DCMAKE_BUILD_TYPE=release -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G &amp;quot;Unix Makefiles&amp;quot; .</description>
-    </item>
-    
-    <item>
-      <title>[RabbitMQ] 强制杀死RabbitMQ进程</title>
-      <link>https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/</link>
-      <pubDate>Thu, 11 Aug 2016 05:10:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/</guid>
-      <description> 首先，尝试使用init.d脚本优雅关闭RabbitMQ  sudo /etc/init.d/rabbitmq-server stop  如果不成功的话，使用  ps -eaf | grep erl  查看进程及父进程ID。输出第三列为父进程ID。找到仍是erlang进程（而不是启动进程的shell脚本）的第一个祖先进程，杀死它，这会同样终止其他子进程。上述示例中进程1301为&amp;rdquo;/bin/sh -e/usr/lib/rabbitmq/bin/rabbitmq-server&amp;rdquo;，已经不是erlang进程了，所以杀死进程1587就可以了。对于目前的RabbitMQ版本，可直接使用：  sudo pkill beam.smp   </description>
-    </item>
-    
-    <item>
-      <title>在Linux终端下启动SAS管理控制台</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8linux%E7%BB%88%E7%AB%AF%E4%B8%8B%E5%90%AF%E5%8A%A8sas%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
-      <pubDate>Tue, 29 Mar 2016 21:50:15 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8linux%E7%BB%88%E7%AB%AF%E4%B8%8B%E5%90%AF%E5%8A%A8sas%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
-      <description>在Linux终端下没有X11显示系统的情况下，可以通过如下命令将X11转移到其他X视窗服务器以显示SMC界面：
-$ export DISPLAY=[machine]:[port] $ pwd /local/install/SASServer/SASHome/SASManagementConsole/9.4 $ ./sasmc  </description>
-    </item>
-    
-    <item>
-      <title>ClusterShell实践</title>
-      <link>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 07 Jan 2014 20:47:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</guid>
-      <description>ClusterShell介绍 ClusterShell提供了一个轻量级、统一和健壮的命令执行Python框架，非常适于减轻Linux集群日常管理任务负担。ClusterShell的好处如下： - 提供高效、并行和高可扩展的Python命令执行引擎。 - 提供统一节点组语法和对外部组的访问 - 当使用clush和nodeset等工具可有效提升集群创建和日常管理任务的效率
-ClusterShell实践 安装 首先在集群内节点配置无密钥ssh访问。然后在主/工作节点上安装ClusterShell。
-apt-get install clustershell  配置和实践 ClusterShell工具 ClusterShell包含如下工具： - clush帮助文档 - clubak帮助文档 - nodesetcluset帮助文档
-ClusterShell在线文档为http://clustershell.readthedocs.io/。</description>
-    </item>
-    
-    <item>
-      <title>Linux/Unix下显示二进制目标文件的符号表</title>
-      <link>https://mryqu.github.io/post/linux%E4%B8%8B%E6%98%BE%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link>
-      <pubDate>Thu, 31 Oct 2013 22:22:34 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux%E4%B8%8B%E6%98%BE%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid>
-      <description>nm 查看二进制目标文件符号表的标准工具是nm，可以执行下列命令查看二进制目标文件（.o）/静态库（.a）/动态库（.so）的符号表：
-nm -g yourObj.o nm -g yourLib.a nm -g yourLib.so  C/C++语言在C++编译器编译以后，函数的名字会被编译器修改，改成编译器内部的名字，这个名字会在链接的时候用到。例如std::string::size()经过修饰后是_ZNKSs4sizeEv。通过添加&amp;rdquo;-C&amp;rdquo;选项，可以对底层符号表译成用户级名称（demangle），具有更好的可读性。
-以test.cpp为例：将其编译后，通过nm查看符号表，带&amp;rdquo;-C&amp;rdquo;选项与否的结果如下：readelf 如果你的二进制目标文件（.o）/静态库（.a）/动态库（.so）是ELF（Executableand linkingformat）格式，则可以使用readelf命令提取符号表信息。
-readelf -Ws usr/lib/yourLib.so  如果仅想输出函数名，可以通过awk命令进行解析：
-readelf -Ws test.o | awk &#39;$4==&amp;quot;FUNC&amp;quot; {print $8}&#39;;  以上面的test.o为例：
-显示test.o的elf文件头信息：显示test.o的符号表：参考 How do I list the symbols in a .so file
-nm - Linux man page
-readelf - Linux man page
-[](http://man.linuxde.net/nm)
-[](http://man.linuxde.net/readelf)</description>
-    </item>
-    
-    <item>
-      <title>nohup命令笔记</title>
-      <link>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Sat, 26 Oct 2013 11:24:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
-      <description>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
-/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp;  但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &amp;amp;结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
-nohup COMMAND [ARG]...  nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&amp;amp;到命令的尾部。
+wget https://github.com/open-source-parsers/jsoncpp/archive/1.8.0.tar.gz tar xzvf 1.8.0.tar.gz cd jsoncpp-1.8.0 mkdir build/release 升级gcc 这里我选择使用gcc 5:
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test sudo apt-get update sudo apt-get install gcc-5 g++-5 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1 升级cmake JsonCpp 1.8.0要求cmake&amp;gt;=3.1
+sudo apt-get install software-properties-common sudo add-apt-repository ppa:george-edison55/cmake-3.x sudo apt-get update sudo apt-get upgrade cmake 编译JsonCpp cmake -DCMAKE_BUILD_TYPE=release -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G &amp;#34;Unix Makefiles&amp;#34; ../.. make Windows平台 准备环境 首先下载JsonCpp 1.</description></item><item><title>[RabbitMQ] 强制杀死RabbitMQ进程</title><link>https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/</link><pubDate>Thu, 11 Aug 2016 05:10:09 +0000</pubDate><guid>https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/</guid><description> 首先，尝试使用init.d脚本优雅关闭RabbitMQ sudo /etc/init.d/rabbitmq-server stop 如果不成功的话，使用 ps -eaf | grep erl 查看进程及父进程ID。输出第三列为父进程ID。找到仍是erlang进程（而不是启动进程的shell脚本）的第一个祖先进程，杀死它，这会同样终止其他子进程。上述示例中进程1301为&amp;quot;/bin/sh -e/usr/lib/rabbitmq/bin/rabbitmq-server&amp;quot;，已经不是erlang进程了，所以杀死进程1587就可以了。对于目前的RabbitMQ版本，可直接使用： sudo pkill beam.smp</description></item><item><title>在Linux终端下启动SAS管理控制台</title><link>https://mryqu.github.io/post/%E5%9C%A8linux%E7%BB%88%E7%AB%AF%E4%B8%8B%E5%90%AF%E5%8A%A8sas%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0/</link><pubDate>Tue, 29 Mar 2016 21:50:15 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%9C%A8linux%E7%BB%88%E7%AB%AF%E4%B8%8B%E5%90%AF%E5%8A%A8sas%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid><description>在Linux终端下没有X11显示系统的情况下，可以通过如下命令将X11转移到其他X视窗服务器以显示SMC界面：
+$ export DISPLAY=[machine]:[port] $ pwd /local/install/SASServer/SASHome/SASManagementConsole/9.4 $ ./sasmc</description></item><item><title>ClusterShell实践</title><link>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 07 Jan 2014 20:47:23 +0000</pubDate><guid>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</guid><description>ClusterShell介绍 ClusterShell提供了一个轻量级、统一和健壮的命令执行Python框架，非常适于减轻Linux集群日常管理任务负担。ClusterShell的好处如下：
+提供高效、并行和高可扩展的Python命令执行引擎。 提供统一节点组语法和对外部组的访问 当使用clush和nodeset等工具可有效提升集群创建和日常管理任务的效率 ClusterShell实践 安装 首先在集群内节点配置无密钥ssh访问。然后在主/工作节点上安装ClusterShell。
+apt-get install clustershell 配置和实践 ClusterShell工具 ClusterShell包含如下工具：
+clush帮助文档 clubak帮助文档 nodesetcluset帮助文档 ClusterShell在线文档为http://clustershell.readthedocs.io/。</description></item><item><title>Linux/Unix下显示二进制目标文件的符号表</title><link>https://mryqu.github.io/post/linux%E4%B8%8B%E6%98%BE%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link><pubDate>Thu, 31 Oct 2013 22:22:34 +0000</pubDate><guid>https://mryqu.github.io/post/linux%E4%B8%8B%E6%98%BE%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid><description>nm 查看二进制目标文件符号表的标准工具是nm，可以执行下列命令查看二进制目标文件（.o）/静态库（.a）/动态库（.so）的符号表：
+nm -g yourObj.o nm -g yourLib.a nm -g yourLib.so C/C++语言在C++编译器编译以后，函数的名字会被编译器修改，改成编译器内部的名字，这个名字会在链接的时候用到。例如std::string::size()经过修饰后是_ZNKSs4sizeEv。通过添加&amp;quot;-C&amp;quot;选项，可以对底层符号表译成用户级名称（demangle），具有更好的可读性。
+以test.cpp为例： 将其编译后，通过nm查看符号表，带&amp;quot;-C&amp;quot;选项与否的结果如下：
+readelf 如果你的二进制目标文件（.o）/静态库（.a）/动态库（.so）是ELF（Executableand linkingformat）格式，则可以使用readelf命令提取符号表信息。
+readelf -Ws usr/lib/yourLib.so 如果仅想输出函数名，可以通过awk命令进行解析：
+readelf -Ws test.o | awk &amp;#39;$4==&amp;#34;FUNC&amp;#34; {print $8}&amp;#39;; 以上面的test.o为例：
+显示test.o的elf文件头信息： 显示test.o的符号表：
+参考 How do I list the symbols in a .so file nm - Linux man page readelf - Linux man page</description></item><item><title>nohup命令笔记</title><link>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link><pubDate>Sat, 26 Oct 2013 11:24:28 +0000</pubDate><guid>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid><description>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
+/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp; 但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &amp;amp;结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
+nohup COMMAND [ARG]... nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&amp;amp;到命令的尾部。
 如果不将 nohup 命令的输出重定向，输出将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
-nohup command &amp;gt; myout.file 2&amp;gt;&amp;amp;1  该命令返回下列出口值：
- 126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。  </description>
-    </item>
-    
-    <item>
-      <title>[Linux] 判断可执行文件或动态库是否包含符号表</title>
-      <link>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link>
-      <pubDate>Thu, 24 Oct 2013 22:48:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid>
-      <description>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的&amp;rdquo;-g&amp;rdquo;选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
-srv01&amp;gt; file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01&amp;gt; file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped  显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
+nohup command &amp;gt; myout.file 2&amp;gt;&amp;amp;1 该命令返回下列出口值：
+126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。</description></item><item><title>[Linux] 判断可执行文件或动态库是否包含符号表</title><link>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link><pubDate>Thu, 24 Oct 2013 22:48:09 +0000</pubDate><guid>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid><description>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的&amp;quot;-g&amp;quot;选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
+srv01&amp;gt; file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01&amp;gt; file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped 显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
 如果文件包含调试符号表，可以通过objdump -t命令及选项打印文件的符号表：
-srv01&amp;gt; objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</description>
-    </item>
-    
-    <item>
-      <title>*nux下导出文件16进制内容的命令xxd</title>
-      <link>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</link>
-      <pubDate>Thu, 24 Oct 2013 19:16:18 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</guid>
-      <description>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page
-5 Unix Commands I Wish I’d Discovered Years Earlier</description>
-    </item>
-    
-    <item>
-      <title>cut命令笔记</title>
-      <link>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Tue, 22 Oct 2013 23:22:24 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
-      <description> cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
-命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号(&#39;-&#39;)，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（&#39;-&#39;）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成&#39;&#39;name:shell&#39;&#39;对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38  个人体会  cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&amp;ndash;output-delimiter=STRING选项控制输出字符分隔符。  </description>
-    </item>
-    
-    <item>
-      <title>grep命令笔记</title>
-      <link>https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Tue, 22 Oct 2013 22:52:04 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
-      <description> 使用grep时一直没有使用什么命令选项，这里过一遍grep帮助，试一遍不明白的选项。
+srv01&amp;gt; objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</description></item><item><title>*nux下导出文件16进制内容的命令xxd</title><link>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</link><pubDate>Thu, 24 Oct 2013 19:16:18 +0000</pubDate><guid>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</guid><description>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page 5 Unix Commands I Wish I’d Discovered Years Earlier</description></item><item><title>cut命令笔记</title><link>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 22 Oct 2013 23:22:24 +0000</pubDate><guid>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid><description>cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
+命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号(&amp;#39;-&amp;#39;)，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（&amp;#39;-&amp;#39;）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成&amp;#39;&amp;#39;name:shell&amp;#39;&amp;#39;对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38 个人体会 cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&amp;ndash;output-delimiter=STRING选项控制输出字符分隔符。</description></item><item><title>grep命令笔记</title><link>https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 22 Oct 2013 22:52:04 +0000</pubDate><guid>https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid><description>使用grep时一直没有使用什么命令选项，这里过一遍grep帮助，试一遍不明白的选项。
 grep简介 grep是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
-grep命令帮助 示例: grep -i &#39;hello world&#39; menu.h main.c 正则选择和解释: -E, --extended-regexp PATTERN为扩展正则表达式（ERE） -F, --fixed-strings PATTERN是一套新行分割字符串 -G, --basic-regexp PATTERN为基本正则表达式（BRE） -P, --perl-regexp PATTERN为Perl正则表达式 -e, --regexp=PATTERN 使用PATTERN作为正则表达式 -f, --file=FILE 从文件中获得PATTERN -i, --ignore-case 忽略大小写 -w, --word-regexp 强制PATTERN仅匹配整个单词 -x, --line-regexp 强制PATTERN仅匹配整行 -z, --null-data 数据行以0字节而不是新行截至（打印整个文件了） 杂项: -s, --no-messages 抑制错误消息 -v, --invert-match 选择非匹配行 -V, --version 显示版本信息并退出 --help 显示该帮助并退出 -J, --bz2decompress 在进行搜索前解压缩bzip压缩输入 -Z, --decompress 在进行搜索前解压缩输入(HAVE_LIBZ=1) --mmap 如可能使用内存映射输入 输出控制: -m, --max-count=NUM 在NUM个匹配后停止工作 -b, --byte-offset 在输出行显示字节偏移 -n, --line-number 显示行号 --line-buffered 对每行都清除缓存强制输出 -H, --with-filename 对每个匹配结果显示文件名 -h, --no-filename 抑制输出中前缀的文件名 --label=LABEL 将LABEL作为标准输入的文件名显示（输入为管道有用） -o, --only-matching 仅显示行匹配PATTERN部分 -q, --quiet, --silent 抑制所有正常输出。通常用于脚本条件语句中，判断匹配结果是1还是0 --binary-files=TYPE 将二进制文件假定为类型，分别为&#39;binary&#39;、&#39;text&#39;或 &#39;without-match&#39;。默认为&#39;binary&#39;，对二进制文件进行搜索 而不显示；&#39;text&#39;，一概视为文本文件，搜索并显示； &#39;without-match&#39;，对二进制文件直接忽略，不搜索不显示。 -a, --text 等同于--binary-files=text -I 等同于--binary-files=without-match -d, --directories=ACTION 如何处理目录的操作项，分别为&#39;read&#39;、&#39;recurse&#39;或&#39;skip&#39;。 -D, --devices=ACTION 如何处理设备、FIFO和socket的操作项，分别为&#39;read&#39;或&#39;skip&#39;。 -R, -r, --recursive 等同于--directories=recurse --include=PATTERN 匹配PATTERN的文件将被检查 --exclude=PATTERN 匹配PATTERN的文件将被忽略 --exclude-from=FILE 匹配模式文件中PATTERN的文件将被忽略 -L, --files-without-match 仅显示不包含匹配的文件名 -l, --files-with-matches 仅显示包含匹配的文件名 -c, --count 仅显示每个文件匹配行数 --null 在文件名后显示0字节（跟不带这个选项就少一个冒号？） 上下文控制: -B, --before-context=NUM 输出匹配结果及其前NUM行 -A, --after-context=NUM 输出匹配结果及其后NUM行 -C, --context=NUM 输出匹配结果及其前后各NUM行 -NUM 等同--context=NUM --color[=WHEN], --colour[=WHEN] 使用标记突显匹配字符串，WHEN可为&#39;always&#39;、&#39;never&#39;或&#39;auto&#39; 默认项为&#39;never&#39;，&#39;always&#39;总是使用标记，而&#39;auto&#39;仅输出 在没有被管道到其他命令或重定向到文件时才使用标记。 -U, --binary 在行结尾EOL不除去回车换行CR字符(MSDOS) -u, --unix-byte-offsets 如果没有回车换行则报告字节偏移(MSDOS)  </description>
-    </item>
-    
-    <item>
-      <title>Linux包管理速查表</title>
-      <link>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</link>
-      <pubDate>Fri, 18 Oct 2013 20:14:05 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid>
-      <description>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
-搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu下安装部署MySQL数据库</title>
-      <link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
-      <pubDate>Fri, 11 Oct 2013 21:52:52 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description>安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
-sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java  查看是否安装成功:
-sudo netstat -tap | grep mysql  查看上述软件包所提供的文件:
-dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev  通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
-MySQL服务操作 查看状态 - 使用service查看状态：sudo service mysql status - 使用mysql脚本查看状态：/etc/inint.d/mysql status - 使用mysqladmin查看状态：mysqladmin -u root -p status
-启动 - 使用service启动：sudo service mysql start - 使用mysql脚本启动：/etc/inint.d/mysql start - 使用mysqld_safe启动：mysqld_safe&amp;amp;</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu操作笔记</title>
-      <link>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid>
-      <description>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s  更多细节见hostname帮助文档。
-修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
+grep命令帮助 示例: grep -i &amp;#39;hello world&amp;#39; menu.h main.c 正则选择和解释: -E, --extended-regexp PATTERN为扩展正则表达式（ERE） -F, --fixed-strings PATTERN是一套新行分割字符串 -G, --basic-regexp PATTERN为基本正则表达式（BRE） -P, --perl-regexp PATTERN为Perl正则表达式 -e, --regexp=PATTERN 使用PATTERN作为正则表达式 -f, --file=FILE 从文件中获得PATTERN -i, --ignore-case 忽略大小写 -w, --word-regexp 强制PATTERN仅匹配整个单词 -x, --line-regexp 强制PATTERN仅匹配整行 -z, --null-data 数据行以0字节而不是新行截至（打印整个文件了） 杂项: -s, --no-messages 抑制错误消息 -v, --invert-match 选择非匹配行 -V, --version 显示版本信息并退出 --help 显示该帮助并退出 -J, --bz2decompress 在进行搜索前解压缩bzip压缩输入 -Z, --decompress 在进行搜索前解压缩输入(HAVE_LIBZ=1) --mmap 如可能使用内存映射输入 输出控制: -m, --max-count=NUM 在NUM个匹配后停止工作 -b, --byte-offset 在输出行显示字节偏移 -n, --line-number 显示行号 --line-buffered 对每行都清除缓存强制输出 -H, --with-filename 对每个匹配结果显示文件名 -h, --no-filename 抑制输出中前缀的文件名 --label=LABEL 将LABEL作为标准输入的文件名显示（输入为管道有用） -o, --only-matching 仅显示行匹配PATTERN部分 -q, --quiet, --silent 抑制所有正常输出。通常用于脚本条件语句中，判断匹配结果是1还是0 --binary-files=TYPE 将二进制文件假定为类型，分别为&amp;#39;binary&amp;#39;、&amp;#39;text&amp;#39;或 &amp;#39;without-match&amp;#39;。默认为&amp;#39;binary&amp;#39;，对二进制文件进行搜索 而不显示；&amp;#39;text&amp;#39;，一概视为文本文件，搜索并显示； &amp;#39;without-match&amp;#39;，对二进制文件直接忽略，不搜索不显示。 -a, --text 等同于--binary-files=text -I 等同于--binary-files=without-match -d, --directories=ACTION 如何处理目录的操作项，分别为&amp;#39;read&amp;#39;、&amp;#39;recurse&amp;#39;或&amp;#39;skip&amp;#39;。 -D, --devices=ACTION 如何处理设备、FIFO和socket的操作项，分别为&amp;#39;read&amp;#39;或&amp;#39;skip&amp;#39;。 -R, -r, --recursive 等同于--directories=recurse --include=PATTERN 匹配PATTERN的文件将被检查 --exclude=PATTERN 匹配PATTERN的文件将被忽略 --exclude-from=FILE 匹配模式文件中PATTERN的文件将被忽略 -L, --files-without-match 仅显示不包含匹配的文件名 -l, --files-with-matches 仅显示包含匹配的文件名 -c, --count 仅显示每个文件匹配行数 --null 在文件名后显示0字节（跟不带这个选项就少一个冒号？） 上下文控制: -B, --before-context=NUM 输出匹配结果及其前NUM行 -A, --after-context=NUM 输出匹配结果及其后NUM行 -C, --context=NUM 输出匹配结果及其前后各NUM行 -NUM 等同--context=NUM --color[=WHEN], --colour[=WHEN] 使用标记突显匹配字符串，WHEN可为&amp;#39;always&amp;#39;、&amp;#39;never&amp;#39;或&amp;#39;auto&amp;#39; 默认项为&amp;#39;never&amp;#39;，&amp;#39;always&amp;#39;总是使用标记，而&amp;#39;auto&amp;#39;仅输出 在没有被管道到其他命令或重定向到文件时才使用标记。 -U, --binary 在行结尾EOL不除去回车换行CR字符(MSDOS) -u, --unix-byte-offsets 如果没有回车换行则报告字节偏移(MSDOS)</description></item><item><title>Linux包管理速查表</title><link>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</link><pubDate>Fri, 18 Oct 2013 20:14:05 +0000</pubDate><guid>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid><description>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
+搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</description></item><item><title>Ubuntu下安装部署MySQL数据库</title><link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Fri, 11 Oct 2013 21:52:52 +0000</pubDate><guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
+sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java 查看是否安装成功:
+sudo netstat -tap | grep mysql 查看上述软件包所提供的文件:
+dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev 通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
+MySQL服务操作 查看状态
+使用service查看状态：sudo service mysql status 使用mysql脚本查看状态：/etc/inint.d/mysql status 使用mysqladmin查看状态：mysqladmin -u root -p status 启动
+使用service启动：sudo service mysql start 使用mysql脚本启动：/etc/inint.d/mysql start 使用mysqld_safe启动：mysqld_safe&amp;amp; 停止
+使用service停止：sudo service mysql stop 使用mysql脚本停止：/etc/inint.d/mysql stop 使用mysqladmin停止：mysqladmin -u root -p shutdown 重启</description></item><item><title>Ubuntu操作笔记</title><link>https://mryqu.github.io/post/ubuntu-notes/</link><pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate><guid>https://mryqu.github.io/post/ubuntu-notes/</guid><description>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s 更多细节见hostname帮助文档。
+修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname 更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
 在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
-apt-get install net-tools  在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
-net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
-sudo sysctl -p  之后，运行:
-$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 在RACE虚拟机上安装单节点Hadoop</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</link>
-      <pubDate>Wed, 24 Jul 2013 21:58:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</guid>
-      <description>RACE（Remote Access ComputerEnvironment）是SAS公司内使用的虚拟机集成系统。通过RACE系统申请虚拟机，使用自己或别的项目组、同事创建的RACEimage安装操作系统和应用程序，省心省力。
+apt-get install net-tools 在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1 如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p 之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6 它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
+apt-get --version 结果近似于:</description></item><item><title>[Hadoop] 在RACE虚拟机上安装单节点Hadoop</title><link>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</link><pubDate>Wed, 24 Jul 2013 21:58:09 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</guid><description>RACE（Remote Access ComputerEnvironment）是SAS公司内使用的虚拟机集成系统。通过RACE系统申请虚拟机，使用自己或别的项目组、同事创建的RACEimage安装操作系统和应用程序，省心省力。
 RACE安装及配置 申请一台RACE虚拟机，使用RACE Image（Id：579290，STG_LAX_RHEL6_SAS94_16G_Ora112 ）安装了RHEL linux操作系统。 启动后，使用下列脚本替换主机信息
-/nfs/cardio/vol/vol1/sasinside/setup/changehost94.sh  安装Java JDK 如果RACE Image没有安装Java JDK的话，需要自己安装：
-yum install java-1.6.0-openjdk java-1.6.0-openjdk-devel  幸好在/sasjdk/jdk发现很多版本的Java JDK，最后决定使用下列位置的openjdk:
-/usr/lib/jvm/java-openjdk/  创建帐号 原系统中没有安装hadoop，但是有hadoop帐号。我没有找到密码，只好重做一把：
-userdel hadoop useradd hadoop passwd hadoop  下载并解压缩Hadoop 因为Hadoop 2.0采用YARN，hive、mahout等需要MapReduce V1的可能无法使用，这里安装的是Hadoop 1.2.1。
-# mkdir /opt/hadoop # cd /opt/hadoop/ # wget http://download.nextag.com/apache/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz # tar -xzf hadoop-1.2.1.tar.gz # chown -R hadoop /opt/hadoop # cd /opt/hadoop/hadoop-1.2.1/  配置Hadoop 下列为Hadoop的单节点伪分布模式配置。 conf/core-site.xml:
-fs.default.name hdfs://localhost:9000/  conf/hdfs-site.xml:
-dfs.replication 1  conf/mapred-site.</description>
-    </item>
-    
-  </channel>
-</rss>
+/nfs/cardio/vol/vol1/sasinside/setup/changehost94.sh 安装Java JDK 如果RACE Image没有安装Java JDK的话，需要自己安装：
+yum install java-1.6.0-openjdk java-1.6.0-openjdk-devel 幸好在/sasjdk/jdk发现很多版本的Java JDK，最后决定使用下列位置的openjdk:
+/usr/lib/jvm/java-openjdk/ 创建帐号 原系统中没有安装hadoop，但是有hadoop帐号。我没有找到密码，只好重做一把：
+userdel hadoop useradd hadoop passwd hadoop 下载并解压缩Hadoop 因为Hadoop 2.0采用YARN，hive、mahout等需要MapReduce V1的可能无法使用，这里安装的是Hadoop 1.2.1。
+# mkdir /opt/hadoop # cd /opt/hadoop/ # wget http://download.nextag.com/apache/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz # tar -xzf hadoop-1.2.1.tar.gz # chown -R hadoop /opt/hadoop # cd /opt/hadoop/hadoop-1.2.1/ 配置Hadoop 下列为Hadoop的单节点伪分布模式配置。 conf/core-site.xml:
+fs.default.name hdfs://localhost:9000/ conf/hdfs-site.xml:
+dfs.replication 1 conf/mapred-site.xml:
+mapred.job.tracker localhost:9001 conf/hadoop-env.sh:
+export JAVA_HOME=/usr/lib/jvm/java-openjdk/ export HADOOP_OPTS=-Djava.</description></item></channel></rss>

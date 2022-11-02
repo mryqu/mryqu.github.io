@@ -1,66 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Box on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/box/</link>
-    <description>Recent content in Box on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 04 Jan 2019 06:07:31 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/box/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>使用Packer创建基于Ubuntu的Vagrant Box</title>
-      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8packer%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</link>
-      <pubDate>Fri, 04 Jan 2019 06:07:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8packer%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</guid>
-      <description>前一博客创建基于Ubuntu的Vagrant Box是手工完成的，这意味着每次实施后需要写出详细文档，以便于以后查档、定位问题或者更新。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>box on Mryqu's Notes</title><link>https://mryqu.github.io/tags/box/</link><description>Recent content in box on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 04 Jan 2019 06:07:31 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/box/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Packer创建基于Ubuntu的Vagrant Box</title><link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8packer%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</link><pubDate>Fri, 04 Jan 2019 06:07:31 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8packer%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</guid><description>前一博客创建基于Ubuntu的Vagrant Box是手工完成的，这意味着每次实施后需要写出详细文档，以便于以后查档、定位问题或者更新。
 持续交付和DevOps技术的快速进步和演化，使得基础设施的配置不得不频繁变化。基础设施即代码(IaC)是一种使用新的技术来构建和管理动态基础设施的方式。它把基础设施、工具和服务以及对基础设施的管理本身作为一个软件系统，采纳软件工程实践以结构化的安全的方式来管理对系统的变更。
 Packer是由HashiCorp推出的一款轻量级镜像定义工具，用于从单一配置来源为多平台创建相同的机器映像。目前支持的平台包括Alicloud ECS、Amazon EC2、Azure、CloudStack、DigitalOcean、Docker、File、Google Cloud、Hetzner Cloud、Hper-V、LXC、LXD、NAVER Cloud、1&amp;amp;1、OpenStack、Oracle、Parallels、ProfitBricks、QEMU、Scaleway、Triton、VirtualBox和VMware。
 配置好一个模版文件，用pakcer命令就可以按需构建机器镜像。也可以根据需求及时更改配置。 加入软件版本控制（主要用的是 Git）后，就可以很方便的追溯更改。
 尝试了用Packer模板创建Ubuntu基于VirtualBox provider的Vagrant Box，日志如下：
-C:\quTemp\PackerTest&amp;gt;REM set PACKER_LOG=1 C:\quTemp\PackerTest&amp;gt;packer build -var &amp;quot;mirror=c:/quTemp&amp;quot; -var &amp;quot;mirror_directory=PackerTest&amp;quot; ubuntu-14.04-amd64.json virtualbox-iso output will be in this color. ==&amp;gt; virtualbox-iso: Retrieving Guest additions virtualbox-iso: Using file in-place: file:///C:/quTools/Oracle/VirtualBox/VBoxGuestAdditions.iso ==&amp;gt; virtualbox-iso: Retrieving ISO virtualbox-iso: Using file in-place: file:///C:/quTemp/PackerTest/ubuntu-14.04.5-server-amd64.iso ==&amp;gt; virtualbox-iso: Starting HTTP server on port 8711 ==&amp;gt; virtualbox-iso: Creating virtual machine... ==&amp;gt; virtualbox-iso: Creating hard drive... ==&amp;gt; virtualbox-iso: Creating forwarded port mapping for communicator (SSH, WinRM, etc) (host port 3620) ==&amp;gt; virtualbox-iso: Executing custom VBoxManage commands.</description>
-    </item>
-    
-    <item>
-      <title>创建基于Ubuntu的Vagrant Box</title>
-      <link>https://mryqu.github.io/post/%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</link>
-      <pubDate>Wed, 02 Jan 2019 06:07:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</guid>
-      <description>学习一下创建Ubuntu基于VirtualBox provider的Vagrant Box。
-准备环境  Vagrant VirtualBox 下载Ubuntu 14.04.5 LTS (Trusty Tahr)服务器版ISO文件  创建虚拟机 创建VirtualBox VM mryqu-ubuntu 内存1024MB 创建VMDK类型、自动分配的虚拟硬盘 安装Ubuntu 点击Setting，在Storage配置页的Controller:IDE中增加CD，选择所下载的Ubuntu ISO文件。然后启动虚拟机。 安装过程除了下列项之外使用默认选择：
-- Configure the network - Hostname: vagrant
-- Set up users and passwords: vagrant/vagrant
-- Encrypt your home directory? Select No
-- Select your time zone: UTC
-- Partitioning method: Guided – use entire disk and set up LVM
-- When prompted which software to install, select OpenSSH server</description>
-    </item>
-    
-    <item>
-      <title>定制Vagrant box主机</title>
-      <link>https://mryqu.github.io/post/%E5%AE%9A%E5%88%B6vagrant_box%E4%B8%BB%E6%9C%BA/</link>
-      <pubDate>Thu, 07 May 2015 21:34:40 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%AE%9A%E5%88%B6vagrant_box%E4%B8%BB%E6%9C%BA/</guid>
-      <description>做个笔记，记录一下如何定制Vagrant box主机。 - 在Vagrantfile中通过一个Vagrant基础box定制box。 - 启动该定制box后，通过Vagrant package命令输出box文件 - 编写JSON格式的box元数据文件 - 将定制box文件及其元数据文件放到web服务器中 - 将此定制box作为基础box的Vagrantfile中，设置如下 - config.vm.box用于匹配上述定制box的名称 - config.vm.box_url为box文件的URL或box元数据文件的URL当config.vm.box_url为box文件的URL，该box文件即为基础box；当config.vm.box_url为box元数据文件的URL，可以使用config.vm.box指定名称的某一版本box文件（有config.vm.box_version参数，即使用其约束的特定版本；否则，使用最新版本box文件）作为基础box。 - config.vm.box_version指定box的特定版本。
-参考 Custom Vagrant Cloud Versioned Box Host
-Vagrant: CREATING A BASE BOX
-Vagrant: MACHINE SETTINGS</description>
-    </item>
-    
-    <item>
-      <title>使用Vagrant Box</title>
-      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant_box/</link>
-      <pubDate>Mon, 20 Apr 2015 06:07:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant_box/</guid>
-      <description>//Download a box to local disk $ vagrant box add my-box /path/to/the/new.box ... $ vagrant init my-box ... $ vagrant up ...  </description>
-    </item>
-    
-  </channel>
-</rss>
+C:\quTemp\PackerTest&amp;gt;REM set PACKER_LOG=1 C:\quTemp\PackerTest&amp;gt;packer build -var &amp;#34;mirror=c:/quTemp&amp;#34; -var &amp;#34;mirror_directory=PackerTest&amp;#34; ubuntu-14.04-amd64.json virtualbox-iso output will be in this color. ==&amp;gt; virtualbox-iso: Retrieving Guest additions virtualbox-iso: Using file in-place: file:///C:/quTools/Oracle/VirtualBox/VBoxGuestAdditions.iso ==&amp;gt; virtualbox-iso: Retrieving ISO virtualbox-iso: Using file in-place: file:///C:/quTemp/PackerTest/ubuntu-14.04.5-server-amd64.iso ==&amp;gt; virtualbox-iso: Starting HTTP server on port 8711 ==&amp;gt; virtualbox-iso: Creating virtual machine... ==&amp;gt; virtualbox-iso: Creating hard drive... ==&amp;gt; virtualbox-iso: Creating forwarded port mapping for communicator (SSH, WinRM, etc) (host port 3620) ==&amp;gt; virtualbox-iso: Executing custom VBoxManage commands.</description></item><item><title>创建基于Ubuntu的Vagrant Box</title><link>https://mryqu.github.io/post/%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</link><pubDate>Wed, 02 Jan 2019 06:07:31 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8Eubuntu%E7%9A%84vagrant_box/</guid><description>学习一下创建Ubuntu基于VirtualBox provider的Vagrant Box。
+准备环境 Vagrant VirtualBox 下载Ubuntu 14.04.5 LTS (Trusty Tahr)服务器版ISO文件 创建虚拟机 创建VirtualBox VM mryqu-ubuntu 内存1024MB 创建VMDK类型、自动分配的虚拟硬盘 安装Ubuntu 点击Setting，在Storage配置页的Controller:IDE中增加CD，选择所下载的Ubuntu ISO文件。然后启动虚拟机。 安装过程除了下列项之外使用默认选择：
+Configure the network - Hostname: vagrant Set up users and passwords: vagrant/vagrant Encrypt your home directory? Select No Select your time zone: UTC Partitioning method: Guided – use entire disk and set up LVM When prompted which software to install, select OpenSSH server 安装成功后，会提示进行登陆。 使用vagrant用户登陆后，使用sudo su -切到root账号，重新同步安装包索引并更新安装包。
+apt-get update apt-get upgrade 为vagrant用户设置无密码sudo vagrant用户每次执行sudo命令会要求输入密码。通过visudo命令在配置文件末增加vagrant ALL=(ALL) NOPASSWD:ALL并保存即可实现无密码sudo。</description></item><item><title>定制Vagrant box主机</title><link>https://mryqu.github.io/post/%E5%AE%9A%E5%88%B6vagrant_box%E4%B8%BB%E6%9C%BA/</link><pubDate>Thu, 07 May 2015 21:34:40 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%AE%9A%E5%88%B6vagrant_box%E4%B8%BB%E6%9C%BA/</guid><description>做个笔记，记录一下如何定制Vagrant box主机。
+在Vagrantfile中通过一个Vagrant基础box定制box。 启动该定制box后，通过Vagrant package命令输出box文件 编写JSON格式的box元数据文件 将定制box文件及其元数据文件放到web服务器中 将此定制box作为基础box的Vagrantfile中，设置如下 config.vm.box用于匹配上述定制box的名称 config.vm.box_url为box文件的URL或box元数据文件的URL当config.vm.box_url为box文件的URL，该box文件即为基础box；当config.vm.box_url为box元数据文件的URL，可以使用config.vm.box指定名称的某一版本box文件（有config.vm.box_version参数，即使用其约束的特定版本；否则，使用最新版本box文件）作为基础box。 config.vm.box_version指定box的特定版本。 参考 Custom Vagrant Cloud Versioned Box Host Vagrant: CREATING A BASE BOX Vagrant: MACHINE SETTINGS</description></item><item><title>使用Vagrant Box</title><link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant_box/</link><pubDate>Mon, 20 Apr 2015 06:07:31 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant_box/</guid><description>//Download a box to local disk $ vagrant box add my-box /path/to/the/new.box ... $ vagrant init my-box ... $ vagrant up ...</description></item></channel></rss>

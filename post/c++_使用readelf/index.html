@@ -1,181 +1,33 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[C&#43;&#43;] 使用readelf - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[C&#43;&#43;] 使用readelf">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[C&#43;&#43;] 使用readelf - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8readelf/" itemprop="url">
-        [C&#43;&#43;] 使用readelf
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-08">
-    2015-12-08
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1371 字 ~7分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>在计算机科学中，<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a>文件（Executableand LinkableFormat）是一种用于二进制文件、可执行文件、目标代码、共享库和核心转储格式文件，是UNIX系统实验室（USL）作为应用程序二进制接口（ApplicationBinaryInterface，ABI）而开发和发布的，也是Linux的主要可执行文件格式。1999年，被86open项目选为x86架构上的类Unix操作系统的二进制文件标准格式，用来取代COFF。因其可扩展性与灵活性，也可应用在其它处理器、计算机系统架构的操作系统上。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[C++] 使用readelf - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[C++] 使用readelf"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[C++] 使用readelf - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/ itemprop=url>[C++] 使用readelf</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-12-08">2015-12-08</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1371 字 ~7分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>在计算机科学中，<a href=https://en.wikipedia.org/wiki/Executable_and_Linkable_Format>ELF</a>文件（Executableand LinkableFormat）是一种用于二进制文件、可执行文件、目标代码、共享库和核心转储格式文件，是UNIX系统实验室（USL）作为应用程序二进制接口（ApplicationBinaryInterface，ABI）而开发和发布的，也是Linux的主要可执行文件格式。1999年，被86open项目选为x86架构上的类Unix操作系统的二进制文件标准格式，用来取代COFF。因其可扩展性与灵活性，也可应用在其它处理器、计算机系统架构的操作系统上。
 ELF文件由4部分组成，分别是ELF头（ELF header）、程序头表（Program headertable）、节（Section）和节头表（Section headertable）。实际上，一个文件中不一定包含全部内容，而且他们的位置也未必如同所示这样安排，只有ELF头的位置是固定的，其余各部分的位置、大小等信息由ELF头中的各项值来决定。
-而<a href="https://linux.die.net/man/1/readelf">readelf</a>用于显示<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a>文件的信息。
-<img src="/images/2015/12/0026uWfMzy79UpY8B8m7a.png" alt="[C++] 使用readelf" /></p>
-
-<pre><code>Usage: readelf &lt;option(s)&gt; elf-file(s)
+而<a href=https://linux.die.net/man/1/readelf>readelf</a>用于显示<a href=https://en.wikipedia.org/wiki/Executable_and_Linkable_Format>ELF</a>文件的信息。
+<img src=/images/2015/12/0026uWfMzy79UpY8B8m7a.png alt=[C++] 使用readelf></p><pre tabindex=0><code>Usage: readelf &lt;option(s)&gt; elf-file(s)
  Display information about the contents of ELF format files
  Options are:
   -a --all               全部 Equivalent to: -h -l -S -s -r -d -V -A -I
   -h --file-header       ELF头 Display the ELF file header
   -l --program-headers   程序头表 Display the program headers
      --segments          An alias for --program-headers
-  -S --section-headers   节头 Display the sections' header
+  -S --section-headers   节头 Display the sections&#39; header
      --sections          An alias for --section-headers
   -g --section-groups    节组 Display the section groups
   -t --section-details   节细节 Display the section details
@@ -211,15 +63,11 @@ ELF文件由4部分组成，分别是ELF头（ELF header）、程序头表（Pro
   @&lt;file&gt;                Read options from &lt;file&gt;
   -H --help              帮助 Display this information
   -v --version           版本 Display the version number of readelf
-</code></pre>
-
-<h4 id="练习-查看elf文件头">练习 - 查看ELF文件头</h4>
-
-<pre><code>hadoop@node51054:/usr/bin$ readelf -h curl
+</code></pre><h4 id=练习---查看elf文件头>练习 - 查看ELF文件头</h4><pre tabindex=0><code>hadoop@node51054:/usr/bin$ readelf -h curl
 ELF Header:
   Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
   Class:                             ELF64
-  Data:                              2's complement, little endian
+  Data:                              2&#39;s complement, little endian
   Version:                           1 (current)
   OS/ABI:                            UNIX - System V
   ABI Version:                       0
@@ -235,13 +83,9 @@ ELF Header:
   Number of program headers:         9
   Size of section headers:           64 (bytes)
   Number of section headers:         27
-</code></pre>
+</code></pre><h4 id=练习---查看符号表>练习 - 查看符号表</h4><pre tabindex=0><code>hadoop@node51054:/usr/bin$ readelf -s curl
 
-<h4 id="练习-查看符号表">练习 - 查看符号表</h4>
-
-<pre><code>hadoop@node51054:/usr/bin$ readelf -s curl
-
-Symbol table '.dynsym' contains 108 entries:
+Symbol table &#39;.dynsym&#39; contains 108 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
      1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __errno_location@GLIBC_2.2.5 (2)
@@ -351,250 +195,47 @@ Symbol table '.dynsym' contains 108 entries:
    105: 0000000000625350     8 OBJECT  GLOBAL DEFAULT   25 stderr@GLIBC_2.2.5 (4)
    106: 0000000000625328     0 NOTYPE  GLOBAL DEFAULT   25 __bss_start
    107: 000000000040f314     0 FUNC    GLOBAL DEFAULT   14 _fini
-</code></pre>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[C&#43;&#43;] 使用readelf
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/readelf" rel="tag" title="readelf">#readelf#</a>
-    
-    <a href="/tags/cpp" rel="tag" title="cpp">#cpp#</a>
-    
-    <a href="/tags/gcc" rel="tag" title="gcc">#gcc#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/sublime_text2&#43;ctags&#43;cscope%E4%BD%BF%E7%94%A8%E5%AE%9E%E8%B7%B5/" rel="next" title="Sublime Text2&#43;Ctags&#43;Cscope使用实践">
-        <i class="fa fa-chevron-left"></i> Sublime Text2&#43;Ctags&#43;Cscope使用实践
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" rel="prev" title="[C&#43;&#43;] 使用ldd">
-        [C&#43;&#43;] 使用ldd <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/";
-this.page.identifier = "https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#练习-查看elf文件头">练习 - 查看ELF文件头</a></li>
-<li><a href="#练习-查看符号表">练习 - 查看符号表</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[C++] 使用readelf<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/readelf rel=tag title=readelf>#readelf#</a>
+<a href=/tags/cpp rel=tag title=cpp>#cpp#</a>
+<a href=/tags/gcc rel=tag title=gcc>#gcc#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/sublime_text2+ctags+cscope%E4%BD%BF%E7%94%A8%E5%AE%9E%E8%B7%B5/ rel=next title=Sublime Text2+Ctags+Cscope使用实践><i class="fa fa-chevron-left"></i> Sublime Text2+Ctags+Cscope使用实践</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8ldd/ rel=prev title=[C++] 使用ldd>[C++] 使用ldd <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/",this.page.identifier="https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8readelf/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

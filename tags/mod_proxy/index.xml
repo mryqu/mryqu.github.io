@@ -1,25 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Mod_proxy on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/mod_proxy/</link>
-    <description>Recent content in Mod_proxy on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 16 Oct 2013 22:03:02 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/mod_proxy/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>vFabric Web Server配置：多tc Server负载均衡</title>
-      <link>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</link>
-      <pubDate>Wed, 16 Oct 2013 22:03:02 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</guid>
-      <description>HTTP请求需要分发到tc Server集群成员。为了实现这一目的，可以采用硬件负载均衡硬件或软件(Apache HTTP Server、vFabric Web Server和Microsoft IIS)。本文介绍用vFabric Web Server的mod_proxy模块实现tcServer负载均衡。
-vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对下列行进行添加或去除注释: LoadModule proxy_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy.so&amp;quot; LoadModule proxy_http_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_http.so&amp;quot; LoadModule proxy_balancer_module &amp;quot;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_balancer.so&amp;quot;  vFabric Web Server:创建额外的配置文件 在vFabric Web Server实例的conf目录创建mod_proxy.conf: # Enable capturing of proxy statistics ProxyStatus on SetHandler balancer-manager Order Deny,Allow Deny from all Allow from 127.0.0.1 # These apps aren&#39;t clustered -- requests go to dedicated server ProxyPass /my-app1 balancer://my-standalone/my-app1 ProxyPass /my-app2 balancer://my-standalone/my-app2 # Clustered apps get directed to loadbalanced worker ProxyPass /my-app3 balancer://my-balancer/my-app3 ProxyPass /my-app4 balancer://my-balancer/my-app4 # Standalone &amp;quot;balancer&amp;quot; for standalone apps that aren&#39;t clustered BalancerMember http://MYSERVER1:8080 # Load balanced &amp;quot;balancer&amp;quot; for clustered apps BalancerMember http://MYSERVER1:8080 route=aGVsbG8gcWUh_MyServer1_1 loadfactor=1 BalancerMember http://MYSERVER1:8180 route=aGVsbG8gcWUh_MyServer1_2 loadfactor=2 ProxySet lbmethod=byrequests stickysession=aGVsbG8gcWUh_Cluster1|aGVsbG8gcWUh_cluster1 # Configure cache timeouts for static content AddType text/javascript .</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mod_proxy on Mryqu's Notes</title><link>https://mryqu.github.io/tags/mod_proxy/</link><description>Recent content in mod_proxy on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 16 Oct 2013 22:03:02 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/mod_proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>vFabric Web Server配置：多tc Server负载均衡</title><link>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</link><pubDate>Wed, 16 Oct 2013 22:03:02 +0000</pubDate><guid>https://mryqu.github.io/post/vfabric_web_server%E9%85%8D%E7%BD%AE%E5%A4%9Atc_server%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</guid><description>HTTP请求需要分发到tc Server集群成员。为了实现这一目的，可以采用硬件负载均衡硬件或软件(Apache HTTP Server、vFabric Web Server和Microsoft IIS)。本文介绍用vFabric Web Server的mod_proxy模块实现tcServer负载均衡。
+vFabric Web Server:加载mod_proxy动态共享对象 在httpsd.conf文件对下列行进行添加或去除注释: LoadModule proxy_module &amp;#34;VFWS-INSTALL/httpd-2.2/modules/mod_proxy.so&amp;#34; LoadModule proxy_http_module &amp;#34;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_http.so&amp;#34; LoadModule proxy_balancer_module &amp;#34;VFWS-INSTALL/httpd-2.2/modules/mod_proxy_balancer.so&amp;#34; vFabric Web Server:创建额外的配置文件 在vFabric Web Server实例的conf目录创建mod_proxy.conf: # Enable capturing of proxy statistics ProxyStatus on SetHandler balancer-manager Order Deny,Allow Deny from all Allow from 127.0.0.1 # These apps aren&amp;#39;t clustered -- requests go to dedicated server ProxyPass /my-app1 balancer://my-standalone/my-app1 ProxyPass /my-app2 balancer://my-standalone/my-app2 # Clustered apps get directed to loadbalanced worker ProxyPass /my-app3 balancer://my-balancer/my-app3 ProxyPass /my-app4 balancer://my-balancer/my-app4 # Standalone &amp;#34;balancer&amp;#34; for standalone apps that aren&amp;#39;t clustered BalancerMember http://MYSERVER1:8080 # Load balanced &amp;#34;balancer&amp;#34; for clustered apps BalancerMember http://MYSERVER1:8080 route=aGVsbG8gcWUh_MyServer1_1 loadfactor=1 BalancerMember http://MYSERVER1:8180 route=aGVsbG8gcWUh_MyServer1_2 loadfactor=2 ProxySet lbmethod=byrequests stickysession=aGVsbG8gcWUh_Cluster1|aGVsbG8gcWUh_cluster1 # Configure cache timeouts for static content AddType text/javascript .</description></item></channel></rss>

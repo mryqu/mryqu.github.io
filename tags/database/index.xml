@@ -1,68 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Database on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/database/</link>
-    <description>Recent content in Database on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 28 Jun 2015 01:00:55 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spring Data] 调试H2数据库</title>
-      <link>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
-      <pubDate>Sun, 28 Jun 2015 01:00:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description>我将Spring的两个入门指南Building a RESTful Web Service和Accessing Data with JPA融到一起，测试成功。那接下来的一个问题就是怎么查看H2数据库内容并进行调试？
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>database on Mryqu's Notes</title><link>https://mryqu.github.io/tags/database/</link><description>Recent content in database on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 28 Jun 2015 01:00:55 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spring Data] 调试H2数据库</title><link>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Sun, 28 Jun 2015 01:00:55 +0000</pubDate><guid>https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>我将Spring的两个入门指南Building a RESTful Web Service和Accessing Data with JPA融到一起，测试成功。那接下来的一个问题就是怎么查看H2数据库内容并进行调试？
 配置H2 Web控制台 为了解决这个问题，我首先增加了src/resources/application.properties配置文件，内容如下：
-spring.profiles.active=dev spring.h2.console.enabled=true  在H2 Web控制台上操作 启动Spring Boot应用，在浏览器中进入http://localhost:8080/h2_console/即可进入H2数据库的Web控制台了。 配置IDEA IntelliJ数据源 如果不使用H2 Web控制台的话，在IDEA IntelliJ集成开发环境中也可以通过配置H2数据源进行数据库操作。 解决数据库表不存在问题 上面的玩法有个问题，那就是没看到Accessing Data with JPA里面创建的CUSTOMER表，对不对？为了解决这个问题，在src/resources/application.properties配置文件增加如下内容：
-spring.profiles.active=dev spring.h2.console.enabled=true spring.datasource.url=jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE spring.datasource.driverClassName=org.h2.Driver spring.datasource.username=sa spring.datasource.password=  搞定，收工！
+spring.profiles.active=dev spring.h2.console.enabled=true 在H2 Web控制台上操作 启动Spring Boot应用，在浏览器中进入http://localhost:8080/h2_console/即可进入H2数据库的Web控制台了。 配置IDEA IntelliJ数据源 如果不使用H2 Web控制台的话，在IDEA IntelliJ集成开发环境中也可以通过配置H2数据源进行数据库操作。 解决数据库表不存在问题 上面的玩法有个问题，那就是没看到Accessing Data with JPA里面创建的CUSTOMER表，对不对？为了解决这个问题，在src/resources/application.properties配置文件增加如下内容：
+spring.profiles.active=dev spring.h2.console.enabled=true spring.datasource.url=jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE spring.datasource.driverClassName=org.h2.Driver spring.datasource.username=sa spring.datasource.password= 搞定，收工！
 参考 Using H2’s web console in Spring Boot
 Common application properties for Spring Boot
-H2 Console</description>
-    </item>
-    
-    <item>
-      <title>玩一下SQLite3命令</title>
-      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Thu, 10 Jul 2014 20:29:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/</guid>
-      <description>SQLite介绍 SQLite是实现自包含、无需服务器、零配置和事务SQL数据库引擎的软件库。它占用资源非常低，既可以用于Windows/Linux/Unix等主流的操作系统，也广泛用于嵌入式产品中。它能够跟很多程序语言相结合，比如Tcl、C#、PHP、Java等，还有ODBC接口。 不像常见的客户-服务器范例，SQLite引擎不是个程序与之通信的独立进程，而是连接到程序中成为它的一个主要部分。所以主要的通信协议是在编程语言内的直接API调用。这在消耗总量、延迟时间和整体简单性上有积极的作用。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。它的简单的设计是通过在开始一个事务的时候锁定整个数据文件而完成的。
-SQLITE常用命令使用 SQLite命令行解释器除了支持SQL语句（大小写不敏感），还支持以.开头、大小写敏感的专有命令。SQLite网站有个帖子Command Line Shell For SQLite介绍了支持的所有命令，这里挑一些常用的玩一下。 - .help命令：给出所有命令的帮助介绍
- sqlite&amp;gt; .help   .prompt：更换提示符  sqlite&amp;gt; .prompt &amp;gt;&amp;gt; &amp;gt;&amp;gt; &amp;gt;&amp;gt;.prompt sqlite&amp;gt; sqlite&amp;gt;  .show：显示当前设置  sqlite&amp;gt;.show echo: off eqp: off explain: off headers: off mode: list nullvalue: &amp;quot;&amp;quot; output: stdout separator: &amp;quot;|&amp;quot; stats: off width:  .database：显示数据库信息  sqlite&amp;gt;.database seq name file --- --------------- ---------------------------------------------------------- 0 main E:\gitws\datasci_course_materials\assignment2\reuters.db 1 temp  .tables：显示表信息  sqlite&amp;gt;.tables Frequency  .</description>
-    </item>
-    
-    <item>
-      <title>tc Server与Atomikos集成</title>
-      <link>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</link>
-      <pubDate>Sun, 13 Oct 2013 17:15:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</guid>
-      <description>tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
-Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录： - atomikos-util.jar - transactions.jar - transactions-api.jar - transactions-jdbc.jar - transactions-jdbc-deprecated.jar - transactions-jms.jar - transactions-jms-deprecated.jar - transactions-jta.jar - transactions-osgi.jar - geronimo-jms_1.1_spec.jar - geronimo-jta_1.0.1B_spec.jar - JDBC驱动 - 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar
-复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
-com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false  复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
-package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu下安装部署MySQL数据库</title>
-      <link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
-      <pubDate>Fri, 11 Oct 2013 21:52:52 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description>安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
-sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java  查看是否安装成功:
-sudo netstat -tap | grep mysql  查看上述软件包所提供的文件:
-dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev  通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
-MySQL服务操作 查看状态 - 使用service查看状态：sudo service mysql status - 使用mysql脚本查看状态：/etc/inint.d/mysql status - 使用mysqladmin查看状态：mysqladmin -u root -p status
-启动 - 使用service启动：sudo service mysql start - 使用mysql脚本启动：/etc/inint.d/mysql start - 使用mysqld_safe启动：mysqld_safe&amp;amp;</description>
-    </item>
-    
-  </channel>
-</rss>
+H2 Console</description></item><item><title>玩一下SQLite3命令</title><link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/</link><pubDate>Thu, 10 Jul 2014 20:29:31 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/</guid><description>SQLite介绍 SQLite是实现自包含、无需服务器、零配置和事务SQL数据库引擎的软件库。它占用资源非常低，既可以用于Windows/Linux/Unix等主流的操作系统，也广泛用于嵌入式产品中。它能够跟很多程序语言相结合，比如Tcl、C#、PHP、Java等，还有ODBC接口。 不像常见的客户-服务器范例，SQLite引擎不是个程序与之通信的独立进程，而是连接到程序中成为它的一个主要部分。所以主要的通信协议是在编程语言内的直接API调用。这在消耗总量、延迟时间和整体简单性上有积极的作用。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。它的简单的设计是通过在开始一个事务的时候锁定整个数据文件而完成的。
+SQLITE常用命令使用 SQLite命令行解释器除了支持SQL语句（大小写不敏感），还支持以.开头、大小写敏感的专有命令。SQLite网站有个帖子Command Line Shell For SQLite介绍了支持的所有命令，这里挑一些常用的玩一下。
+.help命令：给出所有命令的帮助介绍 sqlite&amp;gt; .help .prompt：更换提示符 sqlite&amp;gt; .prompt &amp;gt;&amp;gt; &amp;gt;&amp;gt; &amp;gt;&amp;gt;.prompt sqlite&amp;gt; sqlite&amp;gt; .show：显示当前设置 sqlite&amp;gt;.show echo: off eqp: off explain: off headers: off mode: list nullvalue: &amp;#34;&amp;#34; output: stdout separator: &amp;#34;|&amp;#34; stats: off width: .database：显示数据库信息 sqlite&amp;gt;.database seq name file --- --------------- ---------------------------------------------------------- 0 main E:\gitws\datasci_course_materials\assignment2\reuters.db 1 temp .tables：显示表信息 sqlite&amp;gt;.tables Frequency .schema：显示表的创建语句 sqlite&amp;gt;.schema CREATE TABLE Frequency ( docid VARCHAR(255), term VARCHAR(255), count int, PRIMARY KEY(docid, term)); .</description></item><item><title>tc Server与Atomikos集成</title><link>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</link><pubDate>Sun, 13 Oct 2013 17:15:41 +0000</pubDate><guid>https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/</guid><description>tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
+Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录：
+atomikos-util.jar transactions.jar transactions-api.jar transactions-jdbc.jar transactions-jdbc-deprecated.jar transactions-jms.jar transactions-jms-deprecated.jar transactions-jta.jar transactions-osgi.jar geronimo-jms_1.1_spec.jar geronimo-jta_1.0.1B_spec.jar JDBC驱动 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar 复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
+com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false 复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
+package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.START_EVENT.equals(event.getType())) { if (utm == null) { utm = new UserTransactionManager(); } utm.</description></item><item><title>Ubuntu下安装部署MySQL数据库</title><link>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Fri, 11 Oct 2013 21:52:52 +0000</pubDate><guid>https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
+sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java 查看是否安装成功:
+sudo netstat -tap | grep mysql 查看上述软件包所提供的文件:
+dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev 通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
+MySQL服务操作 查看状态
+使用service查看状态：sudo service mysql status 使用mysql脚本查看状态：/etc/inint.d/mysql status 使用mysqladmin查看状态：mysqladmin -u root -p status 启动
+使用service启动：sudo service mysql start 使用mysql脚本启动：/etc/inint.d/mysql start 使用mysqld_safe启动：mysqld_safe&amp;amp; 停止
+使用service停止：sudo service mysql stop 使用mysql脚本停止：/etc/inint.d/mysql stop 使用mysqladmin停止：mysqladmin -u root -p shutdown 重启</description></item></channel></rss>

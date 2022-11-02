@@ -1,25 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Debugging on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/debugging/</link>
-    <description>Recent content in Debugging on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 09 Jan 2015 16:30:12 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/debugging/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[OpenUI5] 快速定位OpenUI5问题的一个方法</title>
-      <link>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</link>
-      <pubDate>Fri, 09 Jan 2015 16:30:12 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</guid>
-      <description>sap.ui.base.Object是所有OpenUI5对象的父类，它的某些方法对快速定位OpenUI5问题很有帮助。我写了一个小函数通过OpenUI5对象的元数据获得类名，并且获得OpenUI5对象的ID信息。
- traceUI5Object: function(obj) { if(obj instanceof sap.ui.base.Object) console.log(obj.getMetadata().getName()+&amp;quot;{id:\&#39;&amp;quot;+obj.getId()+&amp;quot;\&#39;}&amp;quot;); } traceUI5EventProviders: function(obj) { var that = obj; while (that &amp;amp;&amp;amp; that instanceof sap.ui.base.EventProvider) { console.log(that.getMetadata().getName()+&amp;quot;{id:\&#39;&amp;quot;+that.getId()+&amp;quot;\&#39;}&amp;quot;); that = that.getEventingParent(); } }  traceUI5EventProviders函数运行结果示例： sap.ui.commons.CheckBox{id:&#39;check1&#39;} sap.ui.commons.Panel{id:&#39;panel1&#39;} sap.ui.core.mvc.JSView{id:&#39;leftView&#39;} sap.ui.commons.Splitter{id:&#39;Splitter1&#39;} sap.ui.core.mvc.JSView{id:&#39;__jsview0&#39;} sap.ui.core.UIArea{id:&#39;content&#39;}  在编写和调试OpenUI5时，有时会有Exception抛出。 假定上面图中代码会抛出Exception，通过this我们看到的的是一个Factory，通过sId我们可以找到发生问题的定义了ID的控件。但是如果控件ID是自生成的，就不太容易了。我们可以通过监视表达式获取（组件链上所有的）组件类名及ID，这样就可以更快定位导致抛出Exception的OpenUI5视图/控件了。</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>debugging on Mryqu's Notes</title><link>https://mryqu.github.io/tags/debugging/</link><description>Recent content in debugging on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 09 Jan 2015 16:30:12 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/debugging/index.xml" rel="self" type="application/rss+xml"/><item><title>[OpenUI5] 快速定位OpenUI5问题的一个方法</title><link>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 09 Jan 2015 16:30:12 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/</guid><description>sap.ui.base.Object是所有OpenUI5对象的父类，它的某些方法对快速定位OpenUI5问题很有帮助。我写了一个小函数通过OpenUI5对象的元数据获得类名，并且获得OpenUI5对象的ID信息。
+traceUI5Object: function(obj) { if(obj instanceof sap.ui.base.Object) console.log(obj.getMetadata().getName()+&amp;#34;{id:\&amp;#39;&amp;#34;+obj.getId()+&amp;#34;\&amp;#39;}&amp;#34;); } traceUI5EventProviders: function(obj) { var that = obj; while (that &amp;amp;&amp;amp; that instanceof sap.ui.base.EventProvider) { console.log(that.getMetadata().getName()+&amp;#34;{id:\&amp;#39;&amp;#34;+that.getId()+&amp;#34;\&amp;#39;}&amp;#34;); that = that.getEventingParent(); } } traceUI5EventProviders函数运行结果示例： sap.ui.commons.CheckBox{id:&amp;#39;check1&amp;#39;} sap.ui.commons.Panel{id:&amp;#39;panel1&amp;#39;} sap.ui.core.mvc.JSView{id:&amp;#39;leftView&amp;#39;} sap.ui.commons.Splitter{id:&amp;#39;Splitter1&amp;#39;} sap.ui.core.mvc.JSView{id:&amp;#39;__jsview0&amp;#39;} sap.ui.core.UIArea{id:&amp;#39;content&amp;#39;} 在编写和调试OpenUI5时，有时会有Exception抛出。 假定上面图中代码会抛出Exception，通过this我们看到的的是一个Factory，通过sId我们可以找到发生问题的定义了ID的控件。但是如果控件ID是自生成的，就不太容易了。我们可以通过监视表达式获取（组件链上所有的）组件类名及ID，这样就可以更快定位导致抛出Exception的OpenUI5视图/控件了。</description></item></channel></rss>

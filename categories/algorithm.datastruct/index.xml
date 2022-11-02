@@ -1,144 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Algorithm.datastruct on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/categories/algorithm.datastruct/</link>
-    <description>Recent content in Algorithm.datastruct on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sat, 16 Jan 2016 07:02:17 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/categories/algorithm.datastruct/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[算法] 汉明重量（Hamming Weight）</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8Fhamming_weight/</link>
-      <pubDate>Sat, 16 Jan 2016 07:02:17 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8Fhamming_weight/</guid>
-      <description>LeetCode题191是算整数中比特1的个数，即汉明重量或汉明权重。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Algorithm.DataStruct on Mryqu's Notes</title><link>https://mryqu.github.io/categories/algorithm.datastruct/</link><description>Recent content in Algorithm.DataStruct on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 16 Jan 2016 07:02:17 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/categories/algorithm.datastruct/index.xml" rel="self" type="application/rss+xml"/><item><title>[算法] 汉明重量（Hamming Weight）</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8Fhamming_weight/</link><pubDate>Sat, 16 Jan 2016 07:02:17 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8Fhamming_weight/</guid><description>LeetCode题191是算整数中比特1的个数，即汉明重量或汉明权重。
 汉明重量 汉明重量是一串符号中非零符号的个数。因此它等同于同样长度的全零符号串的汉明距离。在最为常见的数据位符号串中，它是1的个数。 汉明重量是以理查德·卫斯里·汉明的名字命名的，它在包括信息论、编码理论、密码学等多个领域都有应用。
 算法 位移实现 我自己的实现就是这种。通过判别n是否为0作为循环退出条件，如果n为0x1的话就位移一次，可是n为0x80000000还是需要位移32次。
-public int hammingWeight(int n) { int res = 0; while(n!=0) { res+= (n &amp;amp; 0x1); n &amp;gt;&amp;gt;&amp;gt;=1; } return res; }  n &amp;amp; (n-1)实现 public int hammingWeight(int n) { int res = 0; for(;n!=0;n = n &amp;amp; (n-1)) { res++; } return res; }  减1操作将最右边的符号从0变到1，从1变到0，与操作将会移除最右端的1。如果最初n有X个1，那么经过X次这样的迭代运算，n将减到0。n&amp;amp; (n-1)实现在大多数比特为0的情况下是效率最高的。 此外n &amp;amp; (n-1)常用于判断数是否为2的幂数（LeetCode题231）：
- ----- binary ---- n n n-1 n&amp;amp;(n-1) -- ---- ---- ------- 0 0000 0111 0000 * 1 0001 0000 0000 * 2 0010 0001 0000 * 3 0011 0010 0010 4 0100 0011 0000 * 5 0101 0100 0100 6 0110 0101 0100 7 0111 0110 0110 8 1000 0111 0000 * 9 1001 1000 1000 10 1010 1001 1000 11 1011 1010 1010 12 1100 1011 1000 13 1101 1100 1100 14 1110 1101 1100 15 1111 1110 1110  JDK实现 java.</description>
-    </item>
-    
-    <item>
-      <title>[算法] 实证分析</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/</link>
-      <pubDate>Tue, 03 Feb 2015 19:53:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/</guid>
-      <description>最近又重温了一下算法课中的实证分析。 - 首先针对不同大小的输入获取运行时长。 - 可以通过标准坐标图或双对数坐标图查看运行时常与输入大小的关系。 - 通过成倍增加输入量，可以更便利地估算T(N)与N之间的幂指数关系。 lg( T(N) ) = b lg( N ) + c 即 T(N) = a Nb, 其中 a = 2c b = ( lg( T(2N1) ) - lg( T(N1)) ) ) / ( lg(2N1)) - lg( N1) ) ) = lg( T(2N1)) ) -lg( T(N1)) ) a = T(2N1)) / (2N1))b 可以教程上第二行就可以计算出b，这就有点不对头了。时常为零，意味着取对数的结果是-∞。返回数值是以毫秒为单位的，因此一般时长也应该是为毫秒为单位的。估计教程上时常实际精度为三位而显示精度为一位，导致不一致的。 下图是我用Excel根据教程显示数据计算的结果： </description>
-    </item>
-    
-    <item>
-      <title>[算法] 学习无向图</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/</link>
-      <pubDate>Fri, 21 Mar 2014 21:40:18 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/</guid>
-      <description>本文是学习http://algs4.cs.princeton.edu/41graph/的吐槽和体会。
+public int hammingWeight(int n) { int res = 0; while(n!=0) { res+= (n &amp;amp; 0x1); n &amp;gt;&amp;gt;&amp;gt;=1; } return res; } n &amp;amp; (n-1)实现 public int hammingWeight(int n) { int res = 0; for(;n!=0;n = n &amp;amp; (n-1)) { res++; } return res; } 减1操作将最右边的符号从0变到1，从1变到0，与操作将会移除最右端的1。如果最初n有X个1，那么经过X次这样的迭代运算，n将减到0。n&amp;amp; (n-1)实现在大多数比特为0的情况下是效率最高的。 此外n &amp;amp; (n-1)常用于判断数是否为2的幂数（LeetCode题231）：
+----- binary ---- n n n-1 n&amp;amp;(n-1) -- ---- ---- ------- 0 0000 0111 0000 * 1 0001 0000 0000 * 2 0010 0001 0000 * 3 0011 0010 0010 4 0100 0011 0000 * 5 0101 0100 0100 6 0110 0101 0100 7 0111 0110 0110 8 1000 0111 0000 * 9 1001 1000 1000 10 1010 1001 1000 11 1011 1010 1010 12 1100 1011 1000 13 1101 1100 1100 14 1110 1101 1100 15 1111 1110 1110 JDK实现 java.</description></item><item><title>[算法] 实证分析</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/</link><pubDate>Tue, 03 Feb 2015 19:53:35 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AE%9E%E8%AF%81%E5%88%86%E6%9E%90/</guid><description>最近又重温了一下算法课中的实证分析。
+首先针对不同大小的输入获取运行时长。 可以通过标准坐标图或双对数坐标图查看运行时常与输入大小的关系。 通过成倍增加输入量，可以更便利地估算T(N)与N之间的幂指数关系。 lg( T(N) ) = b lg( N ) + c 即 T(N) = a Nb, 其中 a = 2c b = ( lg( T(2N1) ) - lg( T(N1)) ) ) / ( lg(2N1)) - lg( N1) ) ) = lg( T(2N1)) ) -lg( T(N1)) ) a = T(2N1)) / (2N1))b 可以教程上第二行就可以计算出b，这就有点不对头了。时常为零，意味着取对数的结果是-∞。返回数值是以毫秒为单位的，因此一般时长也应该是为毫秒为单位的。估计教程上时常实际精度为三位而显示精度为一位，导致不一致的。 下图是我用Excel根据教程显示数据计算的结果：</description></item><item><title>[算法] 学习无向图</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/</link><pubDate>Fri, 21 Mar 2014 21:40:18 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/</guid><description>本文是学习http://algs4.cs.princeton.edu/41graph/的吐槽和体会。
 一点吐槽 一开始对GraphClient.java中numberOfSelfLoops函数进行count/2不解，翻回Graph.java，看看addEdge函数才明白，合着对自循环连接，adj里面加两次。这么干有什么好处么？！！
 再后来看Cycle.java，对hasParallelEdges函数又不解，仔细想想Graph.java不但接受addEdge(1,23)和addEdge(23, 1)，对执行多次addEdge(1,23)也不拒绝。一个无向图这么弄，对么？算不算检查不严格呀？！！
 理解Cycle.java 示例代码：
-public static void main(String[] args) { Graph G = new Graph(4); G.addEdge(0, 1); G.addEdge(1, 2); G.addEdge(1, 3); G.addEdge(2, 3); Cycle finder = new Cycle(G); if (finder.hasCycle()) { for (int v : finder.cycle()) { StdOut.print(v + &amp;quot; &amp;quot;); } StdOut.println(); } else { StdOut.println(&amp;quot;Graph is acyclic&amp;quot;); } }  dfs搜索：
-|上一节点u|当前节点v|下一节点w|注解 |&amp;mdash;&amp;ndash; |-1|0|1|节点1没有标注，嵌套dfs |0|1|3|节点3没有标注，嵌套dfs |1|3|2|节点2没有标注，嵌套dfs |3|2|1|节点1已标注，发现cycle，创建栈，依次： - (在for循环中)push 2 - (在for循环中)push 3 - push 1 - push 2说白了就是当发现下一节点w已经标注，那就返回去找w到v的路径，然后凑上w和v，就是一个环路。</description>
-    </item>
-    
-    <item>
-      <title>[算法] Mergesort练习</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/</link>
-      <pubDate>Thu, 20 Feb 2014 23:39:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/</guid>
-      <description>本作业帖用于练习http://algs4.cs.princeton.edu/22mergesort/里面的作业。
- Merge with atmost log N compares per item. Design a mergingalgorithm such that each item is compared at most a logarithmicnumber of times. (In the standard merging algorithm, an item can becompared N/2 times when merging two subarrays of size N/2.) reference  Lower boundfor sorting a Youngtableaux. A _Youngtableaux_ is an N-by-N matrix such that theentries are sorted both column wise and row wise. Prove thatTheta(N^2 log N) compares are necessary to sort the N^2 entries(where you can access the data only through the pairwisecomparisons).</description>
-    </item>
-    
-    <item>
-      <title>[算法] 求数组中倒置个数</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/</link>
-      <pubDate>Wed, 19 Feb 2014 23:32:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/</guid>
-      <description>http://algs4.cs.princeton.edu/22mergesort/中有一道题是求数组中倒置个数的，原题如下：
-Inversions. Develop and implement alinearithmic algorithm Inversions.java forcomputing the number of inversions in a given array (the number ofexchanges that would be performed by insertion sort for thatarray). This quantity is related tothe Kendall tau distance; 解决思路： Inversions.java在做MergeSort的过程中顺便求出了数组中倒置个数。假设上图中已经获得左右两个子部分中的倒置个数并进行了MergeSort。现在学习一下做整个数组的Merge时如何顺便计算这一层的倒置个数。 - 当aux[0]和aux[5]进行比较时，A小于E，则可知A比左半部分都小（少比较了4次），倒置+5 - 当aux[0]和aux[6]进行比较时，C小于E，则可知C比左半部分都小（少比较了4次），倒置+5 - 当aux[2]和aux[7]进行比较时，E小于G，则可知E比左半部分中G及其之后的数都小（少比较了2次），倒置=+(4-2+1)=+3
-整个数组的倒置数为左边部分内部倒置数+右边部分内部倒置数+13。算法时间复杂度为NlogN。</description>
-    </item>
-    
-    <item>
-      <title>[算法] Elementary Sorts练习</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/</link>
-      <pubDate>Mon, 17 Feb 2014 22:27:59 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/</guid>
-      <description>本作业帖用于练习http://algs4.cs.princeton.edu/21elementary/里面的作业。
- Stoogesort. Analyze the running time andcorrectness of the following recursive sorting algorithm: if theleftmost item is larger than the rightmost item, swap them. Ifthere are 2 or more items in the current subarray, (i) sort theinitial two-thirds of the array recursively, (ii) sort the finaltwo-thirds of the array, (iii) sort the initial two-thirds of thearray again.StoogeSort时间复杂度为O(_n_log3 / log 1.5 )= O(_n_2.7095&amp;hellip;)，比合并排序慢，甚至比冒泡排序慢，仅用于低效简单排序示范。
- Guess-sort. Pick two indices i and j atrandom; if a[i] &amp;gt; a[j], then swap them.</description>
-    </item>
-    
-    <item>
-      <title>[算法] UNION-FIND练习</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/</link>
-      <pubDate>Sat, 15 Feb 2014 21:36:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/</guid>
-      <description>本作业帖用于练习http://algs4.cs.princeton.edu/15uf/里面的作业。
- True or false. Inthe quick union implementation, suppose weset id[p] to id[root(q)] insteadof setting id[root(p)] Would the resultingalgorithm be correct? _答案：_ 否。使用id[root(p)]可以将p所在连接全部合并到q所在连接，而使用id[p]仅会将p及其子连接合并到q所在连接。
- Which of thefollowing arrays could not possibly occur during the execution ofweighted quick union with path compression:
- 0 1 2 3 4 5 67 8 9 7 3 8 3 4 5 68 8 1 6 3 8 0 4 5 69 8 1 0 0 0 0 0 0 00 0 0 9 6 2 6 1 4 58 8 9 9 8 7 6 5 4 32 1 0 _答案：_ B,、C、E和F。</description>
-    </item>
-    
-    <item>
-      <title>[算法] 算法课笔记-排序</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0-%E6%8E%92%E5%BA%8F/</link>
-      <pubDate>Fri, 31 Jan 2014 09:12:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0-%E6%8E%92%E5%BA%8F/</guid>
-      <description> 排序算法分类  就地排序（inplace）：排序算法所需辅助空间不依赖于元素个数N 稳定排序（stable）：同键值的元素在排序后原相对顺序不变  排序算法对比 |排序算法|就地
-排序|稳定
-排序|最差时间
-复杂度|平均时间
-复杂度|最佳时间
-复杂度|备注 |&amp;mdash;&amp;ndash; |选择排序（selection）|是||C=N²/2|C=N²/2
-M=N|C=N²/2|C比较 M移动 |冒泡排序（Bubble）|是|是|C=N²/2|C=N²/2|C=N|当N较小或部分已排序时使用 |插入排序（insertion）|是|是|C=N²/2|C=N²/4
-M=N²/4|C=N|当N较小或部分已排序时使用（部分已排序时，插入排序比选择排序要快） |希尔排序（shell）|是||?|?|C=N|严谨代码，次二次时间 |归并排序（merge）||是|C=NlgN|C=NlgN|C=NlgN|NlgN保证，稳定
-Java中对对象排序
-Perl, C++ stable sort, Python stable sort, Firefox JavaScript,&amp;hellip; |快速排序（quick）|是||C=N²/2|C=2NlnN|C=NlgN|NlgN概率保证，实践中最快
-Java中对原始数据类型排序
-C qsort, Unix, Visual C++, Python, Matlab, Chrome JavaScript,&amp;hellip; |三路基数快速排序
-（3-way quick）|是||C=N²/2|C=2NlnN|C=N|当存在重复键值时改善快速排序 |堆排序（heap）|是||C=2NlgN|C=2NlgN|C=NlgN|NlgN保证，就地
-选择排序 插入排序 希尔排序 Knuth Shuffle 合并排序 快速排序 快选 三路基数快速排序 堆排序 </description>
-    </item>
-    
-    <item>
-      <title>[算法] O(0)的exch函数</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_o0%E7%9A%84exch%E5%87%BD%E6%95%B0/</link>
-      <pubDate>Fri, 10 Jan 2014 06:40:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_o0%E7%9A%84exch%E5%87%BD%E6%95%B0/</guid>
-      <description>常用的exch函数：
-public static void exch(int[] nums, int i, int j) { int tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp; }  不使用辅助空间的exch函数：
-public static void exch(int[] nums, int i, int j) { nums[i] ^= nums[j]; nums[j] ^= nums[i]; nums[i] ^= nums[j]; }  控制流及nums[i]和nums[j]状态如下：
-|nums[i]|nums[j] |&amp;mdash; |= nums[i] ^ nums[j]|/ |/|= nums[j] ^ (nums[i] ^ nums[j])
-= nums[i] |= (nums[i] ^ nums[j]) ^ nums[i]
-= nums[j]|/</description>
-    </item>
-    
-    <item>
-      <title>[算法] Trie（数字树、字典树、前缀树）</title>
-      <link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/</link>
-      <pubDate>Wed, 18 Sep 2013 21:06:56 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/</guid>
-      <description>术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。 与二叉查找树不同，树中节点不存储与节点关联的键，而是通过树中的位置定义键。一个节点的所有子孙节点拥有与该节点相同的字符串前缀，根节点与空字符串相关联。并不是每个节点都与值关联，仅叶节点和部分内部节点与值关联。 含有键为&amp;rdquo;A&amp;rdquo;、&amp;rdquo;to&amp;rdquo;、&amp;rdquo;tea&amp;rdquo;、&amp;rdquo;ted&amp;rdquo;、&amp;rdquo;ten&amp;rdquo;、&amp;rdquo;i&amp;rdquo;、&amp;rdquo;in&amp;rdquo;和&amp;rdquo;inn&amp;rdquo;的trie示例。 trie 中的键通常是字符串，但也可以是其它的结构。trie的算法可以很容易地修改为处理其它结构的有序序列，比如一串数字或者形状的排列。比如，bitwise trie中的键是一串位元，可以用于表示整数或者内存地址。
-性质  根节点不包含字符，除根节点外每一个节点都只包含一个字符； 从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串； 每个节点的所有子节点包含的字符都不相同。  应用 替代其他数据结构 trie较二叉查找树有很多优点，trie可用于替代哈希表，优点如下： - trie数据查找与不完美哈希表（链表实现，完美哈希表为数组实现）在最差情况下更快：对于trie，最差情况为O(m)，m为查找字符串的长度；对于不完美哈希表，会有键冲突（不同键哈希相同），最差情况为O(N)，N为全部字符产集合个数。典型情况下是O(m)用于哈希计算、O(1)用于数据查找。 - trie中不同键没有冲突 - trie的桶与哈希表用于存储键冲突的桶类似，仅在单个键与多个值关联时需要 - 当更多的键加入trie，无需提供哈希方法或改变哈希方法 - tire通过键为条目提供了字母顺序Trie也有一些缺点： - trie数据查找在某些情况下（尤其当数据直接从磁盘或随机访问时间远远高于主内存的辅助存储设备时）比哈希表慢 - 当键为某些类型时（例如浮点数）之类的键，前缀链很长且前缀不是特别有意义。然而bitwisetrie能够处理标注IEEE单精度和双精度浮点数。 - 一些trie会比哈希表消耗更多空间：对于trie，每个字符串的每个字符都可能需要分配内存；对于大多数哈希表，为整个条目分配一块内存。
-字典表示 典型应用是预测文本排序（常被搜索引擎系统用于文本词频统计）、字典自动完成、字符串近似匹配（拼写检查、断字）。
-实现 trie基本操作有：查找、插入和删除。 trie数据查找的方法为 - 从根结点开始一次搜索； - 取得要查找关键词的第一个字母，并根据该字母选择对应的子树并转到该子树继续进行检索； - 在相应的子树上，取得要查找关键词的第二个字母,并进一步选择对应的子树进行检索。 - 迭代过程…… - 在某个结点处，关键词的所有字母已被取出，则读取附在该结点上的信息，即完成查找。
-public class Trie { private Node root = new Node(&amp;quot;&amp;quot;); public Trie() {} public Trie(List argInitialWords) { for (String word:argInitialWords) { addWord(word); } } public void addWord(String argWord) { char argChars[] = argWord.</description>
-    </item>
-    
-  </channel>
-</rss>
+public static void main(String[] args) { Graph G = new Graph(4); G.addEdge(0, 1); G.addEdge(1, 2); G.addEdge(1, 3); G.addEdge(2, 3); Cycle finder = new Cycle(G); if (finder.hasCycle()) { for (int v : finder.cycle()) { StdOut.print(v + &amp;#34; &amp;#34;); } StdOut.println(); } else { StdOut.println(&amp;#34;Graph is acyclic&amp;#34;); } } dfs搜索：
+|上一节点u|当前节点v|下一节点w|注解 |&amp;mdash;&amp;ndash; |-1|0|1|节点1没有标注，嵌套dfs |0|1|3|节点3没有标注，嵌套dfs |1|3|2|节点2没有标注，嵌套dfs |3|2|1|节点1已标注，发现cycle，创建栈，依次：
+(在for循环中)push 2 (在for循环中)push 3 push 1 push 2说白了就是当发现下一节点w已经标注，那就返回去找w到v的路径，然后凑上w和v，就是一个环路。 理解Bipartite.java 二分图又称作二部图、两偶图，是图论中的一种特殊模型。设G=(V,E）是一个无向图，如果顶点V可分割为两个互不相交的子集(A,B），并且图中的每条边（i，j）所关联的两个顶点i和j分别属于这两个不同的顶点集（iin A,j in B），则称图G为一个二分图。</description></item><item><title>[算法] Mergesort练习</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/</link><pubDate>Thu, 20 Feb 2014 23:39:55 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/</guid><description>本作业帖用于练习http://algs4.cs.princeton.edu/22mergesort/里面的作业。
+Merge with atmost log N compares per item. Design a mergingalgorithm such that each item is compared at most a logarithmicnumber of times. (In the standard merging algorithm, an item can becompared N/2 times when merging two subarrays of size N/2.) reference Lower boundfor sorting a Youngtableaux. A Youngtableaux is an N-by-N matrix such that theentries are sorted both column wise and row wise. Prove thatTheta(N^2 log N) compares are necessary to sort the N^2 entries(where you can access the data only through the pairwisecomparisons).</description></item><item><title>[算法] 求数组中倒置个数</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/</link><pubDate>Wed, 19 Feb 2014 23:32:27 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/</guid><description>http://algs4.cs.princeton.edu/22mergesort/中有一道题是求数组中倒置个数的，原题如下：
+Inversions. Develop and implement alinearithmic algorithm Inversions.java forcomputing the number of inversions in a given array (the number ofexchanges that would be performed by insertion sort for thatarray). This quantity is related tothe Kendall tau distance; 解决思路： Inversions.java在做MergeSort的过程中顺便求出了数组中倒置个数。假设上图中已经获得左右两个子部分中的倒置个数并进行了MergeSort。现在学习一下做整个数组的Merge时如何顺便计算这一层的倒置个数。
+当aux[0]和aux[5]进行比较时，A小于E，则可知A比左半部分都小（少比较了4次），倒置+5 当aux[0]和aux[6]进行比较时，C小于E，则可知C比左半部分都小（少比较了4次），倒置+5 当aux[2]和aux[7]进行比较时，E小于G，则可知E比左半部分中G及其之后的数都小（少比较了2次），倒置=+(4-2+1)=+3 整个数组的倒置数为左边部分内部倒置数+右边部分内部倒置数+13。算法时间复杂度为NlogN。</description></item><item><title>[算法] Elementary Sorts练习</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/</link><pubDate>Mon, 17 Feb 2014 22:27:59 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/</guid><description>本作业帖用于练习http://algs4.cs.princeton.edu/21elementary/里面的作业。
+Stoogesort. Analyze the running time andcorrectness of the following recursive sorting algorithm: if theleftmost item is larger than the rightmost item, swap them. Ifthere are 2 or more items in the current subarray, (i) sort theinitial two-thirds of the array recursively, (ii) sort the finaltwo-thirds of the array, (iii) sort the initial two-thirds of thearray again. StoogeSort时间复杂度为O(_n_log3 / log 1.5 )= O(_n_2.7095&amp;hellip;)，比合并排序慢，甚至比冒泡排序慢，仅用于低效简单排序示范。
+Guess-sort. Pick two indices i and j atrandom; if a[i] &amp;gt; a[j], then swap them.</description></item><item><title>[算法] UNION-FIND练习</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/</link><pubDate>Sat, 15 Feb 2014 21:36:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/</guid><description>本作业帖用于练习http://algs4.cs.princeton.edu/15uf/里面的作业。
+True or false. Inthe quick union implementation, suppose weset id[p] to id[root(q)] insteadof setting id[root(p)] Would the resultingalgorithm be correct? 答案： 否。使用id[root(p)]可以将p所在连接全部合并到q所在连接，而使用id[p]仅会将p及其子连接合并到q所在连接。
+Which of thefollowing arrays could not possibly occur during the execution ofweighted quick union with path compression:
+0 1 2 3 4 5 67 8 9
+7 3 8 3 4 5 68 8 1
+6 3 8 0 4 5 69 8 1
+0 0 0 0 0 0 00 0 0</description></item><item><title>[算法] 算法课笔记-排序</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0-%E6%8E%92%E5%BA%8F/</link><pubDate>Fri, 31 Jan 2014 09:12:53 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%94%E8%AE%B0-%E6%8E%92%E5%BA%8F/</guid><description>排序算法分类 就地排序（inplace）：排序算法所需辅助空间不依赖于元素个数N 稳定排序（stable）：同键值的元素在排序后原相对顺序不变 排序算法对比 |排序算法|就地排序|稳定排序|最差时间复杂度|平均时间复杂度|最佳时间复杂度|备注 |&amp;mdash;&amp;ndash; |选择排序（selection）|是||C=N²/2|C=N²/2M=N|C=N²/2|C比较 M移动 |冒泡排序（Bubble）|是|是|C=N²/2|C=N²/2|C=N|当N较小或部分已排序时使用 |插入排序（insertion）|是|是|C=N²/2|C=N²/4M=N²/4|C=N|当N较小或部分已排序时使用（部分已排序时，插入排序比选择排序要快） |希尔排序（shell）|是||?|?|C=N|严谨代码，次二次时间 |归并排序（merge）||是|C=NlgN|C=NlgN|C=NlgN|NlgN保证，稳定Java中对对象排序Perl, C++ stable sort, Python stable sort, Firefox JavaScript,&amp;hellip; |快速排序（quick）|是||C=N²/2|C=2NlnN|C=NlgN|NlgN概率保证，实践中最快Java中对原始数据类型排序C qsort, Unix, Visual C++, Python, Matlab, Chrome JavaScript,&amp;hellip; |三路基数快速排序（3-way quick）|是||C=N²/2|C=2NlnN|C=N|当存在重复键值时改善快速排序 |堆排序（heap）|是||C=2NlgN|C=2NlgN|C=NlgN|NlgN保证，就地
+选择排序 插入排序 希尔排序 Knuth Shuffle 合并排序 快速排序 快选 三路基数快速排序 堆排序</description></item><item><title>[算法] O(0)的exch函数</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_o0%E7%9A%84exch%E5%87%BD%E6%95%B0/</link><pubDate>Fri, 10 Jan 2014 06:40:31 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_o0%E7%9A%84exch%E5%87%BD%E6%95%B0/</guid><description>常用的exch函数：
+public static void exch(int[] nums, int i, int j) { int tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp; } 不使用辅助空间的exch函数：
+public static void exch(int[] nums, int i, int j) { nums[i] ^= nums[j]; nums[j] ^= nums[i]; nums[i] ^= nums[j]; } 控制流及nums[i]和nums[j]状态如下：
+|nums[i]|nums[j] |&amp;mdash; |= nums[i] ^ nums[j]|/ |/|= nums[j] ^ (nums[i] ^ nums[j])= nums[i] |= (nums[i] ^ nums[j]) ^ nums[i]= nums[j]|/</description></item><item><title>[算法] Trie（数字树、字典树、前缀树）</title><link>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/</link><pubDate>Wed, 18 Sep 2013 21:06:56 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/</guid><description>术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。 与二叉查找树不同，树中节点不存储与节点关联的键，而是通过树中的位置定义键。一个节点的所有子孙节点拥有与该节点相同的字符串前缀，根节点与空字符串相关联。并不是每个节点都与值关联，仅叶节点和部分内部节点与值关联。 含有键为&amp;quot;A&amp;quot;、&amp;ldquo;to&amp;rdquo;、&amp;ldquo;tea&amp;rdquo;、&amp;ldquo;ted&amp;rdquo;、&amp;ldquo;ten&amp;rdquo;、&amp;ldquo;i&amp;rdquo;、&amp;ldquo;in&amp;quot;和&amp;quot;inn&amp;quot;的trie示例。 trie 中的键通常是字符串，但也可以是其它的结构。trie的算法可以很容易地修改为处理其它结构的有序序列，比如一串数字或者形状的排列。比如，bitwise trie中的键是一串位元，可以用于表示整数或者内存地址。
+性质 根节点不包含字符，除根节点外每一个节点都只包含一个字符； 从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串； 每个节点的所有子节点包含的字符都不相同。 应用 替代其他数据结构 trie较二叉查找树有很多优点，trie可用于替代哈希表，优点如下：
+trie数据查找与不完美哈希表（链表实现，完美哈希表为数组实现）在最差情况下更快：对于trie，最差情况为O(m)，m为查找字符串的长度；对于不完美哈希表，会有键冲突（不同键哈希相同），最差情况为O(N)，N为全部字符产集合个数。典型情况下是O(m)用于哈希计算、O(1)用于数据查找。 trie中不同键没有冲突 trie的桶与哈希表用于存储键冲突的桶类似，仅在单个键与多个值关联时需要 当更多的键加入trie，无需提供哈希方法或改变哈希方法 tire通过键为条目提供了字母顺序Trie也有一些缺点： trie数据查找在某些情况下（尤其当数据直接从磁盘或随机访问时间远远高于主内存的辅助存储设备时）比哈希表慢 当键为某些类型时（例如浮点数）之类的键，前缀链很长且前缀不是特别有意义。然而bitwisetrie能够处理标注IEEE单精度和双精度浮点数。 一些trie会比哈希表消耗更多空间：对于trie，每个字符串的每个字符都可能需要分配内存；对于大多数哈希表，为整个条目分配一块内存。 字典表示 典型应用是预测文本排序（常被搜索引擎系统用于文本词频统计）、字典自动完成、字符串近似匹配（拼写检查、断字）。
+实现 trie基本操作有：查找、插入和删除。 trie数据查找的方法为
+从根结点开始一次搜索； 取得要查找关键词的第一个字母，并根据该字母选择对应的子树并转到该子树继续进行检索； 在相应的子树上，取得要查找关键词的第二个字母,并进一步选择对应的子树进行检索。 迭代过程…… 在某个结点处，关键词的所有字母已被取出，则读取附在该结点上的信息，即完成查找。 public class Trie { private Node root = new Node(&amp;#34;&amp;#34;); public Trie() {} public Trie(List argInitialWords) { for (String word:argInitialWords) { addWord(word); } } public void addWord(String argWord) { char argChars[] = argWord.toCharArray(); Node currentNode = root; for (int i = 0; i &amp;lt; argChars.</description></item></channel></rss>

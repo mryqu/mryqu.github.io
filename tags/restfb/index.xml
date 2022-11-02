@@ -1,35 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Restfb on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/restfb/</link>
-    <description>Recent content in Restfb on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Mon, 04 Apr 2016 06:18:35 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/restfb/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Use proxy on RestFB</title>
-      <link>https://mryqu.github.io/post/use_proxy_on_restfb/</link>
-      <pubDate>Mon, 04 Apr 2016 06:18:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/use_proxy_on_restfb/</guid>
-      <description>曾经有人向RestFB开过issue（https://github.com/restfb/restfb/issues/116）询问如何给其设置代理，issue里回复扩展DefaultWebRequestor。下面的代码基于该方案并测试通过。
-package com.yqu.restfb; import com.restfb.DefaultFacebookClient; import com.restfb.DefaultJsonMapper; import com.restfb.FacebookClient; import com.restfb.Version; import java.io.IOException; import java.net.HttpURLConnection; import java.net.InetSocketAddress; import java.net.Proxy; import java.net.URL; public class HelloRestFBWithProxy { private static class DefaultWebRequestor extends com.restfb.DefaultWebRequestor { protected HttpURLConnection openConnection(URL url) throws IOException { HttpURLConnection httpURLConnection = null; if (useProxyFlag.booleanValue()) { InetSocketAddress proxyLocation = new InetSocketAddress( hostName, port); Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyLocation); try { httpURLConnection = (HttpURLConnection) url .openConnection(proxy); return httpURLConnection; } catch (Exception e) { return (HttpURLConnection) url.</description>
-    </item>
-    
-    <item>
-      <title>Hello RestFB</title>
-      <link>https://mryqu.github.io/post/hello_restfb/</link>
-      <pubDate>Wed, 21 Oct 2015 05:55:32 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hello_restfb/</guid>
-      <description>RestFB是一个简单灵活的Facebook图谱API和REST客户端Java库。本演示用它来获取一个Facebook主页下的帖子、评论及回复。
-获取Facebook AccessToken 示例代码 package com.yqu.restfb; import java.util.List; import com.restfb.Connection; import com.restfb.DefaultFacebookClient; import com.restfb.FacebookClient; import com.restfb.Parameter; import com.restfb.Version; import com.restfb.types.Comment; import com.restfb.types.Page; import com.restfb.types.Post; public class HelloRestFB { public static void main(String[] args) { FacebookClient facebookClient = new DefaultFacebookClient( MY_ACCESS_TOKEN, Version.VERSION_2_5); Page pageInfo = (Page) facebookClient.fetchObject(&amp;quot;YquTest&amp;quot;, Page.class, new Parameter[0]); Connection postConnection = facebookClient.fetchConnection( pageInfo.getId() + &amp;quot;/feed&amp;quot;, Post.class, new Parameter[] { Parameter.with(&amp;quot;limit&amp;quot;, 10), Parameter.with(&amp;quot;include_hidden&amp;quot;, &amp;quot;true&amp;quot;) }); if (postConnection.getData().size() &amp;lt;= 0) { System.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>restfb on Mryqu's Notes</title><link>https://mryqu.github.io/tags/restfb/</link><description>Recent content in restfb on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Apr 2016 06:18:35 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/restfb/index.xml" rel="self" type="application/rss+xml"/><item><title>Use proxy on RestFB</title><link>https://mryqu.github.io/post/use_proxy_on_restfb/</link><pubDate>Mon, 04 Apr 2016 06:18:35 +0000</pubDate><guid>https://mryqu.github.io/post/use_proxy_on_restfb/</guid><description>曾经有人向RestFB开过issue（https://github.com/restfb/restfb/issues/116）询问如何给其设置代理，issue里回复扩展DefaultWebRequestor。下面的代码基于该方案并测试通过。
+package com.yqu.restfb; import com.restfb.DefaultFacebookClient; import com.restfb.DefaultJsonMapper; import com.restfb.FacebookClient; import com.restfb.Version; import java.io.IOException; import java.net.HttpURLConnection; import java.net.InetSocketAddress; import java.net.Proxy; import java.net.URL; public class HelloRestFBWithProxy { private static class DefaultWebRequestor extends com.restfb.DefaultWebRequestor { protected HttpURLConnection openConnection(URL url) throws IOException { HttpURLConnection httpURLConnection = null; if (useProxyFlag.booleanValue()) { InetSocketAddress proxyLocation = new InetSocketAddress( hostName, port); Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyLocation); try { httpURLConnection = (HttpURLConnection) url .openConnection(proxy); return httpURLConnection; } catch (Exception e) { return (HttpURLConnection) url.</description></item><item><title>Hello RestFB</title><link>https://mryqu.github.io/post/hello_restfb/</link><pubDate>Wed, 21 Oct 2015 05:55:32 +0000</pubDate><guid>https://mryqu.github.io/post/hello_restfb/</guid><description>RestFB是一个简单灵活的Facebook图谱API和REST客户端Java库。本演示用它来获取一个Facebook主页下的帖子、评论及回复。
+获取Facebook AccessToken 示例代码 package com.yqu.restfb; import java.util.List; import com.restfb.Connection; import com.restfb.DefaultFacebookClient; import com.restfb.FacebookClient; import com.restfb.Parameter; import com.restfb.Version; import com.restfb.types.Comment; import com.restfb.types.Page; import com.restfb.types.Post; public class HelloRestFB { public static void main(String[] args) { FacebookClient facebookClient = new DefaultFacebookClient( MY_ACCESS_TOKEN, Version.VERSION_2_5); Page pageInfo = (Page) facebookClient.fetchObject(&amp;#34;YquTest&amp;#34;, Page.class, new Parameter[0]); Connection postConnection = facebookClient.fetchConnection( pageInfo.getId() + &amp;#34;/feed&amp;#34;, Post.class, new Parameter[] { Parameter.with(&amp;#34;limit&amp;#34;, 10), Parameter.with(&amp;#34;include_hidden&amp;#34;, &amp;#34;true&amp;#34;) }); if (postConnection.getData().size() &amp;lt;= 0) { System.</description></item></channel></rss>

@@ -1,873 +1,184 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Hadoop&#43;spark on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/categories/hadoop&#43;spark/</link>
-    <description>Recent content in Hadoop&#43;spark on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 17 Jul 2018 06:09:41 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/categories/hadoop+spark/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spark] 使用Spark的REST服务Livy</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</link>
-      <pubDate>Tue, 17 Jul 2018 06:09:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</guid>
-      <description>Apache Livy简介 Apache Livy是由Cloudera Labs贡献的基于Apache Spark的开源REST服务，它不仅以REST的方式代替了Spark传统的处理交互方式，同时也提供企业应用中不可忽视的多用户，安全，以及容错的支持。其功能如下：- 拥有可用于多Spark作业或多客户端长时间运行的SparkContext； - 同时管理多个SparkContext，并在集群（YARN / Mesos）而不是Livy服务器上运行它们，以实现良好的容错性和并发性； - 可以通过预先编译好的JAR、代码片段或是java/scala客户端API将Spark作业提交到远端的Spark集群上执行。
-建立测试环境 今天在GitHub: mryqu/vagrant-hadoop-hive-spark提交了add livy support，因此可以在Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中使用Livy 0.5.0服务。 使用Livy的REST API 创建交互式会话 curl -X POST -d &#39;{&amp;quot;kind&amp;quot;: &amp;quot;spark&amp;quot;}&#39; -H &amp;quot;Content-Type: application/json&amp;quot; http://10.211.55.101:8998/sessions { &amp;quot;id&amp;quot;:0, &amp;quot;appId&amp;quot;:null, &amp;quot;owner&amp;quot;:null, &amp;quot;proxyUser&amp;quot;:null, &amp;quot;state&amp;quot;:&amp;quot;starting&amp;quot;, &amp;quot;kind&amp;quot;:&amp;quot;spark&amp;quot;, &amp;quot;appInfo&amp;quot;:{ &amp;quot;driverLogUrl&amp;quot;:null, &amp;quot;sparkUiUrl&amp;quot;:null }, &amp;quot;log&amp;quot;:[ &amp;quot;stdout: &amp;quot;, &amp;quot; stderr: &amp;quot; ] }  成功创建会话0，kind指定为spark，如果之后提交的代码中没有指定kind，则使用此处的会话默认kind。
-查询交互式会话列表 curl http://10.211.55.101:8998/sessions { &amp;quot;from&amp;quot;:0, &amp;quot;total&amp;quot;:1, &amp;quot;sessions&amp;quot;:[ { &amp;quot;id&amp;quot;:0, &amp;quot;appId&amp;quot;:null, &amp;quot;owner&amp;quot;:null, &amp;quot;proxyUser&amp;quot;:null, &amp;quot;state&amp;quot;:&amp;quot;idle&amp;quot;, &amp;quot;kind&amp;quot;:&amp;quot;spark&amp;quot;, &amp;quot;appInfo&amp;quot;:{ &amp;quot;driverLogUrl&amp;quot;:null, &amp;quot;sparkUiUrl&amp;quot;:null }, &amp;quot;log&amp;quot;:[ &amp;quot;2018-07-18 03:19:16 INFO BlockManager:54 - Using org.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] SparkCatalogAPI使用</title>
-      <link>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</link>
-      <pubDate>Mon, 16 Jul 2018 06:12:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</guid>
-      <description>Catalog API简介 Spark中的DataSet和Dataframe API支持结构化分析。结构化分析的一个重要的方面是管理元数据。这些元数据可能是一些临时元数据（比如临时表）、SQLContext上注册的UDF以及持久化的元数据（比如Hivemeta store或者HCatalog）。 Spark2中添加了标准的API（称为catalog）来访问Spark SQL中的元数据。这个API既可以操作Spark SQL，也可以操作Hive元数据。
-Catalog API使用 查询数据库 scala&amp;gt; spark.catalog.listDatabases.show(false) +-------+---------------------+----------------------------------------+ |name |description |locationUri | +-------+---------------------+----------------------------------------+ |default|Default Hive database|hdfs://10.211.55.101/user/hive/warehouse| +-------+---------------------+----------------------------------------+ scala&amp;gt; spark.catalog.currentDatabase res4: String = default  查询表 scala&amp;gt; spark.catalog.listTables.show(false) +----+--------+----------------------------------------+---------+-----------+ |name|database|description |tableType|isTemporary| +----+--------+----------------------------------------+---------+-----------+ |emp |default |null |MANAGED |false | |emp2|default |Imported by sqoop on 2018/07/10 04:23:26|MANAGED |false | |emp3|default |Imported by sqoop on 2018/07/10 06:13:17|MANAGED |false | |yqu1|default |null |MANAGED |false | |yqu2|default |null |MANAGED |false | +----+--------+----------------------------------------+---------+-----------+  下面的示例用于创建不同TableType的表： - MANAGED: 当表被删除时，内容与元数据一同删除 - EXTERNAL: 当表被删除时，仅元数据会被删除 - VIEW: 持久视图 - TEMPORARY: 临时视图</description>
-    </item>
-    
-    <item>
-      <title>[Oozie] 遭遇ShareLib无法找到的问题</title>
-      <link>https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
-      <pubDate>Fri, 13 Jul 2018 05:40:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-      <description>折腾几天，终于装好了Oozie 5.0.0，并且启动了Oozie守护进程。
-vagrant@node1:~$ oozie admin -oozie http://10.211.55.101:11000/oozie -status log4j:WARN No appenders could be found for logger (org.apache.hadoop.security.authentication.client.KerberosAuthenticator). log4j:WARN Please initialize the log4j system properly. log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info. System mode: NORMAL  不过运行MapReduce demo总是出错，找不到Oozie的共享库，日志如下：
-2018-07-12 04:45:50,228 WARN ActionStartXCommand:523 - SERVER[node1] USER[vagrant] GROUP[-] TOKEN[] APP[map-reduce-wf] JOB[0000001-XXXXXXXXXXXXXXX-oozie-root-W] ACTION[0000001-XXXXXXXXXXXXXXX-oozie-root-W@mr-node] Error starting action [mr-node]. ErrorType [FAILED], ErrorCode [It should never happen], Message [File /user/root/share/lib does not exist] org.apache.oozie.action.ActionExecutorException: File /user/root/share/lib does not exist at org.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] Spark读取HBase</title>
-      <link>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</link>
-      <pubDate>Thu, 12 Jul 2018 05:40:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</guid>
-      <description>Spark读取Hbase有以下几张方式： - Spark的JavaSparkContext.newAPIHadoopRDD / SparkContext.newAPIHadoopRDD方法 - HBase的hbase-spark - Hortonworks的Spark HBase Connector - Cloudera labs的SparkOnHBase 本文就Spark自带的方法进行示范和演示。
-HBase数据库 Spark范例 HelloSparkHBase.java import org.apache.spark.SparkContext; import org.apache.spark.api.java.JavaPairRDD; import org.apache.spark.api.java.JavaRDD; import org.apache.spark.api.java.JavaSparkContext; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import org.apache.spark.api.java.function.Function; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.hbase.HBaseConfiguration; import org.apache.hadoop.hbase.TableName; import org.apache.hadoop.hbase.client.*; import org.apache.hadoop.hbase.mapreduce.TableInputFormat; import org.apache.hadoop.hbase.io.ImmutableBytesWritable; import org.apache.hadoop.hbase.util.Bytes; import scala.Tuple2; public class HelloSparkHBase { public static void main(String[] args) { try { Configuration conf = HBaseConfiguration.create(); conf.set(TableInputFormat.INPUT_TABLE, &amp;quot;student&amp;quot;); SparkSession spark = SparkSession .</description>
-    </item>
-    
-    <item>
-      <title>[Sqoop]尝试Sqoop</title>
-      <link>https://mryqu.github.io/post/sqoop_%E5%B0%9D%E8%AF%95sqoop/</link>
-      <pubDate>Wed, 11 Jul 2018 05:44:19 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/sqoop_%E5%B0%9D%E8%AF%95sqoop/</guid>
-      <description>Sqoop简介 Apache Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(HDFS、Hive、HBase、Accumulo)与关系型数据库(MySQL、PostgreSQL、Oracle、Microsoft SQL、Netezza)间进行数据传输，例如可以将一个关系型数据库中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hadoop+Spark on Mryqu's Notes</title><link>https://mryqu.github.io/categories/hadoop+spark/</link><description>Recent content in Hadoop+Spark on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 17 Jul 2018 06:09:41 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/categories/hadoop+spark/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spark] 使用Spark的REST服务Livy</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</link><pubDate>Tue, 17 Jul 2018 06:09:41 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark%E7%9A%84rest%E6%9C%8D%E5%8A%A1livy/</guid><description>Apache Livy简介 Apache Livy是由Cloudera Labs贡献的基于Apache Spark的开源REST服务，它不仅以REST的方式代替了Spark传统的处理交互方式，同时也提供企业应用中不可忽视的多用户，安全，以及容错的支持。其功能如下：- 拥有可用于多Spark作业或多客户端长时间运行的SparkContext；
+同时管理多个SparkContext，并在集群（YARN / Mesos）而不是Livy服务器上运行它们，以实现良好的容错性和并发性； 可以通过预先编译好的JAR、代码片段或是java/scala客户端API将Spark作业提交到远端的Spark集群上执行。 建立测试环境 今天在GitHub: mryqu/vagrant-hadoop-hive-spark提交了add livy support，因此可以在Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中使用Livy 0.5.0服务。 使用Livy的REST API 创建交互式会话 curl -X POST -d &amp;#39;{&amp;#34;kind&amp;#34;: &amp;#34;spark&amp;#34;}&amp;#39; -H &amp;#34;Content-Type: application/json&amp;#34; http://10.211.55.101:8998/sessions { &amp;#34;id&amp;#34;:0, &amp;#34;appId&amp;#34;:null, &amp;#34;owner&amp;#34;:null, &amp;#34;proxyUser&amp;#34;:null, &amp;#34;state&amp;#34;:&amp;#34;starting&amp;#34;, &amp;#34;kind&amp;#34;:&amp;#34;spark&amp;#34;, &amp;#34;appInfo&amp;#34;:{ &amp;#34;driverLogUrl&amp;#34;:null, &amp;#34;sparkUiUrl&amp;#34;:null }, &amp;#34;log&amp;#34;:[ &amp;#34;stdout: &amp;#34;, &amp;#34; stderr: &amp;#34; ] } 成功创建会话0，kind指定为spark，如果之后提交的代码中没有指定kind，则使用此处的会话默认kind。
+查询交互式会话列表 curl http://10.211.55.101:8998/sessions { &amp;#34;from&amp;#34;:0, &amp;#34;total&amp;#34;:1, &amp;#34;sessions&amp;#34;:[ { &amp;#34;id&amp;#34;:0, &amp;#34;appId&amp;#34;:null, &amp;#34;owner&amp;#34;:null, &amp;#34;proxyUser&amp;#34;:null, &amp;#34;state&amp;#34;:&amp;#34;idle&amp;#34;, &amp;#34;kind&amp;#34;:&amp;#34;spark&amp;#34;, &amp;#34;appInfo&amp;#34;:{ &amp;#34;driverLogUrl&amp;#34;:null, &amp;#34;sparkUiUrl&amp;#34;:null }, &amp;#34;log&amp;#34;:[ &amp;#34;2018-07-18 03:19:16 INFO BlockManager:54 - Using org.</description></item><item><title>[Spark] SparkCatalogAPI使用</title><link>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</link><pubDate>Mon, 16 Jul 2018 06:12:39 +0000</pubDate><guid>https://mryqu.github.io/post/spark_sparkcatalogapi%E4%BD%BF%E7%94%A8/</guid><description>Catalog API简介 Spark中的DataSet和Dataframe API支持结构化分析。结构化分析的一个重要的方面是管理元数据。这些元数据可能是一些临时元数据（比如临时表）、SQLContext上注册的UDF以及持久化的元数据（比如Hivemeta store或者HCatalog）。 Spark2中添加了标准的API（称为catalog）来访问Spark SQL中的元数据。这个API既可以操作Spark SQL，也可以操作Hive元数据。
+Catalog API使用 查询数据库 scala&amp;gt; spark.catalog.listDatabases.show(false) +-------+---------------------+----------------------------------------+ |name |description |locationUri | +-------+---------------------+----------------------------------------+ |default|Default Hive database|hdfs://10.211.55.101/user/hive/warehouse| +-------+---------------------+----------------------------------------+ scala&amp;gt; spark.catalog.currentDatabase res4: String = default 查询表 scala&amp;gt; spark.catalog.listTables.show(false) +----+--------+----------------------------------------+---------+-----------+ |name|database|description |tableType|isTemporary| +----+--------+----------------------------------------+---------+-----------+ |emp |default |null |MANAGED |false | |emp2|default |Imported by sqoop on 2018/07/10 04:23:26|MANAGED |false | |emp3|default |Imported by sqoop on 2018/07/10 06:13:17|MANAGED |false | |yqu1|default |null |MANAGED |false | |yqu2|default |null |MANAGED |false | +----+--------+----------------------------------------+---------+-----------+ 下面的示例用于创建不同TableType的表：</description></item><item><title>[Oozie] 遭遇ShareLib无法找到的问题</title><link>https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link><pubDate>Fri, 13 Jul 2018 05:40:09 +0000</pubDate><guid>https://mryqu.github.io/post/oozie_%E9%81%AD%E9%81%87sharelib%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid><description>折腾几天，终于装好了Oozie 5.0.0，并且启动了Oozie守护进程。
+vagrant@node1:~$ oozie admin -oozie http://10.211.55.101:11000/oozie -status log4j:WARN No appenders could be found for logger (org.apache.hadoop.security.authentication.client.KerberosAuthenticator). log4j:WARN Please initialize the log4j system properly. log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info. System mode: NORMAL 不过运行MapReduce demo总是出错，找不到Oozie的共享库，日志如下：
+2018-07-12 04:45:50,228 WARN ActionStartXCommand:523 - SERVER[node1] USER[vagrant] GROUP[-] TOKEN[] APP[map-reduce-wf] JOB[0000001-XXXXXXXXXXXXXXX-oozie-root-W] ACTION[0000001-XXXXXXXXXXXXXXX-oozie-root-W@mr-node] Error starting action [mr-node]. ErrorType [FAILED], ErrorCode [It should never happen], Message [File /user/root/share/lib does not exist] org.apache.oozie.action.ActionExecutorException: File /user/root/share/lib does not exist at org.</description></item><item><title>[Spark] Spark读取HBase</title><link>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</link><pubDate>Thu, 12 Jul 2018 05:40:01 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</guid><description>Spark读取Hbase有以下几张方式：
+Spark的JavaSparkContext.newAPIHadoopRDD / SparkContext.newAPIHadoopRDD方法 HBase的hbase-spark Hortonworks的Spark HBase Connector Cloudera labs的SparkOnHBase 本文就Spark自带的方法进行示范和演示。 HBase数据库 Spark范例 HelloSparkHBase.java import org.apache.spark.SparkContext; import org.apache.spark.api.java.JavaPairRDD; import org.apache.spark.api.java.JavaRDD; import org.apache.spark.api.java.JavaSparkContext; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import org.apache.spark.api.java.function.Function; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.hbase.HBaseConfiguration; import org.apache.hadoop.hbase.TableName; import org.apache.hadoop.hbase.client.*; import org.apache.hadoop.hbase.mapreduce.TableInputFormat; import org.apache.hadoop.hbase.io.ImmutableBytesWritable; import org.apache.hadoop.hbase.util.Bytes; import scala.Tuple2; public class HelloSparkHBase { public static void main(String[] args) { try { Configuration conf = HBaseConfiguration.create(); conf.set(TableInputFormat.INPUT_TABLE, &amp;#34;student&amp;#34;); SparkSession spark = SparkSession .builder() .appName(&amp;#34; .</description></item><item><title>[Sqoop]尝试Sqoop</title><link>https://mryqu.github.io/post/sqoop_%E5%B0%9D%E8%AF%95sqoop/</link><pubDate>Wed, 11 Jul 2018 05:44:19 +0000</pubDate><guid>https://mryqu.github.io/post/sqoop_%E5%B0%9D%E8%AF%95sqoop/</guid><description>Sqoop简介 Apache Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(HDFS、Hive、HBase、Accumulo)与关系型数据库(MySQL、PostgreSQL、Oracle、Microsoft SQL、Netezza)间进行数据传输，例如可以将一个关系型数据库中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。
 测试环境 在我使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建的Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0虚拟机环境中已经安装了Sqoop，正好可以尝试一下。
-使用 help命令 vagrant@node1:~$ sqoop help Warning: /usr/local/sqoop/../hbase does not exist! HBase imports will fail. Please set $HBASE_HOME to the root of your HBase installation. Warning: /usr/local/sqoop/../accumulo does not exist! Accumulo imports will fail. Please set $ACCUMULO_HOME to the root of your Accumulo installation. Warning: /usr/local/sqoop/../zookeeper does not exist! Accumulo imports will fail. Please set $ZOOKEEPER_HOME to the root of your Zookeeper installation.</description>
-    </item>
-    
-    <item>
-      <title>[Zeppelin] 尝试Zeppelin</title>
-      <link>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</link>
-      <pubDate>Tue, 10 Jul 2018 05:50:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</guid>
-      <description>Zeppelin简介 Apache Zeppelin是一个让交互式数据分析变得可行的基于网页的开源框架。Zeppelin提供了数据捏取、发现、分析、可视化与协作等功能。 Zeppelin 是一个提供交互数据分析且基于Web的笔记本。方便你做出可数据驱动的、可交互且可协作的精美文档，并且支持多种语言，包括 Scala(使用 Apache Spark)、Python(Apache Spark)、SparkSQL、 Hive、 Markdown、Shell等等。
+使用 help命令 vagrant@node1:~$ sqoop help Warning: /usr/local/sqoop/../hbase does not exist! HBase imports will fail. Please set $HBASE_HOME to the root of your HBase installation. Warning: /usr/local/sqoop/../accumulo does not exist! Accumulo imports will fail. Please set $ACCUMULO_HOME to the root of your Accumulo installation. Warning: /usr/local/sqoop/../zookeeper does not exist! Accumulo imports will fail. Please set $ZOOKEEPER_HOME to the root of your Zookeeper installation.</description></item><item><title>[Zeppelin] 尝试Zeppelin</title><link>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</link><pubDate>Tue, 10 Jul 2018 05:50:35 +0000</pubDate><guid>https://mryqu.github.io/post/zeppelin_%E5%B0%9D%E8%AF%95zeppelin/</guid><description>Zeppelin简介 Apache Zeppelin是一个让交互式数据分析变得可行的基于网页的开源框架。Zeppelin提供了数据捏取、发现、分析、可视化与协作等功能。 Zeppelin 是一个提供交互数据分析且基于Web的笔记本。方便你做出可数据驱动的、可交互且可协作的精美文档，并且支持多种语言，包括 Scala(使用 Apache Spark)、Python(Apache Spark)、SparkSQL、 Hive、 Markdown、Shell等等。
 试验环境搭建 跟之前的博文[Spark] 使用Spark2.30读写Hive2.3.3一样，本文的环境继续使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。不过当前scripts/common.sh中ZEPPELIN_VERSION=0.7.2，而Zeppelin 0.7.2已不可访问，需要改成最新版0.8.0。 按照GitHub: martinprobson/vagrant-hadoop-hive-spark说明执行zeppelin-daemon.sh start，结果说权限不足，因此我只好兜一圈开启Zeppelin守护进程。
-vagrant@node1:~$ zeppelin-daemon.sh start find: File system loop detected; ‘/home/ubuntu/zeppelin/zeppelin-0.8.0-bin-netinst’ is part of the same file system loop as ‘/home/ubuntu/zeppelin’. Pid dir doesn&#39;t exist, create /home/ubuntu/zeppelin/run mkdir: cannot create directory ‘/home/ubuntu/zeppelin/run’: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 187: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 189: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.</description>
-    </item>
-    
-    <item>
-      <title>[Oozie] Oozie构建问题</title>
-      <link>https://mryqu.github.io/post/oozie_oozie%E6%9E%84%E5%BB%BA%E9%97%AE%E9%A2%98/</link>
-      <pubDate>Thu, 05 Jul 2018 06:20:10 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/oozie_oozie%E6%9E%84%E5%BB%BA%E9%97%AE%E9%A2%98/</guid>
-      <description>想定制Oozie构建，结果log4j总出错，移除了pig、sqoop和hive就好了。
-root@node1:~# /vagrant/resources/oozie-5.0.0/bin/mkdistro.sh -DskipTests -Puber -Dhadoop.version=2.7.6 -Ptez -Dpig.version=0.17.0 -Dsqoop.version=1.4.7 -Dhive.version=2.3.3 -Dtez.version=0.9.1 ...... [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.7.0:testCompile (default-testCompile) on project oozie-core: Compilation failure: Compilation failure: [ERROR] /vagrant/resources/oozie-5.0.0/core/src/test/java/org/apache/oozie/sla/TestSLACalculatorMemory.java:[836,48] cannot find symbol [ERROR] symbol: method getLevel() [ERROR] location: variable firstLogEntry of type org.apache.log4j.spi.LoggingEvent [ERROR] /vagrant/resources/oozie-5.0.0/core/src/test/java/org/apache/oozie/sla/TestSLACalculatorMemory.java:[837,33] cannot find symbol [ERROR] symbol: method getMessage() [ERROR] location: variable firstLogEntry of type org.apache.log4j.spi.LoggingEvent [ERROR] /vagrant/resources/oozie-5.0.0/core/src/test/java/org/apache/oozie/sla/TestSLACalculatorMemory.java:[838,79] cannot find symbol [ERROR] symbol: method getLoggerName() [ERROR] location: variable firstLogEntry of type org.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] 使用Spark2.30读写MySQL</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</link>
-      <pubDate>Wed, 04 Jul 2018 06:36:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</guid>
-      <description>本博文是[Spark] 使用Spark2.30读写Hive2.3.3的姊妹篇，环境及Java项目也是使用上一博文中的。
-Spark项目 目录结构 vagrant@node1:~/HelloSparkHive$ ls build build.gradle src vagrant@node1:~/HelloSparkHive$ rm -rf build vagrant@node1:~/HelloSparkHive$ tree . ├── build.gradle └── src └── main └── java └── com └── yqu └── sparkhive ├── HelloSparkHiveDriver.java └── HelloSparkMysqlDriver.java 6 directories, 3 files  src/main/java/com/yqu/sparkhive/HelloSparkMysqlDriver.java 该范例加载Hive中的emp表，存储到MySQL的test数据库中，然后读取MySQL数据库加载emp表，由此完成MySQL读写示例。
-package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import java.io.File; import java.sql.*; public class HelloSparkMysqlDriver { private static boolean setup() { Connection conn = null; Statement stmt = null; try { Class.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] 使用Spark2.30读写Hive2.3.3</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</link>
-      <pubDate>Tue, 03 Jul 2018 06:04:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</guid>
-      <description>试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
-在Hive上加载emp表 hive&amp;gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;|&#39; ; hive&amp;gt; LOAD DATA LOCAL INPATH &#39;/usr/local/hive/examples/files/emp2.txt&#39; OVERWRITE INTO TABLE emp;  安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
-vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.</description>
-    </item>
-    
-    <item>
-      <title>[Hue] 清空MySQL数据库的hue.django_content_type表时遇到由于外键约束无法删除错误!</title>
-      <link>https://mryqu.github.io/post/hue_%E6%B8%85%E7%A9%BAmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84hue.django_content_type%E8%A1%A8%E6%97%B6%E9%81%87%E5%88%B0%E7%94%B1%E4%BA%8E%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E9%94%99%E8%AF%AF/</link>
-      <pubDate>Fri, 26 Aug 2016 05:24:54 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hue_%E6%B8%85%E7%A9%BAmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84hue.django_content_type%E8%A1%A8%E6%97%B6%E9%81%87%E5%88%B0%E7%94%B1%E4%BA%8E%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E9%94%99%E8%AF%AF/</guid>
-      <description>Hue （Hadoop User Experience）是一个使用ApacheHadoop分析数据的Web界面。它可以： - 将数据加载到Hadoop - 查看数据、处理数据或准备数据 - 分析数据、搜索数据、对数据进行可视化分析
-默认Hue服务器使用嵌入式数据库SQLite存储元数据和查询信息。当我将其迁移到MySQL时，按照Cloudera - Hue Installation Guide的步骤同步数据库时后清空MySQL中的django_content_type表时遭遇下列问题：
-hadoop@node50064:~$ $HUE_HOME/build/env/bin/hue syncdb --noinput Syncing... Creating tables ... Creating table auth_permission Creating table auth_group_permissions Creating table auth_group Creating table auth_user_groups Creating table auth_user_user_permissions Creating table auth_user Creating table django_openid_auth_nonce Creating table django_openid_auth_association Creating table django_openid_auth_useropenid Creating table django_content_type Creating table django_session Creating table django_site Creating table django_admin_log Creating table south_migrationhistory Creating table axes_accessattempt Creating table axes_accesslog Installing custom SQL .</description>
-    </item>
-    
-    <item>
-      <title>[Hue] 解决Filesystem root &#39;/&#39; should be owned by &#39;hdfs&#39;</title>
-      <link>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</link>
-      <pubDate>Wed, 24 Aug 2016 05:36:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</guid>
-      <description>安装Hue后，通过about页面检查配置，有一个提示：Filesystemroot &amp;lsquo;/&amp;rsquo; should be owned by &amp;lsquo;hdfs&amp;rsquo; 我在hadoop集群都使用用户hadoop，并没有创建用户hdfs。解决方案是将hue.ini中的default_hdfs_superuser设置：
-# This should be the hadoop cluster admin default_hdfs_superuser=hadoop  重启Hue后警告解除，呵呵。</description>
-    </item>
-    
-    <item>
-      <title>[Spark]Spark和Hive集成</title>
-      <link>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</link>
-      <pubDate>Wed, 03 Aug 2016 06:10:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</guid>
-      <description>在前一博文[Spark] Spark2集群安装实践中安装了Spark后，发现和Hive还没有集成在一起，此外Hive自己也不好使了。
-hadoop@node50064:~$hive ls: cannot access /usr/local/spark/lib/spark-assembly-*.jar: No such file or directory .................  原来Spark assemblyjar在Spark2中已经不存在了，而Hive脚本判断系统存在Spark后仍要使用，需要将$HIVE_HOME/bin/hive中的这部分代码注释掉：
-# add Spark assembly jar to the classpath #if [[ -n &amp;quot;$SPARK_HOME&amp;quot; ]] #then # sparkAssemblyPath=`ls ${SPARK_HOME}/lib/spark-assembly-*.jar` # CLASSPATH=&amp;quot;${CLASSPATH}:${sparkAssemblyPath}&amp;quot; #fi  至此，Hive本身工作正常。下面开始Spark和Hive集成配置工作。 - Spark SQL CLI需要使用到Hive Metastore，因此需要在[Hive] 安装Hive 1.2.x的基础上继续修改$HIVE_HOME/conf/hive-site.xml：- 将$HIVE_HOME/conf/hive-site.xml软连接到$SPARK_HOME/conf目录中:
- cd $SPARK_HOME/conf ln -s $HIVE_HOME/conf/hive-site.xml   启动Hive Metastore和HiveServer2：  hive --service metastore &amp;amp; hive --service hiveserver2 &amp;amp;   下面进行验证工作：
-hadoop@node50064:~$ hive hive&amp;gt; use default; OK Time taken: 0.</description>
-    </item>
-    
-    <item>
-      <title>Hive与Spark的版本搭配</title>
-      <link>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</link>
-      <pubDate>Tue, 02 Aug 2016 05:46:59 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</guid>
-      <description>Hive on Spark: Getting Started里面介绍了如果Hive的查询引擎选择Spark的话，Hive所需相关配置。如果用一个不兼容的Hive和Spark版本，有潜在风险，例如Spark2就没有spark-assembly-*.jar可供低版本Hive使用。 问题来了，么查找已测试的Hive和Spark版本对呢？ 网上有人说看Hive代码根路径下的pom.xml。例如Hive branch-1.2中pom.xml包含spark.version为1.3.1，这说明官方在进行Hive1.2.0测试时用的Spark 1.3.1。 此外，也可借鉴C家、H家和MapR技术栈的版本搭配： - CDH 5 Packaging and Tarball Information中列出了CHD5中技术栈的版本情况。 - 在Hortonworks Data Platform列出了HDP所用的技术栈的版本情况。- MapR Ecosystem Support Matrix中列出了MapR中技术栈的版本情况。</description>
-    </item>
-    
-    <item>
-      <title>[Spark] Set spark.yarn.archive</title>
-      <link>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</link>
-      <pubDate>Mon, 01 Aug 2016 05:30:15 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</guid>
-      <description>提交Spark作业时，遇到没有设置spark.yarn.jars和spark.yarn.archive的告警：
-16/08/01 05:01:19 INFO yarn.Client: Preparing resources for our AM container 16/08/01 05:01:20 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME. 16/08/01 05:01:23 INFO yarn.Client: Uploading resource file:/tmp/spark-AA-BB-CC-DD-EE/__spark_libs__XXX.zip -&amp;gt; hdfs://node50064.mryqu.com:9000/user/hadoop/.sparkStaging/application_1469998883123_0001/__spark_libs__XXX.zip  解决方案：
-cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archive.zip echo &amp;quot;spark.yarn.archive=hdfs:///node50064.mryqu.com:9000/user/hadoop/spark-archive.zip&amp;quot; &amp;gt;&amp;gt; conf/spark-defaults.conf  如系统没有安装zip，可执行sudoapt-get install zip进行安装。 这样就不用每次上传Spark的jar文件到HDFS，YARN会找到Spark的库以用于运行作业。</description>
-    </item>
-    
-    <item>
-      <title>[Spark]Spark2集群安装实践</title>
-      <link>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Thu, 28 Jul 2016 05:47:45 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</guid>
-      <description>从Spark2.0.0开始，Spark使用Scala2.11构建，不再对Java7和Python2.6进行支持。当然不编译Spark源码的话，无需安装Scala。
-Spark集群模型 Spark应用作为集群上一组独立进程运行，由你的主程序（即驱动程序）的SparkContext对象管理。为了在集群上运行，SparkContext可以与若干类型集群管理器（Spark自带的独立集群管理器、Mesos、YARN）连接，集群管理器为应用分配资源。Spark需要集群节点上的执行者（executor）为应用执行计算或存储数据。接下来，它将应用代码发送给执行者，最后SparkContext将人物发往执行者进行运行。准备工作 安装Scala # Scala Installation wget www.scala-lang.org/files/archive/scala-2.11.8.deb sudo dpkg -i scala-2.11.8.deb # sbt Installation echo &amp;quot;deb https://dl.bintray.com/sbt/debian /&amp;quot; | sudo tee -a /etc/apt/sources.list.d/sbt.list sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823 sudo apt-get update sudo apt-get install sbt  安装Java8 sudo apt-add-repository ppa:webupd8team/java -y sudo apt-get update -y sudo apt-get install oracle-java8-installer -y sudo apt-get install oracle-java8-set-default  环境变量设置 在~/.bashrc中添加：
-# Set SPARK_HOME export SPARK_HOME=/usr/local/spark export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin  最后通过source~/.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] 使用HBase Shell时遇到ZooKeeper exists failed after 4 attempts错误</title>
-      <link>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8hbase_shell%E6%97%B6%E9%81%87%E5%88%B0zookeeper_exists_failed_after_4_attempts%E9%94%99%E8%AF%AF/</link>
-      <pubDate>Sat, 05 Mar 2016 06:21:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8hbase_shell%E6%97%B6%E9%81%87%E5%88%B0zookeeper_exists_failed_after_4_attempts%E9%94%99%E8%AF%AF/</guid>
-      <description>今天打开HBase Shell就闪退，可是前两天还好好的。错误如下：
-2016-03-05 00:32:23,597 ERROR [main] zookeeper.RecoverableZooKeeper: ZooKeeper exists failed after 4 attempts 2016-03-05 00:32:23,598 WARN [main] zookeeper.ZKUtil: hconnection-0x2dba911d0x0, quorum=node50064.mryqu.com:2181,node50069.mryqu.com:2181,node51054.mryqu.com:2181, baseZNode=/hbase Unable to set watcher on znode (/hbase/hbaseid) org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase/hbaseid at org.apache.zookeeper.KeeperException.create(KeeperException:99) at org.apache.zookeeper.KeeperException.create(KeeperException:51) at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper:1045) at org.apache.hadoop.hbase.zookeeper.RecoverableZooKeeper.exists(RecoverableZooKeeper:220) at org.apache.hadoop.hbase.zookeeper.ZKUtil.checkExists(ZKUtil:419) at org.apache.hadoop.hbase.zookeeper.ZKClusterId.readClusterIdZNode(ZKClusterId:65) at org.apache.hadoop.hbase.client.ZooKeeperRegistry.getClusterId(ZooKeeperRegistry:105) at org.apache.hadoop.hbase.client.ConnectionManager$HConnectionImplementation.retrieveClusterId(ConnectionManager:905) at org.apache.hadoop.hbase.client.ConnectionManager$HConnectionImplementation.&amp;lt;init&amp;gt;(ConnectionManager:648) at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl:57) at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl:45) at at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory:238) at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory:218) at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory:119) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] 才发现HBase REST服务占用的是8080端口</title>
-      <link>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</link>
-      <pubDate>Thu, 03 Mar 2016 05:43:11 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</guid>
-      <description>今天用一下Tomcat，结果发现8080端口还被占了，谁呀？ 竟然是HBase REST服务占用的！！看了一下Ports Used by Components of CDH 5，发现ClouderaCDH里是这么用的： - 8080：Non- Cloudera Manager - managed HBase REST Service - 20550：Cloudera Manager - managed HBase REST Service - 8085：HBase REST UI
-8080端口还是留着吧，对hbase-site.xml做如下修改：重启HBase REST服务：
-hbase-daemon.sh stop rest hbase-daemon.sh start rest  通过HBase REST UI检查，REST服务端口改成了20550：另一种修改REST服务端口的方式是在启动HBase REST服务命令时通过-p选项直接指定端口。例如：
-hbase-daemon.sh start rest -p 20550  参考 Linux – Which application is using port 8080
-Configuring and Using the HBase REST API
-Ports Used by Components of CDH 5</description>
-    </item>
-    
-    <item>
-      <title>[Zookeeper] 运行Zookeeper REST服务实践</title>
-      <link>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Wed, 02 Mar 2016 05:57:16 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</guid>
-      <description>Zookeeper REST服务介绍 通常我们应该使用Java/C客户端绑定访问ZooKeeper服务器。不过由于大多数语言内建支持基于HTTP的协议，RESTZooKeeper网关还是很有用的。ZooKeeper REST实现使用Jersey JAX-RS，其REST绑定参考SPEC.txt。其中org.apache.zookeeper.server.jersey.resources.ZNodeResource是项目的核心类，提供Http请求方式对ZooKeeper节点的添加、修改、查询和删除功能，以xml方式返回数据；org.apache.zookeeper.server.jersey.RestMain提供主函数入口。
+vagrant@node1:~$ zeppelin-daemon.sh start find: File system loop detected; ‘/home/ubuntu/zeppelin/zeppelin-0.8.0-bin-netinst’ is part of the same file system loop as ‘/home/ubuntu/zeppelin’. Pid dir doesn&amp;#39;t exist, create /home/ubuntu/zeppelin/run mkdir: cannot create directory ‘/home/ubuntu/zeppelin/run’: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 187: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.sh: line 189: /home/ubuntu/zeppelin/logs/zeppelin-vagrant-node1.out: Permission denied /home/ubuntu/zeppelin/bin/zeppelin-daemon.</description></item><item><title>[Oozie] Oozie构建问题</title><link>https://mryqu.github.io/post/oozie_oozie%E6%9E%84%E5%BB%BA%E9%97%AE%E9%A2%98/</link><pubDate>Thu, 05 Jul 2018 06:20:10 +0000</pubDate><guid>https://mryqu.github.io/post/oozie_oozie%E6%9E%84%E5%BB%BA%E9%97%AE%E9%A2%98/</guid><description>想定制Oozie构建，结果log4j总出错，移除了pig、sqoop和hive就好了。
+root@node1:~# /vagrant/resources/oozie-5.0.0/bin/mkdistro.sh -DskipTests -Puber -Dhadoop.version=2.7.6 -Ptez -Dpig.version=0.17.0 -Dsqoop.version=1.4.7 -Dhive.version=2.3.3 -Dtez.version=0.9.1 ...... [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.7.0:testCompile (default-testCompile) on project oozie-core: Compilation failure: Compilation failure: [ERROR] /vagrant/resources/oozie-5.0.0/core/src/test/java/org/apache/oozie/sla/TestSLACalculatorMemory.java:[836,48] cannot find symbol [ERROR] symbol: method getLevel() [ERROR] location: variable firstLogEntry of type org.apache.log4j.spi.LoggingEvent [ERROR] /vagrant/resources/oozie-5.0.0/core/src/test/java/org/apache/oozie/sla/TestSLACalculatorMemory.java:[837,33] cannot find symbol [ERROR] symbol: method getMessage() [ERROR] location: variable firstLogEntry of type org.apache.log4j.spi.LoggingEvent [ERROR] /vagrant/resources/oozie-5.0.0/core/src/test/java/org/apache/oozie/sla/TestSLACalculatorMemory.java:[838,79] cannot find symbol [ERROR] symbol: method getLoggerName() [ERROR] location: variable firstLogEntry of type org.</description></item><item><title>[Spark] 使用Spark2.30读写MySQL</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</link><pubDate>Wed, 04 Jul 2018 06:36:25 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</guid><description>本博文是[Spark] 使用Spark2.30读写Hive2.3.3的姊妹篇，环境及Java项目也是使用上一博文中的。
+Spark项目 目录结构 vagrant@node1:~/HelloSparkHive$ ls build build.gradle src vagrant@node1:~/HelloSparkHive$ rm -rf build vagrant@node1:~/HelloSparkHive$ tree . ├── build.gradle └── src └── main └── java └── com └── yqu └── sparkhive ├── HelloSparkHiveDriver.java └── HelloSparkMysqlDriver.java 6 directories, 3 files src/main/java/com/yqu/sparkhive/HelloSparkMysqlDriver.java 该范例加载Hive中的emp表，存储到MySQL的test数据库中，然后读取MySQL数据库加载emp表，由此完成MySQL读写示例。
+package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import java.io.File; import java.sql.*; public class HelloSparkMysqlDriver { private static boolean setup() { Connection conn = null; Statement stmt = null; try { Class.</description></item><item><title>[Spark] 使用Spark2.30读写Hive2.3.3</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</link><pubDate>Tue, 03 Jul 2018 06:04:31 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</guid><description>试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
+在Hive上加载emp表 hive&amp;gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY &amp;#39;|&amp;#39; ; hive&amp;gt; LOAD DATA LOCAL INPATH &amp;#39;/usr/local/hive/examples/files/emp2.txt&amp;#39; OVERWRITE INTO TABLE emp; 安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
+vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.</description></item><item><title>[Hue] 清空MySQL数据库的hue.django_content_type表时遇到由于外键约束无法删除错误!</title><link>https://mryqu.github.io/post/hue_%E6%B8%85%E7%A9%BAmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84hue.django_content_type%E8%A1%A8%E6%97%B6%E9%81%87%E5%88%B0%E7%94%B1%E4%BA%8E%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E9%94%99%E8%AF%AF/</link><pubDate>Fri, 26 Aug 2016 05:24:54 +0000</pubDate><guid>https://mryqu.github.io/post/hue_%E6%B8%85%E7%A9%BAmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84hue.django_content_type%E8%A1%A8%E6%97%B6%E9%81%87%E5%88%B0%E7%94%B1%E4%BA%8E%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E9%94%99%E8%AF%AF/</guid><description>Hue （Hadoop User Experience）是一个使用ApacheHadoop分析数据的Web界面。它可以：
+将数据加载到Hadoop 查看数据、处理数据或准备数据 分析数据、搜索数据、对数据进行可视化分析 默认Hue服务器使用嵌入式数据库SQLite存储元数据和查询信息。当我将其迁移到MySQL时，按照Cloudera - Hue Installation Guide的步骤同步数据库时后清空MySQL中的django_content_type表时遭遇下列问题：
+hadoop@node50064:~$ $HUE_HOME/build/env/bin/hue syncdb --noinput Syncing... Creating tables ... Creating table auth_permission Creating table auth_group_permissions Creating table auth_group Creating table auth_user_groups Creating table auth_user_user_permissions Creating table auth_user Creating table django_openid_auth_nonce Creating table django_openid_auth_association Creating table django_openid_auth_useropenid Creating table django_content_type Creating table django_session Creating table django_site Creating table django_admin_log Creating table south_migrationhistory Creating table axes_accessattempt Creating table axes_accesslog Installing custom SQL .</description></item><item><title>[Hue] 解决Filesystem root '/' should be owned by 'hdfs'</title><link>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</link><pubDate>Wed, 24 Aug 2016 05:36:55 +0000</pubDate><guid>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</guid><description>安装Hue后，通过about页面检查配置，有一个提示：Filesystemroot &amp;lsquo;/&amp;rsquo; should be owned by &amp;lsquo;hdfs&amp;rsquo; 我在hadoop集群都使用用户hadoop，并没有创建用户hdfs。解决方案是将hue.ini中的default_hdfs_superuser设置：
+# This should be the hadoop cluster admin default_hdfs_superuser=hadoop 重启Hue后警告解除，呵呵。</description></item><item><title>[Spark]Spark和Hive集成</title><link>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</link><pubDate>Wed, 03 Aug 2016 06:10:01 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark%E5%92%8Chive%E9%9B%86%E6%88%90/</guid><description>在前一博文[Spark] Spark2集群安装实践中安装了Spark后，发现和Hive还没有集成在一起，此外Hive自己也不好使了。
+hadoop@node50064:~$hive ls: cannot access /usr/local/spark/lib/spark-assembly-*.jar: No such file or directory ................. 原来Spark assemblyjar在Spark2中已经不存在了，而Hive脚本判断系统存在Spark后仍要使用，需要将$HIVE_HOME/bin/hive中的这部分代码注释掉：
+# add Spark assembly jar to the classpath #if [[ -n &amp;#34;$SPARK_HOME&amp;#34; ]] #then # sparkAssemblyPath=`ls ${SPARK_HOME}/lib/spark-assembly-*.jar` # CLASSPATH=&amp;#34;${CLASSPATH}:${sparkAssemblyPath}&amp;#34; #fi 至此，Hive本身工作正常。下面开始Spark和Hive集成配置工作。
+Spark SQL CLI需要使用到Hive Metastore，因此需要在[Hive] 安装Hive 1.2.x的基础上继续修改$HIVE_HOME/conf/hive-site.xml： 将$HIVE_HOME/conf/hive-site.xml软连接到$SPARK_HOME/conf目录中: cd $SPARK_HOME/conf ln -s $HIVE_HOME/conf/hive-site.xml 启动Hive Metastore和HiveServer2： hive --service metastore &amp;amp; hive --service hiveserver2 &amp;amp; 下面进行验证工作：
+hadoop@node50064:~$ hive hive&amp;gt; use default; OK Time taken: 0.942 seconds hive&amp;gt; show tables; OK apachelog b complex_datatypes_example dummy empinfo irisdata primitive_dataytpes_example testhivedrivertable Time taken: 0.</description></item><item><title>Hive与Spark的版本搭配</title><link>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</link><pubDate>Tue, 02 Aug 2016 05:46:59 +0000</pubDate><guid>https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/</guid><description> Hive on Spark: Getting Started里面介绍了如果Hive的查询引擎选择Spark的话，Hive所需相关配置。如果用一个不兼容的Hive和Spark版本，有潜在风险，例如Spark2就没有spark-assembly-*.jar可供低版本Hive使用。 问题来了，么查找已测试的Hive和Spark版本对呢？ 网上有人说看Hive代码根路径下的pom.xml。例如Hive branch-1.2中pom.xml包含spark.version为1.3.1，这说明官方在进行Hive1.2.0测试时用的Spark 1.3.1。 此外，也可借鉴C家、H家和MapR技术栈的版本搭配：
+CDH 5 Packaging and Tarball Information中列出了CHD5中技术栈的版本情况。 在Hortonworks Data Platform列出了HDP所用的技术栈的版本情况。 MapR Ecosystem Support Matrix中列出了MapR中技术栈的版本情况。</description></item><item><title>[Spark] Set spark.yarn.archive</title><link>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</link><pubDate>Mon, 01 Aug 2016 05:30:15 +0000</pubDate><guid>https://mryqu.github.io/post/spark_set_spark.yarn.archive/</guid><description>提交Spark作业时，遇到没有设置spark.yarn.jars和spark.yarn.archive的告警：
+16/08/01 05:01:19 INFO yarn.Client: Preparing resources for our AM container 16/08/01 05:01:20 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME. 16/08/01 05:01:23 INFO yarn.Client: Uploading resource file:/tmp/spark-AA-BB-CC-DD-EE/__spark_libs__XXX.zip -&amp;gt; hdfs://node50064.mryqu.com:9000/user/hadoop/.sparkStaging/application_1469998883123_0001/__spark_libs__XXX.zip 解决方案：
+cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archive.zip echo &amp;#34;spark.yarn.archive=hdfs:///node50064.mryqu.com:9000/user/hadoop/spark-archive.zip&amp;#34; &amp;gt;&amp;gt; conf/spark-defaults.conf 如系统没有安装zip，可执行sudoapt-get install zip进行安装。 这样就不用每次上传Spark的jar文件到HDFS，YARN会找到Spark的库以用于运行作业。</description></item><item><title>[Spark]Spark2集群安装实践</title><link>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</link><pubDate>Thu, 28 Jul 2016 05:47:45 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/</guid><description>从Spark2.0.0开始，Spark使用Scala2.11构建，不再对Java7和Python2.6进行支持。当然不编译Spark源码的话，无需安装Scala。
+Spark集群模型 Spark应用作为集群上一组独立进程运行，由你的主程序（即驱动程序）的SparkContext对象管理。为了在集群上运行，SparkContext可以与若干类型集群管理器（Spark自带的独立集群管理器、Mesos、YARN）连接，集群管理器为应用分配资源。Spark需要集群节点上的执行者（executor）为应用执行计算或存储数据。接下来，它将应用代码发送给执行者，最后SparkContext将人物发往执行者进行运行。
+准备工作 安装Scala # Scala Installation wget www.scala-lang.org/files/archive/scala-2.11.8.deb sudo dpkg -i scala-2.11.8.deb # sbt Installation echo &amp;#34;deb https://dl.bintray.com/sbt/debian /&amp;#34; | sudo tee -a /etc/apt/sources.list.d/sbt.list sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823 sudo apt-get update sudo apt-get install sbt 安装Java8 sudo apt-add-repository ppa:webupd8team/java -y sudo apt-get update -y sudo apt-get install oracle-java8-installer -y sudo apt-get install oracle-java8-set-default 环境变量设置 在~/.bashrc中添加：
+# Set SPARK_HOME export SPARK_HOME=/usr/local/spark export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin 最后通过source~/.bashrc刷新配置文件。
+安装Spark （在node50064上）下载并配置Spark wget http://d3kbcqa49mib13.</description></item><item><title>[HBase] 使用HBase Shell时遇到ZooKeeper exists failed after 4 attempts错误</title><link>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8hbase_shell%E6%97%B6%E9%81%87%E5%88%B0zookeeper_exists_failed_after_4_attempts%E9%94%99%E8%AF%AF/</link><pubDate>Sat, 05 Mar 2016 06:21:09 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8hbase_shell%E6%97%B6%E9%81%87%E5%88%B0zookeeper_exists_failed_after_4_attempts%E9%94%99%E8%AF%AF/</guid><description>今天打开HBase Shell就闪退，可是前两天还好好的。错误如下：
+2016-03-05 00:32:23,597 ERROR [main] zookeeper.RecoverableZooKeeper: ZooKeeper exists failed after 4 attempts 2016-03-05 00:32:23,598 WARN [main] zookeeper.ZKUtil: hconnection-0x2dba911d0x0, quorum=node50064.mryqu.com:2181,node50069.mryqu.com:2181,node51054.mryqu.com:2181, baseZNode=/hbase Unable to set watcher on znode (/hbase/hbaseid) org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase/hbaseid at org.apache.zookeeper.KeeperException.create(KeeperException:99) at org.apache.zookeeper.KeeperException.create(KeeperException:51) at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper:1045) at org.apache.hadoop.hbase.zookeeper.RecoverableZooKeeper.exists(RecoverableZooKeeper:220) at org.apache.hadoop.hbase.zookeeper.ZKUtil.checkExists(ZKUtil:419) at org.apache.hadoop.hbase.zookeeper.ZKClusterId.readClusterIdZNode(ZKClusterId:65) at org.apache.hadoop.hbase.client.ZooKeeperRegistry.getClusterId(ZooKeeperRegistry:105) at org.apache.hadoop.hbase.client.ConnectionManager$HConnectionImplementation.retrieveClusterId(ConnectionManager:905) at org.apache.hadoop.hbase.client.ConnectionManager$HConnectionImplementation.&amp;lt;init&amp;gt;(ConnectionManager:648) at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl:57) at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl:45) at at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory:238) at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory:218) at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory:119) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.</description></item><item><title>[HBase] 才发现HBase REST服务占用的是8080端口</title><link>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</link><pubDate>Thu, 03 Mar 2016 05:43:11 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E6%89%8D%E5%8F%91%E7%8E%B0hbase_rest%E6%9C%8D%E5%8A%A1%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%AF8080%E7%AB%AF%E5%8F%A3/</guid><description>今天用一下Tomcat，结果发现8080端口还被占了，谁呀？ 竟然是HBase REST服务占用的！！看了一下Ports Used by Components of CDH 5，发现ClouderaCDH里是这么用的：
+8080：Non- Cloudera Manager - managed HBase REST Service 20550：Cloudera Manager - managed HBase REST Service 8085：HBase REST UI 8080端口还是留着吧，对hbase-site.xml做如下修改： 重启HBase REST服务：
+hbase-daemon.sh stop rest hbase-daemon.sh start rest 通过HBase REST UI检查，REST服务端口改成了20550： 另一种修改REST服务端口的方式是在启动HBase REST服务命令时通过-p选项直接指定端口。例如：
+hbase-daemon.sh start rest -p 20550 参考 Linux – Which application is using port 8080 Configuring and Using the HBase REST API Ports Used by Components of CDH 5</description></item><item><title>[Zookeeper] 运行Zookeeper REST服务实践</title><link>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</link><pubDate>Wed, 02 Mar 2016 05:57:16 +0000</pubDate><guid>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</guid><description>Zookeeper REST服务介绍 通常我们应该使用Java/C客户端绑定访问ZooKeeper服务器。不过由于大多数语言内建支持基于HTTP的协议，RESTZooKeeper网关还是很有用的。ZooKeeper REST实现使用Jersey JAX-RS，其REST绑定参考SPEC.txt。其中org.apache.zookeeper.server.jersey.resources.ZNodeResource是项目的核心类，提供Http请求方式对ZooKeeper节点的添加、修改、查询和删除功能，以xml方式返回数据；org.apache.zookeeper.server.jersey.RestMain提供主函数入口。
 以Ant脚本方式启动 这是GitHub：apache/zookeeper - REST implementation中介绍的方式。
-cd $ZOOPEEPER_HOME ant cd src/contrib/rest nohup ant run&amp;amp;  如果仅是临时运行一下REST服务，ant run即可。 通过nohug提交作业可以确保在退出控制台后ZookeeperREST服务仍在后台运行。当需要关闭时，通过jobs命令查找当前所有运行的作业，通过fg [job_spec]命令关闭作业。 以rest.sh方式启动 cd $ZOOKEEPER_HOME mkdir src/contrib/rest/lib cp build/contrib/rest/zookeeper-dev-rest.jar src/contrib/rest/lib/ cp build/contrib/rest/lib/*.jar src/contrib/rest/lib/ cp zookeeper-3.4.X.jar src/contrib/rest/lib/ cp src/java/lib/*.jar src/contrib/rest/lib/  启动
-cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh start  停止
-cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh stop  查看日志
-cd $ZOOKEEPER_HOME/src/contrib/rest tail -f zkrest.log  测试 将我的Zookeeper从node50064复制到node50069和node51054上，分别在三台机器上启动Zookeeper和ZookeeperREST服务。
-访问application.wadl 获取根节点数据 获取根节点的子节点 导出节点及znode层次数据 参考 GitHub：apache/zookeeper - REST implementation</description>
-    </item>
-    
-    <item>
-      <title>[HBase] 安装HBase 1.2.x &#43; ZooKeeper 3.4.x 集群</title>
-      <link>https://mryqu.github.io/post/hbase_%E5%AE%89%E8%A3%85hbase_1.2.x_&#43;_zookeeper_3.4.x_%E9%9B%86%E7%BE%A4/</link>
-      <pubDate>Mon, 29 Feb 2016 06:23:10 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E5%AE%89%E8%A3%85hbase_1.2.x_&#43;_zookeeper_3.4.x_%E9%9B%86%E7%BE%A4/</guid>
-      <description>安装HBase，首先需要参考一下The versions of Hadoop supported with each version of HBase，以便确定Hadoop和HBase各自的版本。
+cd $ZOOPEEPER_HOME ant cd src/contrib/rest nohup ant run&amp;amp; 如果仅是临时运行一下REST服务，ant run即可。 通过nohug提交作业可以确保在退出控制台后ZookeeperREST服务仍在后台运行。当需要关闭时，通过jobs命令查找当前所有运行的作业，通过fg [job_spec]命令关闭作业。 以rest.sh方式启动 cd $ZOOKEEPER_HOME mkdir src/contrib/rest/lib cp build/contrib/rest/zookeeper-dev-rest.jar src/contrib/rest/lib/ cp build/contrib/rest/lib/*.jar src/contrib/rest/lib/ cp zookeeper-3.4.X.jar src/contrib/rest/lib/ cp src/java/lib/*.jar src/contrib/rest/lib/ 启动
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh start 停止
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh stop 查看日志
+cd $ZOOKEEPER_HOME/src/contrib/rest tail -f zkrest.log 测试 将我的Zookeeper从node50064复制到node50069和node51054上，分别在三台机器上启动Zookeeper和ZookeeperREST服务。
+访问application.wadl 获取根节点数据 获取根节点的子节点 导出节点及znode层次数据 参考 GitHub：apache/zookeeper - REST implementation Zookeeper开启Rest服务(3.4.6) Hue（五）集成Zookeeper New ZooKeeper Browser app!</description></item><item><title>[HBase] 安装HBase 1.2.x + ZooKeeper 3.4.x 集群</title><link>https://mryqu.github.io/post/hbase_%E5%AE%89%E8%A3%85hbase_1.2.x_+_zookeeper_3.4.x_%E9%9B%86%E7%BE%A4/</link><pubDate>Mon, 29 Feb 2016 06:23:10 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E5%AE%89%E8%A3%85hbase_1.2.x_+_zookeeper_3.4.x_%E9%9B%86%E7%BE%A4/</guid><description>安装HBase，首先需要参考一下The versions of Hadoop supported with each version of HBase，以便确定Hadoop和HBase各自的版本。
 集群规划 |节点|角色 |&amp;mdash;&amp;ndash; |node50064|NameNode RessourceManager QuorumPeerMain HMaster |node50069|Datanode SecondNameNode QuorumPeerMain HMasterHRegionServer |node51054|Datanade QuorumPeerMain HRegionServer
-ZooKeeper在HBase集群中的作用  HBase regionserver向ZooKeeper注册，提供HBase regionserver状态信息（是否在线） HMaster启动时候会将HBase 系统表-ROOT-加载到ZooKeeper集群，通过zookeeper集群可以获取当前系统表.META.的存储所对应的regionserver信息。  HMaster主要作用在于，通过HMaster维护系统表-ROOT-,.META.，记录regionserver所对应region变化信息。此外还负责监控处理当前HBase集群中regionserver状态变化信息。
-Zookeeper安装 （在node50064上）下载并配置ZooKeeper wget http://apache.mirrors.tds.net/zookeeper/zookeeper-3.4.x/zookeeper-3.4.x.tar.gz tar -xzf zookeeper-3.4.x.tar.gz sudo mv zookeeper-3.4.x /usr/local/zookeeper sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /usr/local/zookeeper sudo mkdir /var/log/zookeeper sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /var/log/zookeeper sudo mkdir /var/lib/zookeeper sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /var/lib/zookeeper cd /var/lib/zookeeper touch myid echo 1 &amp;gt; myid cd /usr/local/zookeeper/conf  通过cpzoo_sample.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] Hadoop3信息</title>
-      <link>https://mryqu.github.io/post/hadoop_hadoop3%E4%BF%A1%E6%81%AF/</link>
-      <pubDate>Sun, 21 Feb 2016 07:12:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_hadoop3%E4%BF%A1%E6%81%AF/</guid>
-      <description>查看了一下Hadoop 3.0.0-alpha1，结果没查到什么太多信息。 Hadoop Roadmap - HADOOP - Move to JDK8+ - Classpath isolation on bydefault HADOOP-11656 - Shell scriptrewrite HADOOP-9902 - Move default ports out of ephemeralrange HDFS-9427 - HDFS - Removal of hftp in favor ofwebhdfs HDFS-5570 - Support for more than twostandby NameNodes HDFS-6440 - Support for Erasure Codes inHDFS HDFS-7285 - YARN - MAPREDUCE - Derive heap size ormapreduce.*.memory.mb automatically MAPREDUCE-5785
-Apache Hadoop 3.0.0-alpha1-SNAPSHOT JIRA: Hadoop Common 3.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] YARN DistributedShell实践</title>
-      <link>https://mryqu.github.io/post/hadoop_yarn_distributedshell%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Sun, 31 Jan 2016 06:20:46 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_yarn_distributedshell%E5%AE%9E%E8%B7%B5/</guid>
-      <description>YARN DistributedShell介绍 Hadoop2的源代码中实现了两个基于YARN的应用，一个是MapReduce，另一个是非常简单的应用程序编程实例——DistributedShell。DistributedShell是一个构建在YARN之上的non-MapReduce应用示例。它的主要功能是在Hadoop集群中的多个节点，并行执行用户提供的shell命令或shell脚本（将用户提交的一串shell命令或者一个shell脚本，由ApplicationMaster控制，分配到不同的container中执行)。
+ZooKeeper在HBase集群中的作用 HBase regionserver向ZooKeeper注册，提供HBase regionserver状态信息（是否在线） HMaster启动时候会将HBase 系统表-ROOT-加载到ZooKeeper集群，通过zookeeper集群可以获取当前系统表.META.的存储所对应的regionserver信息。 HMaster主要作用在于，通过HMaster维护系统表-ROOT-,.META.，记录regionserver所对应region变化信息。此外还负责监控处理当前HBase集群中regionserver状态变化信息。
+Zookeeper安装 （在node50064上）下载并配置ZooKeeper wget http://apache.mirrors.tds.net/zookeeper/zookeeper-3.4.x/zookeeper-3.4.x.tar.gz tar -xzf zookeeper-3.4.x.tar.gz sudo mv zookeeper-3.4.x /usr/local/zookeeper sudo chown -R &amp;#34;hadoop:hadoop&amp;#34; /usr/local/zookeeper sudo mkdir /var/log/zookeeper sudo chown -R &amp;#34;hadoop:hadoop&amp;#34; /var/log/zookeeper sudo mkdir /var/lib/zookeeper sudo chown -R &amp;#34;hadoop:hadoop&amp;#34; /var/lib/zookeeper cd /var/lib/zookeeper touch myid echo 1 &amp;gt; myid cd /usr/local/zookeeper/conf 通过cpzoo_sample.</description></item><item><title>[Hadoop] Hadoop3信息</title><link>https://mryqu.github.io/post/hadoop_hadoop3%E4%BF%A1%E6%81%AF/</link><pubDate>Sun, 21 Feb 2016 07:12:33 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_hadoop3%E4%BF%A1%E6%81%AF/</guid><description>查看了一下Hadoop 3.0.0-alpha1，结果没查到什么太多信息。 Hadoop Roadmap
+HADOOP Move to JDK8+ Classpath isolation on bydefault HADOOP-11656 Shell scriptrewrite HADOOP-9902 Move default ports out of ephemeralrange HDFS-9427 HDFS Removal of hftp in favor ofwebhdfs HDFS-5570 Support for more than twostandby NameNodes HDFS-6440 Support for Erasure Codes inHDFS HDFS-7285 YARN MAPREDUCE Derive heap size ormapreduce.*.memory.mb automatically MAPREDUCE-5785 Apache Hadoop 3.0.0-alpha1-SNAPSHOT JIRA: Hadoop Common 3.0.0-alpha1 http://search-hadoop.com/?q=Hadoop+3: 在Hadoop及其子项目中搜索Hadoop3 Hadoop 3支持最低的JDK版本是JDK8，可在hadoop-commontrunck分支（当前默认分支trunck分支为3.0.0-alpha1，master分支为2.8.0）获得其源码。</description></item><item><title>[Hadoop] YARN DistributedShell实践</title><link>https://mryqu.github.io/post/hadoop_yarn_distributedshell%E5%AE%9E%E8%B7%B5/</link><pubDate>Sun, 31 Jan 2016 06:20:46 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_yarn_distributedshell%E5%AE%9E%E8%B7%B5/</guid><description>YARN DistributedShell介绍 Hadoop2的源代码中实现了两个基于YARN的应用，一个是MapReduce，另一个是非常简单的应用程序编程实例——DistributedShell。DistributedShell是一个构建在YARN之上的non-MapReduce应用示例。它的主要功能是在Hadoop集群中的多个节点，并行执行用户提供的shell命令或shell脚本（将用户提交的一串shell命令或者一个shell脚本，由ApplicationMaster控制，分配到不同的container中执行)。
 YARN DistributedShell测试 执行下列命令进行测试：
-hadoop jar /usr/local/hadoop/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.7.X.jar -shell_command /bin/ls -shell_args /home/hadoop -jar /usr/local/hadoop/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.7.X.jar  客户端日志显示执行成功：参考 如何运行YARN中的DistributedShell程序
-YARN DistributedShell源码分析与修改
-YARN Distributedshell解析</description>
-    </item>
-    
-    <item>
-      <title>[MapR培训笔记] Hadoop生态系统</title>
-      <link>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/</link>
-      <pubDate>Sat, 05 Dec 2015 00:00:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/</guid>
-      <description>- SQL: Language designed for querying &amp;amp; transformingdata held in a relational database management system. - NoSQL: Database model that&amp;rsquo;s not necessaryly held intabular format. Often, NoSQL refers to data that is flat or nestedin format. - Log Data: Information captured about organization&amp;rsquo;sinternal system, external customer interactions &amp;amp; how they&amp;rsquo;reused - Streaming Data: Twitter, Facebook, Web click data, Webform data. - Flume: Reliable, scalable service used to collectstreaming data in Hadoop cluster.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] YARN中Application Manager和Application Master区别</title>
-      <link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%ADapplication_manager%E5%92%8Capplication_master%E5%8C%BA%E5%88%AB/</link>
-      <pubDate>Sat, 28 Nov 2015 05:56:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%ADapplication_manager%E5%92%8Capplication_master%E5%8C%BA%E5%88%AB/</guid>
-      <description>术语Application Master和Application Manager经常被交换使用。其实，ApplicationMaster是一个主要的容器，用于请求、启动和监控应用特定资源；而ApplicationManager是资源管理器中的一个部件。 一个作业在YARN中启动流程如下： - 首先客户端向YARN资源管理器提交应用，包括请求容器启动上下文所需的信息。 - 接着资源管理器中的应用管理器协商好一个容器，为应用引导一个Application Master实例。 - 之后Application Master向资源管理器注册并请求容器。 - 当ApplicationMaster同节点管理器进行通信启动所授予的容器之后，为每个容器指定容器启动上下文描述（CLC，包括执行启动的命令、安全令牌、依赖[可执行文件、压缩包]、环境变量等等）。 - Application Master管理应用执行。在执行期间，应用向ApplicationMaster提供进度和状态信息。客户端通过查询资源管理器或直接与ApplicationMaster联系，可以监控应用的状态。 - Application Master向资源管理器报告应用结束。
-应用管理器负责维护一系列已提交的应用。当应用提交后，它首先验证应用规格，为ApplicationMaster拒绝任何请求无法满足资源的应用（例如，集群中没有节点有足够资源运行ApplicationMaster自身）。之后确保没有已经运行的使用相同应用ID的其他应用，错误的客户端或恶意客户端有可能导致此类问题。最后，将提交的应用转给调度器。已结束应用从资源管理器内存完全清除之前，此部件也负责记录和管理这些已结束应用。当应用结束，它将应用汇总信息放在守护进程的日志文件。最后，应用管理器在应用完成用户请求后很久都会在缓存中保留该已结束应用。配置参数yarn.resourcemanager.max-completed-applications控制资源管理器在任意时刻可以记住的已结束应用的最大数量。该缓存是先入先出队列，为了存放最新的已结束应用，最老的应用将被移出。 参考 Difference between Application Manager and Application Master in YARN?
-Application Master 启动流程与服务简介</description>
-    </item>
-    
-    <item>
-      <title>[MapR培训笔记]Hadoop基础</title>
-      <link>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/</link>
-      <pubDate>Wed, 25 Nov 2015 06:23:37 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/</guid>
-      <description>学习目标  大数据介绍: 理解大数据定义，判断是否存在大数据问题，描述如何用Hadoop解决大数据问题； Hadoop核心元素:描述分布式文件系统如何工作，map/reduce如何在分布式文件系统上处理数据； Hadoop工具生态系统: 了解Hadoop相关工具及其作用； 解决大数据用例: 描述Hadoop生态系统如何协同解决各种大数据用例，如何在不同场景下选择工具。  第一课 数据如何变大 学习目标  定义大数据及大数据问题 描述Hadoop主要部件  大数据 差不多是4V中的前三个,以及使数据难于描述、存储或处理的一些其他特性 - Volume（大量）:太大以至于系统无法处理 - Variety（多样）: 太多不同种类的数据，无法简单描述 - Velocity（高速）: 数据产生太快以至于系统无法处理 - Value（价值）:
-Hadoop主要部件 Google收到大数据挑战后，认识到无法用传统关系型数据库解决，创建了GFS+BigTabel+Map/Reduce。 - GFS将文件分割成块，分布在集群的节点上。文件块在不同节点进行复制，以防止节点故障导致的数据丢失。 - BigTable是使用GFS存储和获取数据的（分布式、多级）数据库系统。BigTable使用行键、列键和时戳映射到所存储的数据，可以不重写已有数据在不同时间对相同信息进行采集。行被分片为称之为Tablet的子表，分布到集群内。BigTable被设计成可以处理大量数据，可以无需重新配置已有文件的情况下向集群添加新的节点。 - 并行处理范式map/reduce被用于处理存储在GPS上的数据。map/reduce代表处理的两个步骤。在mapping阶段，所有数据在逻辑上分割，map函数应用于所有割片以生成键值对。框架对所有来自mapper的键值对进行排序然后在reducer之间分片。在reduce阶段，reduce函数应用于所有分片。map/reduce是一种分而治之的方式，将单个庞大的作业分解成一系列小的可管理的任务。
-Google实验多年后发表了论文阐述了他们的大数据解决方案。DougCutting以此在Yahoo开发一个项目，后来开源成Apache基金会项目下的Hadoop（Cutting儿子玩具象的名字）。 Mapr利用Hadoop理念，开发了更快、更稳定的企业版Hadoop。
-第二课 Hadoop核心 学习目标  本地&amp;amp;分布式文件系统 MapR-FS中的数据管理 （使用命令行）执行数据管理 Map Reduce范式  本地文件系统 HFS/NTFS（读写）和CDFS（只读）都是本地文件系统。文件系统中每个文件都由一个iNode和一系列数据块构成。iNode存储文件元数据，例如文件类型、权限、所有者、文件名和最后一次修改时间等信息，它还存储文件所存储的数据块的指针。数据块用于存储文件的实际内容。 本地文件系统的常见问题 - 硬盘故障：本地硬盘镜像（RAID-1） - 丢失：云镜像 - 人为失误 - 误删：定期增量备份 - 空间不足：增加硬盘、硬盘阵列（RAID-0）
-分布式文件系统 分布式文件系统行为与RAID-0类似，但硬盘分布在多个服务器上。由Sun微系统公司开发的网络文件系统NFS仍广泛用于在网络内存储和获取数据。 分布式文件系统当处理数据时致力于透明性，即对于客户端程序来说，文件系统与本地文件系统类似，分布式文件系统不可见。由于数据在网络内多个机器内分布，分布式文件系统使用数据定位器存储数据位置信息。与本地文件系统中的iNode类似，数据定位器只想数据在分布式文件系统中存储的位置。
+hadoop jar /usr/local/hadoop/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.7.X.jar -shell_command /bin/ls -shell_args /home/hadoop -jar /usr/local/hadoop/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.7.X.jar 客户端日志显示执行成功：
+参考 如何运行YARN中的DistributedShell程序 YARN DistributedShell源码分析与修改 YARN Distributedshell解析</description></item><item><title>[MapR培训笔记] Hadoop生态系统</title><link>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/</link><pubDate>Sat, 05 Dec 2015 00:00:41 +0000</pubDate><guid>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/</guid><description>SQL: Language designed for querying &amp;amp; transformingdata held in a relational database management system. NoSQL: Database model that&amp;rsquo;s not necessaryly held intabular format. Often, NoSQL refers to data that is flat or nestedin format. Log Data: Information captured about organization&amp;rsquo;sinternal system, external customer interactions &amp;amp; how they&amp;rsquo;reused Streaming Data: Twitter, Facebook, Web click data, Webform data. Flume: Reliable, scalable service used to collectstreaming data in Hadoop cluster. Sqoop: Transfers data between external data store &amp;amp;Hadoop cluster.</description></item><item><title>[Hadoop] YARN中Application Manager和Application Master区别</title><link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%ADapplication_manager%E5%92%8Capplication_master%E5%8C%BA%E5%88%AB/</link><pubDate>Sat, 28 Nov 2015 05:56:33 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%ADapplication_manager%E5%92%8Capplication_master%E5%8C%BA%E5%88%AB/</guid><description>术语Application Master和Application Manager经常被交换使用。其实，ApplicationMaster是一个主要的容器，用于请求、启动和监控应用特定资源；而ApplicationManager是资源管理器中的一个部件。 一个作业在YARN中启动流程如下：
+首先客户端向YARN资源管理器提交应用，包括请求容器启动上下文所需的信息。 接着资源管理器中的应用管理器协商好一个容器，为应用引导一个Application Master实例。 之后Application Master向资源管理器注册并请求容器。 当ApplicationMaster同节点管理器进行通信启动所授予的容器之后，为每个容器指定容器启动上下文描述（CLC，包括执行启动的命令、安全令牌、依赖[可执行文件、压缩包]、环境变量等等）。 Application Master管理应用执行。在执行期间，应用向ApplicationMaster提供进度和状态信息。客户端通过查询资源管理器或直接与ApplicationMaster联系，可以监控应用的状态。 Application Master向资源管理器报告应用结束。 应用管理器负责维护一系列已提交的应用。当应用提交后，它首先验证应用规格，为ApplicationMaster拒绝任何请求无法满足资源的应用（例如，集群中没有节点有足够资源运行ApplicationMaster自身）。之后确保没有已经运行的使用相同应用ID的其他应用，错误的客户端或恶意客户端有可能导致此类问题。最后，将提交的应用转给调度器。已结束应用从资源管理器内存完全清除之前，此部件也负责记录和管理这些已结束应用。当应用结束，它将应用汇总信息放在守护进程的日志文件。最后，应用管理器在应用完成用户请求后很久都会在缓存中保留该已结束应用。配置参数yarn.resourcemanager.max-completed-applications控制资源管理器在任意时刻可以记住的已结束应用的最大数量。该缓存是先入先出队列，为了存放最新的已结束应用，最老的应用将被移出。 参考 Difference between Application Manager and Application Master in YARN? Application Master 启动流程与服务简介</description></item><item><title>[MapR培训笔记]Hadoop基础</title><link>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/</link><pubDate>Wed, 25 Nov 2015 06:23:37 +0000</pubDate><guid>https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E5%9F%BA%E7%A1%80/</guid><description>学习目标 大数据介绍: 理解大数据定义，判断是否存在大数据问题，描述如何用Hadoop解决大数据问题； Hadoop核心元素:描述分布式文件系统如何工作，map/reduce如何在分布式文件系统上处理数据； Hadoop工具生态系统: 了解Hadoop相关工具及其作用； 解决大数据用例: 描述Hadoop生态系统如何协同解决各种大数据用例，如何在不同场景下选择工具。 第一课 数据如何变大 学习目标 定义大数据及大数据问题 描述Hadoop主要部件 大数据 差不多是4V中的前三个,以及使数据难于描述、存储或处理的一些其他特性
+Volume（大量）:太大以至于系统无法处理 Variety（多样）: 太多不同种类的数据，无法简单描述 Velocity（高速）: 数据产生太快以至于系统无法处理 Value（价值）: Hadoop主要部件 Google收到大数据挑战后，认识到无法用传统关系型数据库解决，创建了GFS+BigTabel+Map/Reduce。
+GFS将文件分割成块，分布在集群的节点上。文件块在不同节点进行复制，以防止节点故障导致的数据丢失。 BigTable是使用GFS存储和获取数据的（分布式、多级）数据库系统。BigTable使用行键、列键和时戳映射到所存储的数据，可以不重写已有数据在不同时间对相同信息进行采集。行被分片为称之为Tablet的子表，分布到集群内。BigTable被设计成可以处理大量数据，可以无需重新配置已有文件的情况下向集群添加新的节点。 并行处理范式map/reduce被用于处理存储在GPS上的数据。map/reduce代表处理的两个步骤。在mapping阶段，所有数据在逻辑上分割，map函数应用于所有割片以生成键值对。框架对所有来自mapper的键值对进行排序然后在reducer之间分片。在reduce阶段，reduce函数应用于所有分片。map/reduce是一种分而治之的方式，将单个庞大的作业分解成一系列小的可管理的任务。 Google实验多年后发表了论文阐述了他们的大数据解决方案。DougCutting以此在Yahoo开发一个项目，后来开源成Apache基金会项目下的Hadoop（Cutting儿子玩具象的名字）。 Mapr利用Hadoop理念，开发了更快、更稳定的企业版Hadoop。
+第二课 Hadoop核心 学习目标 本地&amp;amp;分布式文件系统 MapR-FS中的数据管理 （使用命令行）执行数据管理 Map Reduce范式 本地文件系统 HFS/NTFS（读写）和CDFS（只读）都是本地文件系统。文件系统中每个文件都由一个iNode和一系列数据块构成。iNode存储文件元数据，例如文件类型、权限、所有者、文件名和最后一次修改时间等信息，它还存储文件所存储的数据块的指针。数据块用于存储文件的实际内容。 本地文件系统的常见问题
+硬盘故障：本地硬盘镜像（RAID-1） 丢失：云镜像 人为失误 误删：定期增量备份 空间不足：增加硬盘、硬盘阵列（RAID-0） 分布式文件系统 分布式文件系统行为与RAID-0类似，但硬盘分布在多个服务器上。由Sun微系统公司开发的网络文件系统NFS仍广泛用于在网络内存储和获取数据。 分布式文件系统当处理数据时致力于透明性，即对于客户端程序来说，文件系统与本地文件系统类似，分布式文件系统不可见。由于数据在网络内多个机器内分布，分布式文件系统使用数据定位器存储数据位置信息。与本地文件系统中的iNode类似，数据定位器只想数据在分布式文件系统中存储的位置。
 MapR-FS存储 MapRFS是分布式文件系统，是Hadoop的MapR分发版的底层文件系统。它支持所有前面提到的本地文件系统特性，包括读写访问、本地或远程镜像，及在联机时对文件系统扩容的能力。此外，MapR文件系统可以加载并直接处理已有HDFS或NFS文件系统中的数据。
-物理存储 集群是一组使用分布文件系统（例如MapR-FS）的计算机。集群中每个计算机称为一个节点，每个节点有一或多个物理硬盘。 在MapR-FS中，硬盘组合成组，称为存储池（storagepool）。默认一个存储池有三块硬盘组成。当数据写往存储池，数据在三个磁盘拆分写入，增加写速度。每个节点包含一或多个存储池，所有节点上的所有存储池构成了MapR-FS上的全部可用存储。</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive 表UDTF和汇聚UDAF学习</title>
-      <link>https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Thu, 20 Aug 2015 05:48:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/</guid>
-      <description>在之前的博文[Hive] Hive Macro和UDF实践中，我对Hive的宏和普通UDF进行学习并实践，这里将针对Hive表UDF（UDTF）和汇聚UDF（UDAF）进行学习。 普通UDF可以对一行表数据进行处理输出一个单元格数据；UDTF可以对一行表数据进行处理输出多列甚至多行数据；UDAF可以对整表数据进行处理输出某种汇聚结果。
+物理存储 集群是一组使用分布文件系统（例如MapR-FS）的计算机。集群中每个计算机称为一个节点，每个节点有一或多个物理硬盘。 在MapR-FS中，硬盘组合成组，称为存储池（storagepool）。默认一个存储池有三块硬盘组成。当数据写往存储池，数据在三个磁盘拆分写入，增加写速度。每个节点包含一或多个存储池，所有节点上的所有存储池构成了MapR-FS上的全部可用存储。
+逻辑存储 MapR-FS将数据写入称之为容器（container）的逻辑单元。一个容器默认大小32GB，一个存储池通常有多个容器。容器内的数据在集群内节点间复制以防止单点故障或硬盘故障。 容器组合成卷（volume）。卷是跨集群内一组节点的数据资源逻辑抽象概念。所有容器及其副本在卷拓扑内的节点上分布。MapR-FS使用称之为容器定位数据库（CDLB）的特定服务存储容器及其副本的位置。CLDB为MapR-FS执行数据定位功能。它为数据存储在那个容器及找到集群内容器及其副本提供查找信息。 许多集群存储策略定义在卷这一级。
+定义 拓扑（Topology）、快照（Snapshots）、配额（Quotas）、复制（Replication）、镜像（Mirrors）、权限（Permissions）、压缩（Compression）。
+拓扑:可以配置不同的拓扑以实施某些数据存放在某些物理位置，例如机架和节点。通过这种方式，你可以设计数据来开发引用局部性以获得性能、可用性和其他适用于你的任意标准。之后可以将这些拓扑与卷进行关联。 压缩: 卷内数据当被写入硬盘时会被自动压缩。 镜像:可以配置策略集群内本地镜像或远程另一集群镜像。镜像对磁盘故障济公一定程度的保护，远程镜像当整个集群故障时可用于灾难恢复。 卷快照:在维护活动卷的持续一致性的同时，员徐创建数据的时间点版本。快照对用户错误提供一定程度的保护，也可以让你在任意时间返回某个数据集版本。快照可以手工创建，也可以基于计划自动定期执行。 配额:磁盘空间使用的上限。每个卷、用户或组都可以有一个配额。用户和组配额适用于对该用户和组所负责的所有卷的大小之和。硬配额在达到配额后会阻止写入，软配额则是发送告警邮件。 权限: 卷级别的权限可被设置为dump、restore、modify、delete或fullcontrol。卷内的文件和目录可以有标准的UNIX权限。 复制:包含卷内容的容器可被冗余复制。默认的复制因子为3，原始数据加上两个备份，但是每个卷都可以设置自己的复制因子。卷内所有容器具有相同的复制设置。 汇总 MapR文件系统支持POSIX语义及NFS导出。 MapR文件系统被写入到一个卷，卷是复制、镜像、快照、拓扑和使用权限等数据管理功能的一个管理抽象。 卷数据保存在容器内，卷用于定义数据位置及数据复制。 容器被写入到存储池，存储池是一个或多个物理硬盘。</description></item><item><title>[Hive] Hive 表UDTF和汇聚UDAF学习</title><link>https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/</link><pubDate>Thu, 20 Aug 2015 05:48:48 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/</guid><description>在之前的博文[Hive] Hive Macro和UDF实践中，我对Hive的宏和普通UDF进行学习并实践，这里将针对Hive表UDF（UDTF）和汇聚UDF（UDAF）进行学习。 普通UDF可以对一行表数据进行处理输出一个单元格数据；UDTF可以对一行表数据进行处理输出多列甚至多行数据；UDAF可以对整表数据进行处理输出某种汇聚结果。
 UDTF Hive支持的内建UDTF有explode()、json_tuple()和inline()等函数。
 查看UDTF介绍 选个好理解的explode函数吧。
-hive&amp;gt; describe function explode; OK explode(a) - separates the elements of array a into multiple rows, or the elements of a map into multiple rows and columns Time taken: 0.009 seconds, Fetched: 1 row(s)  测试内建UDTF 像inline函数需要根元素为ARRAY，第二层元素为STRUCT，搭建环境有点麻烦。所以还是接着擼explode函数吧。 上述命令将三行的列a中数组元素拆成7行字符串。那执行&amp;rdquo;select explode(a), b fromcomplex_datatypes_example;&amp;ldquo;会返回什么呢？结果是7行还是3行？ 谜底就是错误提示&amp;rdquo;Only a single exp.ression in the SELECT clause issupported with UDTF&amp;rsquo;s.&amp;ldquo;！
-UDTF实现 一个定制UDTF要继承GenericUDTF抽象类并实现initialize、process及close方法。Hive调用initialize方法以将参数类型通知给UDTF。UDTF必须返回UDTF之后产生的行对象相应的对象观察器。一旦initialize()被调用后，Hive将使用process()方法将行传递给UDTF。在process()方法中，UDTF生成行并调用forward()方法将行转给其他运算符。当所有的行都传递给UDTF后，Hive将最终调用close()方法。 通过FunctionRegistry类可知explode函数的实现类为GenericUDTFExplode。下面通过GenericUDTFExplode对照参考四Hive Developer Guide - UDTF学习一下UDTF实现。 - GenericUDTFExplode继承了抽象父类GenericUDTF - 在initialize方法中，GenericUDTFExplode检查输入列是否为ARRAY或MAP类型，不是的话抛出异常。如果输入列为ARRAY类型，则输出列名为col，类型为输入列数组中元素类型；如果输入列为MAP类型，则输出列名为key和value，类型分别为输入列MAP的键与值相应的类型； - 在process方法中，针对输入列ARRAY或MAP的每一个元素调用forward()方法将所生成的行转给其他运算符； - 在close()方法中，实现为空。</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive Macro和UDF实践</title>
-      <link>https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 18 Aug 2015 05:09:46 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/</guid>
-      <description>测试数据库 hive&amp;gt; describe empinfo; OK firstname string lastname string id int age int city string state string Time taken: 0.047 seconds, Fetched: 6 row(s) hive&amp;gt; select * from empinfo; OK John Jones 99980 45 Payson Arizona Mary Jones 99982 25 Payson Arizona Eric Edwards 88232 32 San Diego California Mary Ann Edwards 88233 32 Phoenix Arizona Ginger Howell 98002 42 Cottonwood Arizona Sebastian Smith 92001 23 Gila Bend Arizona Gus Gray 22322 35 Bagdad Arizona Mary Ann May 32326 52 Tucson Arizona Erica Williams 32327 60 Show Low Arizona Leroy Brown 32380 22 Pinetop Arizona Elroy Cleaver 32382 22 Globe Arizona Time taken: 0.</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive表文件存储格式</title>
-      <link>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link>
-      <pubDate>Fri, 14 Aug 2015 06:25:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid>
-      <description>Hive支持的内建表文件存储格式如下：
-|存储格式|介绍 |&amp;mdash;&amp;ndash; |TEXTFILE|按照纯文本文件格式存储。如果配置hive.default.fileformat没有设置的话，TEXTFILE是默认文件格式。
-此存储格式下，数据不做压缩的话，磁盘开销大，数据解析开销大。使用Gzip、Bzip2、Snappy等进行压缩使用（系统自动检查，执行查询时自动解压）的话，Hive不能对数据进行切分，从而无法对数据进行并行操作。 |SEQUENCEFILE|按照压缩的Sequence File格式存储。
-SequenceFile一般是在HDFS FileSystem中生成，供map调用的原始文件。Hive中的SequenceFile继承自Hadoop API 的SequenceFile，不过它的key为空，使用value存放实际的值，这样是为了避免MR在运行map阶段的排序过程。 |RCFILE|按照RCFile (Record Columnar File)格式存储。
-在Hive0.6.0引入。RCFile是在计算机集群中判断如何存储关系型表的数据存放结构，是Facebook、俄亥俄州立大学、中科院计算所联合研究成果。FCFile结构是由数据存储格式、数据压缩方式、数据读取优化技术等多种模块的系统组合，可以实现数据存放的四个要求：(1)快速加载，(2) 快速处理查询，(3) 高效利用存储空间 (4) 非常适用于动态数据访问模式。
-它遵循“先按行划分，再垂直划分”的设计理念。当查询过程中，针对它并不关心的列时，它会在IO上跳过这些列。需要说明的是，RCFile在map阶段从远端拷贝仍然是拷贝整个数据块，并且拷贝到本地目录后RCFile并不是真正直接跳过不需要的列，并跳到需要读取的列，而是通过扫描每一个row group的头部定义来实现的，但是在整个HDFS Block 级别的头部并没有定义每个列从哪个rowgroup起始到哪个row group结束。所以在读取所有列的情况下，RCFile的性能反而没有SequenceFile高。 |ORC|在Hive 0.11.0引入。ORC(Optimized RowColumnar)存储源自于RCFile。FCFile把每列都当作二进制blob处理，而ORC存储列元数据，针对列类型使用特定的读写器。ORC支持ACID、内建索引和复杂类型。官网上介绍“其性能显著快于RCFile或Parquet”。Facebook和Yahoo等大公司都在使用。 |PARQUET|在Hive 0.13.0引入。Parquet源自于google Dremel系统。Parquet最初的设计动机是存储嵌套式数据，将这类数据存储成列式格式，以方便对其高效压缩和编码，且使用更少的IO操作取出需要的数据，这也是Parquet相比于ORC的优势，它能够透明地将Protobuf和thrift类型的数据进行列式存储，在Protobuf和thrift被广泛使用的今天，与parquet进行集成，是一件非容易和自然的事情。除了上述优势外，相比于ORC,Parquet没有太多其他可圈可点的地方，比如它不支持update操作（数据写成后不可修改），不支持ACID等。 |AVRO|在Hive 0.13.0引入。Avro是数据序列化系统，由Hadoop项目开发的。
-测试 $ echo -e &#39;1\x01foo&#39; &amp;gt; tabft.txt $ echo -e &#39;2\x01bar&#39; &amp;gt;&amp;gt; tabft.txt $ hive hive&amp;gt; create table tabft (id int, name string); hive&amp;gt; quit; $ hadoop fs -put tabft.txt /user/hive/warehouse/tabft $ hive hive&amp;gt; create table tabft_txt (id int, name string) STORED AS TEXTFILE; hive&amp;gt; insert into table tabft_txt select * from tabft; hive&amp;gt; create table tabft_seq (id int, name string) STORED AS SEQUENCEFILE; hive&amp;gt; insert into table tabft_seq select * from tabft; hive&amp;gt; create table tabft_rc (id int, name string) STORED AS RCFILE; hive&amp;gt; insert into table tabft_rc select * from tabft; hive&amp;gt; create table tabft_orc (id int, name string) STORED AS ORC; hive&amp;gt; insert into table tabft_orc select * from tabft; hive&amp;gt; create table tabft_parq (id int, name string) STORED AS PARQUET; hive&amp;gt; insert into table tabft_parq select * from tabft; hive&amp;gt; create table tabft_avro (id int, name string) STORED AS AVRO; hive&amp;gt; insert into table tabft_avro select * from tabft;  获取Sequence文件信息 在我的环境下，按照压缩的Sequence File格式存储后的文件是非压缩的。 获取ORC文件信息 参考 Hive 语言手册 - DDL</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive数据类型</title>
-      <link>https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
-      <pubDate>Thu, 13 Aug 2015 06:14:56 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-      <description>Hive支持的数据类型 原始数据类型  TINYINT SMALLINT INT BIGINT BOOLEAN FLOAT DOUBLE STRING BINARY TIMESTAMP DECIMAL DECIMAL(precision, scale) DATE VARCHAR CHAR   复杂数据类型  array_type map_type struct_type union_type  原始数据类型 在理解原始数据类型时，耗时最多的是TIMESTAMP和BINARY，下文会着重介绍我对这两种类型的理解。 首先创建表primitive_dataytpes_example，字段之间的分隔符没有采用默认的ctrlA，而是使用逗号分隔：
-create table primitive_dataytpes_example ( a TINYINT, b SMALLINT, c INT, d BIGINT, e BOOLEAN, f FLOAT, g DOUBLE, h STRING, i BINARY, j TIMESTAMP, k DECIMAL, l DECIMAL (10,2), m DATE, n VARCHAR(20), o CHAR(20) ) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;,&#39; LINES TERMINATED BY &#39;\n&#39;;  接下来插入一条记录（dummy表的使用见参考三）：</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive UDF not supported in insert/values command</title>
-      <link>https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/</link>
-      <pubDate>Mon, 10 Aug 2015 05:58:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/</guid>
-      <description>创建一个带有timestamp字段的表，想要在insert/values语句中使用UDF，结果报错。
-hive&amp;gt; create table t2 (id int, time timestamp); OK Time taken: 0.045 seconds hive&amp;gt; insert into t2 values(1,current_timestamp()); FAILED: SemanticException [Error 10293]: Unable to create temp file for insert values Expr*ession of type TOK_FUNCTION not supported in insert/values  参考一中提到：”Hive does not support literals for complex types (array,map, struct, union), so it is not possible to use them in INSERTINTO&amp;hellip;VALUES clauses. This means that the user cannot insert datainto a complex datatype column using the INSERT INTO&amp;hellip;VALUESclause.</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive JDBC实践</title>
-      <link>https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Thu, 30 Jul 2015 05:35:26 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/</guid>
-      <description>HiveJdbcClient.java 使用参考一中的示例代码:
-import java.sql.SQLException; import java.sql.Connection; import java.sql.ResultSet; import java.sql.Statement; import java.sql.DriverManager; public class HiveJdbcClient { private static String driverName = &amp;quot;org.apache.hive.jdbc.HiveDriver&amp;quot;; public static void main(String[] args) throws SQLException { try { Class.forName(driverName); } catch (ClassNotFoundException e) { // TODO Auto-generated catch block e.printStackTrace(); System.exit(1); } //&amp;quot;hadoop&amp;quot; is the name of the user the queries should run as in my cluster. Connection con = DriverManager.getConnection( &amp;quot;jdbc:hive2://localhost:10000/default&amp;quot;, &amp;quot;hadoop&amp;quot;, &amp;quot;{PASSWORD_OF_USER_HADOOP}&amp;quot;); Statement stmt = con.</description>
-    </item>
-    
-    <item>
-      <title>[Hive] HCatalog和WebHCat学习</title>
-      <link>https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Wed, 29 Jul 2015 05:39:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/</guid>
-      <description>HCatalog 访问数据的常见方法之一是通过表抽象，该方法通常用于访问关系型数据库，并且为许多开发者所熟知(和广泛采用)。一些流行的Hadoop系统，例如Hive和Pig，也采用了这种方法。这种抽象解除了数据如何存储(HDFS文件、HBase表)与应用程序如何处理数据(表格式)之间的耦合。此外，它允许从较大的数据语料库中&amp;rdquo;过滤&amp;rdquo;感兴趣的数据。 Hadoop的元数据服务HCatalog扩展了Hive的元存储，同时保留了HiveDDL中用于表定义的组件。其结果是，Hive的表抽象(当使用了HCatalog时)可以用于Pig和MapReduce应用程序，这带来了以下一些主要优势：
- 它使得数据消费者不必知道其数据存储的位置和方式。 它允许数据生产者修改物理数据存储和数据模型，同时仍然支持以旧格式存储的现有数据，从而数据消费者不需要修改他们的处理流程。 它为Pig、Hive和MapReduce提供了共享的结构和数据模型。  HCatalog支持读写任何SerDe支持的文件格式。默认情况下，HCatalog支持RCFile、CSV、JSON、SequenceFile和ORC文件格式。如果使用订制格式，必须提供InputFormat、OutputFormat和SerDe。 WebHCat WebHCat是WebHCat的REST API。这样应用无需使用Hadoop API就可以通过HTTP请求访问HadoopMapReduce (或YARN)、Pig、Hive及HCatalog DDL。WebHCat所使用的代码和数据必须存放在HDFS中。HCatalogDDL命令在请求后即直接执行，MapReduce、Pig和Hive作业则放置在WebHCat(Templeton)服务器的队列中，并监控进展过程或按需停止。程序员指定Pig、Hive和MapReduce结果存放的HDFS位置。 使用 HCatalog和WebHCat都已随Hive安装，所以可以直接使用
+hive&amp;gt; describe function explode; OK explode(a) - separates the elements of array a into multiple rows, or the elements of a map into multiple rows and columns Time taken: 0.009 seconds, Fetched: 1 row(s) 测试内建UDTF 像inline函数需要根元素为ARRAY，第二层元素为STRUCT，搭建环境有点麻烦。所以还是接着擼explode函数吧。 上述命令将三行的列a中数组元素拆成7行字符串。那执行&amp;quot;select explode(a), b fromcomplex_datatypes_example;&amp;ldquo;会返回什么呢？结果是7行还是3行？ 谜底就是错误提示&amp;quot;Only a single exp.ression in the SELECT clause issupported with UDTF&amp;rsquo;s.&amp;quot;！
+UDTF实现 一个定制UDTF要继承GenericUDTF抽象类并实现initialize、process及close方法。Hive调用initialize方法以将参数类型通知给UDTF。UDTF必须返回UDTF之后产生的行对象相应的对象观察器。一旦initialize()被调用后，Hive将使用process()方法将行传递给UDTF。在process()方法中，UDTF生成行并调用forward()方法将行转给其他运算符。当所有的行都传递给UDTF后，Hive将最终调用close()方法。 通过FunctionRegistry类可知explode函数的实现类为GenericUDTFExplode。下面通过GenericUDTFExplode对照参考四Hive Developer Guide - UDTF学习一下UDTF实现。
+GenericUDTFExplode继承了抽象父类GenericUDTF 在initialize方法中，GenericUDTFExplode检查输入列是否为ARRAY或MAP类型，不是的话抛出异常。如果输入列为ARRAY类型，则输出列名为col，类型为输入列数组中元素类型；如果输入列为MAP类型，则输出列名为key和value，类型分别为输入列MAP的键与值相应的类型； 在process方法中，针对输入列ARRAY或MAP的每一个元素调用forward()方法将所生成的行转给其他运算符； 在close()方法中，实现为空。 UDAF Hive支持的内建UDAF有sum()、count()、min()和histogram_numeric()等函数。</description></item><item><title>[Hive] Hive Macro和UDF实践</title><link>https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 18 Aug 2015 05:09:46 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/</guid><description>测试数据库 hive&amp;gt; describe empinfo; OK firstname string lastname string id int age int city string state string Time taken: 0.047 seconds, Fetched: 6 row(s) hive&amp;gt; select * from empinfo; OK John Jones 99980 45 Payson Arizona Mary Jones 99982 25 Payson Arizona Eric Edwards 88232 32 San Diego California Mary Ann Edwards 88233 32 Phoenix Arizona Ginger Howell 98002 42 Cottonwood Arizona Sebastian Smith 92001 23 Gila Bend Arizona Gus Gray 22322 35 Bagdad Arizona Mary Ann May 32326 52 Tucson Arizona Erica Williams 32327 60 Show Low Arizona Leroy Brown 32380 22 Pinetop Arizona Elroy Cleaver 32382 22 Globe Arizona Time taken: 0.</description></item><item><title>[Hive] Hive表文件存储格式</title><link>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link><pubDate>Fri, 14 Aug 2015 06:25:23 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive%E8%A1%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid><description>Hive支持的内建表文件存储格式如下：
+|存储格式|介绍 |&amp;mdash;&amp;ndash; |TEXTFILE|按照纯文本文件格式存储。如果配置hive.default.fileformat没有设置的话，TEXTFILE是默认文件格式。此存储格式下，数据不做压缩的话，磁盘开销大，数据解析开销大。使用Gzip、Bzip2、Snappy等进行压缩使用（系统自动检查，执行查询时自动解压）的话，Hive不能对数据进行切分，从而无法对数据进行并行操作。 |SEQUENCEFILE|按照压缩的Sequence File格式存储。SequenceFile一般是在HDFS FileSystem中生成，供map调用的原始文件。Hive中的SequenceFile继承自Hadoop API 的SequenceFile，不过它的key为空，使用value存放实际的值，这样是为了避免MR在运行map阶段的排序过程。 |RCFILE|按照RCFile (Record Columnar File)格式存储。在Hive0.6.0引入。RCFile是在计算机集群中判断如何存储关系型表的数据存放结构，是Facebook、俄亥俄州立大学、中科院计算所联合研究成果。FCFile结构是由数据存储格式、数据压缩方式、数据读取优化技术等多种模块的系统组合，可以实现数据存放的四个要求：(1)快速加载，(2) 快速处理查询，(3) 高效利用存储空间 (4) 非常适用于动态数据访问模式。它遵循“先按行划分，再垂直划分”的设计理念。当查询过程中，针对它并不关心的列时，它会在IO上跳过这些列。需要说明的是，RCFile在map阶段从远端拷贝仍然是拷贝整个数据块，并且拷贝到本地目录后RCFile并不是真正直接跳过不需要的列，并跳到需要读取的列，而是通过扫描每一个row group的头部定义来实现的，但是在整个HDFS Block 级别的头部并没有定义每个列从哪个rowgroup起始到哪个row group结束。所以在读取所有列的情况下，RCFile的性能反而没有SequenceFile高。 |ORC|在Hive 0.11.0引入。ORC(Optimized RowColumnar)存储源自于RCFile。FCFile把每列都当作二进制blob处理，而ORC存储列元数据，针对列类型使用特定的读写器。ORC支持ACID、内建索引和复杂类型。官网上介绍“其性能显著快于RCFile或Parquet”。Facebook和Yahoo等大公司都在使用。 |PARQUET|在Hive 0.13.0引入。Parquet源自于google Dremel系统。Parquet最初的设计动机是存储嵌套式数据，将这类数据存储成列式格式，以方便对其高效压缩和编码，且使用更少的IO操作取出需要的数据，这也是Parquet相比于ORC的优势，它能够透明地将Protobuf和thrift类型的数据进行列式存储，在Protobuf和thrift被广泛使用的今天，与parquet进行集成，是一件非容易和自然的事情。除了上述优势外，相比于ORC,Parquet没有太多其他可圈可点的地方，比如它不支持update操作（数据写成后不可修改），不支持ACID等。 |AVRO|在Hive 0.13.0引入。Avro是数据序列化系统，由Hadoop项目开发的。
+测试 $ echo -e &amp;#39;1\x01foo&amp;#39; &amp;gt; tabft.txt $ echo -e &amp;#39;2\x01bar&amp;#39; &amp;gt;&amp;gt; tabft.txt $ hive hive&amp;gt; create table tabft (id int, name string); hive&amp;gt; quit; $ hadoop fs -put tabft.txt /user/hive/warehouse/tabft $ hive hive&amp;gt; create table tabft_txt (id int, name string) STORED AS TEXTFILE; hive&amp;gt; insert into table tabft_txt select * from tabft; hive&amp;gt; create table tabft_seq (id int, name string) STORED AS SEQUENCEFILE; hive&amp;gt; insert into table tabft_seq select * from tabft; hive&amp;gt; create table tabft_rc (id int, name string) STORED AS RCFILE; hive&amp;gt; insert into table tabft_rc select * from tabft; hive&amp;gt; create table tabft_orc (id int, name string) STORED AS ORC; hive&amp;gt; insert into table tabft_orc select * from tabft; hive&amp;gt; create table tabft_parq (id int, name string) STORED AS PARQUET; hive&amp;gt; insert into table tabft_parq select * from tabft; hive&amp;gt; create table tabft_avro (id int, name string) STORED AS AVRO; hive&amp;gt; insert into table tabft_avro select * from tabft; 获取Sequence文件信息 在我的环境下，按照压缩的Sequence File格式存储后的文件是非压缩的。 获取ORC文件信息 参考 Hive 语言手册 - DDL</description></item><item><title>[Hive] Hive数据类型</title><link>https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><pubDate>Thu, 13 Aug 2015 06:14:56 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid><description>Hive支持的数据类型 原始数据类型 TINYINT SMALLINT INT BIGINT BOOLEAN FLOAT DOUBLE STRING BINARY TIMESTAMP DECIMAL DECIMAL(precision, scale) DATE VARCHAR CHAR 复杂数据类型 array_type map_type struct_type union_type 原始数据类型 在理解原始数据类型时，耗时最多的是TIMESTAMP和BINARY，下文会着重介绍我对这两种类型的理解。 首先创建表primitive_dataytpes_example，字段之间的分隔符没有采用默认的ctrlA，而是使用逗号分隔：
+create table primitive_dataytpes_example ( a TINYINT, b SMALLINT, c INT, d BIGINT, e BOOLEAN, f FLOAT, g DOUBLE, h STRING, i BINARY, j TIMESTAMP, k DECIMAL, l DECIMAL (10,2), m DATE, n VARCHAR(20), o CHAR(20) ) ROW FORMAT DELIMITED FIELDS TERMINATED BY &amp;#39;,&amp;#39; LINES TERMINATED BY &amp;#39;\n&amp;#39;; 接下来插入一条记录（dummy表的使用见参考三）：</description></item><item><title>[Hive] Hive UDF not supported in insert/values command</title><link>https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/</link><pubDate>Mon, 10 Aug 2015 05:58:27 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive_udf_not_supported_in_insertvalues_command/</guid><description>创建一个带有timestamp字段的表，想要在insert/values语句中使用UDF，结果报错。
+hive&amp;gt; create table t2 (id int, time timestamp); OK Time taken: 0.045 seconds hive&amp;gt; insert into t2 values(1,current_timestamp()); FAILED: SemanticException [Error 10293]: Unable to create temp file for insert values Expr*ession of type TOK_FUNCTION not supported in insert/values 参考一中提到：”Hive does not support literals for complex types (array,map, struct, union), so it is not possible to use them in INSERTINTO&amp;hellip;VALUES clauses. This means that the user cannot insert datainto a complex datatype column using the INSERT INTO&amp;hellip;VALUESclause.</description></item><item><title>[Hive] Hive JDBC实践</title><link>https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/</link><pubDate>Thu, 30 Jul 2015 05:35:26 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive_jdbc%E5%AE%9E%E8%B7%B5/</guid><description>HiveJdbcClient.java 使用参考一中的示例代码:
+import java.sql.SQLException; import java.sql.Connection; import java.sql.ResultSet; import java.sql.Statement; import java.sql.DriverManager; public class HiveJdbcClient { private static String driverName = &amp;#34;org.apache.hive.jdbc.HiveDriver&amp;#34;; public static void main(String[] args) throws SQLException { try { Class.forName(driverName); } catch (ClassNotFoundException e) { // TODO Auto-generated catch block e.printStackTrace(); System.exit(1); } //&amp;#34;hadoop&amp;#34; is the name of the user the queries should run as in my cluster. Connection con = DriverManager.getConnection( &amp;#34;jdbc:hive2://localhost:10000/default&amp;#34;, &amp;#34;hadoop&amp;#34;, &amp;#34;{PASSWORD_OF_USER_HADOOP}&amp;#34;); Statement stmt = con.</description></item><item><title>[Hive] HCatalog和WebHCat学习</title><link>https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/</link><pubDate>Wed, 29 Jul 2015 05:39:31 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hcatalog%E5%92%8Cwebhcat%E5%AD%A6%E4%B9%A0/</guid><description>HCatalog 访问数据的常见方法之一是通过表抽象，该方法通常用于访问关系型数据库，并且为许多开发者所熟知(和广泛采用)。一些流行的Hadoop系统，例如Hive和Pig，也采用了这种方法。这种抽象解除了数据如何存储(HDFS文件、HBase表)与应用程序如何处理数据(表格式)之间的耦合。此外，它允许从较大的数据语料库中&amp;quot;过滤&amp;quot;感兴趣的数据。 Hadoop的元数据服务HCatalog扩展了Hive的元存储，同时保留了HiveDDL中用于表定义的组件。其结果是，Hive的表抽象(当使用了HCatalog时)可以用于Pig和MapReduce应用程序，这带来了以下一些主要优势：
+它使得数据消费者不必知道其数据存储的位置和方式。 它允许数据生产者修改物理数据存储和数据模型，同时仍然支持以旧格式存储的现有数据，从而数据消费者不需要修改他们的处理流程。 它为Pig、Hive和MapReduce提供了共享的结构和数据模型。 HCatalog支持读写任何SerDe支持的文件格式。默认情况下，HCatalog支持RCFile、CSV、JSON、SequenceFile和ORC文件格式。如果使用订制格式，必须提供InputFormat、OutputFormat和SerDe。 WebHCat WebHCat是WebHCat的REST API。这样应用无需使用Hadoop API就可以通过HTTP请求访问HadoopMapReduce (或YARN)、Pig、Hive及HCatalog DDL。WebHCat所使用的代码和数据必须存放在HDFS中。HCatalogDDL命令在请求后即直接执行，MapReduce、Pig和Hive作业则放置在WebHCat(Templeton)服务器的队列中，并监控进展过程或按需停止。程序员指定Pig、Hive和MapReduce结果存放的HDFS位置。 使用 HCatalog和WebHCat都已随Hive安装，所以可以直接使用
 使用HCatalog HCatalog CLI与Hive CLI功能大致一样：
-cd $HIVE_HOME ./hcatalog/bin/hcat  使用WebHCat 在.bashrc中添加PYTHON_CMD：
-export PYTHON_CMD=/usr/bin/python  启动WebHCat服务器：
-cd $HIVE_HOME ./hcatalog/sbin/webhcat_server.sh start  参考 HCatalog
+cd $HIVE_HOME ./hcatalog/bin/hcat 使用WebHCat 在.bashrc中添加PYTHON_CMD：
+export PYTHON_CMD=/usr/bin/python 启动WebHCat服务器：
+cd $HIVE_HOME ./hcatalog/sbin/webhcat_server.sh start 参考 HCatalog
 HCatalog CLI
 WebHCat
 GitHub: apache/hcatalog
 GitHub: apache/hive/hcatalog
-apache/hive/hcatalog/webhcat</description>
-    </item>
-    
-    <item>
-      <title>[Hive] Hive CLI和Beeline学习</title>
-      <link>https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Tue, 28 Jul 2015 05:59:51 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/</guid>
-      <description>Hive CLI学习 Hive CLI使用手册很简单，但是看完了对有些参数还是不太理解，所以就翻翻Hive CLI源码对照学习吧。
+apache/hive/hcatalog/webhcat</description></item><item><title>[Hive] Hive CLI和Beeline学习</title><link>https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/</link><pubDate>Tue, 28 Jul 2015 05:59:51 +0000</pubDate><guid>https://mryqu.github.io/post/hive_hive_cli%E5%92%8Cbeeline%E5%AD%A6%E4%B9%A0/</guid><description>Hive CLI学习 Hive CLI使用手册很简单，但是看完了对有些参数还是不太理解，所以就翻翻Hive CLI源码对照学习吧。
 -f和-i选项的区别 Hive CLI使用手册说-i指定的是初始化SQL文件，-f指定的是SQL脚本文件。 通过阅读源码可知，所谓的初始化SQL文件就是你期望每次执行HiveCLI都要在其他操作之前运行的一些SQL命令。执行完初始化SQL，可以接着执行-e选项中的SQL命令、-f选项中的SQL脚本文件或交互输入的命令；而-f选项和-e选项二者只能存在其一，执行完-f选项后退出CLI。
 hiverc文件 当没有指定-i参数时，CLI会尝试加载$HIVE_HOME/bin/.hiverc、$HIVE_CONF_DIR/.hiverc和$HOME/.hiverc作为初始化文件。只要存在，这些.hiverc都会被加载执行。 通过CliDriver类的processInitFiles方法可知，执行初始化SQL时始终采用静默模式，即不显示执行进度信息，只显示最后结果；执行-f选项中SQL脚本时是否采用静默模式由-S选项控制。
-Hive CLI如何处理shell命令、Hive命令和SQL的？ HiveCLI既可以处理一个SQL脚本文件、也可以处理多个SQL命令。它通过处理多行命令，以&amp;rdquo;;&amp;ldquo;为分隔符，获取单个命令列表。一个单个命令，即可能是&amp;ndash;开头的注释行，也可能是!开头的shell命令，此外SQL命令和Hive自身支持的命令。 - 对于shell命令，Hive CLI是通过ShellCmdExecutor执行的； - 对于SQL命令，Hive CLI是通过org.apache.hadoop.hive.ql.Driver执行的； - 对于Hive命令，HiveCLI通过SetProcessor、ResetProcessor、DfsProcessor、AddResourceProcessor、ListResourceProcessor、DeleteResourceProcessor、CompileProcessor、ReloadProcessor、CryptoProcessor这些处理进行执行。
-&amp;ndash;hiveconf、&amp;ndash;define (-d)、&amp;ndash;hivevar之间的关系 首先我们看一下OptionsProcessor类，它通过Apache Commons CLI解析Hive CLI命令参数: - 其process_stage1方法将&amp;ndash;hiveconf参数置入系统属性中，将&amp;ndash;define和&amp;ndash;hivevar参数置入CliSessionState对象的hiveVariables字段 - 其process_stage2方法将&amp;ndash;hiveconf参数置入CliSessionState对象的cmdProperties字段
-接下来看一下CliSessionState对象的hiveVariables字段和cmdProperties字段使用情况: - CliDriver.run方法将CliSessionState对象的cmdProperties字段中的键值对覆盖HiveConf对象，然后置入CliSessionState对象的overriddenConfigurations字段 - CliSessionState对象的hiveVariables字段主要用于变量替换，包括替换提示符（CliDriver.run）、替换source命令所跟文件路径及shell命令（CliDriver.processCmd）、替换SQL（Driver.compile）、替换Hive命令（DfsProcessor.run、&amp;hellip;&amp;hellip;）
-总之： - &amp;ndash;hiveconf参数在命令行中设置Hive的运行时配置参数，优先级高于hive-site.xml,但低于Hive交互Shell中使用Set命令设置。 - &amp;ndash;define (-d)和&amp;ndash;hivevar没有区别，都是用于变量替换的。
-hivehistory文件 Hive CLI会创建$HOME/.hivehistory文件，并在其中记录命令历史记录。
--v参数打印出的SQL语句是变量替换后的吗？ 不是，打印的是原始SQL语句。 看了Hive CLI源码后的疑惑  CliDriver类主函数实例化一个CliDriver对象，而在executeDriver方法中不用自身实例，偏偏又实例化一个CliDriver对象cli来，为啥？ &amp;ndash;hiveconf参数会被放入CliSessionState对象的cmdProperties字段和overriddenConfigurations字段，难道不能合并成一份么？  Hive Beeline学习 BeeLine类的dispatch负责将特定命令行分发给适合的CommandHandler。 - 其中以!起始的SQLLine命令由execCommandWithPrefix方法处理，具体实现见Commands类的同名方法。- 其他命令则由Commands类的sql方法处理
-参考 Hive LanguageManual CLI
+Hive CLI如何处理shell命令、Hive命令和SQL的？ HiveCLI既可以处理一个SQL脚本文件、也可以处理多个SQL命令。它通过处理多行命令，以&amp;quot;;&amp;ldquo;为分隔符，获取单个命令列表。一个单个命令，即可能是&amp;ndash;开头的注释行，也可能是!开头的shell命令，此外SQL命令和Hive自身支持的命令。
+对于shell命令，Hive CLI是通过ShellCmdExecutor执行的； 对于SQL命令，Hive CLI是通过org.apache.hadoop.hive.ql.Driver执行的； 对于Hive命令，HiveCLI通过SetProcessor、ResetProcessor、DfsProcessor、AddResourceProcessor、ListResourceProcessor、DeleteResourceProcessor、CompileProcessor、ReloadProcessor、CryptoProcessor这些处理进行执行。 &amp;ndash;hiveconf、&amp;ndash;define (-d)、&amp;ndash;hivevar之间的关系 首先我们看一下OptionsProcessor类，它通过Apache Commons CLI解析Hive CLI命令参数:
+其process_stage1方法将&amp;ndash;hiveconf参数置入系统属性中，将&amp;ndash;define和&amp;ndash;hivevar参数置入CliSessionState对象的hiveVariables字段 其process_stage2方法将&amp;ndash;hiveconf参数置入CliSessionState对象的cmdProperties字段 接下来看一下CliSessionState对象的hiveVariables字段和cmdProperties字段使用情况:
+CliDriver.run方法将CliSessionState对象的cmdProperties字段中的键值对覆盖HiveConf对象，然后置入CliSessionState对象的overriddenConfigurations字段 CliSessionState对象的hiveVariables字段主要用于变量替换，包括替换提示符（CliDriver.run）、替换source命令所跟文件路径及shell命令（CliDriver.processCmd）、替换SQL（Driver.compile）、替换Hive命令（DfsProcessor.run、&amp;hellip;&amp;hellip;） 总之：
+&amp;ndash;hiveconf参数在命令行中设置Hive的运行时配置参数，优先级高于hive-site.xml,但低于Hive交互Shell中使用Set命令设置。 &amp;ndash;define (-d)和&amp;ndash;hivevar没有区别，都是用于变量替换的。 hivehistory文件 Hive CLI会创建$HOME/.hivehistory文件，并在其中记录命令历史记录。
+-v参数打印出的SQL语句是变量替换后的吗？ 不是，打印的是原始SQL语句。 看了Hive CLI源码后的疑惑 CliDriver类主函数实例化一个CliDriver对象，而在executeDriver方法中不用自身实例，偏偏又实例化一个CliDriver对象cli来，为啥？ &amp;ndash;hiveconf参数会被放入CliSessionState对象的cmdProperties字段和overriddenConfigurations字段，难道不能合并成一份么？ Hive Beeline学习 BeeLine类的dispatch负责将特定命令行分发给适合的CommandHandler。
+其中以!起始的SQLLine命令由execCommandWithPrefix方法处理，具体实现见Commands类的同名方法。 其他命令则由Commands类的sql方法处理 参考 Hive LanguageManual CLI
 Hive LanguageManual VariableSubstitution
-Hive CLI source code</description>
-    </item>
-    
-    <item>
-      <title>[Ambari] 了解Ambari</title>
-      <link>https://mryqu.github.io/post/ambari_%E4%BA%86%E8%A7%A3ambari/</link>
-      <pubDate>Sun, 26 Jul 2015 07:35:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ambari_%E4%BA%86%E8%A7%A3ambari/</guid>
-      <description>今天看到一篇帖子《Ambari——大数据平台的搭建利器》介绍了Apache Ambari的使用。感觉Ambari确实不错，很便捷地支持Apache Hadoop集群的配置、管理和监控，堪称利器！
-Ambari对系统管理员提供如下功能： - 配置Hadoop集群 - Ambari提供逐步的的安装向导在任意多台机器上安装Hadoop集群。 - Ambari处理集群中Hadoop服务的配置。 - 管理Hadoop集群 - Ambari提供对整个集群范围内启动、停止和重新配置Hadoop服务的集中管理。 - 监控Hadoop集群 - Ambari提供仪表盘用于监控Hadoop集群（HDFS、MapReduce、HBase、Hive和HCatalog）的健康和状态。 - Ambari通过Ambari 运维指标系统收集指标。 - Ambari提供用于系统告警的Ambari告警框架，可在需要时（例如节点宕机、剩余磁盘空间不足等）通知你。
-Ambari对应用开发者和系统集成者提供如下功能： - 通过Ambari REST APIs轻松将Hadoop配置、管理和监控功能与自己的应用集成。
-Ambari当前可在一些64位Linux系统上安装。
-另，Ambari中文为洋麻。</description>
-    </item>
-    
-    <item>
-      <title>[Hive] 遇到Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}</title>
-      <link>https://mryqu.github.io/post/hive_%E9%81%87%E5%88%B0relative_path_in_absolute_uri%E9%97%AE%E9%A2%98/</link>
-      <pubDate>Sat, 25 Jul 2015 07:33:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_%E9%81%87%E5%88%B0relative_path_in_absolute_uri%E9%97%AE%E9%A2%98/</guid>
-      <description>安装问Hive，启动一下CLI试一下效果。结果直接崩了，错误提示：Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}。 Hive AdminManual Configuration里面的例子是将hive.exec.scratchdir设定为/tmp/mydir。即使按照示例来配置，还是会报hive.downloaded.resources.dir属性错误。后来看到网上有人说主要是Hadoop路径不支持带&amp;rdquo;:&amp;ldquo;，所以会报错。
-解决方法： - hive.exec.local.scratchdir: /tmp/${user.name} - hive.downloaded.resources.dir: /tmp/${user.name}_resources
-可以登入Hive Shell了！ </description>
-    </item>
-    
-    <item>
-      <title>[Hive] 安装Hive 1.2.x</title>
-      <link>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</link>
-      <pubDate>Fri, 24 Jul 2015 05:37:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</guid>
-      <description>我的Hadoop集群为node50064、node50069和node51054。本文的Hive和MySQL软件仅在node50064上安装。
-安装Hive-内嵌元数据存储模式 Hive驱动、元数据存储接口和数据库(derby)使用相同的JVM。元数据保持在内嵌的derby数据库，只允许一个会话连接到数据库。 下载并解压缩Hive wget http://apache.cs.utah.edu/hive/hive-1.2.x/apache-hive-1.2.x-bin.tar.gz tar -xzf apache-hive-1.2.x-bin.tar.gz sudo mv apache-hive-1.2.x-bin /usr/local/hive sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /usr/local/hive  环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;quot; export HIVE_HOME=/usr/local/hive export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$HIVE_HOME/bin  最后通过source~/.bashrc刷新配置文件。
+Hive CLI source code
+Beeline – Command Line Shell
+Hive Beeline CLI source code</description></item><item><title>[Ambari] 了解Ambari</title><link>https://mryqu.github.io/post/ambari_%E4%BA%86%E8%A7%A3ambari/</link><pubDate>Sun, 26 Jul 2015 07:35:28 +0000</pubDate><guid>https://mryqu.github.io/post/ambari_%E4%BA%86%E8%A7%A3ambari/</guid><description>今天看到一篇帖子《Ambari——大数据平台的搭建利器》介绍了Apache Ambari的使用。感觉Ambari确实不错，很便捷地支持Apache Hadoop集群的配置、管理和监控，堪称利器！
+Ambari对系统管理员提供如下功能：
+配置Hadoop集群 Ambari提供逐步的的安装向导在任意多台机器上安装Hadoop集群。 Ambari处理集群中Hadoop服务的配置。 管理Hadoop集群 Ambari提供对整个集群范围内启动、停止和重新配置Hadoop服务的集中管理。 监控Hadoop集群 Ambari提供仪表盘用于监控Hadoop集群（HDFS、MapReduce、HBase、Hive和HCatalog）的健康和状态。 Ambari通过Ambari 运维指标系统收集指标。 Ambari提供用于系统告警的Ambari告警框架，可在需要时（例如节点宕机、剩余磁盘空间不足等）通知你。 Ambari对应用开发者和系统集成者提供如下功能：
+通过Ambari REST APIs轻松将Hadoop配置、管理和监控功能与自己的应用集成。 Ambari当前可在一些64位Linux系统上安装。
+另，Ambari中文为洋麻。</description></item><item><title>[Hive] 遇到Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}</title><link>https://mryqu.github.io/post/hive_%E9%81%87%E5%88%B0relative_path_in_absolute_uri%E9%97%AE%E9%A2%98/</link><pubDate>Sat, 25 Jul 2015 07:33:55 +0000</pubDate><guid>https://mryqu.github.io/post/hive_%E9%81%87%E5%88%B0relative_path_in_absolute_uri%E9%97%AE%E9%A2%98/</guid><description>安装问Hive，启动一下CLI试一下效果。结果直接崩了，错误提示：Relative path in absolute URI:${system:java.io.tmpdir}/${system:user.name}。 Hive AdminManual Configuration里面的例子是将hive.exec.scratchdir设定为/tmp/mydir。即使按照示例来配置，还是会报hive.downloaded.resources.dir属性错误。后来看到网上有人说主要是Hadoop路径不支持带&amp;quot;:&amp;quot;，所以会报错。
+解决方法：
+hive.exec.local.scratchdir: /tmp/${user.name} hive.downloaded.resources.dir: /tmp/${user.name}_resources 可以登入Hive Shell了！</description></item><item><title>[Hive] 安装Hive 1.2.x</title><link>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</link><pubDate>Fri, 24 Jul 2015 05:37:23 +0000</pubDate><guid>https://mryqu.github.io/post/hive_%E5%AE%89%E8%A3%85hive_1.2.x/</guid><description>我的Hadoop集群为node50064、node50069和node51054。本文的Hive和MySQL软件仅在node50064上安装。
+安装Hive-内嵌元数据存储模式 Hive驱动、元数据存储接口和数据库(derby)使用相同的JVM。元数据保持在内嵌的derby数据库，只允许一个会话连接到数据库。 下载并解压缩Hive wget http://apache.cs.utah.edu/hive/hive-1.2.x/apache-hive-1.2.x-bin.tar.gz tar -xzf apache-hive-1.2.x-bin.tar.gz sudo mv apache-hive-1.2.x-bin /usr/local/hive sudo chown -R &amp;#34;hadoop:hadoop&amp;#34; /usr/local/hive 环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;#34;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;#34; export HIVE_HOME=/usr/local/hive export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$HIVE_HOME/bin 最后通过source~/.bashrc刷新配置文件。
 conf/hive-env.sh 首先通过cd $HIVE_HOME/conf;cp hive-env.sh.template hive-env.sh;chmod 774hive-env.sh创建并设置hive-env.sh执行权限。 修改后的主要部分内容如下：
-# Set HADOOP_HOME to point to a specific hadoop install directory export HADOOP_HOME=${HADOOP_HOME:-/usr/local/hadoop} # Hive Configuration Directory can be controlled by: export HIVE_CONF_DIR=/usr/local/hive/conf # Folder containing extra ibraries required for hive compilation/execution can be controlled by: export HIVE_AUX_JARS_PATH=/usr/local/hive/lib  conf/hive-site.</description>
-    </item>
-    
-    <item>
-      <title>[Pig] 安装Pig 0.15.0</title>
-      <link>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</link>
-      <pubDate>Mon, 20 Jul 2015 06:35:42 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</guid>
-      <description>安装Pig 我的Hadoop集群为node50064、node50069和node51054。本文的Pig软件仅在node50064上安装。
-下载并解压缩Pig wget http://apache.cs.utah.edu/pig/pig-0.15.0/pig-0.15.0.tar.gz tar -xzf pig-0.15.0.tar.gz sudo mv pig-0.15.0 /usr/local/pig sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /usr/local/pig  环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;quot; export PIG_HOME=/usr/local/pig export PIG_CLASSPATH=$HADOOP_HOME/conf export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PIG_HOME/bin  最后通过source~/.bashrc刷新配置文件。
-conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如下： 运行Pig控制台 参考 你用pig分析access_log日志中ip访问次数</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 使用TeraSort测试集群性能</title>
-      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</link>
-      <pubDate>Mon, 25 May 2015 06:04:00 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</guid>
-      <description>Terasort是Hadoop自带的用于集群性能基准测试的工具，其源码位于https://github.com/apache/hadoop/tree/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/src/main/java/org/apache/hadoop/examples/terasort下。
+# Set HADOOP_HOME to point to a specific hadoop install directory export HADOOP_HOME=${HADOOP_HOME:-/usr/local/hadoop} # Hive Configuration Directory can be controlled by: export HIVE_CONF_DIR=/usr/local/hive/conf # Folder containing extra ibraries required for hive compilation/execution can be controlled by: export HIVE_AUX_JARS_PATH=/usr/local/hive/lib conf/hive-site.</description></item><item><title>[Pig] 安装Pig 0.15.0</title><link>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</link><pubDate>Mon, 20 Jul 2015 06:35:42 +0000</pubDate><guid>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</guid><description>安装Pig 我的Hadoop集群为node50064、node50069和node51054。本文的Pig软件仅在node50064上安装。
+下载并解压缩Pig wget http://apache.cs.utah.edu/pig/pig-0.15.0/pig-0.15.0.tar.gz tar -xzf pig-0.15.0.tar.gz sudo mv pig-0.15.0 /usr/local/pig sudo chown -R &amp;#34;hadoop:hadoop&amp;#34; /usr/local/pig 环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;#34;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;#34; export PIG_HOME=/usr/local/pig export PIG_CLASSPATH=$HADOOP_HOME/conf export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PIG_HOME/bin 最后通过source~/.bashrc刷新配置文件。
+conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如下： 运行Pig控制台 参考 你用pig分析access_log日志中ip访问次数</description></item><item><title>[Hadoop] 使用TeraSort测试集群性能</title><link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</link><pubDate>Mon, 25 May 2015 06:04:00 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/</guid><description>Terasort是Hadoop自带的用于集群性能基准测试的工具，其源码位于https://github.com/apache/hadoop/tree/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/src/main/java/org/apache/hadoop/examples/terasort下。
 TeraSort用法 该性能基准测试工具针对Hadoop集群的HDFS和MapReduce层进行综合测试。完整的测试步骤为：
- 使用TeraGen程序生成官方GraySort输入数据集。(注：SortBenchmark是JimGray自98年建立的一项排序竞技活动，其对排序的输入数据制定了详细规则，要求使用其提供的gensort工具生成输入数据。而Hadoop的TeraGen数据生成工具的算法与gensort一致。） 在输入数据上运行真正的TeraSort性能基准测试工具 通过TeraValidate程序验证排序后的输出数据  TeraGen程序生成数据的格式为（详见TeraSort.generateRecord方法实现）： - 10字节键：一个16字节随机数的高10字节 - 2字节常量：0x0011 - 32字节rowid - 4字节常量：0x8899AABB - 48字节填充：由一个16字节随机数的低48比特生成 - 4字节常量:0xCCDDEEFF
-也就是说TeraGen程序生成的一行数据有100字节。TeraGen程序参数需要指定行数，可指定单位： - t：1000,000,000,000 - b：1000,000,000 - m：1000,000 - k：1000
-TeraSort测试 依次运行teragen、terasort和teravalidate：
-hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar teragen 5m /user/hadoop/teragen-data hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.X.jar terasort /user/hadoop/teragen-data /user/hadoop/terasort-data 15/05/24 08:29:03 INFO terasort.TeraSort: starting 15/05/24 08:29:04 INFO input.FileInputFormat: Total input paths to process : 2 Spent 123ms computing base-splits. Spent 2ms computing TeraScheduler splits.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 使用ChainMapper和ChainReducer运行MapReduce作业链</title>
-      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</link>
-      <pubDate>Sun, 24 May 2015 00:07:44 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</guid>
-      <description>启动多个MapReduce作业并实现作业控制，大概有以下几种方式：
- 在Driver中通过waitForCompletion方法同步启动并运行作业，根据执行结果同样同步启动并运行后继作业。作业控制逻辑完全是自己实现，仅适用于作业不多的应用。 使用ChainMapper和ChainReducer运行MapReduce作业链 使用Oozie管理复杂MapReduce工作流 本文将针对第二种方式进行学习总结。  使用MapReduce作业链模式的数据和执行流如下：
- 一或多个mapper shuffle阶段 一个reducer 零或多个mapper 即，mapper可以输出给mapper，也可以输出给reducer；reducer只能输出给mapper；reducer之前必有shuffle阶段。  JobChaining示例 JobChainingDemo.java源码 londonbridge.txt London Bridge is falling down, Falling down, falling down. London Bridge is falling down, My fair lady. Build it up with wood and clay, Wood and clay, wood and clay, Build it up with wood and clay, My fair lady. Wood and clay will wash away, Wash away, wash away, Wood and clay will wash away, My fair lady.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 使用DFSIO测试集群I/O性能</title>
-      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/</link>
-      <pubDate>Sat, 23 May 2015 09:12:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/</guid>
-      <description>DFSIO是Hadoop自带的用于集群分布式I/O性能基准测试的工具，其源码为https://github.com/apache/hadoop/blob/trunk/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/src/test/java/org/apache/hadoop/fs/TestDFSIO.java。
-DFSIO 用法 hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO 15/05/22 19:50:22 INFO fs.TestDFSIO: TestDFSIO.1.8 Missing arguments. Usage: TestDFSIO [genericOptions] -read [-random | -backward | -skip [-skipSize Size]] | -write | -append | -truncate | -clean [-compression codecClassName] [-n rFiles N] [-size Size[B|KB|MB|GB|TB]] [-resFile resultFileName] [-bufferSize Bytes]  DFSIO可以测试写操作和读操作，以MapReduce作业的方式运行，返回整个集群的I/O性能报告。DFSIO读写测试的位置在hdfs://namendoe:8020/benchmarks/TestDFSIO/io_data，其中读测试不会自己产生数据，必须先执行DFSIO写测试。
- -read：读测试，对每个文件读-size指定的字节数 -write：写测试，对每个文件写-size指定的字节数 -append：追加测试，对每个文件追加-size指定的字节数 -truncate：截断测试，对每个文件截断至-size指定的字节数 -clean：清除TestDFSIO在HDFS上生成数据 -n：文件个数 -size：每个文件的大小 -resFile：生成测试报告的本地文件路径 -bufferSize：每个mapper任务读写文件所用到的缓存区大小，默认为1000000字节。
-DFSIO测试  写10个100MB的文件 hadoop@node50064:~$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 100MB -resFile /tmp/DFSIO-write.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] 查看ZooKeeper服务器</title>
-      <link>https://mryqu.github.io/post/hbase_%E6%9F%A5%E7%9C%8Bzookeeper%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
-      <pubDate>Wed, 20 May 2015 06:10:22 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E6%9F%A5%E7%9C%8Bzookeeper%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-      <description>使用hbaseorg.apache.hadoop.hbase.zookeeper.ZKServerTool可以很方便查看HBase所使用的ZK服务器列表。 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] check FSDataInputStream and its wrapped InputStream implementation</title>
-      <link>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</link>
-      <pubDate>Fri, 01 May 2015 01:15:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</guid>
-      <description>打开一个HDFS文件，获得一个FSDataInputStream对象，其实现类到底是什么？小小探究一下。
-package com.yqu.hadoop; import java.io.IOException; import java.io.InputStream; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.fs.FSDataInputStream; import org.apache.hadoop.fs.FileSystem; import org.apache.hadoop.fs.Path; public class LearnFS { public static void main(String[] args) { Configuration config = new Configuration(); FSDataInputStream in = null; Path path = new Path(&amp;quot;/user/hadoop/input/access_log.txt&amp;quot;); try { FileSystem fs = FileSystem.get(config); System.out.println(&amp;quot;Scheme: &amp;quot; + fs.getScheme()); System.out.println(&amp;quot;Uri: &amp;quot; + fs.getUri().toString()); in = fs.open(path); if (in != null) { System.out.println(&amp;quot;FSDataInputStream impl:&amp;quot; + in.getClass().getCanonicalName()); InputStream is = in.getWrappedStream(); if (is !</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 安装Hadoop 2.7.x 集群</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/</link>
-      <pubDate>Tue, 28 Apr 2015 23:37:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/</guid>
-      <description>集群规划 |节点|角色 |&amp;mdash;&amp;ndash; |node50064|NameNode RessourceManager |node50069|Datanode SecondNameNode |node51054|Datanade
-准备工作 （在全部机器上）创建hadoop用户 $ sudo useradd -m hadoop -s /bin/bash $ sudo passwd hadoop $ sudo adduser hadoop sudo  （在全部机器上）配置/etc/hosts 10.120.12.135 node50064.mryqu.com node50064 10.120.11.201 node50069.mryqu.com node50069 10.120.14.226 node51054.mryqu.com node51054  （在全部机器上）禁止掉IPv6 参见之前的博文在Ubuntu中禁掉IPv6。
-（在全部机器上）关闭防火墙 ufw disable //关闭 sudo apt-get remove ufw //卸载 sudo ufw status //查看  （在全部机器上）安装并配置Java JDK 安装Java JDK：
-$ sudo apt-get update $ sudo apt-get install openjdk-7-jre openjdk-7-jdk  通过下列命令确定JDK安装路径为/usr/lib/jvm/java-7-openjdk-amd64： 通过sudovi /etc/profile添加如下内容：</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 消除WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</title>
-      <link>https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/</link>
-      <pubDate>Sun, 19 Apr 2015 06:40:44 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/</guid>
-      <description>启动DFS或者执行hadoop fs命令总是得到告警util.NativeCodeLoader: Unable to load native-hadooplibrary for your platform&amp;hellip; using builtin-java classes whereapplicable：
-hadoop@node50064:~$ start-dfs.sh 15/04/18 01:55:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable Starting namenodes on [node50064.mryqu.com] node50064.mryqu.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-namenode-node50064.out node50069.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node50069.out node51054.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node51054.out Starting secondary namenodes [node50069.mryqu.com] node50069.mryqu.com: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-secondarynamenode-node50069.out 15/04/18 01:55:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] Windows平台编译Hadoop2.6.0笔记</title>
-      <link>https://mryqu.github.io/post/hadoop_windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91hadoop2.6.0%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Thu, 02 Apr 2015 05:25:54 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91hadoop2.6.0%E7%AC%94%E8%AE%B0/</guid>
-      <description>环境 64位虚拟机及64位 Windows Server 2008 R2
-所需工具  JDK7 Maven .NET Framework 4 Microsoft Windows SDK 7.1 安装前一定要先卸载比Microsoft Visual C++ 2010 x86Redistributable - 10.0.30319 更高的版本。 Microsoft Visual C++ 2010 Service Pack 1 Compiler Update for the Windows SDK 7.1 Cygwin (x64) Protocol Buffers 2.5.0 CMake 3.2.1 安装时选择添加CMake到所有用户的PATH环境变量。 hadoop-2.6.0源文件压缩包 解压至c:\hadoop-2.6.0-src   编译Hadoop2.6.0  进入Windows SDK 7.1 Command Prompt 在c:\执行buildHadoop.bat，其内容如下：
-setlocal set Platform=x64 set CYGWIN_ROOT=C:\cygwin64 set JAVA_HOME=C:\tools\Java\jdk7 set M2_HOME=C:\tools\apache-maven set MS_BUILD_PATH=C:\Windows\Microsoft.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] 使用ImportTsv命令导入数据</title>
-      <link>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8importtsv%E5%91%BD%E4%BB%A4%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/</link>
-      <pubDate>Mon, 16 Mar 2015 20:16:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8importtsv%E5%91%BD%E4%BB%A4%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/</guid>
-      <description>ImportTsv简介 ImportTsv是一款用于将TSV格式数据导入HBase的工具。它有两种用法： - 通过Put将TSV格式数据导入HBase - 通过批量导入数据的方式生成用于加载进HBase的存储文件
-下面看一下ImportTsv的使用说明： ImportTsv参数 -Dimporttsv.skip.bad.lines=false - 若遇到无效行则失败 &amp;lsquo;-Dimporttsv.separator=|&amp;rsquo; - 使用特定分隔符| -Dimporttsv.timestamp=currentTimeAsLong - 使用导入时的时间戳 -Dimporttsv.mapper.class=my.Mapper -使用用户自定义Mapper类替换TsvImporterMapper -Dmapreduce.job.name=jobName - 对导入使用特定mapreduce作业名 -Dcreate.table=no - 避免创建表，注：如设为为no，目标表必须存在于HBase中 -Dno.strict=true - 忽略HBase表列族检查。默认为false
-ImportTsv测试 准备数据 hadoop@node50064:~$ hadoop fs -cat /user/hadoop/tsv_input/sales2013.csv Name,Sex,Age,Height,Weight Alfred,M,14,69,112.5 Alice,F,13,56.5,84 Barbara,F,13,65.3,98 Carol,F,14,62.8,102.5 Henry,M,14,63.5,102.5 James,M,12,57.3,83 Jane,F,12,59.8,84.5 Janet,F,15,62.5,112.5 Jeffrey,M,13,62.5,84 John,M,12,59,99.5 Joyce,F,11,51.3,50.5 Judy,F,14,64.3,90 Louise,F,12,56.3,77 Mary,F,15,66.5,112 Philip,M,16,72,150 Robert,M,12,64.8,128 Ronald,M,15,67,133 Thomas,M,11,57.5,85 William,M,15,66.5,112  准备目标表 hbase(main):001:0&amp;gt; create &#39;sales2013&#39;, &#39;info&#39; 0 row(s) in 4.5730 seconds =&amp;gt; Hbase::Table - sales2013 hbase(main):002:0&amp;gt; create &#39;sales2013bulk&#39;, &#39;info&#39; 0 row(s) in 2.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] 启动内置ZooKeeper过程</title>
-      <link>https://mryqu.github.io/post/hbase_%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%AEzookeeper%E8%BF%87%E7%A8%8B/</link>
-      <pubDate>Tue, 24 Feb 2015 07:00:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%AEzookeeper%E8%BF%87%E7%A8%8B/</guid>
-      <description> start-hbase.sh  hbase-daemons.sh start zookeeper zookeepers.sh --hosts /usr/local/hbase/conf/regionservers--config /usr/local/hbase/conf cd /usr/local/hbase;/usr/local/hbase/bin/hbase-daemon.sh --config /usr/local/hbase/confstart zookeeper 检查配置HBASE_MANAGES_ZK，若不为true则终止处理。  ssh node51054 cd /usr/local/hbase;/usr/local/hbase/bin/hbase-daemon.sh --config /usr/local/hbase/confstart zookeeper hbase zookeeper start  java org.apache.hadoop.hbase.zookeeper.HQuorumPeer     </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] YARN中的AuxiliaryService</title>
-      <link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</link>
-      <pubDate>Sun, 01 Feb 2015 12:39:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</guid>
-      <description>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&amp;ldquo;yarn.nodemanager.aux-services&amp;rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即&amp;rdquo;yarn.nodemanager.aux-services&amp;rdquo;）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即&amp;rdquo;yarn.nodemanager.aux-services.%s.class&amp;rdquo;）获得对应的服务类名。例如&amp;rdquo;yarn.nodemanager.aux-services.mapreduce_shuffle.class&amp;rdquo;对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
-public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent&amp;gt; implements Event { private final TYPE type; private final long timestamp; }  在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
-参考 AuxiliaryService in Hadoop 2</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] Map Reduce Slot</title>
-      <link>https://mryqu.github.io/post/hadoop_map_reduce_slot/</link>
-      <pubDate>Fri, 17 Oct 2014 19:29:17 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_map_reduce_slot/</guid>
-      <description>MR1 在MR1中，每个节点可以启动的并发map和reduce任务数(即slot数)由管理员通过mapred-site.xml中mapred.tasktracker.map.tasks.maximum (MR2中为mapreduce.tasktracker.map.tasks.maximum )和mapred.tasktracker.reduce.tasks.maximum (MR2中为mapreduce.tasktracker.reduce.tasks.maximum )配置指定。(下面的参考帖子提到过作业级参数mapred.map.tasks.maximum和mapred.reduce.tasks.maximum，但是在HADOOP-4295并没有通过。)
-此外，管理员通过mapred.child.配置设置mapper或reducer默认的内存分配量。</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 通过MultipleOutputs生成多输出文件</title>
-      <link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 29 Sep 2014 18:39:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</guid>
-      <description>即前一博文[Hadoop] 通过MultipleInputs处理多输入文件展示如何处理MapReduce多输入问题，本文将展示一下如何处理MapReduce多输出的方法。
-MultipleOutputs示例 MultipleOutputsDemo.java源码 Scores.txt Tomas,100 Edward,81 Henry,59 Gordon,60 James,97 Percy,93 Toby,77 Emily,87 Duke,68 Donald,47 Douglas,35  执行 hadoop jar YquMapreduceDemo.jar MultipleOutputsDemo /user/hadoop/mos_input/scores.txt /user/hadoop/mos_output  测试结果 MultipleOutputs分析 普通Driver |API|Job属性 |&amp;mdash;&amp;ndash; |Job.setOutputFormatClass|mapreduce.job.outputformat.class示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat |Job.setOutputKeyClass|mapreduce.job.output.key.class示例：org.apache.hadoop.io.Text |Job.setOutputValueClass|mapreduce.job.output.value.class示例：org.apache.hadoop.io.IntWritable
-使用MultipleOutputs的Driver |API|Job属性 |&amp;mdash;&amp;ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs
-示例：pass fail
-mapreduce.multipleoutputs.namedOutput.pass.format
-示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
-mapreduce.multipleoutputs.namedOutput.pass.key
-示例：org.apache.hadoop.io.NullWritable
-mapreduce.multipleoutputs.namedOutput.pass.value
-示例：org.apache.hadoop.io.Text
-mapreduce.multipleoutputs.namedOutput.fail.format
-示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
-mapreduce.multipleoutputs.namedOutput.fail.key
-示例：org.apache.hadoop.io.NullWritable
-mapreduce.multipleoutputs.namedOutput.fail.value
-示例：org.apache.hadoop.io.Text
-通过调用org.apache.hadoop.mapreduce.lib.output.MultipleOutputs.write方法，根据相应NamedOutput相应的OutputFormat、OutputKeyClass和OutputValueClass创建NamedOutput自己的RecordWriter，完成相应的输出。</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 通过MultipleInputs处理多输入文件</title>
-      <link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 29 Sep 2014 06:35:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</guid>
-      <description> 一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
-MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3  locations.txt 1,China 2,USA 3,Canada 4,New Zealand  执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output  测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&amp;mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir
-示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class
-示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class
-示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
-使用MultipleInputs的Driver APIJob属性MultipleInputs.addInputPathmapreduce.input.multipleinputs.dir.formats
-示例：/user/hadoop/mijoin/people.txt:o.a.h.m.l.i.TextInputFormat,
-/user/hadoop/mijoin/locations.txt:o.a.h.m.l.i.TextInputFormatmapreduce.input.multipleinputs.dir.mappers
-示例：/user/hadoop/mijoin/people.txt:MultipleInputsDemo.PersonMapper,
-/user/hadoop/mijoin/locations.txt:MultipleInputsDemo.LocationMappermapreduce.job.inputformat.class
-示例：org.apache.hadoop.mapreduce.lib.input.DelegatingInputFormatmapreduce.job.map.class
-示例：org.apache.hadoop.mapreduce.lib.input.DelegatingMapper 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
-调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] MapReduce定制Counter实践</title>
-      <link>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Thu, 04 Sep 2014 21:11:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</guid>
-      <description> MapReduce除了有内建的Counter，还支持应用程序自身定制的Counter。实践如下：
-CustomCounterDemo.java 执行 JobHistory显示 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 使用MRUnit进行MapReduce单元测试</title>
-      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
-      <pubDate>Sun, 15 Jun 2014 22:59:22 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid>
-      <description>MRUnit介绍 MRUnit是一个用于帮助开发者进行HadoopMapReduce作业单元测试的Java库。它是JUnit架构扩展，无需将代码运行在集群上即可在开发环境测试Mapper和Reducer类的功能。MRUnit由Cloudera开发，并在2012年成为Apache基金会顶级项目。 MRUnit使用LocalJobRunner使用样本数据集模拟一次Mapper/Reducer执行过程。通过定义一或多个输入记录，使用LocalJobRunner运行测试代码，判定是否与期望输出相符。如相符，则安静退出；否则，默认抛出异常。
+使用TeraGen程序生成官方GraySort输入数据集。(注：SortBenchmark是JimGray自98年建立的一项排序竞技活动，其对排序的输入数据制定了详细规则，要求使用其提供的gensort工具生成输入数据。而Hadoop的TeraGen数据生成工具的算法与gensort一致。） 在输入数据上运行真正的TeraSort性能基准测试工具 通过TeraValidate程序验证排序后的输出数据 TeraGen程序生成数据的格式为（详见TeraSort.generateRecord方法实现）：
+10字节键：一个16字节随机数的高10字节 2字节常量：0x0011 32字节rowid 4字节常量：0x8899AABB 48字节填充：由一个16字节随机数的低48比特生成 4字节常量:0xCCDDEEFF 也就是说TeraGen程序生成的一行数据有100字节。TeraGen程序参数需要指定行数，可指定单位：
+t：1000,000,000,000 b：1000,000,000 m：1000,000 k：1000 TeraSort测试 依次运行teragen、terasort和teravalidate：
+hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar teragen 5m /user/hadoop/teragen-data hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.X.jar terasort /user/hadoop/teragen-data /user/hadoop/terasort-data 15/05/24 08:29:03 INFO terasort.TeraSort: starting 15/05/24 08:29:04 INFO input.FileInputFormat: Total input paths to process : 2 Spent 123ms computing base-splits. Spent 2ms computing TeraScheduler splits. Computing input splits took 127ms Sampling 4 splits of 4 Making 1 from 100000 sampled records Computing parititions took 558ms Spent 686ms computing partitions.</description></item><item><title>[Hadoop] 使用ChainMapper和ChainReducer运行MapReduce作业链</title><link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</link><pubDate>Sun, 24 May 2015 00:07:44 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</guid><description>启动多个MapReduce作业并实现作业控制，大概有以下几种方式：
+在Driver中通过waitForCompletion方法同步启动并运行作业，根据执行结果同样同步启动并运行后继作业。作业控制逻辑完全是自己实现，仅适用于作业不多的应用。 使用ChainMapper和ChainReducer运行MapReduce作业链 使用Oozie管理复杂MapReduce工作流 本文将针对第二种方式进行学习总结。 使用MapReduce作业链模式的数据和执行流如下：
+一或多个mapper shuffle阶段 一个reducer 零或多个mapper 即，mapper可以输出给mapper，也可以输出给reducer；reducer只能输出给mapper；reducer之前必有shuffle阶段。 JobChaining示例 JobChainingDemo.java源码 londonbridge.txt London Bridge is falling down, Falling down, falling down. London Bridge is falling down, My fair lady. Build it up with wood and clay, Wood and clay, wood and clay, Build it up with wood and clay, My fair lady. Wood and clay will wash away, Wash away, wash away, Wood and clay will wash away, My fair lady.</description></item><item><title>[Hadoop] 使用DFSIO测试集群I/O性能</title><link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/</link><pubDate>Sat, 23 May 2015 09:12:41 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8dfsio%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4io%E6%80%A7%E8%83%BD/</guid><description>DFSIO是Hadoop自带的用于集群分布式I/O性能基准测试的工具，其源码为https://github.com/apache/hadoop/blob/trunk/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/src/test/java/org/apache/hadoop/fs/TestDFSIO.java。
+DFSIO 用法 hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO 15/05/22 19:50:22 INFO fs.TestDFSIO: TestDFSIO.1.8 Missing arguments. Usage: TestDFSIO [genericOptions] -read [-random | -backward | -skip [-skipSize Size]] | -write | -append | -truncate | -clean [-compression codecClassName] [-n rFiles N] [-size Size[B|KB|MB|GB|TB]] [-resFile resultFileName] [-bufferSize Bytes] DFSIO可以测试写操作和读操作，以MapReduce作业的方式运行，返回整个集群的I/O性能报告。DFSIO读写测试的位置在hdfs://namendoe:8020/benchmarks/TestDFSIO/io_data，其中读测试不会自己产生数据，必须先执行DFSIO写测试。
+-read：读测试，对每个文件读-size指定的字节数 -write：写测试，对每个文件写-size指定的字节数 -append：追加测试，对每个文件追加-size指定的字节数 -truncate：截断测试，对每个文件截断至-size指定的字节数 -clean：清除TestDFSIO在HDFS上生成数据 -n：文件个数 -size：每个文件的大小 -resFile：生成测试报告的本地文件路径 -bufferSize：每个mapper任务读写文件所用到的缓存区大小，默认为1000000字节。 DFSIO测试 写10个100MB的文件 hadoop@node50064:~$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.X-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 100MB -resFile /tmp/DFSIO-write.out 查看写测试结果 本地文件/tmp/DFSIO-write.out包含写测试性能报告：</description></item><item><title>[HBase] 查看ZooKeeper服务器</title><link>https://mryqu.github.io/post/hbase_%E6%9F%A5%E7%9C%8Bzookeeper%E6%9C%8D%E5%8A%A1%E5%99%A8/</link><pubDate>Wed, 20 May 2015 06:10:22 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E6%9F%A5%E7%9C%8Bzookeeper%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid><description>使用hbaseorg.apache.hadoop.hbase.zookeeper.ZKServerTool可以很方便查看HBase所使用的ZK服务器列表。</description></item><item><title>[Hadoop] check FSDataInputStream and its wrapped InputStream implementation</title><link>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</link><pubDate>Fri, 01 May 2015 01:15:35 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</guid><description>打开一个HDFS文件，获得一个FSDataInputStream对象，其实现类到底是什么？小小探究一下。
+package com.yqu.hadoop; import java.io.IOException; import java.io.InputStream; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.fs.FSDataInputStream; import org.apache.hadoop.fs.FileSystem; import org.apache.hadoop.fs.Path; public class LearnFS { public static void main(String[] args) { Configuration config = new Configuration(); FSDataInputStream in = null; Path path = new Path(&amp;#34;/user/hadoop/input/access_log.txt&amp;#34;); try { FileSystem fs = FileSystem.get(config); System.out.println(&amp;#34;Scheme: &amp;#34; + fs.getScheme()); System.out.println(&amp;#34;Uri: &amp;#34; + fs.getUri().toString()); in = fs.open(path); if (in != null) { System.out.println(&amp;#34;FSDataInputStream impl:&amp;#34; + in.getClass().getCanonicalName()); InputStream is = in.getWrappedStream(); if (is !</description></item><item><title>[Hadoop] 安装Hadoop 2.7.x 集群</title><link>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/</link><pubDate>Tue, 28 Apr 2015 23:37:27 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/</guid><description>集群规划 |节点|角色 |&amp;mdash;&amp;ndash; |node50064|NameNode RessourceManager |node50069|Datanode SecondNameNode |node51054|Datanade
+准备工作 （在全部机器上）创建hadoop用户 $ sudo useradd -m hadoop -s /bin/bash $ sudo passwd hadoop $ sudo adduser hadoop sudo （在全部机器上）配置/etc/hosts 10.120.12.135 node50064.mryqu.com node50064 10.120.11.201 node50069.mryqu.com node50069 10.120.14.226 node51054.mryqu.com node51054 （在全部机器上）禁止掉IPv6 参见之前的博文在Ubuntu中禁掉IPv6。
+（在全部机器上）关闭防火墙 ufw disable //关闭 sudo apt-get remove ufw //卸载 sudo ufw status //查看 （在全部机器上）安装并配置Java JDK 安装Java JDK：
+$ sudo apt-get update $ sudo apt-get install openjdk-7-jre openjdk-7-jdk 通过下列命令确定JDK安装路径为/usr/lib/jvm/java-7-openjdk-amd64： 通过sudovi /etc/profile添加如下内容：
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 export CLASSPATH=.</description></item><item><title>[Hadoop] 消除WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</title><link>https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/</link><pubDate>Sun, 19 Apr 2015 06:40:44 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/</guid><description>启动DFS或者执行hadoop fs命令总是得到告警util.NativeCodeLoader: Unable to load native-hadooplibrary for your platform&amp;hellip; using builtin-java classes whereapplicable：
+hadoop@node50064:~$ start-dfs.sh 15/04/18 01:55:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable Starting namenodes on [node50064.mryqu.com] node50064.mryqu.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-namenode-node50064.out node50069.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node50069.out node51054.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node51054.out Starting secondary namenodes [node50069.mryqu.com] node50069.mryqu.com: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-secondarynamenode-node50069.out 15/04/18 01:55:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</description></item><item><title>[Hadoop] Windows平台编译Hadoop2.6.0笔记</title><link>https://mryqu.github.io/post/hadoop_windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91hadoop2.6.0%E7%AC%94%E8%AE%B0/</link><pubDate>Thu, 02 Apr 2015 05:25:54 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91hadoop2.6.0%E7%AC%94%E8%AE%B0/</guid><description>环境 64位虚拟机及64位 Windows Server 2008 R2
+所需工具 JDK7 Maven .NET Framework 4 Microsoft Windows SDK 7.1 安装前一定要先卸载比Microsoft Visual C++ 2010 x86Redistributable - 10.0.30319 更高的版本。 Microsoft Visual C++ 2010 Service Pack 1 Compiler Update for the Windows SDK 7.1 Cygwin (x64) Protocol Buffers 2.5.0 CMake 3.2.1 安装时选择添加CMake到所有用户的PATH环境变量。 hadoop-2.6.0源文件压缩包 解压至c:\hadoop-2.6.0-src 编译Hadoop2.6.0 进入Windows SDK 7.1 Command Prompt 在c:\执行buildHadoop.bat，其内容如下： setlocal set Platform=x64 set CYGWIN_ROOT=C:\cygwin64 set JAVA_HOME=C:\tools\Java\jdk7 set M2_HOME=C:\tools\apache-maven set MS_BUILD_PATH=C:\Windows\Microsoft.NET\Framework64\v4.0.30319 set MS_SDK=C:\Program Files\Microsoft SDKs\Windows\v7.1 set CMAKE_PATH=C:\tools\CMake set PROTOBUF_PATH=C:\tools\protoc-2.</description></item><item><title>[HBase] 使用ImportTsv命令导入数据</title><link>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8importtsv%E5%91%BD%E4%BB%A4%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/</link><pubDate>Mon, 16 Mar 2015 20:16:13 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E4%BD%BF%E7%94%A8importtsv%E5%91%BD%E4%BB%A4%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/</guid><description>ImportTsv简介 ImportTsv是一款用于将TSV格式数据导入HBase的工具。它有两种用法：
+通过Put将TSV格式数据导入HBase 通过批量导入数据的方式生成用于加载进HBase的存储文件 下面看一下ImportTsv的使用说明： ImportTsv参数 -Dimporttsv.skip.bad.lines=false - 若遇到无效行则失败 &amp;lsquo;-Dimporttsv.separator=|&amp;rsquo; - 使用特定分隔符| -Dimporttsv.timestamp=currentTimeAsLong - 使用导入时的时间戳 -Dimporttsv.mapper.class=my.Mapper -使用用户自定义Mapper类替换TsvImporterMapper -Dmapreduce.job.name=jobName - 对导入使用特定mapreduce作业名 -Dcreate.table=no - 避免创建表，注：如设为为no，目标表必须存在于HBase中 -Dno.strict=true - 忽略HBase表列族检查。默认为false
+ImportTsv测试 准备数据 hadoop@node50064:~$ hadoop fs -cat /user/hadoop/tsv_input/sales2013.csv Name,Sex,Age,Height,Weight Alfred,M,14,69,112.5 Alice,F,13,56.5,84 Barbara,F,13,65.3,98 Carol,F,14,62.8,102.5 Henry,M,14,63.5,102.5 James,M,12,57.3,83 Jane,F,12,59.8,84.5 Janet,F,15,62.5,112.5 Jeffrey,M,13,62.5,84 John,M,12,59,99.5 Joyce,F,11,51.3,50.5 Judy,F,14,64.3,90 Louise,F,12,56.3,77 Mary,F,15,66.5,112 Philip,M,16,72,150 Robert,M,12,64.8,128 Ronald,M,15,67,133 Thomas,M,11,57.5,85 William,M,15,66.5,112 准备目标表 hbase(main):001:0&amp;gt; create &amp;#39;sales2013&amp;#39;, &amp;#39;info&amp;#39; 0 row(s) in 4.5730 seconds =&amp;gt; Hbase::Table - sales2013 hbase(main):002:0&amp;gt; create &amp;#39;sales2013bulk&amp;#39;, &amp;#39;info&amp;#39; 0 row(s) in 2.</description></item><item><title>[HBase] 启动内置ZooKeeper过程</title><link>https://mryqu.github.io/post/hbase_%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%AEzookeeper%E8%BF%87%E7%A8%8B/</link><pubDate>Tue, 24 Feb 2015 07:00:09 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E5%90%AF%E5%8A%A8%E5%86%85%E7%BD%AEzookeeper%E8%BF%87%E7%A8%8B/</guid><description> start-hbase.sh hbase-daemons.sh start zookeeper zookeepers.sh --hosts /usr/local/hbase/conf/regionservers--config /usr/local/hbase/conf cd /usr/local/hbase;/usr/local/hbase/bin/hbase-daemon.sh --config /usr/local/hbase/confstart zookeeper 检查配置HBASE_MANAGES_ZK，若不为true则终止处理。 ssh node51054 cd /usr/local/hbase;/usr/local/hbase/bin/hbase-daemon.sh --config /usr/local/hbase/confstart zookeeper hbase zookeeper start java org.apache.hadoop.hbase.zookeeper.HQuorumPeer</description></item><item><title>[Hadoop] YARN中的AuxiliaryService</title><link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</link><pubDate>Sun, 01 Feb 2015 12:39:55 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</guid><description>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&amp;ldquo;yarn.nodemanager.aux-services&amp;rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即&amp;quot;yarn.nodemanager.aux-services&amp;quot;）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即&amp;quot;yarn.nodemanager.aux-services.%s.class&amp;quot;）获得对应的服务类名。例如&amp;quot;yarn.nodemanager.aux-services.mapreduce_shuffle.class&amp;quot;对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
+public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent&amp;gt; implements Event { private final TYPE type; private final long timestamp; } 在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
+参考 AuxiliaryService in Hadoop 2 Implementing a Custom Shuffle and a Custom Sort</description></item><item><title>[Hadoop] Map Reduce Slot</title><link>https://mryqu.github.io/post/hadoop_map_reduce_slot/</link><pubDate>Fri, 17 Oct 2014 19:29:17 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_map_reduce_slot/</guid><description>MR1 在MR1中，每个节点可以启动的并发map和reduce任务数(即slot数)由管理员通过mapred-site.xml中mapred.tasktracker.map.tasks.maximum (MR2中为mapreduce.tasktracker.map.tasks.maximum )和mapred.tasktracker.reduce.tasks.maximum (MR2中为mapreduce.tasktracker.reduce.tasks.maximum )配置指定。(下面的参考帖子提到过作业级参数mapred.map.tasks.maximum和mapred.reduce.tasks.maximum，但是在HADOOP-4295并没有通过。)
+此外，管理员通过mapred.child.配置设置mapper或reducer默认的内存分配量。</description></item><item><title>[Hadoop] 通过MultipleOutputs生成多输出文件</title><link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</link><pubDate>Mon, 29 Sep 2014 18:39:27 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</guid><description>即前一博文[Hadoop] 通过MultipleInputs处理多输入文件展示如何处理MapReduce多输入问题，本文将展示一下如何处理MapReduce多输出的方法。
+MultipleOutputs示例 MultipleOutputsDemo.java源码 Scores.txt Tomas,100 Edward,81 Henry,59 Gordon,60 James,97 Percy,93 Toby,77 Emily,87 Duke,68 Donald,47 Douglas,35 执行 hadoop jar YquMapreduceDemo.jar MultipleOutputsDemo /user/hadoop/mos_input/scores.txt /user/hadoop/mos_output 测试结果 MultipleOutputs分析 普通Driver |API|Job属性 |&amp;mdash;&amp;ndash; |Job.setOutputFormatClass|mapreduce.job.outputformat.class示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat |Job.setOutputKeyClass|mapreduce.job.output.key.class示例：org.apache.hadoop.io.Text |Job.setOutputValueClass|mapreduce.job.output.value.class示例：org.apache.hadoop.io.IntWritable
+使用MultipleOutputs的Driver |API|Job属性 |&amp;mdash;&amp;ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs示例：pass failmapreduce.multipleoutputs.namedOutput.pass.format示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormatmapreduce.multipleoutputs.namedOutput.pass.key示例：org.apache.hadoop.io.NullWritablemapreduce.multipleoutputs.namedOutput.pass.value示例：org.apache.hadoop.io.Textmapreduce.multipleoutputs.namedOutput.fail.format示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormatmapreduce.multipleoutputs.namedOutput.fail.key示例：org.apache.hadoop.io.NullWritablemapreduce.multipleoutputs.namedOutput.fail.value示例：org.apache.hadoop.io.Text
+通过调用org.apache.hadoop.mapreduce.lib.output.MultipleOutputs.write方法，根据相应NamedOutput相应的OutputFormat、OutputKeyClass和OutputValueClass创建NamedOutput自己的RecordWriter，完成相应的输出。</description></item><item><title>[Hadoop] 通过MultipleInputs处理多输入文件</title><link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</link><pubDate>Mon, 29 Sep 2014 06:35:57 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</guid><description>一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
+MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3 locations.txt 1,China 2,USA 3,Canada 4,New Zealand 执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output 测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&amp;mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+使用MultipleInputs的Driver 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
+调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程</description></item><item><title>[Hadoop] MapReduce定制Counter实践</title><link>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</link><pubDate>Thu, 04 Sep 2014 21:11:13 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</guid><description>MapReduce除了有内建的Counter，还支持应用程序自身定制的Counter。实践如下：
+CustomCounterDemo.java 执行 JobHistory显示</description></item><item><title>[Hadoop] 使用MRUnit进行MapReduce单元测试</title><link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link><pubDate>Sun, 15 Jun 2014 22:59:22 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid><description>MRUnit介绍 MRUnit是一个用于帮助开发者进行HadoopMapReduce作业单元测试的Java库。它是JUnit架构扩展，无需将代码运行在集群上即可在开发环境测试Mapper和Reducer类的功能。MRUnit由Cloudera开发，并在2012年成为Apache基金会顶级项目。 MRUnit使用LocalJobRunner使用样本数据集模拟一次Mapper/Reducer执行过程。通过定义一或多个输入记录，使用LocalJobRunner运行测试代码，判定是否与期望输出相符。如相符，则安静退出；否则，默认抛出异常。
 测试代码 本测试代码基于MRUnit指南中示例代码修改而成，使用junit:junit:4.11和org.apache.mrunit:mrunit:1.1.0:hadoop2两个Java库进行编译和测试。
-SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试演示 为了演示测试失败情况，我将testReducer方法中期望值改为错误值123。 参考 Apache MRUnit
-MRUnit Tutorial</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 在MapReduce中使用HBase数据</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</link>
-      <pubDate>Sun, 11 May 2014 22:58:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</guid>
-      <description>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
-MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ .  测试 执行下列命令运行MapReduce作业:
-HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr &#39;:&#39; &#39;,&#39;)  HBase结果如下: 与普通MapReduce程序的差异  本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。  参考 HBase and MapReduce</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common</title>
-      <link>https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/</link>
-      <pubDate>Tue, 15 Apr 2014 22:16:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/</guid>
-      <description>在Windows平台编译Hadoop时遇到了compile-ms-winutils执行失败的问题。Hadoop默认需要用VS2010编译，但是我的环境只有VS2013。
-问题及解决方案如下： - Cannot run program &amp;ldquo;msbuild&amp;rdquo; 将C:\Windows\Microsoft.NET\Framework\v4.0.30319放入PATH环境变量 - Command execution failed. Process exited with an error: 1(Exitvalue: 1) -&amp;gt; [Help 1] 打开hadoop-common\hadoop-hdfs-project\hadoop-hdfs\pom.xml，将&amp;rsquo;VisualStudio 10 Win64&amp;rsquo;改成&amp;rsquo;Visual Studio 12 Win64&amp;rsquo;。 将如下两个Visual Studio项目用VS2013打开，手动编译。 - hadoop-common\hadoop-common-project\hadoop-common\src\main\winutils\winutils.sln - hadoop-common\hadoop-common-project\hadoop-common\src\main\native\winutils.sln
-重新执行：
-C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat mvn install -DskipTests  上述问题不再出现。</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 压缩MapReduce的Mapper输出</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</link>
-      <pubDate>Mon, 03 Mar 2014 20:13:37 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</guid>
-      <description> 介绍 压缩map输出是以压缩和解压缩的CPU消耗为代价来减少磁盘和网络IO开销。Hadoop中，mapper的输出数据是写到Mapper所在的本地磁盘的，并以网络传输的方式传送到Reducer所在的节点上。mapreduce.map.output.compress默认为false，即不对map输出进行压缩。如果中间数据不是二进制的，通常建议使用map输出压缩。
+SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试演示 为了演示测试失败情况，我将testReducer方法中期望值改为错误值123。 参考 Apache MRUnit MRUnit Tutorial</description></item><item><title>[Hadoop] 在MapReduce中使用HBase数据</title><link>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</link><pubDate>Sun, 11 May 2014 22:58:25 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</guid><description>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
+MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ . 测试 执行下列命令运行MapReduce作业:
+HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr &amp;#39;:&amp;#39; &amp;#39;,&amp;#39;) HBase结果如下: 与普通MapReduce程序的差异 本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。 参考 HBase and MapReduce</description></item><item><title>[Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common</title><link>https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/</link><pubDate>Tue, 15 Apr 2014 22:16:23 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/</guid><description>在Windows平台编译Hadoop时遇到了compile-ms-winutils执行失败的问题。Hadoop默认需要用VS2010编译，但是我的环境只有VS2013。
+问题及解决方案如下：
+Cannot run program &amp;ldquo;msbuild&amp;rdquo; 将C:\Windows\Microsoft.NET\Framework\v4.0.30319放入PATH环境变量 Command execution failed. Process exited with an error: 1(Exitvalue: 1) -&amp;gt; [Help 1] 打开hadoop-common\hadoop-hdfs-project\hadoop-hdfs\pom.xml，将&amp;rsquo;VisualStudio 10 Win64&amp;rsquo;改成&amp;rsquo;Visual Studio 12 Win64&amp;rsquo;。 将如下两个Visual Studio项目用VS2013打开，手动编译。 hadoop-common\hadoop-common-project\hadoop-common\src\main\winutils\winutils.sln hadoop-common\hadoop-common-project\hadoop-common\src\main\native\winutils.sln 重新执行：
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat mvn install -DskipTests 上述问题不再出现。</description></item><item><title>[Hadoop] 压缩MapReduce的Mapper输出</title><link>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</link><pubDate>Mon, 03 Mar 2014 20:13:37 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</guid><description>介绍 压缩map输出是以压缩和解压缩的CPU消耗为代价来减少磁盘和网络IO开销。Hadoop中，mapper的输出数据是写到Mapper所在的本地磁盘的，并以网络传输的方式传送到Reducer所在的节点上。mapreduce.map.output.compress默认为false，即不对map输出进行压缩。如果中间数据不是二进制的，通常建议使用map输出压缩。
 Hadoop支持的的内建压缩编码如下： 如果设置mapreduce.map.output.compress为true且没有设置mapreduce.map.output.compression.codec的话，默认使用org.apache.hadoop.io.compress.DefaultCodec。
 |压缩格式|算法|工具|默认扩展名|说明 |&amp;mdash;&amp;ndash; |DEFLATE|DEFLATE|N/A|.deflate|DEFLATE是一种压缩算法，标准实现是zlib，尚没有命令行工具支持。文件扩展名.deflate是一个Hadoop的约定。所有的压缩算法都存在空间与时间的权衡：更快的压缩速率和解压速率是以牺牲压缩率为代价的。org.apache.hadoop.io.compress.zlib.ZlibCompressor.CompressionLevel中定义了0~9压缩级别，0为无压缩，9为最佳压缩。支持Java实现和原生库实现。 |GZip|DEFLATE|gzip|.gz|GZip与DEFLATE使用同样的压缩算法，不过相对于DEFLATE压缩格式增加了额外的头部和尾部。GZip是一种常规的压缩工具，空间与时间得到很好的权衡。支持Java实现和原生库实现。 |BZip2|BZip2|BZip2|.bz2|BZip2压缩率高于GZip，但压缩速度较慢；解析速度优于它的压缩速度，但还是较其它压缩算法偏慢。由上图可知，BZip2是Hadoop内嵌压缩算法中唯一可以被分割的，这样一个输入文件可分成多个InputSplit，便于本地数据加载并被Mapper处理。相关技术可见处理跨块边界的InputSplit一文。支持Java实现和原生库实现。 |LZ4|LZ4|N/A|.lz4|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.Lz4Codec.isNativeCodeLoaded()用于检查是否加载原生库，其调用者在没有加载原生库时会抛异常。 |Snappy|Snappy|N/A|.snappy|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.SnappyCodec.checkNativeCodeLoaded()在没有加载原生库时会抛异常。
 如果使用原生库压缩编码，需配置LD_LIBRARY_PATH。默认情况下，Hadoop自动在本地库路径（java.library.path）下查询并加载合适的本地库实现。通过设置属性io.native.lib.available为false禁用原生库，此时内建的Java实现将被使用。
 Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Context)和org.apache.hadoop.mapred.ReduceTask.initCodec()方法中检查mapreduce.map.output.compress属性，如果为true，则加载mapreduce.map.output.compression.codec属性所设的压缩编解码器。 MapTask当将数据spill到硬盘时使用压缩编码器进行数据压缩。 ReduceTask在使用Shuffle结果是使用压缩解码器进行数据解压缩。
-使用map输出压缩的应用示例 </description>
-    </item>
-    
-    <item>
-      <title>[HBase] HBase Shell中的put操作解析</title>
-      <link>https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/</link>
-      <pubDate>Fri, 03 Jan 2014 23:20:51 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/</guid>
-      <description>阅读了HBase Shell datatype conversion一贴，感觉下列两个操作结果中的单元格数据值都像是文本类型的：
-put &#39;mytable&#39;, &#39;2342&#39;, &#39;cf:c1&#39;, &#39;67&#39; put &#39;mytable&#39;, &#39;2341&#39;, &#39;cf:c1&#39;, 23  预知真相，看来只好看HBase Shell代码了。HBase Shell是Ruby代码，首先找到这些代码的位置：
-cd $HBASE_HOME find . -name &#39;*.rb&#39; -print  找到了$HBASE_HOME/lib/ruby/shell/commands/put.rb，其GitHub代码库位置为https://github.com/apache/hbase/commits/master/hbase-shell/src/main/ruby/shell/commands/put.rb：
-def command(table, row, column, value, timestamp=nil, args = {}) put table(table), row, column, value, timestamp, args end def put(table, row, column, value, timestamp = nil, args = {}) format_simple_command do table._put_internal(row, column, value, timestamp, args) end end  继而找到了$HBASE_HOME/lib/ruby/hbase/table.rb，其GitHub代码库位置为https://github.com/apache/hbase/blob/master/hbase-shell/src/main/ruby/hbase/table.rb：
-def _put_internal(row, column, value, timestamp = nil, args = {}) p = org.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] Java客户端程序构建脚本</title>
-      <link>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</link>
-      <pubDate>Fri, 03 Jan 2014 00:05:34 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</guid>
-      <description>上一博文[HBase] 原始数据类型存储中所用到的构建脚本build.sh如下：
-#!/bin/bash HADOOP_HOME=/usr/local/hadoop HBASE_HOME=/usr/local/hbase CLASSPATH=.:$HBASE_HOME/conf:$(hbase classpath) javac -cp $CLASSPATH HBasePrimitiveDataTypeTest.java java -cp $CLASSPATH HBasePrimitiveDataTypeTest  </description>
-    </item>
-    
-    <item>
-      <title>[HBase] 原始数据类型存储</title>
-      <link>https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/</link>
-      <pubDate>Thu, 02 Jan 2014 22:37:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/</guid>
-      <description>对原始数据类型如何在HBase中存储，如何在HBaseShell中如何显示尚不了解，做一下小实验满足一下好奇心。使用下列代码存放和读取原始数据类型：
-byte[] cf = Bytes.toBytes(CF_DEFAULT); Put put = new Put(Bytes.toBytes(&amp;quot;test&amp;quot;)); byte[] val = Bytes.toBytes(&amp;quot;123&amp;quot;); System.out.println(&amp;quot;Bytes for str: &amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;str&amp;quot;), val); short shortVal = 123; val = Bytes.toBytes(shortVal); System.out.println(&amp;quot;Bytes for short:&amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;short&amp;quot;), val); int intVal = 123; val = Bytes.toBytes(intVal); System.out.println(&amp;quot;Bytes for int:&amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;int&amp;quot;), val); long longVal = 123L; val = Bytes.toBytes(longVal); System.out.println(&amp;quot;Bytes for long:&amp;quot;+ bytesToHex(val)+&amp;quot;,len=&amp;quot;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;quot;long&amp;quot;), val); float floatVal = 123; val = Bytes.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 处理跨块边界的InputSplit</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%A4%84%E7%90%86%E8%B7%A8%E5%9D%97%E8%BE%B9%E7%95%8C%E7%9A%84inputsplit/</link>
-      <pubDate>Thu, 02 Jan 2014 07:50:10 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%A4%84%E7%90%86%E8%B7%A8%E5%9D%97%E8%BE%B9%E7%95%8C%E7%9A%84inputsplit/</guid>
-      <description>Mapper从HDFS中读取文件进行数据处理的。凭借InputFormat、InputSplit、RecordReader、LineReader等类，Mapper用户代码可以处理输入键值对进行数据处理。下面学习一下MapReduce是如何分割无压缩文本文件输入的。
-涉及的类有： - InputFormat及其子类InputFormat类执行下列操作： - 检验作业的输入文件和目录是否存在。 - 将输入文件分割策划功能InputSlit，基于文件的InputFormat根据文件大小将文件分割为逻辑上的Split。 - 实例化用于对每个文件分割块解析记录的RecordReaderInputFormat类包括下列两个主要的子类： - TextInputFormat：用于解析文本文件。将文件按行生成记录；键为LongWritable，文件偏移量；值为Text，行的内容。 - SequenceFileInputFormat：用于解析Hadoop压缩二进制文件。SequenceFile可为无压缩、记录压缩或块压缩。与TextInputFormat不同，SequenceFileInputFormat的键值对是泛型的。 - InputSplit及其子类InputSplit是单个Mapper所要处理的数据子集逻辑表现形式。每个InputSplit很可能不会包含完整记录数，即在输入分割中首尾记录有可能是不完整的，处理全部记录由RecordReader负责。InputSplit的子类包括： - FileSplit代表输入文件的GetLength()大小的一个片段。FileSplit由InputFormat.getSplits(JobContext)调用返回，并传给InputFormat类用于实例化RecordReader。 - CombineFileSplit将多个文件并入一个分割内（默认每个文件小于分割大小） - RecordReader及其子类RecordReader将输入分割片内的数据分析成Mapper所要处理的键值对。记录跟分割边界/块边界不一定匹配，RecordReader判断记录位置并处理日志边界。RecordReader包括下列子类： - LineRecordReader：处理文本文件。 - SequenceFileRecordReader：处理Sequence文件。 - LineReader：用于对文件进行读取操作、分析行并获得键值对。
-处理的具体流程如下： - FileInputFormat.getSplits(JobContext)方法主要完成计算InputSplit的工作。 - 首先判断输入文件是否可被分割的。如果文件流没有被压缩或者使用bzip2这种可分割的压缩算法，则文件可被分割；否则整个文件作为一个InputSplit。 - 如果文件可被分割的话，分割尺寸为max( max( 1,mapreduce.input.fileinputformat.split.minsize), min(mapreduce.input.fileinputformat.split.maxsize, blockSize))。如果没有对分割最小/大值进行设置的话，则分割尺寸即等于块大小，而块大小默认为64MB。 - 文件按照上述分割尺寸分割记录文件路径、每一分割的起始偏移量、分割块实际尺寸、输入文件所在机器。只要文件剩余数据量在1.1倍分割尺寸范围内，就会放到一个InputSplit中。- LineRecordReader主要完成从InputSplit获取键值对的工作。 - LineRecordReader构造方法获知行分隔符是否为定制分割符； - initialize(InputSplit,TaskAttemptContext)方法获知InputSplit的start和end(=start+splitLength)，如果start不为0的话，跳过第一行（不用管第一行是否完整）。即处理上一InputSplit的RecordReader处理本InputSplit的第一行，处理本InputSplit的RecordReader处理下一个InputSplit的第一行。 - nextKeyValue()方法处理第一个InputSplit，需要跳过可能存在的UTF BOM。- LineReader主要完成从从文件输入流获取数据、如没有定制换行符则需判别CR/LF/CRLF换行符，并获得键值对。以上类都不涉及对HDFS文件和块的实际读操作，本地和远程读取可学习org.apache.hadoop.hdfs.client.HdfsDataInputStream、org.apache.hadoop.hdfs.DFSInputStream等类的代码。
-参考 How does Hadoop process records split across block boundaries?</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] MapReduce输出SequenceFile实践</title>
-      <link>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Wed, 01 Jan 2014 23:19:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</guid>
-      <description> Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示： - NONE: 对记录不进行压缩; - RECORD: 仅压缩每一个记录中的值; - BLOCK: 将一个块中的所有记录压缩在一起;
-输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class);  输出SequenceFile示例 </description>
-    </item>
-    
-    <item>
-      <title>[HBase] HBase Shell交互实践</title>
-      <link>https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Fri, 25 Oct 2013 20:12:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/</guid>
-      <description>HBase Shell是对HBase的脚本接口，是一个JRuby REPL(Read-Eval-PrintLoop，“读取-求值-输出”循环)，可以通过脚本访问所有HBase客户端API。
-单列族练习 创建表friends $ hbase shell hbase(main):001:0&amp;gt; list TABLE customer 1 row(s) in 0.2050 seconds =&amp;gt; [&amp;quot;customer&amp;quot;, &amp;quot;student&amp;quot;] hbase(main):002:0&amp;gt; create &#39;friends&#39;, &#39;d&#39; 0 row(s) in 1.3350 seconds =&amp;gt; Hbase::Table - friends hbase(main):003:0&amp;gt; list TABLE customer friends 2 row(s) in 0.0060 seconds =&amp;gt; [&amp;quot;customer&amp;quot;, &amp;quot;friends&amp;quot;, &amp;quot;student&amp;quot;]  获得表friends的描述说明 hbase(main):004:0&amp;gt; describe &#39;friends&#39; Table friends is ENABLED friends COLUMN FAMILIES DESCRIPTION {NAME =&amp;gt; &#39;d&#39;, DATA_BLOCK_ENCODING =&amp;gt; &#39;NONE&#39;, BLOOMFILTER =&amp;gt; &#39;ROW&#39;, REPLICATION_SCO PE =&amp;gt; &#39;0&#39;, VERSIONS =&amp;gt; &#39;1&#39;, COMPRESSION =&amp;gt; &#39;NONE&#39;, MIN_VERSIONS =&amp;gt; &#39;0&#39;, TTL =&amp;gt; &#39;FO REVER&#39;, KEEP_DELETED_CELLS =&amp;gt; &#39;FALSE&#39;, BLOCKSIZE =&amp;gt; &#39;65536&#39;, IN_MEMORY =&amp;gt; &#39;false&#39;, BLOCKCACHE =&amp;gt; &#39;true&#39;} 1 row(s) in 0.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] hadoop job -list已废弃</title>
-      <link>https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/</link>
-      <pubDate>Sun, 20 Oct 2013 22:04:34 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/</guid>
-      <description>执行hadoop job -list，显示该命令已废弃，不过还能执行成功。
-~$ hadoop job -list DEPRECATED: Use of this script to execute mapred command is deprecated. Instead use the mapred command for it.  看一下Hadoop 2.2.0的代码hadoop-common-project/hadoop-common/src/main/bin/hadoop：
-#hdfs commands namenode|secondarynamenode|datanode|dfs|dfsadmin|fsck|balancer|fetchdt|oiv|dfsgroups|portmap|nfs3) echo &amp;quot;DEPRECATED: Use of this script to execute hdfs command is deprecated.&amp;quot; 1&amp;gt;&amp;amp;2 echo &amp;quot;Instead use the hdfs command for it.&amp;quot; 1&amp;gt;&amp;amp;2 echo &amp;quot;&amp;quot; 1&amp;gt;&amp;amp;2 #try to locate hdfs and if present, delegate to it. shift if [ -f &amp;quot;${HADOOP_HDFS_HOME}&amp;quot;/bin/hdfs ]; then exec &amp;quot;${HADOOP_HDFS_HOME}&amp;quot;/bin/hdfs ${COMMAND/dfsgroups/groups} &amp;quot;$@&amp;quot; elif [ -f &amp;quot;${HADOOP_PREFIX}&amp;quot;/bin/hdfs ]; then exec &amp;quot;${HADOOP_PREFIX}&amp;quot;/bin/hdfs ${COMMAND/dfsgroups/groups} &amp;quot;$@&amp;quot; else echo &amp;quot;HADOOP_HDFS_HOME not found!</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] Ubuntu 13.10下构建Mahout项目</title>
-      <link>https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/</link>
-      <pubDate>Fri, 18 Oct 2013 20:58:18 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/</guid>
-      <description>JDK  在Oracle网站下载jdk-6u45-linux-i586.bin到/opt目录 进入/opt目录安装JDK:  chmod +x jdk-6u45-linux-i586.bin sudo ./jdk-6u45-linux-i586.bin  进入/etc目录配置profile文件: sudo vi profile 在文件末尾添加：  JAVA_HOME=/opt/jdk1.6.0_45 export JRE_HOME=$JAVA_HOME/jre export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH  运行source /etc/profile 使其生效。 运行java -version 检验:  java version &amp;quot;1.6.0_45&amp;quot;   Eclipse  在Eclipse网站下载eclipse-jee-juno-SR2-linux-gtk.tar.gz到/opt目录 进入/opt目录解压缩Eclipse:  $ sudo tar -zxvf eclipse-jee-juno-SR2-linux-gtk.tar.gz$ sudo rm ./eclipse-jee-juno-SR2-linux-gtk.tar.gz  创建Eclipse启动快捷方式： $ sudo gedit /usr/share/applications/eclipse.desktop  [Desktop Entry] Type=Application Name=Eclipse Comment=Eclipse IDE Icon=/opt/eclipse/icon.xpm Exec=/opt/eclipse/eclipse Terminal=false StartupNotify=true Type=Application Categories=Development;IDE;Java; Exec=env UBUNTU_MENUPROXY= /opt/eclipse/eclipse   m2eclipse  通过下列update site安装:http://download.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别</title>
-      <link>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</link>
-      <pubDate>Mon, 14 Oct 2013 20:06:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</guid>
-      <description> 即mapred和mapreduce包的区别后，本文再次从源码角度分析新老API（mapred.mapper.new-api/ mapred.reducer.new-api）的设置与区别。 mapred.mapper.new-api /mapred.reducer.new-api这两个参数很少显式去设置，默认为false，即使用mapred包下的老API。 不过MapReduce框架也会去自动识别应该使用老API还是新API。作业提交有两种方式，异步方式用submit，同步方式用waitForCompletion。不过org.apache.hadoop.mapreduce.Job.waitForCompletion(boolean)里调用了org.apache.hadoop.mapreduce.Job.submit()方法，submit方法又调用了org.apache.hadoop.mapreduce.Job.setUseNewAPI()方法。setUseNewAPI方法里面对新老API做了判断： - 是否设置了mapred.mapper.class属性，则mapred.mapper.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setMapperClass(Class)还是org.apache.hadoop.mapred.JobConf.setMapperClass(Class)设置的Mapper，前者设置的是mapreduce.job.map.class属性，后者设置的是mapred.mapper.class属性。 - 如果mapreduce.job.reduces属性值不为0，则看是否设置了mapred.reducer.class属性，则mapred.reducer.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setReducerClass(Class)还是org.apache.hadoop.mapred.JobConf.setReducerClass(Class)设置的Mapper，前者设置的是mapreduce.job.reducer.class属性，后者设置的是mapred.reducer.class属性。
-new-api相关区别 使用new-api不使用new-api不允许设置下列属性：
-mapred.input.format.classmapred.mapper.classmapred.partitioner.classmapred.reducer.classmapred.output.format.class不允许设置下列属性：
-mapreduce.job.inputformat.classmapreduce.job.map.classmapreduce.job.partitioner.classmapreduce.job.reducer.classmapreduce.job.outputformat.class使用下列类或接口的实现：
-o.a.h.conf.Configurationo.a.h.mapreduce.Mapper抽象类o.a.h.mapreduce.Reducer抽象类o.a.h.mapreduce.OutputFormat抽象类o.a.h.mapreduce.OutputCommitter抽象类o.a.h.mapreduce.TaskIDo.a.h.mapreduce.TaskAttemptIDo.a.h.mapreduce.TaskAttemptContext接口o.a.h.mapreduce.InputFormat抽象类o.a.h.mapreduce.InputSplit抽象类使用下列类或接口的实现：
-o.a.h.mapred.JobConfo.a.h.mapred.Mapper接口o.a.h.mapred.Reducer接口o.a.h.mapred.OutputFormat接口o.a.h.mapred.OutputCommitter抽象类o.a.h.mapred.TaskIDo.a.h.mapred.TaskAttemptIDo.a.h.mapred.TaskAttemptContext接口o.a.h.mapred.InputFormat接口o.a.h.mapred.InputSplit接口使用方法：
-o.a.h.mapred.MapTask.runNewMappero.a.h.mapreduce.JobSubmitter.writeNewSplitso.a.h.mapred.ReduceTask.runNewReducer使用方法：
-o.a.h.mapred.MapTask.runOldMappero.a.h.mapreduce.JobSubmitter.writeOldSplitso.a.h.mapred.ReduceTask.runOldReducer </description>
-    </item>
-    
-    <item>
-      <title>[HBase] Shell命令</title>
-      <link>https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Fri, 27 Sep 2013 19:58:03 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/</guid>
-      <description>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。
+使用map输出压缩的应用示例</description></item><item><title>[HBase] HBase Shell中的put操作解析</title><link>https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/</link><pubDate>Fri, 03 Jan 2014 23:20:51 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_hbase_shell%E4%B8%AD%E7%9A%84put%E6%93%8D%E4%BD%9C%E8%A7%A3%E6%9E%90/</guid><description>阅读了HBase Shell datatype conversion一贴，感觉下列两个操作结果中的单元格数据值都像是文本类型的：
+put &amp;#39;mytable&amp;#39;, &amp;#39;2342&amp;#39;, &amp;#39;cf:c1&amp;#39;, &amp;#39;67&amp;#39; put &amp;#39;mytable&amp;#39;, &amp;#39;2341&amp;#39;, &amp;#39;cf:c1&amp;#39;, 23 预知真相，看来只好看HBase Shell代码了。HBase Shell是Ruby代码，首先找到这些代码的位置：
+cd $HBASE_HOME find . -name &amp;#39;*.rb&amp;#39; -print 找到了$HBASE_HOME/lib/ruby/shell/commands/put.rb，其GitHub代码库位置为https://github.com/apache/hbase/commits/master/hbase-shell/src/main/ruby/shell/commands/put.rb：
+def command(table, row, column, value, timestamp=nil, args = {}) put table(table), row, column, value, timestamp, args end def put(table, row, column, value, timestamp = nil, args = {}) format_simple_command do table._put_internal(row, column, value, timestamp, args) end end 继而找到了$HBASE_HOME/lib/ruby/hbase/table.rb，其GitHub代码库位置为https://github.com/apache/hbase/blob/master/hbase-shell/src/main/ruby/hbase/table.rb：
+def _put_internal(row, column, value, timestamp = nil, args = {}) p = org.</description></item><item><title>[HBase] Java客户端程序构建脚本</title><link>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</link><pubDate>Fri, 03 Jan 2014 00:05:34 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</guid><description>上一博文[HBase] 原始数据类型存储中所用到的构建脚本build.sh如下：
+#!/bin/bash HADOOP_HOME=/usr/local/hadoop HBASE_HOME=/usr/local/hbase CLASSPATH=.:$HBASE_HOME/conf:$(hbase classpath) javac -cp $CLASSPATH HBasePrimitiveDataTypeTest.java java -cp $CLASSPATH HBasePrimitiveDataTypeTest</description></item><item><title>[HBase] 原始数据类型存储</title><link>https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/</link><pubDate>Thu, 02 Jan 2014 22:37:53 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8/</guid><description>对原始数据类型如何在HBase中存储，如何在HBaseShell中如何显示尚不了解，做一下小实验满足一下好奇心。使用下列代码存放和读取原始数据类型：
+byte[] cf = Bytes.toBytes(CF_DEFAULT); Put put = new Put(Bytes.toBytes(&amp;#34;test&amp;#34;)); byte[] val = Bytes.toBytes(&amp;#34;123&amp;#34;); System.out.println(&amp;#34;Bytes for str: &amp;#34;+ bytesToHex(val)+&amp;#34;,len=&amp;#34;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;#34;str&amp;#34;), val); short shortVal = 123; val = Bytes.toBytes(shortVal); System.out.println(&amp;#34;Bytes for short:&amp;#34;+ bytesToHex(val)+&amp;#34;,len=&amp;#34;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;#34;short&amp;#34;), val); int intVal = 123; val = Bytes.toBytes(intVal); System.out.println(&amp;#34;Bytes for int:&amp;#34;+ bytesToHex(val)+&amp;#34;,len=&amp;#34;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;#34;int&amp;#34;), val); long longVal = 123L; val = Bytes.toBytes(longVal); System.out.println(&amp;#34;Bytes for long:&amp;#34;+ bytesToHex(val)+&amp;#34;,len=&amp;#34;+val.length); put.addColumn(cf, Bytes.toBytes(&amp;#34;long&amp;#34;), val); float floatVal = 123; val = Bytes.</description></item><item><title>[Hadoop] 处理跨块边界的InputSplit</title><link>https://mryqu.github.io/post/hadoop_%E5%A4%84%E7%90%86%E8%B7%A8%E5%9D%97%E8%BE%B9%E7%95%8C%E7%9A%84inputsplit/</link><pubDate>Thu, 02 Jan 2014 07:50:10 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%A4%84%E7%90%86%E8%B7%A8%E5%9D%97%E8%BE%B9%E7%95%8C%E7%9A%84inputsplit/</guid><description>Mapper从HDFS中读取文件进行数据处理的。凭借InputFormat、InputSplit、RecordReader、LineReader等类，Mapper用户代码可以处理输入键值对进行数据处理。下面学习一下MapReduce是如何分割无压缩文本文件输入的。
+涉及的类有：
+InputFormat及其子类InputFormat类执行下列操作： 检验作业的输入文件和目录是否存在。 将输入文件分割策划功能InputSlit，基于文件的InputFormat根据文件大小将文件分割为逻辑上的Split。 实例化用于对每个文件分割块解析记录的RecordReaderInputFormat类包括下列两个主要的子类： TextInputFormat：用于解析文本文件。将文件按行生成记录；键为LongWritable，文件偏移量；值为Text，行的内容。 SequenceFileInputFormat：用于解析Hadoop压缩二进制文件。SequenceFile可为无压缩、记录压缩或块压缩。与TextInputFormat不同，SequenceFileInputFormat的键值对是泛型的。 InputSplit及其子类InputSplit是单个Mapper所要处理的数据子集逻辑表现形式。每个InputSplit很可能不会包含完整记录数，即在输入分割中首尾记录有可能是不完整的，处理全部记录由RecordReader负责。InputSplit的子类包括： FileSplit代表输入文件的GetLength()大小的一个片段。FileSplit由InputFormat.getSplits(JobContext)调用返回，并传给InputFormat类用于实例化RecordReader。 CombineFileSplit将多个文件并入一个分割内（默认每个文件小于分割大小） RecordReader及其子类RecordReader将输入分割片内的数据分析成Mapper所要处理的键值对。记录跟分割边界/块边界不一定匹配，RecordReader判断记录位置并处理日志边界。RecordReader包括下列子类： LineRecordReader：处理文本文件。 SequenceFileRecordReader：处理Sequence文件。 LineReader：用于对文件进行读取操作、分析行并获得键值对。 处理的具体流程如下：
+FileInputFormat.getSplits(JobContext)方法主要完成计算InputSplit的工作。 首先判断输入文件是否可被分割的。如果文件流没有被压缩或者使用bzip2这种可分割的压缩算法，则文件可被分割；否则整个文件作为一个InputSplit。 如果文件可被分割的话，分割尺寸为max( max( 1,mapreduce.input.fileinputformat.split.minsize), min(mapreduce.input.fileinputformat.split.maxsize, blockSize))。如果没有对分割最小/大值进行设置的话，则分割尺寸即等于块大小，而块大小默认为64MB。 文件按照上述分割尺寸分割记录文件路径、每一分割的起始偏移量、分割块实际尺寸、输入文件所在机器。只要文件剩余数据量在1.1倍分割尺寸范围内，就会放到一个InputSplit中。 LineRecordReader主要完成从InputSplit获取键值对的工作。 LineRecordReader构造方法获知行分隔符是否为定制分割符； initialize(InputSplit,TaskAttemptContext)方法获知InputSplit的start和end(=start+splitLength)，如果start不为0的话，跳过第一行（不用管第一行是否完整）。即处理上一InputSplit的RecordReader处理本InputSplit的第一行，处理本InputSplit的RecordReader处理下一个InputSplit的第一行。 nextKeyValue()方法处理第一个InputSplit，需要跳过可能存在的UTF BOM。 LineReader主要完成从从文件输入流获取数据、如没有定制换行符则需判别CR/LF/CRLF换行符，并获得键值对。 以上类都不涉及对HDFS文件和块的实际读操作，本地和远程读取可学习org.apache.hadoop.hdfs.client.HdfsDataInputStream、org.apache.hadoop.hdfs.DFSInputStream等类的代码。
+参考 How does Hadoop process records split across block boundaries?</description></item><item><title>[Hadoop] MapReduce输出SequenceFile实践</title><link>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</link><pubDate>Wed, 01 Jan 2014 23:19:23 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</guid><description>Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示：
+NONE: 对记录不进行压缩; RECORD: 仅压缩每一个记录中的值; BLOCK: 将一个块中的所有记录压缩在一起; 输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class); 输出SequenceFile示例</description></item><item><title>[HBase] HBase Shell交互实践</title><link>https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/</link><pubDate>Fri, 25 Oct 2013 20:12:48 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/</guid><description>HBase Shell是对HBase的脚本接口，是一个JRuby REPL(Read-Eval-PrintLoop，“读取-求值-输出”循环)，可以通过脚本访问所有HBase客户端API。
+单列族练习 创建表friends $ hbase shell hbase(main):001:0&amp;gt; list TABLE customer 1 row(s) in 0.2050 seconds =&amp;gt; [&amp;#34;customer&amp;#34;, &amp;#34;student&amp;#34;] hbase(main):002:0&amp;gt; create &amp;#39;friends&amp;#39;, &amp;#39;d&amp;#39; 0 row(s) in 1.3350 seconds =&amp;gt; Hbase::Table - friends hbase(main):003:0&amp;gt; list TABLE customer friends 2 row(s) in 0.0060 seconds =&amp;gt; [&amp;#34;customer&amp;#34;, &amp;#34;friends&amp;#34;, &amp;#34;student&amp;#34;] 获得表friends的描述说明 hbase(main):004:0&amp;gt; describe &amp;#39;friends&amp;#39; Table friends is ENABLED friends COLUMN FAMILIES DESCRIPTION {NAME =&amp;gt; &amp;#39;d&amp;#39;, DATA_BLOCK_ENCODING =&amp;gt; &amp;#39;NONE&amp;#39;, BLOOMFILTER =&amp;gt; &amp;#39;ROW&amp;#39;, REPLICATION_SCO PE =&amp;gt; &amp;#39;0&amp;#39;, VERSIONS =&amp;gt; &amp;#39;1&amp;#39;, COMPRESSION =&amp;gt; &amp;#39;NONE&amp;#39;, MIN_VERSIONS =&amp;gt; &amp;#39;0&amp;#39;, TTL =&amp;gt; &amp;#39;FO REVER&amp;#39;, KEEP_DELETED_CELLS =&amp;gt; &amp;#39;FALSE&amp;#39;, BLOCKSIZE =&amp;gt; &amp;#39;65536&amp;#39;, IN_MEMORY =&amp;gt; &amp;#39;false&amp;#39;, BLOCKCACHE =&amp;gt; &amp;#39;true&amp;#39;} 1 row(s) in 0.</description></item><item><title>[Hadoop] hadoop job -list已废弃</title><link>https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/</link><pubDate>Sun, 20 Oct 2013 22:04:34 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/</guid><description>执行hadoop job -list，显示该命令已废弃，不过还能执行成功。
+~$ hadoop job -list DEPRECATED: Use of this script to execute mapred command is deprecated. Instead use the mapred command for it. 看一下Hadoop 2.2.0的代码hadoop-common-project/hadoop-common/src/main/bin/hadoop：
+#hdfs commands namenode|secondarynamenode|datanode|dfs|dfsadmin|fsck|balancer|fetchdt|oiv|dfsgroups|portmap|nfs3) echo &amp;#34;DEPRECATED: Use of this script to execute hdfs command is deprecated.&amp;#34; 1&amp;gt;&amp;amp;2 echo &amp;#34;Instead use the hdfs command for it.&amp;#34; 1&amp;gt;&amp;amp;2 echo &amp;#34;&amp;#34; 1&amp;gt;&amp;amp;2 #try to locate hdfs and if present, delegate to it. shift if [ -f &amp;#34;${HADOOP_HDFS_HOME}&amp;#34;/bin/hdfs ]; then exec &amp;#34;${HADOOP_HDFS_HOME}&amp;#34;/bin/hdfs ${COMMAND/dfsgroups/groups} &amp;#34;$@&amp;#34; elif [ -f &amp;#34;${HADOOP_PREFIX}&amp;#34;/bin/hdfs ]; then exec &amp;#34;${HADOOP_PREFIX}&amp;#34;/bin/hdfs ${COMMAND/dfsgroups/groups} &amp;#34;$@&amp;#34; else echo &amp;#34;HADOOP_HDFS_HOME not found!</description></item><item><title>[Hadoop] Ubuntu 13.10下构建Mahout项目</title><link>https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/</link><pubDate>Fri, 18 Oct 2013 20:58:18 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/</guid><description>JDK 在Oracle网站下载jdk-6u45-linux-i586.bin到/opt目录 进入/opt目录安装JDK: chmod +x jdk-6u45-linux-i586.bin sudo ./jdk-6u45-linux-i586.bin 进入/etc目录配置profile文件: sudo vi profile 在文件末尾添加： JAVA_HOME=/opt/jdk1.6.0_45 export JRE_HOME=$JAVA_HOME/jre export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH 运行source /etc/profile 使其生效。 运行java -version 检验: java version &amp;#34;1.6.0_45&amp;#34; Eclipse 在Eclipse网站下载eclipse-jee-juno-SR2-linux-gtk.tar.gz到/opt目录 进入/opt目录解压缩Eclipse: $ sudo tar -zxvf eclipse-jee-juno-SR2-linux-gtk.tar.gz$ sudo rm ./eclipse-jee-juno-SR2-linux-gtk.tar.gz 创建Eclipse启动快捷方式： $ sudo gedit /usr/share/applications/eclipse.desktop [Desktop Entry] Type=Application Name=Eclipse Comment=Eclipse IDE Icon=/opt/eclipse/icon.xpm Exec=/opt/eclipse/eclipse Terminal=false StartupNotify=true Type=Application Categories=Development;IDE;Java; Exec=env UBUNTU_MENUPROXY= /opt/eclipse/eclipse m2eclipse 通过下列update site安装:http://download.eclipse.org/technology/m2e/releases Mahout 在Mahout网站下载mahout-distribution-0.8-src.tar.gz到自己的Eclipseworkspace中 进入worksapce解压缩mahout: $ tar -zxvf mahout-distribution-0.8-src.tar.gz $ rm .</description></item><item><title>[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别</title><link>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</link><pubDate>Mon, 14 Oct 2013 20:06:53 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</guid><description>即mapred和mapreduce包的区别后，本文再次从源码角度分析新老API（mapred.mapper.new-api/ mapred.reducer.new-api）的设置与区别。 mapred.mapper.new-api /mapred.reducer.new-api这两个参数很少显式去设置，默认为false，即使用mapred包下的老API。 不过MapReduce框架也会去自动识别应该使用老API还是新API。作业提交有两种方式，异步方式用submit，同步方式用waitForCompletion。不过org.apache.hadoop.mapreduce.Job.waitForCompletion(boolean)里调用了org.apache.hadoop.mapreduce.Job.submit()方法，submit方法又调用了org.apache.hadoop.mapreduce.Job.setUseNewAPI()方法。setUseNewAPI方法里面对新老API做了判断：
+是否设置了mapred.mapper.class属性，则mapred.mapper.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setMapperClass(Class)还是org.apache.hadoop.mapred.JobConf.setMapperClass(Class)设置的Mapper，前者设置的是mapreduce.job.map.class属性，后者设置的是mapred.mapper.class属性。 如果mapreduce.job.reduces属性值不为0，则看是否设置了mapred.reducer.class属性，则mapred.reducer.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setReducerClass(Class)还是org.apache.hadoop.mapred.JobConf.setReducerClass(Class)设置的Mapper，前者设置的是mapreduce.job.reducer.class属性，后者设置的是mapred.reducer.class属性。 new-api相关区别</description></item><item><title>[HBase] Shell命令</title><link>https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/</link><pubDate>Fri, 27 Sep 2013 19:58:03 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/</guid><description>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。
 1) 通用HBase命令 status 显示集群状态。可以为‘summary’、‘simple’或‘detailed’。默认为‘summary’。 用法:
-hbase&amp;gt; status hbase&amp;gt; status ‘simple’ hbase&amp;gt; status ‘summary’ hbase&amp;gt; status ‘detailed’  version 输出HBase版本 用法:
-hbase&amp;gt; version  whoami 显示当前HBase用户。 用法:
-hbase&amp;gt; whoami  2) 表管理命令 alter 修改列族schema；提供表名和指定新列族schema的字典。字典必须包含所要修改的列族名。例如，
+hbase&amp;gt; status hbase&amp;gt; status ‘simple’ hbase&amp;gt; status ‘summary’ hbase&amp;gt; status ‘detailed’ version 输出HBase版本 用法:
+hbase&amp;gt; version whoami 显示当前HBase用户。 用法:
+hbase&amp;gt; whoami 2) 表管理命令 alter 修改列族schema；提供表名和指定新列族schema的字典。字典必须包含所要修改的列族名。例如，
 对表‘t1’修改或添加列族‘f1’从当前值到最大版本5：
-hbase&amp;gt; alter ‘t1’, NAME =&amp;gt; ‘f1’, VERSIONS =&amp;gt; 5  对多个列族进行操作:
-hbase&amp;gt; alter ‘t1’, ‘f1’, {NAME =&amp;gt; ‘f2’, IN_MEMORY =&amp;gt; true}, {NAME =&amp;gt; ‘f3’, VERSIONS =&amp;gt; 5}  删除表‘t1’中的列族‘f1’，使用下列方法之一：
-hbase&amp;gt; alter ‘t1’, NAME =&amp;gt; ‘f1’, METHOD =&amp;gt; ‘delete’ hbase&amp;gt; alter ‘t1’, ‘delete’ =&amp;gt; ‘f1’  也可以修改诸如MAX_FILESIZE、READONLY、MEMSTORE_FLUSHSIZE、DEFERRED_LOG_FLUSH等表属性，例如将region最大容量设为128MB：</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 安装protobuf</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85protobuf/</link>
-      <pubDate>Sat, 21 Sep 2013 16:23:17 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85protobuf/</guid>
-      <description>Protocol Buffers (即protobuf)是Google的语言无关、平台无关、结构数据序列化的可扩展机制。 在Window平台编译Hadoop需要protobuf，下载所需的protoc-2.5.0-win32.zip，将protoc.exe复制到某目录，加入PATH变量即可。
-参考 Hadoop WIKI: How to Contribute to Hadoop
-Hadoop WIKI: ProtocolBuffers
-protobuf releases
-GitHub: google/protobuf
-protobuf documents</description>
-    </item>
-    
-    <item>
-      <title>尝试Apache Avro支持的各种数据类型</title>
-      <link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95apache_avro%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
-      <pubDate>Wed, 18 Sep 2013 22:16:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95apache_avro%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-      <description>Apache Avro是一个独立与编程语言的数据序列化系统，该项目由Doug Cutting（Hadoop之父）牵头创建的。它可以提供： - 丰富的数据结构类型 - 快速可压缩的二进制数据形式 - 存储持久数据的文件容器 - 远程过程调用（RPC） - 同动态语言的简单集成。读写数据文件和使用RPC协议都不需要生成代码，而代码生成作为一种可选的优化只值得在静态类型语言中实现。
-今天尝试一下Apache Avro支持的各种数据类型。
-test.avsc {&amp;quot;namespace&amp;quot;: &amp;quot;com.yqu.avro&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;record&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Test&amp;quot;, &amp;quot;fields&amp;quot;: [ {&amp;quot;name&amp;quot;: &amp;quot;stringVar&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;}, {&amp;quot;name&amp;quot;: &amp;quot;bytesVar&amp;quot;, &amp;quot;type&amp;quot;: [&amp;quot;bytes&amp;quot;, &amp;quot;null&amp;quot;]}, {&amp;quot;name&amp;quot;: &amp;quot;booleanVar&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;boolean&amp;quot;}, {&amp;quot;name&amp;quot;: &amp;quot;intVar&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;int&amp;quot;, &amp;quot;order&amp;quot;:&amp;quot;descending&amp;quot;}, {&amp;quot;name&amp;quot;: &amp;quot;longVar&amp;quot;, &amp;quot;type&amp;quot;: [&amp;quot;long&amp;quot;, &amp;quot;null&amp;quot;], &amp;quot;order&amp;quot;:&amp;quot;ascending&amp;quot;}, {&amp;quot;name&amp;quot;: &amp;quot;floatVar&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;float&amp;quot;}, {&amp;quot;name&amp;quot;: &amp;quot;doubleVar&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;double&amp;quot;}, {&amp;quot;name&amp;quot;: &amp;quot;enumVar&amp;quot;, &amp;quot;type&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;enum&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Suit&amp;quot;, &amp;quot;symbols&amp;quot; : [&amp;quot;SPADES&amp;quot;, &amp;quot;HEARTS&amp;quot;, &amp;quot;DIAMONDS&amp;quot;, &amp;quot;CLUBS&amp;quot;]}}, {&amp;quot;name&amp;quot;: &amp;quot;strArrayVar&amp;quot;, &amp;quot;type&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;array&amp;quot;, &amp;quot;items&amp;quot;: &amp;quot;string&amp;quot;}}, {&amp;quot;name&amp;quot;: &amp;quot;intArrayVar&amp;quot;, &amp;quot;type&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;array&amp;quot;, &amp;quot;items&amp;quot;: &amp;quot;int&amp;quot;}}, {&amp;quot;name&amp;quot;: &amp;quot;mapVar&amp;quot;, &amp;quot;type&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;map&amp;quot;, &amp;quot;values&amp;quot;: &amp;quot;long&amp;quot;}}, {&amp;quot;name&amp;quot;: &amp;quot;fixedVar&amp;quot;, &amp;quot;type&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;fixed&amp;quot;, &amp;quot;size&amp;quot;: 16, &amp;quot;name&amp;quot;: &amp;quot;md5&amp;quot;}} ] }  使用下列命令将schema编译成代码</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 在RACE虚拟机上安装单节点Hadoop</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</link>
-      <pubDate>Wed, 24 Jul 2013 21:58:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</guid>
-      <description>RACE（Remote Access ComputerEnvironment）是SAS公司内使用的虚拟机集成系统。通过RACE系统申请虚拟机，使用自己或别的项目组、同事创建的RACEimage安装操作系统和应用程序，省心省力。
+hbase&amp;gt; alter ‘t1’, NAME =&amp;gt; ‘f1’, VERSIONS =&amp;gt; 5 对多个列族进行操作:
+hbase&amp;gt; alter ‘t1’, ‘f1’, {NAME =&amp;gt; ‘f2’, IN_MEMORY =&amp;gt; true}, {NAME =&amp;gt; ‘f3’, VERSIONS =&amp;gt; 5} 删除表‘t1’中的列族‘f1’，使用下列方法之一：
+hbase&amp;gt; alter ‘t1’, NAME =&amp;gt; ‘f1’, METHOD =&amp;gt; ‘delete’ hbase&amp;gt; alter ‘t1’, ‘delete’ =&amp;gt; ‘f1’ 也可以修改诸如MAX_FILESIZE、READONLY、MEMSTORE_FLUSHSIZE、DEFERRED_LOG_FLUSH等表属性，例如将region最大容量设为128MB：</description></item><item><title>[Hadoop] 安装protobuf</title><link>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85protobuf/</link><pubDate>Sat, 21 Sep 2013 16:23:17 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85protobuf/</guid><description>Protocol Buffers (即protobuf)是Google的语言无关、平台无关、结构数据序列化的可扩展机制。 在Window平台编译Hadoop需要protobuf，下载所需的protoc-2.5.0-win32.zip，将protoc.exe复制到某目录，加入PATH变量即可。
+参考 Hadoop WIKI: How to Contribute to Hadoop Hadoop WIKI: ProtocolBuffers protobuf releases GitHub: google/protobuf protobuf documents</description></item><item><title>尝试Apache Avro支持的各种数据类型</title><link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95apache_avro%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><pubDate>Wed, 18 Sep 2013 22:16:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95apache_avro%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid><description>Apache Avro是一个独立与编程语言的数据序列化系统，该项目由Doug Cutting（Hadoop之父）牵头创建的。它可以提供：
+丰富的数据结构类型 快速可压缩的二进制数据形式 存储持久数据的文件容器 远程过程调用（RPC） 同动态语言的简单集成。读写数据文件和使用RPC协议都不需要生成代码，而代码生成作为一种可选的优化只值得在静态类型语言中实现。 今天尝试一下Apache Avro支持的各种数据类型。
+test.avsc {&amp;#34;namespace&amp;#34;: &amp;#34;com.yqu.avro&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;record&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;Test&amp;#34;, &amp;#34;fields&amp;#34;: [ {&amp;#34;name&amp;#34;: &amp;#34;stringVar&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;string&amp;#34;}, {&amp;#34;name&amp;#34;: &amp;#34;bytesVar&amp;#34;, &amp;#34;type&amp;#34;: [&amp;#34;bytes&amp;#34;, &amp;#34;null&amp;#34;]}, {&amp;#34;name&amp;#34;: &amp;#34;booleanVar&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;boolean&amp;#34;}, {&amp;#34;name&amp;#34;: &amp;#34;intVar&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;int&amp;#34;, &amp;#34;order&amp;#34;:&amp;#34;descending&amp;#34;}, {&amp;#34;name&amp;#34;: &amp;#34;longVar&amp;#34;, &amp;#34;type&amp;#34;: [&amp;#34;long&amp;#34;, &amp;#34;null&amp;#34;], &amp;#34;order&amp;#34;:&amp;#34;ascending&amp;#34;}, {&amp;#34;name&amp;#34;: &amp;#34;floatVar&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;float&amp;#34;}, {&amp;#34;name&amp;#34;: &amp;#34;doubleVar&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;double&amp;#34;}, {&amp;#34;name&amp;#34;: &amp;#34;enumVar&amp;#34;, &amp;#34;type&amp;#34;: {&amp;#34;type&amp;#34;: &amp;#34;enum&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;Suit&amp;#34;, &amp;#34;symbols&amp;#34; : [&amp;#34;SPADES&amp;#34;, &amp;#34;HEARTS&amp;#34;, &amp;#34;DIAMONDS&amp;#34;, &amp;#34;CLUBS&amp;#34;]}}, {&amp;#34;name&amp;#34;: &amp;#34;strArrayVar&amp;#34;, &amp;#34;type&amp;#34;: {&amp;#34;type&amp;#34;: &amp;#34;array&amp;#34;, &amp;#34;items&amp;#34;: &amp;#34;string&amp;#34;}}, {&amp;#34;name&amp;#34;: &amp;#34;intArrayVar&amp;#34;, &amp;#34;type&amp;#34;: {&amp;#34;type&amp;#34;: &amp;#34;array&amp;#34;, &amp;#34;items&amp;#34;: &amp;#34;int&amp;#34;}}, {&amp;#34;name&amp;#34;: &amp;#34;mapVar&amp;#34;, &amp;#34;type&amp;#34;: {&amp;#34;type&amp;#34;: &amp;#34;map&amp;#34;, &amp;#34;values&amp;#34;: &amp;#34;long&amp;#34;}}, {&amp;#34;name&amp;#34;: &amp;#34;fixedVar&amp;#34;, &amp;#34;type&amp;#34;: {&amp;#34;type&amp;#34;: &amp;#34;fixed&amp;#34;, &amp;#34;size&amp;#34;: 16, &amp;#34;name&amp;#34;: &amp;#34;md5&amp;#34;}} ] } 使用下列命令将schema编译成代码</description></item><item><title>[Hadoop] 在RACE虚拟机上安装单节点Hadoop</title><link>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</link><pubDate>Wed, 24 Jul 2013 21:58:09 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/</guid><description>RACE（Remote Access ComputerEnvironment）是SAS公司内使用的虚拟机集成系统。通过RACE系统申请虚拟机，使用自己或别的项目组、同事创建的RACEimage安装操作系统和应用程序，省心省力。
 RACE安装及配置 申请一台RACE虚拟机，使用RACE Image（Id：579290，STG_LAX_RHEL6_SAS94_16G_Ora112 ）安装了RHEL linux操作系统。 启动后，使用下列脚本替换主机信息
-/nfs/cardio/vol/vol1/sasinside/setup/changehost94.sh  安装Java JDK 如果RACE Image没有安装Java JDK的话，需要自己安装：
-yum install java-1.6.0-openjdk java-1.6.0-openjdk-devel  幸好在/sasjdk/jdk发现很多版本的Java JDK，最后决定使用下列位置的openjdk:
-/usr/lib/jvm/java-openjdk/  创建帐号 原系统中没有安装hadoop，但是有hadoop帐号。我没有找到密码，只好重做一把：
-userdel hadoop useradd hadoop passwd hadoop  下载并解压缩Hadoop 因为Hadoop 2.0采用YARN，hive、mahout等需要MapReduce V1的可能无法使用，这里安装的是Hadoop 1.2.1。
-# mkdir /opt/hadoop # cd /opt/hadoop/ # wget http://download.nextag.com/apache/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz # tar -xzf hadoop-1.2.1.tar.gz # chown -R hadoop /opt/hadoop # cd /opt/hadoop/hadoop-1.2.1/  配置Hadoop 下列为Hadoop的单节点伪分布模式配置。 conf/core-site.xml:
-fs.default.name hdfs://localhost:9000/  conf/hdfs-site.xml:
-dfs.replication 1  conf/mapred-site.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] mapred和mapreduce包的区别</title>
-      <link>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
-      <pubDate>Fri, 12 Jul 2013 16:55:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-      <description>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
+/nfs/cardio/vol/vol1/sasinside/setup/changehost94.sh 安装Java JDK 如果RACE Image没有安装Java JDK的话，需要自己安装：
+yum install java-1.6.0-openjdk java-1.6.0-openjdk-devel 幸好在/sasjdk/jdk发现很多版本的Java JDK，最后决定使用下列位置的openjdk:
+/usr/lib/jvm/java-openjdk/ 创建帐号 原系统中没有安装hadoop，但是有hadoop帐号。我没有找到密码，只好重做一把：
+userdel hadoop useradd hadoop passwd hadoop 下载并解压缩Hadoop 因为Hadoop 2.0采用YARN，hive、mahout等需要MapReduce V1的可能无法使用，这里安装的是Hadoop 1.2.1。
+# mkdir /opt/hadoop # cd /opt/hadoop/ # wget http://download.nextag.com/apache/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz # tar -xzf hadoop-1.2.1.tar.gz # chown -R hadoop /opt/hadoop # cd /opt/hadoop/hadoop-1.2.1/ 配置Hadoop 下列为Hadoop的单节点伪分布模式配置。 conf/core-site.xml:
+fs.default.name hdfs://localhost:9000/ conf/hdfs-site.xml:
+dfs.replication 1 conf/mapred-site.xml:
+mapred.job.tracker localhost:9001 conf/hadoop-env.sh:
+export JAVA_HOME=/usr/lib/jvm/java-openjdk/ export HADOOP_OPTS=-Djava.</description></item><item><title>[Hadoop] mapred和mapreduce包的区别</title><link>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Fri, 12 Jul 2013 16:55:48 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
 区别 本文将通过WordCount示例代码，介绍一下二者的区别。WordCount示例代码分别取自0.19和0.23.9版本的Hadoop源码。
-0.19版WordCount示例 0.23.9版WordCount示例 区别新API老API包新API位于org.apache.hadoop.mapreduce包内老API位于org.apache.hadoop.mapred.包内Mapper和Reducer类型新API使用Mapper和Reducer抽象类
-抽象类更容易扩展，Hadoop实现可以轻松向其抽象类中添加方法(用默认的实现)而不会对已有Hadoop应用造成影响老API使用Mapper和Reduceer接口使用对象新API使用Configuration和一些Helper类完成作业配置；
-新API使用Job完成作业控制；
-新API使用Context完成用户代码与MapReduce系统的通信。老API使用JobConf
-完成作业配置，它是Configuration子类；
-老API使用JobClient完成作业控制；
-老API使用OutputCollector和Reporter完成用户代码与MapReduce系统的通信。
-方法map() reduce() clearup() setup() run()；
-所有方法可抛IOException或InterruptedException；
-Reduce()输入值为java.lang.Iterable；键值对输出通过Context对象的write方法实现；
-map() reduce()；
-所有方法可抛IOException；
-Reduce()输入值为java.lang.Iterator；
-键值对输出通过OutputCollector对象的collect方法实现；输出文件part-m-nnnnn和part-r-nnnnn
-(nnnnn为从0开始的整数)part-nnnnn
-注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
+0.19版WordCount示例 0.23.9版WordCount示例 注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
 参考 Upgrading To The New Map Reduce API
-Difference between Hadoop OLD API and NEW API</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 分布式缓存</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link>
-      <pubDate>Fri, 28 Jun 2013 21:30:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</guid>
-      <description>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
+Difference between Hadoop OLD API and NEW API</description></item><item><title>[Hadoop] 分布式缓存</title><link>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link><pubDate>Fri, 28 Jun 2013 21:30:09 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</guid><description>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
 adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。 应用程序通过URL（hdfs://或http://）指定通过JobConf进行缓存的文件。分布式缓存假定URL所指定的文件已经存在于Hadoop分布式文件系统或本地文件系统中并可被集群中所有机器访问到。Hadoop框架会在任何作业在节点执行之前将必须的缓存文件复制到任务节点以供使用。为了节省网络带宽，这些文件只会为每个作业复制一次，且归档类型的缓存文件会在任务节点中解压缩。分布式缓存能用于分发简单只读数据或文本文件及复杂文件（存档文件、Jar文件等）。归档文件（zip、tar和tgz/tar.gz文件）在任务节点中解压缩。Jar文件可选择加入任务的类路径，这是基本的软件分发机制。 分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。
-下面的示例介绍了如何使用DistributedCache： 1. 将所需文件复制到FileSystem:
- $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz   设置应用程序的JobConf:  JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI(&amp;quot;/myapp/lookup.dat&amp;quot;), job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/map.zip&amp;quot;, job); DistributedCache.addFileToClassPath(new Path(&amp;quot;/myapp/mylib.jar&amp;quot;), job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytar.tar&amp;quot;, job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytgz.tgz&amp;quot;, job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytargz.</description>
-    </item>
-    
-  </channel>
-</rss>
+下面的示例介绍了如何使用DistributedCache：
+将所需文件复制到FileSystem: $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz 设置应用程序的JobConf: JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI(&amp;#34;/myapp/lookup.dat&amp;#34;), job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/map.zip&amp;#34;, job); DistributedCache.addFileToClassPath(new Path(&amp;#34;/myapp/mylib.jar&amp;#34;), job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytar.tar&amp;#34;, job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytgz.tgz&amp;#34;, job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytargz.tar.gz&amp;#34;, job); 在Mapper或Reducer中使用缓存的文件: public static class MapClass extends MapReduceBase implements Mapper{ private Path[] localArchives; private Path[] localFiles; public void configure(JobConf job) { // Get the cached archives/files File f = new File(&amp;#34;.</description></item></channel></rss>

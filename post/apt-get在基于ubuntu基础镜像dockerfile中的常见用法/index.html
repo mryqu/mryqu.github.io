@@ -1,450 +1,83 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" itemprop="url">
-        apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-07-05">
-    2015-07-05
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/docker" itemprop="url" rel="index">
-        <span itemprop="name">Docker</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">91 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>首先，在Ubuntu的Docker官方镜像中是没有缓存Apt的软件包列表的。因此在做其他任何基础软件的安装前，都需要至少先做一次<code>apt-get update</code>。
-有时为了加快apt-get安装软件的速度，还需要修改Apt源的列表文件<code>/etc/apt/sources.list</code>。相应的操作用命令表示如下：</p>
-
-<pre><code># 使用Ubuntu官方的Apt源，也可以根据实际需要修改为国内源的地址
-echo &quot;deb http://archive.ubuntu.com/ubuntu trusty main universe\n&quot; &gt; /etc/apt/sources.list
-echo &quot;deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n&quot; &gt;&gt; /etc/apt/sources.list
-</code></pre>
-
-<p>在容器构建时，为了避免使用<code>apt-get install</code>安装基础软件的过程中需要进行的交互操作，使用<code>-y</code>参数来避免安装非必须的文件，从而减小镜像的体积。</p>
-
-<pre><code>apt-get -y --no-install-recommends install
-</code></pre>
-
-<p>使用<code>apt-get autoremove</code>命令移除为了满足包依赖而安装的、但不再需要的包；使用<code>apt-get clean</code>命令清除所获得包文件的本地仓库。
-DEBIAN_FRONTEND这个环境变量，告知操作系统应该从哪儿获得用户输入。如果设置为&rdquo;noninteractive&rdquo;，你就可以直接运行命令，而无需向用户请求输入（所有操作都是非交互式的）。这在运行apt-get命令的时候格外有用，因为它会不停的提示用户进行到了哪步并且需要不断确认。非交互模式会选择默认的选项并以最快的速度完成构建。请确保只在Dockerfile中调用的RUN命令中设置了该选项，而不是使用ENV命令进行全局的设置。因为ENV命令在整个容器运行过程中都会生效，所以当你通过BASH和容器进行交互时，如果进行了全局设置那就会出问题。</p>
-
-<pre><code># 正确的做法 - 只为这个命令设置ENV变量
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/ itemprop=url>apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-07-05">2015-07-05</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>91 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>首先，在Ubuntu的Docker官方镜像中是没有缓存Apt的软件包列表的。因此在做其他任何基础软件的安装前，都需要至少先做一次<code>apt-get update</code>。
+有时为了加快apt-get安装软件的速度，还需要修改Apt源的列表文件<code>/etc/apt/sources.list</code>。相应的操作用命令表示如下：</p><pre tabindex=0><code># 使用Ubuntu官方的Apt源，也可以根据实际需要修改为国内源的地址
+echo &#34;deb http://archive.ubuntu.com/ubuntu trusty main universe\n&#34; &gt; /etc/apt/sources.list
+echo &#34;deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n&#34; &gt;&gt; /etc/apt/sources.list
+</code></pre><p>在容器构建时，为了避免使用<code>apt-get install</code>安装基础软件的过程中需要进行的交互操作，使用<code>-y</code>参数来避免安装非必须的文件，从而减小镜像的体积。</p><pre tabindex=0><code>apt-get -y --no-install-recommends install
+</code></pre><p>使用<code>apt-get autoremove</code>命令移除为了满足包依赖而安装的、但不再需要的包；使用<code>apt-get clean</code>命令清除所获得包文件的本地仓库。
+DEBIAN_FRONTEND这个环境变量，告知操作系统应该从哪儿获得用户输入。如果设置为"noninteractive"，你就可以直接运行命令，而无需向用户请求输入（所有操作都是非交互式的）。这在运行apt-get命令的时候格外有用，因为它会不停的提示用户进行到了哪步并且需要不断确认。非交互模式会选择默认的选项并以最快的速度完成构建。请确保只在Dockerfile中调用的RUN命令中设置了该选项，而不是使用ENV命令进行全局的设置。因为ENV命令在整个容器运行过程中都会生效，所以当你通过BASH和容器进行交互时，如果进行了全局设置那就会出问题。</p><pre tabindex=0><code># 正确的做法 - 只为这个命令设置ENV变量
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3
 # 错误地做法 - 为接下来的任何命令都设置ENV变量，包括正在运行地容器
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get install -y python3
-</code></pre>
-
-<p>我的示例如下：</p>
-
-<pre><code>FROM ubuntu:trusty
+</code></pre><p>我的示例如下：</p><pre tabindex=0><code>FROM ubuntu:trusty
 MAINTAINER mryqu 
 RUN \
  DEBIAN_FRONTEND=noninteractive apt-get update &amp;&amp; \
  DEBIAN_FRONTEND=noninteractive apt-get -y install wget curl &amp;&amp; \
  DEBIAN_FRONTEND=noninteractive apt-get -y autoremove &amp;&amp; \
  DEBIAN_FRONTEND=noninteractive apt-get clean
-</code></pre>
-
-<h3 id="参考">参考</h3>
-
-<p><a href="http://manpages.ubuntu.com/manpages/utopic/man8/apt-get.8.html">Ubuntu manuals: apt-get man page</a><br />
-<a href="http://dockone.io/article/185">使用Docker部署Python应用的一些最佳实践</a><br />
-<a href="http://niusmallnan.github.io/_build/html/_templates/docker/depoly_openstack_api.html">docker部署OpenStack API</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/dockerfile" rel="tag" title="dockerfile">#dockerfile#</a>
-    
-    <a href="/tags/ubuntu" rel="tag" title="ubuntu">#ubuntu#</a>
-    
-    <a href="/tags/apt-get" rel="tag" title="apt-get">#apt-get#</a>
-    
-    <a href="/tags/debian_frontend" rel="tag" title="debian_frontend">#debian_frontend#</a>
-    
-    <a href="/tags/devops" rel="tag" title="devops">#devops#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/spring_boot_hello_spring_ldap/" rel="next" title="[Spring Boot] Hello Spring LDAP">
-        <i class="fa fa-chevron-left"></i> [Spring Boot] Hello Spring LDAP
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/docker%E7%9A%84%E9%95%9C%E5%83%8F%E5%AD%98%E5%82%A8%E5%9C%A8%E5%93%AA%E9%87%8C%E5%92%8C%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/" rel="prev" title="Docker的镜像存储在哪里和长什么样子">
-        Docker的镜像存储在哪里和长什么样子 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/";
-this.page.identifier = "https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre><h3 id=参考>参考</h3><p><a href=http://manpages.ubuntu.com/manpages/utopic/man8/apt-get.8.html>Ubuntu manuals: apt-get man page</a><br><a href=http://dockone.io/article/185>使用Docker部署Python应用的一些最佳实践</a><br><a href=http://niusmallnan.github.io/_build/html/_templates/docker/depoly_openstack_api.html>docker部署OpenStack API</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：apt-get在基于Ubuntu基础镜像Dockerfile中的常见用法<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/dockerfile rel=tag title=dockerfile>#dockerfile#</a>
+<a href=/tags/ubuntu rel=tag title=ubuntu>#ubuntu#</a>
+<a href=/tags/apt-get rel=tag title=apt-get>#apt-get#</a>
+<a href=/tags/debian_frontend rel=tag title=debian_frontend>#debian_frontend#</a>
+<a href=/tags/devops rel=tag title=devops>#devops#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/spring_boot_hello_spring_ldap/ rel=next title=[Spring Boot] Hello Spring LDAP><i class="fa fa-chevron-left"></i> [Spring Boot] Hello Spring LDAP</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/docker%E7%9A%84%E9%95%9C%E5%83%8F%E5%AD%98%E5%82%A8%E5%9C%A8%E5%93%AA%E9%87%8C%E5%92%8C%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/ rel=prev title=Docker的镜像存储在哪里和长什么样子>Docker的镜像存储在哪里和长什么样子 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/",this.page.identifier="https://mryqu.github.io/post/apt-get%E5%9C%A8%E5%9F%BA%E4%BA%8Eubuntu%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8Fdockerfile%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

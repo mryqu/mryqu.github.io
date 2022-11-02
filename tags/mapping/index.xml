@@ -1,63 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Mapping on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/mapping/</link>
-    <description>Recent content in Mapping on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 03 Dec 2015 06:38:56 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/mapping/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping</title>
-      <link>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</link>
-      <pubDate>Thu, 03 Dec 2015 06:38:56 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</guid>
-      <description>简介 SpringMVC的URL映射有一个控制路径匹配的参数alwaysUseFullPath。当它被设置为true后，总是使用当前servlet上下文中的全路径进行URL查找，否则使用当前servlet映射内的路径。默认为false。下面示例一下当一个请求的全路径通过servlet映射找到所服务的RequestDispatcherservelet后alwaysUseFullPath为false时URL映射表现：
-         servlet mapping = &amp;ldquo;/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test&amp;rdquo;; request URI = &amp;ldquo;/test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;   servlet mapping = &amp;ldquo;/*.test&amp;rdquo;; request URI = &amp;ldquo;/a.test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;    从org.</description>
-    </item>
-    
-    <item>
-      <title>了解OSM和Esri</title>
-      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/</link>
-      <pubDate>Wed, 22 Apr 2015 00:15:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/</guid>
-      <description>学习SAS Visual Analytics Explorer时看到了地图提供程序模式竟然没有GoogleMap，而是OpenStreetMap和Esri。对没接触过的东东还比较好奇，搜了一下。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mapping on Mryqu's Notes</title><link>https://mryqu.github.io/tags/mapping/</link><description>Recent content in mapping on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 03 Dec 2015 06:38:56 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/mapping/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping</title><link>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</link><pubDate>Thu, 03 Dec 2015 06:38:56 +0000</pubDate><guid>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</guid><description>简介 SpringMVC的URL映射有一个控制路径匹配的参数alwaysUseFullPath。当它被设置为true后，总是使用当前servlet上下文中的全路径进行URL查找，否则使用当前servlet映射内的路径。默认为false。下面示例一下当一个请求的全路径通过servlet映射找到所服务的RequestDispatcherservelet后alwaysUseFullPath为false时URL映射表现：
+servlet mapping = &amp;ldquo;/*&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo; servlet mapping = &amp;ldquo;/&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo; servlet mapping = &amp;ldquo;/test/*&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/a&amp;rdquo; servlet mapping = &amp;ldquo;/test&amp;rdquo;; request URI = &amp;ldquo;/test&amp;rdquo; -&amp;gt; &amp;quot;&amp;quot; servlet mapping = &amp;ldquo;/*.test&amp;rdquo;; request URI = &amp;ldquo;/a.test&amp;rdquo; -&amp;gt; &amp;quot;&amp;quot; 从org.springframework.web.util.UrlPathHelper的getLookupPathForRequest方法可知，当alwaysUseFullPath为true时使用getPathWithinApplication获得待查找的全路径，否则使用getPathWithinServletMapping获得待查找的剩余路径。 如果对alwaysUseFullPath的设置进行修改，对RestController的请求映射也要做相应的设置修改。
+@RequestMapping(value = {&amp;#34;**/test/dosomething**&amp;#34;}, method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }) 假设servlet映射为&amp;quot;/test/*&amp;ldquo;且RestControoler仅在方法级别进行请求映射，如果alwaysUseFullPath为true时请求映射为上面的&amp;rdquo;/test/dosomething&amp;quot;。则在alwaysUseFullPath改为false后，请求映射相应改为&amp;quot;/dosomething&amp;quot;即可。
+alwaysUseFullPath设置范例 想在SpringBoot应用中设定alwaysUseFullPath为true，可通过BeanPostProcessor完成其设置。
+@SpringBootApplication public class Application implements BeanPostProcessor { public static void main(String[] args) { final ApplicationContext applicationContext = SpringApplication.</description></item><item><title>了解OSM和Esri</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/</link><pubDate>Wed, 22 Apr 2015 00:15:13 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/</guid><description>学习SAS Visual Analytics Explorer时看到了地图提供程序模式竟然没有GoogleMap，而是OpenStreetMap和Esri。对没接触过的东东还比较好奇，搜了一下。
 OpenStreetMap 开放街道地图（OpenStreetMap，简称OSM）是一个由地图制作爱好者组成的社区。这些爱好者提供并维护世界各地关于道路、小道、咖啡馆、铁路车站等各种各样的数据，目标是创造一个内容自由且能让所有人编辑的世界地图，并且让一般便宜的移动设备有方便的导航方案。OSM项目由英国人SteveCoast创立，概念启发自维基百科网站，以及英国以及其他地区私有地图数据占尽优势。一如维基百科等网站，OSM网站地图页有“编辑”按钮，亦有纪录修订历史。经注册的用户可上传GPS路径，及可编辑地图的矢量数据，包括使用OSM网站的编辑器或其他自由地理信息系统软件，如JOSM。OSM的地图由用户根据手持GPS设备、航空摄影照片、卫星视频、其他自由内容以至单靠用户由于对有关区域的熟悉而具有的本地知识绘制。地图的矢量数据以开放数据库授权方式授权。OSM网站由英国非营利组织OpenStreetMap基金会赞助维运。
 既然有Google和Nokia这样的公司提供很好的地图商业产品，那为什么还需要一个像OpenStreetMap项目了？答案是简单的，作为一个社会，不应当有一家或几家公司在地理信息上进行垄断。地理信息是分享资源，当你将所有的这些权力给予一个单独的实体，你给予他们的权力就不止是告诉他们你的地理位置，更是在塑造它，从自己商业利益的角度显示地图上的内容。而在地图内容方面，OpenStreetMap即是中立的又是透明的。
 Esri 美国环境系统研究所公司（Environmental Systems Research Institute,Inc.，简称Esri），是目前世界最大的地理信息系统技术供应商，其地理信息系统软件目前的全球市场占有率最高，公司最知名产品为ArcGIS。ArcGISOnline是一个面向全球用户的公有云GIS平台，是一种全新的GIS软件应用模式。ArcGISOnline包含了全球范围内的底图、地图数据、应用程序，以及可配置的应用模板和开发人员使用的 GIS 工具和 API，可用于创建Web 地图、发布GIS服务、共享地图、数据和应用程序等，以及管理组织的内容和多个用户。
 SAS Visual Analysis Explorer里面在Esri模式下还需要选择ArcGISOnline的数据源（例如World Cities、World Street Map）。
-参考 OpenStreetMap网站
-Esri公司
-Wiki: 开放街图
-为什么世界需要 OpenStreetMap 开源道路地图
-Wiki: 美国环境系统研究所公司</description>
-    </item>
-    
-    <item>
-      <title>Servlet URL映射模式</title>
-      <link>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</link>
-      <pubDate>Sun, 13 Oct 2013 20:56:47 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</guid>
-      <description>Servlet 2.5规范中的映射规则:  完全匹配URL 匹配通配符路径 匹配扩展名 匹配默认servlet  特殊URL模式: url-pattern:/* servlet上的/* 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将/* 用于过滤器。它能通过调用FilterChain#doFilter()让请求继续由监听另外一个特定URL模式的任何servlet处理。
+参考 OpenStreetMap网站 Esri公司 Wiki: 开放街图 为什么世界需要 OpenStreetMap 开源道路地图 Wiki: 美国环境系统研究所公司</description></item><item><title>Servlet URL映射模式</title><link>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</link><pubDate>Sun, 13 Oct 2013 20:56:47 +0000</pubDate><guid>https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/</guid><description>Servlet 2.5规范中的映射规则: 完全匹配URL 匹配通配符路径 匹配扩展名 匹配默认servlet 特殊URL模式: url-pattern:/* servlet上的/* 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将/* 用于过滤器。它能通过调用FilterChain#doFilter()让请求继续由监听另外一个特定URL模式的任何servlet处理。
 url-pattern:/ / 不会压制其他servlet。它仅会替换servlet容器内建的默认servlet，用于无法匹配任何已注册servlet的所有请求。一般仅调用在静态资源(CSS/JS/image/etc)和列举目录上。servlet容器内建默认servlet也能处理HTTP缓存请求、媒体（音视频）流和文件重新下载。由于必须负责默认servlet的所有任务，工作量不小，通常不会想要替换默认servlet。这也是一种不好的URL模式。关于为什么JSP页面不会调用这个servlet，是因为servlet容器的内建JSPservlet默认映射到*.jsp并被调用。
-url-pattern: 这也有一个空字符串URL模式。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.</description>
-    </item>
-    
-    <item>
-      <title>[Flex] Explicitly mapping ActionScript and Java objects</title>
-      <link>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</link>
-      <pubDate>Sun, 16 Sep 2012 10:30:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</guid>
-      <description>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</description>
-    </item>
-    
-  </channel>
-</rss>
+url-pattern: 这也有一个空字符串URL模式 。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.</description></item><item><title>[Flex] Explicitly mapping ActionScript and Java objects</title><link>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</link><pubDate>Sun, 16 Sep 2012 10:30:48 +0000</pubDate><guid>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</guid><description>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</description></item></channel></rss>

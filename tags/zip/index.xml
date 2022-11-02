@@ -1,32 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Zip on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/zip/</link>
-    <description>Recent content in Zip on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 08 Aug 2013 07:13:16 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/zip/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>序列化压缩实现及对比测试</title>
-      <link>https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/</link>
-      <pubDate>Thu, 08 Aug 2013 07:13:16 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/</guid>
-      <description>网上介绍序列化压缩的用gzip比较多。写个测试代码，测试一下四种序列化方式： - 无压缩 - zlib压缩 - gzip压缩 - zip压缩
-测例结果显示压缩效果：gzip压缩 &amp;gt; zlib压缩 &amp;gt; zip压缩&amp;gt; 无压缩 测例结果显示压缩速度：zlib压缩&amp;gt; gzip压缩&amp;gt; zip压缩 = 无压缩 确实用gzip性价比比较高！
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>zip on Mryqu's Notes</title><link>https://mryqu.github.io/tags/zip/</link><description>Recent content in zip on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 08 Aug 2013 07:13:16 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/zip/index.xml" rel="self" type="application/rss+xml"/><item><title>序列化压缩实现及对比测试</title><link>https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/</link><pubDate>Thu, 08 Aug 2013 07:13:16 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/</guid><description>网上介绍序列化压缩的用gzip比较多。写个测试代码，测试一下四种序列化方式：
+无压缩 zlib压缩 gzip压缩 zip压缩 测例结果显示压缩效果：gzip压缩 &amp;gt; zlib压缩 &amp;gt; zip压缩&amp;gt; 无压缩 测例结果显示压缩速度：zlib压缩&amp;gt; gzip压缩&amp;gt; zip压缩 = 无压缩 确实用gzip性价比比较高！
 ### zlib介绍
 zlib是一个开源库，提供了在内存中压缩和解压的函数。zlib它的设计目标是处理单纯的数据（而不管数据的来源是什么）。
 ### gzip介绍
 gzip是UNIX下的一种数据格式(.tar.gz)。gzip是在zlib之上，包了一层，在头和尾添加了一些额外的信息。 gzip是一种文件压缩工具（或该压缩工具产生的压缩文件格式），它的设计目标是处理单个的文件。gzip在压缩文件中的数据时使用的就是zlib。为了保存与文件属性有关的信息，gzip需要在压缩文件（.gz）中保存更多的头信息内容，而zlib不用考虑这一点。但gzip只适用于单个文件，所以我们在UNIX/Linux上经常看到的压缩包后缀都是.tar.gz或*.tgz，也就是先用tar把多个文件打包成单个文件，再用gzip压缩的结果。
 ### zip介绍
 zip只是一种数据结构，跟rar同级别的。zip是适用于压缩多个文件的格式（相应的工具有PkZip和WinZip等），因此，zip文件还要进一步包含文件目录结构的信息，比gzip的头信息更多。但需要注意，zip格式可采用多种压缩算法，我们常见的zip文件大多不是用zlib的算法压缩的，其压缩数据的格式与gzip大不一样。 Java SDK提供了对上述三种压缩技术的支持：Inflater类和Deflater类直接用zlib库对数据压缩/解压缩，GZIPInputStream类和GZIPOutputStream类提供了对gzip格式的支持，ZipFile、ZipInputStream、ZipOutputStream则用于处理zip格式的文件。 所以，你应当根据你的具体需求，选择不同的压缩技术：如果只需要压缩/解压缩数据，你可以直接用zlib实现，如果需要生成gzip格式的文件或解压其他工具的压缩结果，你就必须用gzip或zip等相关的类来处理了。
-测试代码 import java.io.ByteArrayInputStream; import java.io.ByteArrayOutputStream; import java.io.File; import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.IOException; import java.io.ObjectInputStream; import java.io.ObjectOutputStream; import java.io.Serializable; import java.util.Arrays; import java.util.zip.DataFormatException; import java.util.zip.Deflater; import java.util.zip.GZIPInputStream; import java.util.zip.GZIPOutputStream; import java.util.zip.Inflater; import java.util.zip.ZipEntry; import java.util.zip.ZipInputStream; import java.</description>
-    </item>
-    
-  </channel>
-</rss>
+测试代码 import java.io.ByteArrayInputStream; import java.io.ByteArrayOutputStream; import java.io.File; import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.IOException; import java.io.ObjectInputStream; import java.io.ObjectOutputStream; import java.io.Serializable; import java.util.Arrays; import java.util.zip.DataFormatException; import java.util.zip.Deflater; import java.util.zip.GZIPInputStream; import java.util.zip.GZIPOutputStream; import java.util.zip.Inflater; import java.util.zip.ZipEntry; import java.util.zip.ZipInputStream; import java.util.zip.ZipOutputStream; public class TestCompressedSerializaion { public static BigObject createBigObject() { final int SIZE = 1 &amp;lt;&amp;lt; 12; int[] bigArray = new int[SIZE]; for (int i = 0; i &amp;lt; SIZE; ++i) { bigArray[i] = (int) (Math.</description></item></channel></rss>

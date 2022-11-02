@@ -1,200 +1,32 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>JDK7中的双端队列Deque实现 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="JDK7中的双端队列Deque实现">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="JDK7中的双端队列Deque实现 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/" itemprop="url">
-        JDK7中的双端队列Deque实现
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-08-08">
-    2013-08-08
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">121 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>双端队列Deque（全名double-endedqueue）是一种数据结构，可在双端队列的两端插入、获取或删除元素。队列和栈可以认为是双端队列的特列。
-<img src="/images/2013/8/72ef7beatx6BHlTPhBsce.png" alt="JDK7中的双端队列Deque实现" /></p>
-
-<p>Deque常用的方法：
-<table border="1" cellpadding="4" cellspacing="0" frame="border" rules="all" summary="" style="font-family: Arial, Verdana, sans-serif; border-collapse: collapse; border-width: 1px; margin-top: 7pt;"><tbody><tr><td></td><td align="center" colspan="2"><b>First Element (Head)</b></td><td align="center" colspan="2"><b>Last Element (Tail)</b></td></tr><tr><td></td><td><em>Throws exception</em></td><td><em>Special value</em></td><td><em>Throws exception</em></td><td><em>Special value</em></td></tr><tr><td><b>Insert</b></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#addFirst(E)">addFirst(e)</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#offerFirst(E)">offerFirst(e)</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#addLast(E)">addLast(e)</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#offerLast(E)">offerLast(e)</a></td></tr><tr><td><b>Remove</b></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#removeFirst()">removeFirst()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#pollFirst()">pollFirst()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#removeLast()">removeLast()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#pollLast()">pollLast()</a></td></tr><tr><td><b>Examine</b></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#getFirst()">getFirst()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#peekFirst()">peekFirst()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#getLast()">getLast()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#peekLast()">peekLast()</a></td></tr></tbody></table></p>
-
-<p>Deque扩展了Queue接口，当Deque用作FIFO队列时，元素从双端队列队尾加入，从队首移出。从Queue接口继承的方法等同于Deque如下方法：
-<table border="1" cellpadding="4" cellspacing="0" frame="border" rules="all" summary="" style="font-family: Arial, Verdana, sans-serif; border-collapse: collapse; border-width: 1px; margin-top: 7pt;"><tbody><tr><td><b><tt style="font-size: 1.2em;">Queue</tt>&nbsp;Method</b></td><td><b>Equivalent&nbsp;<tt style="font-size: 1.2em;">Deque</tt>&nbsp;Method</b></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html#add(E)">add(e)</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#addLast(E)">addLast(e)</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html#offer(E)">offer(e)</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#offerLast(E)">offerLast(e)</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html#remove()">remove()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#removeFirst()">removeFirst()</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html#poll()">poll()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#pollFirst()">pollFirst()</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html#element()">element()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#getFirst()">getFirst()</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html#peek()">peek()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#peek()">peekFirst()</a></td></tr></tbody></table></p>
-
-<p>Deques也可作为LIFO栈。该接口应该优先于遗留的Stack类使用。当双端队列用作栈时，元素从队首入栈和出栈。Stack方法等同与Deque如下方法：
-<table border="1" cellpadding="4" cellspacing="0" frame="border" rules="all" summary="" style="font-family: Arial, Verdana, sans-serif; border-collapse: collapse; border-width: 1px; margin-top: 7pt;"><tbody><tr><td><b>Stack Method</b></td><td><b>Equivalent&nbsp;<tt style="font-size: 1.2em;">Deque</tt>&nbsp;Method</b></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#push(E)">push(e)</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#addFirst(E)">addFirst(e)</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#pop()">pop()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#removeFirst()">removeFirst()</a></td></tr><tr><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#peek()">peek()</a></td><td><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#peekFirst()">peekFirst()</a></td></tr></tbody></table>
-注意：当deque用作队列或堆栈时，<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html#peek()">peek</a>方法也可正常工作，都从deque起始位置移除元素。</p>
-
-<h2 id="jdk6加入的deque实现">JDK6加入的Deque实现</h2>
-
-<p>LinkedList: 一个基于链接节点实现的无界双端队列。允许null元素。
-ArrayDeque: 一个基于可变长度数组实现的无界双端队列。不允许null元素。</p>
-
-<p>就效率而言，ArrayDeque在两端添加或删除元素时比LinkedList更高效。ArrayDeque用作栈时比Stack更快，用作队列时比LinkedList更快。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>JDK7中的双端队列Deque实现 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="JDK7中的双端队列Deque实现"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="JDK7中的双端队列Deque实现 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/ itemprop=url>JDK7中的双端队列Deque实现</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-08">2013-08-08</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>108 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>双端队列Deque（全名double-endedqueue）是一种数据结构，可在双端队列的两端插入、获取或删除元素。队列和栈可以认为是双端队列的特列。
+<img src=/images/2013/8/72ef7beatx6BHlTPhBsce.png alt=JDK7中的双端队列Deque实现></p><p>Deque常用的方法：</p><p>Deque扩展了Queue接口，当Deque用作FIFO队列时，元素从双端队列队尾加入，从队首移出。从Queue接口继承的方法等同于Deque如下方法：</p><p>Deques也可作为LIFO栈。该接口应该优先于遗留的Stack类使用。当双端队列用作栈时，元素从队首入栈和出栈。Stack方法等同与Deque如下方法：</p><h2 id=jdk6加入的deque实现>JDK6加入的Deque实现</h2><p>LinkedList: 一个基于链接节点实现的无界双端队列。允许null元素。
+ArrayDeque: 一个基于可变长度数组实现的无界双端队列。不允许null元素。</p><p>就效率而言，ArrayDeque在两端添加或删除元素时比LinkedList更高效。ArrayDeque用作栈时比Stack更快，用作队列时比LinkedList更快。
 LinkedList实现比ArrayDeque实现更复杂，耗费更多的内存。当遍历双端列表时删除当前元素，LinkedList比ArrayDeque更高效。
 继承BlockingQueue的BlockingDeque接口及其实现LinkedBlockingDeque：一个基于链接节点实现的可选有界双端队列。如果LinkedBlockingDeque在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。
 LinkedBlockingDeque实现采用一个独占锁，所有对队列的操作都进行了锁保护，因而很好的支持双向阻塞的特性。缺点是由于独占锁，所以不能同时进行两个操作，这样性能上就大打折扣。
 LinkedBlockingDeque实现具有显对低的开销及相对低的可扩展性。如果仅需要FIFO队列功能，最好使用LinkedBlockingQueue，LinkedBlockingQueue具有相同的开销但是有更好的伸缩性(例如很多线程竞争时保持更好的性能)。
-<a href="http://www.blogjava.net/xylz/archive/2010/08/12/328587.html">深入浅出 Java Concurrency (24): 并发容器 part 9 双向队列集合 Deque</a><br />
-<a href="http://www.blogjava.net/xylz/archive/2010/08/18/329227.html">深入浅出 Java Concurrency (25): 并发容器 part 10 双向并发阻塞队列 BlockingDeque</a></p>
-
-<h2 id="jdk7加入的deque实现">JDK7加入的Deque实现</h2>
-
-<p>ConcurrentLinkedDeque：一个基于链接节点实现的无界无阻塞双端队列。收集关于队列大小的信息会很慢，需要遍历队列。
+<a href=http://www.blogjava.net/xylz/archive/2010/08/12/328587.html>深入浅出 Java Concurrency (24): 并发容器 part 9 双向队列集合 Deque</a><br><a href=http://www.blogjava.net/xylz/archive/2010/08/18/329227.html>深入浅出 Java Concurrency (25): 并发容器 part 10 双向并发阻塞队列 BlockingDeque</a></p><h2 id=jdk7加入的deque实现>JDK7加入的Deque实现</h2><p>ConcurrentLinkedDeque：一个基于链接节点实现的无界无阻塞双端队列。收集关于队列大小的信息会很慢，需要遍历队列。
 ConcurrentLinkedDeque具有跟LinkedBlockingDeque相反的表现：相对高的开销及很好的可伸缩性（使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈）。
-<a href="http://cs.oswego.edu/pipermail/concurrency-interest/2004-November/001140.html">[concurrency-interest] BlockingDeque and revised Deque</a></p>
-
-<h2 id="deque应用-回文-palindrome-检查">Deque应用：回文（Palindrome）检查</h2>
-
-<p>Deque的应用不是很多，很容易使用双端队列解决的一个有趣问题是经典的回文问题。回文是正着读和倒着读都一样的字符串，例如radar、toot和madam。
+<a href=http://cs.oswego.edu/pipermail/concurrency-interest/2004-November/001140.html>[concurrency-interest] BlockingDeque and revised Deque</a></p><h2 id=deque应用回文palindrome检查>Deque应用：回文（Palindrome）检查</h2><p>Deque的应用不是很多，很容易使用双端队列解决的一个有趣问题是经典的回文问题。回文是正着读和倒着读都一样的字符串，例如radar、toot和madam。
 回文检查方案是采用Deque存储字符串的字符，将字符串中的字符从左到右插入Deque尾部，则deque头部将持有字符串的首字符，deque尾部将持有字符串的末字符。然后从Deque两端移出字符进行比较，直到Deque内字符数为0或1为止。
-<img src="/images/2013/8/72ef7beatx6BHmzXoZw1e.png" alt="JDK7中的双端队列Deque实现" /></p>
-
-<pre><code>public class PalindromeChecker {
+<img src=/images/2013/8/72ef7beatx6BHmzXoZw1e.png alt=JDK7中的双端队列Deque实现></p><pre tabindex=0><code>public class PalindromeChecker {
 
   public static boolean palchecker(String str) {
     if(str==null || str.isEmpty())
@@ -219,249 +51,51 @@ ConcurrentLinkedDeque具有跟LinkedBlockingDeque相反的表现：相对高的�
   }
   
   public static void main(String[] args) {
-    System.out.println(palchecker(&quot;lsdkjfskf&quot;));
-    System.out.println(palchecker(&quot;radar&quot;));
+    System.out.println(palchecker(&#34;lsdkjfskf&#34;));
+    System.out.println(palchecker(&#34;radar&#34;));
   }
 }
-</code></pre>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：JDK7中的双端队列Deque实现
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/jdk7" rel="tag" title="jdk7">#jdk7#</a>
-    
-    <a href="/tags/deque" rel="tag" title="deque">#deque#</a>
-    
-    <a href="/tags/%e5%8f%8c%e7%ab%af%e9%98%9f%e5%88%97" rel="tag" title="双端队列">#双端队列#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/" rel="next" title="[算法] Trie（数字树、字典树、前缀树）">
-        <i class="fa fa-chevron-left"></i> [算法] Trie（数字树、字典树、前缀树）
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/" rel="prev" title="序列化压缩实现及对比测试">
-        序列化压缩实现及对比测试 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/";
-this.page.identifier = "https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#jdk6加入的deque实现">JDK6加入的Deque实现</a></li>
-<li><a href="#jdk7加入的deque实现">JDK7加入的Deque实现</a></li>
-<li><a href="#deque应用-回文-palindrome-检查">Deque应用：回文（Palindrome）检查</a></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：JDK7中的双端队列Deque实现<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/jdk7 rel=tag title=jdk7>#jdk7#</a>
+<a href=/tags/deque rel=tag title=deque>#deque#</a>
+<a href=/tags/%e5%8f%8c%e7%ab%af%e9%98%9f%e5%88%97 rel=tag title=双端队列>#双端队列#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/ rel=next title=[算法] Trie（数字树、字典树、前缀树）><i class="fa fa-chevron-left"></i> [算法] Trie（数字树、字典树、前缀树）</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/ rel=prev title=序列化压缩实现及对比测试>序列化压缩实现及对比测试 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/",this.page.identifier="https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#jdk6加入的deque实现>JDK6加入的Deque实现</a></li><li><a href=#jdk7加入的deque实现>JDK7加入的Deque实现</a></li><li><a href=#deque应用回文palindrome检查>Deque应用：回文（Palindrome）检查</a></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

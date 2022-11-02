@@ -1,445 +1,87 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[OpenUI5] 折腾了一下JSView转换XMLView - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[OpenUI5] 折腾了一下JSView转换XMLView">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[OpenUI5] 折腾了一下JSView转换XMLView - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/" itemprop="url">
-        [OpenUI5] 折腾了一下JSView转换XMLView
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-02-21">
-    2017-02-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">209 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    <p>根据<a href="https://openui5.netweaver.ondemand.com/#docs/guide/6ec18e80b0ce47f290bc2645b0cc86e6.html">OpenUI5 Developer Guide - Diagnostics Window</a>中的介绍，尝试一下XML View Conversion。</p>
-
-<blockquote>
-<p>Many code samples are written in JavaScript. To facilitate the conversion of these code samples into XML, OpenUI5 provides a generic conversion tool. To run the tool, proceed as follows:
-1.  Run the OpenUI5 app in your browser, for example, open a page in the test suite.
-2.  Open the support tool by choosing CTRL+ALT+SHIFT+S.
-3.  Open the <strong>Control Tree</strong> panel.
-4.  Select the root UI area in the tree on the left hand side.
-5.  Open the <strong>Export</strong> tab and choose <strong>Export XML</strong>.
-6.  Open the ZIP archive and extract the files to your file system.</p>
-
-<p>If your app does <strong>not</strong> contain views, the content is put in one view in the output. If your app contains views and all views are loaded, the content is output as separate files.</p>
-</blockquote>
-
-<p>采用我之前的博文<a href="/post/openui5_mvc和eventbus示例">[OpenUI5] MVC和EventBus示例</a>中的示例做一下实验：
-首先打开SAPUI5 Diagnostics，在Control Tree中选择一个JSView：<img src="/images/2017/02/Openui5_Diagnostics.png" alt="Openui5 Diagnostics" />
-看到Export to XML按钮了：<img src="/images/2017/02/Openui5_Diagnostics_ExportToXml.png" alt="Openui5 Diagnostics ExportToXml" />
-悲剧了，无法导出，说什么p.indexOfContent is not a function：<img src="/images/2017/02/Openui5_Diagnostics_ExportToXml_Error.png" alt="Openui5 Diagnostics ExportToXml error" />
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[OpenUI5] 折腾了一下JSView转换XMLView - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[OpenUI5] 折腾了一下JSView转换XMLView"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[OpenUI5] 折腾了一下JSView转换XMLView - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/ itemprop=url>[OpenUI5] 折腾了一下JSView转换XMLView</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2017-02-21">2017-02-21</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>206 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>根据<a href=https://openui5.netweaver.ondemand.com/#docs/guide/6ec18e80b0ce47f290bc2645b0cc86e6.html>OpenUI5 Developer Guide - Diagnostics Window</a>中的介绍，尝试一下XML View Conversion。</p><blockquote><p>Many code samples are written in JavaScript. To facilitate the conversion of these code samples into XML, OpenUI5 provides a generic conversion tool. To run the tool, proceed as follows:</p><ol><li>Run the OpenUI5 app in your browser, for example, open a page in the test suite.</li><li>Open the support tool by choosing CTRL+ALT+SHIFT+S.</li><li>Open the <strong>Control Tree</strong> panel.</li><li>Select the root UI area in the tree on the left hand side.</li><li>Open the <strong>Export</strong> tab and choose <strong>Export XML</strong>.</li><li>Open the ZIP archive and extract the files to your file system.</li></ol><p>If your app does <strong>not</strong> contain views, the content is put in one view in the output. If your app contains views and all views are loaded, the content is output as separate files.</p></blockquote><p>采用我之前的博文<a href=/post/openui5_mvc%E5%92%8Ceventbus%E7%A4%BA%E4%BE%8B>[OpenUI5] MVC和EventBus示例</a>中的示例做一下实验：
+首先打开SAPUI5 Diagnostics，在Control Tree中选择一个JSView：<img src=/images/2017/02/Openui5_Diagnostics.png alt="Openui5 Diagnostics">
+看到Export to XML按钮了：<img src=/images/2017/02/Openui5_Diagnostics_ExportToXml.png alt="Openui5 Diagnostics ExportToXml">
+悲剧了，无法导出，说什么p.indexOfContent is not a function：<img src=/images/2017/02/Openui5_Diagnostics_ExportToXml_Error.png alt="Openui5 Diagnostics ExportToXml error">
 一开始怀疑自己的代码不规范，然后尝试很多其他JSView，甚至去转换openui5.hana.ondemand.com中的例子，结果是无一成功。
-好吧，现在我开始怀疑SAPUI5这个功能了，可是找不到源码在哪里，最后凭借万能的搜索引擎，查到了<a href="https://github.com/frank3b/DemoMaestro/blob/master/resources/sap/ui/core/support/plugins/ControlTree-dbg.js">sap.ui.core.support.plugins.ControlTree</a>。
-开始用Chrome Dev Tool调试，不用点击按钮就可以触发转换了：<img src="/images/2017/02/Openui5_Diagnostics_ExportToXml_debugError.png" alt="Openui5 Diagnostics ExportToXml debug error" />
-再进一步替换成如下代码：</p>
-
-<pre><code>var o = 
+好吧，现在我开始怀疑SAPUI5这个功能了，可是找不到源码在哪里，最后凭借万能的搜索引擎，查到了<a href=https://github.com/frank3b/DemoMaestro/blob/master/resources/sap/ui/core/support/plugins/ControlTree-dbg.js>sap.ui.core.support.plugins.ControlTree</a>。
+开始用Chrome Dev Tool调试，不用点击按钮就可以触发转换了：<img src=/images/2017/02/Openui5_Diagnostics_ExportToXml_debugError.png alt="Openui5 Diagnostics ExportToXml debug error">
+再进一步替换成如下代码：</p><pre tabindex=0><code>var o = 
 {
-&quot;eventId&quot;: &quot;sapUiSupportControlTreeRequestControlTreeSerialize&quot;,
-&quot;params&quot;: { controlID:&quot;leftView&quot;, sType:&quot;XML&quot;}
+&#34;eventId&#34;: &#34;sapUiSupportControlTreeRequestControlTreeSerialize&#34;,
+&#34;params&#34;: { controlID:&#34;leftView&#34;, sType:&#34;XML&#34;}
 };
-var s = &quot;SAPUI5SupportTool*&quot; + JSON.stringify(o);
-window.sap.ui.core.support.Support.getStub(&quot;IFRAME&quot;)._oRemoteWindow.postMessage(s, &quot;http://null.jsbin.com&quot;);
-</code></pre>
-
-<p>又跳到了<a href="https://github.com/frank3b/DemoMaestro/blob/master/resources/sap/ui/core/support/plugins/ControlTree-dbg.js">sap.ui.core.support.plugins.ControlTree</a>的onsapUiSupportControlTreeRequestControlTreeSerialize 方法，大致扫了一眼代码：
-* OpenUI5元素不限于JSView，如果元素不是sap.ui.core.mvc.View，则会在外边裹一层View</p>
-
-<pre><code>  if (oControl instanceof sap.ui.core.mvc.View) {
-    oViewSerializer = new ViewSerializer(oControl, window, &quot;sap.m&quot;);
-  } else {
-    var oView = sap.ui.jsview(sType + &quot;ViewExported&quot;);
-    oView.addContent(oControl);
-    oViewSerializer = new ViewSerializer(oView, window, &quot;sap.m&quot;);
-  }
-</code></pre>
-
-<ul>
-<li>查找OpenUI5元素的父元素，调用indexOfContent去查看该元素在父元素内的顺序下标，问题就出在这里！！！</li>
-</ul>
-
-<p><a href="https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.core.mvc.View.html#indexOfContent">indexOfContent</a>方法仅在sap.ui.core.mvc.View及其子类中存在，<a href="https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.core.Control.html">sap.ui.core.Control</a>及<a href="https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.core.Element.html">sap.ui.core.Element</a>并无该方法，所以这个出问题的概率很大呀！
+var s = &#34;SAPUI5SupportTool*&#34; + JSON.stringify(o);
+window.sap.ui.core.support.Support.getStub(&#34;IFRAME&#34;)._oRemoteWindow.postMessage(s, &#34;http://null.jsbin.com&#34;);
+</code></pre><p>又跳到了<a href=https://github.com/frank3b/DemoMaestro/blob/master/resources/sap/ui/core/support/plugins/ControlTree-dbg.js>sap.ui.core.support.plugins.ControlTree</a>的onsapUiSupportControlTreeRequestControlTreeSerialize 方法，大致扫了一眼代码：</p><ul><li>OpenUI5元素不限于JSView，如果元素不是sap.ui.core.mvc.View，则会在外边裹一层View<pre tabindex=0><code>if (oControl instanceof sap.ui.core.mvc.View) {
+  oViewSerializer = new ViewSerializer(oControl, window, &#34;sap.m&#34;);
+} else {
+  var oView = sap.ui.jsview(sType + &#34;ViewExported&#34;);
+  oView.addContent(oControl);
+  oViewSerializer = new ViewSerializer(oView, window, &#34;sap.m&#34;);
+}
+</code></pre></li><li>查找OpenUI5元素的父元素，调用indexOfContent去查看该元素在父元素内的顺序下标，问题就出在这里！！！</li></ul><p><a href=https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.core.mvc.View.html#indexOfContent>indexOfContent</a>方法仅在sap.ui.core.mvc.View及其子类中存在，<a href=https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.core.Control.html>sap.ui.core.Control</a>及<a href=https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.core.Element.html>sap.ui.core.Element</a>并无该方法，所以这个出问题的概率很大呀！
 接着又尝试了一下非JSView的元素，点击按钮没反应！
-<strong>尝试失败，看来只能寄希望于SAP的改进了！</strong></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[OpenUI5] 折腾了一下JSView转换XMLView
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/openui5" rel="tag" title="openui5">#openui5#</a>
-    
-    <a href="/tags/javascript" rel="tag" title="javascript">#javascript#</a>
-    
-    <a href="/tags/diagnostics" rel="tag" title="diagnostics">#diagnostics#</a>
-    
-    <a href="/tags/jsview" rel="tag" title="jsview">#jsview#</a>
-    
-    <a href="/tags/xmlview" rel="tag" title="xmlview">#xmlview#</a>
-    
-    <a href="/tags/conversion" rel="tag" title="conversion">#conversion#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/" rel="next" title="[OpenUI5] 在XMLView中使用带有参数的I18N消息">
-        <i class="fa fa-chevron-left"></i> [OpenUI5] 在XMLView中使用带有参数的I18N消息
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/typescript%E5%88%9D%E4%BD%93%E9%AA%8C/" rel="prev" title="TypeScript初体验">
-        TypeScript初体验 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/";
-this.page.identifier = "https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<strong>尝试失败，看来只能寄希望于SAP的改进了！</strong></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[OpenUI5] 折腾了一下JSView转换XMLView<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/openui5 rel=tag title=openui5>#openui5#</a>
+<a href=/tags/javascript rel=tag title=javascript>#javascript#</a>
+<a href=/tags/diagnostics rel=tag title=diagnostics>#diagnostics#</a>
+<a href=/tags/jsview rel=tag title=jsview>#jsview#</a>
+<a href=/tags/xmlview rel=tag title=xmlview>#xmlview#</a>
+<a href=/tags/conversion rel=tag title=conversion>#conversion#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/ rel=next title="[OpenUI5] 在XMLView中使用带有参数的I18N消息"><i class="fa fa-chevron-left"></i> [OpenUI5] 在XMLView中使用带有参数的I18N消息</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/typescript%E5%88%9D%E4%BD%93%E9%AA%8C/ rel=prev title=TypeScript初体验>TypeScript初体验 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/",this.page.identifier="https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

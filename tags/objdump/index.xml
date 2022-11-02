@@ -1,41 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Objdump on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/objdump/</link>
-    <description>Recent content in Objdump on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 11 Sep 2015 05:33:28 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/objdump/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[C&#43;&#43;] addr2line使用</title>
-      <link>https://mryqu.github.io/post/c&#43;&#43;_addr2line%E4%BD%BF%E7%94%A8/</link>
-      <pubDate>Fri, 11 Sep 2015 05:33:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/c&#43;&#43;_addr2line%E4%BD%BF%E7%94%A8/</guid>
-      <description>GNU Binutils的Addr2line工具是一个可以将指令的地址和可执行程序转换成文件名、函数名和源代码行数的工具。这种功能对于将跟踪地址转换成更有意义的内容来说简直是太棒了。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>objdump on Mryqu's Notes</title><link>https://mryqu.github.io/tags/objdump/</link><description>Recent content in objdump on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 11 Sep 2015 05:33:28 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/objdump/index.xml" rel="self" type="application/rss+xml"/><item><title>[C++] addr2line使用</title><link>https://mryqu.github.io/post/c++_addr2line%E4%BD%BF%E7%94%A8/</link><pubDate>Fri, 11 Sep 2015 05:33:28 +0000</pubDate><guid>https://mryqu.github.io/post/c++_addr2line%E4%BD%BF%E7%94%A8/</guid><description>GNU Binutils的Addr2line工具是一个可以将指令的地址和可执行程序转换成文件名、函数名和源代码行数的工具。这种功能对于将跟踪地址转换成更有意义的内容来说简直是太棒了。
 下面是一个小示例testAddr2line.c：
-#include &amp;quot;stdio.h&amp;quot; void test() { printf(&amp;quot;Hello Addr2line\n&amp;quot;); } int main() { test(); return 0; }  编译时使用-g选项包含调试符号条，使用-Wl,-Map=testAddr2line.map选项输出MapFile。
-gcc -Wl,-Map=testAddr2line.map -g -o testAddr2line testAddr2line.c  testAddr2line.map部分内容如下： testAddr2line中也包含符号表信息，因而可以使用objdump查找：
-hadoop@node51054:~/ctest$ objdump -t testAddr2line | grep &#39;main\|test&#39; testAddr2line: file format elf64-x86-64 0000000000000000 l df *ABS* 0000000000000000 testAddr2line.c 0000000000000000 F *UND* 0000000000000000 __libc_start_main@@GLIBC_2.2.5 0000000000400547 g F .text 0000000000000015 main 0000000000400536 g F .text 0000000000000011 test  使用addr2line：
-hadoop@node51054:~/ctest$ addr2line -e testAddr2line 400536 /home/hadoop/ctest/testAddr2line.</description>
-    </item>
-    
-    <item>
-      <title>[Linux] 判断可执行文件或动态库是否包含符号表</title>
-      <link>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link>
-      <pubDate>Thu, 24 Oct 2013 22:48:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid>
-      <description>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的&amp;rdquo;-g&amp;rdquo;选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
-srv01&amp;gt; file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01&amp;gt; file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped  显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
+#include &amp;#34;stdio.h&amp;#34; void test() { printf(&amp;#34;Hello Addr2line\n&amp;#34;); } int main() { test(); return 0; } 编译时使用-g选项包含调试符号条，使用-Wl,-Map=testAddr2line.map选项输出MapFile。
+gcc -Wl,-Map=testAddr2line.map -g -o testAddr2line testAddr2line.c testAddr2line.map部分内容如下： testAddr2line中也包含符号表信息，因而可以使用objdump查找：
+hadoop@node51054:~/ctest$ objdump -t testAddr2line | grep &amp;#39;main\|test&amp;#39; testAddr2line: file format elf64-x86-64 0000000000000000 l df *ABS* 0000000000000000 testAddr2line.c 0000000000000000 F *UND* 0000000000000000 __libc_start_main@@GLIBC_2.2.5 0000000000400547 g F .text 0000000000000015 main 0000000000400536 g F .text 0000000000000011 test 使用addr2line：
+hadoop@node51054:~/ctest$ addr2line -e testAddr2line 400536 /home/hadoop/ctest/testAddr2line.c:3 hadoop@node51054:~/ctest$ addr2line -e testAddr2line -f 400536 test /home/hadoop/ctest/testAddr2line.</description></item><item><title>[Linux] 判断可执行文件或动态库是否包含符号表</title><link>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link><pubDate>Thu, 24 Oct 2013 22:48:09 +0000</pubDate><guid>https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid><description>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的&amp;quot;-g&amp;quot;选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
+srv01&amp;gt; file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01&amp;gt; file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped 显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
 如果文件包含调试符号表，可以通过objdump -t命令及选项打印文件的符号表：
-srv01&amp;gt; objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</description>
-    </item>
-    
-  </channel>
-</rss>
+srv01&amp;gt; objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</description></item></channel></rss>

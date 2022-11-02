@@ -1,123 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Proxy on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/proxy/</link>
-    <description>Recent content in Proxy on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 25 Oct 2017 06:06:40 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[GoLang]add proxy for dep</title>
-      <link>https://mryqu.github.io/post/golang_add_proxy_for_dep/</link>
-      <pubDate>Wed, 25 Oct 2017 06:06:40 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/golang_add_proxy_for_dep/</guid>
-      <description> 玩一下goquery，dep总是报错，无法解析golang.org/x/net和cascadia，添加代理后搞定。
-Windows set https_proxy=http://username:password@[proxy_host]:[proxy_port] set http_proxy=http://username:password@[proxy_host]:[proxy_port] dep init -v  Linux $https_proxy=http://username:password@[proxy_host]:[proxy_port] http_proxy=http://username:password@[proxy_host]:[proxy_port] dep init -v  </description>
-    </item>
-    
-    <item>
-      <title>Use proxy on RestFB</title>
-      <link>https://mryqu.github.io/post/use_proxy_on_restfb/</link>
-      <pubDate>Mon, 04 Apr 2016 06:18:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/use_proxy_on_restfb/</guid>
-      <description>曾经有人向RestFB开过issue（https://github.com/restfb/restfb/issues/116）询问如何给其设置代理，issue里回复扩展DefaultWebRequestor。下面的代码基于该方案并测试通过。
-package com.yqu.restfb; import com.restfb.DefaultFacebookClient; import com.restfb.DefaultJsonMapper; import com.restfb.FacebookClient; import com.restfb.Version; import java.io.IOException; import java.net.HttpURLConnection; import java.net.InetSocketAddress; import java.net.Proxy; import java.net.URL; public class HelloRestFBWithProxy { private static class DefaultWebRequestor extends com.restfb.DefaultWebRequestor { protected HttpURLConnection openConnection(URL url) throws IOException { HttpURLConnection httpURLConnection = null; if (useProxyFlag.booleanValue()) { InetSocketAddress proxyLocation = new InetSocketAddress( hostName, port); Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyLocation); try { httpURLConnection = (HttpURLConnection) url .openConnection(proxy); return httpURLConnection; } catch (Exception e) { return (HttpURLConnection) url.</description>
-    </item>
-    
-    <item>
-      <title>为cURL库设置HTTP代理的代码片段</title>
-      <link>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link>
-      <pubDate>Wed, 06 Jan 2016 06:01:08 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</guid>
-      <description>在twitcurl看到cURL库设置http代理的方法，记录一下。
-void twitCurl::prepareCurlProxy() { if( m_curlProxyParamsSet ) { return; } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYUSERPWD, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYAUTH, (long)CURLAUTH_ANY ); std::string proxyIpPort(&amp;quot;&amp;quot;); if( getProxyServerIp().size() ) { utilMakeCurlParams( proxyIpPort, getProxyServerIp(), getProxyServerPort() ); } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, proxyIpPort.c_str() ); if( m_proxyUserName.length() &amp;amp;amp;&amp;amp;amp; m_proxyPassword.length() ) { std::string proxyUserPass; utilMakeCurlParams( proxyUserPass,getProxyUserName(),getProxyPassword() ); curl_easy_setopt( m_curlHandle,CURLOPT_PROXYUSERPWD,proxyUserPass.c_str() ); } m_curlProxyParamsSet = true; }  </description>
-    </item>
-    
-    <item>
-      <title>Use proxy on Google Analytics API</title>
-      <link>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</link>
-      <pubDate>Fri, 09 Oct 2015 05:34:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</guid>
-      <description>使用Google API创建HTTP传输层是这样子的，没有可以传入代理的地方。
-HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();  仔细研究一下com.google.api.client.googleapis.javanet.GoogleNetHttpTransport，发现其实现是使用com.google.api.client.http.javanet.NetHttpTransport.Builder生成一个com.google.api.client.http.javanet.NetHttpTransport对象。com.google.api.client.http.javanet.NetHttpTransport.Builder和com.google.api.client.http.javanet.NetHttpTransport是都支持代理的。不用GoogleNetHttpTransport这个封装，直接对com.google.api.client.http.javanet.NetHttpTransport.Builder设置代理即可生成使用代理的HttpTransport对象。
-Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(&amp;quot;XXXX&amp;quot;, 80)); HttpTransport httpTransport = new NetHttpTransport.Builder().setProxy(proxy). trustCertificates(GoogleUtils.getCertificateTrustStore()).build();  </description>
-    </item>
-    
-    <item>
-      <title>Node.js npm代理设置</title>
-      <link>https://mryqu.github.io/post/node.js_npm%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</link>
-      <pubDate>Wed, 30 Sep 2015 06:06:46 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/node.js_npm%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</guid>
-      <description>用Gradle编译当前一个项目，总是报告Node.js的包管理工具npm安装node包失败。美国那边没有问题，不知道是否跟防火墙有关。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>proxy on Mryqu's Notes</title><link>https://mryqu.github.io/tags/proxy/</link><description>Recent content in proxy on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 25 Oct 2017 06:06:40 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>[GoLang]add proxy for dep</title><link>https://mryqu.github.io/post/golang_add_proxy_for_dep/</link><pubDate>Wed, 25 Oct 2017 06:06:40 +0000</pubDate><guid>https://mryqu.github.io/post/golang_add_proxy_for_dep/</guid><description>玩一下goquery，dep总是报错，无法解析golang.org/x/net和cascadia，添加代理后搞定。
+Windows set https_proxy=http://username:password@[proxy_host]:[proxy_port] set http_proxy=http://username:password@[proxy_host]:[proxy_port] dep init -v Linux $https_proxy=http://username:password@[proxy_host]:[proxy_port] http_proxy=http://username:password@[proxy_host]:[proxy_port] dep init -v</description></item><item><title>Use proxy on RestFB</title><link>https://mryqu.github.io/post/use_proxy_on_restfb/</link><pubDate>Mon, 04 Apr 2016 06:18:35 +0000</pubDate><guid>https://mryqu.github.io/post/use_proxy_on_restfb/</guid><description>曾经有人向RestFB开过issue（https://github.com/restfb/restfb/issues/116）询问如何给其设置代理，issue里回复扩展DefaultWebRequestor。下面的代码基于该方案并测试通过。
+package com.yqu.restfb; import com.restfb.DefaultFacebookClient; import com.restfb.DefaultJsonMapper; import com.restfb.FacebookClient; import com.restfb.Version; import java.io.IOException; import java.net.HttpURLConnection; import java.net.InetSocketAddress; import java.net.Proxy; import java.net.URL; public class HelloRestFBWithProxy { private static class DefaultWebRequestor extends com.restfb.DefaultWebRequestor { protected HttpURLConnection openConnection(URL url) throws IOException { HttpURLConnection httpURLConnection = null; if (useProxyFlag.booleanValue()) { InetSocketAddress proxyLocation = new InetSocketAddress( hostName, port); Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyLocation); try { httpURLConnection = (HttpURLConnection) url .openConnection(proxy); return httpURLConnection; } catch (Exception e) { return (HttpURLConnection) url.</description></item><item><title>为cURL库设置HTTP代理的代码片段</title><link>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link><pubDate>Wed, 06 Jan 2016 06:01:08 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</guid><description>在twitcurl看到cURL库设置http代理的方法，记录一下。
+void twitCurl::prepareCurlProxy() { if( m_curlProxyParamsSet ) { return; } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYUSERPWD, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYAUTH, (long)CURLAUTH_ANY ); std::string proxyIpPort(&amp;#34;&amp;#34;); if( getProxyServerIp().size() ) { utilMakeCurlParams( proxyIpPort, getProxyServerIp(), getProxyServerPort() ); } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, proxyIpPort.c_str() ); if( m_proxyUserName.length() &amp;amp;amp;&amp;amp;amp; m_proxyPassword.length() ) { std::string proxyUserPass; utilMakeCurlParams( proxyUserPass,getProxyUserName(),getProxyPassword() ); curl_easy_setopt( m_curlHandle,CURLOPT_PROXYUSERPWD,proxyUserPass.c_str() ); } m_curlProxyParamsSet = true; }</description></item><item><title>Use proxy on Google Analytics API</title><link>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</link><pubDate>Fri, 09 Oct 2015 05:34:55 +0000</pubDate><guid>https://mryqu.github.io/post/use_proxy_on_google_analytics_api/</guid><description>使用Google API创建HTTP传输层是这样子的，没有可以传入代理的地方。
+HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport(); 仔细研究一下com.google.api.client.googleapis.javanet.GoogleNetHttpTransport，发现其实现是使用com.google.api.client.http.javanet.NetHttpTransport.Builder生成一个com.google.api.client.http.javanet.NetHttpTransport对象。
+com.google.api.client.http.javanet.NetHttpTransport.Builder和com.google.api.client.http.javanet.NetHttpTransport是都支持代理的。不用GoogleNetHttpTransport这个封装，直接对com.google.api.client.http.javanet.NetHttpTransport.Builder设置代理即可生成使用代理的HttpTransport对象。
+Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(&amp;#34;XXXX&amp;#34;, 80)); HttpTransport httpTransport = new NetHttpTransport.Builder().setProxy(proxy). trustCertificates(GoogleUtils.getCertificateTrustStore()).build();</description></item><item><title>Node.js npm代理设置</title><link>https://mryqu.github.io/post/node.js_npm%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</link><pubDate>Wed, 30 Sep 2015 06:06:46 +0000</pubDate><guid>https://mryqu.github.io/post/node.js_npm%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</guid><description>用Gradle编译当前一个项目，总是报告Node.js的包管理工具npm安装node包失败。美国那边没有问题，不知道是否跟防火墙有关。
 npm的代理设置为：
-npm config set proxy http://proxyServer:proxyPort npm config set https-proxy http://proxyServer:proxyPort  操作显示能解决我的部分问题！
-参考 NPM小结</description>
-    </item>
-    
-    <item>
-      <title>kitematic代理设置</title>
-      <link>https://mryqu.github.io/post/kitematic%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</link>
-      <pubDate>Wed, 16 Sep 2015 06:09:37 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/kitematic%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</guid>
-      <description>在DockerToolbox目录下创建一个批处理脚本文件kitematic_proxy.cmd，插入下面代码，将&amp;rdquo;YOUR_PROXY&amp;rdquo;替换为所用的代理（http://host:port）。
-set proxy=YOUR_PROXY SET HTTP_PROXY=%proxy% SET HTTPS_PROXY=%proxy% for /f %%i in (&#39;docker-machine.exe ip default&#39;) do set DOCKER_HOST=%%i SET NO_PROXY=%DOCKER_HOST% set DOCKER_HOST=tcp://%DOCKER_HOST%:2376 cd Kitematic Kitematic.exe  参考 kitematic Proxy/VPN error reports #1031</description>
-    </item>
-    
-    <item>
-      <title>Gradle代理配置</title>
-      <link>https://mryqu.github.io/post/gradle%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Mon, 31 Aug 2015 05:46:52 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gradle%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
-      <description> HTTP代理配置 gradlew -Dhttp.proxyHost=[myServer] -Dhttp.proxyPort=[myPort] -Dhttp.proxyUser=[myUser] -Dhttp.proxyPassword=[myPassword]  HTTPS代理配置 gradlew -Dhttps.proxyHost=[myServer] -Dhttps.proxyPort=[myPort] -Dhttps.proxyUser=[myUser] -Dhttps.proxyPassword=[myPassword]  </description>
-    </item>
-    
-    <item>
-      <title>为Artifactory设置proxy和remote repository</title>
-      <link>https://mryqu.github.io/post/%E4%B8%BAartifactory%E8%AE%BE%E7%BD%AEproxy%E5%92%8Cremote_repository/</link>
-      <pubDate>Sun, 19 Jul 2015 00:09:58 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%B8%BAartifactory%E8%AE%BE%E7%BD%AEproxy%E5%92%8Cremote_repository/</guid>
-      <description>设置proxy 我一上来先设置代理，否则连不上远程仓库呀。 设置remote repository 远程仓库已经默认设置了jcenter，估计很少需要其他仓库了。 但不管三七二十一，还是把mavenCentral和gradlePlugins加上吧。全部勾选了Suppress POMConsistency Checks，取消勾选Handle Snapshots。 - mavenCentral: http://repo1.maven.org/maven2/ - gradlePlugins: https://plugins.gradle.org/m2/
-测试结果显示，所需构件实际上都是从jcenter下载的，其他两个暂时还没用到。</description>
-    </item>
-    
-    <item>
-      <title>Apt-get代理配置</title>
-      <link>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Wed, 20 May 2015 00:03:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
-      <description>在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
-DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子： - Docker apt-get update fails - Docker - Network calls fail during image build on corporate network - How do I set my DNS on Ubuntu 14.04?
-检查我ubuntu配置：
- cat /etc/resolv.conf  确认DNS没有问题。
+npm config set proxy http://proxyServer:proxyPort npm config set https-proxy http://proxyServer:proxyPort 操作显示能解决我的部分问题！
+参考 NPM小结</description></item><item><title>kitematic代理设置</title><link>https://mryqu.github.io/post/kitematic%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</link><pubDate>Wed, 16 Sep 2015 06:09:37 +0000</pubDate><guid>https://mryqu.github.io/post/kitematic%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</guid><description>在DockerToolbox目录下创建一个批处理脚本文件kitematic_proxy.cmd，插入下面代码，将&amp;quot;YOUR_PROXY&amp;quot;替换为所用的代理（http://host:port）。
+set proxy=YOUR_PROXY SET HTTP_PROXY=%proxy% SET HTTPS_PROXY=%proxy% for /f %%i in (&amp;#39;docker-machine.exe ip default&amp;#39;) do set DOCKER_HOST=%%i SET NO_PROXY=%DOCKER_HOST% set DOCKER_HOST=tcp://%DOCKER_HOST%:2376 cd Kitematic Kitematic.exe 参考 kitematic Proxy/VPN error reports #1031</description></item><item><title>Gradle代理配置</title><link>https://mryqu.github.io/post/gradle%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link><pubDate>Mon, 31 Aug 2015 05:46:52 +0000</pubDate><guid>https://mryqu.github.io/post/gradle%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid><description>HTTP代理配置 gradlew -Dhttp.proxyHost=[myServer] -Dhttp.proxyPort=[myPort] -Dhttp.proxyUser=[myUser] -Dhttp.proxyPassword=[myPassword] HTTPS代理配置 gradlew -Dhttps.proxyHost=[myServer] -Dhttps.proxyPort=[myPort] -Dhttps.proxyUser=[myUser] -Dhttps.proxyPassword=[myPassword]</description></item><item><title>为Artifactory设置proxy和remote repository</title><link>https://mryqu.github.io/post/%E4%B8%BAartifactory%E8%AE%BE%E7%BD%AEproxy%E5%92%8Cremote_repository/</link><pubDate>Sun, 19 Jul 2015 00:09:58 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%B8%BAartifactory%E8%AE%BE%E7%BD%AEproxy%E5%92%8Cremote_repository/</guid><description>设置proxy 我一上来先设置代理，否则连不上远程仓库呀。 设置remote repository 远程仓库已经默认设置了jcenter，估计很少需要其他仓库了。 但不管三七二十一，还是把mavenCentral和gradlePlugins加上吧。全部勾选了Suppress POMConsistency Checks，取消勾选Handle Snapshots。
+mavenCentral: http://repo1.maven.org/maven2/ gradlePlugins: https://plugins.gradle.org/m2/ 测试结果显示，所需构件实际上都是从jcenter下载的，其他两个暂时还没用到。</description></item><item><title>Apt-get代理配置</title><link>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 20 May 2015 00:03:27 +0000</pubDate><guid>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid><description>在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
+DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子：
+Docker apt-get update fails Docker - Network calls fail during image build on corporate network How do I set my DNS on Ubuntu 14.04? 检查我ubuntu配置：
+cat /etc/resolv.conf 确认DNS没有问题。
 Ubuntu官方服务器？ 是不是我的机器连不上欧美的Ubuntu官方服务器，换成中国服务器试试。尝试了Ubuntu 14.04服务器列表上的中国服务器还是不成。
 Apt-get代理？ 照着how to install packages with apt-get on a system connected via proxy?设置一番，成功了
 设置/etc/apt/apt.conf：
-Acquire::http::proxy &amp;quot;http://yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourServer:yourPort/&amp;quot;;  如需用户名、密码，则作如下修改：
-Acquire::http::proxy &amp;quot;http://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;;  最好将上述配置也存入/etc/apt/apt.</description>
-    </item>
-    
-    <item>
-      <title>[Git] Git代理配置</title>
-      <link>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Sun, 01 Dec 2013 22:00:58 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
-      <description> 设置Git的http和https代理 git config --global http.proxy http://proxyUser:proxyPwd@proxyServer:proxyPort git config --global https.proxy https://proxyUser:proxyPwd@proxyServer:proxyPort  查询Git的http和https代理 git config --global --get http.proxy git config --global --get https.proxy  移除Git的http和https代理 git config --global --unset http.proxy git config --global --unset https.proxy  </description>
-    </item>
-    
-  </channel>
-</rss>
+Acquire::http::proxy &amp;#34;http://yourServer:yourPort/&amp;#34;; Acquire::ftp::proxy &amp;#34;ftp://yourServer:yourPort/&amp;#34;; Acquire::https::proxy &amp;#34;https://yourServer:yourPort/&amp;#34;; 如需用户名、密码，则作如下修改：
+Acquire::http::proxy &amp;#34;http://yourUsr:yourPwd@yourServer:yourPort/&amp;#34;; Acquire::ftp::proxy &amp;#34;ftp://yourUsr:yourPwd@yourServer:yourPort/&amp;#34;; Acquire::https::proxy &amp;#34;https://yourUsr:yourPwd@yourServer:yourPort/&amp;#34;; 最好将上述配置也存入/etc/apt/apt.conf.d/80proxy中，这样版本升级后这些变更也不会丢。</description></item><item><title>[Git] Git代理配置</title><link>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link><pubDate>Sun, 01 Dec 2013 22:00:58 +0000</pubDate><guid>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid><description>设置Git的http和https代理 git config --global http.proxy http://proxyUser:proxyPwd@proxyServer:proxyPort git config --global https.proxy https://proxyUser:proxyPwd@proxyServer:proxyPort 查询Git的http和https代理 git config --global --get http.proxy git config --global --get https.proxy 移除Git的http和https代理 git config --global --unset http.proxy git config --global --unset https.proxy</description></item></channel></rss>

@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>逐行读取 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96/</link>
-    <description>Recent content in 逐行读取 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 15 Dec 2020 12:31:23 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Shell逐行读取、解析并export变量实践</title>
-      <link>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 15 Dec 2020 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</guid>
-      <description>setenv.yaml示例
-MY_HOME: /local/install/myhome MY_JAVA_HOME: $MY_HOME/jre/bin  test.ksh示例
-#!/bin/ksh getCustEnv() { # 除了while read 也可以使用for var，但是需要更改IFS为换行符 cat setenv.yaml | while read line; do line=$(echo $line | grep -v &amp;quot;^\s*#&amp;quot; | grep &amp;quot;:&amp;quot;) if [ ! -z $line ]; then key=$(echo $line | cut -d: -f1 | sed -e &#39;s/^\s*//&#39; -e &#39;s/\s*$//&#39;) val=$(echo $line | cut -d: -f2 | sed -e &#39;s/^\s*//&#39; -e &#39;s/\s*$//&#39;) echo &amp;quot;line=$line&amp;quot; echo &amp;quot;key=$key&amp;quot; echo &amp;quot;val=$val&amp;quot; if [ !</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>逐行读取 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96/</link><description>Recent content in 逐行读取 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 15 Dec 2020 12:31:23 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell逐行读取、解析并export变量实践</title><link>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 15 Dec 2020 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</guid><description>setenv.yaml示例
+MY_HOME: /local/install/myhome MY_JAVA_HOME: $MY_HOME/jre/bin test.ksh示例
+#!/bin/ksh getCustEnv() { # 除了while read 也可以使用for var，但是需要更改IFS为换行符 cat setenv.yaml | while read line; do line=$(echo $line | grep -v &amp;#34;^\s*#&amp;#34; | grep &amp;#34;:&amp;#34;) if [ ! -z $line ]; then key=$(echo $line | cut -d: -f1 | sed -e &amp;#39;s/^\s*//&amp;#39; -e &amp;#39;s/\s*$//&amp;#39;) val=$(echo $line | cut -d: -f2 | sed -e &amp;#39;s/^\s*//&amp;#39; -e &amp;#39;s/\s*$//&amp;#39;) echo &amp;#34;line=$line&amp;#34; echo &amp;#34;key=$key&amp;#34; echo &amp;#34;val=$val&amp;#34; if [ ! -z $key ]; then echo &amp;#34;export $key=$val&amp;#34; # 不可以直接执行export，否则变量值还是字符串，例如MY_JAVA_HOME变量值仍为$MY_HOME/jre/bin，而不是/local/install/myhome/jre/bin eval export $key=$val # 变量的二次引用 这里${!</description></item></channel></rss>

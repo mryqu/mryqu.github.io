@@ -1,55 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Java on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/java/</link>
-    <description>Recent content in Java on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 12 Jul 2018 05:40:01 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spark] Spark读取HBase</title>
-      <link>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</link>
-      <pubDate>Thu, 12 Jul 2018 05:40:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</guid>
-      <description>Spark读取Hbase有以下几张方式： - Spark的JavaSparkContext.newAPIHadoopRDD / SparkContext.newAPIHadoopRDD方法 - HBase的hbase-spark - Hortonworks的Spark HBase Connector - Cloudera labs的SparkOnHBase 本文就Spark自带的方法进行示范和演示。
-HBase数据库 Spark范例 HelloSparkHBase.java import org.apache.spark.SparkContext; import org.apache.spark.api.java.JavaPairRDD; import org.apache.spark.api.java.JavaRDD; import org.apache.spark.api.java.JavaSparkContext; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import org.apache.spark.api.java.function.Function; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.hbase.HBaseConfiguration; import org.apache.hadoop.hbase.TableName; import org.apache.hadoop.hbase.client.*; import org.apache.hadoop.hbase.mapreduce.TableInputFormat; import org.apache.hadoop.hbase.io.ImmutableBytesWritable; import org.apache.hadoop.hbase.util.Bytes; import scala.Tuple2; public class HelloSparkHBase { public static void main(String[] args) { try { Configuration conf = HBaseConfiguration.create(); conf.set(TableInputFormat.INPUT_TABLE, &amp;quot;student&amp;quot;); SparkSession spark = SparkSession .</description>
-    </item>
-    
-    <item>
-      <title>[Spark] 使用Spark2.30读写MySQL</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</link>
-      <pubDate>Wed, 04 Jul 2018 06:36:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</guid>
-      <description>本博文是[Spark] 使用Spark2.30读写Hive2.3.3的姊妹篇，环境及Java项目也是使用上一博文中的。
-Spark项目 目录结构 vagrant@node1:~/HelloSparkHive$ ls build build.gradle src vagrant@node1:~/HelloSparkHive$ rm -rf build vagrant@node1:~/HelloSparkHive$ tree . ├── build.gradle └── src └── main └── java └── com └── yqu └── sparkhive ├── HelloSparkHiveDriver.java └── HelloSparkMysqlDriver.java 6 directories, 3 files  src/main/java/com/yqu/sparkhive/HelloSparkMysqlDriver.java 该范例加载Hive中的emp表，存储到MySQL的test数据库中，然后读取MySQL数据库加载emp表，由此完成MySQL读写示例。
-package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import java.io.File; import java.sql.*; public class HelloSparkMysqlDriver { private static boolean setup() { Connection conn = null; Statement stmt = null; try { Class.</description>
-    </item>
-    
-    <item>
-      <title>[Spark] 使用Spark2.30读写Hive2.3.3</title>
-      <link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</link>
-      <pubDate>Tue, 03 Jul 2018 06:04:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</guid>
-      <description>试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
-在Hive上加载emp表 hive&amp;gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;|&#39; ; hive&amp;gt; LOAD DATA LOCAL INPATH &#39;/usr/local/hive/examples/files/emp2.txt&#39; OVERWRITE INTO TABLE emp;  安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
-vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.</description>
-    </item>
-    
-    <item>
-      <title>学习Java Annotation</title>
-      <link>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</link>
-      <pubDate>Tue, 27 Dec 2016 05:46:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</guid>
-      <description>以前看过Java Annotation，走马观花，现在印象已经不深刻了。这次好好看一下Java Annotation和Spring Annotation。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>java on Mryqu's Notes</title><link>https://mryqu.github.io/tags/java/</link><description>Recent content in java on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 12 Jul 2018 05:40:01 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spark] Spark读取HBase</title><link>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</link><pubDate>Thu, 12 Jul 2018 05:40:01 +0000</pubDate><guid>https://mryqu.github.io/post/spark_spark%E8%AF%BB%E5%8F%96hbase/</guid><description>Spark读取Hbase有以下几张方式：
+Spark的JavaSparkContext.newAPIHadoopRDD / SparkContext.newAPIHadoopRDD方法 HBase的hbase-spark Hortonworks的Spark HBase Connector Cloudera labs的SparkOnHBase 本文就Spark自带的方法进行示范和演示。 HBase数据库 Spark范例 HelloSparkHBase.java import org.apache.spark.SparkContext; import org.apache.spark.api.java.JavaPairRDD; import org.apache.spark.api.java.JavaRDD; import org.apache.spark.api.java.JavaSparkContext; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import org.apache.spark.api.java.function.Function; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.hbase.HBaseConfiguration; import org.apache.hadoop.hbase.TableName; import org.apache.hadoop.hbase.client.*; import org.apache.hadoop.hbase.mapreduce.TableInputFormat; import org.apache.hadoop.hbase.io.ImmutableBytesWritable; import org.apache.hadoop.hbase.util.Bytes; import scala.Tuple2; public class HelloSparkHBase { public static void main(String[] args) { try { Configuration conf = HBaseConfiguration.create(); conf.set(TableInputFormat.INPUT_TABLE, &amp;#34;student&amp;#34;); SparkSession spark = SparkSession .builder() .appName(&amp;#34; .</description></item><item><title>[Spark] 使用Spark2.30读写MySQL</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</link><pubDate>Wed, 04 Jul 2018 06:36:25 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99mysql/</guid><description>本博文是[Spark] 使用Spark2.30读写Hive2.3.3的姊妹篇，环境及Java项目也是使用上一博文中的。
+Spark项目 目录结构 vagrant@node1:~/HelloSparkHive$ ls build build.gradle src vagrant@node1:~/HelloSparkHive$ rm -rf build vagrant@node1:~/HelloSparkHive$ tree . ├── build.gradle └── src └── main └── java └── com └── yqu └── sparkhive ├── HelloSparkHiveDriver.java └── HelloSparkMysqlDriver.java 6 directories, 3 files src/main/java/com/yqu/sparkhive/HelloSparkMysqlDriver.java 该范例加载Hive中的emp表，存储到MySQL的test数据库中，然后读取MySQL数据库加载emp表，由此完成MySQL读写示例。
+package com.yqu.sparkhive; import org.apache.spark.sql.Dataset; import org.apache.spark.sql.Row; import org.apache.spark.sql.SparkSession; import java.io.File; import java.sql.*; public class HelloSparkMysqlDriver { private static boolean setup() { Connection conn = null; Statement stmt = null; try { Class.</description></item><item><title>[Spark] 使用Spark2.30读写Hive2.3.3</title><link>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</link><pubDate>Tue, 03 Jul 2018 06:04:31 +0000</pubDate><guid>https://mryqu.github.io/post/spark_%E4%BD%BF%E7%94%A8spark2.30%E8%AF%BB%E5%86%99hive2.3.3/</guid><description>试验环境搭建 安装Spark环境 犯懒，直接使用GitHub: martinprobson/vagrant-hadoop-hive-spark通过Vagrant搭建了一个Hadoop 2.7.6 + Hive 2.3.3 + Spark 2.3.0的虚拟机环境。
+在Hive上加载emp表 hive&amp;gt; create table emp (empno int, ename string, job string, mgr int, hiredate string, salary double, comm double, deptno int) ROW FORMAT DELIMITED FIELDS TERMINATED BY &amp;#39;|&amp;#39; ; hive&amp;gt; LOAD DATA LOCAL INPATH &amp;#39;/usr/local/hive/examples/files/emp2.txt&amp;#39; OVERWRITE INTO TABLE emp; 安装Gradle 按照Gradle用户手册中的方式手工安装Gradle：
+vagrant@node1:~$ export GRADLE_HOME=/opt/gradle/gradle-4.8.1 vagrant@node1:~$ export PATH=$PATH:$GRADLE_HOME/bin vagrant@node1:~$ gradle -v Welcome to Gradle 4.8.1! Here are the highlights of this release: - Dependency locking - Maven Publish and Ivy Publish plugins improved and marked stable - Incremental annotation processing enhancements - APIs to configure tasks at creation time For more details see https://docs.</description></item><item><title>学习Java Annotation</title><link>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</link><pubDate>Tue, 27 Dec 2016 05:46:09 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0java_annotation/</guid><description>以前看过Java Annotation，走马观花，现在印象已经不深刻了。这次好好看一下Java Annotation和Spring Annotation。
 阅读列表： The Java Tutorials - Annotations
 Java Annotation认知(包括框架图、详细介绍、示例说明)
 Annotations Gotchas and Best Practices
@@ -59,232 +13,42 @@ Spring Annotation-based container configuration
 Spring Framework Annotations cheat sheet
 Spring Without XML: The Basics of Spring Annotations vs. Spring XML Files
 Spring Annotation Tutorial
-Spring Annotations [ Quick Reference ]</description>
-    </item>
-    
-    <item>
-      <title>第三方开源Facebook Java API</title>
-      <link>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</link>
-      <pubDate>Sun, 13 Sep 2015 06:14:26 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</guid>
-      <description>|API|许可类型|活跃度|最后更新|文档|注释 |&amp;mdash;&amp;ndash; |SpringSocial|Apache 2.0|活跃||有|良好 |RestFB|MIT|活跃||有|良好 |BatchFB|MIT|一般||有|良好 |Facebook BlackBerry SDK|MIT|停止更新|2011-8-22|无|老项目，停止更新较早 |FB4J|GPLv2|停止更新|2010-02-14|无|老项目，停止更新较早 |FB Java API|MIT|项目宣布停止|2013-2-5|有|主页建议转到RestFB |JFALibrary|GPLv3|停止更新|2011-5-22|无|很少的提交，且停止更新较早 |Javabook|Apache 2.0|停止更新|2007-9-5|有一点|项目在停止更新前未完成</description>
-    </item>
-    
-    <item>
-      <title>了解Objenesis</title>
-      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3objenesis/</link>
-      <pubDate>Wed, 12 Aug 2015 06:04:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3objenesis/</guid>
-      <description>Objenesis是一个很小的Java库，作用是绕过构造器创建一个实例。Java已经支持通过Class.newInstance()动态实例化Java类，但是这需要Java类有个适当的构造器。很多时候一个Java类无法通过这种途径创建，例如： - 构造器需要参数 - 构造器有副作用 - 构造器会抛出异常
-Objenesis可以绕过上述限制。它一般用于： - 序列化、远程处理和持久化：无需调用代码即可将Java类实例化并存储特定状态。 - 代理、AOP库和Mock对象：可以创建特定Java类的子类而无需考虑super()构造器。 - 容器框架：可以用非标准方式动态实例化Java类。例如Spring引入Objenesis后，Bean不再必须提供无参构造器了。
-Objenesis内部提供了多个不同JVM上的解决方案：参考 Objenesis项目官网
-GitHub：Objenesis</description>
-    </item>
-    
-    <item>
-      <title>Java Mail</title>
-      <link>https://mryqu.github.io/post/java_mail/</link>
-      <pubDate>Sun, 02 Aug 2015 09:22:37 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/java_mail/</guid>
-      <description>JavaMail API JavaMail最新版本为1.5.4。 支持的邮件协议有： - SMTP：简单邮件传输协议（Simple Mail Transfer Protocol），由RFC 821 定义，定义了发送电子邮件的机制。在JavaMailAPI环境中，基于JavaMail的程序将和公司或因特网服务供应商的SMTP服务器通信。SMTP 服务器会中转消息给接收方 SMTP服务器以便最终让用户经由 POP 或 IMAP 获得。这不是要求SMTP服务器成为开放的中继，尽管SMTP服务器支持身份验证，不过还是得确保它的配置正确。JavaMailAPI不支持像配置服务器来中继消息或添加/删除邮件账号这类任务的实现。 - POP：邮局协议（Post Office Protocol）。目前用的是版本 3，也称POP3，由RFC 1939定义。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。POP协议支持“离线”邮件处理。其具体过程是：邮件发送到服务器上，电子邮件客户端调用邮件客户机程序以连接服务器，并下载所有未阅读的电子邮件。使用POP时，用户熟悉的许多性能并不是由POP协议支持的，如查看有几封新邮件消息这一性能。这些性能内建于如Eudora或Microsoft Outlook之类的程序中，它们能记住一些事，诸如最近一次收到的邮件，还能计算出有多少是新的。所以当使用JavaMailAPI时，如果您想要这类信息，您就必须自己算。 - IMAP： 因特网消息访问协议（Internet Message Access Protocol）。目前用的是版本 4，也称IMAP4。由RFC 2060定义，是更高级的用于接收消息的协议。它与POP3协议的主要区别是用户可以不用把所有的邮件全部下载，可以通过客户端直接对服务器上的邮件进行操作。IMAP4改进了POP3的不足，用户可以通过浏览信件头来决定是否收取、删除和检索邮件的特定部分，还可以在服务器上创建或更改文件夹或邮箱。它除了支持POP3协议的脱机操作模式外，还支持联机操作和断连接操作。它为用户提供了有选择的从邮件服务器接收邮件的功能、基于服务器的信息处理功能和共享信箱功能。IMAP4的脱机模式不同于POP3，它不会自动删除在邮件服务器上已取出的邮件，其联机模式和断连接模式也是将邮件服务器作为“远程文件服务器”进行访问，更加灵活方便。IMAP4支持多个邮箱。
-MIME：多用途因特网邮件扩展标准（Multipurpose Internet MailExtensions）。它不是邮件传输协议。但对传输内容的消息、附件及其它的内容定义了格式。这里有很多不同的有效文档：RFC 822、RFC 2045、RFC 2046 和 RFC 2047。作为一个 JavaMailAPI的用户，您通常不必对这些格式操心。无论如何，一定存在这些格式而且程序会用到它。
-JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参考设计，其中包括SMTP、IMAP和POP3协议提供者。 JavaMail API 类包: - javax.mail： The JavaMailTM API提供为邮件系统建模的类。 - javax.mail.event： 用于JavaMail API的监听器和事件。 - javax.mail.internet：特定互联网邮件系统的类。 - javax.mail.search：用于JavaMail API的消息搜索术语。 - javax.mail.util： JavaMail API工具类。Sun参考设计的类包: - com.sun.mail.dsn：支持创建和解析传递状态通知。 - com.</description>
-    </item>
-    
-    <item>
-      <title>Java解析YAML</title>
-      <link>https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/</link>
-      <pubDate>Wed, 01 Jul 2015 05:37:02 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/</guid>
-      <description>继前博文YAML介绍了YAML语法，本文将着重研究Java解析YAML。当前还在维护的YAML解析器/生成器有： - SnakeYAML - 完整的YAML 1.1解析器，尤其是SnakeYAML能够分析来自于规范的所有示例 - 支持Unicode，包括UTF-8/UTF-16的输入/输出 - 为序列化和反序列化本地的Java对象提供了高级API - 支持YAML类型库中的所有类型 - 比较理性的错误信息 - YamlBeans：支持YAML 1.0和1.1 - FasterXML/jackson-dataformat-yaml：处于原型阶段
-SnakeYAML和YamlBeans都在GoogleCode仓库时，SnakeYAML的使用人数和提交者均优于YamlBeans。目前大多数帖子还是推荐选用SnakeYAML，而SpringBoot读取YAML配置采用的就是SnakeYAML。为了测试SnakeYAML，我首先创建了一个HelloSnakeYAML项目。
-conf.yaml spring: application: name: cruncher datasource: driverClassName: com.mysql.jdbc.Driver url: jdbc:mysql://localhost/test server: port: 9000  Contact.java package com.yqu.yaml; import java.util.List; public class Contact { private String name; private int age; private List phoneNumbers; public Contact(String name, int age, List phoneNumbers) { this.name = name; this.age = age; this.phoneNumbers = phoneNumbers; } public String getName() { return name; } public void setName(String name) { this.</description>
-    </item>
-    
-    <item>
-      <title>[Gradle] 执行Java类</title>
-      <link>https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/</link>
-      <pubDate>Wed, 15 Apr 2015 18:32:08 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/</guid>
-      <description>需求 我想用Gradle脚本执行下列Java类Hello123.java：
-import java.util.Arrays; public class Hello123 { public static void main(String[] args) { System.out.println(&amp;quot;args:&amp;quot;+ Arrays.toString(args)); } }  测试一：创建execute任务 build.gralde apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; task execute(type: { main = System.getProperty(&amp;quot;exec.mainClass&amp;quot;) classpath = sourceSets.main.runtimeClasspath systemProperties System.getProperties() if(System.getProperty(&amp;quot;exec.args&amp;quot;)) args System.getProperty(&amp;quot;exec.args&amp;quot;).split() } sourceCompatibility = 1.8 targetCompatibility = 1.8  测试结果 测试二：重写run任务 build.gralde apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; apply plugin: &amp;quot;application&amp;quot; mainClassName = &amp;quot;NonExistentClass&amp;quot; task run (type: { main = System.</description>
-    </item>
-    
-    <item>
-      <title>Java的Base64编解码</title>
-      <link>https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/</link>
-      <pubDate>Thu, 01 Jan 2015 11:30:21 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/</guid>
-      <description>Base64编码是网络上最常见的用于传输8Bit字节代码的编码方式之一，用基于64个可打印字符[大小写字母52个字符、数字10个字符、+和/2个字符(对于URL为-和_)，补全用=]来表示二进制数据的一种表示方法。相关协议可见：
- RFC4648 The Base16, Base32, and Base64 Data Encodings RFC2045 MIME Part One: Format of Internet Message Bodies RFC2046 MIME Part Two: Media Types RFC2047 MIME Part Three: Message Header Extensions for Non-ASCII Text RFC2048 MIME Part Four: Registration Procedures RFC2049 MIME Part Five: Conformance Criteria and Examples  因为有些网络传送渠道不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。通过Base64编码可以把不可打印的字符也能用可打印字符来表示。
+Spring Annotations [ Quick Reference ]</description></item><item><title>第三方开源Facebook Java API</title><link>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</link><pubDate>Sun, 13 Sep 2015 06:14:26 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90facebook_java_api/</guid><description>|API|许可类型|活跃度|最后更新|文档|注释 |&amp;mdash;&amp;ndash; |SpringSocial|Apache 2.0|活跃||有|良好 |RestFB|MIT|活跃||有|良好 |BatchFB|MIT|一般||有|良好 |Facebook BlackBerry SDK|MIT|停止更新|2011-8-22|无|老项目，停止更新较早 |FB4J|GPLv2|停止更新|2010-02-14|无|老项目，停止更新较早 |FB Java API|MIT|项目宣布停止|2013-2-5|有|主页建议转到RestFB |JFALibrary|GPLv3|停止更新|2011-5-22|无|很少的提交，且停止更新较早 |Javabook|Apache 2.0|停止更新|2007-9-5|有一点|项目在停止更新前未完成</description></item><item><title>了解Objenesis</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3objenesis/</link><pubDate>Wed, 12 Aug 2015 06:04:09 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3objenesis/</guid><description>Objenesis是一个很小的Java库，作用是绕过构造器创建一个实例。Java已经支持通过Class.newInstance()动态实例化Java类，但是这需要Java类有个适当的构造器。很多时候一个Java类无法通过这种途径创建，例如：
+构造器需要参数 构造器有副作用 构造器会抛出异常 Objenesis可以绕过上述限制。它一般用于：
+序列化、远程处理和持久化：无需调用代码即可将Java类实例化并存储特定状态。 代理、AOP库和Mock对象：可以创建特定Java类的子类而无需考虑super()构造器。 容器框架：可以用非标准方式动态实例化Java类。例如Spring引入Objenesis后，Bean不再必须提供无参构造器了。 Objenesis内部提供了多个不同JVM上的解决方案：
+参考 Objenesis项目官网
+GitHub：Objenesis</description></item><item><title>Java Mail</title><link>https://mryqu.github.io/post/java_mail/</link><pubDate>Sun, 02 Aug 2015 09:22:37 +0000</pubDate><guid>https://mryqu.github.io/post/java_mail/</guid><description>JavaMail API JavaMail最新版本为1.5.4。 支持的邮件协议有：
+SMTP：简单邮件传输协议（Simple Mail Transfer Protocol），由RFC 821 定义，定义了发送电子邮件的机制。在JavaMailAPI环境中，基于JavaMail的程序将和公司或因特网服务供应商的SMTP服务器通信。SMTP 服务器会中转消息给接收方 SMTP服务器以便最终让用户经由 POP 或 IMAP 获得。这不是要求SMTP服务器成为开放的中继，尽管SMTP服务器支持身份验证，不过还是得确保它的配置正确。JavaMailAPI不支持像配置服务器来中继消息或添加/删除邮件账号这类任务的实现。 POP：邮局协议（Post Office Protocol）。目前用的是版本 3，也称POP3，由RFC 1939定义。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。POP协议支持“离线”邮件处理。其具体过程是：邮件发送到服务器上，电子邮件客户端调用邮件客户机程序以连接服务器，并下载所有未阅读的电子邮件。使用POP时，用户熟悉的许多性能并不是由POP协议支持的，如查看有几封新邮件消息这一性能。这些性能内建于如Eudora或Microsoft Outlook之类的程序中，它们能记住一些事，诸如最近一次收到的邮件，还能计算出有多少是新的。所以当使用JavaMailAPI时，如果您想要这类信息，您就必须自己算。 IMAP： 因特网消息访问协议（Internet Message Access Protocol）。目前用的是版本 4，也称IMAP4。由RFC 2060定义，是更高级的用于接收消息的协议。它与POP3协议的主要区别是用户可以不用把所有的邮件全部下载，可以通过客户端直接对服务器上的邮件进行操作。IMAP4改进了POP3的不足，用户可以通过浏览信件头来决定是否收取、删除和检索邮件的特定部分，还可以在服务器上创建或更改文件夹或邮箱。它除了支持POP3协议的脱机操作模式外，还支持联机操作和断连接操作。它为用户提供了有选择的从邮件服务器接收邮件的功能、基于服务器的信息处理功能和共享信箱功能。IMAP4的脱机模式不同于POP3，它不会自动删除在邮件服务器上已取出的邮件，其联机模式和断连接模式也是将邮件服务器作为“远程文件服务器”进行访问，更加灵活方便。IMAP4支持多个邮箱。 MIME：多用途因特网邮件扩展标准（Multipurpose Internet MailExtensions）。它不是邮件传输协议。但对传输内容的消息、附件及其它的内容定义了格式。这里有很多不同的有效文档：RFC 822、RFC 2045、RFC 2046 和 RFC 2047。作为一个 JavaMailAPI的用户，您通常不必对这些格式操心。无论如何，一定存在这些格式而且程序会用到它。
+JavaMail API不在Java JDK中，javax.mail.jar包含了JavaMailAPI及Sun的参考设计，其中包括SMTP、IMAP和POP3协议提供者。 JavaMail API 类包:
+javax.mail： The JavaMailTM API提供为邮件系统建模的类。 javax.mail.event： 用于JavaMail API的监听器和事件。 javax.mail.internet：特定互联网邮件系统的类。 javax.mail.search：用于JavaMail API的消息搜索术语。 javax.mail.util： JavaMail API工具类。Sun参考设计的类包: com.sun.mail.dsn：支持创建和解析传递状态通知。 com.sun.mail.gimap： 支持Gmail特定IMAP协议扩展的实验性IMAP协议提供者。 com.sun.mail.imap：用于访问IMAP消息存储的IMAP协议提供者。 com.sun.mail.pop3：用于访问POP3消息存储的POP3协议提供者。 com.sun.mail.smtp：用于访问SMTP服务器的SMTP协议提供者。 com.sun.mail.util： 用于JavaMail API的工具类。 com.sun.mail.util.logging： 包含用于JavaTM平台核心日志功能的JavaMailTM扩展。 Apache Commons Email Apache Commons Email是构建在JavaMail API之上的工具库，旨在简化设计，当前版本1.</description></item><item><title>Java解析YAML</title><link>https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/</link><pubDate>Wed, 01 Jul 2015 05:37:02 +0000</pubDate><guid>https://mryqu.github.io/post/java%E8%A7%A3%E6%9E%90yaml/</guid><description>继前博文YAML介绍了YAML语法，本文将着重研究Java解析YAML。当前还在维护的YAML解析器/生成器有：
+SnakeYAML 完整的YAML 1.1解析器，尤其是SnakeYAML能够分析来自于规范的所有示例 支持Unicode，包括UTF-8/UTF-16的输入/输出 为序列化和反序列化本地的Java对象提供了高级API 支持YAML类型库中的所有类型 比较理性的错误信息 YamlBeans：支持YAML 1.0和1.1 FasterXML/jackson-dataformat-yaml：处于原型阶段 SnakeYAML和YamlBeans都在GoogleCode仓库时，SnakeYAML的使用人数和提交者均优于YamlBeans。目前大多数帖子还是推荐选用SnakeYAML，而SpringBoot读取YAML配置采用的就是SnakeYAML。为了测试SnakeYAML，我首先创建了一个HelloSnakeYAML项目。
+conf.yaml spring: application: name: cruncher datasource: driverClassName: com.mysql.jdbc.Driver url: jdbc:mysql://localhost/test server: port: 9000 Contact.java package com.yqu.yaml; import java.util.List; public class Contact { private String name; private int age; private List phoneNumbers; public Contact(String name, int age, List phoneNumbers) { this.name = name; this.age = age; this.phoneNumbers = phoneNumbers; } public String getName() { return name; } public void setName(String name) { this.</description></item><item><title>[Gradle] 执行Java类</title><link>https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/</link><pubDate>Wed, 15 Apr 2015 18:32:08 +0000</pubDate><guid>https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/</guid><description>需求 我想用Gradle脚本执行下列Java类Hello123.java：
+import java.util.Arrays; public class Hello123 { public static void main(String[] args) { System.out.println(&amp;#34;args:&amp;#34;+ Arrays.toString(args)); } } 测试一：创建execute任务 build.gralde apply plugin: &amp;#39;java&amp;#39; apply plugin: &amp;#39;eclipse&amp;#39; apply plugin: &amp;#39;idea&amp;#39; task execute(type: { main = System.getProperty(&amp;#34;exec.mainClass&amp;#34;) classpath = sourceSets.main.runtimeClasspath systemProperties System.getProperties() if(System.getProperty(&amp;#34;exec.args&amp;#34;)) args System.getProperty(&amp;#34;exec.args&amp;#34;).split() } sourceCompatibility = 1.8 targetCompatibility = 1.8 测试结果 测试二：重写run任务 build.gralde apply plugin: &amp;#39;java&amp;#39; apply plugin: &amp;#39;eclipse&amp;#39; apply plugin: &amp;#39;idea&amp;#39; apply plugin: &amp;#34;application&amp;#34; mainClassName = &amp;#34;NonExistentClass&amp;#34; task run (type: { main = System.</description></item><item><title>Java的Base64编解码</title><link>https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/</link><pubDate>Thu, 01 Jan 2015 11:30:21 +0000</pubDate><guid>https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/</guid><description>Base64编码是网络上最常见的用于传输8Bit字节代码的编码方式之一，用基于64个可打印字符[大小写字母52个字符、数字10个字符、+和/2个字符(对于URL为-和_)，补全用=]来表示二进制数据的一种表示方法。相关协议可见：
+RFC4648 The Base16, Base32, and Base64 Data Encodings RFC2045 MIME Part One: Format of Internet Message Bodies RFC2046 MIME Part Two: Media Types RFC2047 MIME Part Three: Message Header Extensions for Non-ASCII Text RFC2048 MIME Part Four: Registration Procedures RFC2049 MIME Part Five: Conformance Criteria and Examples 因为有些网络传送渠道不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。通过Base64编码可以把不可打印的字符也能用可打印字符来表示。
 Java6之前 在Java6之前，JDK核心类一直没有Base64的实现类。除了使用Sun内部实现sun.misc.BASE64Encoder、sun.misc.BASE64Decoder或com.sun.org.apache.xerces.internal.impl.dv.util.Base64外，就需要使用第三方类库了。 Java6 Java6中添加了Base64的实现：javax.xml.bind.DatatypeConverter两个静态方法parseBase64Binary和 printBase64Binary。
-import javax.xml.bind.DatatypeConverter; public class HelloBase64 { public static void main(String[] args) { String me = &amp;quot;blog.</description>
-    </item>
-    
-    <item>
-      <title>[Swing]图片叠加效果</title>
-      <link>https://mryqu.github.io/post/swing_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</link>
-      <pubDate>Thu, 25 Dec 2014 08:20:49 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/swing_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</guid>
-      <description>玩一下使用Java做图片叠加效果。 代码如下：
-package com.yqu.swing.img; import java.awt.Component; import java.awt.Graphics; import java.awt.image.BufferedImage; import java.io.File; import java.io.IOException; import java.util.ArrayList; import java.util.List; import javax.imageio.ImageIO; import javax.swing.GrayFilter; import javax.swing.Icon; import javax.swing.ImageIcon; public class OverlayIcon implements Icon{ private int maxWidth = -1, maxHeight = -1; private List icons; public OverlayIcon(String[] iconPaths) { if(iconPaths != null &amp;amp;&amp;amp; iconPaths.length &amp;gt;0) { icons = new ArrayList(iconPaths.length); for (String iconPath : iconPaths) { Icon icon = makeIcon(iconPath, false); icons.add(icon); int width = icon.</description>
-    </item>
-    
-    <item>
-      <title>通过Java反射操作注解</title>
-      <link>https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/</link>
-      <pubDate>Sun, 29 Jun 2014 09:47:16 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/</guid>
-      <description>注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。
-MyAnnotation.java package com.yqu.reflection.annotation; import java.lang.annotation.ElementType; import java.lang.annotation.Retention; import java.lang.annotation.RetentionPolicy; import java.lang.annotation.Target; @Retention(RetentionPolicy.RUNTIME) //@Target(ElementType.TYPE) public @interface MyAnnotation { public String name() default &amp;quot;[unknown name]&amp;quot;; public String value() default &amp;quot;[unassigned value]&amp;quot;; }  定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。 @Target指定此注解的作用域： - TYPE：用于类、接口、注解类和枚举 - CONSTRUCTOR：用于构造方法 - LOCAL_VARIABLE：用于本地变量 - FIELD：用于类的属性(包括枚举常量) - METHOD：用于方法 - PACKAGE：用于包 - PARAMETER：用于方法的参数 - ANNOTATION_TYPE：用于注解类 - TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前 - TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期： - SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。 - CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。 - RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。
-TheClass.java package com.yqu.reflection.annotation; import java.lang.annotation.Annotation; import java.lang.reflect.Field; import java.</description>
-    </item>
-    
-    <item>
-      <title>Hello MongoDB Java Driver</title>
-      <link>https://mryqu.github.io/post/hello_mongodb_java_driver/</link>
-      <pubDate>Sun, 30 Mar 2014 13:50:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hello_mongodb_java_driver/</guid>
-      <description>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。 Java代码如下：
-package com.yqu.mongodb; import java.net.UnknownHostException; import java.util.List; import java.util.Set; import com.mongodb.BasicDBObject; import com.mongodb.DB; import com.mongodb.DBCollection; import com.mongodb.DBCursor; import com.mongodb.DBObject; import com.mongodb.MongoClient; import com.mongodb.MongoClientURI; import com.mongodb.MongoException; public class HelloMongoDB { public static void main(String[] args) { MongoClient mongoClient = null; try { // Since 2.10.0, uses MongoClient // mongoClient = new MongoClient(&amp;quot;localhost&amp;quot;, 27017); String host = &amp;quot;mongodb://localhost:27017&amp;quot;; mongoClient = new MongoClient(new MongoClientURI(host)); showdbs(mongoClient); // MongoDB will create it if database doesn&#39;t exists DB db = mongoClient.</description>
-    </item>
-    
-    <item>
-      <title>玩一下LineNumberReader</title>
-      <link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/</link>
-      <pubDate>Wed, 26 Mar 2014 19:37:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/</guid>
-      <description>找资料的副产品就是发现了LineNumberReader这个类，跟它的父类BufferedReader相比多了计算文件行数的功能。记不得以前是否用过了，这里记录一下备用。
-import java.io.BufferedReader; import java.io.FileReader; import java.io.IOException; import java.io.LineNumberReader; public class TestFileLineNum { public static int countLinesV1(String flName) throws IOException { BufferedReader reader = new BufferedReader(new FileReader(flName)); int cnt = 0; while (reader.readLine() != null) { cnt++ ; } reader.close(); return cnt; } public static int countLinesV2(String flName) throws IOException { LineNumberReader reader = new LineNumberReader(new FileReader(flName)); while (reader.readLine() != null) { } int cnt = reader.getLineNumber(); reader.close(); return cnt; } public static void main(String[] args) throws IOException { for(int i=0;i&amp;lt;4;i ) { String flName = &amp;quot;test&amp;quot; + i + &amp;quot;.</description>
-    </item>
-    
-    <item>
-      <title>[HBase] Java客户端程序构建脚本</title>
-      <link>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</link>
-      <pubDate>Fri, 03 Jan 2014 00:05:34 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</guid>
-      <description>上一博文[HBase] 原始数据类型存储中所用到的构建脚本build.sh如下：
-#!/bin/bash HADOOP_HOME=/usr/local/hadoop HBASE_HOME=/usr/local/hbase CLASSPATH=.:$HBASE_HOME/conf:$(hbase classpath) javac -cp $CLASSPATH HBasePrimitiveDataTypeTest.java java -cp $CLASSPATH HBasePrimitiveDataTypeTest  </description>
-    </item>
-    
-    <item>
-      <title>Joda-Time笔记</title>
-      <link>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Sun, 01 Dec 2013 00:31:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</guid>
-      <description>Joda简介 Joda项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目： - Joda-Time -日期和时间库 - Joda-Money -货币库 - Joda-Beans -下一代JavaBeans - Joda-Convert -字符串与对象转换库 - Joda-Collect - 提供JDK或Google Guava没有的集合数据类型 - Joda-Primitives -提供原始数据类型集合
-Joda-Time简介 其中Joda-Time由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。Joda-Time在JavaSE8将融入JDK API内，使用者可以使用java.time (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(现行公历、格里历)、Julian(儒略历)、Buddhist(佛历)、Coptic(科普特历)、Ethiopic(埃塞俄比亚历)和Islamic(伊斯兰历)历法系统。 为什么要使用Joda-Time（以下简称Joda）？考虑创建一个用时间表示的某个随意的时刻，例如2000年1月1日0时0分。如何创建一个用时间表示这个瞬间的JDK对象？使用java.util.Date？事实上这是行不通的，因为自JDK1.1 之后的每个 Java 版本的 Javadoc 都声明应当使用java.util.Calendar。Date中Date(intyear, int month, int date) 、Date(int year, int month, int date, inthrs, int min)、Date(int year, int month, int date, int hrs, int min,int sec)已经废弃、不建议使用，严重限制了您创建此类对象的途径。然而，Date确实有一个构造函数Date(long date)，您可以用来创建用时间表示某个瞬间的对象（除“当前时间”以外）。该方法使用距离1970年1月1日子时格林威治标准时间（也称为_epoch_）以来的毫秒数作为一个参数，对时区进行校正。 那么Calendar又如何呢？可以使用下面的方式创建必需的实例：
-Calendar calendar = Calendar.getInstance(); calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);  使用Joda，代码应该类似如下所示：</description>
-    </item>
-    
-    <item>
-      <title>FilenameFilter和FileFilter介绍</title>
-      <link>https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/</link>
-      <pubDate>Fri, 18 Oct 2013 19:26:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/</guid>
-      <description>FilenameFilter和FileFilter说明 java.io.File类提供了四个方法用于列举某个路径下的文件和目录，但不会递归列举子目录下的内容。其中两个是列举路径下的所有文件和目录。 - String[] list() - File[] listFiles()另外两个是列举路径满足指定过滤器的文件和目录。 - String[] list(FilenameFilter filter) - File[] listFiles(FileFilter filter)
-示例 要求：返回当前目录下所有以yqu开头且以.tmp结尾的文件和目录。
-代码 package com.yqu.file; import java.io.File; import java.io.FileFilter; import java.io.FilenameFilter; public class HelloFileListing { public static void main(String[] args) { File f = new File(&amp;quot;c:/test&amp;quot;); System.out.println(&amp;quot;\n====Method listFiles() example====&amp;quot;); File[] files = f.listFiles(); for (File fl : files) { String type = fl.isFile() ? &amp;quot;File: &amp;quot; : &amp;quot;Directory: &amp;quot;; try { System.out.println(type + fl.</description>
-    </item>
-    
-    <item>
-      <title>Java NaN小结</title>
-      <link>https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/</link>
-      <pubDate>Mon, 05 Aug 2013 23:14:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/</guid>
-      <description> Double.NAN介绍 Double类有个NaN常量，是Not a Number的缩写，其值等于Double.longBitsToDouble(0x7ff8000000000000L) ，用于表示非数值。NaN必须使用isNaN(double)方法来判断，NaN与任何double数值进行加减乘除等数学运算后的结果仍然是NaN，且NaN使用==运算符与自身进行判断返回结果为false。测试代码如下：测试结果如下：
-Double.NaN==Double.NaN :false Double.isNaN(Double.NaN*0) :true Double.NaN*0==0 :false Double.isNaN(Double.NaN/0) :true Double.NaN/0==0 :false Double.isNaN(0/Double.NaN) :true 0/Double.NaN==0 :false Double.isNaN(Double.NaN+0) :true Double.NaN+0==0 :false Double.isNaN(Double.NaN-0) :true Double.NaN-0==0 :false Double.isNaN(Double.NaN*Double.NaN) :true Double.NaN*Double.NaN==0 :false  自定义NAN介绍 Double.NaN可以用来表示计算结果发生异常，但是无法获知异常原因。我们可以通过自定义NAN来解决这一问题。使用Double类的isNaN(double)方法判断自定义NAN，其返回结果为true，我们可以通过自己的方法判决到底是那种NaN。测试代码如下：测试结果如下：
-Double.isNaN(Double.NaN) :true MyNaN.isMyNaN(Double.NaN) :false Double.isNaN(MyNaN.INVALID_PARAMETER_NAN) :true MyNaN.isMyNaN(MyNaN.INVALID_PARAMETER_NAN) :true Double.isNaN(Double.longBitsToDouble(0xffff000000000123L)) :true MyNaN.isMyNaN(Double.longBitsToDouble(0xffff000000000123L)) :false  </description>
-    </item>
-    
-    <item>
-      <title>小玩Java序列化</title>
-      <link>https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/</link>
-      <pubDate>Mon, 08 Jul 2013 21:17:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
-      <description>折腾GemFire，免不了要折腾序列化和发序列化。GemFire支持Java的序列化，同时也有自己的DataSerializable接口实现自己的序列化，此外还有Delta接口支持数据同步时仅传送上一次数据同步后的更新。 今天测试的实现先用Java的序列化，一开始玩java.io.Serializable接口，后来玩writeObject()和readObject()方法。顺便看看有writeObject方法后ObjectOutputStream调用堆栈与原有分支的不同。
-private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &amp;lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push(&amp;quot;custom writeObject data (class \&amp;quot;&amp;quot; + slotDesc.getName() + &amp;quot;\&amp;quot;)&amp;quot;); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.</description>
-    </item>
-    
-    <item>
-      <title>Java对象的内存使用量分析</title>
-      <link>https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/</link>
-      <pubDate>Wed, 19 Jun 2013 09:17:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/</guid>
-      <description>前段时间做GemFire中对象的内存使用量分析时，学习了一下Java对象的内存使用量分析。 如果不知道一个没有变量的空对象占8字节，空数组占12字节，空字符串对象占40字节的话，有必要看一下下面的链接进行学习。 Memory usage of Java Strings and string-related objects
+import javax.xml.bind.DatatypeConverter; public class HelloBase64 { public static void main(String[] args) { String me = &amp;#34;blog.sina.com.cn/yandongqu&amp;#34;; byte[] plainContent; String base64Str = DatatypeConverter.</description></item><item><title>[Swing]图片叠加效果</title><link>https://mryqu.github.io/post/swing_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</link><pubDate>Thu, 25 Dec 2014 08:20:49 +0000</pubDate><guid>https://mryqu.github.io/post/swing_%E5%9B%BE%E7%89%87%E5%8F%A0%E5%8A%A0%E6%95%88%E6%9E%9C/</guid><description>玩一下使用Java做图片叠加效果。 代码如下：
+package com.yqu.swing.img; import java.awt.Component; import java.awt.Graphics; import java.awt.image.BufferedImage; import java.io.File; import java.io.IOException; import java.util.ArrayList; import java.util.List; import javax.imageio.ImageIO; import javax.swing.GrayFilter; import javax.swing.Icon; import javax.swing.ImageIcon; public class OverlayIcon implements Icon{ private int maxWidth = -1, maxHeight = -1; private List icons; public OverlayIcon(String[] iconPaths) { if(iconPaths != null &amp;amp;&amp;amp; iconPaths.length &amp;gt;0) { icons = new ArrayList(iconPaths.length); for (String iconPath : iconPaths) { Icon icon = makeIcon(iconPath, false); icons.add(icon); int width = icon.</description></item><item><title>通过Java反射操作注解</title><link>https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/</link><pubDate>Sun, 29 Jun 2014 09:47:16 +0000</pubDate><guid>https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/</guid><description>注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。
+MyAnnotation.java package com.yqu.reflection.annotation; import java.lang.annotation.ElementType; import java.lang.annotation.Retention; import java.lang.annotation.RetentionPolicy; import java.lang.annotation.Target; @Retention(RetentionPolicy.RUNTIME) //@Target(ElementType.TYPE) public @interface MyAnnotation { public String name() default &amp;#34;[unknown name]&amp;#34;; public String value() default &amp;#34;[unassigned value]&amp;#34;; } 定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。 @Target指定此注解的作用域：
+TYPE：用于类、接口、注解类和枚举 CONSTRUCTOR：用于构造方法 LOCAL_VARIABLE：用于本地变量 FIELD：用于类的属性(包括枚举常量) METHOD：用于方法 PACKAGE：用于包 PARAMETER：用于方法的参数 ANNOTATION_TYPE：用于注解类 TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前 TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期： SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。 CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。 RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。 TheClass.java package com.yqu.reflection.annotation; import java.lang.annotation.Annotation; import java.lang.reflect.Field; import java.lang.reflect.Method; @MyAnnotation(name = &amp;#34;classAnnotation&amp;#34;, value = &amp;#34;Hello Class&amp;#34;) // I18NOK:CLS public class TheClass { @MyAnnotation(name = &amp;#34;fieldAnnotation&amp;#34;, value = &amp;#34;Hello Field&amp;#34;) public String theField = null; public TheClass() { } @MyAnnotation(name = &amp;#34;methodAnnotation&amp;#34;, value = &amp;#34;Hello Method&amp;#34;) public void doSomething() { System.</description></item><item><title>Hello MongoDB Java Driver</title><link>https://mryqu.github.io/post/hello_mongodb_java_driver/</link><pubDate>Sun, 30 Mar 2014 13:50:33 +0000</pubDate><guid>https://mryqu.github.io/post/hello_mongodb_java_driver/</guid><description>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。 Java代码如下：
+package com.yqu.mongodb; import java.net.UnknownHostException; import java.util.List; import java.util.Set; import com.mongodb.BasicDBObject; import com.mongodb.DB; import com.mongodb.DBCollection; import com.mongodb.DBCursor; import com.mongodb.DBObject; import com.mongodb.MongoClient; import com.mongodb.MongoClientURI; import com.mongodb.MongoException; public class HelloMongoDB { public static void main(String[] args) { MongoClient mongoClient = null; try { // Since 2.10.0, uses MongoClient // mongoClient = new MongoClient(&amp;#34;localhost&amp;#34;, 27017); String host = &amp;#34;mongodb://localhost:27017&amp;#34;; mongoClient = new MongoClient(new MongoClientURI(host)); showdbs(mongoClient); // MongoDB will create it if database doesn&amp;#39;t exists DB db = mongoClient.</description></item><item><title>玩一下LineNumberReader</title><link>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/</link><pubDate>Wed, 26 Mar 2014 19:37:23 +0000</pubDate><guid>https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/</guid><description>找资料的副产品就是发现了LineNumberReader这个类，跟它的父类BufferedReader相比多了计算文件行数的功能。记不得以前是否用过了，这里记录一下备用。
+import java.io.BufferedReader; import java.io.FileReader; import java.io.IOException; import java.io.LineNumberReader; public class TestFileLineNum { public static int countLinesV1(String flName) throws IOException { BufferedReader reader = new BufferedReader(new FileReader(flName)); int cnt = 0; while (reader.readLine() != null) { cnt++ ; } reader.close(); return cnt; } public static int countLinesV2(String flName) throws IOException { LineNumberReader reader = new LineNumberReader(new FileReader(flName)); while (reader.readLine() != null) { } int cnt = reader.getLineNumber(); reader.close(); return cnt; } public static void main(String[] args) throws IOException { for(int i=0;i&amp;lt;4;i ) { String flName = &amp;#34;test&amp;#34; + i + &amp;#34;.</description></item><item><title>[HBase] Java客户端程序构建脚本</title><link>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</link><pubDate>Fri, 03 Jan 2014 00:05:34 +0000</pubDate><guid>https://mryqu.github.io/post/hbase_java%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC/</guid><description>上一博文[HBase] 原始数据类型存储中所用到的构建脚本build.sh如下：
+#!/bin/bash HADOOP_HOME=/usr/local/hadoop HBASE_HOME=/usr/local/hbase CLASSPATH=.:$HBASE_HOME/conf:$(hbase classpath) javac -cp $CLASSPATH HBasePrimitiveDataTypeTest.java java -cp $CLASSPATH HBasePrimitiveDataTypeTest</description></item><item><title>Joda-Time笔记</title><link>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</link><pubDate>Sun, 01 Dec 2013 00:31:39 +0000</pubDate><guid>https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/</guid><description>Joda简介 Joda项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目：
+Joda-Time -日期和时间库 Joda-Money -货币库 Joda-Beans -下一代JavaBeans Joda-Convert -字符串与对象转换库 Joda-Collect - 提供JDK或Google Guava没有的集合数据类型 Joda-Primitives -提供原始数据类型集合 Joda-Time简介 其中Joda-Time由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。Joda-Time在JavaSE8将融入JDK API内，使用者可以使用java.time (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(现行公历、格里历)、Julian(儒略历)、Buddhist(佛历)、Coptic(科普特历)、Ethiopic(埃塞俄比亚历)和Islamic(伊斯兰历)历法系统。 为什么要使用Joda-Time（以下简称Joda）？考虑创建一个用时间表示的某个随意的时刻，例如2000年1月1日0时0分。如何创建一个用时间表示这个瞬间的JDK对象？使用java.util.Date？事实上这是行不通的，因为自JDK1.1 之后的每个 Java 版本的 Javadoc 都声明应当使用java.util.Calendar。Date中Date(intyear, int month, int date) 、Date(int year, int month, int date, inthrs, int min)、Date(int year, int month, int date, int hrs, int min,int sec)已经废弃、不建议使用，严重限制了您创建此类对象的途径。然而，Date确实有一个构造函数Date(long date)，您可以用来创建用时间表示某个瞬间的对象（除“当前时间”以外）。该方法使用距离1970年1月1日子时格林威治标准时间（也称为_epoch_）以来的毫秒数作为一个参数，对时区进行校正。 那么Calendar又如何呢？可以使用下面的方式创建必需的实例：
+Calendar calendar = Calendar.getInstance(); calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0); 使用Joda，代码应该类似如下所示：
+DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0); 这一行简单代码没有太大的区别。但是如果使问题稍微复杂化，假设希望在这个日期上加上90天并输出结果。使用JDK，需要如下代码：</description></item><item><title>FilenameFilter和FileFilter介绍</title><link>https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/</link><pubDate>Fri, 18 Oct 2013 19:26:35 +0000</pubDate><guid>https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/</guid><description>FilenameFilter和FileFilter说明 java.io.File类提供了四个方法用于列举某个路径下的文件和目录，但不会递归列举子目录下的内容。其中两个是列举路径下的所有文件和目录。
+String[] list() File[] listFiles()另外两个是列举路径满足指定过滤器的文件和目录。 String[] list(FilenameFilter filter) File[] listFiles(FileFilter filter) 示例 要求：返回当前目录下所有以yqu开头且以.tmp结尾的文件和目录。
+代码 package com.yqu.file; import java.io.File; import java.io.FileFilter; import java.io.FilenameFilter; public class HelloFileListing { public static void main(String[] args) { File f = new File(&amp;#34;c:/test&amp;#34;); System.out.println(&amp;#34;\n====Method listFiles() example====&amp;#34;); File[] files = f.listFiles(); for (File fl : files) { String type = fl.isFile() ? &amp;#34;File: &amp;#34; : &amp;#34;Directory: &amp;#34;; try { System.out.println(type + fl.getCanonicalPath()); } catch (Exception e) { e.</description></item><item><title>Java NaN小结</title><link>https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/</link><pubDate>Mon, 05 Aug 2013 23:14:48 +0000</pubDate><guid>https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/</guid><description>Double.NAN介绍 Double类有个NaN常量，是Not a Number的缩写，其值等于Double.longBitsToDouble(0x7ff8000000000000L) ，用于表示非数值。NaN必须使用isNaN(double)方法来判断，NaN与任何double数值进行加减乘除等数学运算后的结果仍然是NaN，且NaN使用==运算符与自身进行判断返回结果为false。测试代码如下： 测试结果如下：
+Double.NaN==Double.NaN :false Double.isNaN(Double.NaN*0) :true Double.NaN*0==0 :false Double.isNaN(Double.NaN/0) :true Double.NaN/0==0 :false Double.isNaN(0/Double.NaN) :true 0/Double.NaN==0 :false Double.isNaN(Double.NaN+0) :true Double.NaN+0==0 :false Double.isNaN(Double.NaN-0) :true Double.NaN-0==0 :false Double.isNaN(Double.NaN*Double.NaN) :true Double.NaN*Double.NaN==0 :false 自定义NAN介绍 Double.NaN可以用来表示计算结果发生异常，但是无法获知异常原因。我们可以通过自定义NAN来解决这一问题。使用Double类的isNaN(double)方法判断自定义NAN，其返回结果为true，我们可以通过自己的方法判决到底是那种NaN。测试代码如下： 测试结果如下：
+Double.isNaN(Double.NaN) :true MyNaN.isMyNaN(Double.NaN) :false Double.isNaN(MyNaN.INVALID_PARAMETER_NAN) :true MyNaN.isMyNaN(MyNaN.INVALID_PARAMETER_NAN) :true Double.isNaN(Double.longBitsToDouble(0xffff000000000123L)) :true MyNaN.isMyNaN(Double.longBitsToDouble(0xffff000000000123L)) :false</description></item><item><title>小玩Java序列化</title><link>https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/</link><pubDate>Mon, 08 Jul 2013 21:17:41 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/</guid><description>折腾GemFire，免不了要折腾序列化和发序列化。GemFire支持Java的序列化，同时也有自己的DataSerializable接口实现自己的序列化，此外还有Delta接口支持数据同步时仅传送上一次数据同步后的更新。 今天测试的实现先用Java的序列化，一开始玩java.io.Serializable接口，后来玩writeObject()和readObject()方法。顺便看看有writeObject方法后ObjectOutputStream调用堆栈与原有分支的不同。
+private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &amp;lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push(&amp;#34;custom writeObject data (class \&amp;#34;&amp;#34; + slotDesc.getName() + &amp;#34;\&amp;#34;)&amp;#34;); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.</description></item><item><title>Java对象的内存使用量分析</title><link>https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/</link><pubDate>Wed, 19 Jun 2013 09:17:09 +0000</pubDate><guid>https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/</guid><description>前段时间做GemFire中对象的内存使用量分析时，学习了一下Java对象的内存使用量分析。 如果不知道一个没有变量的空对象占8字节，空数组占12字节，空字符串对象占40字节的话，有必要看一下下面的链接进行学习。 Memory usage of Java Strings and string-related objects
 Determining Memory Usage in Java
 Java对象内存结构
 主题：如何获取一个对象的在内存中的大小？
-JAVA Objects Memory Size Reference</description>
-    </item>
-    
-    <item>
-      <title>Servlet</title>
-      <link>https://mryqu.github.io/post/servlet/</link>
-      <pubDate>Wed, 29 May 2013 09:58:56 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/servlet/</guid>
-      <description>现在用的VFabric tc Server 2.8.0基于Apache的Tomcat7.0.3版本，支持Servlet3.0和JSP 2.2规范。 Java Servlet3.1规范这周可以下载了，目前正在学习当中。将Servlet的不同版本的资料汇总一下，利人利己。 JSR 340：Java Servlet 3.1 Specification
+JAVA Objects Memory Size Reference</description></item><item><title>Servlet</title><link>https://mryqu.github.io/post/servlet/</link><pubDate>Wed, 29 May 2013 09:58:56 +0000</pubDate><guid>https://mryqu.github.io/post/servlet/</guid><description>现在用的VFabric tc Server 2.8.0基于Apache的Tomcat7.0.3版本，支持Servlet3.0和JSP 2.2规范。 Java Servlet3.1规范这周可以下载了，目前正在学习当中。将Servlet的不同版本的资料汇总一下，利人利己。 JSR 340：Java Servlet 3.1 Specification
 JSR 315：Java Servlet 3.0 Specification
 JSR 154：Java Servlet 2.4 Specification
 JSR 53：Java Servlet 2.3 and JavaServer Pages 1.2 Specification
 Servlet API 2.2 的新特性
-Servlet 3.0 新特性详解</description>
-    </item>
-    
-    <item>
-      <title>JavaSE 新增特性</title>
-      <link>https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</link>
-      <pubDate>Wed, 22 May 2013 22:09:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</guid>
-      <description>参考 Wiki：Java version history
-JDK各版本很cool的特性
-JDK6中httpserver实例
-IBM developerWorks：JDK 7 新特性 - 总览
-Try-with-resources in Java 7
-Java 7 的新特性一览表
-编程没有银弹：探讨 Java 8 新增特性的优缺点
-IBM developerWorks：Java 8 新特性概述
-Java 8 的新特性和改进总览
-Java 8 正式发布，新特性全搜罗</description>
-    </item>
-    
-    <item>
-      <title>尝试了一下jacob</title>
-      <link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/</link>
-      <pubDate>Mon, 18 Feb 2013 12:49:30 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/</guid>
-      <description>JACOB开源项目 Jacob是Java与COM组件桥接的缩写，即JAVA-COMBridge。通过使用Jacob类库，我们可以很方便地在Java程序中使用JNI来进行本地调用COM库。它可运行在x86和（支持32位和64位Java虚拟机的）X64环境。Jacob最初是由美国人DanAlder在Inventure公司担任CTO时编写的，目的是为了方便众多的程序员在Java2虚拟机上，调用Win32平台上COM自动化服务器中的组件。当Jacob项目以开源的方式在网络上公布以后，越来越多的人开始参与项目的研发与改进中去。
+Servlet 3.0 新特性详解</description></item><item><title>JavaSE 新增特性</title><link>https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</link><pubDate>Wed, 22 May 2013 22:09:39 +0000</pubDate><guid>https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</guid><description>参考 Wiki：Java version history JDK各版本很cool的特性 JDK6中httpserver实例 IBM developerWorks：JDK 7 新特性 - 总览 Try-with-resources in Java 7 Java 7 的新特性一览表 编程没有银弹：探讨 Java 8 新增特性的优缺点 IBM developerWorks：Java 8 新特性概述 Java 8 的新特性和改进总览 Java 8 正式发布，新特性全搜罗</description></item><item><title>尝试了一下jacob</title><link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/</link><pubDate>Mon, 18 Feb 2013 12:49:30 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95%E4%BA%86%E4%B8%80%E4%B8%8Bjacob/</guid><description>JACOB开源项目 Jacob是Java与COM组件桥接的缩写，即JAVA-COMBridge。通过使用Jacob类库，我们可以很方便地在Java程序中使用JNI来进行本地调用COM库。它可运行在x86和（支持32位和64位Java虚拟机的）X64环境。Jacob最初是由美国人DanAlder在Inventure公司担任CTO时编写的，目的是为了方便众多的程序员在Java2虚拟机上，调用Win32平台上COM自动化服务器中的组件。当Jacob项目以开源的方式在网络上公布以后，越来越多的人开始参与项目的研发与改进中去。
 JACOB 相关博文： Jacob的简单介绍
-Jacob使用入门及问题解析</description>
-    </item>
-    
-    <item>
-      <title>[Flex] Explicitly mapping ActionScript and Java objects</title>
-      <link>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</link>
-      <pubDate>Sun, 16 Sep 2012 10:30:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</guid>
-      <description>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</description>
-    </item>
-    
-  </channel>
-</rss>
+Jacob使用入门及问题解析</description></item><item><title>[Flex] Explicitly mapping ActionScript and Java objects</title><link>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</link><pubDate>Sun, 16 Sep 2012 10:30:48 +0000</pubDate><guid>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</guid><description>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</description></item></channel></rss>

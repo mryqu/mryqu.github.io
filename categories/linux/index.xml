@@ -1,269 +1,62 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Linux on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/categories/linux/</link>
-    <description>Recent content in Linux on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 19 Mar 2021 12:31:23 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>go get github.comjessevdkgo-assets解决记录</title>
-      <link>https://mryqu.github.io/post/go-get-github.comjessevdkgo-assets%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/</link>
-      <pubDate>Fri, 19 Mar 2021 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/go-get-github.comjessevdkgo-assets%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/</guid>
-      <description>在我的Cenos服务器上无法获取go-assets，结果如下：
-MRYQULAX&amp;gt; go get github.com/jessevdk/go-assets # cd .; git clone -- https://github.com/jessevdk/go-assets /users/mryqu/go/src/github.com/jessevdk/go-assets Cloning into &#39;/users/mryqu/go/src/github.com/jessevdk/go-assets&#39;... fatal: unable to access &#39;https://github.com/jessevdk/go-assets/&#39;: SSL connect error package github.com/jessevdk/go-assets: exit status 128  看了一下我的git版本是1.7.1，先升级一下试试吧。
-export VER=&amp;quot;2.31.0&amp;quot; wget https://github.com/git/git/archive/v${VER}.tar.gz tar -xvf v${VER}.tar.gz rm -f v${VER}.tar.gz cd git-* make configure sudo ./configure --prefix=/usr sudo make sudo make install  升级完成后，还是无法获取go-assets。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Mryqu's Notes</title><link>https://mryqu.github.io/categories/linux/</link><description>Recent content in Linux on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 19 Mar 2021 12:31:23 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>go get github.comjessevdkgo-assets解决记录</title><link>https://mryqu.github.io/post/go-get-github.comjessevdkgo-assets%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/</link><pubDate>Fri, 19 Mar 2021 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/go-get-github.comjessevdkgo-assets%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/</guid><description>在我的Cenos服务器上无法获取go-assets，结果如下：
+MRYQULAX&amp;gt; go get github.com/jessevdk/go-assets # cd .; git clone -- https://github.com/jessevdk/go-assets /users/mryqu/go/src/github.com/jessevdk/go-assets Cloning into &amp;#39;/users/mryqu/go/src/github.com/jessevdk/go-assets&amp;#39;... fatal: unable to access &amp;#39;https://github.com/jessevdk/go-assets/&amp;#39;: SSL connect error package github.com/jessevdk/go-assets: exit status 128 看了一下我的git版本是1.7.1，先升级一下试试吧。
+export VER=&amp;#34;2.31.0&amp;#34; wget https://github.com/git/git/archive/v${VER}.tar.gz tar -xvf v${VER}.tar.gz rm -f v${VER}.tar.gz cd git-* make configure sudo ./configure --prefix=/usr sudo make sudo make install 升级完成后，还是无法获取go-assets。
 调试一下ssh方式：
-MRYQULAX&amp;gt; ssh -vT git@github.com OpenSSH_5.3p1, OpenSSL 1.0.0-fips 29 Mar 2010 debug1: Reading configuration data /users/mryqu/.</description>
-    </item>
-    
-    <item>
-      <title>在Centos上安装Perl LibXML库记录</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/</link>
-      <pubDate>Mon, 04 Jan 2021 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/</guid>
-      <description>一开始使用cpan安装，揍是不成功。
-[root@mryqulax ~]# perldoc -m XML::LibXML No module found for &amp;quot;XML::LibXML&amp;quot;. [root@mryqulax ~]# perl -MCPAN -e shell Terminal does not support AddHistory. cpan shell -- CPAN exploration and modules installation (v1.9800) Enter &#39;h&#39; for help. cpan[1]&amp;gt; install XML::LibXML CPAN: Storable loaded ok (v2.20) Reading &#39;/root/.cpan/Metadata&#39; Database was generated on Sun, 24 Nov 2013 10:53:02 GMT CPAN: LWP::UserAgent loaded ok (v6.04) CPAN: Time::HiRes loaded ok (v1.9721) Fetching with LWP: ftp://cpan.cs.utah.edu/CPAN/authors/01mailrc.txt.gz Reading &#39;/root/.</description>
-    </item>
-    
-    <item>
-      <title>Shell之rev与tac</title>
-      <link>https://mryqu.github.io/post/shell%E4%B9%8Brev%E4%B8%8Etac/</link>
-      <pubDate>Tue, 29 Dec 2020 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E4%B9%8Brev%E4%B8%8Etac/</guid>
-      <description>今天想把一个文件内容反序输出，就找到了rev与tac这两个命令。
- rev是对每一行内容进行反序，行序不变
- tac是对行序反序, 每一行内容不变
-  mryqulax&amp;gt; cat test.log whoami 123 mryqulax&amp;gt; rev test.log imaohw 321 mryqulax&amp;gt; tac test.log 123 whoami  </description>
-    </item>
-    
-    <item>
-      <title>AIX操作笔记</title>
-      <link>https://mryqu.github.io/post/aix%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Wed, 23 Dec 2020 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/aix%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid>
-      <description>查看版本 TL（Technical Level）指 AIX 操作系统的技术版本（以前称为 ML, Maintenance Level），包括硬件、软件的新功能和传统的补丁。
+MRYQULAX&amp;gt; ssh -vT git@github.com OpenSSH_5.3p1, OpenSSL 1.0.0-fips 29 Mar 2010 debug1: Reading configuration data /users/mryqu/.ssh/config debug1: Reading configuration data /etc/ssh/ssh_config debug1: Applying options for * debug1: Connecting to github.</description></item><item><title>GoLang语言filepath.Clean功能在AIX脚本中的实现</title><link>https://mryqu.github.io/post/shell-substitutes-for-filepath.clean-of-golang/</link><pubDate>Tue, 23 Feb 2021 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/shell-substitutes-for-filepath.clean-of-golang/</guid><description>GoLang语言filepath包Clean函数功能如下：
+Replace multiple Separator elements with a single one. Eliminate each . path name element (the current directory). Eliminate each inner .. path name element (the parent directory) along with the non-.. element that precedes it. Eliminate .. elements that begin a rooted path: that is, replace &amp;ldquo;/..&amp;rdquo; by &amp;ldquo;/&amp;rdquo; at the beginning of a path, assuming Separator is &amp;lsquo;/&amp;rsquo;. perl等价功能 File::Spec 模块的canonpath函数与GoLang语言filepath包Clean函数功能基本类似，都不进行文件系统物理检查仅完成路径逻辑清理。
+No physical check on the filesystem, but a logical cleanup of a path.</description></item><item><title>在Centos上安装Perl LibXML库记录</title><link>https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/</link><pubDate>Mon, 04 Jan 2021 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/</guid><description>一开始使用cpan安装，揍是不成功。
+[root@mryqulax ~]# perldoc -m XML::LibXML No module found for &amp;#34;XML::LibXML&amp;#34;. [root@mryqulax ~]# perl -MCPAN -e shell Terminal does not support AddHistory. cpan shell -- CPAN exploration and modules installation (v1.9800) Enter &amp;#39;h&amp;#39; for help. cpan[1]&amp;gt; install XML::LibXML CPAN: Storable loaded ok (v2.20) Reading &amp;#39;/root/.cpan/Metadata&amp;#39; Database was generated on Sun, 24 Nov 2013 10:53:02 GMT CPAN: LWP::UserAgent loaded ok (v6.04) CPAN: Time::HiRes loaded ok (v1.9721) Fetching with LWP: ftp://cpan.cs.utah.edu/CPAN/authors/01mailrc.txt.gz Reading &amp;#39;/root/.</description></item><item><title>Shell之rev与tac</title><link>https://mryqu.github.io/post/shell-commands_rev-and-tac/</link><pubDate>Tue, 29 Dec 2020 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/shell-commands_rev-and-tac/</guid><description>今天想把一个文件内容反序输出，就找到了rev与tac这两个命令。
+rev是对每一行内容进行反序，行序不变 tac是对行序反序, 每一行内容不变 mryqulax&amp;gt; cat test.log whoami 123 mryqulax&amp;gt; rev test.log imaohw 321 mryqulax&amp;gt; tac test.log 123 whoami</description></item><item><title>AIX操作笔记</title><link>https://mryqu.github.io/post/aix-notes/</link><pubDate>Wed, 23 Dec 2020 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/aix-notes/</guid><description>查看版本 TL（Technical Level）指 AIX 操作系统的技术版本（以前称为 ML, Maintenance Level），包括硬件、软件的新功能和传统的补丁。
 SP( Service Pack) 指服务补丁版本，包括一些不能等到下一个TL推出的关键的补丁及非常有限的新硬件驱动。
-$ oslevel -s 7100-04-04-1717  上例中oslevel -s显示结果为7100-04-04-1717，头四位系统版本，接下来两位为技术版本，之后两位为补丁版本，最后4位，前2位标识年份，后2位表示周。
+$ oslevel -s 7100-04-04-1717 上例中oslevel -s显示结果为7100-04-04-1717，头四位系统版本，接下来两位为技术版本，之后两位为补丁版本，最后4位，前2位标识年份，后2位表示周。
 7100-04-04-1717表示AIX7.1 TL版本04，SP版本04，这个版本是在2017年第17周进行的更新。
 安装软件 在ftp://ftp.software.ibm.com/aix/freeSoftware/aixtoolbox/RPMS/ppc/ 查找到所需软件的链接，然后通过rpm进行安装。例如：
-rpm -Uvh ftp://ftp.software.ibm.com/aix/freeSoftware/aixtoolbox/RPMS/ppc/curl/curl-7.9.3-2.aix4.3.ppc.rpm  查看系统指标 bindprocessor bindprocessor 用于将进程的内核线程绑定至处理器或取消绑定。
-$ bindprocessor -q The available processors are: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  lparstat lparstat 报告逻辑分区（LPAR）相关信息和统计。</description>
-    </item>
-    
-    <item>
-      <title>Shell读取文件修改时间并格式化输出</title>
-      <link>https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</link>
-      <pubDate>Wed, 23 Dec 2020 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
-      <description>最近有一些golang代码实现的功能需要移植到用于低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。
+rpm -Uvh ftp://ftp.software.ibm.com/aix/freeSoftware/aixtoolbox/RPMS/ppc/curl/curl-7.9.3-2.aix4.3.ppc.rpm 查看系统指标 bindprocessor bindprocessor 用于将进程的内核线程绑定至处理器或取消绑定。
+$ bindprocessor -q The available processors are: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 lparstat lparstat 报告逻辑分区（LPAR）相关信息和统计。</description></item><item><title>Shell读取文件修改时间并格式化输出</title><link>https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</link><pubDate>Wed, 23 Dec 2020 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/shell%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</guid><description>最近有一些golang代码实现的功能需要移植到用于低版本AIX的korn shell上去。其中碰到了文件修改时间格式化问题。
 通过下面的golang示例代码可知最后需要的是本地时间而不是UTC时间。
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;log&amp;quot; &amp;quot;os&amp;quot; &amp;quot;path/filepath&amp;quot; &amp;quot;time&amp;quot; ) // Infrastructrue var basedir string func init() { exe, err := os.Executable() if err != nil { os.Exit(1) } basedir = filepath.Dir(exe) } func main() { fmt.Printf(&amp;quot;now=%s\n&amp;quot;, time.Now().Format(&amp;quot;02Jan06:15:04:05&amp;quot;)) fmt.Printf(&amp;quot;now.UTC()=%s\n&amp;quot;, time.Now().UTC().Format(&amp;quot;02Jan06:15:04:05&amp;quot;)) fmt.Printf(&amp;quot;now.Local()=%s\n&amp;quot;, time.Now().Local().Format(&amp;quot;02Jan06:15:04:05&amp;quot;)) f, ferr := os.Lstat(basedir) if ferr != nil { fmt.Printf(&amp;quot;Unable to access %s. Skipping...\n&amp;quot;, basedir) os.Exit(1) } mode := f.Mode() if mode&amp;amp;os.ModeSymlink != 0 { fmt.</description>
-    </item>
-    
-    <item>
-      <title>Shell逐行读取、解析并export变量实践</title>
-      <link>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 15 Dec 2020 12:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</guid>
-      <description>setenv.yaml示例
-MY_HOME: /local/install/myhome MY_JAVA_HOME: $MY_HOME/jre/bin  test.ksh示例
-#!/bin/ksh getCustEnv() { # 除了while read 也可以使用for var，但是需要更改IFS为换行符 cat setenv.yaml | while read line; do line=$(echo $line | grep -v &amp;quot;^\s*#&amp;quot; | grep &amp;quot;:&amp;quot;) if [ ! -z $line ]; then key=$(echo $line | cut -d: -f1 | sed -e &#39;s/^\s*//&#39; -e &#39;s/\s*$//&#39;) val=$(echo $line | cut -d: -f2 | sed -e &#39;s/^\s*//&#39; -e &#39;s/\s*$//&#39;) echo &amp;quot;line=$line&amp;quot; echo &amp;quot;key=$key&amp;quot; echo &amp;quot;val=$val&amp;quot; if [ !</description>
-    </item>
-    
-    <item>
-      <title>sed正则表达式捕获组实践</title>
-      <link>https://mryqu.github.io/post/sed%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E7%BB%84%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Fri, 04 Dec 2020 07:31:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/sed%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E7%BB%84%E5%AE%9E%E8%B7%B5/</guid>
-      <description> mryqu&amp;gt; cat test.txt Hello from=&amp;quot;Beijing&amp;quot; via=&amp;quot;Nanjing&amp;quot; to=&amp;quot;Shanghai&amp;quot;. test 123 mryqu&amp;gt; sed -e &#39;s/^Hello.*from=&amp;quot;[^&amp;quot;]\+&amp;quot;.*$/abc/g&#39; test.txt abc test 123 mryqu&amp;gt; sed -e &#39;s/^Hello.*from=&amp;quot;\([^&amp;quot;]\+\)&amp;quot;.*$/\1/g&#39; test.txt Beijing test 123 mryqu&amp;gt; sed -e &#39;s/^\(Hello.*from=&amp;quot;\)\([^&amp;quot;]\+\)\(&amp;quot;.*\)$/\1********\3/g&#39; test.txt Hello from=&amp;quot;********&amp;quot; via=&amp;quot;Nanjing&amp;quot; to=&amp;quot;Shanghai&amp;quot;. test 123 mryqu&amp;gt; sed -e &#39;s/^\(Hello.*from=&amp;quot;\)\([^&amp;quot;]\+\)\(&amp;quot;.*\)$/\1********\3/g&#39; -e &#39;s/^\(Hello.*to=&amp;quot;\)\([^&amp;quot;]\+\)\(&amp;quot;.*\)$/\1********\3/g&#39; test.txt Hello from=&amp;quot;********&amp;quot; via=&amp;quot;Nanjing&amp;quot; to=&amp;quot;********&amp;quot;. test 123 mryqu&amp;gt;  注：sed不支持非贪婪模式。
-参考  Sed教程-正则表达式
- grep、sed、awk、perl等对正则表达式的支持的差别
- How to output only captured groups with sed?
-  </description>
-    </item>
-    
-    <item>
-      <title>Shell显示彩色文字</title>
-      <link>https://mryqu.github.io/post/shell%E6%98%BE%E7%A4%BA%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97/</link>
-      <pubDate>Thu, 26 Nov 2020 08:25:00 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E6%98%BE%E7%A4%BA%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97/</guid>
-      <description>昨天学习一下如何使用shell在屏幕显示彩色文字。解决方案有两种：1. 转义字符 2. tput设置文本颜色。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;path/filepath&amp;#34; &amp;#34;time&amp;#34; ) // Infrastructrue var basedir string func init() { exe, err := os.Executable() if err != nil { os.Exit(1) } basedir = filepath.Dir(exe) } func main() { fmt.Printf(&amp;#34;now=%s\n&amp;#34;, time.Now().Format(&amp;#34;02Jan06:15:04:05&amp;#34;)) fmt.Printf(&amp;#34;now.UTC()=%s\n&amp;#34;, time.Now().UTC().Format(&amp;#34;02Jan06:15:04:05&amp;#34;)) fmt.Printf(&amp;#34;now.Local()=%s\n&amp;#34;, time.Now().Local().Format(&amp;#34;02Jan06:15:04:05&amp;#34;)) f, ferr := os.Lstat(basedir) if ferr != nil { fmt.Printf(&amp;#34;Unable to access %s. Skipping...\n&amp;#34;, basedir) os.Exit(1) } mode := f.Mode() if mode&amp;amp;os.ModeSymlink != 0 { fmt.</description></item><item><title>Shell逐行读取、解析并export变量实践</title><link>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 15 Dec 2020 12:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/shell%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96%E8%A7%A3%E6%9E%90%E5%B9%B6export%E5%8F%98%E9%87%8F%E5%AE%9E%E8%B7%B5/</guid><description>setenv.yaml示例
+MY_HOME: /local/install/myhome MY_JAVA_HOME: $MY_HOME/jre/bin test.ksh示例
+#!/bin/ksh getCustEnv() { # 除了while read 也可以使用for var，但是需要更改IFS为换行符 cat setenv.yaml | while read line; do line=$(echo $line | grep -v &amp;#34;^\s*#&amp;#34; | grep &amp;#34;:&amp;#34;) if [ ! -z $line ]; then key=$(echo $line | cut -d: -f1 | sed -e &amp;#39;s/^\s*//&amp;#39; -e &amp;#39;s/\s*$//&amp;#39;) val=$(echo $line | cut -d: -f2 | sed -e &amp;#39;s/^\s*//&amp;#39; -e &amp;#39;s/\s*$//&amp;#39;) echo &amp;#34;line=$line&amp;#34; echo &amp;#34;key=$key&amp;#34; echo &amp;#34;val=$val&amp;#34; if [ ! -z $key ]; then echo &amp;#34;export $key=$val&amp;#34; # 不可以直接执行export，否则变量值还是字符串，例如MY_JAVA_HOME变量值仍为$MY_HOME/jre/bin，而不是/local/install/myhome/jre/bin eval export $key=$val # 变量的二次引用 这里${!</description></item><item><title>sed正则表达式捕获组实践</title><link>https://mryqu.github.io/post/sed%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E7%BB%84%E5%AE%9E%E8%B7%B5/</link><pubDate>Fri, 04 Dec 2020 07:31:23 +0000</pubDate><guid>https://mryqu.github.io/post/sed%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8D%95%E8%8E%B7%E7%BB%84%E5%AE%9E%E8%B7%B5/</guid><description>mryqu&amp;gt; cat test.txt Hello from=&amp;#34;Beijing&amp;#34; via=&amp;#34;Nanjing&amp;#34; to=&amp;#34;Shanghai&amp;#34;. test 123 mryqu&amp;gt; sed -e &amp;#39;s/^Hello.*from=&amp;#34;[^&amp;#34;]\+&amp;#34;.*$/abc/g&amp;#39; test.txt abc test 123 mryqu&amp;gt; sed -e &amp;#39;s/^Hello.*from=&amp;#34;\([^&amp;#34;]\+\)&amp;#34;.*$/\1/g&amp;#39; test.txt Beijing test 123 mryqu&amp;gt; sed -e &amp;#39;s/^\(Hello.*from=&amp;#34;\)\([^&amp;#34;]\+\)\(&amp;#34;.*\)$/\1********\3/g&amp;#39; test.txt Hello from=&amp;#34;********&amp;#34; via=&amp;#34;Nanjing&amp;#34; to=&amp;#34;Shanghai&amp;#34;. test 123 mryqu&amp;gt; sed -e &amp;#39;s/^\(Hello.*from=&amp;#34;\)\([^&amp;#34;]\+\)\(&amp;#34;.*\)$/\1********\3/g&amp;#39; -e &amp;#39;s/^\(Hello.*to=&amp;#34;\)\([^&amp;#34;]\+\)\(&amp;#34;.*\)$/\1********\3/g&amp;#39; test.txt Hello from=&amp;#34;********&amp;#34; via=&amp;#34;Nanjing&amp;#34; to=&amp;#34;********&amp;#34;. test 123 mryqu&amp;gt; 注：sed不支持非贪婪模式。
+参考 Sed教程-正则表达式 grep、sed、awk、perl等对正则表达式的支持的差别 How to output only captured groups with sed?</description></item><item><title>Shell显示彩色文字</title><link>https://mryqu.github.io/post/shell%E6%98%BE%E7%A4%BA%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97/</link><pubDate>Thu, 26 Nov 2020 08:25:00 +0000</pubDate><guid>https://mryqu.github.io/post/shell%E6%98%BE%E7%A4%BA%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97/</guid><description>昨天学习一下如何使用shell在屏幕显示彩色文字。解决方案有两种：1. 转义字符 2. tput设置文本颜色。
 在Linux上这两种方式都正常工作，在FreeBSD上第二种方式不起作用。
 代码如下：
-#!/bin/ksh println() { printf &amp;quot;%s\n&amp;quot; $* } ########################## # Solution 1 ########################## colorsEnabled() { if [ $TERM == &#39;TERM&#39; ] then return 0 fi return 1 } printlnColor() { c=$1 shift msg=$*; colorsEnabled if [ $? == 1 ] then printf &amp;quot;\033[0;%dm%s\033[0m\n&amp;quot; $c &amp;quot;$msg&amp;quot; else printf &amp;quot;%s\n&amp;quot; &amp;quot;$msg&amp;quot; fi } # Success printlnSuccess() { printlnColor 32 $* } # Warning printlnWarning() { printlnColor 33 $* } # Failure printlnFailure() { printlnColor 31 $* } # Verbose printlnVerbose() { printlnColor 35 $* } # Emphasis printlnEmphasis() { printlnColor 36 $* } # Note printlnNote() { printlnColor 37 $* } ########################## # Solution 2 ########################## println_color() { c=$1 shift msg=$*; tput setaf $c printf &amp;quot;%s\n&amp;quot; &amp;quot;$msg&amp;quot; tput sgr0 } # Success println_success() { println_color 2 $* } # Warning println_warning() { println_color 3 $* } # Failure println_failure() { println_color 1 $* } # Verbose println_verbose() { println_color 5 $* } # Emphasis println_emphasis() { println_color 6 $* } # Note println_note() { println_color 7 $* } printlnEmphasis hahaha 123 echo &amp;quot;=====================&amp;quot; println_emphasis hahaha 123  参考  ANSI Escape sequences</description>
-    </item>
-    
-    <item>
-      <title>Apt-get代理配置</title>
-      <link>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Wed, 20 May 2015 00:03:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
-      <description>在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
-DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子： - Docker apt-get update fails - Docker - Network calls fail during image build on corporate network - How do I set my DNS on Ubuntu 14.04?
-检查我ubuntu配置：
- cat /etc/resolv.conf  确认DNS没有问题。
+#!/bin/ksh println() { printf &amp;#34;%s\n&amp;#34; $* } ########################## # Solution 1 ########################## colorsEnabled() { if [ $TERM == &amp;#39;TERM&amp;#39; ] then return 0 fi return 1 } printlnColor() { c=$1 shift msg=$*; colorsEnabled if [ $? == 1 ] then printf &amp;#34;\033[0;%dm%s\033[0m\n&amp;#34; $c &amp;#34;$msg&amp;#34; else printf &amp;#34;%s\n&amp;#34; &amp;#34;$msg&amp;#34; fi } # Success printlnSuccess() { printlnColor 32 $* } # Warning printlnWarning() { printlnColor 33 $* } # Failure printlnFailure() { printlnColor 31 $* } # Verbose printlnVerbose() { printlnColor 35 $* } # Emphasis printlnEmphasis() { printlnColor 36 $* } # Note printlnNote() { printlnColor 37 $* } ########################## # Solution 2 ########################## println_color() { c=$1 shift msg=$*; tput setaf $c printf &amp;#34;%s\n&amp;#34; &amp;#34;$msg&amp;#34; tput sgr0 } # Success println_success() { println_color 2 $* } # Warning println_warning() { println_color 3 $* } # Failure println_failure() { println_color 1 $* } # Verbose println_verbose() { println_color 5 $* } # Emphasis println_emphasis() { println_color 6 $* } # Note println_note() { println_color 7 $* } printlnEmphasis hahaha 123 echo &amp;#34;=====================&amp;#34; println_emphasis hahaha 123 参考 ANSI Escape sequences Git shell coloring · GitHub tput</description></item><item><title>Apt-get代理配置</title><link>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 20 May 2015 00:03:27 +0000</pubDate><guid>https://mryqu.github.io/post/apt-get%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid><description>在公司安装Ubuntu docker后使用apt-get update总是失败，经历了一番周折才成功。
+DNS？ 一开始怀疑是DNS问题，可以学习了下面几个帖子：
+Docker apt-get update fails Docker - Network calls fail during image build on corporate network How do I set my DNS on Ubuntu 14.04? 检查我ubuntu配置：
+cat /etc/resolv.conf 确认DNS没有问题。
 Ubuntu官方服务器？ 是不是我的机器连不上欧美的Ubuntu官方服务器，换成中国服务器试试。尝试了Ubuntu 14.04服务器列表上的中国服务器还是不成。
 Apt-get代理？ 照着how to install packages with apt-get on a system connected via proxy?设置一番，成功了
 设置/etc/apt/apt.conf：
-Acquire::http::proxy &amp;quot;http://yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourServer:yourPort/&amp;quot;;  如需用户名、密码，则作如下修改：
-Acquire::http::proxy &amp;quot;http://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::ftp::proxy &amp;quot;ftp://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;; Acquire::https::proxy &amp;quot;https://yourUsr:yourPwd@yourServer:yourPort/&amp;quot;;  最好将上述配置也存入/etc/apt/apt.</description>
-    </item>
-    
-    <item>
-      <title>ClusterShell实践</title>
-      <link>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 07 Jan 2014 20:47:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</guid>
-      <description>ClusterShell介绍 ClusterShell提供了一个轻量级、统一和健壮的命令执行Python框架，非常适于减轻Linux集群日常管理任务负担。ClusterShell的好处如下： - 提供高效、并行和高可扩展的Python命令执行引擎。 - 提供统一节点组语法和对外部组的访问 - 当使用clush和nodeset等工具可有效提升集群创建和日常管理任务的效率
-ClusterShell实践 安装 首先在集群内节点配置无密钥ssh访问。然后在主/工作节点上安装ClusterShell。
-apt-get install clustershell  配置和实践 ClusterShell工具 ClusterShell包含如下工具： - clush帮助文档 - clubak帮助文档 - nodesetcluset帮助文档
-ClusterShell在线文档为http://clustershell.readthedocs.io/。</description>
-    </item>
-    
-    <item>
-      <title>*nux中的Here documents和Here strings</title>
-      <link>https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/</link>
-      <pubDate>Wed, 01 Jan 2014 21:09:54 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/</guid>
-      <description>介绍 here document(又称之为here-document、here-text、heredoc、hereis、here-string或here-script)，是shell中的一种特殊重定向方式，用来将输入重定向到一个交互式的shell脚本或程序。格式如下：
-command &amp;lt;&amp;lt; [-]delimiter here-document delimiter  here documents始于Unixshell的最通用语法，在&amp;lt;&amp;lt;紧跟一个分割标识符（通常为EOF或END），跟随一堆多行字符，最后一行用分割标识符收尾。
-注意： - 结尾的分割标识符一定要顶格写，前后不能有任何字符，包括空格和tab缩进。 - 开始的分割标识符前后的空格会被省略掉。 - 开始的分割标识符前如果使用-的话，内容部分每行前面的 tab (制表符)将会被删除掉。这种用法是为了编写HereDocument的时候可以将内容部分进行缩进，方便代码阅读。
-here strings语法跟here documents类似。格式如下：
-command &amp;lt;&amp;lt;&amp;lt; word  实践及测试 Here documents简单测试 Here documents中变量替换和执行命令测试 通常，Heredocuments中内容会进行变量替换，反勾号中的命令也会执行。可以通过在开始的分割标识符上加单引号禁掉这种行为。 Here string简单测试 在shell文件中使用Here documents 参考 Here document
-Bash Reference Manual - Here Documents
-Bash Reference Manual - Here Strings
-Java 的多行字符串 Here Document 的实现
-[](http://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash)</description>
-    </item>
-    
-    <item>
-      <title>nohup命令笔记</title>
-      <link>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Sat, 26 Oct 2013 11:24:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
-      <description>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
-/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp;  但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &amp;amp;结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
-nohup COMMAND [ARG]...  nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&amp;amp;到命令的尾部。
+Acquire::http::proxy &amp;#34;http://yourServer:yourPort/&amp;#34;; Acquire::ftp::proxy &amp;#34;ftp://yourServer:yourPort/&amp;#34;; Acquire::https::proxy &amp;#34;https://yourServer:yourPort/&amp;#34;; 如需用户名、密码，则作如下修改：
+Acquire::http::proxy &amp;#34;http://yourUsr:yourPwd@yourServer:yourPort/&amp;#34;; Acquire::ftp::proxy &amp;#34;ftp://yourUsr:yourPwd@yourServer:yourPort/&amp;#34;; Acquire::https::proxy &amp;#34;https://yourUsr:yourPwd@yourServer:yourPort/&amp;#34;; 最好将上述配置也存入/etc/apt/apt.conf.d/80proxy中，这样版本升级后这些变更也不会丢。</description></item><item><title>ClusterShell实践</title><link>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 07 Jan 2014 20:47:23 +0000</pubDate><guid>https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/</guid><description>ClusterShell介绍 ClusterShell提供了一个轻量级、统一和健壮的命令执行Python框架，非常适于减轻Linux集群日常管理任务负担。ClusterShell的好处如下：
+提供高效、并行和高可扩展的Python命令执行引擎。 提供统一节点组语法和对外部组的访问 当使用clush和nodeset等工具可有效提升集群创建和日常管理任务的效率 ClusterShell实践 安装 首先在集群内节点配置无密钥ssh访问。然后在主/工作节点上安装ClusterShell。
+apt-get install clustershell 配置和实践 ClusterShell工具 ClusterShell包含如下工具：
+clush帮助文档 clubak帮助文档 nodesetcluset帮助文档 ClusterShell在线文档为http://clustershell.readthedocs.io/。</description></item><item><title>*nux中的Here documents和Here strings</title><link>https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/</link><pubDate>Wed, 01 Jan 2014 21:09:54 +0000</pubDate><guid>https://mryqu.github.io/post/linux%E4%B8%AD%E7%9A%84here_documents%E5%92%8Chere_strings/</guid><description>介绍 here document(又称之为here-document、here-text、heredoc、hereis、here-string或here-script)，是shell中的一种特殊重定向方式，用来将输入重定向到一个交互式的shell脚本或程序。格式如下：
+command &amp;lt;&amp;lt; [-]delimiter here-document delimiter here documents始于Unixshell的最通用语法，在&amp;laquo;紧跟一个分割标识符（通常为EOF或END），跟随一堆多行字符，最后一行用分割标识符收尾。
+注意：
+结尾的分割标识符一定要顶格写，前后不能有任何字符，包括空格和tab缩进。 开始的分割标识符前后的空格会被省略掉。 开始的分割标识符前如果使用-的话，内容部分每行前面的 tab (制表符)将会被删除掉。这种用法是为了编写HereDocument的时候可以将内容部分进行缩进，方便代码阅读。 here strings语法跟here documents类似。格式如下：
+command &amp;lt;&amp;lt;&amp;lt; word 实践及测试 Here documents简单测试 Here documents中变量替换和执行命令测试 通常，Heredocuments中内容会进行变量替换，反勾号中的命令也会执行。可以通过在开始的分割标识符上加单引号禁掉这种行为。 Here string简单测试 在shell文件中使用Here documents 参考 Here document Bash Reference Manual - Here Documents Bash Reference Manual - Here Strings Java 的多行字符串 Here Document 的实现</description></item><item><title>nohup命令笔记</title><link>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link><pubDate>Sat, 26 Oct 2013 11:24:28 +0000</pubDate><guid>https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid><description>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
+/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp; 但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &amp;amp;结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
+nohup COMMAND [ARG]... nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&amp;amp;到命令的尾部。
 如果不将 nohup 命令的输出重定向，输出将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
-nohup command &amp;gt; myout.file 2&amp;gt;&amp;amp;1  该命令返回下列出口值：
- 126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。  </description>
-    </item>
-    
-    <item>
-      <title>*nux下导出文件16进制内容的命令xxd</title>
-      <link>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</link>
-      <pubDate>Thu, 24 Oct 2013 19:16:18 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</guid>
-      <description>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page
-5 Unix Commands I Wish I’d Discovered Years Earlier</description>
-    </item>
-    
-    <item>
-      <title>cut命令笔记</title>
-      <link>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Tue, 22 Oct 2013 23:22:24 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid>
-      <description> cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
-命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号(&#39;-&#39;)，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（&#39;-&#39;）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成&#39;&#39;name:shell&#39;&#39;对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38  个人体会  cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&amp;ndash;output-delimiter=STRING选项控制输出字符分隔符。  </description>
-    </item>
-    
-    <item>
-      <title>在Vi中搜索多字节unicode字符</title>
-      <link>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</link>
-      <pubDate>Sun, 20 Oct 2013 09:00:49 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</guid>
-      <description>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
-\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678)  为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值： </description>
-    </item>
-    
-    <item>
-      <title>Linux包管理速查表</title>
-      <link>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</link>
-      <pubDate>Fri, 18 Oct 2013 20:14:05 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid>
-      <description>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
-搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</description>
-    </item>
-    
-    <item>
-      <title>Debian软件包管理速查表：dpkg、apt-get、apt-cache</title>
-      <link>https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/</link>
-      <pubDate>Fri, 18 Oct 2013 19:54:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/</guid>
-      <description>dpkg是Debian系统底层包管理器，apt-get是高层包管理工具，apt-cache是高层包查询工具。
+nohup command &amp;gt; myout.file 2&amp;gt;&amp;amp;1 该命令返回下列出口值：
+126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。</description></item><item><title>*nux下导出文件16进制内容的命令xxd</title><link>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</link><pubDate>Thu, 24 Oct 2013 19:16:18 +0000</pubDate><guid>https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/</guid><description>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page 5 Unix Commands I Wish I’d Discovered Years Earlier</description></item><item><title>cut命令笔记</title><link>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 22 Oct 2013 23:22:24 +0000</pubDate><guid>https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/</guid><description>cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
+命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号(&amp;#39;-&amp;#39;)，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（&amp;#39;-&amp;#39;）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成&amp;#39;&amp;#39;name:shell&amp;#39;&amp;#39;对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38 个人体会 cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&amp;ndash;output-delimiter=STRING选项控制输出字符分隔符。</description></item><item><title>在Vi中搜索多字节unicode字符</title><link>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</link><pubDate>Sun, 20 Oct 2013 09:00:49 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/</guid><description>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
+\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678) 为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值：</description></item><item><title>Linux包管理速查表</title><link>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</link><pubDate>Fri, 18 Oct 2013 20:14:05 +0000</pubDate><guid>https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid><description>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
+搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&amp;mdash;&amp;ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</description></item><item><title>Debian软件包管理速查表：dpkg、apt-get、apt-cache</title><link>https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/</link><pubDate>Fri, 18 Oct 2013 19:54:39 +0000</pubDate><guid>https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/</guid><description>dpkg是Debian系统底层包管理器，apt-get是高层包管理工具，apt-cache是高层包查询工具。
 dpkg速查表 dpkg是Debian Linux用于安装/管理单个软件包的命令行工具：
-语法描述示例dpkg -i {.deb package}安装软件包dpkg -i zip_2.31-3_i386.debdpkg -i {.deb package}安装新的软件包。如果软件包已安装则尝试更新到最新版本dpkg -i zip_2.31-3_i386.debdpkg -R {Directory-name}递归地安装目录下所有软件包dpkg -R /tmp/downloadsdpkg -r {package}移除一个已安装的软件包，保留配置文件dpkg -r zipdpkg -P {package}移除一个已安装的软件包及配置dpkg -P apache-perl dpkg -l列举所有安装的软件包、及包版本和简短描述dpkg -l dokg -l | less dpkg -l &#39;*apache*&#39; dpkg -l | grep -i &#39;sudo&#39;dpkg -l {package}列举单个安装的软件包、及包版本和简短描述dpkg -l apache-perldpkg -L {package}找出安装的软件包所提供的文件，例如列出安装的文件dpkg -L apache-perl dpkg -L perldpkg -c {.Deb package}列出软件包所提供的文件，例如deb包文件内的所有文件，这对找出将要安装什么文件非常有帮助dpkg -c dc_1.06-19_i386.debdpkg -S {/path/to/file}找出拥有该文件的包，例如找出该文件归属的包dpkg -S /bin/netstat
-dpkg -S /sbin/ippooldpkg -p {package}显示包的详细信息，包组、版本、维护者、架构、依赖包、描述等dpkg -p lsofdpkg -s {package} | grep Status找出Debian包是否安装(状态)dpkg -s lsof | grep Status apt-get速查表 apt-get是Debian Linux用于管理软件包的命令行工具：</description>
-    </item>
-    
-    <item>
-      <title>Shell中的source和.命令</title>
-      <link>https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Thu, 10 Oct 2013 23:11:05 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/</guid>
-      <description>source是csh(C Shell)的内置命令: 标识读入并执行文件中的命令。 这与执行shell脚本是不一样的./script.sh会启动一个新的shell并执行script.sh中的命令。
-source [-h] filename [arguments] The shell reads and executes commands from name. The commands are not placed on the history list. If any args are given, they are placed in argv. (+) source commands may be nested; if they are nested too deeply the shell may run out of file descriptors. An error in a source at any level terminates all nested source commands. With -h, commands are placed on the history list instead of being executed, much like `history -L&#39;.</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu操作笔记</title>
-      <link>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ubuntu%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid>
-      <description>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s  更多细节见hostname帮助文档。
-修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname  更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts  Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
+apt-get速查表 apt-get是Debian Linux用于管理软件包的命令行工具：
+安装/管理单个软件包 升级软件包 打安全补丁 使Debian系统更新到最新状态 下载源.deb文件 前端有很多GUI和应用 |语法|描述|示例 |&amp;mdash; |apt-get install {package}|安装新的软件包。如果软件包已安装则尝试更新到最新版本|apt-get install zipapt-get install lsof samba mysql-client |apt-get remove {package}|移除一个已安装的软件包，保留配置文件|apt-get remove zip |apt-get &amp;ndash;purge remove {package}|移除一个已安装的软件包及配置|apt-get &amp;ndash;purge remove mysql-server |apt-get updateapt-get upgrade|重新同步包索引文件并升级Debian Linux系统及安全更新 (需要访问因特网)|apt-get updateapt-get upgrade |apt-get updateapt-get dist-upgrade|经常用于升级Debian分发。例如Woody升级到Sarge，&amp;lsquo;dist-upgrade&amp;rsquo;除了执行升级功能，也只能处理包新版本改变了的依赖关系；apt-get具有&amp;quot;智能&amp;quot;冲突解决系统，在必要时会试图以重要性较小的包为代价升级最重要的包。|apt-get updateapt-get dist-upgrade
+apt-cache速查表 |语法|描述|示例 |&amp;mdash; |apt-cache pkgnames|列举所有有效包| |apt-cache depends {package}|检查包的依赖|apt-cache depends lsofapt-cache depends mysql-server |apt-cache search {progname}|通过关键字搜索包列表|apt-cache search mysqlapt-cache search &amp;ldquo;Network Security&amp;rdquo; |apt-cache show {package}|显示包的信息|apt-cache show screen</description></item><item><title>Shell中的source和.命令</title><link>https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/</link><pubDate>Thu, 10 Oct 2013 23:11:05 +0000</pubDate><guid>https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/</guid><description>source是csh(C Shell)的内置命令: 标识读入并执行文件中的命令。 这与执行shell脚本是不一样的./script.sh会启动一个新的shell并执行script.sh中的命令。
+source [-h] filename [arguments] The shell reads and executes commands from name. The commands are not placed on the history list. If any args are given, they are placed in argv. (+) source commands may be nested; if they are nested too deeply the shell may run out of file descriptors. An error in a source at any level terminates all nested source commands. With -h, commands are placed on the history list instead of being executed, much like `history -L&amp;#39;.</description></item><item><title>Ubuntu操作笔记</title><link>https://mryqu.github.io/post/ubuntu-notes/</link><pubDate>Mon, 05 Aug 2013 22:49:19 +0000</pubDate><guid>https://mryqu.github.io/post/ubuntu-notes/</guid><description>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s 更多细节见hostname帮助文档。
+修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname 更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
+修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
 在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
-apt-get install net-tools  在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
-net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1  如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
-sudo sysctl -p  之后，运行:
-$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6  它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.</description>
-    </item>
-    
-    <item>
-      <title>Shell参数扩展</title>
-      <link>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</link>
-      <pubDate>Sun, 23 Jun 2013 18:55:00 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</guid>
-      <description>在hadoop-env.sh中，有如下语句：
-export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-&amp;quot;/etc/hadoop&amp;quot;}  这种用法在Shell Parameter Expansion中进行了详尽的介绍，系统学习一下。 Bash中的$符号的作用是参数替换，将参数名替换为参数所代表的值。对于$来说，大括号是可选的，即$ABC和${ABC}代表同一个参数。但是它可以防止变量被错误解析，比如：${hello}world、${arr[1]}。 参数扩展 下列Bash对参数的测试项为未设置和null。如果略掉冒号，则仅测试未设置。
-|表达式|含义 |&amp;mdash;&amp;ndash; |${parameter:-word}|如果parameter没有被声明或者其值为空的话，则表达式替换成word；否则替换成parameter的值。 |${parameter:=word}|如果parameter没有被声明或者其值为空的话，则parameter设为word之后表达式返回parameter的值；否则替换成parameter的值。 |${parameter?word}|如果parameter没有被声明或者其值为空的话，则word被写往标准错误输出和Shell，非可交互的情况下退出；否则替换成parameter的值。 |${parameter:+word}|如果parameter没有被声明或者其值为空的话，则不进行替换；否则替换成parameter的值。 |${!varprefix}
-${!varprefix@}|匹配之前所有以varprefix开头进行声明的变量 |${!name[@]}
-${!name[]}|如果name是数组对象，返回数组下标列表；如果name以设置但不为数组对象，返回0；否则返回null。
-字符串操作 |表达式|含义 |&amp;mdash;&amp;ndash; |${% raw %}{#{% endraw %}parameter}|parameter的长度。 |${parameter:offset}|在parameter中，从位置offset开始提取子串。 |${parameter:offset:length}|在parameter中，从位置offset开始提取长度为length的子串。 |${parameter#word}
-${parameter##word}|从头开始扫描parameter对应值，将匹配word正则表达式的字符删除掉#为最短匹配，##为最长匹配。 |${parameter%word}
-${parameter%%word}|从尾开始扫描parameter对应值，将匹配word正则表达式的字符删除掉%为最短匹配，%%为最长匹配。 |${parameter/pattern/string}
-${parameter//pattern/string}|将parameter对应值的pattern代替为string。/表示只替换一次，//表示全部替换。 |${parameter^pattern}
-${parameter^^pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为大写。^表示只转换匹配的首字母，^^表示全部转换。 |${parameter,pattern}
-${parameter,,pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为小写。,表示只转换匹配的首字母，,,表示全部转换。</description>
-    </item>
-    
-  </channel>
-</rss>
+apt-get install net-tools 在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
+net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1 如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
+sudo sysctl -p 之后，运行:
+$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6 它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
+apt-get --version 结果近似于:</description></item><item><title>Shell参数扩展</title><link>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</link><pubDate>Sun, 23 Jun 2013 18:55:00 +0000</pubDate><guid>https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/</guid><description>在hadoop-env.sh中，有如下语句：
+export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-&amp;#34;/etc/hadoop&amp;#34;} 这种用法在Shell Parameter Expansion中进行了详尽的介绍，系统学习一下。 Bash中的$符号的作用是参数替换，将参数名替换为参数所代表的值。对于$来说，大括号是可选的，即$ABC和${ABC}代表同一个参数。但是它可以防止变量被错误解析，比如：${hello}world、${arr[1]}。 参数扩展 下列Bash对参数的测试项为未设置和null。如果略掉冒号，则仅测试未设置。
+|表达式|含义 |&amp;mdash;&amp;ndash; |${parameter:-word}|如果parameter没有被声明或者其值为空的话，则表达式替换成word；否则替换成parameter的值。 |${parameter:=word}|如果parameter没有被声明或者其值为空的话，则parameter设为word之后表达式返回parameter的值；否则替换成parameter的值。 |${parameter?word}|如果parameter没有被声明或者其值为空的话，则word被写往标准错误输出和Shell，非可交互的情况下退出；否则替换成parameter的值。 |${parameter:+word}|如果parameter没有被声明或者其值为空的话，则不进行替换；否则替换成parameter的值。 |${!varprefix*}${!varprefix@}|匹配之前所有以varprefix开头进行声明的变量 |${!name[@]}${!name[*]}|如果name是数组对象，返回数组下标列表；如果name以设置但不为数组对象，返回0；否则返回null。
+字符串操作 |表达式|含义 |&amp;mdash;&amp;ndash; |${% raw %}{#{% endraw %}parameter}|parameter的长度。 |${parameter:offset}|在parameter中，从位置offset开始提取子串。 |${parameter:offset:length}|在parameter中，从位置offset开始提取长度为length的子串。 |${parameter#word}${parameter##word}|从头开始扫描parameter对应值，将匹配word正则表达式的字符删除掉#为最短匹配，##为最长匹配。 |${parameter%word}${parameter%%word}|从尾开始扫描parameter对应值，将匹配word正则表达式的字符删除掉%为最短匹配，%%为最长匹配。 |${parameter/pattern/string}${parameter//pattern/string}|将parameter对应值的pattern代替为string。/表示只替换一次，//表示全部替换。 |${parameter^pattern}${parameter^^pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为大写。^表示只转换匹配的首字母，^^表示全部转换。 |${parameter,pattern}${parameter,,pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为小写。,表示只转换匹配的首字母，,,表示全部转换。</description></item></channel></rss>

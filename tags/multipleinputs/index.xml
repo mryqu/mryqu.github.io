@@ -1,36 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Multipleinputs on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/multipleinputs/</link>
-    <description>Recent content in Multipleinputs on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Mon, 29 Sep 2014 06:35:57 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/multipleinputs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Hadoop] 通过MultipleInputs处理多输入文件</title>
-      <link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 29 Sep 2014 06:35:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</guid>
-      <description> 一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
-MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3  locations.txt 1,China 2,USA 3,Canada 4,New Zealand  执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output  测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&amp;mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir
-示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class
-示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class
-示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
-使用MultipleInputs的Driver APIJob属性MultipleInputs.addInputPathmapreduce.input.multipleinputs.dir.formats
-示例：/user/hadoop/mijoin/people.txt:o.a.h.m.l.i.TextInputFormat,
-/user/hadoop/mijoin/locations.txt:o.a.h.m.l.i.TextInputFormatmapreduce.input.multipleinputs.dir.mappers
-示例：/user/hadoop/mijoin/people.txt:MultipleInputsDemo.PersonMapper,
-/user/hadoop/mijoin/locations.txt:MultipleInputsDemo.LocationMappermapreduce.job.inputformat.class
-示例：org.apache.hadoop.mapreduce.lib.input.DelegatingInputFormatmapreduce.job.map.class
-示例：org.apache.hadoop.mapreduce.lib.input.DelegatingMapper 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
-调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程 </description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>multipleinputs on Mryqu's Notes</title><link>https://mryqu.github.io/tags/multipleinputs/</link><description>Recent content in multipleinputs on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Sep 2014 06:35:57 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/multipleinputs/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hadoop] 通过MultipleInputs处理多输入文件</title><link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</link><pubDate>Mon, 29 Sep 2014 06:35:57 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</guid><description>一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
+MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3 locations.txt 1,China 2,USA 3,Canada 4,New Zealand 执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output 测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&amp;mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+使用MultipleInputs的Driver 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
+调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程</description></item></channel></rss>

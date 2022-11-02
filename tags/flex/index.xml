@@ -1,64 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Flex on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/flex/</link>
-    <description>Recent content in Flex on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 16 Sep 2012 10:30:48 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/flex/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Flex] Explicitly mapping ActionScript and Java objects</title>
-      <link>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</link>
-      <pubDate>Sun, 16 Sep 2012 10:30:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</guid>
-      <description>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</description>
-    </item>
-    
-    <item>
-      <title>[Flex] 显式使用public namespace</title>
-      <link>https://mryqu.github.io/post/flex_%E6%98%BE%E5%BC%8F%E4%BD%BF%E7%94%A8public_namespace/</link>
-      <pubDate>Sat, 01 Sep 2012 17:24:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/flex_%E6%98%BE%E5%BC%8F%E4%BD%BF%E7%94%A8public_namespace/</guid>
-      <description>今天看代码时，发现public namespace的使用，搜了一下flex4 in action，貌似没有。 放狗搜了一下，学习学习。 myspace.as
-package { public namespace myspace =&amp;quot;http://myspace&amp;quot;; }  TestClass.as
-package { import myspace; public class TestClass { public function foo():void { trace(&amp;quot;Public foo is called&amp;quot;); } myspace function foo():void { trace(&amp;quot;MySpace foo is called&amp;quot;); } private function fooPrivate():void { trace(&amp;quot;Called private function&amp;quot;); } protected function fooProtected():void { trace(&amp;quot;Called protected function&amp;quot;); } public function callFoo(t:TestClass):void { // call the private/protected members on the object. t.fooPrivate(); t.</description>
-    </item>
-    
-    <item>
-      <title>Flex启动次序</title>
-      <link>https://mryqu.github.io/post/flex%E5%90%AF%E5%8A%A8%E6%AC%A1%E5%BA%8F/</link>
-      <pubDate>Wed, 18 Jul 2012 13:28:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/flex%E5%90%AF%E5%8A%A8%E6%AC%A1%E5%BA%8F/</guid>
-      <description>所有Flex组件在启动过程都会触发一些事件。这些事件指示何时组件首次被创建、在内部进行描绘、在屏幕上进行绘制。这些事件也指示何时组件结束创建，当组件为容器时指示何时子组件被创建。 组件被实例化、加入或链接父组件，之后在容器内确定大小并布局。组件创建顺序如下： 下例展示了组件创建生命期内分发的一些重要事件： 容器和组件的创建顺序是不同的，因为容器可为其他组件的父组件。容器内的组件也必须经历创建顺序。如果一个容器是另一个容器的父组件，内部容器的子组件也必须经历创建顺序。 下例展示了容器创建生命期内分发的一些重要事件： 当所有组件被创建并在屏幕绘制，Application对象会分发一个applicationComplete事件。这是程序启动的最后一个被分发的事件。 multiview容器(navigators)的启动顺序与标准容器不同。默认情况下，导航器(navigator)的所有顶级视图会被实例化。然而，Flex仅创建初始可见视图的子组件。当用户切到导航器的其他视图，Flex才会为此视图创建子组件。</description>
-    </item>
-    
-    <item>
-      <title>FLEX组件的生命周期</title>
-      <link>https://mryqu.github.io/post/flex%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link>
-      <pubDate>Mon, 16 Jul 2012 13:19:52 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/flex%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid>
-      <description>组件实例化生命周期描述了用组件类创建组件对象时所发生的一系列步骤,作为生命周期的一部分,flex自动调用组件的的方法,发出事件,并使组件可见。 下面例子用as创建一个btn控件,并将其加入容器中
-var boxContainer:Box = new Box(); //设置Box容器 ... //创建btn var b:Button = new Button(); b.label = &amp;quot;Submit&amp;quot;; ... //将btn添加到Box容器中 boxContainer.addChild(b);  下面的步骤显示了用代码创建一个Button控件，并将这个控件添加到Box容器中时所发生的一切： 1. 调用了组件的构造函数; var b:Button = new Button(); 2. 通过设置组件的属性对组件进行设置: //Configure the button control. b.label = &amp;rdquo;Submit&amp;rdquo;; 组件的setter方法将会调用invalidateProperties()、invalidateSize()、invalidateDisplayList()方法。 3. 调用addChild()方法将该组件添加到父组件。 //Add the Button control to the Box container. boxContainer.addChild(b); 4. 将component的parent的属性设置为对父容器的引用. 5. 计算组件样式(style)设置。 6. 在组件上发布priininialize事件。 7. 调用组件的createChildren()方法。 8. 调用invalidateProperties(),invalidateSize(),invalidateDisplayList()方法以触发后续到来的,下一个&amp;rdquo;渲染事件&amp;rdquo;(render event)期间对commitProperties(),measure(),updateDisplayList()方法的调用.这个规则唯一一个例外就是当用户设置组件的height和width属性时,Flex不会调用measure()方法。 9. 在组件上分发initialize事件。此时，组件所有的子组件都被初始化，但是组件没有改更size和处理布局。可以利用这个事件在组件布局之前执行一些附加的处理。 10. 在父容器上分发childAdd事件。 11. 在父容器上分发initialize事件。 12. 在下一个&amp;rdquo;渲染事件&amp;rdquo;(render event)中,Flex执行以下动作: - 调用组件的commitProperties()方法。 - 调用组件的measure()方法。 - 调用组件的layoutChrome方法。 - 调用组件的updateDisplayList()方法。 - 在组件上发布updateComplete事件。 13.</description>
-    </item>
-    
-    <item>
-      <title>Adobe Flash、Flex、AIR和ColdFusion</title>
-      <link>https://mryqu.github.io/post/adobe_flashflexair%E5%92%8Ccoldfusion/</link>
-      <pubDate>Sun, 07 Dec 2008 01:58:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/adobe_flashflexair%E5%92%8Ccoldfusion/</guid>
-      <description>Adobe Flash Adobe Flash，前称ShockwaveFlash并流行地简称Flash，前身FutureSplash，既指Adobe FlashProfessional 多媒体创作程序，也指Adobe Flash Player。Adobe公司于2005年12月3日收购Macromedia公司，因此Flash成了Adobe公司的软件。
-特性  被大量应用于因特网网页的矢量动画文件格式。 使用向量运算（VectorGraphics）的方式，产生出来的影片占用存储空间较小。 使用Flash创作出的影片有自己的特殊文件格式（swf） 该公司声称全世界97%的网络浏览器都内置Flash播放器（FlashPlayer） 是Adobe提出的“富因特网应用”（RIA）概念的实现平台 Flash6之后版本纳入面向对象程序概念。与其他语言比较，不论是在数据库、XML、PHP等各种平台上，都能更进一步的相互结合应用。  主要文件格式  swf这是一个完整的影片档，无法被编辑。有时会被念作“swiff”或“swaif”[1]。Swf在发布时可以选择保护功能，如果没有选择，很容易被别人输入到他的源文件中使用。然而保护功能依然阻挡不了为数众多的破解软件，有不少闪客专门以此来学习别人的代码和设计方式。 flaFlash的源文件，只能用AdobeFlash打开编辑。 as（ActionScript的缩写）是一种编程语言的简单文本文件.FLA文件能够直接包含 ActionScript, 但是也可以把它存成AS档做为外部链接文件(如定义ActionScript类则必须在写在as文件里,再通过import加入类)，以方便共同工作和更高级的程序修改。 swc，是一种供Flash使用的库格式，可以粗略地理解为Flash用的dll。无法被编辑。 FLV，FLV是FlashVideo的简称，是一种网络视频格式，FLV是 FLASH VIDEO的简称，FLV流式媒体格式是一种视频格式，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上有效使用等缺点。  版本历史 FutureSplash Animator (1996-4-10) - Flash前身，由简单的工具和时间线组成。 - Flash 1 (1996-11) - Macromedia给FutureSplashAnimator更名后为Flash的第一个版本。 - Flash 2 (1997-6) - 引入库的概念。 - Flash 3 (1998-5-31) - 影片剪辑、Javascript插件、透明度和独立播放器。 - Flash 4 (1999-6-15) - 变量、文本输入框、增强的ActionScript、流媒体MP3。 - Flash 5 (2000-8-24) - Javascript、智能剪辑、HTML文本格式。 - Flash MX (2002-3-15) - Unicode、组件、XML、流媒体视频编码。 - Flash MX 2004 (2003-9-10) - 文本抗锯齿、Actionscript2.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Flex on Mryqu's Notes</title><link>https://mryqu.github.io/tags/flex/</link><description>Recent content in Flex on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 16 Sep 2012 10:30:48 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/flex/index.xml" rel="self" type="application/rss+xml"/><item><title>[Flex] Explicitly mapping ActionScript and Java objects</title><link>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</link><pubDate>Sun, 16 Sep 2012 10:30:48 +0000</pubDate><guid>https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/</guid><description>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</description></item><item><title>[Flex] 显式使用public namespace</title><link>https://mryqu.github.io/post/flex_%E6%98%BE%E5%BC%8F%E4%BD%BF%E7%94%A8public_namespace/</link><pubDate>Sat, 01 Sep 2012 17:24:28 +0000</pubDate><guid>https://mryqu.github.io/post/flex_%E6%98%BE%E5%BC%8F%E4%BD%BF%E7%94%A8public_namespace/</guid><description>今天看代码时，发现public namespace的使用，搜了一下flex4 in action，貌似没有。 放狗搜了一下，学习学习。 myspace.as
+package { public namespace myspace =&amp;#34;http://myspace&amp;#34;; } TestClass.as
+package { import myspace; public class TestClass { public function foo():void { trace(&amp;#34;Public foo is called&amp;#34;); } myspace function foo():void { trace(&amp;#34;MySpace foo is called&amp;#34;); } private function fooPrivate():void { trace(&amp;#34;Called private function&amp;#34;); } protected function fooProtected():void { trace(&amp;#34;Called protected function&amp;#34;); } public function callFoo(t:TestClass):void { // call the private/protected members on the object. t.fooPrivate(); t.fooProtected(); } } } testApp.</description></item><item><title>Flex启动次序</title><link>https://mryqu.github.io/post/flex%E5%90%AF%E5%8A%A8%E6%AC%A1%E5%BA%8F/</link><pubDate>Wed, 18 Jul 2012 13:28:23 +0000</pubDate><guid>https://mryqu.github.io/post/flex%E5%90%AF%E5%8A%A8%E6%AC%A1%E5%BA%8F/</guid><description>所有Flex组件在启动过程都会触发一些事件。这些事件指示何时组件首次被创建、在内部进行描绘、在屏幕上进行绘制。这些事件也指示何时组件结束创建，当组件为容器时指示何时子组件被创建。 组件被实例化、加入或链接父组件，之后在容器内确定大小并布局。组件创建顺序如下： 下例展示了组件创建生命期内分发的一些重要事件： 容器和组件的创建顺序是不同的，因为容器可为其他组件的父组件。容器内的组件也必须经历创建顺序。如果一个容器是另一个容器的父组件，内部容器的子组件也必须经历创建顺序。 下例展示了容器创建生命期内分发的一些重要事件： 当所有组件被创建并在屏幕绘制，Application对象会分发一个applicationComplete事件。这是程序启动的最后一个被分发的事件。 multiview容器(navigators)的启动顺序与标准容器不同。默认情况下，导航器(navigator)的所有顶级视图会被实例化。然而，Flex仅创建初始可见视图的子组件。当用户切到导航器的其他视图，Flex才会为此视图创建子组件。</description></item><item><title>FLEX组件的生命周期</title><link>https://mryqu.github.io/post/flex%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link><pubDate>Mon, 16 Jul 2012 13:19:52 +0000</pubDate><guid>https://mryqu.github.io/post/flex%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid><description>组件实例化生命周期描述了用组件类创建组件对象时所发生的一系列步骤,作为生命周期的一部分,flex自动调用组件的的方法,发出事件,并使组件可见。 下面例子用as创建一个btn控件,并将其加入容器中
+var boxContainer:Box = new Box(); //设置Box容器 ... //创建btn var b:Button = new Button(); b.label = &amp;#34;Submit&amp;#34;; ... //将btn添加到Box容器中 boxContainer.addChild(b); 下面的步骤显示了用代码创建一个Button控件，并将这个控件添加到Box容器中时所发生的一切：
+调用了组件的构造函数; var b:Button = new Button(); 通过设置组件的属性对组件进行设置: //Configure the button control. b.label = &amp;ldquo;Submit&amp;rdquo;; 组件的setter方法将会调用invalidateProperties()、invalidateSize()、invalidateDisplayList()方法。 调用addChild()方法将该组件添加到父组件。 //Add the Button control to the Box container. boxContainer.addChild(b); 将component的parent的属性设置为对父容器的引用. 计算组件样式(style)设置。 在组件上发布priininialize事件。 调用组件的createChildren()方法。 调用invalidateProperties(),invalidateSize(),invalidateDisplayList()方法以触发后续到来的,下一个&amp;quot;渲染事件&amp;quot;(render event)期间对commitProperties(),measure(),updateDisplayList()方法的调用.这个规则唯一一个例外就是当用户设置组件的height和width属性时,Flex不会调用measure()方法。 在组件上分发initialize事件。此时，组件所有的子组件都被初始化，但是组件没有改更size和处理布局。可以利用这个事件在组件布局之前执行一些附加的处理。 在父容器上分发childAdd事件。 在父容器上分发initialize事件。 在下一个&amp;quot;渲染事件&amp;quot;(render event)中,Flex执行以下动作: 调用组件的commitProperties()方法。 调用组件的measure()方法。 调用组件的layoutChrome方法。 调用组件的updateDisplayList()方法。 在组件上发布updateComplete事件。 如果commitProperties(),measure,updateDisplayList方法调用了invalidateProperties(),invalidateSize(),或invalidateDisplayList()方法,则Flex会分发另外一个render事件。 在最后的render事件发生后,Flex执行以下动作: 通过设置组件的visible属性使组件变为可视. 在组件上分发creationComplete事件.组件的大小(size)和布局被确定. 这个事件只在组件创建时分发一次. 在组件上分发updateComplete事件.无论什么时候,只要组件的布局(layout),位置,大小或其它可视的属性发生变化就会分发这事件,然后组件被更新，以使组件能够被正确地显示. 原文：http://blog.csdn.net/stonywang/article/details/2667551</description></item><item><title>Adobe Flash、Flex、AIR和ColdFusion</title><link>https://mryqu.github.io/post/adobe_flashflexair%E5%92%8Ccoldfusion/</link><pubDate>Sun, 07 Dec 2008 01:58:53 +0000</pubDate><guid>https://mryqu.github.io/post/adobe_flashflexair%E5%92%8Ccoldfusion/</guid><description>Adobe Flash Adobe Flash，前称ShockwaveFlash并流行地简称Flash，前身FutureSplash，既指Adobe FlashProfessional 多媒体创作程序，也指Adobe Flash Player。Adobe公司于2005年12月3日收购Macromedia公司，因此Flash成了Adobe公司的软件。
+特性 被大量应用于因特网网页的矢量动画文件格式。 使用向量运算（VectorGraphics）的方式，产生出来的影片占用存储空间较小。 使用Flash创作出的影片有自己的特殊文件格式（swf） 该公司声称全世界97%的网络浏览器都内置Flash播放器（FlashPlayer） 是Adobe提出的“富因特网应用”（RIA）概念的实现平台 Flash6之后版本纳入面向对象程序概念。与其他语言比较，不论是在数据库、XML、PHP等各种平台上，都能更进一步的相互结合应用。 主要文件格式 **swf**这是一个完整的影片档，无法被编辑。有时会被念作“swiff”或“swaif”[1]。Swf在发布时可以选择保护功能，如果没有选择，很容易被别人输入到他的源文件中使用。然而保护功能依然阻挡不了为数众多的破解软件，有不少闪客专门以此来学习别人的代码和设计方式。 **fla**Flash的源文件，只能用AdobeFlash打开编辑。 as（ActionScript的缩写）是一种编程语言的简单文本文件.FLA文件能够直接包含 ActionScript, 但是也可以把它存成AS档做为外部链接文件(如定义ActionScript类则必须在写在as文件里,再通过import加入类)，以方便共同工作和更高级的程序修改。 swc，是一种供Flash使用的库格式，可以粗略地理解为Flash用的dll。无法被编辑。 FLV，FLV是FlashVideo的简称，是一种网络视频格式，FLV是 FLASH VIDEO的简称，FLV流式媒体格式是一种视频格式，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上有效使用等缺点。 版本历史 FutureSplash Animator (1996-4-10) - Flash前身，由简单的工具和时间线组成。
+Flash 1 (1996-11) - Macromedia给FutureSplashAnimator更名后为Flash的第一个版本。 Flash 2 (1997-6) - 引入库的概念。 Flash 3 (1998-5-31) - 影片剪辑、Javascript插件、透明度和独立播放器。 Flash 4 (1999-6-15) - 变量、文本输入框、增强的ActionScript、流媒体MP3。 Flash 5 (2000-8-24) - Javascript、智能剪辑、HTML文本格式。 Flash MX (2002-3-15) - Unicode、组件、XML、流媒体视频编码。 Flash MX 2004 (2003-9-10) - 文本抗锯齿、Actionscript2.0、增强的流媒体视频、行为。 Flash MX 2004 Pro (2003-9-10) - 包括所有Flash MX 2004的特性，加上Web Services、 ActionScript 2.</description></item></channel></rss>

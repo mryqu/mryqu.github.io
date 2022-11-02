@@ -1,205 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Mapreduce on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/mapreduce/</link>
-    <description>Recent content in Mapreduce on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 Jul 2015 06:35:42 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/mapreduce/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Pig] 安装Pig 0.15.0</title>
-      <link>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</link>
-      <pubDate>Mon, 20 Jul 2015 06:35:42 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</guid>
-      <description>安装Pig 我的Hadoop集群为node50064、node50069和node51054。本文的Pig软件仅在node50064上安装。
-下载并解压缩Pig wget http://apache.cs.utah.edu/pig/pig-0.15.0/pig-0.15.0.tar.gz tar -xzf pig-0.15.0.tar.gz sudo mv pig-0.15.0 /usr/local/pig sudo chown -R &amp;quot;hadoop:hadoop&amp;quot; /usr/local/pig  环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;quot;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;quot; export PIG_HOME=/usr/local/pig export PIG_CLASSPATH=$HADOOP_HOME/conf export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PIG_HOME/bin  最后通过source~/.bashrc刷新配置文件。
-conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如下： 运行Pig控制台 参考 你用pig分析access_log日志中ip访问次数</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 使用ChainMapper和ChainReducer运行MapReduce作业链</title>
-      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</link>
-      <pubDate>Sun, 24 May 2015 00:07:44 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</guid>
-      <description>启动多个MapReduce作业并实现作业控制，大概有以下几种方式：
- 在Driver中通过waitForCompletion方法同步启动并运行作业，根据执行结果同样同步启动并运行后继作业。作业控制逻辑完全是自己实现，仅适用于作业不多的应用。 使用ChainMapper和ChainReducer运行MapReduce作业链 使用Oozie管理复杂MapReduce工作流 本文将针对第二种方式进行学习总结。  使用MapReduce作业链模式的数据和执行流如下：
- 一或多个mapper shuffle阶段 一个reducer 零或多个mapper 即，mapper可以输出给mapper，也可以输出给reducer；reducer只能输出给mapper；reducer之前必有shuffle阶段。  JobChaining示例 JobChainingDemo.java源码 londonbridge.txt London Bridge is falling down, Falling down, falling down. London Bridge is falling down, My fair lady. Build it up with wood and clay, Wood and clay, wood and clay, Build it up with wood and clay, My fair lady. Wood and clay will wash away, Wash away, wash away, Wood and clay will wash away, My fair lady.</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] YARN中的AuxiliaryService</title>
-      <link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</link>
-      <pubDate>Sun, 01 Feb 2015 12:39:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</guid>
-      <description>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&amp;ldquo;yarn.nodemanager.aux-services&amp;rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即&amp;rdquo;yarn.nodemanager.aux-services&amp;rdquo;）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即&amp;rdquo;yarn.nodemanager.aux-services.%s.class&amp;rdquo;）获得对应的服务类名。例如&amp;rdquo;yarn.nodemanager.aux-services.mapreduce_shuffle.class&amp;rdquo;对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
-public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent&amp;gt; implements Event { private final TYPE type; private final long timestamp; }  在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
-参考 AuxiliaryService in Hadoop 2</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] Map Reduce Slot</title>
-      <link>https://mryqu.github.io/post/hadoop_map_reduce_slot/</link>
-      <pubDate>Fri, 17 Oct 2014 19:29:17 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_map_reduce_slot/</guid>
-      <description>MR1 在MR1中，每个节点可以启动的并发map和reduce任务数(即slot数)由管理员通过mapred-site.xml中mapred.tasktracker.map.tasks.maximum (MR2中为mapreduce.tasktracker.map.tasks.maximum )和mapred.tasktracker.reduce.tasks.maximum (MR2中为mapreduce.tasktracker.reduce.tasks.maximum )配置指定。(下面的参考帖子提到过作业级参数mapred.map.tasks.maximum和mapred.reduce.tasks.maximum，但是在HADOOP-4295并没有通过。)
-此外，管理员通过mapred.child.配置设置mapper或reducer默认的内存分配量。</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 通过MultipleOutputs生成多输出文件</title>
-      <link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 29 Sep 2014 18:39:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</guid>
-      <description>即前一博文[Hadoop] 通过MultipleInputs处理多输入文件展示如何处理MapReduce多输入问题，本文将展示一下如何处理MapReduce多输出的方法。
-MultipleOutputs示例 MultipleOutputsDemo.java源码 Scores.txt Tomas,100 Edward,81 Henry,59 Gordon,60 James,97 Percy,93 Toby,77 Emily,87 Duke,68 Donald,47 Douglas,35  执行 hadoop jar YquMapreduceDemo.jar MultipleOutputsDemo /user/hadoop/mos_input/scores.txt /user/hadoop/mos_output  测试结果 MultipleOutputs分析 普通Driver |API|Job属性 |&amp;mdash;&amp;ndash; |Job.setOutputFormatClass|mapreduce.job.outputformat.class示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat |Job.setOutputKeyClass|mapreduce.job.output.key.class示例：org.apache.hadoop.io.Text |Job.setOutputValueClass|mapreduce.job.output.value.class示例：org.apache.hadoop.io.IntWritable
-使用MultipleOutputs的Driver |API|Job属性 |&amp;mdash;&amp;ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs
-示例：pass fail
-mapreduce.multipleoutputs.namedOutput.pass.format
-示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
-mapreduce.multipleoutputs.namedOutput.pass.key
-示例：org.apache.hadoop.io.NullWritable
-mapreduce.multipleoutputs.namedOutput.pass.value
-示例：org.apache.hadoop.io.Text
-mapreduce.multipleoutputs.namedOutput.fail.format
-示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
-mapreduce.multipleoutputs.namedOutput.fail.key
-示例：org.apache.hadoop.io.NullWritable
-mapreduce.multipleoutputs.namedOutput.fail.value
-示例：org.apache.hadoop.io.Text
-通过调用org.apache.hadoop.mapreduce.lib.output.MultipleOutputs.write方法，根据相应NamedOutput相应的OutputFormat、OutputKeyClass和OutputValueClass创建NamedOutput自己的RecordWriter，完成相应的输出。</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 通过MultipleInputs处理多输入文件</title>
-      <link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 29 Sep 2014 06:35:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</guid>
-      <description> 一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
-MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3  locations.txt 1,China 2,USA 3,Canada 4,New Zealand  执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output  测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&amp;mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir
-示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class
-示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class
-示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
-使用MultipleInputs的Driver APIJob属性MultipleInputs.addInputPathmapreduce.input.multipleinputs.dir.formats
-示例：/user/hadoop/mijoin/people.txt:o.a.h.m.l.i.TextInputFormat,
-/user/hadoop/mijoin/locations.txt:o.a.h.m.l.i.TextInputFormatmapreduce.input.multipleinputs.dir.mappers
-示例：/user/hadoop/mijoin/people.txt:MultipleInputsDemo.PersonMapper,
-/user/hadoop/mijoin/locations.txt:MultipleInputsDemo.LocationMappermapreduce.job.inputformat.class
-示例：org.apache.hadoop.mapreduce.lib.input.DelegatingInputFormatmapreduce.job.map.class
-示例：org.apache.hadoop.mapreduce.lib.input.DelegatingMapper 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
-调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] MapReduce定制Counter实践</title>
-      <link>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Thu, 04 Sep 2014 21:11:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</guid>
-      <description> MapReduce除了有内建的Counter，还支持应用程序自身定制的Counter。实践如下：
-CustomCounterDemo.java 执行 JobHistory显示 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 使用MRUnit进行MapReduce单元测试</title>
-      <link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
-      <pubDate>Sun, 15 Jun 2014 22:59:22 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid>
-      <description>MRUnit介绍 MRUnit是一个用于帮助开发者进行HadoopMapReduce作业单元测试的Java库。它是JUnit架构扩展，无需将代码运行在集群上即可在开发环境测试Mapper和Reducer类的功能。MRUnit由Cloudera开发，并在2012年成为Apache基金会顶级项目。 MRUnit使用LocalJobRunner使用样本数据集模拟一次Mapper/Reducer执行过程。通过定义一或多个输入记录，使用LocalJobRunner运行测试代码，判定是否与期望输出相符。如相符，则安静退出；否则，默认抛出异常。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mapreduce on Mryqu's Notes</title><link>https://mryqu.github.io/tags/mapreduce/</link><description>Recent content in mapreduce on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 20 Jul 2015 06:35:42 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/mapreduce/index.xml" rel="self" type="application/rss+xml"/><item><title>[Pig] 安装Pig 0.15.0</title><link>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</link><pubDate>Mon, 20 Jul 2015 06:35:42 +0000</pubDate><guid>https://mryqu.github.io/post/pig_%E5%AE%89%E8%A3%85pig_0.15.0/</guid><description>安装Pig 我的Hadoop集群为node50064、node50069和node51054。本文的Pig软件仅在node50064上安装。
+下载并解压缩Pig wget http://apache.cs.utah.edu/pig/pig-0.15.0/pig-0.15.0.tar.gz tar -xzf pig-0.15.0.tar.gz sudo mv pig-0.15.0 /usr/local/pig sudo chown -R &amp;#34;hadoop:hadoop&amp;#34; /usr/local/pig 环境变量设置 export HADOOP_HOME=/usr/local/hadoop export HADOOP_PREFIX=$HADOOP_HOME export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native export HADOOP_OPTS=&amp;#34;$HADOOP_OPTS -Djava.library.path=$HADOOP_PREFIX/lib/native&amp;#34; export PIG_HOME=/usr/local/pig export PIG_CLASSPATH=$HADOOP_HOME/conf export PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PIG_HOME/bin 最后通过source~/.bashrc刷新配置文件。
+conf/pig.properties pig.properties用于配置Pig各种参数。参数说明如下： 运行Pig控制台 参考 你用pig分析access_log日志中ip访问次数</description></item><item><title>[Hadoop] 使用ChainMapper和ChainReducer运行MapReduce作业链</title><link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</link><pubDate>Sun, 24 May 2015 00:07:44 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8chainmapper%E5%92%8Cchainreducer%E8%BF%90%E8%A1%8Cmapreduce%E4%BD%9C%E4%B8%9A%E9%93%BE/</guid><description>启动多个MapReduce作业并实现作业控制，大概有以下几种方式：
+在Driver中通过waitForCompletion方法同步启动并运行作业，根据执行结果同样同步启动并运行后继作业。作业控制逻辑完全是自己实现，仅适用于作业不多的应用。 使用ChainMapper和ChainReducer运行MapReduce作业链 使用Oozie管理复杂MapReduce工作流 本文将针对第二种方式进行学习总结。 使用MapReduce作业链模式的数据和执行流如下：
+一或多个mapper shuffle阶段 一个reducer 零或多个mapper 即，mapper可以输出给mapper，也可以输出给reducer；reducer只能输出给mapper；reducer之前必有shuffle阶段。 JobChaining示例 JobChainingDemo.java源码 londonbridge.txt London Bridge is falling down, Falling down, falling down. London Bridge is falling down, My fair lady. Build it up with wood and clay, Wood and clay, wood and clay, Build it up with wood and clay, My fair lady. Wood and clay will wash away, Wash away, wash away, Wood and clay will wash away, My fair lady.</description></item><item><title>[Hadoop] YARN中的AuxiliaryService</title><link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</link><pubDate>Sun, 01 Feb 2015 12:39:55 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</guid><description>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&amp;ldquo;yarn.nodemanager.aux-services&amp;rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即&amp;quot;yarn.nodemanager.aux-services&amp;quot;）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即&amp;quot;yarn.nodemanager.aux-services.%s.class&amp;quot;）获得对应的服务类名。例如&amp;quot;yarn.nodemanager.aux-services.mapreduce_shuffle.class&amp;quot;对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
+public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent&amp;gt; implements Event { private final TYPE type; private final long timestamp; } 在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
+参考 AuxiliaryService in Hadoop 2 Implementing a Custom Shuffle and a Custom Sort</description></item><item><title>[Hadoop] Map Reduce Slot</title><link>https://mryqu.github.io/post/hadoop_map_reduce_slot/</link><pubDate>Fri, 17 Oct 2014 19:29:17 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_map_reduce_slot/</guid><description>MR1 在MR1中，每个节点可以启动的并发map和reduce任务数(即slot数)由管理员通过mapred-site.xml中mapred.tasktracker.map.tasks.maximum (MR2中为mapreduce.tasktracker.map.tasks.maximum )和mapred.tasktracker.reduce.tasks.maximum (MR2中为mapreduce.tasktracker.reduce.tasks.maximum )配置指定。(下面的参考帖子提到过作业级参数mapred.map.tasks.maximum和mapred.reduce.tasks.maximum，但是在HADOOP-4295并没有通过。)
+此外，管理员通过mapred.child.配置设置mapper或reducer默认的内存分配量。</description></item><item><title>[Hadoop] 通过MultipleOutputs生成多输出文件</title><link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</link><pubDate>Mon, 29 Sep 2014 18:39:27 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</guid><description>即前一博文[Hadoop] 通过MultipleInputs处理多输入文件展示如何处理MapReduce多输入问题，本文将展示一下如何处理MapReduce多输出的方法。
+MultipleOutputs示例 MultipleOutputsDemo.java源码 Scores.txt Tomas,100 Edward,81 Henry,59 Gordon,60 James,97 Percy,93 Toby,77 Emily,87 Duke,68 Donald,47 Douglas,35 执行 hadoop jar YquMapreduceDemo.jar MultipleOutputsDemo /user/hadoop/mos_input/scores.txt /user/hadoop/mos_output 测试结果 MultipleOutputs分析 普通Driver |API|Job属性 |&amp;mdash;&amp;ndash; |Job.setOutputFormatClass|mapreduce.job.outputformat.class示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat |Job.setOutputKeyClass|mapreduce.job.output.key.class示例：org.apache.hadoop.io.Text |Job.setOutputValueClass|mapreduce.job.output.value.class示例：org.apache.hadoop.io.IntWritable
+使用MultipleOutputs的Driver |API|Job属性 |&amp;mdash;&amp;ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs示例：pass failmapreduce.multipleoutputs.namedOutput.pass.format示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormatmapreduce.multipleoutputs.namedOutput.pass.key示例：org.apache.hadoop.io.NullWritablemapreduce.multipleoutputs.namedOutput.pass.value示例：org.apache.hadoop.io.Textmapreduce.multipleoutputs.namedOutput.fail.format示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormatmapreduce.multipleoutputs.namedOutput.fail.key示例：org.apache.hadoop.io.NullWritablemapreduce.multipleoutputs.namedOutput.fail.value示例：org.apache.hadoop.io.Text
+通过调用org.apache.hadoop.mapreduce.lib.output.MultipleOutputs.write方法，根据相应NamedOutput相应的OutputFormat、OutputKeyClass和OutputValueClass创建NamedOutput自己的RecordWriter，完成相应的输出。</description></item><item><title>[Hadoop] 通过MultipleInputs处理多输入文件</title><link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</link><pubDate>Mon, 29 Sep 2014 06:35:57 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/</guid><description>一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
+MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3 locations.txt 1,China 2,USA 3,Canada 4,New Zealand 执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output 测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&amp;mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+使用MultipleInputs的Driver 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
+调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程</description></item><item><title>[Hadoop] MapReduce定制Counter实践</title><link>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</link><pubDate>Thu, 04 Sep 2014 21:11:13 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/</guid><description>MapReduce除了有内建的Counter，还支持应用程序自身定制的Counter。实践如下：
+CustomCounterDemo.java 执行 JobHistory显示</description></item><item><title>[Hadoop] 使用MRUnit进行MapReduce单元测试</title><link>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link><pubDate>Sun, 15 Jun 2014 22:59:22 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid><description>MRUnit介绍 MRUnit是一个用于帮助开发者进行HadoopMapReduce作业单元测试的Java库。它是JUnit架构扩展，无需将代码运行在集群上即可在开发环境测试Mapper和Reducer类的功能。MRUnit由Cloudera开发，并在2012年成为Apache基金会顶级项目。 MRUnit使用LocalJobRunner使用样本数据集模拟一次Mapper/Reducer执行过程。通过定义一或多个输入记录，使用LocalJobRunner运行测试代码，判定是否与期望输出相符。如相符，则安静退出；否则，默认抛出异常。
 测试代码 本测试代码基于MRUnit指南中示例代码修改而成，使用junit:junit:4.11和org.apache.mrunit:mrunit:1.1.0:hadoop2两个Java库进行编译和测试。
-SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试演示 为了演示测试失败情况，我将testReducer方法中期望值改为错误值123。 参考 Apache MRUnit
-MRUnit Tutorial</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 在MapReduce中使用HBase数据</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</link>
-      <pubDate>Sun, 11 May 2014 22:58:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</guid>
-      <description>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
-MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ .  测试 执行下列命令运行MapReduce作业:
-HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr &#39;:&#39; &#39;,&#39;)  HBase结果如下: 与普通MapReduce程序的差异  本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。  参考 HBase and MapReduce</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 压缩MapReduce的Mapper输出</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</link>
-      <pubDate>Mon, 03 Mar 2014 20:13:37 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</guid>
-      <description> 介绍 压缩map输出是以压缩和解压缩的CPU消耗为代价来减少磁盘和网络IO开销。Hadoop中，mapper的输出数据是写到Mapper所在的本地磁盘的，并以网络传输的方式传送到Reducer所在的节点上。mapreduce.map.output.compress默认为false，即不对map输出进行压缩。如果中间数据不是二进制的，通常建议使用map输出压缩。
+SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试演示 为了演示测试失败情况，我将testReducer方法中期望值改为错误值123。 参考 Apache MRUnit MRUnit Tutorial</description></item><item><title>[Hadoop] 在MapReduce中使用HBase数据</title><link>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</link><pubDate>Sun, 11 May 2014 22:58:25 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</guid><description>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
+MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ . 测试 执行下列命令运行MapReduce作业:
+HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr &amp;#39;:&amp;#39; &amp;#39;,&amp;#39;) HBase结果如下: 与普通MapReduce程序的差异 本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。 参考 HBase and MapReduce</description></item><item><title>[Hadoop] 压缩MapReduce的Mapper输出</title><link>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</link><pubDate>Mon, 03 Mar 2014 20:13:37 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%8E%8B%E7%BC%A9mapreduce%E7%9A%84mapper%E8%BE%93%E5%87%BA/</guid><description>介绍 压缩map输出是以压缩和解压缩的CPU消耗为代价来减少磁盘和网络IO开销。Hadoop中，mapper的输出数据是写到Mapper所在的本地磁盘的，并以网络传输的方式传送到Reducer所在的节点上。mapreduce.map.output.compress默认为false，即不对map输出进行压缩。如果中间数据不是二进制的，通常建议使用map输出压缩。
 Hadoop支持的的内建压缩编码如下： 如果设置mapreduce.map.output.compress为true且没有设置mapreduce.map.output.compression.codec的话，默认使用org.apache.hadoop.io.compress.DefaultCodec。
 |压缩格式|算法|工具|默认扩展名|说明 |&amp;mdash;&amp;ndash; |DEFLATE|DEFLATE|N/A|.deflate|DEFLATE是一种压缩算法，标准实现是zlib，尚没有命令行工具支持。文件扩展名.deflate是一个Hadoop的约定。所有的压缩算法都存在空间与时间的权衡：更快的压缩速率和解压速率是以牺牲压缩率为代价的。org.apache.hadoop.io.compress.zlib.ZlibCompressor.CompressionLevel中定义了0~9压缩级别，0为无压缩，9为最佳压缩。支持Java实现和原生库实现。 |GZip|DEFLATE|gzip|.gz|GZip与DEFLATE使用同样的压缩算法，不过相对于DEFLATE压缩格式增加了额外的头部和尾部。GZip是一种常规的压缩工具，空间与时间得到很好的权衡。支持Java实现和原生库实现。 |BZip2|BZip2|BZip2|.bz2|BZip2压缩率高于GZip，但压缩速度较慢；解析速度优于它的压缩速度，但还是较其它压缩算法偏慢。由上图可知，BZip2是Hadoop内嵌压缩算法中唯一可以被分割的，这样一个输入文件可分成多个InputSplit，便于本地数据加载并被Mapper处理。相关技术可见处理跨块边界的InputSplit一文。支持Java实现和原生库实现。 |LZ4|LZ4|N/A|.lz4|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.Lz4Codec.isNativeCodeLoaded()用于检查是否加载原生库，其调用者在没有加载原生库时会抛异常。 |Snappy|Snappy|N/A|.snappy|LZ4和Snappy相对于GZip压缩速度得到很大提升，但没有GZip的压缩率高。仅支持原生库实现。org.apache.hadoop.io.compress.SnappyCodec.checkNativeCodeLoaded()在没有加载原生库时会抛异常。
 如果使用原生库压缩编码，需配置LD_LIBRARY_PATH。默认情况下，Hadoop自动在本地库路径（java.library.path）下查询并加载合适的本地库实现。通过设置属性io.native.lib.available为false禁用原生库，此时内建的Java实现将被使用。
 Hadoop源码分析 在org.apache.hadoop.mapred.MapTask.MapOutputBuffer.init(Context)和org.apache.hadoop.mapred.ReduceTask.initCodec()方法中检查mapreduce.map.output.compress属性，如果为true，则加载mapreduce.map.output.compression.codec属性所设的压缩编解码器。 MapTask当将数据spill到硬盘时使用压缩编码器进行数据压缩。 ReduceTask在使用Shuffle结果是使用压缩解码器进行数据解压缩。
-使用map输出压缩的应用示例 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] MapReduce输出SequenceFile实践</title>
-      <link>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Wed, 01 Jan 2014 23:19:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</guid>
-      <description> Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示： - NONE: 对记录不进行压缩; - RECORD: 仅压缩每一个记录中的值; - BLOCK: 将一个块中的所有记录压缩在一起;
-输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class);  输出SequenceFile示例 </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别</title>
-      <link>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</link>
-      <pubDate>Mon, 14 Oct 2013 20:06:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</guid>
-      <description> 即mapred和mapreduce包的区别后，本文再次从源码角度分析新老API（mapred.mapper.new-api/ mapred.reducer.new-api）的设置与区别。 mapred.mapper.new-api /mapred.reducer.new-api这两个参数很少显式去设置，默认为false，即使用mapred包下的老API。 不过MapReduce框架也会去自动识别应该使用老API还是新API。作业提交有两种方式，异步方式用submit，同步方式用waitForCompletion。不过org.apache.hadoop.mapreduce.Job.waitForCompletion(boolean)里调用了org.apache.hadoop.mapreduce.Job.submit()方法，submit方法又调用了org.apache.hadoop.mapreduce.Job.setUseNewAPI()方法。setUseNewAPI方法里面对新老API做了判断： - 是否设置了mapred.mapper.class属性，则mapred.mapper.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setMapperClass(Class)还是org.apache.hadoop.mapred.JobConf.setMapperClass(Class)设置的Mapper，前者设置的是mapreduce.job.map.class属性，后者设置的是mapred.mapper.class属性。 - 如果mapreduce.job.reduces属性值不为0，则看是否设置了mapred.reducer.class属性，则mapred.reducer.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setReducerClass(Class)还是org.apache.hadoop.mapred.JobConf.setReducerClass(Class)设置的Mapper，前者设置的是mapreduce.job.reducer.class属性，后者设置的是mapred.reducer.class属性。
-new-api相关区别 使用new-api不使用new-api不允许设置下列属性：
-mapred.input.format.classmapred.mapper.classmapred.partitioner.classmapred.reducer.classmapred.output.format.class不允许设置下列属性：
-mapreduce.job.inputformat.classmapreduce.job.map.classmapreduce.job.partitioner.classmapreduce.job.reducer.classmapreduce.job.outputformat.class使用下列类或接口的实现：
-o.a.h.conf.Configurationo.a.h.mapreduce.Mapper抽象类o.a.h.mapreduce.Reducer抽象类o.a.h.mapreduce.OutputFormat抽象类o.a.h.mapreduce.OutputCommitter抽象类o.a.h.mapreduce.TaskIDo.a.h.mapreduce.TaskAttemptIDo.a.h.mapreduce.TaskAttemptContext接口o.a.h.mapreduce.InputFormat抽象类o.a.h.mapreduce.InputSplit抽象类使用下列类或接口的实现：
-o.a.h.mapred.JobConfo.a.h.mapred.Mapper接口o.a.h.mapred.Reducer接口o.a.h.mapred.OutputFormat接口o.a.h.mapred.OutputCommitter抽象类o.a.h.mapred.TaskIDo.a.h.mapred.TaskAttemptIDo.a.h.mapred.TaskAttemptContext接口o.a.h.mapred.InputFormat接口o.a.h.mapred.InputSplit接口使用方法：
-o.a.h.mapred.MapTask.runNewMappero.a.h.mapreduce.JobSubmitter.writeNewSplitso.a.h.mapred.ReduceTask.runNewReducer使用方法：
-o.a.h.mapred.MapTask.runOldMappero.a.h.mapreduce.JobSubmitter.writeOldSplitso.a.h.mapred.ReduceTask.runOldReducer </description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] mapred和mapreduce包的区别</title>
-      <link>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
-      <pubDate>Fri, 12 Jul 2013 16:55:48 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-      <description>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
+使用map输出压缩的应用示例</description></item><item><title>[Hadoop] MapReduce输出SequenceFile实践</title><link>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</link><pubDate>Wed, 01 Jan 2014 23:19:23 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapreduce%E8%BE%93%E5%87%BAsequencefile%E5%AE%9E%E8%B7%B5/</guid><description>Hadoop的Mapper输出默认格式为SequenceFile，而Reducer默认输出则为TextFile。在一个MapReduce工作流中，经常有多个MapReduce作业级联完成应用功能。如果中间MapReduce是输入输出都为SequenceFile，则性能很可能获得很大提升。 SequenceFile文件是Hadoop用来存储二进制形式的键值对而设计的一种平面文件(FlatFile)。SequenceFile可压缩可切分,非常适合Hadoop文件存储特性，SequenceFile的写入由org.apache.hadoop.io.SequenceFile.Writer来实现，根据压缩类型Writer又派生出两个子类BlockCompressWriter和RecordCompressWriter，压缩方式由SequenceFile类的内部枚举类CompressionType来表示：
+NONE: 对记录不进行压缩; RECORD: 仅压缩每一个记录中的值; BLOCK: 将一个块中的所有记录压缩在一起; 输入SequenceFile示例 job.setInputFormatClass(SequenceFileInputFormat.class); 输出SequenceFile示例</description></item><item><title>[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别</title><link>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</link><pubDate>Mon, 14 Oct 2013 20:06:53 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/</guid><description>即mapred和mapreduce包的区别后，本文再次从源码角度分析新老API（mapred.mapper.new-api/ mapred.reducer.new-api）的设置与区别。 mapred.mapper.new-api /mapred.reducer.new-api这两个参数很少显式去设置，默认为false，即使用mapred包下的老API。 不过MapReduce框架也会去自动识别应该使用老API还是新API。作业提交有两种方式，异步方式用submit，同步方式用waitForCompletion。不过org.apache.hadoop.mapreduce.Job.waitForCompletion(boolean)里调用了org.apache.hadoop.mapreduce.Job.submit()方法，submit方法又调用了org.apache.hadoop.mapreduce.Job.setUseNewAPI()方法。setUseNewAPI方法里面对新老API做了判断：
+是否设置了mapred.mapper.class属性，则mapred.mapper.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setMapperClass(Class)还是org.apache.hadoop.mapred.JobConf.setMapperClass(Class)设置的Mapper，前者设置的是mapreduce.job.map.class属性，后者设置的是mapred.mapper.class属性。 如果mapreduce.job.reduces属性值不为0，则看是否设置了mapred.reducer.class属性，则mapred.reducer.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setReducerClass(Class)还是org.apache.hadoop.mapred.JobConf.setReducerClass(Class)设置的Mapper，前者设置的是mapreduce.job.reducer.class属性，后者设置的是mapred.reducer.class属性。 new-api相关区别</description></item><item><title>[Hadoop] mapred和mapreduce包的区别</title><link>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Fri, 12 Jul 2013 16:55:48 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
 区别 本文将通过WordCount示例代码，介绍一下二者的区别。WordCount示例代码分别取自0.19和0.23.9版本的Hadoop源码。
-0.19版WordCount示例 0.23.9版WordCount示例 区别新API老API包新API位于org.apache.hadoop.mapreduce包内老API位于org.apache.hadoop.mapred.包内Mapper和Reducer类型新API使用Mapper和Reducer抽象类
-抽象类更容易扩展，Hadoop实现可以轻松向其抽象类中添加方法(用默认的实现)而不会对已有Hadoop应用造成影响老API使用Mapper和Reduceer接口使用对象新API使用Configuration和一些Helper类完成作业配置；
-新API使用Job完成作业控制；
-新API使用Context完成用户代码与MapReduce系统的通信。老API使用JobConf
-完成作业配置，它是Configuration子类；
-老API使用JobClient完成作业控制；
-老API使用OutputCollector和Reporter完成用户代码与MapReduce系统的通信。
-方法map() reduce() clearup() setup() run()；
-所有方法可抛IOException或InterruptedException；
-Reduce()输入值为java.lang.Iterable；键值对输出通过Context对象的write方法实现；
-map() reduce()；
-所有方法可抛IOException；
-Reduce()输入值为java.lang.Iterator；
-键值对输出通过OutputCollector对象的collect方法实现；输出文件part-m-nnnnn和part-r-nnnnn
-(nnnnn为从0开始的整数)part-nnnnn
-注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
+0.19版WordCount示例 0.23.9版WordCount示例 注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
 参考 Upgrading To The New Map Reduce API
-Difference between Hadoop OLD API and NEW API</description>
-    </item>
-    
-  </channel>
-</rss>
+Difference between Hadoop OLD API and NEW API</description></item></channel></rss>

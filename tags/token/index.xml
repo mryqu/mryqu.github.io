@@ -1,41 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Token on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/token/</link>
-    <description>Recent content in Token on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 09 Aug 2016 05:25:47 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/token/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>获取Facebook User Token</title>
-      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</link>
-      <pubDate>Tue, 09 Aug 2016 05:25:47 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</guid>
-      <description>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。 获取Facebook App Token一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>token on Mryqu's Notes</title><link>https://mryqu.github.io/tags/token/</link><description>Recent content in token on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Aug 2016 05:25:47 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/token/index.xml" rel="self" type="application/rss+xml"/><item><title>获取Facebook User Token</title><link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</link><pubDate>Tue, 09 Aug 2016 05:25:47 +0000</pubDate><guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</guid><description>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。 获取Facebook App Token一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。
 参考3 Facebook Login - Advance - Manually Build a Login Flow给出了如何构建一个signURL，RestFB的getLoginDialogUrl方法就实现了这样的功能。redirectUri一开始直接想用带外认证urn:ietf:wg:oauth:2.0:oob，可是Facebook不认呀。 Facebook Login - Advance - Manually Build a Login Flow已经提到了：对于桌面应用，redirectUri必须是https://www.facebook.com/connect/login_success.html 。
 获取Facebook User Token步骤 生成signURL 生成signURL并进行Get请求：
-curl &amp;quot;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;amp;response_type=token&amp;amp;scope=public_profile&amp;quot;  可以从返回的页面中获取登录表单：认证 使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：
-curl -X POST &amp;quot;{form-action}&amp;quot; -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; --data &amp;quot;lsd={lsd_value}&amp;amp;api_key={api_key_value}&amp;amp;cancel_url={cancel_rul_value}&amp;amp;isprivate={isprivate=_value}&amp;amp;legacy_return={legacy_return_value}&amp;amp;profile_selector_ids={profile_selector_ids_value}&amp;amp;return_session={return_session_value}&amp;amp;skip_api_login={skip_api_login_value}&amp;amp;signed_next={skip_api_login_value}&amp;amp;trynum={trynum_value}&amp;amp;timezone={timezone_value}&amp;amp;lgndim={lgndim_value}&amp;amp;lgnrnd={lgnrnd_value}&amp;amp;lgnjs={lgnjs_value}&amp;amp;email={your_facebook_account}&amp;amp;pass={your_facebook_password}&amp;amp;login={login_value}&amp;amp;persistent={persistent_value}&amp;amp;default_persistent={default_persistent_value}&amp;quot;  获取User Token Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。
-https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;amp;expires_in={expire}  参考 Facebook Login - Access Tokens
-Facebook Login - Access Tokens - App Access Tokens</description>
-    </item>
-    
-    <item>
-      <title>[C] #和##宏操作符</title>
-      <link>https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/</link>
-      <pubDate>Sun, 20 Oct 2013 10:45:24 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/</guid>
-      <description>在看# and ## in macros之前觉得对#和##宏操作符挺明白的，看了之后才感觉需要重新学习一下。
-#define f(a,b) a##b #define g(a) #a #define h(a) g(a) int main() { printf(&amp;quot;%s\n&amp;quot;,h(f(1,2))); printf(&amp;quot;%s\n&amp;quot;,g(f(1,2))); return 0; }  如果你能确保自己能写出正确答案的话，那么你可以略过这篇帖子。 C/C++语言中对宏的处理属于编译器预处理的范畴，属于编译期概念而非运行期概念。其中#操作符用于对指定的宏参数进行字符串化，而##操作符用来将两个符号连接为一个符号。
-struct command { char *name; void (*function) (void); };   ``` #define COMMAND(NAME) \ { #NAME, NAME ## _command } struct command commands[] = { COMMAND (quit), COMMAND (help), … }; ``` 等同 ``` struct command commands[] = { { &#34;quit&#34;, quit_command }, { &#34;</description>
-    </item>
-    
-  </channel>
-</rss>
+curl &amp;#34;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;amp;response_type=token&amp;amp;scope=public_profile&amp;#34; 可以从返回的页面中获取登录表单：
+认证 使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：
+curl -X POST &amp;#34;{form-action}&amp;#34; -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; --data &amp;#34;lsd={lsd_value}&amp;amp;api_key={api_key_value}&amp;amp;cancel_url={cancel_rul_value}&amp;amp;isprivate={isprivate=_value}&amp;amp;legacy_return={legacy_return_value}&amp;amp;profile_selector_ids={profile_selector_ids_value}&amp;amp;return_session={return_session_value}&amp;amp;skip_api_login={skip_api_login_value}&amp;amp;signed_next={skip_api_login_value}&amp;amp;trynum={trynum_value}&amp;amp;timezone={timezone_value}&amp;amp;lgndim={lgndim_value}&amp;amp;lgnrnd={lgnrnd_value}&amp;amp;lgnjs={lgnjs_value}&amp;amp;email={your_facebook_account}&amp;amp;pass={your_facebook_password}&amp;amp;login={login_value}&amp;amp;persistent={persistent_value}&amp;amp;default_persistent={default_persistent_value}&amp;#34; 获取User Token Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。
+https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;amp;expires_in={expire} 参考 Facebook Login - Access Tokens Facebook Login - Access Tokens - App Access Tokens Facebook Login - Advance - Manually Build a Login Flow RestFB： GET LOGIN DIALOG URL RestFB： EXTENDING AN ACCESS TOKEN Facebook Dialog OAuth Tutorial</description></item><item><title>[C] #和##宏操作符</title><link>https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/</link><pubDate>Sun, 20 Oct 2013 10:45:24 +0000</pubDate><guid>https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/</guid><description>在看# and ## in macros之前觉得对#和##宏操作符挺明白的，看了之后才感觉需要重新学习一下。
+#define f(a,b) a##b #define g(a) #a #define h(a) g(a) int main() { printf(&amp;#34;%s\n&amp;#34;,h(f(1,2))); printf(&amp;#34;%s\n&amp;#34;,g(f(1,2))); return 0; } 如果你能确保自己能写出正确答案的话，那么你可以略过这篇帖子。 C/C++语言中对宏的处理属于编译器预处理的范畴，属于编译期概念而非运行期概念。其中#操作符用于对指定的宏参数进行字符串化，而##操作符用来将两个符号连接为一个符号。
+struct command { char *name; void (*function) (void); }; struct command commands[] = { COMMAND (quit), COMMAND (help), … };
+&amp;lt;/td&amp;gt;&amp;lt;td&amp;gt;等同&amp;lt;/td&amp;gt;&amp;lt;td&amp;gt; struct command commands[] = { { &amp;ldquo;quit&amp;rdquo;, quit_command }, { &amp;ldquo;help&amp;rdquo;, help_command }, … };
+&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;&amp;lt;/table&amp;gt; 但是这里还有一个参数预扫描问题。即如果参数不被字符串化或者用于符号连接的情况下，才会在宏定义体内被替换之前进行展开。 #define xstr(s) str(s) #define str(s) #s #define foo 4 str (foo) → &amp;ldquo;foo&amp;rdquo; //由于str中对s参数进行字符串化，所以foo不会展开 xstr (foo) → xstr (4) //由于xstr中对foo施加#和##操作符，因此foo先展开为4 → str (4) → &amp;ldquo;4&amp;rdquo;</description></item></channel></rss>

@@ -1,517 +1,99 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>Joda-Time笔记 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="Joda-Time笔记">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="Joda-Time笔记 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/" itemprop="url">
-        Joda-Time笔记
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-12-01">
-    2013-12-01
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/java" itemprop="url" rel="index">
-        <span itemprop="name">Java</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">239 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<h3 id="joda-http-www-joda-org-简介"><a href="http://www.joda.org/">Joda</a>简介</h3>
-
-<p><a href="http://www.joda.org/">Joda</a>项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目：
-- <a href="http://www.joda.org/joda-time/">Joda-Time</a> -日期和时间库
-- <a href="http://www.joda.org/joda-money/">Joda-Money</a> -货币库
-- <a href="http://www.joda.org/joda-beans/">Joda-Beans</a> -下一代JavaBeans
-- <a href="http://www.joda.org/joda-convert/">Joda-Convert</a> -字符串与对象转换库
-- <a href="http://www.joda.org/joda-collect/">Joda-Collect</a> - 提供JDK或<a href="http://code.google.com/p/guava-libraries/">Google Guava</a>没有的集合数据类型
-- <a href="http://www.joda.org/joda-primitives/">Joda-Primitives</a> -提供原始数据类型集合</p>
-
-<h3 id="joda-time-http-www-joda-org-joda-time-简介"><a href="http://www.joda.org/joda-time/">Joda-Time</a>简介</h3>
-
-<p>其中<a href="http://www.joda.org/joda-time/">Joda-Time</a>由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。<a href="http://www.joda.org/joda-time/">Joda-Time</a>在JavaSE8将融入JDK API内，使用者可以使用<tt style="color: rgb(34, 34, 34); line-height: 20px; background-color: rgb(255, 255, 255);">java.time</tt> (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(<a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E5%8E%86">现行公历、格里历</a>)、Julian(<a href="https://zh.wikipedia.org/zh-cn/%E5%84%92%E7%95%A5%E6%9B%86">儒略历</a>)、Buddhist(<a href="https://zh.wikipedia.org/wiki/%E4%BD%9B%E6%9B%86">佛历</a>)、Coptic(<a href="https://zh.wikipedia.org/wiki/%E7%A7%91%E6%99%AE%E7%89%B9%E5%8E%86">科普特历</a>)、Ethiopic(<a href="https://zh.wikipedia.org/wiki/%E5%9F%83%E5%A1%9E%E4%BF%84%E6%AF%94%E4%BA%9E%E6%9B%86">埃塞俄比亚历</a>)和Islamic(<a href="https://zh.wikipedia.org/wiki/%E4%BC%8A%E6%96%AF%E5%85%B0%E5%8E%86">伊斯兰历</a>)历法系统。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Joda-Time笔记 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="Joda-Time笔记"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="Joda-Time笔记 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/ itemprop=url>Joda-Time笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-01">2013-12-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>222 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody><h3 id=jodahttpwwwjodaorg简介><a href=http://www.joda.org/>Joda</a>简介</h3><p><a href=http://www.joda.org/>Joda</a>项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目：</p><ul><li><a href=http://www.joda.org/joda-time/>Joda-Time</a> -日期和时间库</li><li><a href=http://www.joda.org/joda-money/>Joda-Money</a> -货币库</li><li><a href=http://www.joda.org/joda-beans/>Joda-Beans</a> -下一代JavaBeans</li><li><a href=http://www.joda.org/joda-convert/>Joda-Convert</a> -字符串与对象转换库</li><li><a href=http://www.joda.org/joda-collect/>Joda-Collect</a> - 提供JDK或<a href=http://code.google.com/p/guava-libraries/>Google Guava</a>没有的集合数据类型</li><li><a href=http://www.joda.org/joda-primitives/>Joda-Primitives</a> -提供原始数据类型集合</li></ul><h3 id=joda-timehttpwwwjodaorgjoda-time简介><a href=http://www.joda.org/joda-time/>Joda-Time</a>简介</h3><p>其中<a href=http://www.joda.org/joda-time/>Joda-Time</a>由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。<a href=http://www.joda.org/joda-time/>Joda-Time</a>在JavaSE8将融入JDK API内，使用者可以使用java.time (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(<a href=https://zh.wikipedia.org/wiki/%E5%85%AC%E5%8E%86>现行公历、格里历</a>)、Julian(<a href=https://zh.wikipedia.org/zh-cn/%E5%84%92%E7%95%A5%E6%9B%86>儒略历</a>)、Buddhist(<a href=https://zh.wikipedia.org/wiki/%E4%BD%9B%E6%9B%86>佛历</a>)、Coptic(<a href=https://zh.wikipedia.org/wiki/%E7%A7%91%E6%99%AE%E7%89%B9%E5%8E%86>科普特历</a>)、Ethiopic(<a href=https://zh.wikipedia.org/wiki/%E5%9F%83%E5%A1%9E%E4%BF%84%E6%AF%94%E4%BA%9E%E6%9B%86>埃塞俄比亚历</a>)和Islamic(<a href=https://zh.wikipedia.org/wiki/%E4%BC%8A%E6%96%AF%E5%85%B0%E5%8E%86>伊斯兰历</a>)历法系统。
 为什么要使用Joda-Time（以下简称Joda）？考虑创建一个用时间表示的某个随意的时刻，例如2000年1月1日0时0分。如何创建一个用时间表示这个瞬间的JDK对象？使用java.util.Date？事实上这是行不通的，因为自JDK1.1 之后的每个 Java 版本的 Javadoc 都声明应当使用java.util.Calendar。Date中Date(intyear, int month, int date) 、Date(int year, int month, int date, inthrs, int min)、Date(int year, int month, int date, int hrs, int min,int sec)已经废弃、不建议使用，严重限制了您创建此类对象的途径。然而，Date确实有一个构造函数Date(long date)，您可以用来创建用时间表示某个瞬间的对象（除“当前时间”以外）。该方法使用距离1970年1月1日子时格林威治标准时间（也称为_epoch_）以来的毫秒数作为一个参数，对时区进行校正。
-那么Calendar又如何呢？可以使用下面的方式创建必需的实例：</p>
-
-<pre><code>Calendar calendar = Calendar.getInstance();
+那么Calendar又如何呢？可以使用下面的方式创建必需的实例：</p><pre tabindex=0><code>Calendar calendar = Calendar.getInstance();
 calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
-</code></pre>
-
-<p>使用Joda，代码应该类似如下所示：</p>
-
-<pre><code>DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
-</code></pre>
-
-<p>这一行简单代码没有太大的区别。但是如果使问题稍微复杂化，假设希望在这个日期上加上90天并输出结果。使用JDK，需要如下代码：</p>
-
-<pre><code>Calendar calendar = Calendar.getInstance();
+</code></pre><p>使用Joda，代码应该类似如下所示：</p><pre tabindex=0><code>DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+</code></pre><p>这一行简单代码没有太大的区别。但是如果使问题稍微复杂化，假设希望在这个日期上加上90天并输出结果。使用JDK，需要如下代码：</p><pre tabindex=0><code>Calendar calendar = Calendar.getInstance();
 calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
 SimpleDateFormat sdf =
-  new SimpleDateFormat(&quot;E MM/dd/yyyy HH:mm:ss.SSS&quot;);
+  new SimpleDateFormat(&#34;E MM/dd/yyyy HH:mm:ss.SSS&#34;);
 calendar.add(Calendar.DAY_OF_MONTH, 90);
 System.out.println(sdf.format(calendar.getTime()));
-</code></pre>
-
-<p>使用Joda，代码如下所示：</p>
-
-<pre><code>DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
-System.out.println(dateTime.plusDays(90).toString(&quot;E MM/dd/yyyy HH:mm:ss.SSS&quot;);
-</code></pre>
-
-<p>两者之间的差距拉大了（Joda用了两行代码，JDK则是 5 行代码）。
-现在假设希望输出这样一个日期：距离Y2K45天之后的某天在下一个月的当前周的最后一天的日期。坦白地说，使用Calendar处理这个问题实在太痛苦了，即使是简单的日期计算，比如上面这个计算。使用Joda，代码如下所示：</p>
-
-<pre><code>DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+</code></pre><p>使用Joda，代码如下所示：</p><pre tabindex=0><code>DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+System.out.println(dateTime.plusDays(90).toString(&#34;E MM/dd/yyyy HH:mm:ss.SSS&#34;);
+</code></pre><p>两者之间的差距拉大了（Joda用了两行代码，JDK则是 5 行代码）。
+现在假设希望输出这样一个日期：距离Y2K45天之后的某天在下一个月的当前周的最后一天的日期。坦白地说，使用Calendar处理这个问题实在太痛苦了，即使是简单的日期计算，比如上面这个计算。使用Joda，代码如下所示：</p><pre tabindex=0><code>DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
 System.out.println(dateTime.plusDays(45).plusMonths(1).dayOfWeek()
-                   .withMaximumValue().toString(&quot;E MM/dd/yyyy HH:mm:ss.SSS&quot;);
-</code></pre>
-
-<p>输出为：</p>
-
-<pre><code>Sun 03/19/2000 00:00:00.000
-</code></pre>
-
-<p>如果您正在寻找一种易于使用的方式替代JDK日期处理，那么您真的应该考虑Joda，具体原因如下：
-- 易于使用
-- 易于扩展
-- 丰富特性
-- 最新的时区计算
-- 历法支持
-- 易于互操作
-- 性能更佳
-- 良好的测试覆盖率
-- 完整的文档
-- 成熟
-- 开源</p>
-
-<h3 id="joda-time关键概念">Joda-Time关键概念</h3>
-
-<p><img src="/images/2013/12/0026uWfMgy6TqyG6TPWa0.jpg" alt="Joda-Time笔记" /></p>
-
-<h3 id="joda-和-jdk-互操作性">Joda 和 JDK 互操作性</h3>
-
-<p>Calendar类缺乏可用性，这一点很快就能体会到，而Joda弥补了这一不足。Joda的设计者还做出了一个决定，这可以说是它取得成功的关键一点：JDK互操作性。Joda的类能够（正如您将看到的一样，有时会采用一种比较迂回的方式）生成java.util.Date（和Calendar）的实例。这使您能够保留现有的依赖JDK的代码，但是又能够使用Joda 处理复杂的日期/时间计算。
-例如，完成上一示例计算后。只需要稍作更改就可以将结果返回到JDK中：</p>
-
-<pre><code>Calendar calendar = Calendar.getInstance();
+                   .withMaximumValue().toString(&#34;E MM/dd/yyyy HH:mm:ss.SSS&#34;);
+</code></pre><p>输出为：</p><pre tabindex=0><code>Sun 03/19/2000 00:00:00.000
+</code></pre><p>如果您正在寻找一种易于使用的方式替代JDK日期处理，那么您真的应该考虑Joda，具体原因如下：</p><ul><li>易于使用</li><li>易于扩展</li><li>丰富特性</li><li>最新的时区计算</li><li>历法支持</li><li>易于互操作</li><li>性能更佳</li><li>良好的测试覆盖率</li><li>完整的文档</li><li>成熟</li><li>开源</li></ul><h3 id=joda-time关键概念>Joda-Time关键概念</h3><p><img src=/images/2013/12/0026uWfMgy6TqyG6TPWa0.jpg alt=Joda-Time笔记></p><h3 id=joda-和-jdk-互操作性>Joda 和 JDK 互操作性</h3><p>Calendar类缺乏可用性，这一点很快就能体会到，而Joda弥补了这一不足。Joda的设计者还做出了一个决定，这可以说是它取得成功的关键一点：JDK互操作性。Joda的类能够（正如您将看到的一样，有时会采用一种比较迂回的方式）生成java.util.Date（和Calendar）的实例。这使您能够保留现有的依赖JDK的代码，但是又能够使用Joda 处理复杂的日期/时间计算。
+例如，完成上一示例计算后。只需要稍作更改就可以将结果返回到JDK中：</p><pre tabindex=0><code>Calendar calendar = Calendar.getInstance();
 DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0);
 dateTime = dateTime.plusDays(45).plusMonths(1).dayOfWeek().withMaximumValue();
-System.out.println(dateTime.toString(&quot;E MM/dd/yyyy HH:mm:ss.SSS&quot;);
+System.out.println(dateTime.toString(&#34;E MM/dd/yyyy HH:mm:ss.SSS&#34;);
 calendar.setTime(dateTime.toDate());
-</code></pre>
-
-<p>就是这么简单，完成了计算，但是可以继续在JDK对象中处理结果。这是Joda的一个非常棒的特性。
+</code></pre><p>就是这么简单，完成了计算，但是可以继续在JDK对象中处理结果。这是Joda的一个非常棒的特性。
 Joda也接受使用JDK对象用来构造Joda对象。
-Joda构造函数将指定从epoch到某个时刻所经过的毫秒数来进行构造。它根据JDK Date对象的毫秒值创建一个DateTime对象。epoch与Joda定义是相同的，Joda的时间精度也用毫秒表示：</p>
-
-<pre><code>java.util.Date jdkDate = obtainDateSomehow();
+Joda构造函数将指定从epoch到某个时刻所经过的毫秒数来进行构造。它根据JDK Date对象的毫秒值创建一个DateTime对象。epoch与Joda定义是相同的，Joda的时间精度也用毫秒表示：</p><pre tabindex=0><code>java.util.Date jdkDate = obtainDateSomehow();
 long timeInMillis = jdkDate.getTime();
 DateTime dateTime = new DateTime(timeInMillis);
-</code></pre>
-
-<p>下面这个例子与前例类似，唯一不同之处是我在这里将Date或Calendar对象直接传递给构造函数：</p>
-
-<pre><code>// Use a Date
+</code></pre><p>下面这个例子与前例类似，唯一不同之处是我在这里将Date或Calendar对象直接传递给构造函数：</p><pre tabindex=0><code>// Use a Date
 java.util.Date jdkDate = obtainDateSomehow();
 dateTime = new DateTime(jdkDate);
 
 // Use a Calendar
 java.util.Calendar calendar = obtainCalendarSomehow();
 dateTime = new DateTime(calendar);
-</code></pre>
-
-<h3 id="参考">参考</h3>
-
-<p><a href="http://www.joda.org/joda-time/">Joda-Time项目主页</a><br />
-<a href="http://www.ibm.com/developerworks/library/j-jodatime/">IBM developerWorks：Joda-Time</a><br />
-<a href="http://blog.csdn.net/dhdhdh0920/article/details/7415359">开源时间开发工具Joda-time介绍</a><br />
-<a href="http://www.joda.org/">Joda项目主页</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：Joda-Time笔记
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/joda" rel="tag" title="joda">#joda#</a>
-    
-    <a href="/tags/time" rel="tag" title="time">#time#</a>
-    
-    <a href="/tags/java" rel="tag" title="java">#java#</a>
-    
-    <a href="/tags/date" rel="tag" title="date">#date#</a>
-    
-    <a href="/tags/calendar" rel="tag" title="calendar">#calendar#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/wget%E7%AC%94%E8%AE%B0/" rel="next" title="Wget笔记">
-        <i class="fa fa-chevron-left"></i> Wget笔记
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/mysql%E6%B8%85%E7%A9%BA%E5%85%B7%E6%9C%89%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E7%9A%84%E8%A1%A8/" rel="prev" title="MySQL:清空具有外键约束的表">
-        MySQL:清空具有外键约束的表 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/";
-this.page.identifier = "https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#joda-http-www-joda-org-简介"><a href="http://www.joda.org/">Joda</a>简介</a></li>
-<li><a href="#joda-time-http-www-joda-org-joda-time-简介"><a href="http://www.joda.org/joda-time/">Joda-Time</a>简介</a></li>
-<li><a href="#joda-time关键概念">Joda-Time关键概念</a></li>
-<li><a href="#joda-和-jdk-互操作性">Joda 和 JDK 互操作性</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre><h3 id=参考>参考</h3><p><a href=http://www.joda.org/joda-time/>Joda-Time项目主页</a><br><a href=http://www.ibm.com/developerworks/library/j-jodatime/>IBM developerWorks：Joda-Time</a><br><a href=http://blog.csdn.net/dhdhdh0920/article/details/7415359>开源时间开发工具Joda-time介绍</a><br><a href=http://www.joda.org/>Joda项目主页</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Joda-Time笔记<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/joda rel=tag title=joda>#joda#</a>
+<a href=/tags/time rel=tag title=time>#time#</a>
+<a href=/tags/java rel=tag title=java>#java#</a>
+<a href=/tags/date rel=tag title=date>#date#</a>
+<a href=/tags/calendar rel=tag title=calendar>#calendar#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/wget%E7%AC%94%E8%AE%B0/ rel=next title=Wget笔记><i class="fa fa-chevron-left"></i> Wget笔记</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/mysql%E6%B8%85%E7%A9%BA%E5%85%B7%E6%9C%89%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E7%9A%84%E8%A1%A8/ rel=prev title=MySQL:清空具有外键约束的表>MySQL:清空具有外键约束的表 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/",this.page.identifier="https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#jodahttpwwwjodaorg简介><a href=http://www.joda.org/>Joda</a>简介</a></li><li><a href=#joda-timehttpwwwjodaorgjoda-time简介><a href=http://www.joda.org/joda-time/>Joda-Time</a>简介</a></li><li><a href=#joda-time关键概念>Joda-Time关键概念</a></li><li><a href=#joda-和-jdk-互操作性>Joda 和 JDK 互操作性</a></li><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

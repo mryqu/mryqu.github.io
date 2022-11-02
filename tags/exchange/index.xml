@@ -1,26 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Exchange on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/exchange/</link>
-    <description>Recent content in Exchange on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 07 Aug 2016 05:54:08 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/exchange/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[RabbitMQ] Hello RabbitMQ</title>
-      <link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</link>
-      <pubDate>Sun, 07 Aug 2016 05:54:08 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</guid>
-      <description>为了快速入门RabbitMQ，我主要学习了下列参考中的两个链接：RabbitMQ教程和SpringAMQP范例。这里对所学教程做一个小笔记。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>exchange on Mryqu's Notes</title><link>https://mryqu.github.io/tags/exchange/</link><description>Recent content in exchange on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 07 Aug 2016 05:54:08 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/exchange/index.xml" rel="self" type="application/rss+xml"/><item><title>[RabbitMQ] Hello RabbitMQ</title><link>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</link><pubDate>Sun, 07 Aug 2016 05:54:08 +0000</pubDate><guid>https://mryqu.github.io/post/rabbitmq_hello_rabbitmq/</guid><description>为了快速入门RabbitMQ，我主要学习了下列参考中的两个链接：RabbitMQ教程和SpringAMQP范例。这里对所学教程做一个小笔记。
 准备工作 由于我不打算跑本机上的RabbitMQ服务器，所有对代码稍有修改。
-TutorialConfiguration.java public class TutorialConfiguration { public static final String HOST = &amp;quot;mryqu-rabbitmq-server&amp;quot;; public static final String USERNAME = &amp;quot;mryqu&amp;quot;; public static final String PASSWORD = &amp;quot;mryqu-pwd&amp;quot;; }  对原有代码进行修改 // factory.setHost(&amp;quot;localhost&amp;quot;); factory.setHost(TutorialConfiguration.HOST); factory.setUsername(TutorialConfiguration.USERNAME); factory.setPassword(TutorialConfiguration.PASSWORD); }  RabbitMQ函数 发布方和消费方首先要创建连接，通过连接创建通道。通过通道也可以声明交换器，也可以直接声明队列。 - 函数Exchange.DeclareOk exchangeDeclare(String exchange, Stringtype, boolean durable, boolean autoDelete, boolean internal, Maparguments)用于声明交换器。其中exchange为队列名；type为交换器类型，例如fanout、direct、header和topic，注意无法改变已存在交换器的类型；durable为true时为持久交换器，在服务器重启后仍将存在，默认为false；autoDelete为true时，当所有的消费者使用完交换器后，服务器会自动删除交换器。服务器必须为判断交换器未使用提供一个合理时延，起码允许客户端能够创建一个代理并将其与队列绑定。默认为false；internal为true时为内部交换器，客户端不能直接向其发布消息，默认为false。 - 函数Queue.DeclareOk queueDeclare(String queue, boolean durable,boolean exclusive, boolean autoDelete, Map arguments)用于声明队列，其中queue为队列名；durable为true时为持久队列，在服务器重启后仍将存在。默认为false；exclusive为true时为私有队列，仅在当前连接中可以访问队列，当连接关闭时删除该队列。默认为true；autoDelete为true时，当所有的消费者使用完队列后，服务器会自动删除队列。最后一个消费者可被显式取消或由于通道关闭而取消。如果队列从没有消费者，队列将不会被删除。应用可以像对普通队列一样使用Delete方法显式删除自动删除队列。默认为true。 函数Queue.BindOk queueBind(String queue, String exchange, StringroutingKey, Map arguments)用于通过路由关键字将队列与交换器进行绑定。</description>
-    </item>
-    
-  </channel>
-</rss>
+TutorialConfiguration.java public class TutorialConfiguration { public static final String HOST = &amp;#34;mryqu-rabbitmq-server&amp;#34;; public static final String USERNAME = &amp;#34;mryqu&amp;#34;; public static final String PASSWORD = &amp;#34;mryqu-pwd&amp;#34;; } 对原有代码进行修改 // factory.setHost(&amp;#34;localhost&amp;#34;); factory.setHost(TutorialConfiguration.HOST); factory.setUsername(TutorialConfiguration.USERNAME); factory.setPassword(TutorialConfiguration.PASSWORD); } RabbitMQ函数 发布方和消费方首先要创建连接，通过连接创建通道。通过通道也可以声明交换器，也可以直接声明队列。
+函数Exchange.DeclareOk exchangeDeclare(String exchange, Stringtype, boolean durable, boolean autoDelete, boolean internal, Maparguments)用于声明交换器。其中exchange为队列名；type为交换器类型，例如fanout、direct、header和topic，注意无法改变已存在交换器的类型；durable为true时为持久交换器，在服务器重启后仍将存在，默认为false；autoDelete为true时，当所有的消费者使用完交换器后，服务器会自动删除交换器。服务器必须为判断交换器未使用提供一个合理时延，起码允许客户端能够创建一个代理并将其与队列绑定。默认为false；internal为true时为内部交换器，客户端不能直接向其发布消息，默认为false。 函数Queue.DeclareOk queueDeclare(String queue, boolean durable,boolean exclusive, boolean autoDelete, Map arguments)用于声明队列，其中queue为队列名；durable为true时为持久队列，在服务器重启后仍将存在。默认为false；exclusive为true时为私有队列，仅在当前连接中可以访问队列，当连接关闭时删除该队列。默认为true；autoDelete为true时，当所有的消费者使用完队列后，服务器会自动删除队列。最后一个消费者可被显式取消或由于通道关闭而取消。如果队列从没有消费者，队列将不会被删除。应用可以像对普通队列一样使用Delete方法显式删除自动删除队列。默认为true。 函数Queue.BindOk queueBind(String queue, String exchange, StringroutingKey, Map arguments)用于通过路由关键字将队列与交换器进行绑定。 函数void basicPublish(String exchange, String routingKey, booleanmandatory, boolean immediate, BasicProperties props, byte[]body)用于发布者发布消息。其中exchange为交换器名；routingKey为路由关键字，使用默认交换器及命名队列时可直接设为队列名；mandatory标志告知服务器当消息无法路由到队列时如何处理。如果标志被设上，服务器通过一个Return方法返回无法路由的消息。如果标志为空，服务器就仅丢弃消息。默认为false；immediate标志告知服务器当消息无法立即路由到队列消费者时如何处理。如果标志被设上，服务器通过一个Return方法返回无法路由的消息。如果标志为空，服务器就将消息放入队列，但不保证消息最终被消费。默认为false；props可设置下列子属性（可参考com.</description></item></channel></rss>

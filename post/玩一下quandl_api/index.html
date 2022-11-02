@@ -1,530 +1,76 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>玩一下Quandl API - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="玩一下Quandl API">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="玩一下Quandl API - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/" itemprop="url">
-        玩一下Quandl API
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-05-11">
-    2017-05-11
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/databuilder" itemprop="url" rel="index">
-        <span itemprop="name">DataBuilder</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">234 字 ~2分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>Quandl是为投资专业人士提供财务、经济和替代数据的平台。 Quandl来源于500多家出版商的数据。所有Quandl的数据都可通过API访问，也可以通过包含R、Python、Ruby等多种编程语言及Excel、SAS等软件进行原生访问。Quandl的来源包括联合国，世行和中央银行等提供商的公开数据、来自CLS集团，Zacks和ICE等供应商的核心财务数据、Dun＆Bradstreet的其他数据、以及许多机密来源。
-<strong>什么是替代数据？</strong>替代数据的范围非常广泛，起初主要包含了未加工的、原始的公司文件、历史市场价格、投资者表现等数据，而现在替代数据已经涵盖任何从移动手机数据到职位信息再到天气预报、交通、卫星图像等能够被采集到的数据。替代数据世界由一系列模糊的数据集组成，而这些数据集可以被转换为交易信息。Quandl提供的替代数据包括企业财务压力数据、外汇数据、电子邮件收据数据、全球石油储量数据、定量股票选择数据等。
-Quandl上的数据分为免费数据和高级（Premium）数据，其中高级数据只能通过订阅访问。</p>
-
-<h3 id="申请quandl账号">申请Quandl账号</h3>
-
-<p>除了在Quandl上注册帐号外，Quandl还支持使用GitHub、Google和LinkedIn账号进行OAuth2认证登录。登录后查看账户设置信息中的API KEY，即可用于后继API访问。
-<img src="/images/2017/05/QuandlApiKey.png" alt="Quandl Api Key" /></p>
-
-<h3 id="quandl-api">Quandl API</h3>
-
-<p>全部的Quandl数据产品，可通过<a href="https://www.quandl.com/search">https://www.quandl.com/search</a>查找。Quandl的数据产品来源不同，包含时间序列和表在内的各种对象。
-<img src="/images/2017/05/QuandlInf.jpg" alt="Quandl interface" /></p>
-
-<p>Guandl的大多数数据集只能以时间序列或表中的一种格式打开，其中一些则既可用时间序列格式也可用表格式访问。
-*   时间序列是一段时间内观测或指标集合，以时间为索引且只包含数字数据类型字段。
-*   表包含各种未排序数据类型（字符串、数字、日期等）并可用不同字段进行过滤。</p>
-
-<p>Guandl可指定如下返回类型：
-*   JSON
-*   CSV
-*   XML</p>
-
-<h4 id="速率限制">速率限制</h4>
-
-<p>认证用户限制10秒300个调用、10分钟2000调用及每天50000调用。使用免费数据集的认证用户并发限制为1，即进行一个调用的同时可以在队列中有一个额外的调用。
-高级数据订阅限制10分钟5000调用及每天720000调用。</p>
-
-<h3 id="访问时间序列">访问时间序列</h3>
-
-<ul>
-<li>获取时间序列数据集数据<br />
-<code>
-    GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/data.{return_format}?api_key=YOURAPIKEY
-</code>
-<img src="/images/2017/05/Quandl_getDatasetData.png" alt="Quandl getDatasetData" /></li>
-<li>获取时间序列数据集元数据<br />
-<code>
-    GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/metadata.{return_format}?api_key=YOURAPIKEY
-</code>
-<img src="/images/2017/05/Quandl_getDatasetMeta.png" alt="Quandl getDatasetMeta" /></li>
-<li>获取时间序列数据集数据及元数据<br />
-<code>
-    GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}.{return_format}?api_key=YOURAPIKEY
-</code>
-<img src="/images/2017/05/Quandl_getDataset.png" alt="Quandl getDataset" /></li>
-<li>获取时间序列数据库元数据<br />
-<code>
-    GET https://www.quandl.com/api/v3/databases/{database_code}.{return_format}?api_key=YOURAPIKEY
-</code>
-<img src="/images/2017/05/Quandl_getDatabase.png" alt="Quandl getDatabase" /></li>
-
-<li><p>获取整个时间序列数据库(<strong>仅能用于订阅的高级数据</strong>)</p>
-
-<pre><code>    GET https://www.quandl.com/api/v3/databases/{database_code}/data?download_type=full&amp;api_key=YOURAPIKEY
-</code></pre>
-
-<h4 id="查询参数">查询参数</h4></li>
-</ul>
-
-<p>| 参数 | 必需 | 类型 | 值 | 描述 |
-| - | - | - | - | - |
-| database_code | 是 | string |   | 数据库代码 |
-| dataset_code | 是 | string |   | 数据集代码 |
-| limit | 否 | int |   | 使用limit=n获得数据集的头n行。使用limit=1获取最新的一行。 |
-| column_index | 否 | int |   | 指定特定列。第0列是日期列且永久返回，因此该处从第1列起。<br>（mryqu：不指定则显示全部列，指定就显示两列，为什么没有逗号分隔了？） |
-| start_date | 否 | string | yyyy-mm-dd | 用于过滤的起始日期 |
-| end_date | 否 | string | yyyy-mm-dd | 用于过滤的结束日期 |
-| order | 否 | string | asc<br>desc | 日期排序 |
-| collapse | 否 | string | none<br>daily<br>weekly<br>monthly<br>quarterly<br>annual | 改变返回数据的抽样频率。默认为none，即原始颗粒度。改变抽样频率后，Quandl返回给定时间段内最后一个观测值。 |
-| transform | 否 | string | none<br>diff<br>rdiff<br>rdiff_from<br>cumul<br>normalize | 在下载前对数据执行基本计算。默认为none。|</p>
-
-<p>搜索FRED数据库的GDP数据集，按年抽样，取头6行，日期升序排列，显示第0和1列：<br />
-<img src="/images/2017/05/Quandl_queryDataset.png" alt="Quandl queryDataset" /></p>
-
-<h3 id="访问表">访问表</h3>
-
-<ul>
-<li>获取表元数据<br />
-<code>
-    https://www.quandl.com/api/v3/datatables/{publisher_code}/{datatable_code}/metadata.{return_format}?api_key=YOURAPIKEY
-</code>
-<img src="/images/2017/05/Quandl_getDatatableMeta.png" alt="Quandl getDatatableMeta" />
-通过表元数据克制列名和类型，以及那些列可用作行过滤器。</li>
-<li>获取表数据<br />
-<code>
-    https://www.quandl.com/api/v3/datatables/{publisher_code}/{datatable_code}.{return_format}?api_key=YOURAPIKEY
-</code>
-<img src="/images/2017/05/Quandl_getDatatable.png" alt="Quandl getDatatable" />
-此API最多返回10000行数据，其中返回数据中的next-cursor-id用于指示下一页。可以通过下面提到的查询参数qopts.cursor_id进行分页查询，或者通过查询参数qopts.export=true将整表导出为压缩csv的zip文件。<br /></li>
-</ul>
-
-<h4 id="过滤器操作符">过滤器操作符</h4>
-
-<p>共有五种过滤器操作符：<code>=</code> 、<code>.gt=</code> 、<code>.lt=</code> 、<code>.gte=</code> 、<code>.lte=</code> 。</p>
-
-<h4 id="查询参数-1">查询参数</h4>
-
-<p>| 参数 | 必需 | 描述 |
-| - | - | - |
-| qopts.columns | 否 | 过滤列。如果想查询多列，列名用逗号分隔。 |
-| qopts.export | 否 | 对大查询很有帮助。数据将导出为压缩csv的zip文件已用于下载。 |
-| qopts.per_page | 否 | 单页显示行数，最大为10000行。 |
-| qopts.cursor_id | 否 | 每个API调用将返回用于表示表下一页的游标ID。在API中包含此游标ID则可以查询表的下一页。空游标ID代码当前页为表的最后一页。 |</p>
-
-<p>导出PRICES全表：<br />
-<img src="/images/2017/05/Quandl_exportDatatable.png" alt="Quandl exportDatatable" />
-过滤mapcode为-5370、compnumber为39102且reporttype为A的行，输出表的reportdate和amount列：<br />
-<img src="/images/2017/05/Quandl_queryDatatable.png" alt="Quandl queryDatatable" /></p>
-
-<h3 id="参考">参考</h3>
-
-<hr />
-
-<p><a href="https://www.quandl.com/">Quandl官网</a><br />
-<a href="https://docs.quandl.com/">Quandl API文档</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：玩一下Quandl API
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/quandl" rel="tag" title="quandl">#quandl#</a>
-    
-    <a href="/tags/api" rel="tag" title="api">#api#</a>
-    
-    <a href="/tags/rest" rel="tag" title="rest">#rest#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/arcgis%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/" rel="next" title="ArcGIS认证和登录">
-        <i class="fa fa-chevron-left"></i> ArcGIS认证和登录
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/iconlogo_and_brand_guides_for_social_media/" rel="prev" title="Icon/logo and brand guides for social media">
-        Icon/logo and brand guides for social media <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/";
-this.page.identifier = "https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#申请quandl账号">申请Quandl账号</a></li>
-<li><a href="#quandl-api">Quandl API</a>
-<ul>
-<li><a href="#速率限制">速率限制</a></li>
-</ul></li>
-<li><a href="#访问时间序列">访问时间序列</a>
-<ul>
-<li><a href="#查询参数">查询参数</a></li>
-</ul></li>
-<li><a href="#访问表">访问表</a>
-<ul>
-<li><a href="#过滤器操作符">过滤器操作符</a></li>
-<li><a href="#查询参数-1">查询参数</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>玩一下Quandl API - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="玩一下Quandl API"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="玩一下Quandl API - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/ itemprop=url>玩一下Quandl API</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2017-05-11">2017-05-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>125 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>Quandl是为投资专业人士提供财务、经济和替代数据的平台。 Quandl来源于500多家出版商的数据。所有Quandl的数据都可通过API访问，也可以通过包含R、Python、Ruby等多种编程语言及Excel、SAS等软件进行原生访问。Quandl的来源包括联合国，世行和中央银行等提供商的公开数据、来自CLS集团，Zacks和ICE等供应商的核心财务数据、Dun＆Bradstreet的其他数据、以及许多机密来源。
+**什么是替代数据？**替代数据的范围非常广泛，起初主要包含了未加工的、原始的公司文件、历史市场价格、投资者表现等数据，而现在替代数据已经涵盖任何从移动手机数据到职位信息再到天气预报、交通、卫星图像等能够被采集到的数据。替代数据世界由一系列模糊的数据集组成，而这些数据集可以被转换为交易信息。Quandl提供的替代数据包括企业财务压力数据、外汇数据、电子邮件收据数据、全球石油储量数据、定量股票选择数据等。
+Quandl上的数据分为免费数据和高级（Premium）数据，其中高级数据只能通过订阅访问。</p><h3 id=申请quandl账号>申请Quandl账号</h3><p>除了在Quandl上注册帐号外，Quandl还支持使用GitHub、Google和LinkedIn账号进行OAuth2认证登录。登录后查看账户设置信息中的API KEY，即可用于后继API访问。
+<img src=/images/2017/05/QuandlApiKey.png alt="Quandl Api Key"></p><h3 id=quandl-api>Quandl API</h3><p>全部的Quandl数据产品，可通过<a href=https://www.quandl.com/search>https://www.quandl.com/search</a>查找。Quandl的数据产品来源不同，包含时间序列和表在内的各种对象。
+<img src=/images/2017/05/QuandlInf.jpg alt="Quandl interface"></p><p>Guandl的大多数数据集只能以时间序列或表中的一种格式打开，其中一些则既可用时间序列格式也可用表格式访问。</p><ul><li>时间序列是一段时间内观测或指标集合，以时间为索引且只包含数字数据类型字段。</li><li>表包含各种未排序数据类型（字符串、数字、日期等）并可用不同字段进行过滤。</li></ul><p>Guandl可指定如下返回类型：</p><ul><li>JSON</li><li>CSV</li><li>XML</li></ul><h4 id=速率限制>速率限制</h4><p>认证用户限制10秒300个调用、10分钟2000调用及每天50000调用。使用免费数据集的认证用户并发限制为1，即进行一个调用的同时可以在队列中有一个额外的调用。
+高级数据订阅限制10分钟5000调用及每天720000调用。</p><h3 id=访问时间序列>访问时间序列</h3><ul><li>获取时间序列数据集数据<pre tabindex=0><code>    GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/data.{return_format}?api_key=YOURAPIKEY
+</code></pre><img src=/images/2017/05/Quandl_getDatasetData.png alt="Quandl getDatasetData"></li><li>获取时间序列数据集元数据<pre tabindex=0><code>    GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/metadata.{return_format}?api_key=YOURAPIKEY
+</code></pre><img src=/images/2017/05/Quandl_getDatasetMeta.png alt="Quandl getDatasetMeta"></li><li>获取时间序列数据集数据及元数据<pre tabindex=0><code>    GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}.{return_format}?api_key=YOURAPIKEY
+</code></pre><img src=/images/2017/05/Quandl_getDataset.png alt="Quandl getDataset"></li><li>获取时间序列数据库元数据<pre tabindex=0><code>    GET https://www.quandl.com/api/v3/databases/{database_code}.{return_format}?api_key=YOURAPIKEY
+</code></pre><img src=/images/2017/05/Quandl_getDatabase.png alt="Quandl getDatabase"></li><li>获取整个时间序列数据库(<strong>仅能用于订阅的高级数据</strong>)<pre tabindex=0><code>    GET https://www.quandl.com/api/v3/databases/{database_code}/data?download_type=full&amp;api_key=YOURAPIKEY
+</code></pre></li></ul><h4 id=查询参数>查询参数</h4><table><thead><tr><th>参数</th><th>必需</th><th>类型</th><th>值</th><th>描述</th></tr></thead><tbody><tr><td>database_code</td><td>是</td><td>string</td><td></td><td>数据库代码</td></tr><tr><td>dataset_code</td><td>是</td><td>string</td><td></td><td>数据集代码</td></tr><tr><td>limit</td><td>否</td><td>int</td><td></td><td>使用limit=n获得数据集的头n行。使用limit=1获取最新的一行。</td></tr><tr><td>column_index</td><td>否</td><td>int</td><td></td><td>指定特定列。第0列是日期列且永久返回，因此该处从第1列起。（mryqu：不指定则显示全部列，指定就显示两列，为什么没有逗号分隔了？）</td></tr><tr><td>start_date</td><td>否</td><td>string</td><td>yyyy-mm-dd</td><td>用于过滤的起始日期</td></tr><tr><td>end_date</td><td>否</td><td>string</td><td>yyyy-mm-dd</td><td>用于过滤的结束日期</td></tr><tr><td>order</td><td>否</td><td>string</td><td>ascdesc</td><td>日期排序</td></tr><tr><td>collapse</td><td>否</td><td>string</td><td>nonedailyweeklymonthlyquarterlyannual</td><td>改变返回数据的抽样频率。默认为none，即原始颗粒度。改变抽样频率后，Quandl返回给定时间段内最后一个观测值。</td></tr><tr><td>transform</td><td>否</td><td>string</td><td>nonediffrdiffrdiff_fromcumulnormalize</td><td>在下载前对数据执行基本计算。默认为none。</td></tr></tbody></table><p>搜索FRED数据库的GDP数据集，按年抽样，取头6行，日期升序排列，显示第0和1列：<br><img src=/images/2017/05/Quandl_queryDataset.png alt="Quandl queryDataset"></p><h3 id=访问表>访问表</h3><ul><li>获取表元数据<pre tabindex=0><code>    https://www.quandl.com/api/v3/datatables/{publisher_code}/{datatable_code}/metadata.{return_format}?api_key=YOURAPIKEY
+</code></pre><img src=/images/2017/05/Quandl_getDatatableMeta.png alt="Quandl getDatatableMeta">
+通过表元数据克制列名和类型，以及那些列可用作行过滤器。</li><li>获取表数据<pre tabindex=0><code>    https://www.quandl.com/api/v3/datatables/{publisher_code}/{datatable_code}.{return_format}?api_key=YOURAPIKEY
+</code></pre><img src=/images/2017/05/Quandl_getDatatable.png alt="Quandl getDatatable">
+此API最多返回10000行数据，其中返回数据中的next-cursor-id用于指示下一页。可以通过下面提到的查询参数qopts.cursor_id进行分页查询，或者通过查询参数qopts.export=true将整表导出为压缩csv的zip文件。</li></ul><h4 id=过滤器操作符>过滤器操作符</h4><p>共有五种过滤器操作符：<code> =</code> 、<code> .gt=</code> 、<code> .lt=</code> 、<code> .gte=</code> 、<code> .lte=</code> 。</p><h4 id=查询参数-1>查询参数</h4><table><thead><tr><th>参数</th><th>必需</th><th>描述</th></tr></thead><tbody><tr><td>qopts.columns</td><td>否</td><td>过滤列。如果想查询多列，列名用逗号分隔。</td></tr><tr><td>qopts.export</td><td>否</td><td>对大查询很有帮助。数据将导出为压缩csv的zip文件已用于下载。</td></tr><tr><td>qopts.per_page</td><td>否</td><td>单页显示行数，最大为10000行。</td></tr><tr><td>qopts.cursor_id</td><td>否</td><td>每个API调用将返回用于表示表下一页的游标ID。在API中包含此游标ID则可以查询表的下一页。空游标ID代码当前页为表的最后一页。</td></tr></tbody></table><p>导出PRICES全表：<br><img src=/images/2017/05/Quandl_exportDatatable.png alt="Quandl exportDatatable">
+过滤mapcode为-5370、compnumber为39102且reporttype为A的行，输出表的reportdate和amount列：<br><img src=/images/2017/05/Quandl_queryDatatable.png alt="Quandl queryDatatable"></p><h3 id=参考>参考</h3><hr><p><a href=https://www.quandl.com/>Quandl官网</a><br><a href=https://docs.quandl.com/>Quandl API文档</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：玩一下Quandl API<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/quandl rel=tag title=quandl>#quandl#</a>
+<a href=/tags/api rel=tag title=api>#api#</a>
+<a href=/tags/rest rel=tag title=rest>#rest#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/arcgis%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/ rel=next title=ArcGIS认证和登录><i class="fa fa-chevron-left"></i> ArcGIS认证和登录</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/iconlogo_and_brand_guides_for_social_media/ rel=prev title="Icon/logo and brand guides for social media">Icon/logo and brand guides for social media <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/",this.page.identifier="https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bquandl_api/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#申请quandl账号>申请Quandl账号</a></li><li><a href=#quandl-api>Quandl API</a></li><li><a href=#访问时间序列>访问时间序列</a></li><li><a href=#访问表>访问表</a></li><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

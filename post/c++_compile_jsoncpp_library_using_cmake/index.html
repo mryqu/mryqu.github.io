@@ -1,494 +1,86 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[C&#43;&#43;] Compile JsonCpp library using CMake - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[C&#43;&#43;] Compile JsonCpp library using CMake">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[C&#43;&#43;] Compile JsonCpp library using CMake - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_compile_jsoncpp_library_using_cmake/" itemprop="url">
-        [C&#43;&#43;] Compile JsonCpp library using CMake
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-03-23">
-    2017-03-23
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">112 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>本文为升级<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a>库操作过程的备份笔记。</p>
-
-<h3 id="linux-unix平台">Linux/Unix平台</h3>
-
-<h4 id="下载-jsoncpp-https-github-com-open-source-parsers-jsoncpp">下载<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a></h4>
-
-<p>从<a href="https://github.com/open-source-parsers/jsoncpp/releases">JsonCpp releases</a>页面可知，当前最高版本为1.8.0。</p>
-
-<pre><code>wget https://github.com/open-source-parsers/jsoncpp/archive/1.8.0.tar.gz
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[C++] Compile JsonCpp library using CMake - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[C++] Compile JsonCpp library using CMake"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[C++] Compile JsonCpp library using CMake - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/ itemprop=url>[C++] Compile JsonCpp library using CMake</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2017-03-23">2017-03-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>112 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>本文为升级<a href=https://github.com/open-source-parsers/jsoncpp/>JsonCpp</a>库操作过程的备份笔记。</p><h3 id=linuxunix平台>Linux/Unix平台</h3><h4 id=下载jsoncpphttpsgithubcomopen-source-parsersjsoncpp>下载<a href=https://github.com/open-source-parsers/jsoncpp/>JsonCpp</a></h4><p>从<a href=https://github.com/open-source-parsers/jsoncpp/releases>JsonCpp releases</a>页面可知，当前最高版本为1.8.0。</p><pre tabindex=0><code>wget https://github.com/open-source-parsers/jsoncpp/archive/1.8.0.tar.gz
 tar xzvf 1.8.0.tar.gz
 cd jsoncpp-1.8.0
 mkdir build/release
-</code></pre>
-
-<h4 id="升级gcc">升级gcc</h4>
-
-<p>这里我选择使用gcc 5:</p>
-
-<pre><code>sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+</code></pre><h4 id=升级gcc>升级gcc</h4><p>这里我选择使用gcc 5:</p><pre tabindex=0><code>sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update
 sudo apt-get install gcc-5 g++-5
 
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1
-</code></pre>
-
-<p><img src="/images/2017/03/gccVer.png" alt="Linux: gcc version" /></p>
-
-<h4 id="升级cmake">升级cmake</h4>
-
-<p><a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a> 1.8.0要求cmake&gt;=3.1</p>
-
-<pre><code>sudo apt-get install software-properties-common
+</code></pre><p><img src=/images/2017/03/gccVer.png alt="Linux: gcc version"></p><h4 id=升级cmake>升级cmake</h4><p><a href=https://github.com/open-source-parsers/jsoncpp/>JsonCpp</a> 1.8.0要求cmake>=3.1</p><pre tabindex=0><code>sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:george-edison55/cmake-3.x
 sudo apt-get update
 
 sudo apt-get upgrade cmake
-</code></pre>
-
-<p><img src="/images/2017/03/cmakeLinuxVer.png" alt="Linux: cmake version" /></p>
-
-<h4 id="编译-jsoncpp-https-github-com-open-source-parsers-jsoncpp">编译<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a></h4>
-
-<pre><code>cmake -DCMAKE_BUILD_TYPE=release -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G &quot;Unix Makefiles&quot; ../..
+</code></pre><p><img src=/images/2017/03/cmakeLinuxVer.png alt="Linux: cmake version"></p><h4 id=编译jsoncpphttpsgithubcomopen-source-parsersjsoncpp>编译<a href=https://github.com/open-source-parsers/jsoncpp/>JsonCpp</a></h4><pre tabindex=0><code>cmake -DCMAKE_BUILD_TYPE=release -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DARCHIVE_INSTALL_DIR=. -G &#34;Unix Makefiles&#34; ../..
 make
-</code></pre>
-
-<p><img src="/images/2017/03/jsoncppLinuxBuild.png" alt="Linux: build jsoncpp" /></p>
-
-<h3 id="windows平台">Windows平台</h3>
-
-<h4 id="准备环境">准备环境</h4>
-
-<p>首先下载<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a> 1.8.0源码，并解压缩。我的机器已经部署了VS2013和CMake。
-<img src="/images/2017/03/cmakeWinVer.png" alt="Windows: cmake version" /></p>
-
-<h4 id="编译-jsoncpp-https-github-com-open-source-parsers-jsoncpp-1">编译<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a></h4>
-
-<pre><code>cmake -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -G &quot;Visual Studio 12 2013 Win64&quot; ..
+</code></pre><p><img src=/images/2017/03/jsoncppLinuxBuild.png alt="Linux: build jsoncpp"></p><h3 id=windows平台>Windows平台</h3><h4 id=准备环境>准备环境</h4><p>首先下载<a href=https://github.com/open-source-parsers/jsoncpp/>JsonCpp</a> 1.8.0源码，并解压缩。我的机器已经部署了VS2013和CMake。
+<img src=/images/2017/03/cmakeWinVer.png alt="Windows: cmake version"></p><h4 id=编译jsoncpphttpsgithubcomopen-source-parsersjsoncpp-1>编译<a href=https://github.com/open-source-parsers/jsoncpp/>JsonCpp</a></h4><pre tabindex=0><code>cmake -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -G &#34;Visual Studio 12 2013 Win64&#34; ..
 cmake --build . --config Release
-</code></pre>
-
-<p><img src="/images/2017/03/cmakeWinGenBuildFile.png" alt="Windows: cmake GenBuildFile" /> <img src="/images/2017/03/jsoncppWinBuild.png" alt="Windows: build jsoncpp" /> <img src="/images/2017/03/checkWinJsoncppLib.png" alt="Windows: check lib" />
-注：如果编译32位库，则上述过程改用下列命令</p>
-
-<pre><code>cmake -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -G &quot;Visual Studio 12 2013&quot; ..
-</code></pre>
-
-<h3 id="参考">参考</h3>
-
-<hr />
-
-<p><a href="https://cmake.org/Wiki/CMake">CMake WiKi</a><br />
-<a href="https://cmake.org/cmake/help/v3.2/manual/cmake.1.html">CMake command manual</a><br />
-<a href="https://cmake.org/Wiki/CMake_Useful_Variables">CMake Useful Variables</a><br />
-<a href="https://linux.die.net/man/1/g++">g++ man page</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[C&#43;&#43;] Compile JsonCpp library using CMake
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/jsoncpp" rel="tag" title="jsoncpp">#jsoncpp#</a>
-    
-    <a href="/tags/cmake" rel="tag" title="cmake">#cmake#</a>
-    
-    <a href="/tags/gcc" rel="tag" title="gcc">#gcc#</a>
-    
-    <a href="/tags/linux" rel="tag" title="linux">#linux#</a>
-    
-    <a href="/tags/windows" rel="tag" title="windows">#windows#</a>
-    
-    <a href="/tags/c&#43;&#43;" rel="tag" title="C&#43;&#43;">#C&#43;&#43;#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/mysql_%E5%B0%86%E7%A9%BA%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BD%AC%E6%8D%A2%E6%88%90null/" rel="next" title="[MySQL] 将空返回值转换成NULL">
-        <i class="fa fa-chevron-left"></i> [MySQL] 将空返回值转换成NULL
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/c&#43;&#43;_build_jsoncpp_library_in_linux_platform/" rel="prev" title="[C&#43;&#43;] Build JsonCpp library in Linux platform">
-        [C&#43;&#43;] Build JsonCpp library in Linux platform <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/";
-this.page.identifier = "https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#linux-unix平台">Linux/Unix平台</a>
-<ul>
-<li><a href="#下载-jsoncpp-https-github-com-open-source-parsers-jsoncpp">下载<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a></a></li>
-<li><a href="#升级gcc">升级gcc</a></li>
-<li><a href="#升级cmake">升级cmake</a></li>
-<li><a href="#编译-jsoncpp-https-github-com-open-source-parsers-jsoncpp">编译<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a></a></li>
-</ul></li>
-<li><a href="#windows平台">Windows平台</a>
-<ul>
-<li><a href="#准备环境">准备环境</a></li>
-<li><a href="#编译-jsoncpp-https-github-com-open-source-parsers-jsoncpp-1">编译<a href="https://github.com/open-source-parsers/jsoncpp/">JsonCpp</a></a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre><p><img src=/images/2017/03/cmakeWinGenBuildFile.png alt="Windows: cmake GenBuildFile"> <img src=/images/2017/03/jsoncppWinBuild.png alt="Windows: build jsoncpp"> <img src=/images/2017/03/checkWinJsoncppLib.png alt="Windows: check lib">
+注：如果编译32位库，则上述过程改用下列命令</p><pre tabindex=0><code>cmake -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -G &#34;Visual Studio 12 2013&#34; ..
+</code></pre><h3 id=参考>参考</h3><hr><p><a href=https://cmake.org/Wiki/CMake>CMake WiKi</a><br><a href=https://cmake.org/cmake/help/v3.2/manual/cmake.1.html>CMake command manual</a><br><a href=https://cmake.org/Wiki/CMake_Useful_Variables>CMake Useful Variables</a><br><a href=https://linux.die.net/man/1/g++>g++ man page</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[C++] Compile JsonCpp library using CMake<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/jsoncpp rel=tag title=jsoncpp>#jsoncpp#</a>
+<a href=/tags/cmake rel=tag title=cmake>#cmake#</a>
+<a href=/tags/gcc rel=tag title=gcc>#gcc#</a>
+<a href=/tags/linux rel=tag title=linux>#linux#</a>
+<a href=/tags/windows rel=tag title=windows>#windows#</a>
+<a href=/tags/c++ rel=tag title=C++>#C++#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/mysql_%E5%B0%86%E7%A9%BA%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BD%AC%E6%8D%A2%E6%88%90null/ rel=next title="[MySQL] 将空返回值转换成NULL"><i class="fa fa-chevron-left"></i> [MySQL] 将空返回值转换成NULL</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/c++_build_jsoncpp_library_in_linux_platform/ rel=prev title="[C++] Build JsonCpp library in Linux platform">[C++] Build JsonCpp library in Linux platform <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/",this.page.identifier="https://mryqu.github.io/post/c++_compile_jsoncpp_library_using_cmake/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#linuxunix平台>Linux/Unix平台</a></li><li><a href=#windows平台>Windows平台</a></li><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

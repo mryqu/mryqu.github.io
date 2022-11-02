@@ -1,183 +1,31 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[HBase] HBase Shell交互实践 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[HBase] HBase Shell交互实践">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[HBase] HBase Shell交互实践 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/" itemprop="url">
-        [HBase] HBase Shell交互实践
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-10-25">
-    2013-10-25
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hbase" itemprop="url" rel="index">
-        <span itemprop="name">HBase</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1560 字 ~8分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>HBase Shell是对HBase的脚本接口，是一个JRuby REPL(Read-Eval-PrintLoop，“读取-求值-输出”循环)，可以通过脚本访问所有HBase客户端API。</p>
-
-<h3 id="单列族练习">单列族练习</h3>
-
-<h4 id="创建表friends">创建表friends</h4>
-
-<pre><code>$ hbase shell
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[HBase] HBase Shell交互实践 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[HBase] HBase Shell交互实践"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[HBase] HBase Shell交互实践 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/ itemprop=url>[HBase] HBase Shell交互实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hbase itemprop=url rel=index><span itemprop=name>HBase</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1560 字 ~8分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>HBase Shell是对HBase的脚本接口，是一个JRuby REPL(Read-Eval-PrintLoop，“读取-求值-输出”循环)，可以通过脚本访问所有HBase客户端API。</p><h3 id=单列族练习>单列族练习</h3><h4 id=创建表friends>创建表friends</h4><pre tabindex=0><code>$ hbase shell
 
 hbase(main):001:0&gt; list
 TABLE
 customer
 1 row(s) in 0.2050 seconds
 
-=&gt; [&quot;customer&quot;, &quot;student&quot;]
-hbase(main):002:0&gt; create 'friends', 'd'
+=&gt; [&#34;customer&#34;, &#34;student&#34;]
+hbase(main):002:0&gt; create &#39;friends&#39;, &#39;d&#39;
 0 row(s) in 1.3350 seconds
 
 =&gt; Hbase::Table - friends
@@ -187,55 +35,39 @@ customer
 friends
 2 row(s) in 0.0060 seconds
 
-=&gt; [&quot;customer&quot;, &quot;friends&quot;, &quot;student&quot;]
-</code></pre>
-
-<h4 id="获得表friends的描述说明">获得表friends的描述说明</h4>
-
-<pre><code>hbase(main):004:0&gt; describe 'friends'
+=&gt; [&#34;customer&#34;, &#34;friends&#34;, &#34;student&#34;]
+</code></pre><h4 id=获得表friends的描述说明>获得表friends的描述说明</h4><pre tabindex=0><code>hbase(main):004:0&gt; describe &#39;friends&#39;
 Table friends is ENABLED
 friends
 COLUMN FAMILIES DESCRIPTION
-{NAME =&gt; 'd', DATA_BLOCK_ENCODING =&gt; 'NONE', BLOOMFILTER =&gt; 'ROW', REPLICATION_SCO
-PE =&gt; '0', VERSIONS =&gt; '1', COMPRESSION =&gt; 'NONE', MIN_VERSIONS =&gt; '0', TTL =&gt; 'FO
-REVER', KEEP_DELETED_CELLS =&gt; 'FALSE', BLOCKSIZE =&gt; '65536', IN_MEMORY =&gt; 'false',
-BLOCKCACHE =&gt; 'true'}
+{NAME =&gt; &#39;d&#39;, DATA_BLOCK_ENCODING =&gt; &#39;NONE&#39;, BLOOMFILTER =&gt; &#39;ROW&#39;, REPLICATION_SCO
+PE =&gt; &#39;0&#39;, VERSIONS =&gt; &#39;1&#39;, COMPRESSION =&gt; &#39;NONE&#39;, MIN_VERSIONS =&gt; &#39;0&#39;, TTL =&gt; &#39;FO
+REVER&#39;, KEEP_DELETED_CELLS =&gt; &#39;FALSE&#39;, BLOCKSIZE =&gt; &#39;65536&#39;, IN_MEMORY =&gt; &#39;false&#39;,
+BLOCKCACHE =&gt; &#39;true&#39;}
 1 row(s) in 0.1000 seconds
-
-
-</code></pre>
-
-<h4 id="插入一条数据并查询一行记录">插入一条数据并查询一行记录</h4>
-
-<pre><code>hbase(main):005:0&gt; put 'friends', 'ross', 'd:portrayedBy', 'David'
+</code></pre><h4 id=插入一条数据并查询一行记录>插入一条数据并查询一行记录</h4><pre tabindex=0><code>hbase(main):005:0&gt; put &#39;friends&#39;, &#39;ross&#39;, &#39;d:portrayedBy&#39;, &#39;David&#39;
 0 row(s) in 0.0990 seconds
 
-hbase(main):006:0&gt; get 'friends', 'ross'
+hbase(main):006:0&gt; get &#39;friends&#39;, &#39;ross&#39;
 COLUMNCELL
  d:portrayedBy  timestamp=1381748454624, value=David
 1 row(s) in 0.0670 seconds
-
-
-</code></pre>
-
-<h4 id="插入多条数据并查询整张表">插入多条数据并查询整张表</h4>
-
-<pre><code>hbase(main):007:0&gt; put 'friends', 'chandler', 'd:portrayedBy', 'Matthew'
+</code></pre><h4 id=插入多条数据并查询整张表>插入多条数据并查询整张表</h4><pre tabindex=0><code>hbase(main):007:0&gt; put &#39;friends&#39;, &#39;chandler&#39;, &#39;d:portrayedBy&#39;, &#39;Matthew&#39;
 0 row(s) in 0.0080 seconds
 
-hbase(main):008:0&gt; put 'friends', 'joey', 'd:portrayedBy', 'Matt'
+hbase(main):008:0&gt; put &#39;friends&#39;, &#39;joey&#39;, &#39;d:portrayedBy&#39;, &#39;Matt&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):009:0&gt; put 'friends', 'rachel', 'd:gender', 'female'
+hbase(main):009:0&gt; put &#39;friends&#39;, &#39;rachel&#39;, &#39;d:gender&#39;, &#39;female&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):010:0&gt; put 'friends', 'monica', 'd:gender', 'female'
+hbase(main):010:0&gt; put &#39;friends&#39;, &#39;monica&#39;, &#39;d:gender&#39;, &#39;female&#39;
 0 row(s) in 0.0060 seconds
 
-hbase(main):011:0&gt; put 'friends', 'phoebe', 'd:gender', 'female'
+hbase(main):011:0&gt; put &#39;friends&#39;, &#39;phoebe&#39;, &#39;d:gender&#39;, &#39;female&#39;
 0 row(s) in 0.0070 seconds
 
-hbase(main):012:0&gt; scan 'friends'
+hbase(main):012:0&gt; scan &#39;friends&#39;
 ROW             COLUMN+CELL
  chandler       column=d:portrayedBy, timestamp=1381748473491, value=Matthew
  joey           column=d:portrayedBy, timestamp=1381748473532, value=Matt
@@ -244,31 +76,15 @@ ROW             COLUMN+CELL
  rachel         column=d:gender, timestamp=1381748473552, value=female
  ross           column=d:portrayedBy, timestamp=1381748454624, value=David
 6 row(s) in 0.0390 seconds
-
-
-</code></pre>
-
-<h4 id="查询一行记录">查询一行记录</h4>
-
-<p>其中行键joey对应有记录，而janice对应无记录：</p>
-
-<pre><code>hbase(main):013:0&gt; get 'friends', 'joey'
+</code></pre><h4 id=查询一行记录>查询一行记录</h4><p>其中行键joey对应有记录，而janice对应无记录：</p><pre tabindex=0><code>hbase(main):013:0&gt; get &#39;friends&#39;, &#39;joey&#39;
 COLUMNCELL
  d:portrayedBy  timestamp=1381748473532, value=Matt
 1 row(s) in 0.0080 seconds
 
-hbase(main):014:0&gt; get 'friends', 'janice'
+hbase(main):014:0&gt; get &#39;friends&#39;, &#39;janice&#39;
 COLUMNCELL
 0 row(s) in 0.0080 seconds
-
-
-</code></pre>
-
-<h4 id="查询整张表中行键大于等于janice的记录">查询整张表中行键大于等于janice的记录</h4>
-
-<p>行键chandler比janice小，因此没有显示：</p>
-
-<pre><code>hbase(main):016:0&gt; scan 'friends', {STARTROW =&gt; 'janice'}
+</code></pre><h4 id=查询整张表中行键大于等于janice的记录>查询整张表中行键大于等于janice的记录</h4><p>行键chandler比janice小，因此没有显示：</p><pre tabindex=0><code>hbase(main):016:0&gt; scan &#39;friends&#39;, {STARTROW =&gt; &#39;janice&#39;}
 ROW             COLUMN+CELL
  joey           column=d:portrayedBy, timestamp=1381748473532, value=Matt
  monica         column=d:gender, timestamp=1381748473574, value=female
@@ -276,25 +92,19 @@ ROW             COLUMN+CELL
  rachel         column=d:gender, timestamp=1381748473552, value=female
  ross           column=d:portrayedBy, timestamp=1381748454624, value=David
 5 row(s) in 0.0180 seconds
-
-
-</code></pre>
-
-<h4 id="插入多条数据并重新查询整张表">插入多条数据并重新查询整张表</h4>
-
-<pre><code>hbase(main):017:0&gt; put 'friends', 'ross', 'd:occupation', 'paleontologist'
+</code></pre><h4 id=插入多条数据并重新查询整张表>插入多条数据并重新查询整张表</h4><pre tabindex=0><code>hbase(main):017:0&gt; put &#39;friends&#39;, &#39;ross&#39;, &#39;d:occupation&#39;, &#39;paleontologist&#39;
 0 row(s) in 0.0080 seconds
 
-hbase(main):018:0&gt; put 'friends', 'joey', 'd:occupation', 'actor'
+hbase(main):018:0&gt; put &#39;friends&#39;, &#39;joey&#39;, &#39;d:occupation&#39;, &#39;actor&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):019:0&gt; put 'friends', 'chandler', 'd:occupation', 'statistical analysis and data reconfiguration'
+hbase(main):019:0&gt; put &#39;friends&#39;, &#39;chandler&#39;, &#39;d:occupation&#39;, &#39;statistical analysis and data reconfiguration&#39;
 0 row(s) in 0.0060 seconds
 
-hbase(main):020:0&gt; put 'friends', 'monica', 'd:occupation', 'chef'
+hbase(main):020:0&gt; put &#39;friends&#39;, &#39;monica&#39;, &#39;d:occupation&#39;, &#39;chef&#39;
 0 row(s) in 0.0080 seconds
 
-hbase(main):021:0&gt; scan 'friends'
+hbase(main):021:0&gt; scan &#39;friends&#39;
 ROW             COLUMN+CELL
  chandler       column=d:occupation, timestamp=1381757551434, value=statistical 
                 analysis and data reconfiguration
@@ -308,19 +118,13 @@ ROW             COLUMN+CELL
  ross           column=d:occupation, timestamp=1381757551357, value=paleontologist
  ross           column=d:portrayedBy, timestamp=1381748454624, value=David
 6 row(s) in 0.0310 seconds
-
-
-</code></pre>
-
-<h4 id="删除joey行的d-portrayedby列并更新d-occupation列">删除joey行的d:portrayedBy列并更新d:occupation列</h4>
-
-<pre><code>hbase(main):022:0&gt; delete 'friends', 'joey', 'd:portrayedBy'
+</code></pre><h4 id=删除joey行的dportrayedby列并更新doccupation列>删除joey行的d:portrayedBy列并更新d:occupation列</h4><pre tabindex=0><code>hbase(main):022:0&gt; delete &#39;friends&#39;, &#39;joey&#39;, &#39;d:portrayedBy&#39;
 0 row(s) in 0.0310 seconds
 
-hbase(main):023:0&gt; put 'friends', 'joey', 'd:occupation', 'Waiter'
+hbase(main):023:0&gt; put &#39;friends&#39;, &#39;joey&#39;, &#39;d:occupation&#39;, &#39;Waiter&#39;
 0 row(s) in 0.0080 seconds
 
-hbase(main):024:0&gt; scan 'friends'
+hbase(main):024:0&gt; scan &#39;friends&#39;
 ROW             COLUMN+CELL
  chandler       column=d:occupation, timestamp=1381757551434, value=statistical 
                 analysis and data reconfiguration
@@ -333,16 +137,10 @@ ROW             COLUMN+CELL
  ross           column=d:occupation, timestamp=1381757551357, value=paleontologist
  ross           column=d:portrayedBy, timestamp=1381748454624, value=David
 6 row(s) in 0.0280 seconds
-
-
-</code></pre>
-
-<h4 id="删除ross行">删除ross行</h4>
-
-<pre><code>hbase(main):025:0&gt; deleteall 'friends', 'ross'
+</code></pre><h4 id=删除ross行>删除ross行</h4><pre tabindex=0><code>hbase(main):025:0&gt; deleteall &#39;friends&#39;, &#39;ross&#39;
 0 row(s) in 0.0060 seconds
 
-hbase(main):026:0&gt; scan 'friends'
+hbase(main):026:0&gt; scan &#39;friends&#39;
 ROW             COLUMN+CELL
  chandler       column=d:occupation, timestamp=1381757551434, value=statistical 
                 analysis and data reconfiguration
@@ -353,23 +151,17 @@ ROW             COLUMN+CELL
  phoebe         column=d:gender, timestamp=1381748474832, value=female
  rachel         column=d:gender, timestamp=1381748473552, value=female
 5 row(s) in 0.0160 seconds
-
-
-</code></pre>
-
-<h4 id="禁止并丢弃friends表">禁止并丢弃friends表</h4>
-
-<pre><code>hbase(main):027:0&gt; list
+</code></pre><h4 id=禁止并丢弃friends表>禁止并丢弃friends表</h4><pre tabindex=0><code>hbase(main):027:0&gt; list
 TABLE
 customer
 friends
 2 row(s) in 0.0090 seconds
 
-=&gt; [&quot;customer&quot;, &quot;friends&quot;, &quot;student&quot;]
-hbase(main):028:0&gt; disable 'friends'
+=&gt; [&#34;customer&#34;, &#34;friends&#34;, &#34;student&#34;]
+hbase(main):028:0&gt; disable &#39;friends&#39;
 0 row(s) in 2.2720 seconds
 
-hbase(main):029:0&gt; drop 'friends'
+hbase(main):029:0&gt; drop &#39;friends&#39;
 0 row(s) in 1.2460 seconds
 
 hbase(main):030:0&gt; list
@@ -377,29 +169,25 @@ TABLE
 customer
 1 row(s) in 0.0040 seconds
 
-=&gt; [&quot;customer&quot;, &quot;student&quot;]
+=&gt; [&#34;customer&#34;, &#34;student&#34;]
 hbase(main):031:0&gt; exit
 $
-</code></pre>
-
-<h3 id="hbase-shell执行脚本练习">Hbase Shell执行脚本练习</h3>
-
-<pre><code>$ cat friends.rb
-if !list.include?(&quot;friends&quot;)
-  create 'friends', 'd'
+</code></pre><h3 id=hbase-shell执行脚本练习>Hbase Shell执行脚本练习</h3><pre tabindex=0><code>$ cat friends.rb
+if !list.include?(&#34;friends&#34;)
+  create &#39;friends&#39;, &#39;d&#39;
 end
 
-put 'friends', 'ross', 'd:portrayedBy', 'David'
-put 'friends', 'chandler', 'd:portrayedBy', 'Matthew'
-put 'friends', 'joey', 'd:portrayedBy', 'Matt'
-put 'friends', 'rachel', 'd:gender', 'female'
-put 'friends', 'monica', 'd:gender', 'female'
-put 'friends', 'phoebe', 'd:gender', 'female'
+put &#39;friends&#39;, &#39;ross&#39;, &#39;d:portrayedBy&#39;, &#39;David&#39;
+put &#39;friends&#39;, &#39;chandler&#39;, &#39;d:portrayedBy&#39;, &#39;Matthew&#39;
+put &#39;friends&#39;, &#39;joey&#39;, &#39;d:portrayedBy&#39;, &#39;Matt&#39;
+put &#39;friends&#39;, &#39;rachel&#39;, &#39;d:gender&#39;, &#39;female&#39;
+put &#39;friends&#39;, &#39;monica&#39;, &#39;d:gender&#39;, &#39;female&#39;
+put &#39;friends&#39;, &#39;phoebe&#39;, &#39;d:gender&#39;, &#39;female&#39;
 
-put 'friends', 'ross', 'd:occupation', 'paleontologist'
-put 'friends', 'joey', 'd:occupation', 'actor'
-put 'friends', 'chandler', 'd:occupation', 'statistical analysis and data reconfiguration'
-put 'friends', 'monica', 'd:occupation', 'chef'
+put &#39;friends&#39;, &#39;ross&#39;, &#39;d:occupation&#39;, &#39;paleontologist&#39;
+put &#39;friends&#39;, &#39;joey&#39;, &#39;d:occupation&#39;, &#39;actor&#39;
+put &#39;friends&#39;, &#39;chandler&#39;, &#39;d:occupation&#39;, &#39;statistical analysis and data reconfiguration&#39;
+put &#39;friends&#39;, &#39;monica&#39;, &#39;d:occupation&#39;, &#39;chef&#39;
 
 exit
 $ hbase shell -n friends.rb
@@ -438,8 +226,8 @@ customer
 friends
 2 row(s) in 0.2010 seconds
 
-=&gt; [&quot;customer&quot;, &quot;friends&quot;, &quot;student&quot;]
-hbase(main):002:0&gt; scan 'friends'
+=&gt; [&#34;customer&#34;, &#34;friends&#34;, &#34;student&#34;]
+hbase(main):002:0&gt; scan &#39;friends&#39;
 ROW             COLUMN+CELL
  chandler       column=d:occupation, timestamp=1381748474147, value=statistical
                 analysis and data reconfiguration
@@ -453,143 +241,107 @@ ROW             COLUMN+CELL
  ross           column=d:occupation, timestamp=1381748474138, value=paleontologist
  ross           column=d:portrayedBy, timestamp=1381748474094, value=David
 6 row(s) in 0.1620 seconds
-</code></pre>
+</code></pre><h3 id=多列族练习>多列族练习</h3><h4 id=创建有两个列族的表并插入多条数据>创建有两个列族的表并插入多条数据</h4><pre tabindex=0><code>$ hbase shell
 
-<h3 id="多列族练习">多列族练习</h3>
-
-<h4 id="创建有两个列族的表并插入多条数据">创建有两个列族的表并插入多条数据</h4>
-
-<pre><code>$ hbase shell
-
-hbase(main):001:0&gt; create 'student', {NAME=&gt;'addr'}, {NAME=&gt;'score'}
+hbase(main):001:0&gt; create &#39;student&#39;, {NAME=&gt;&#39;addr&#39;}, {NAME=&gt;&#39;score&#39;}
 0 row(s) in 1.4160 seconds
 
 =&gt; Hbase::Table - student
-hbase(main):002:0&gt; put 'student',  'jason',  'addr:city', 'xian'
+hbase(main):002:0&gt; put &#39;student&#39;,  &#39;jason&#39;,  &#39;addr:city&#39;, &#39;xian&#39;
 0 row(s) in 0.1420 seconds
 
-hbase(main):003:0&gt; put 'student',  'jason',  'addr:state', 'ShanXi'
+hbase(main):003:0&gt; put &#39;student&#39;,  &#39;jason&#39;,  &#39;addr:state&#39;, &#39;ShanXi&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):004:0&gt; put 'student',  'jason',  'score:numb', '1234'
+hbase(main):004:0&gt; put &#39;student&#39;,  &#39;jason&#39;,  &#39;score:numb&#39;, &#39;1234&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):005:0&gt; put 'student',  'jason',  'score:date', '2013-10-01'
+hbase(main):005:0&gt; put &#39;student&#39;,  &#39;jason&#39;,  &#39;score:date&#39;, &#39;2013-10-01&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):006:0&gt; put 'student',  'nancy',  'addr:city', 'beijing'
+hbase(main):006:0&gt; put &#39;student&#39;,  &#39;nancy&#39;,  &#39;addr:city&#39;, &#39;beijing&#39;
 0 row(s) in 0.0060 seconds
 
-hbase(main):007:0&gt; put 'student',  'nancy',  'addr:state', 'BeiJing'
+hbase(main):007:0&gt; put &#39;student&#39;,  &#39;nancy&#39;,  &#39;addr:state&#39;, &#39;BeiJing&#39;
 0 row(s) in 0.0040 seconds
 
-hbase(main):008:0&gt; put 'student',  'nancy',  'score:numb', '6666'
+hbase(main):008:0&gt; put &#39;student&#39;,  &#39;nancy&#39;,  &#39;score:numb&#39;, &#39;6666&#39;
 0 row(s) in 0.0040 seconds
 
-hbase(main):009:0&gt; put 'student',  'tina',  'addr:city', 'tianjin'
+hbase(main):009:0&gt; put &#39;student&#39;,  &#39;tina&#39;,  &#39;addr:city&#39;, &#39;tianjin&#39;
 0 row(s) in 0.0060 seconds
 
-hbase(main):010:0&gt; put 'student',  'tina',  'addr:state', 'TianJin'
+hbase(main):010:0&gt; put &#39;student&#39;,  &#39;tina&#39;,  &#39;addr:state&#39;, &#39;TianJin&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):011:0&gt; put 'student',  'jason',  'addr:city', 'chengdu'
+hbase(main):011:0&gt; put &#39;student&#39;,  &#39;jason&#39;,  &#39;addr:city&#39;, &#39;chengdu&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):012:0&gt; put   'student',  'jason',  'addr:state', 'SiChuan'
+hbase(main):012:0&gt; put   &#39;student&#39;,  &#39;jason&#39;,  &#39;addr:state&#39;, &#39;SiChuan&#39;
 0 row(s) in 0.0050 seconds
 
-hbase(main):013:0&gt; put   'student',  'jason',  'score:numb', '5555'
+hbase(main):013:0&gt; put   &#39;student&#39;,  &#39;jason&#39;,  &#39;score:numb&#39;, &#39;5555&#39;
 
-hbase(main):014:0&gt; put   'student',  'nancy',  'addr:state', 'ShanXi'
+hbase(main):014:0&gt; put   &#39;student&#39;,  &#39;nancy&#39;,  &#39;addr:state&#39;, &#39;ShanXi&#39;
 0 row(s) in 0.0040 seconds
 
-hbase(main):015:0&gt; put   'student',  'alex', 'addr:state', 'HeNan'
+hbase(main):015:0&gt; put   &#39;student&#39;,  &#39;alex&#39;, &#39;addr:state&#39;, &#39;HeNan&#39;
 0 row(s) in 0.0080 seconds
-
-
-</code></pre>
-
-<h4 id="查询行键为jason的所有addr列族数据">查询行键为jason的所有addr列族数据</h4>
-
-<pre><code>hbase(main):016:0&gt; get  'student', 'jason', {COLUMNS=&gt;['addr']}
+</code></pre><h4 id=查询行键为jason的所有addr列族数据>查询行键为jason的所有addr列族数据</h4><pre tabindex=0><code>hbase(main):016:0&gt; get  &#39;student&#39;, &#39;jason&#39;, {COLUMNS=&gt;[&#39;addr&#39;]}
 COLUMN                  CELL
  addr:city              timestamp=1381757474426, value=chengdu
  addr:state             timestamp=1381757474446, value=SiChuan
 2 row(s) in 0.0360 seconds
-
-
-</code></pre>
-
-<h4 id="查询行键为jason的所有score-numb列数据">查询行键为jason的所有score:numb列数据</h4>
-
-<pre><code>hbase(main):017:0&gt; get  'student', 'jason', {COLUMNS=&gt;['score:numb']}
+</code></pre><h4 id=查询行键为jason的所有scorenumb列数据>查询行键为jason的所有score:numb列数据</h4><pre tabindex=0><code>hbase(main):017:0&gt; get  &#39;student&#39;, &#39;jason&#39;, {COLUMNS=&gt;[&#39;score:numb&#39;]}
 COLUMN                  CELL
  score:numb             timestamp=1381757474588, value=5555
 1 row(s) in 0.0080 seconds
-
-
-</code></pre>
-
-<h4 id="让score列族存储更多版本的数据">让score列族存储更多版本的数据</h4>
-
-<pre><code>hbase(main):018:0&gt; describe 'student'
+</code></pre><h4 id=让score列族存储更多版本的数据>让score列族存储更多版本的数据</h4><pre tabindex=0><code>hbase(main):018:0&gt; describe &#39;student&#39;
 Table student is ENABLED
 student
 COLUMN FAMILIES DESCRIPTION
-{NAME =&gt; 'addr', DATA_BLOCK_ENCODING =&gt; 'NONE', BLOOMFILTER =&gt; 'ROW', REPLICATION_
-SCOPE =&gt; '0', VERSIONS =&gt; '1', COMPRESSION =&gt; 'NONE', MIN_VERSIONS =&gt; '0', TTL 
-=&gt; 'FOREVER', KEEP_DELETED_CELLS =&gt; 'FALSE', BLOCKSIZE =&gt; '65536', IN_MEMORY =&gt;
- 'false', BLOCKCACHE =&gt; 'true'}
-{NAME =&gt; 'score', DATA_BLOCK_ENCODING =&gt; 'NONE', BLOOMFILTER =&gt; 'ROW', REPLICATION
-_SCOPE =&gt; '0', VERSIONS =&gt; '1', COMPRESSION =&gt; 'NONE', MIN_VERSIONS =&gt; '0', TTL
- =&gt; 'FOREVER', KEEP_DELETED_CELLS =&gt; 'FALSE', BLOCKSIZE =&gt; '65536', IN_MEMORY =&gt;
- 'false', BLOCKCACHE =&gt; 'true'}
+{NAME =&gt; &#39;addr&#39;, DATA_BLOCK_ENCODING =&gt; &#39;NONE&#39;, BLOOMFILTER =&gt; &#39;ROW&#39;, REPLICATION_
+SCOPE =&gt; &#39;0&#39;, VERSIONS =&gt; &#39;1&#39;, COMPRESSION =&gt; &#39;NONE&#39;, MIN_VERSIONS =&gt; &#39;0&#39;, TTL 
+=&gt; &#39;FOREVER&#39;, KEEP_DELETED_CELLS =&gt; &#39;FALSE&#39;, BLOCKSIZE =&gt; &#39;65536&#39;, IN_MEMORY =&gt;
+ &#39;false&#39;, BLOCKCACHE =&gt; &#39;true&#39;}
+{NAME =&gt; &#39;score&#39;, DATA_BLOCK_ENCODING =&gt; &#39;NONE&#39;, BLOOMFILTER =&gt; &#39;ROW&#39;, REPLICATION
+_SCOPE =&gt; &#39;0&#39;, VERSIONS =&gt; &#39;1&#39;, COMPRESSION =&gt; &#39;NONE&#39;, MIN_VERSIONS =&gt; &#39;0&#39;, TTL
+ =&gt; &#39;FOREVER&#39;, KEEP_DELETED_CELLS =&gt; &#39;FALSE&#39;, BLOCKSIZE =&gt; &#39;65536&#39;, IN_MEMORY =&gt;
+ &#39;false&#39;, BLOCKCACHE =&gt; &#39;true&#39;}
 2 row(s) in 0.0300 seconds
 
-hbase(main):019:0&gt; alter  'student' , NAME =&gt; 'score', VERSIONS =&gt; 3
+hbase(main):019:0&gt; alter  &#39;student&#39; , NAME =&gt; &#39;score&#39;, VERSIONS =&gt; 3
 Updating all regions with the new schema...
 1/1 regions updated.
 Done.
 0 row(s) in 1.9230 seconds
 
-hbase(main):020:0&gt; describe 'student'
+hbase(main):020:0&gt; describe &#39;student&#39;
 Table student is ENABLED
 student
 COLUMN FAMILIES DESCRIPTION
-{NAME =&gt; 'addr', DATA_BLOCK_ENCODING =&gt; 'NONE', BLOOMFILTER =&gt; 'ROW', REPLICATION_SCOPE =&gt; '0', VERSIONS =&gt; '1', COMPRESSION =&gt; 'NONE', MIN_VERSIONS =&gt; '0', TTL =&gt; 'FOREVER', KEEP_DELETED_CELLS =&gt; 'FALSE', BLOCKSIZE =&gt; '65536', IN_MEMORY =&gt; 'false', BLOCKCACHE =&gt; 'true'}
-{NAME =&gt; 'score', DATA_BLOCK_ENCODING =&gt; 'NONE', BLOOMFILTER =&gt; 'ROW', REPLICATION_SCOPE =&gt; '0', VERSIONS =&gt; '3', COMPRESSION =&gt; 'NONE', MIN_VERSIONS =&gt; '0', TTL =&gt;
-'FOREVER', KEEP_DELETED_CELLS =&gt; 'FALSE', BLOCKSIZE =&gt; '65536', IN_MEMORY =&gt; 'false', BLOCKCACHE =&gt; 'true'}
+{NAME =&gt; &#39;addr&#39;, DATA_BLOCK_ENCODING =&gt; &#39;NONE&#39;, BLOOMFILTER =&gt; &#39;ROW&#39;, REPLICATION_SCOPE =&gt; &#39;0&#39;, VERSIONS =&gt; &#39;1&#39;, COMPRESSION =&gt; &#39;NONE&#39;, MIN_VERSIONS =&gt; &#39;0&#39;, TTL =&gt; &#39;FOREVER&#39;, KEEP_DELETED_CELLS =&gt; &#39;FALSE&#39;, BLOCKSIZE =&gt; &#39;65536&#39;, IN_MEMORY =&gt; &#39;false&#39;, BLOCKCACHE =&gt; &#39;true&#39;}
+{NAME =&gt; &#39;score&#39;, DATA_BLOCK_ENCODING =&gt; &#39;NONE&#39;, BLOOMFILTER =&gt; &#39;ROW&#39;, REPLICATION_SCOPE =&gt; &#39;0&#39;, VERSIONS =&gt; &#39;3&#39;, COMPRESSION =&gt; &#39;NONE&#39;, MIN_VERSIONS =&gt; &#39;0&#39;, TTL =&gt;
+&#39;FOREVER&#39;, KEEP_DELETED_CELLS =&gt; &#39;FALSE&#39;, BLOCKSIZE =&gt; &#39;65536&#39;, IN_MEMORY =&gt; &#39;false&#39;, BLOCKCACHE =&gt; &#39;true&#39;}
 2 row(s) in 0.0200 seconds
-
-
-</code></pre>
-
-<h4 id="获取一个单元格更多版本的数据">获取一个单元格更多版本的数据</h4>
-
-<pre><code>hbase(main):021:0&gt; put   'student',  'jason',  'score:numb', '1235'
+</code></pre><h4 id=获取一个单元格更多版本的数据>获取一个单元格更多版本的数据</h4><pre tabindex=0><code>hbase(main):021:0&gt; put   &#39;student&#39;,  &#39;jason&#39;,  &#39;score:numb&#39;, &#39;1235&#39;
 0 row(s) in 0.0080 seconds
 
-hbase(main):022:0&gt; put   'student',  'jason',  'score:numb', '1236'
+hbase(main):022:0&gt; put   &#39;student&#39;,  &#39;jason&#39;,  &#39;score:numb&#39;, &#39;1236&#39;
 0 row(s) in 0.0190 seconds
 
-hbase(main):023:0&gt; get   'student', 'jason', {COLUMNS=&gt;['score:numb']}
+hbase(main):023:0&gt; get   &#39;student&#39;, &#39;jason&#39;, {COLUMNS=&gt;[&#39;score:numb&#39;]}
 COLUMN                  CELL
  score:numb             timestamp=1381748525860, value=1236
 1 row(s) in 0.0100 seconds
 
-hbase(main):024:0&gt; get  'student', 'jason', {COLUMNS=&gt;['score:numb'], VERSIONS =&gt; 3}
+hbase(main):024:0&gt; get  &#39;student&#39;, &#39;jason&#39;, {COLUMNS=&gt;[&#39;score:numb&#39;], VERSIONS =&gt; 3}
 COLUMN           CELL
  score:numb      timestamp=1381748525860, value=1236
  score:numb      timestamp=1381748524871, value=1235
  score:numb      timestamp=1381757474588, value=5555
 3 row(s) in 0.0120 seconds
-
-
-</code></pre>
-
-<h4 id="获取行键大于等于j-小于t的的数据">获取行键大于等于j、小于t的的数据</h4>
-
-<pre><code>hbase(main):025:0&gt; scan  'student',  { STARTROW =&gt; 'j', STOPROW =&gt; 't'}
+</code></pre><h4 id=获取行键大于等于j小于t的的数据>获取行键大于等于j、小于t的的数据</h4><pre tabindex=0><code>hbase(main):025:0&gt; scan  &#39;student&#39;,  { STARTROW =&gt; &#39;j&#39;, STOPROW =&gt; &#39;t&#39;}
 ROW              COLUMN+CELL
  jason           column=addr:city, timestamp=1381757474426, value=chengdu
  jason           column=addr:state, timestamp=1381757474446, value=SiChuan
@@ -600,7 +352,7 @@ ROW              COLUMN+CELL
  nancy           column=score:numb, timestamp=1381757474364, value=6666
 2 row(s) in 0.0340 seconds
 
-hbase(main):026:0&gt; scan 'student'
+hbase(main):026:0&gt; scan &#39;student&#39;
 ROW              COLUMN+CELL
  alex            column=addr:state, timestamp=1381757475608, value=HeNan
  jason           column=addr:city, timestamp=1381757474426, value=chengdu
@@ -613,37 +365,19 @@ ROW              COLUMN+CELL
  tina            column=addr:city, timestamp=1381757474385, value=tianjin
  tina            column=addr:state, timestamp=1381757474405, value=TianJin
 4 row(s) in 0.0330 seconds
-
-
-</code></pre>
-
-<h4 id="删除行键为nancy的addr-city列的数据">删除行键为nancy的addr:city列的数据</h4>
-
-<p>MapR发行版还支持删除某一行某一列族的全部数据。</p>
-
-<pre><code>hbase(main):027:0&gt; delete   'student',  'nancy',  'addr:city'
+</code></pre><h4 id=删除行键为nancy的addrcity列的数据>删除行键为nancy的addr:city列的数据</h4><p>MapR发行版还支持删除某一行某一列族的全部数据。</p><pre tabindex=0><code>hbase(main):027:0&gt; delete   &#39;student&#39;,  &#39;nancy&#39;,  &#39;addr:city&#39;
 0 row(s) in 0.0200 seconds
 
-hbase(main):028:0&gt; get 'student', 'nancy'
+hbase(main):028:0&gt; get &#39;student&#39;, &#39;nancy&#39;
 COLUMN           CELL
  addr:state      timestamp=1381757474607, value=ShanXi
  score:numb      timestamp=1381757474364, value=6666
 2 row(s) in 0.0100 seconds
-
-
-</code></pre>
-
-<h4 id="统计表中行数">统计表中行数</h4>
-
-<pre><code>hbase(main):029:0&gt; count 'student'
+</code></pre><h4 id=统计表中行数>统计表中行数</h4><pre tabindex=0><code>hbase(main):029:0&gt; count &#39;student&#39;
 4 row(s) in 0.0240 seconds
 
 =&gt; 4
-</code></pre>
-
-<h3 id="命名空间练习">命名空间练习</h3>
-
-<pre><code>hadoop@node50064:~$ hbase shell
+</code></pre><h3 id=命名空间练习>命名空间练习</h3><pre tabindex=0><code>hadoop@node50064:~$ hbase shell
 
 hbase(main):001:0&gt; list_namespace
 NAMESPACE
@@ -658,15 +392,15 @@ friends
 student
 3 row(s) in 0.0190 seconds
 
-=&gt; [&quot;customer&quot;, &quot;friends&quot;, &quot;student&quot;]
-hbase(main):003:0&gt; create_namespace 'yqu_ns'
+=&gt; [&#34;customer&#34;, &#34;friends&#34;, &#34;student&#34;]
+hbase(main):003:0&gt; create_namespace &#39;yqu_ns&#39;
 0 row(s) in 0.2910 seconds
 
-hbase(main):004:0&gt; create 'yqu_ns:person', 'd'
+hbase(main):004:0&gt; create &#39;yqu_ns:person&#39;, &#39;d&#39;
 0 row(s) in 13.7110 seconds
 
 =&gt; Hbase::Table - yqu_ns:person
-hbase(main):005:0&gt; create 'person', 'd'
+hbase(main):005:0&gt; create &#39;person&#39;, &#39;d&#39;
 0 row(s) in 13.6960 seconds
 
 =&gt; Hbase::Table - person
@@ -686,8 +420,8 @@ student
 yqu_ns:person
 5 row(s) in 0.0090 seconds
 
-=&gt; [&quot;customer&quot;, &quot;friends&quot;, &quot;person&quot;, &quot;student&quot;, &quot;yqu_ns:person&quot;]
-hbase(main):008:0&gt; list_namespace_tables 'default'
+=&gt; [&#34;customer&#34;, &#34;friends&#34;, &#34;person&#34;, &#34;student&#34;, &#34;yqu_ns:person&#34;]
+hbase(main):008:0&gt; list_namespace_tables &#39;default&#39;
 TABLE
 customer
 friends
@@ -695,12 +429,12 @@ person
 student
 4 row(s) in 0.0250 seconds
 
-hbase(main):009:0&gt; list_namespace_tables 'yqu_ns'
+hbase(main):009:0&gt; list_namespace_tables &#39;yqu_ns&#39;
 TABLE
 person
 1 row(s) in 0.0060 seconds
 
-hbase(main):010:0&gt; drop_namespace 'yqu_ns'
+hbase(main):010:0&gt; drop_namespace &#39;yqu_ns&#39;
 
 ERROR: org.apache.hadoop.hbase.constraint.ConstraintException: Only empty namespaces can be removed. Namespace yqu_ns has 1 tables
         at org.apache.hadoop.hbase.master.TableNamespaceManager.remove(TableNamespaceManager.
@@ -717,13 +451,13 @@ Here is some help for this command:
 Drop the named namespace. The namespace must be empty.
 
 
-hbase(main):011:0&gt; disable 'yqu_ns:person'
+hbase(main):011:0&gt; disable &#39;yqu_ns:person&#39;
 0 row(s) in 2.3230 seconds
 
-hbase(main):012:0&gt; drop 'yqu_ns:person'
+hbase(main):012:0&gt; drop &#39;yqu_ns:person&#39;
 0 row(s) in 3.5720 seconds
 
-hbase(main):013:0&gt; drop_namespace 'yqu_ns'
+hbase(main):013:0&gt; drop_namespace &#39;yqu_ns&#39;
 0 row(s) in 0.0200 seconds
 
 hbase(main):014:0&gt; list_namespace
@@ -733,273 +467,48 @@ hbase
 2 row(s) in 0.0130 seconds
 
 hbase(main):015:0&gt;
-</code></pre>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[HBase] HBase Shell交互实践
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/hbase" rel="tag" title="hbase">#hbase#</a>
-    
-    <a href="/tags/shell" rel="tag" title="shell">#shell#</a>
-    
-    <a href="/tags/interacting" rel="tag" title="interacting">#interacting#</a>
-    
-    <a href="/tags/practice" rel="tag" title="practice">#practice#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/c&#43;&#43;_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" rel="next" title="[C&#43;&#43;] 重温析构函数">
-        <i class="fa fa-chevron-left"></i> [C&#43;&#43;] 重温析构函数
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/" rel="prev" title="[Linux] 判断可执行文件或动态库是否包含符号表">
-        [Linux] 判断可执行文件或动态库是否包含符号表 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/";
-this.page.identifier = "https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#单列族练习">单列族练习</a>
-<ul>
-<li><a href="#创建表friends">创建表friends</a></li>
-<li><a href="#获得表friends的描述说明">获得表friends的描述说明</a></li>
-<li><a href="#插入一条数据并查询一行记录">插入一条数据并查询一行记录</a></li>
-<li><a href="#插入多条数据并查询整张表">插入多条数据并查询整张表</a></li>
-<li><a href="#查询一行记录">查询一行记录</a></li>
-<li><a href="#查询整张表中行键大于等于janice的记录">查询整张表中行键大于等于janice的记录</a></li>
-<li><a href="#插入多条数据并重新查询整张表">插入多条数据并重新查询整张表</a></li>
-<li><a href="#删除joey行的d-portrayedby列并更新d-occupation列">删除joey行的d:portrayedBy列并更新d:occupation列</a></li>
-<li><a href="#删除ross行">删除ross行</a></li>
-<li><a href="#禁止并丢弃friends表">禁止并丢弃friends表</a></li>
-</ul></li>
-<li><a href="#hbase-shell执行脚本练习">Hbase Shell执行脚本练习</a></li>
-<li><a href="#多列族练习">多列族练习</a>
-<ul>
-<li><a href="#创建有两个列族的表并插入多条数据">创建有两个列族的表并插入多条数据</a></li>
-<li><a href="#查询行键为jason的所有addr列族数据">查询行键为jason的所有addr列族数据</a></li>
-<li><a href="#查询行键为jason的所有score-numb列数据">查询行键为jason的所有score:numb列数据</a></li>
-<li><a href="#让score列族存储更多版本的数据">让score列族存储更多版本的数据</a></li>
-<li><a href="#获取一个单元格更多版本的数据">获取一个单元格更多版本的数据</a></li>
-<li><a href="#获取行键大于等于j-小于t的的数据">获取行键大于等于j、小于t的的数据</a></li>
-<li><a href="#删除行键为nancy的addr-city列的数据">删除行键为nancy的addr:city列的数据</a></li>
-<li><a href="#统计表中行数">统计表中行数</a></li>
-</ul></li>
-<li><a href="#命名空间练习">命名空间练习</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[HBase] HBase Shell交互实践<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/hbase rel=tag title=hbase>#hbase#</a>
+<a href=/tags/shell rel=tag title=shell>#shell#</a>
+<a href=/tags/interacting rel=tag title=interacting>#interacting#</a>
+<a href=/tags/practice rel=tag title=practice>#practice#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/ rel=next title=[C++] 重温析构函数><i class="fa fa-chevron-left"></i> [C++] 重温析构函数</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ rel=prev title=[Linux] 判断可执行文件或动态库是否包含符号表>[Linux] 判断可执行文件或动态库是否包含符号表 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/",this.page.identifier="https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#单列族练习>单列族练习</a></li><li><a href=#hbase-shell执行脚本练习>Hbase Shell执行脚本练习</a></li><li><a href=#多列族练习>多列族练习</a></li><li><a href=#命名空间练习>命名空间练习</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

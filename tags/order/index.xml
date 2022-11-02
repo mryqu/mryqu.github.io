@@ -1,25 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Order on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/order/</link>
-    <description>Recent content in Order on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Jul 2015 06:02:53 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/order/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spring Boot] Hello CommandLineRunner</title>
-      <link>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</link>
-      <pubDate>Wed, 08 Jul 2015 06:02:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</guid>
-      <description>通过CommandLineRunner，可在所有Spring Bean和ApplicationContext被创建后执行一些可以访问命令行参数的任务。如想指定多个CommandLineRunnerBean的执行顺序，可以实现org.springframework.core.Ordered接口或添加org.springframework.core.annotation.Order注解。
-示例代码 Application.java package com.yqu.cmdlinerunner; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.Banner; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.DependsOn; import org.springframework.core.annotation.Order; import org.springframework.core.annotation.OrderUtils; import java.util.Arrays; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean(name=&amp;quot;demo1&amp;quot;) @DependsOn(&amp;quot;demo2&amp;quot;) @Order(8) public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;quot;demo1:order=&amp;quot;+ OrderUtils.getOrder(this.getClass())+ &amp;quot;:args=&amp;quot;+Arrays.toString(args)); //log.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>order on Mryqu's Notes</title><link>https://mryqu.github.io/tags/order/</link><description>Recent content in order on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 08 Jul 2015 06:02:53 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/order/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spring Boot] Hello CommandLineRunner</title><link>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</link><pubDate>Wed, 08 Jul 2015 06:02:53 +0000</pubDate><guid>https://mryqu.github.io/post/spring_boot_hello_commandlinerunner/</guid><description>通过CommandLineRunner，可在所有Spring Bean和ApplicationContext被创建后执行一些可以访问命令行参数的任务。如想指定多个CommandLineRunnerBean的执行顺序，可以实现org.springframework.core.Ordered接口或添加org.springframework.core.annotation.Order注解。
+示例代码 Application.java package com.yqu.cmdlinerunner; import org.slf4j.Logger; import org.slf4j.LoggerFactory; import org.springframework.boot.Banner; import org.springframework.boot.CommandLineRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.DependsOn; import org.springframework.core.annotation.Order; import org.springframework.core.annotation.OrderUtils; import java.util.Arrays; @SpringBootApplication public class Application { private static final Logger log = LoggerFactory.getLogger(Application.class); public static void main(String[] args) { SpringApplication app = new SpringApplication(Application.class); app.setWebEnvironment(false); app.setShowBanner(false); app.run(args); } @Bean(name=&amp;#34;demo1&amp;#34;) @DependsOn(&amp;#34;demo2&amp;#34;) @Order(8) public CommandLineRunner demo1() { return (args) -&amp;gt; { log.info(&amp;#34;demo1:order=&amp;#34;+ OrderUtils.getOrder(this.getClass())+ &amp;#34;:args=&amp;#34;+Arrays.toString(args)); //log.info(getStacks()); }; } @Bean(name=&amp;#34;demo2&amp;#34;) @Order(1) public CommandLineRunner demo2() { return (args) -&amp;gt; { log.</description></item></channel></rss>

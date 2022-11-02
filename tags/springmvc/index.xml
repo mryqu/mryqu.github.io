@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Springmvc on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/springmvc/</link>
-    <description>Recent content in Springmvc on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Feb 2014 10:04:20 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/springmvc/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>处理注解@RequestParam的&#34;Required String parameter is not present&#34;</title>
-      <link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/</link>
-      <pubDate>Tue, 04 Feb 2014 10:04:20 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/</guid>
-      <description>最近玩一下SpringMVC，代码如下：
-@Controller @RequestMapping(&amp;quot;/test.do&amp;quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(&amp;quot;fid&amp;quot;) String fid, @RequestParam(&amp;quot;sid&amp;quot;) String sid) throws Exception { if(fid==null || sid==null) { m.addAttribute(&amp;quot;file&amp;quot;, new FileMetaDAO()); return new ModelAndView(ViewProvider.UPLOAD); } else { m.addAttribute(&amp;quot;sync&amp;quot;, new SyncDAO()); return new ModelAndView(ViewProvider.HR_SYNC); } } }  访问http://localhost:8080/hellorest/test.do 时发生如下问题：查了一下Annotation Type RequestParam的javadoc，加上可选参数required解决战斗。
-@Controller @RequestMapping(&amp;quot;/test.do&amp;quot;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(value=&amp;quot;fid&amp;quot;, required = false) String fid, @RequestParam(value=&amp;quot;sid&amp;quot;, required = false) String sid) throws Exception { if(fid==null || sid==null) { m.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>springmvc on Mryqu's Notes</title><link>https://mryqu.github.io/tags/springmvc/</link><description>Recent content in springmvc on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 04 Feb 2014 10:04:20 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/springmvc/index.xml" rel="self" type="application/rss+xml"/><item><title>处理注解@RequestParam的"Required String parameter is not present"</title><link>https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/</link><pubDate>Tue, 04 Feb 2014 10:04:20 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/</guid><description>最近玩一下SpringMVC，代码如下：
+@Controller @RequestMapping(&amp;#34;/test.do&amp;#34;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(&amp;#34;fid&amp;#34;) String fid, @RequestParam(&amp;#34;sid&amp;#34;) String sid) throws Exception { if(fid==null || sid==null) { m.addAttribute(&amp;#34;file&amp;#34;, new FileMetaDAO()); return new ModelAndView(ViewProvider.UPLOAD); } else { m.addAttribute(&amp;#34;sync&amp;#34;, new SyncDAO()); return new ModelAndView(ViewProvider.HR_SYNC); } } } 访问http://localhost:8080/hellorest/test.do 时发生如下问题： 查了一下Annotation Type RequestParam的javadoc，加上可选参数required解决战斗。
+@Controller @RequestMapping(&amp;#34;/test.do&amp;#34;) public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(value=&amp;#34;fid&amp;#34;, required = false) String fid, @RequestParam(value=&amp;#34;sid&amp;#34;, required = false) String sid) throws Exception { if(fid==null || sid==null) { m.</description></item></channel></rss>

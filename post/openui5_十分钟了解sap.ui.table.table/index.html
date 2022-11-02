@@ -1,225 +1,39 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[OpenUI5] 十分钟了解sap.ui.table.Table - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[OpenUI5] 十分钟了解sap.ui.table.Table">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[OpenUI5] 十分钟了解sap.ui.table.Table - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/" itemprop="url">
-        [OpenUI5] 十分钟了解sap.ui.table.Table
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2014-11-12">
-    2014-11-12
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/%E5%89%8D%E7%AB%AF" itemprop="url" rel="index">
-        <span itemprop="name">前端</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">1120 字 ~6分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>转发一篇SAP community network的好帖子：<a href="http://scn.sap.com/docs/DOC-54075">http://scn.sap.com/docs/DOC-54075</a></p>
-
-<h3 id="introduction">Introduction</h3>
-
-<p>_sap.ui.table.Table_ is commonly used inOpenUI5 desktop application. Many questions (related to thiscontrol) that are posted in this group, it is evident thatdocumentation for this control is lacking and we (developers) haveto dive deep into debugging its source code to figure things out.It is fortunate that Javascript source code is always available;modern browsers provide debugging capability and personally, I amfortunate to have the opportunity to work with someone in SAPUI5team while using this control. Hence it is an opportunity for me tocontribute back to the community on what I have learned about thiscontrol.</p>
-
-<p><em>I am assuming that reader of this document has some basicunderstanding of OpenUI5. The person understands what is OpenUI5control, model and model binding. Please ask questions if you haveany and I (the community experts) will try answer them. I am hopingthat I can keep this as a live document where I can constantlyreceive feedback and update it.</em>
-In this document, we show
-- A sample JSON model where we are use it our sample code;
-- Some code snippet on how to instantiate a table
-- Creating columns and binding of rows
-- Getting context of selected row(s),
-- Two ways binding of model and control</p>
-
-<h3 id="sample-json-model">Sample JSON Model</h3>
-
-<pre><code>  var naughtyList = [
-   {lastName: &quot;Dente&quot;, name: &quot;Al&quot;, stillNaughty: true},
-   {lastName: &quot;Friese&quot;, name: &quot;Andy&quot;, stillNaughty: true},
-   {lastName: &quot;Mann&quot;, name: &quot;Anita&quot;, stillNaughty: false}
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[OpenUI5] 十分钟了解sap.ui.table.Table - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[OpenUI5] 十分钟了解sap.ui.table.Table"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[OpenUI5] 十分钟了解sap.ui.table.Table - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/ itemprop=url>[OpenUI5] 十分钟了解sap.ui.table.Table</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-12">2014-11-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1115 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>转发一篇SAP community network的好帖子：http://scn.sap.com/docs/DOC-54075</p><h3 id=introduction>Introduction</h3><p><em>sap.ui.table.Table</em> is commonly used inOpenUI5 desktop application. Many questions (related to thiscontrol) that are posted in this group, it is evident thatdocumentation for this control is lacking and we (developers) haveto dive deep into debugging its source code to figure things out.It is fortunate that Javascript source code is always available;modern browsers provide debugging capability and personally, I amfortunate to have the opportunity to work with someone in SAPUI5team while using this control. Hence it is an opportunity for me tocontribute back to the community on what I have learned about thiscontrol.</p><p><em>I am assuming that reader of this document has some basicunderstanding of OpenUI5. The person understands what is OpenUI5control, model and model binding. Please ask questions if you haveany and I (the community experts) will try answer them. I am hopingthat I can keep this as a live document where I can constantlyreceive feedback and update it.</em>
+In this document, we show</p><ul><li>A sample JSON model where we are use it our sample code;</li><li>Some code snippet on how to instantiate a table</li><li>Creating columns and binding of rows</li><li>Getting context of selected row(s),</li><li>Two ways binding of model and control</li></ul><h3 id=sample-json-model>Sample JSON Model</h3><pre tabindex=0><code>  var naughtyList = [
+   {lastName: &#34;Dente&#34;, name: &#34;Al&#34;, stillNaughty: true},
+   {lastName: &#34;Friese&#34;, name: &#34;Andy&#34;, stillNaughty: true},
+   {lastName: &#34;Mann&#34;, name: &#34;Anita&#34;, stillNaughty: false}
   ];
 
   var oModel = new sap.ui.model.json.JSONModel();
   oModel.setData(naughtyList);
-</code></pre>
-
-<h3 id="instantiate-a-table">Instantiate a table</h3>
-
-<p>It can be as simple as</p>
-
-<pre><code>var oTable = new sap.ui.table.Table();
-</code></pre>
-
-<p>where we inherit all the default properties from the control.Please refer to the <a href="https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.Table.html">official doc</a> for reference.
-There are a few properties that I hope to explain a littlemore.</p>
-
-<h3 id="selectionmode-api-https-sapui5-netweaver-ondemand-com-sdk-docs-api-symbols-sap-ui-table-selectionmode-html">SelectionMode (<a href="https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionMode.html">API</a>)</h3>
-
-<p>Example</p>
-
-<pre><code>var oTable = new sap.ui.table.Table({
+</code></pre><h3 id=instantiate-a-table>Instantiate a table</h3><p>It can be as simple as</p><pre tabindex=0><code>var oTable = new sap.ui.table.Table();
+</code></pre><p>where we inherit all the default properties from the control.Please refer to the <a href=https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.Table.html>official doc</a> for reference.
+There are a few properties that I hope to explain a littlemore.</p><h3 id=selectionmode-apihttpssapui5netweaverondemandcomsdkdocsapisymbolssapuitableselectionmodehtml>SelectionMode (<a href=https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionMode.html>API</a>)</h3><p>Example</p><pre tabindex=0><code>var oTable = new sap.ui.table.Table({
    selectionMode : sap.ui.table.SelectionMode.Single
 });
-</code></pre>
-
-<p>Here you can control the selection mode such as None (disableselection), Single (maximum one row can be selected at any time)and Multi (one or more rows can be selected) . Default is Multi</p>
-
-<h3 id="selectionbehavior-api-https-sapui5-netweaver-ondemand-com-sdk-docs-api-symbols-sap-ui-table-selectionbehavior-html">SelectionBehavior (<a href="https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionBehavior.html">API</a>)</h3>
-
-<p>Example</p>
-
-<pre><code>var oTable = new sap.ui.table.Table({
+</code></pre><p>Here you can control the selection mode such as None (disableselection), Single (maximum one row can be selected at any time)and Multi (one or more rows can be selected) . Default is Multi</p><h3 id=selectionbehavior-apihttpssapui5netweaverondemandcomsdkdocsapisymbolssapuitableselectionbehaviorhtml>SelectionBehavior (<a href=https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionBehavior.html>API</a>)</h3><p>Example</p><pre tabindex=0><code>var oTable = new sap.ui.table.Table({
    selectionMode : sap.ui.table.SelectionMode.Row
 });
-</code></pre>
-
-<p>Here you can control how the row can be selected such as RowOnly(mouse click on the row only), Row (mouse click on the row and rowselector) and RowSelector (mouse click on the row selector only).Default is RowSelector.
-<img src="/images/2014/11/0026uWfMgy6P9AL0O5G58.png" alt="[OpenUI5] 十分钟了解sap.ui.table.Table" /></p>
-
-<h3 id="create-columns-and-bind-rows">Create columns and bind rows</h3>
-
-<p>Here is an <a href="http://jsbin.com/toqof/1/edit">example</a> of howyou can do these.</p>
-
-<pre><code>  // instantiate the table
+</code></pre><p>Here you can control how the row can be selected such as RowOnly(mouse click on the row only), Row (mouse click on the row and rowselector) and RowSelector (mouse click on the row selector only).Default is RowSelector.
+<img src=/images/2014/11/0026uWfMgy6P9AL0O5G58.png alt=[OpenUI5] 十分钟了解sap.ui.table.Table></p><h3 id=create-columns-and-bind-rows>Create columns and bind rows</h3><p>Here is an <a href=http://jsbin.com/toqof/1/edit>example</a> of howyou can do these.</p><pre tabindex=0><code>  // instantiate the table
   var oTable = new sap.ui.table.Table({
    selectionMode : sap.ui.table.SelectionMode.Single,
    selectionBehavior: sap.ui.table.SelectionBehavior.Row
@@ -227,91 +41,61 @@ There are a few properties that I hope to explain a littlemore.</p>
 
   // define the Table columns and the binding values
   oTable.addColumn(new sap.ui.table.Column({
-    label: new sap.ui.commons.Label({text: &quot;Last Name&quot;}),
-    template: new sap.ui.commons.TextView({text:&quot;{lastName}&quot;})
+    label: new sap.ui.commons.Label({text: &#34;Last Name&#34;}),
+    template: new sap.ui.commons.TextView({text:&#34;{lastName}&#34;})
   }));
 
   oTable.addColumn(new sap.ui.table.Column({
-    label: new sap.ui.commons.Label({text: &quot;First Name&quot;}),
-    template: new sap.ui.commons.TextField({value: &quot;{name}&quot;})
+    label: new sap.ui.commons.Label({text: &#34;First Name&#34;}),
+    template: new sap.ui.commons.TextField({value: &#34;{name}&#34;})
   }));
 
   oTable.addColumn(new sap.ui.table.Column({
-    label: new sap.ui.commons.Label({text: &quot;Still Naughty&quot;}),
-    template: new sap.ui.commons.CheckBox({checked: '{stillNaughty}'})
+    label: new sap.ui.commons.Label({text: &#34;Still Naughty&#34;}),
+    template: new sap.ui.commons.CheckBox({checked: &#39;{stillNaughty}&#39;})
   })); 
 
   oTable.setModel(oModel);
-  oTable.bindRows(&quot;/&quot;);
-  oTable.placeAt(&quot;content&quot;);
-</code></pre>
-
-<p>Observe that we do bindRows(&ldquo;/&rdquo;), this is because we have theJSON model containing an array.</p>
-
-<pre><code>oModel.setData(naughtyList);
-</code></pre>
-
-<p>But if your model is created in this manner,</p>
-
-<pre><code>oModel.setData({'mydata' : naughtyList});
-</code></pre>
-
-<p>Then you need to do bindRows(&lsquo;/mydata&rsquo;);
-And if your data is modified to</p>
-
-<pre><code>  var naughtyList = [
-   {lastName: &quot;Dente&quot;, name: &quot;Al&quot;, stillNaughty: 'true'},
-   {lastName: &quot;Friese&quot;, name: &quot;Andy&quot;, stillNaughty: 'true'},
-   {lastName: &quot;Mann&quot;, name: &quot;Anita&quot;, stillNaughty: 'false'}
+  oTable.bindRows(&#34;/&#34;);
+  oTable.placeAt(&#34;content&#34;);
+</code></pre><p>Observe that we do bindRows("/"), this is because we have theJSON model containing an array.</p><pre tabindex=0><code>oModel.setData(naughtyList);
+</code></pre><p>But if your model is created in this manner,</p><pre tabindex=0><code>oModel.setData({&#39;mydata&#39; : naughtyList});
+</code></pre><p>Then you need to do bindRows(&rsquo;/mydata&rsquo;);
+And if your data is modified to</p><pre tabindex=0><code>  var naughtyList = [
+   {lastName: &#34;Dente&#34;, name: &#34;Al&#34;, stillNaughty: &#39;true&#39;},
+   {lastName: &#34;Friese&#34;, name: &#34;Andy&#34;, stillNaughty: &#39;true&#39;},
+   {lastName: &#34;Mann&#34;, name: &#34;Anita&#34;, stillNaughty: &#39;false&#39;}
   ];
-</code></pre>
-
-<p>where _stillNaugthy_ is astring and not a boolean. We can adapt to this with this change inthe column definition</p>
-
-<pre><code>  oTable.addColumn(new sap.ui.table.Column({
-    label: new sap.ui.commons.Label({text: &quot;Still Naughty&quot;}),
+</code></pre><p>where <em>stillNaugthy</em> is astring and not a boolean. We can adapt to this with this change inthe column definition</p><pre tabindex=0><code>  oTable.addColumn(new sap.ui.table.Column({
+    label: new sap.ui.commons.Label({text: &#34;Still Naughty&#34;}),
     template: new sap.ui.commons.CheckBox({
      checked: {
-       path: 'stillNaughty',
+       path: &#39;stillNaughty&#39;,
        formatter: function(v) {
-         return (v === 'true')
+         return (v === &#39;true&#39;)
        }
      }
     })
   }));
-</code></pre>
-
-<p>There are many things that you can do with formatter function.For instance if you want to display the first and last nametogether uppercase the last name. we can do this. (<a href="http://jsbin.com/fuqid/1/edit">Example</a>)</p>
-
-<pre><code>  oTable.addColumn(new sap.ui.table.Column({
-    label: new sap.ui.commons.Label({text: &quot;Name&quot;}),
+</code></pre><p>There are many things that you can do with formatter function.For instance if you want to display the first and last nametogether uppercase the last name. we can do this. (<a href=http://jsbin.com/fuqid/1/edit>Example</a>)</p><pre tabindex=0><code>  oTable.addColumn(new sap.ui.table.Column({
+    label: new sap.ui.commons.Label({text: &#34;Name&#34;}),
     template: new sap.ui.commons.TextView(
      {text:
       {
-        parts : ['name', 'lastName'],
+        parts : [&#39;name&#39;, &#39;lastName&#39;],
         formatter: function(n, l) {
           if (n &amp;&amp; l) {
-            return n + ', ' + l.toUpperCase();
+            return n + &#39;, &#39; + l.toUpperCase();
           }
         }
       }
      }
     )
   }));
-</code></pre>
-
-<h3 id="getting-context-of-selected-row-s">Getting context of selected row(s),</h3>
-
-<p>Here come the interesting part of this document because manyquestions are asked related to this topic.</p>
-
-<h3 id="single-selection-mode">Single Selection Mode</h3>
-
-<p>When a row is selected or deselected,a _rowSelectionChange_ eventis fired. And <a href="http://jsbin.com/calox/1/edit">here</a> is how wedeal with it. And below this is main code.</p>
-
-<pre><code>  var oTable = new sap.ui.table.Table({
+</code></pre><h3 id=getting-context-of-selected-rows>Getting context of selected row(s),</h3><p>Here come the interesting part of this document because manyquestions are asked related to this topic.</p><h3 id=single-selection-mode>Single Selection Mode</h3><p>When a row is selected or deselected,a <em>rowSelectionChange</em> eventis fired. And <a href=http://jsbin.com/calox/1/edit>here</a> is how wedeal with it. And below this is main code.</p><pre tabindex=0><code>  var oTable = new sap.ui.table.Table({
    selectionMode : sap.ui.table.SelectionMode.Single,
    rowSelectionChange: function(e) {
-     var idx = e.getParameter('rowIndex');
+     var idx = e.getParameter(&#39;rowIndex&#39;);
      if (oTable.isIndexSelected(idx)) {
        var cxt = oTable.getContextByIndex(idx);
        var path = cxt.sPath;
@@ -320,19 +104,11 @@ And if your data is modified to</p>
      }
     }
   });
-</code></pre>
-
-<p>Here (in the code), we can get the selected or deselected row;then we usethe _isIndexSelected_ functionto check if it is selected or deselected. And by getting thecontext and path, we are able to get the binding object itself.
-Please note that if row 1 is already selected and now userselect row #2, this event will not fire for that deselection of row#1, an event will be fired for selection of row #2.</p>
-
-<h3 id="multi-selection-mode">Multi Selection Mode</h3>
-
-<p>When one or more rows are selected or deselected, thesame _rowSelectionChange_ eventwill be fired. And <a href="http://jsbin.com/holox/1/edit">here</a> is how wedeal with it. And below this is main code.</p>
-
-<pre><code>  var oTable = new sap.ui.table.Table({
+</code></pre><p>Here (in the code), we can get the selected or deselected row;then we usethe <em>isIndexSelected</em> functionto check if it is selected or deselected. And by getting thecontext and path, we are able to get the binding object itself.
+Please note that if row 1 is already selected and now userselect row #2, this event will not fire for that deselection of row#1, an event will be fired for selection of row #2.</p><h3 id=multi-selection-mode>Multi Selection Mode</h3><p>When one or more rows are selected or deselected, thesame <em>rowSelectionChange</em> eventwill be fired. And <a href=http://jsbin.com/holox/1/edit>here</a> is how wedeal with it. And below this is main code.</p><pre tabindex=0><code>  var oTable = new sap.ui.table.Table({
    selectionMode : sap.ui.table.SelectionMode.Multi,
    rowSelectionChange: function(e) {
-     var indices = e.getParameter('rowIndices');
+     var indices = e.getParameter(&#39;rowIndices&#39;);
      for (var i = 0; i &lt; indices.length; i++) {
        var idx = indices[i];
        if (oTable.isIndexSelected(idx)) {
@@ -344,21 +120,13 @@ Please note that if row 1 is already selected and now userselect row #2, this ev
      }
     }
   });
-</code></pre>
-
-<p>Here (in the code), we can get the selected or deselected rows;then we iterate through the array and usethe_isIndexSelected_ function to check if itis selected or deselected. And by getting the context and path, weare able to get the binding object itself. This piece of code isalmost identical to the code snippet in the single selection modeexcept for getting an array of selected indices.</p>
-
-<h3 id="selection-none-mode-and-select-by-control-in-row">Selection None Mode and Select by control in row</h3>
-
-<p>You can also identify the row and context with button, checkbox,etc. in the row. Here is an <a href="http://jsbin.com/sabah/1/edit">example</a>.</p>
-
-<pre><code>  oTable.addColumn(new sap.ui.table.Column({
-    label: new sap.ui.commons.Label({text: &quot;Still Naughty&quot;}),
+</code></pre><p>Here (in the code), we can get the selected or deselected rows;then we iterate through the array and usethe_isIndexSelected_ function to check if itis selected or deselected. And by getting the context and path, weare able to get the binding object itself. This piece of code isalmost identical to the code snippet in the single selection modeexcept for getting an array of selected indices.</p><h3 id=selection-none-mode-and-select-by-control-in-row>Selection None Mode and Select by control in row</h3><p>You can also identify the row and context with button, checkbox,etc. in the row. Here is an <a href=http://jsbin.com/sabah/1/edit>example</a>.</p><pre tabindex=0><code>  oTable.addColumn(new sap.ui.table.Column({
+    label: new sap.ui.commons.Label({text: &#34;Still Naughty&#34;}),
     template: new sap.ui.commons.CheckBox({
      checked: {
-       path: 'stillNaughty',
+       path: &#39;stillNaughty&#39;,
        formatter: function(v) {
-         return (v === 'true')
+         return (v === &#39;true&#39;)
        }
      },
      change: function(e) {
@@ -366,25 +134,19 @@ Please note that if row 1 is already selected and now userselect row #2, this ev
        var obj = oTable.getModel().getProperty(path);
        alert(JSON.stringify(obj));
        
-       var index = parseInt(path.substring(path.lastIndexOf('/')+1));
+       var index = parseInt(path.substring(path.lastIndexOf(&#39;/&#39;)+1));
        alert(index);
      }
     })
   }));
-</code></pre>
-
-<h3 id="two-ways-binding-of-model-and-control">Two ways binding of model and control</h3>
-
-<p>One of the beauty of OpenUI5 is the binding between model andcontrol. In our example <a href="http://jsbin.com/lukij/1/edit">here</a> (Checkand uncheck the checkbox and then click on Show button to see thatcurrent data in the model), we are able to bind the checkbox valueto the model effortlessly. You can also bind any controls such astextfield, radio button, etc in the table.
-However if you use the formatter function to alter the valuebefore displaying it then you need to update the model manuallylike <a href="http://jsbin.com/yikur/1/edit">this</a>. And below this is maincode.</p>
-
-<pre><code>  oTable.addColumn(new sap.ui.table.Column({
-    label:new sap.ui.commons.Label({text: &quot;Still Naughty&quot;}),
+</code></pre><h3 id=two-ways-binding-of-model-and-control>Two ways binding of model and control</h3><p>One of the beauty of OpenUI5 is the binding between model andcontrol. In our example <a href=http://jsbin.com/lukij/1/edit>here</a> (Checkand uncheck the checkbox and then click on Show button to see thatcurrent data in the model), we are able to bind the checkbox valueto the model effortlessly. You can also bind any controls such astextfield, radio button, etc in the table.
+However if you use the formatter function to alter the valuebefore displaying it then you need to update the model manuallylike <a href=http://jsbin.com/yikur/1/edit>this</a>. And below this is maincode.</p><pre tabindex=0><code>  oTable.addColumn(new sap.ui.table.Column({
+    label:new sap.ui.commons.Label({text: &#34;Still Naughty&#34;}),
     template: new sap.ui.commons.CheckBox({
      checked: {
-       path: 'stillNaughty',
+       path: &#39;stillNaughty&#39;,
        formatter: function(v) {
-         return (v === 'true')
+         return (v === &#39;true&#39;)
        }
      },
      change: function(e) {
@@ -394,260 +156,49 @@ However if you use the formatter function to alter the valuebefore displaying it
      }
     })
   }));
-</code></pre>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[OpenUI5] 十分钟了解sap.ui.table.Table
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/web" rel="tag" title="web">#web#</a>
-    
-    <a href="/tags/openui5" rel="tag" title="openui5">#openui5#</a>
-    
-    <a href="/tags/sap.ui.table.table" rel="tag" title="sap.ui.table.table">#sap.ui.table.table#</a>
-    
-    <a href="/tags/sap" rel="tag" title="sap">#sap#</a>
-    
-    <a href="/tags/table" rel="tag" title="table">#table#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/" rel="next" title="[OpenUI5] JSView的createContent和Controller的onInit孰先孰后？">
-        <i class="fa fa-chevron-left"></i> [OpenUI5] JSView的createContent和Controller的onInit孰先孰后？
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/" rel="prev" title="Web安全">
-        Web安全 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/";
-this.page.identifier = "https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#sample-json-model">Sample JSON Model</a></li>
-<li><a href="#instantiate-a-table">Instantiate a table</a></li>
-<li><a href="#selectionmode-api-https-sapui5-netweaver-ondemand-com-sdk-docs-api-symbols-sap-ui-table-selectionmode-html">SelectionMode (<a href="https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionMode.html">API</a>)</a></li>
-<li><a href="#selectionbehavior-api-https-sapui5-netweaver-ondemand-com-sdk-docs-api-symbols-sap-ui-table-selectionbehavior-html">SelectionBehavior (<a href="https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionBehavior.html">API</a>)</a></li>
-<li><a href="#create-columns-and-bind-rows">Create columns and bind rows</a></li>
-<li><a href="#getting-context-of-selected-row-s">Getting context of selected row(s),</a></li>
-<li><a href="#single-selection-mode">Single Selection Mode</a></li>
-<li><a href="#multi-selection-mode">Multi Selection Mode</a></li>
-<li><a href="#selection-none-mode-and-select-by-control-in-row">Selection None Mode and Select by control in row</a></li>
-<li><a href="#two-ways-binding-of-model-and-control">Two ways binding of model and control</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[OpenUI5] 十分钟了解sap.ui.table.Table<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/web rel=tag title=web>#web#</a>
+<a href=/tags/openui5 rel=tag title=openui5>#openui5#</a>
+<a href=/tags/sap.ui.table.table rel=tag title=sap.ui.table.table>#sap.ui.table.table#</a>
+<a href=/tags/sap rel=tag title=sap>#sap#</a>
+<a href=/tags/table rel=tag title=table>#table#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/ rel=next title=[OpenUI5] JSView的createContent和Controller的onInit孰先孰后？><i class="fa fa-chevron-left"></i> [OpenUI5] JSView的createContent和Controller的onInit孰先孰后？</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/ rel=prev title=Web安全>Web安全 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/",this.page.identifier="https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#introduction>Introduction</a></li><li><a href=#sample-json-model>Sample JSON Model</a></li><li><a href=#instantiate-a-table>Instantiate a table</a></li><li><a href=#selectionmode-apihttpssapui5netweaverondemandcomsdkdocsapisymbolssapuitableselectionmodehtml>SelectionMode (<a href=https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionMode.html>API</a>)</a></li><li><a href=#selectionbehavior-apihttpssapui5netweaverondemandcomsdkdocsapisymbolssapuitableselectionbehaviorhtml>SelectionBehavior (<a href=https://sapui5.netweaver.ondemand.com/sdk/#docs/api/symbols/sap.ui.table.SelectionBehavior.html>API</a>)</a></li><li><a href=#create-columns-and-bind-rows>Create columns and bind rows</a></li><li><a href=#getting-context-of-selected-rows>Getting context of selected row(s),</a></li><li><a href=#single-selection-mode>Single Selection Mode</a></li><li><a href=#multi-selection-mode>Multi Selection Mode</a></li><li><a href=#selection-none-mode-and-select-by-control-in-row>Selection None Mode and Select by control in row</a></li><li><a href=#two-ways-binding-of-model-and-control>Two ways binding of model and control</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

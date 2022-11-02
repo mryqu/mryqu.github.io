@@ -1,208 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Git on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/categories/git/</link>
-    <description>Recent content in Git on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 17 Mar 2016 06:10:33 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/categories/git/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>升级Windows版Git客户端</title>
-      <link>https://mryqu.github.io/post/%E5%8D%87%E7%BA%A7windows%E7%89%88git%E5%AE%A2%E6%88%B7%E7%AB%AF/</link>
-      <pubDate>Thu, 17 Mar 2016 06:10:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%8D%87%E7%BA%A7windows%E7%89%88git%E5%AE%A2%E6%88%B7%E7%AB%AF/</guid>
-      <description>今天在公司收到通知，说Git又有安全漏洞了，需要升级到最新的2.7.3。扫了一眼Get ready to patch Git servers, clients – nasty-looking bugs surface，漏洞涉及到2.x、1.9和1.7版本。 我本机装的是git version 1.9.5.msysgit.0，这才发现MsysGit去年八月份就被Git for Windows 2.x取代了。这次顺手把Git Extensions也给升级到2.48.05了。</description>
-    </item>
-    
-    <item>
-      <title>[Git] 操作Git仓库已删除文件</title>
-      <link>https://mryqu.github.io/post/git_%E6%93%8D%E4%BD%9Cgit%E4%BB%93%E5%BA%93%E5%B7%B2%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Wed, 11 Nov 2015 05:49:56 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_%E6%93%8D%E4%BD%9Cgit%E4%BB%93%E5%BA%93%E5%B7%B2%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</guid>
-      <description>忙着工作，忽然出了一下神，觉得自己对Git仓库已删除文件的操作还没有练习过，决定找资料学习一下。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Mryqu's Notes</title><link>https://mryqu.github.io/categories/git/</link><description>Recent content in Git on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 17 Mar 2016 06:10:33 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/categories/git/index.xml" rel="self" type="application/rss+xml"/><item><title>升级Windows版Git客户端</title><link>https://mryqu.github.io/post/%E5%8D%87%E7%BA%A7windows%E7%89%88git%E5%AE%A2%E6%88%B7%E7%AB%AF/</link><pubDate>Thu, 17 Mar 2016 06:10:33 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%8D%87%E7%BA%A7windows%E7%89%88git%E5%AE%A2%E6%88%B7%E7%AB%AF/</guid><description>今天在公司收到通知，说Git又有安全漏洞了，需要升级到最新的2.7.3。扫了一眼Get ready to patch Git servers, clients – nasty-looking bugs surface，漏洞涉及到2.x、1.9和1.7版本。 我本机装的是git version 1.9.5.msysgit.0，这才发现MsysGit去年八月份就被Git for Windows 2.x取代了。这次顺手把Git Extensions也给升级到2.48.05了。</description></item><item><title>[Git] 操作Git仓库已删除文件</title><link>https://mryqu.github.io/post/git_%E6%93%8D%E4%BD%9Cgit%E4%BB%93%E5%BA%93%E5%B7%B2%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</link><pubDate>Wed, 11 Nov 2015 05:49:56 +0000</pubDate><guid>https://mryqu.github.io/post/git_%E6%93%8D%E4%BD%9Cgit%E4%BB%93%E5%BA%93%E5%B7%B2%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</guid><description>忙着工作，忽然出了一下神，觉得自己对Git仓库已删除文件的操作还没有练习过，决定找资料学习一下。
 列举所有Git仓库已删除文件 下列命令可以列举出所有提交信息及被删除的文件：
-git log --diff-filter=D --summary  下列命令可以列举出所有被删除的文件，不显示提交信息：
-git log --diff-filter=D --summary | grep delete  列举一个Git仓库已删除文件的提交历史信息 仅使用git log无法查看Git仓库已删除文件的提交历史信息。
-git log $deletedFile fatal: ambiguous argument &#39;deletedFile&#39;: unknown revision or path not in the working tree.  下列命令则可以：
-git log -- $deletedFile  恢复一个Git仓库已删除文件 找到删除该文件的提交哈希值
-git rev-list -n 1 HEAD -- $deletedFile  通过删除该文件提交（$deletingCommit）的前一个提交($deletingCommit~1)恢复已删除文件:
-git checkout $deletingCommit~1 -- $deletedFile  参考 Is there a way in Git to list all deleted files in the repository</description>
-    </item>
-    
-    <item>
-      <title>[Git] 分支笔记</title>
-      <link>https://mryqu.github.io/post/git_%E5%88%86%E6%94%AF%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Sun, 08 Nov 2015 05:44:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_%E5%88%86%E6%94%AF%E7%AC%94%E8%AE%B0/</guid>
-      <description>最近接触了一些Git远程分支的操作和管理，做个笔记。
- 创建本地分支  git branch [branch]  切换本地分支  git checkout [branch]  删除本地分支  git branch -D [branch]  重命名本地分支  git branch -m [oldbranch] [newbranch]  查看分支 ```
-查看本地分支 （-v选项可以显示sha1和提交消息标题） git branch git branch -v
-  # 查看远程分支 git branch -r git branch -rv
-# 查看本地和远程分支 git branch -a git branch -av
-- 向远程分支推送（远程分支不存在则会创建远程分支）  # 期望本地分支与远程分支同名，可以先切换到本地分支进行提交 git push [remote] [branch]
-# 通过-u选项同时使新创建的远程分支成为本地分支的上游分支 git push -u [remote] [branch]</description>
-    </item>
-    
-    <item>
-      <title>安装Gerrit的commit-msg钩子</title>
-      <link>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/</link>
-      <pubDate>Wed, 19 Aug 2015 05:34:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/</guid>
-      <description>对Gerrit进行首次提交前需要安装commit-msg钩子，每次总忘，每次都总是搜邮件，还是记博客里方便些。
-gitdir=$(git rev-parse --git-dir); scp -p -P 29418 [your username]@[your Gerrit review server]:hooks/commit-msg {gitdir}/hooks/  参考
+git log --diff-filter=D --summary 下列命令可以列举出所有被删除的文件，不显示提交信息：
+git log --diff-filter=D --summary | grep delete 列举一个Git仓库已删除文件的提交历史信息 仅使用git log无法查看Git仓库已删除文件的提交历史信息。
+git log $deletedFile fatal: ambiguous argument &amp;#39;deletedFile&amp;#39;: unknown revision or path not in the working tree. 下列命令则可以：
+git log -- $deletedFile 恢复一个Git仓库已删除文件 找到删除该文件的提交哈希值
+git rev-list -n 1 HEAD -- $deletedFile 通过删除该文件提交（$deletingCommit）的前一个提交($deletingCommit~1)恢复已删除文件:
+git checkout $deletingCommit~1 -- $deletedFile 参考 Is there a way in Git to list all deleted files in the repository
+Git: Getting the history of a deleted file</description></item><item><title>[Git] 分支笔记</title><link>https://mryqu.github.io/post/git_%E5%88%86%E6%94%AF%E7%AC%94%E8%AE%B0/</link><pubDate>Sun, 08 Nov 2015 05:44:25 +0000</pubDate><guid>https://mryqu.github.io/post/git_%E5%88%86%E6%94%AF%E7%AC%94%E8%AE%B0/</guid><description>最近接触了一些Git远程分支的操作和管理，做个笔记。
+创建本地分支 git branch [branch] 切换本地分支 git checkout [branch] 删除本地分支 git branch -D [branch] 重命名本地分支 git branch -m [oldbranch] [newbranch] 查看分支 # 查看本地分支 （-v选项可以显示sha1和提交消息标题） git branch git branch -v # 查看远程分支 git branch -r git branch -rv # 查看本地和远程分支 git branch -a git branch -av 向远程分支推送（远程分支不存在则会创建远程分支） # 期望本地分支与远程分支同名，可以先切换到本地分支进行提交 git push [remote] [branch] # 通过-u选项同时使新创建的远程分支成为本地分支的上游分支 git push -u [remote] [branch] # 期望本地分支与远程分支使用不同名称 git push [remote] [localbranch]:[remotebranch] # 例子： git push origin v9:v9 使用存在的远程分支创建本地分支，远程分支也成为新创建的本地分支的上游分支 # 期望本地分支与远程分支同名 git checkout --track [remote]/[remotebranch] # 例子： git checkout --track origin/v9 # 当git checkout [branch]执行时，本地分支不存在且仅与一个远程分支名匹配事， # 其效果等同上面--track选项。 # 期望本地分支与远程分支使用不同名称 git checkout -b [localbranch] [remote]/[remotebranch] # 例子： git checkout -b v9test origin/v9 本地分支和远程分支都存在的情况下，使远程分支也成为本地分支的上游分支 # 使远程分支成为当前本地分支的上游分支 git branch -u [remote]/[remotebranch] # 使远程分支成为某一特定本地分支的上游分支 git branch --set-upstream-to=[remote]/[remotebranch] [localbranch] 去除本地分支的上游分支 git branch --unset-upstream [branch] 删除远程分支 git push [remote] :[remotebranch] # 或 git push --delete [remote] [remotebranch] 在本地库删除已废弃的远程分支 # 远程分支被别人删除后，自己本地库中该远程分支为废弃状态，可使用下列命令移除该远程分支 git remote prune [remote] 参考 Git Branching - Branches in a Nutshell</description></item><item><title>安装Gerrit的commit-msg钩子</title><link>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/</link><pubDate>Wed, 19 Aug 2015 05:34:23 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/</guid><description>对Gerrit进行首次提交前需要安装commit-msg钩子，每次总忘，每次都总是搜邮件，还是记博客里方便些。
+gitdir=$(git rev-parse --git-dir); scp -p -P 29418 [your username]@[your Gerrit review server]:hooks/commit-msg {gitdir}/hooks/ 参考
 Gerrit：commit-msg Hook
-Gerrit工作流</description>
-    </item>
-    
-    <item>
-      <title>了解一下Gerrit与BitBucket集成</title>
-      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bgerrit%E4%B8%8Ebitbucket%E9%9B%86%E6%88%90/</link>
-      <pubDate>Sun, 17 May 2015 00:18:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bgerrit%E4%B8%8Ebitbucket%E9%9B%86%E6%88%90/</guid>
-      <description>在《Gerrit插件配置》中没有找到有关BitBucket的信息。 通过https://marketplace.atlassian.com/search?q=Gerrit在Atlassian市场搜到几个跟Gerrit相关的控件，不过都是为JIRA/BitBucket/Bambooserve增加类似Gerrit的工作流的功能。 结论就是：目前没法用Gerrit为BitBucket进行代码审查。</description>
-    </item>
-    
-    <item>
-      <title>了解用于Gerrit代码审查的GitHub插件</title>
-      <link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/</link>
-      <pubDate>Sat, 16 May 2015 07:28:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/</guid>
-      <description>在网上看到了GitHub plugin for Gerrit，学习一下。
-对比GitHub与Gerrit的代码审查机制 GitHub一派的代码审查机制主要通过fork一个远程分支，进行本地修改并提交到远程分支，然后通过PULL REQUEST来请求代码审查及合并回原上游远程分支。 Gerrit一派的代码审查机制主要通过checkout一个分支(refs/for/master)。从Gerrit克隆获得本地分支，进行修改并提交到Gerrit的refs/for/master分支，中间还可以通过Amend commit修改之前的提交，经过评审人批准后，代码会提交到&amp;rdquo;权威&amp;rdquo;仓库。 GitHub BitBucket GitLab Gitorious阵营 这一派的PULL REQUEST基于两个分支的合并，注释可能会乱一点，有点惹人烦。不考虑将所有原子/相关修改作为一个提交。除了写注释无法知道审查打分情况。 Gerrit GitBlit阵营 这一派的每个提交有其审查结果，可以清晰查看以往历史。Gerrit审查可以强制成仅接受快进（fast-worward）或可rebase的提交。 用于Gerrit代码审查的GitHub插件 https://gerrit-review.googlesource.com/#/admin/projects/plugins/github 优点： - 引入Pull Requests -&amp;gt;Gerrit改动/主题 - 使用Gerrit认证规则重用GitHub账户 - 复制: 代码继续存在于http://github.com 仓库 - 防止不可管理的fork激增 - 避免GitHub垃圾邮件 -&amp;gt;每个改动一封电邮
-第一步：为Gerrit在GitHub上注册新的OAUTH应用 第二步：获取Client ID和Client Secret 第三步：下载并安装Gerrit 下载地址：https://gerrit-releases.storage.googleapis.com/index.html 为了确保安装成功，首先使用DEVELOPMENT_BECOME_ANY_ACCOUNT作为认证方式确保能登录进Gerrit。 使用Git Bash启动Gerrit。 登陆后，可以查看到当前安装的插件。 第四步：构建GitHub插件 git clone https://gerrit.googlesource.com/plugins/github &amp;amp;&amp;amp; cd github mvn install  第五步：安装OAUTH过滤器和GitHub插件 第六步：重新配置Gerrit 第七步：完成GitHub认证 参考 GitHub plugin for Gerrit
-Gerrit vs Github: for code review and codebase management</description>
-    </item>
-    
-    <item>
-      <title>[Git] Create patch with untracked files</title>
-      <link>https://mryqu.github.io/post/git_create_patch_with_untracked_files/</link>
-      <pubDate>Tue, 27 Jan 2015 20:10:27 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_create_patch_with_untracked_files/</guid>
-      <description>前一博文Create patch with untracked files using Git format-patch/diff/stash中的方案比较绕，今天有了一个更好一点的法子:
-git add . git diff --cached &amp;gt; yqu.patch git reset origin/master  </description>
-    </item>
-    
-    <item>
-      <title>[Git] Create patch with untracked files using Git format-patch/diff/stash</title>
-      <link>https://mryqu.github.io/post/git_create_patch_with_untracked_files_using_git_format-patch_diff_stash/</link>
-      <pubDate>Mon, 26 Jan 2015 20:03:22 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_create_patch_with_untracked_files_using_git_format-patch_diff_stash/</guid>
-      <description>Setup testing environment I created 123.txt at branch master, then modified 123.txt and added321.txt at branch yqu
-C:\test&amp;gt;mkdir GitTest C:\test&amp;gt;cd GitTest C:\test\GitTest&amp;gt;git init Initialized empty Git repository in C:/test/GitTest/.git/ C:\test\GitTest&amp;gt;echo &amp;quot;this is a file at mast branch&amp;quot; &amp;gt; 123.txt C:\test\GitTest&amp;gt;git add 123.txt C:\test\GitTest&amp;gt;git commit -m &amp;quot;initial commit&amp;quot; [master (root-commit) f140825] initial commit 1 file changed, 1 insertion(+) create mode 100644 123.txt C:\test\GitTest&amp;gt;git push origin HEAD:master C:\test\GitTest&amp;gt;git checkout -b yqu Switched to a new branch &#39;yqu&#39; C:\test\GitTest&amp;gt;echo &amp;quot;bye&amp;quot; &amp;gt;&amp;gt; 123.</description>
-    </item>
-    
-    <item>
-      <title>从TortoiseGit切换到Git Extensions</title>
-      <link>https://mryqu.github.io/post/%E4%BB%8Etortoisegit%E5%88%87%E6%8D%A2%E5%88%B0git_extensions/</link>
-      <pubDate>Sun, 07 Sep 2014 12:13:06 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BB%8Etortoisegit%E5%88%87%E6%8D%A2%E5%88%B0git_extensions/</guid>
-      <description>一开始使用GitHub的服务，除了安装了msysGit&amp;rsquo;s Git for Windows，GUI客户端就是GitHub的Web界面。后来使用bitbucket的服务时，想要安装一个好使又通用的GUI客户端。由于使用TortoiseCVS和TortoiseSVN，自然就选择了TortoiseGit。由于三者界面风格一致，使用无障碍上手。最近开始使用公司的git仓库，公司指定的是Git Extensions。好吧，Bye， TortoiseGit。 好奇了一下，上网搜了两者的对比。貌似相当一部分人使用TortoiseGit的理由跟我一样，不过有一些人更推荐Git Extensions。此外还有一个商业产品SmartGit，但貌似使用的人更少。搜索结果：What is the Best Git GUI (Client) for Windows?TortoiseGit vs Git ExtensionsAsk HN: Best Git GUI For Windows?</description>
-    </item>
-    
-    <item>
-      <title>GitHub fork操作</title>
-      <link>https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/</link>
-      <pubDate>Mon, 17 Mar 2014 22:37:40 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/</guid>
-      <description>Fork（分支）操作不是Git实现的一部分，仅是GitHub独有的一个在服务器端克隆代码库的操作。假定我作为GitHub用户usr2，对用户usr1的github.com/usr1/demo代码库有兴趣。我可以通过clone命令将该代码库克隆到本机，并且可以通过pull命令获得该代码库的更新。但是除非用户usr1将我（用户usr2）设为该代码库的贡献者，否则我无法将我提交的修改通过push命令推送到该代码库。但是通过fork操作，我就可以将github.com/usr1/demo代码库完整复制到我的GitHub帐号下（包括代码库中的文件、提交历史、问题等等），例如下图的github.com/usr2/demo。我可通过clone命令将自己的github.com/usr2/demo代码库克隆到本机，我完全有权限将本机提交的修改通过push命令推送到上述自己的代码库。如果我希望我的修改被usr1采纳，我可以发送一个pullrequest通知usr1。至于usr1是否接收我的修改，决定权在usr1。克隆代码库的时候，所使用的远程代码库地址自动被Git命名为origin。其效果类似于：
-git remote add origin git://github.com/usr2/demo.git  github.com/usr2/demo代码库在fork操作之后就不再获得github.com/usr1/demo的后继更新了。可以手工添加github.com/usr1/demo为上游代码库地址：
-git remote add upstream git://github.com/usr1/demo.git  我可通过fetch命令获取上游代码库的更新，在本机合并后，通过push命令推送到自己的远程代码库。
-参考 GitHub help: Fork A Repo
-GitHub help: Syncing a fork
-GitHub help: Adding collaborators to a personal repository
-Simple guide to forks in GitHub and Git
-stackOverflow: Git fork is git clone?
-stackOverflow: What is the difference between origin and upstream in github</description>
-    </item>
-    
-    <item>
-      <title>[Git] 裸代码仓库和镜像代码仓库</title>
-      <link>https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/</link>
-      <pubDate>Sat, 15 Feb 2014 00:38:47 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/</guid>
-      <description>注：本文中操作都没有设置$GIT_DIR环境变量。
+Gerrit工作流</description></item><item><title>了解一下Gerrit与BitBucket集成</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bgerrit%E4%B8%8Ebitbucket%E9%9B%86%E6%88%90/</link><pubDate>Sun, 17 May 2015 00:18:31 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bgerrit%E4%B8%8Ebitbucket%E9%9B%86%E6%88%90/</guid><description>在《Gerrit插件配置》中没有找到有关BitBucket的信息。 通过https://marketplace.atlassian.com/search?q=Gerrit在Atlassian市场搜到几个跟Gerrit相关的控件，不过都是为JIRA/BitBucket/Bambooserve增加类似Gerrit的工作流的功能。 结论就是：目前没法用Gerrit为BitBucket进行代码审查。</description></item><item><title>了解用于Gerrit代码审查的GitHub插件</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/</link><pubDate>Sat, 16 May 2015 07:28:57 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/</guid><description>在网上看到了GitHub plugin for Gerrit，学习一下。
+对比GitHub与Gerrit的代码审查机制 GitHub一派的代码审查机制主要通过fork一个远程分支，进行本地修改并提交到远程分支，然后通过PULL REQUEST来请求代码审查及合并回原上游远程分支。 Gerrit一派的代码审查机制主要通过checkout一个分支(refs/for/master)。从Gerrit克隆获得本地分支，进行修改并提交到Gerrit的refs/for/master分支，中间还可以通过Amend commit修改之前的提交，经过评审人批准后，代码会提交到&amp;quot;权威&amp;quot;仓库。 GitHub BitBucket GitLab Gitorious阵营 这一派的PULL REQUEST基于两个分支的合并，注释可能会乱一点，有点惹人烦。不考虑将所有原子/相关修改作为一个提交。除了写注释无法知道审查打分情况。 Gerrit GitBlit阵营 这一派的每个提交有其审查结果，可以清晰查看以往历史。Gerrit审查可以强制成仅接受快进（fast-worward）或可rebase的提交。 用于Gerrit代码审查的GitHub插件 https://gerrit-review.googlesource.com/#/admin/projects/plugins/github 优点：
+引入Pull Requests -&amp;gt;Gerrit改动/主题 使用Gerrit认证规则重用GitHub账户 复制: 代码继续存在于http://github.com 仓库 防止不可管理的fork激增 避免GitHub垃圾邮件 -&amp;gt;每个改动一封电邮 第一步：为Gerrit在GitHub上注册新的OAUTH应用 第二步：获取Client ID和Client Secret 第三步：下载并安装Gerrit 下载地址：https://gerrit-releases.storage.googleapis.com/index.html 为了确保安装成功，首先使用DEVELOPMENT_BECOME_ANY_ACCOUNT作为认证方式确保能登录进Gerrit。 使用Git Bash启动Gerrit。 登陆后，可以查看到当前安装的插件。 第四步：构建GitHub插件 git clone https://gerrit.googlesource.com/plugins/github &amp;amp;&amp;amp; cd github mvn install 第五步：安装OAUTH过滤器和GitHub插件 第六步：重新配置Gerrit 第七步：完成GitHub认证 参考 GitHub plugin for Gerrit Gerrit vs Github: for code review and codebase management GerritHub Gerrit Code Review or Github’s fork and pull ?</description></item><item><title>[Git] Create patch with untracked files</title><link>https://mryqu.github.io/post/git_create_patch_with_untracked_files/</link><pubDate>Tue, 27 Jan 2015 20:10:27 +0000</pubDate><guid>https://mryqu.github.io/post/git_create_patch_with_untracked_files/</guid><description>前一博文Create patch with untracked files using Git format-patch/diff/stash中的方案比较绕，今天有了一个更好一点的法子:
+git add . git diff --cached &amp;gt; yqu.patch git reset origin/master</description></item><item><title>[Git] Create patch with untracked files using Git format-patch/diff/stash</title><link>https://mryqu.github.io/post/git_create_patch_with_untracked_files_using_git_format-patch_diff_stash/</link><pubDate>Mon, 26 Jan 2015 20:03:22 +0000</pubDate><guid>https://mryqu.github.io/post/git_create_patch_with_untracked_files_using_git_format-patch_diff_stash/</guid><description>Setup testing environment I created 123.txt at branch master, then modified 123.txt and added321.txt at branch yqu
+C:\test&amp;gt;mkdir GitTest C:\test&amp;gt;cd GitTest C:\test\GitTest&amp;gt;git init Initialized empty Git repository in C:/test/GitTest/.git/ C:\test\GitTest&amp;gt;echo &amp;#34;this is a file at mast branch&amp;#34; &amp;gt; 123.txt C:\test\GitTest&amp;gt;git add 123.txt C:\test\GitTest&amp;gt;git commit -m &amp;#34;initial commit&amp;#34; [master (root-commit) f140825] initial commit 1 file changed, 1 insertion(+) create mode 100644 123.txt C:\test\GitTest&amp;gt;git push origin HEAD:master C:\test\GitTest&amp;gt;git checkout -b yqu Switched to a new branch &amp;#39;yqu&amp;#39; C:\test\GitTest&amp;gt;echo &amp;#34;bye&amp;#34; &amp;gt;&amp;gt; 123.</description></item><item><title>从TortoiseGit切换到Git Extensions</title><link>https://mryqu.github.io/post/%E4%BB%8Etortoisegit%E5%88%87%E6%8D%A2%E5%88%B0git_extensions/</link><pubDate>Sun, 07 Sep 2014 12:13:06 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BB%8Etortoisegit%E5%88%87%E6%8D%A2%E5%88%B0git_extensions/</guid><description>一开始使用GitHub的服务，除了安装了msysGit&amp;rsquo;s Git for Windows，GUI客户端就是GitHub的Web界面。后来使用bitbucket的服务时，想要安装一个好使又通用的GUI客户端。由于使用TortoiseCVS和TortoiseSVN，自然就选择了TortoiseGit。由于三者界面风格一致，使用无障碍上手。最近开始使用公司的git仓库，公司指定的是Git Extensions。好吧，Bye， TortoiseGit。 好奇了一下，上网搜了两者的对比。貌似相当一部分人使用TortoiseGit的理由跟我一样，不过有一些人更推荐Git Extensions。此外还有一个商业产品SmartGit，但貌似使用的人更少。搜索结果：What is the Best Git GUI (Client) for Windows? TortoiseGit vs Git ExtensionsAsk HN: Best Git GUI For Windows?</description></item><item><title>GitHub fork操作</title><link>https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/</link><pubDate>Mon, 17 Mar 2014 22:37:40 +0000</pubDate><guid>https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/</guid><description>Fork（分支）操作不是Git实现的一部分，仅是GitHub独有的一个在服务器端克隆代码库的操作。假定我作为GitHub用户usr2，对用户usr1的github.com/usr1/demo代码库有兴趣。我可以通过clone命令将该代码库克隆到本机，并且可以通过pull命令获得该代码库的更新。但是除非用户usr1将我（用户usr2）设为该代码库的贡献者，否则我无法将我提交的修改通过push命令推送到该代码库。但是通过fork操作，我就可以将github.com/usr1/demo代码库完整复制到我的GitHub帐号下（包括代码库中的文件、提交历史、问题等等），例如下图的github.com/usr2/demo。我可通过clone命令将自己的github.com/usr2/demo代码库克隆到本机，我完全有权限将本机提交的修改通过push命令推送到上述自己的代码库。如果我希望我的修改被usr1采纳，我可以发送一个pullrequest通知usr1。至于usr1是否接收我的修改，决定权在usr1。克隆代码库的时候，所使用的远程代码库地址自动被Git命名为origin。其效果类似于：
+git remote add origin git://github.com/usr2/demo.git github.com/usr2/demo代码库在fork操作之后就不再获得github.com/usr1/demo的后继更新了。可以手工添加github.com/usr1/demo为上游代码库地址：
+git remote add upstream git://github.com/usr1/demo.git 我可通过fetch命令获取上游代码库的更新，在本机合并后，通过push命令推送到自己的远程代码库。
+参考 GitHub help: Fork A Repo GitHub help: Syncing a fork GitHub help: Adding collaborators to a personal repository Simple guide to forks in GitHub and Git stackOverflow: Git fork is git clone? stackOverflow: What is the difference between origin and upstream in github</description></item><item><title>[Git] 裸代码仓库和镜像代码仓库</title><link>https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/</link><pubDate>Sat, 15 Feb 2014 00:38:47 +0000</pubDate><guid>https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/</guid><description>注：本文中操作都没有设置$GIT_DIR环境变量。
 Git init和clone命令对bare和mirror参数的支持 ||&amp;ndash;bare参数|&amp;ndash;mirror参数 |&amp;mdash;&amp;ndash; |git init命令|支持|/ |git clone命令|支持|支持
-裸代码仓库与普通代码仓库的区别 普通代码仓库裸代码仓库git init命令git init命令会创建一个空的Git代码仓库，一个在当前目录下包含hooks、info、objects和refs子目录和config、description和HEAD文件的.git目录。当前目录下可以创建工作树（工作文件和目录）。
-config文件内容如下：
- [core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true hideDotFiles = dotGitOnlygit init --bare命令会创建一个空的裸Git代码仓库，当前目录下直接创建hooks、info、objects和refs子目录和config、description和HEAD文件。裸Git代码仓库只包含版本控制信息而不包含工作树。
-config文件内容如下：
- [core] repositoryformatversion = 0 filemode = false bare = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly git clone命令git clone命令会创建的一个包含.git子目录的目录，其中.git目录包含branches、hooks、info、logs、objects和refs子目录和config、description、HEAD、index和packed-refs文件。git clone命令所创建的目录中包含克隆的工作树（工作文件和目录）。
-config文件内容如下：
- [core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly [remote &#34;</description>
-    </item>
-    
-    <item>
-      <title>[Git] Git代理配置</title>
-      <link>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Sun, 01 Dec 2013 22:00:58 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
-      <description> 设置Git的http和https代理 git config --global http.proxy http://proxyUser:proxyPwd@proxyServer:proxyPort git config --global https.proxy https://proxyUser:proxyPwd@proxyServer:proxyPort  查询Git的http和https代理 git config --global --get http.proxy git config --global --get https.proxy  移除Git的http和https代理 git config --global --unset http.proxy git config --global --unset https.proxy  </description>
-    </item>
-    
-    <item>
-      <title>[Git] 查看某文件历史记录</title>
-      <link>https://mryqu.github.io/post/git_%E6%9F%A5%E7%9C%8B%E6%9F%90%E6%96%87%E4%BB%B6%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/</link>
-      <pubDate>Sat, 09 Nov 2013 06:38:12 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_%E6%9F%A5%E7%9C%8B%E6%9F%90%E6%96%87%E4%BB%B6%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/</guid>
-      <description>在Git中查看某个文件历史记录，方式如下： - git log [filename]：显示对该文件的提交记录 - git log -p [filename]：显示对该文件的提交记录及每次提交增量内容 - gitk [filename]：图形显示对该文件的提交记录及每次提交增量内容</description>
-    </item>
-    
-    <item>
-      <title>[Git] 预览远程仓库与本地仓库的差异</title>
-      <link>https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/</link>
-      <pubDate>Mon, 23 Sep 2013 20:19:12 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/</guid>
-      <description>首先使用git fetch更新远程分支的本地副本，这不会对任何本地分支造成影响。
+裸代码仓库与普通代码仓库的区别 从技术的角度上讲，理论上无论Git代码仓库是否为裸代码仓库都可以接受push。可Git的策略是仅向裸代码仓库发送push。在Mercurial中，任何普通代码仓库都可以用于远程代码仓库，接受push。这是因为push所含的变化仅影响Mercurial代码仓库的版本控制，而不会影响其工作树。在Git中，如果向普通代码仓库push的话，Git会将推送的内容与工作文件进行比较，它会认为工作文件发生改变，从而影响工作树。而裸代码仓库由于没有工作树，所以push所含的变化仅影响裸代码仓库的版本控制。Git FAQ提到：A quick rule ofthumb is to never push into a repository that has a work treeattached to it, until you know what you are doing.
+镜像代码仓库 git clone&amp;ndash;mirror命令会创建一个后缀为&amp;quot;.git&amp;quot;的目录，直接包含hooks、info、objects和refs子目录和config、description和HEAD文件，不包含远程Git代码仓库的工作树。config文件内容如下：
+[core] repositoryformatversion = 0 filemode = false bare = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly [remote &amp;#34;origin&amp;#34;] url = https://github.com/usr1/demo.git fetch = +refs/*:refs/* mirror = true 镜像代码仓库也是裸代码仓库，它与裸代码仓库的区别在于：它不仅将源代码仓库的本地分支映射到目标代码仓库的本地分支，而且将所有引用（包括远程跟踪分支、备注等）都进行映射并建立refspec配置以使目标代码仓库的所有引用可被gitremote update命令覆盖。裸代码仓库在克隆命令结束后，所有源代码仓库的本地分支映射到目标代码仓库的本地分支，但是不包含远程分支。它就被完全独立地建立，不再期望后继fetch操作，所有远程分支及其他引用会被忽略掉。镜像代码仓库类似源代码仓库被完整复制，当执行git remote update命令时类似源代码仓库再次被完整复制。</description></item><item><title>[Git] Git代理配置</title><link>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link><pubDate>Sun, 01 Dec 2013 22:00:58 +0000</pubDate><guid>https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid><description>设置Git的http和https代理 git config --global http.proxy http://proxyUser:proxyPwd@proxyServer:proxyPort git config --global https.proxy https://proxyUser:proxyPwd@proxyServer:proxyPort 查询Git的http和https代理 git config --global --get http.proxy git config --global --get https.proxy 移除Git的http和https代理 git config --global --unset http.proxy git config --global --unset https.proxy</description></item><item><title>[Git] 查看某文件历史记录</title><link>https://mryqu.github.io/post/git_%E6%9F%A5%E7%9C%8B%E6%9F%90%E6%96%87%E4%BB%B6%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/</link><pubDate>Sat, 09 Nov 2013 06:38:12 +0000</pubDate><guid>https://mryqu.github.io/post/git_%E6%9F%A5%E7%9C%8B%E6%9F%90%E6%96%87%E4%BB%B6%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/</guid><description>在Git中查看某个文件历史记录，方式如下：
+git log [filename]：显示对该文件的提交记录 git log -p [filename]：显示对该文件的提交记录及每次提交增量内容 gitk [filename]：图形显示对该文件的提交记录及每次提交增量内容</description></item><item><title>[Git] 预览远程仓库与本地仓库的差异</title><link>https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/</link><pubDate>Mon, 23 Sep 2013 20:19:12 +0000</pubDate><guid>https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/</guid><description>首先使用git fetch更新远程分支的本地副本，这不会对任何本地分支造成影响。
 使用git log HEAD..origin可以显示本地分支与origin远程分支之间的提交日志。
 使用git log -p HEAD..origin除了显示上述提交日志外，还会显示每个提交的补丁。
 使用git diff HEAD...origin显示整个补丁。此外如果有本地未提交的修改，可以使用git diff origin/master显示整个补丁。
-如果不想使用git pull来合并所有远程提交，可以使用git cherry-pick接受所需要的指定远程提交。最后当准备好接受所有远程提交再使用git pull合并剩余远程提交。</description>
-    </item>
-    
-    <item>
-      <title>[Git] 获取两个版本间所有变更的文件列表</title>
-      <link>https://mryqu.github.io/post/git_%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E9%97%B4%E6%89%80%E6%9C%89%E5%8F%98%E6%9B%B4%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8/</link>
-      <pubDate>Sun, 22 Sep 2013 07:25:11 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git_%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E9%97%B4%E6%89%80%E6%9C%89%E5%8F%98%E6%9B%B4%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8/</guid>
-      <description>git diff commit-SHA1 commit-SHA2 &amp;ndash;name-status返回变更的文件列表，每个文件前带有变更状态： - &amp;lsquo; &amp;rsquo; = unmodified - M = modified - A = added - D = deleted - R = renamed - C = copied - U = updated but unmergedgit diff commit-SHA1 commit-SHA2 &amp;ndash;stat返回变更的文件列表，每个文件后面带有变更统计信息。</description>
-    </item>
-    
-    <item>
-      <title>SSH keys for Git System</title>
-      <link>https://mryqu.github.io/post/ssh_keys_for_git_system/</link>
-      <pubDate>Wed, 18 Sep 2013 22:58:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/ssh_keys_for_git_system/</guid>
-      <description>SSH keys[](http://gitlab.sas.com/help/ssh/README#ssh-keys) An SSH key allows you to establish a secure connection betweenyour computer and Git system such as GitHub, GitLab. Before generating an SSH key, check if your system already hasone by running cat ~/.ssh/id_rsa.pub . If you see a long string startingwith ssh-rsa or ssh-dsa ,you can skip the ssh-keygen step. To generate a new SSH key, just open your terminal and use codebelow. The ssh-keygen command prompts you for a location andfilename to store the key pair and for a password.</description>
-    </item>
-    
-    <item>
-      <title>git资料</title>
-      <link>https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/</link>
-      <pubDate>Sat, 13 Jul 2013 18:52:24 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/</guid>
-      <description>综合 Pro Git 英文版 中文版
+如果不想使用git pull来合并所有远程提交，可以使用git cherry-pick接受所需要的指定远程提交。最后当准备好接受所有远程提交再使用git pull合并剩余远程提交。</description></item><item><title>[Git] 获取两个版本间所有变更的文件列表</title><link>https://mryqu.github.io/post/git_%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E9%97%B4%E6%89%80%E6%9C%89%E5%8F%98%E6%9B%B4%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8/</link><pubDate>Sun, 22 Sep 2013 07:25:11 +0000</pubDate><guid>https://mryqu.github.io/post/git_%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E9%97%B4%E6%89%80%E6%9C%89%E5%8F%98%E6%9B%B4%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8/</guid><description>git diff commit-SHA1 commit-SHA2 &amp;ndash;name-status返回变更的文件列表，每个文件前带有变更状态：
+&amp;rsquo; &amp;rsquo; = unmodified M = modified A = added D = deleted R = renamed C = copied U = updated but unmergedgit diff commit-SHA1 commit-SHA2 &amp;ndash;stat返回变更的文件列表，每个文件后面带有变更统计信息。</description></item><item><title>SSH keys for Git System</title><link>https://mryqu.github.io/post/ssh_keys_for_git_system/</link><pubDate>Wed, 18 Sep 2013 22:58:33 +0000</pubDate><guid>https://mryqu.github.io/post/ssh_keys_for_git_system/</guid><description>SSH keys An SSH key allows you to establish a secure connection betweenyour computer and Git system such as GitHub, GitLab. Before generating an SSH key, check if your system already hasone by running cat ~/.ssh/id_rsa.pub . If you see a long string startingwith ssh-rsa or ssh-dsa ,you can skip the ssh-keygen step. To generate a new SSH key, just open your terminal and use codebelow. The ssh-keygen command prompts you for a location andfilename to store the key pair and for a password.</description></item><item><title>git资料</title><link>https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/</link><pubDate>Sat, 13 Jul 2013 18:52:24 +0000</pubDate><guid>https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/</guid><description>综合 Pro Git 英文版 中文版
 Git Community Book 英文版 中文版
 GotGitHub
 Git使用详解
@@ -215,8 +40,4 @@ Git Document
 Atlassian Git Tutorial
 版本管理svn,git,cvs比较
 learnGitBranching
-a successful git branching model</description>
-    </item>
-    
-  </channel>
-</rss>
+a successful git branching model</description></item></channel></rss>

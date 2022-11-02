@@ -1,35 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Hdfs on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/hdfs/</link>
-    <description>Recent content in Hdfs on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 24 Aug 2016 05:36:55 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/hdfs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Hue] 解决Filesystem root &#39;/&#39; should be owned by &#39;hdfs&#39;</title>
-      <link>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</link>
-      <pubDate>Wed, 24 Aug 2016 05:36:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</guid>
-      <description>安装Hue后，通过about页面检查配置，有一个提示：Filesystemroot &amp;lsquo;/&amp;rsquo; should be owned by &amp;lsquo;hdfs&amp;rsquo; 我在hadoop集群都使用用户hadoop，并没有创建用户hdfs。解决方案是将hue.ini中的default_hdfs_superuser设置：
-# This should be the hadoop cluster admin default_hdfs_superuser=hadoop  重启Hue后警告解除，呵呵。</description>
-    </item>
-    
-    <item>
-      <title>[Hadoop] check FSDataInputStream and its wrapped InputStream implementation</title>
-      <link>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</link>
-      <pubDate>Fri, 01 May 2015 01:15:35 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</guid>
-      <description>打开一个HDFS文件，获得一个FSDataInputStream对象，其实现类到底是什么？小小探究一下。
-package com.yqu.hadoop; import java.io.IOException; import java.io.InputStream; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.fs.FSDataInputStream; import org.apache.hadoop.fs.FileSystem; import org.apache.hadoop.fs.Path; public class LearnFS { public static void main(String[] args) { Configuration config = new Configuration(); FSDataInputStream in = null; Path path = new Path(&amp;quot;/user/hadoop/input/access_log.txt&amp;quot;); try { FileSystem fs = FileSystem.get(config); System.out.println(&amp;quot;Scheme: &amp;quot; + fs.getScheme()); System.out.println(&amp;quot;Uri: &amp;quot; + fs.getUri().toString()); in = fs.open(path); if (in != null) { System.out.println(&amp;quot;FSDataInputStream impl:&amp;quot; + in.getClass().getCanonicalName()); InputStream is = in.getWrappedStream(); if (is !</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hdfs on Mryqu's Notes</title><link>https://mryqu.github.io/tags/hdfs/</link><description>Recent content in hdfs on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 24 Aug 2016 05:36:55 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/hdfs/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hue] 解决Filesystem root '/' should be owned by 'hdfs'</title><link>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</link><pubDate>Wed, 24 Aug 2016 05:36:55 +0000</pubDate><guid>https://mryqu.github.io/post/hue_%E8%A7%A3%E5%86%B3filesystem_root_should_be_owned_by_hdfs/</guid><description>安装Hue后，通过about页面检查配置，有一个提示：Filesystemroot &amp;lsquo;/&amp;rsquo; should be owned by &amp;lsquo;hdfs&amp;rsquo; 我在hadoop集群都使用用户hadoop，并没有创建用户hdfs。解决方案是将hue.ini中的default_hdfs_superuser设置：
+# This should be the hadoop cluster admin default_hdfs_superuser=hadoop 重启Hue后警告解除，呵呵。</description></item><item><title>[Hadoop] check FSDataInputStream and its wrapped InputStream implementation</title><link>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</link><pubDate>Fri, 01 May 2015 01:15:35 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_check_fsdatainputstream_and_its_wrapped_inputstream_implementation/</guid><description>打开一个HDFS文件，获得一个FSDataInputStream对象，其实现类到底是什么？小小探究一下。
+package com.yqu.hadoop; import java.io.IOException; import java.io.InputStream; import org.apache.hadoop.conf.Configuration; import org.apache.hadoop.fs.FSDataInputStream; import org.apache.hadoop.fs.FileSystem; import org.apache.hadoop.fs.Path; public class LearnFS { public static void main(String[] args) { Configuration config = new Configuration(); FSDataInputStream in = null; Path path = new Path(&amp;#34;/user/hadoop/input/access_log.txt&amp;#34;); try { FileSystem fs = FileSystem.get(config); System.out.println(&amp;#34;Scheme: &amp;#34; + fs.getScheme()); System.out.println(&amp;#34;Uri: &amp;#34; + fs.getUri().toString()); in = fs.open(path); if (in != null) { System.out.println(&amp;#34;FSDataInputStream impl:&amp;#34; + in.getClass().getCanonicalName()); InputStream is = in.getWrappedStream(); if (is !</description></item></channel></rss>

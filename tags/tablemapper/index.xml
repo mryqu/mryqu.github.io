@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tablemapper on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/tablemapper/</link>
-    <description>Recent content in Tablemapper on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 11 May 2014 22:58:25 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/tablemapper/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Hadoop] 在MapReduce中使用HBase数据</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</link>
-      <pubDate>Sun, 11 May 2014 22:58:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</guid>
-      <description>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
-MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ .  测试 执行下列命令运行MapReduce作业:
-HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr &#39;:&#39; &#39;,&#39;)  HBase结果如下: 与普通MapReduce程序的差异  本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。  参考 HBase and MapReduce</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TableMapper on Mryqu's Notes</title><link>https://mryqu.github.io/tags/tablemapper/</link><description>Recent content in TableMapper on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 11 May 2014 22:58:25 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/tablemapper/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hadoop] 在MapReduce中使用HBase数据</title><link>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</link><pubDate>Sun, 11 May 2014 22:58:25 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/</guid><description>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
+MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ . 测试 执行下列命令运行MapReduce作业:
+HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr &amp;#39;:&amp;#39; &amp;#39;,&amp;#39;) HBase结果如下: 与普通MapReduce程序的差异 本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。 参考 HBase and MapReduce</description></item></channel></rss>

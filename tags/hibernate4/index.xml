@@ -1,27 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Hibernate4 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/hibernate4/</link>
-    <description>Recent content in Hibernate4 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 07 Jun 2013 22:49:33 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/hibernate4/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Hibernate3.X升级到4.X实践</title>
-      <link>https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Fri, 07 Jun 2013 22:49:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/</guid>
-      <description>Jar调查 |jar文件|Hibernate 4.2.2|当前的Hibernate|操作 |&amp;mdash; |antlr.jar|required, 2.7.7|3.2.0|无需改变。 |dom4j.jar|required, 1.6.1|1.6.1|无需改变。 |hibernate-commons-annotations.jar|required, 4.0.2|3.3.1|替换。 |hibernate-corel.jar|required, 4.2.2|3.2.6|替换。 |hibernate-jpa-2.0-api.jar|required, 1.0.1||增加。 |javassist.jar|required, 3.15.0|3.15.0|无需改变。 |jboss-logging.jar|required, 3.1.0||增加。 |jboss-transaction-api_1.1_specl.jar|required, 1.0.1||一开始增加，后来去掉了。 |hibernate-annotations.jar|null|3.3.1|去掉。从Hibernate3.6.0开始hibernate-annotations被合并到hibernate-core。 |hibernate-entitymanager.jar|jpa, 4.2.2|3.2.2|替换。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hibernate4 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/hibernate4/</link><description>Recent content in hibernate4 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 07 Jun 2013 22:49:33 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/hibernate4/index.xml" rel="self" type="application/rss+xml"/><item><title>Hibernate3.X升级到4.X实践</title><link>https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/</link><pubDate>Fri, 07 Jun 2013 22:49:33 +0000</pubDate><guid>https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/</guid><description>Jar调查 |jar文件|Hibernate 4.2.2|当前的Hibernate|操作 |&amp;mdash; |antlr.jar|required, 2.7.7|3.2.0|无需改变。 |dom4j.jar|required, 1.6.1|1.6.1|无需改变。 |hibernate-commons-annotations.jar|required, 4.0.2|3.3.1|替换。 |hibernate-corel.jar|required, 4.2.2|3.2.6|替换。 |hibernate-jpa-2.0-api.jar|required, 1.0.1||增加。 |javassist.jar|required, 3.15.0|3.15.0|无需改变。 |jboss-logging.jar|required, 3.1.0||增加。 |jboss-transaction-api_1.1_specl.jar|required, 1.0.1||一开始增加，后来去掉了。 |hibernate-annotations.jar|null|3.3.1|去掉。从Hibernate3.6.0开始hibernate-annotations被合并到hibernate-core。 |hibernate-entitymanager.jar|jpa, 4.2.2|3.2.2|替换。
 修改HibernateUtil 将AnnotationConfiguration替换成Configuration； 在使用ServiceRegistry;
-Configuration config = new Configuration().configure(); ServiceRegistry serviceRegistry = newServiceRegistryBuilder() .applySettings(config.getProperties()).buildServiceRegistry(); sessionFactory = config.buildSessionFactory(serviceRegistry);  Hibernate4不支持Ant HibernateToolTask。 使用Hibernate3和HibernateToolTask创建hibernate.cfg.xml 使用Hibernate4编译。 https://community.jboss.org/thread/177200
-修改Web容器下的jar文件  替换hibernate3.jar为hibernate-core.jar 替换hibernate-commons-annotations.jar 删除ejb3-persistence.jar 删除hibernate-annotations.jar 复制hibernate-entitymanager.jar 复制hibernate-jpa-2.0-api.jar 复制jboss-logging.jar 复制jboss-transaction-api_1.1_spec.jar （最终没有复制）  通过删除jboss-transaction-api_1.1_spec.jar解决TransactionManager冲突 org.springframework.jndi.TypeMismatchNamingException: Objectof type [class com.atomikos.icatch.jta.J2eeTransactionManager]available at JNDI location [java:comp/env/TransactionManager] isnot assignable to [javax.</description>
-    </item>
-    
-  </channel>
-</rss>
+Configuration config = new Configuration().configure(); ServiceRegistry serviceRegistry = newServiceRegistryBuilder() .applySettings(config.getProperties()).buildServiceRegistry(); sessionFactory = config.buildSessionFactory(serviceRegistry); Hibernate4不支持Ant HibernateToolTask。 使用Hibernate3和HibernateToolTask创建hibernate.cfg.xml 使用Hibernate4编译。 https://community.jboss.org/thread/177200
+修改Web容器下的jar文件 替换hibernate3.jar为hibernate-core.jar 替换hibernate-commons-annotations.jar 删除ejb3-persistence.jar 删除hibernate-annotations.jar 复制hibernate-entitymanager.jar 复制hibernate-jpa-2.0-api.jar 复制jboss-logging.jar 复制jboss-transaction-api_1.1_spec.jar （最终没有复制） 通过删除jboss-transaction-api_1.1_spec.jar解决TransactionManager冲突 org.springframework.jndi.TypeMismatchNamingException: Objectof type [class com.atomikos.icatch.jta.J2eeTransactionManager]available at JNDI location [java:comp/env/TransactionManager] isnot assignable to [javax.transaction.TransactionManager] 通过删除ejb3-persistence.jar解决javax.persistence冲突 java.lang.NoSuchMethodError:javax.persistence.OneToMany.orphanRemoval() ejb3-persistence.</description></item></channel></rss>

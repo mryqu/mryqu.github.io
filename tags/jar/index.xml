@@ -1,59 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Jar on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/jar/</link>
-    <description>Recent content in Jar on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 18 Oct 2015 05:54:13 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/jar/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Gradle] 创建含有依赖库的jar文件</title>
-      <link>https://mryqu.github.io/post/gradle_%E5%88%9B%E5%BB%BA%E5%90%AB%E6%9C%89%E4%BE%9D%E8%B5%96%E5%BA%93%E7%9A%84jar%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Sun, 18 Oct 2015 05:54:13 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gradle_%E5%88%9B%E5%BB%BA%E5%90%AB%E6%9C%89%E4%BE%9D%E8%B5%96%E5%BA%93%E7%9A%84jar%E6%96%87%E4%BB%B6/</guid>
-      <description>想把自己的Gradle项目打成jar文件，但是&amp;rsquo;gradle build jar&amp;rsquo;生成的jar文件不含依赖库。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>jar on Mryqu's Notes</title><link>https://mryqu.github.io/tags/jar/</link><description>Recent content in jar on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 18 Oct 2015 05:54:13 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/jar/index.xml" rel="self" type="application/rss+xml"/><item><title>[Gradle] 创建含有依赖库的jar文件</title><link>https://mryqu.github.io/post/gradle_%E5%88%9B%E5%BB%BA%E5%90%AB%E6%9C%89%E4%BE%9D%E8%B5%96%E5%BA%93%E7%9A%84jar%E6%96%87%E4%BB%B6/</link><pubDate>Sun, 18 Oct 2015 05:54:13 +0000</pubDate><guid>https://mryqu.github.io/post/gradle_%E5%88%9B%E5%BB%BA%E5%90%AB%E6%9C%89%E4%BE%9D%E8%B5%96%E5%BA%93%E7%9A%84jar%E6%96%87%E4%BB%B6/</guid><description>想把自己的Gradle项目打成jar文件，但是&amp;rsquo;gradle build jar&amp;rsquo;生成的jar文件不含依赖库。
 按照Gradle – Create a Jar file with dependencies改写了自己的build.gradle，成功包含了依赖库。但是依赖库不再是原来的jar文件，而是以目录的形式存在。
 我的build.gradle
-buildscript { repositories { mavenCentral() } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; jar { baseName = &#39;HelloTwitter4J&#39; version = &#39;0.1.0&#39; } task fatJar(type: Jar) { baseName = &#39;HelloTwitter4J-all&#39; version = &#39;0.1.0&#39; manifest { attributes &amp;quot;Main-Class&amp;quot;: &amp;quot;com.yqu.cdfwebtool.twitter.TwitterRateInfo&amp;quot; } from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with jar } repositories { mavenCentral() } sourceCompatibility = 1.</description>
-    </item>
-    
-    <item>
-      <title>[Gradle] 输出依赖包</title>
-      <link>https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/</link>
-      <pubDate>Thu, 16 Apr 2015 06:13:52 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/</guid>
-      <description>下面我以https://spring.io/guides/gs/spring-boot/中的gs-spring-boot项目为例，使用Gradle输出依赖包。
+buildscript { repositories { mavenCentral() } } apply plugin: &amp;#39;java&amp;#39; apply plugin: &amp;#39;eclipse&amp;#39; apply plugin: &amp;#39;idea&amp;#39; jar { baseName = &amp;#39;HelloTwitter4J&amp;#39; version = &amp;#39;0.1.0&amp;#39; } task fatJar(type: Jar) { baseName = &amp;#39;HelloTwitter4J-all&amp;#39; version = &amp;#39;0.1.0&amp;#39; manifest { attributes &amp;#34;Main-Class&amp;#34;: &amp;#34;com.yqu.cdfwebtool.twitter.TwitterRateInfo&amp;#34; } from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with jar } repositories { mavenCentral() } sourceCompatibility = 1.</description></item><item><title>[Gradle] 输出依赖包</title><link>https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/</link><pubDate>Thu, 16 Apr 2015 06:13:52 +0000</pubDate><guid>https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/</guid><description>下面我以https://spring.io/guides/gs/spring-boot/中的gs-spring-boot项目为例，使用Gradle输出依赖包。
 首先对build.gradle做如下修改：
-buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE&amp;quot;) } } apply plugin: &#39;java&#39; apply plugin: &#39;eclipse&#39; apply plugin: &#39;idea&#39; apply plugin: &#39;spring-boot&#39; jar { baseName = &#39;gs-spring-boot&#39; version = &#39;0.1.0&#39; } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 task copyToLib(type: Copy) { print configurations into &amp;quot;$buildDir/dep-libs&amp;quot; from configurations.runtime } build.dependsOn(copyToLib) dependencies { compile(&amp;quot;org.springframework.boot:spring-boot-starter-web&amp;quot;) // tag::actuator[] compile(&amp;quot;org.springframework.boot:spring-boot-starter-actuator&amp;quot;) // end::actuator[] // tag::tests[] testCompile(&amp;quot;org.springframework.boot:spring-boot-starter-test&amp;quot;) // end::tests[] }  首先可以在命令行中看到：  [configuration &amp;lsquo;:archives&amp;rsquo;, configuration &amp;lsquo;:compile&amp;rsquo;, configuration &amp;lsquo;:default&amp;rsquo;, configuration &amp;lsquo;:runtime&amp;rsquo;, configuration &amp;lsquo;:testCompile&amp;rsquo;, configur:clean&amp;rsquo;:testRuntime&amp;rsquo;, configuration &amp;lsquo;:versionManagement&amp;rsquo;]</description>
-    </item>
-    
-    <item>
-      <title>批处理：搜索Jar包中的类文件</title>
-      <link>https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Sun, 20 Oct 2013 15:55:59 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</guid>
-      <description>网上转载的很多，原文出处不详。
+buildscript { repositories { mavenCentral() } dependencies { classpath(&amp;#34;org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE&amp;#34;) } } apply plugin: &amp;#39;java&amp;#39; apply plugin: &amp;#39;eclipse&amp;#39; apply plugin: &amp;#39;idea&amp;#39; apply plugin: &amp;#39;spring-boot&amp;#39; jar { baseName = &amp;#39;gs-spring-boot&amp;#39; version = &amp;#39;0.1.0&amp;#39; } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 task copyToLib(type: Copy) { print configurations into &amp;#34;$buildDir/dep-libs&amp;#34; from configurations.runtime } build.dependsOn(copyToLib) dependencies { compile(&amp;#34;org.springframework.boot:spring-boot-starter-web&amp;#34;) // tag::actuator[] compile(&amp;#34;org.springframework.boot:spring-boot-starter-actuator&amp;#34;) // end::actuator[] // tag::tests[] testCompile(&amp;#34;org.springframework.boot:spring-boot-starter-test&amp;#34;) // end::tests[] } 首先可以在命令行中看到：</description></item><item><title>批处理：搜索Jar包中的类文件</title><link>https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</link><pubDate>Sun, 20 Oct 2013 15:55:59 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</guid><description>网上转载的很多，原文出处不详。
 批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
-@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in (&#39;dir /A:-D /S /B *.jar&#39;) do 7z l %%i | findstr %WHICH_CLASS% &amp;amp;&amp;amp; echo %WHICH_CLASS% found in: &amp;quot;%%i&amp;quot; echo &amp;quot;Finished class finding...&amp;quot; echo &amp;quot;======================================&amp;quot; ENDLOCAL  命令运行格式：
-findclass com\\yqu\\kxmt\\TestFindClass.class  </description>
-    </item>
-    
-    <item>
-      <title>显示jar文件中某个类的公开方法</title>
-      <link>https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/</link>
-      <pubDate>Fri, 26 Jul 2013 20:58:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/</guid>
-      <description>使用jar命令显示jar文件的内容 C:\&amp;gt;jar tvf log4j.jar 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/ 262 Sat Aug 25 00:29:44GMT+08:00 2007 META-INF/MANIFEST.MF 0 SatAug 25 00:10:04 GMT+08:00 2007 org/ 0 SatAug 25 00:10:04 GMT+08:00 2007 org/apache/ 0 SatAug 25 00:10:06 GMT+08:00 2007 org/apache/log4j/ ................. 676 Sat Aug 25 00:10:04GMT+08:00 2007 org/apache/log4j/Appender.class 2567 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Logger.class 1038 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Layout.class ................. 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/log4j/ 17780 Sat Aug 25 00:09:44 GMT+08:00 2007META-INF/maven/log4j/log4j/pom.</description>
-    </item>
-    
-  </channel>
-</rss>
+@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in (&amp;#39;dir /A:-D /S /B *.jar&amp;#39;) do 7z l %%i | findstr %WHICH_CLASS% &amp;amp;&amp;amp; echo %WHICH_CLASS% found in: &amp;#34;%%i&amp;#34; echo &amp;#34;Finished class finding...&amp;#34; echo &amp;#34;======================================&amp;#34; ENDLOCAL 命令运行格式：
+findclass com\\yqu\\kxmt\\TestFindClass.class</description></item><item><title>显示jar文件中某个类的公开方法</title><link>https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 26 Jul 2013 20:58:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/</guid><description>使用jar命令显示jar文件的内容 C:\&amp;gt;jar tvf log4j.jar 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/ 262 Sat Aug 25 00:29:44GMT+08:00 2007 META-INF/MANIFEST.MF 0 SatAug 25 00:10:04 GMT+08:00 2007 org/ 0 SatAug 25 00:10:04 GMT+08:00 2007 org/apache/ 0 SatAug 25 00:10:06 GMT+08:00 2007 org/apache/log4j/ ................. 676 Sat Aug 25 00:10:04GMT+08:00 2007 org/apache/log4j/Appender.class 2567 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Logger.class 1038 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Layout.class ................. 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/log4j/ 17780 Sat Aug 25 00:09:44 GMT+08:00 2007META-INF/maven/log4j/log4j/pom.</description></item></channel></rss>

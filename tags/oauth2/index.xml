@@ -1,55 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Oauth2 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/oauth2/</link>
-    <description>Recent content in Oauth2 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Mon, 03 Oct 2016 05:44:29 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/oauth2/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Dropbox认证和登录</title>
-      <link>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
-      <pubDate>Mon, 03 Oct 2016 05:44:29 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
-      <description>为Dropbox申请自己的应用 Dropbox OAuth Guide提到：对于命令行或桌面应用，没办法让浏览器重定向回你的应用。这种情况下，你的应用无需包含redirect_uri参数。Dropbox将向用户显示认证码，以用于复制到你的应用来获得可重用的访问令牌。基于此，对于桌面应用，redirect_uri不用设置；对于web应用，我选择了http://localhost以便测试。Dropbox网站没有提及urn:ietf:wg:oauth:2.0:oob。 Dropbox认证 Token Flow测试 HTTP GET请求如下：
-https://www.dropbox.com/oauth2/authorize?client_id=**3t...hi**&amp;amp;redirect_uri=http://localhost&amp;amp;response_type=token&amp;amp;state=dsxoekdmpyt  成功跳转到如下URI：
-http://localhost/#access_token=  连App secret都不用，仅凭App Key就可以获得访问令牌！看来还是认证码方式更安全一些。最后把应用的Allowimplicit grant选项改成Disallow以确保安全。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>oauth2 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/oauth2/</link><description>Recent content in oauth2 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 03 Oct 2016 05:44:29 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/oauth2/index.xml" rel="self" type="application/rss+xml"/><item><title>Dropbox认证和登录</title><link>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link><pubDate>Mon, 03 Oct 2016 05:44:29 +0000</pubDate><guid>https://mryqu.github.io/post/dropbox%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid><description>为Dropbox申请自己的应用 Dropbox OAuth Guide提到：对于命令行或桌面应用，没办法让浏览器重定向回你的应用。这种情况下，你的应用无需包含redirect_uri参数。Dropbox将向用户显示认证码，以用于复制到你的应用来获得可重用的访问令牌。基于此，对于桌面应用，redirect_uri不用设置；对于web应用，我选择了http://localhost以便测试。Dropbox网站没有提及urn:ietf:wg:oauth:2.0:oob。 Dropbox认证 Token Flow测试 HTTP GET请求如下：
+https://www.dropbox.com/oauth2/authorize?client_id=**3t...hi**&amp;amp;redirect_uri=http://localhost&amp;amp;response_type=token&amp;amp;state=dsxoekdmpyt 成功跳转到如下URI：
+http://localhost/#access_token= 连App secret都不用，仅凭App Key就可以获得访问令牌！看来还是认证码方式更安全一些。最后把应用的Allowimplicit grant选项改成Disallow以确保安全。
 Code Flow测试 HTTP GET请求如下：
-https://www.dropbox.com/oauth2/authorize?client_id=3t...hi&amp;amp;response_type=code&amp;amp;state=wecidskklsxpxl123  请求用户授权：显示认证码：获取访问令牌的HTTP POST请求包含上面获得的code参数：
-POST https://api.dropboxapi.com/1/oauth2/token Content-Type: application/x-www-form-urlencoded Cache-Control: no-cache code=oV...9I&amp;amp;amp;client_id=3t...hi&amp;amp;amp;client_secret=j...7&amp;amp;amp;grant_type=authorization_code  参考 Dropbox API
-Dropbox OAuth Guide
-Dropbox authorize API
-Dropbox token API</description>
-    </item>
-    
-    <item>
-      <title>Google Sheets API认证和鉴权</title>
-      <link>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</link>
-      <pubDate>Tue, 27 Sep 2016 05:44:22 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</guid>
-      <description>玩一把用于Google Sheets API的OAuth2认证，以获得用于Sheets API的访问令牌。
-注册Google Sheets应用 首先在Google API Console注册一个应用： Google Sheets API鉴权  用于用户登录的HTTPGET请求如下（scope选择了profile、对文件元数据和内容只读访问、对表单和属性只读访问）：  GET https://accounts.google.com/o/oauth2/v2/auth? scope=https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive.readonly profile&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; response_type=code&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com  首先要求用户登录：要求登录后用户的授权：返回页面包含授权码： 获取访问令牌的HTTPPOST请求包含上面获得的授权码（在创建Google应用时获得的client_id和client_secret）： ``` POST https://www.googleapis.com/oauth2/v4/token Content-Type: application/x-www-form-urlencoded  code=4/-qpp&amp;hellip;qA&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com&amp;amp; client_secret=5&amp;hellip;r&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; grant_type=authorization_code ``` 参考 Google Sheets
-Google Sheets API
-Authorize Google Sheets API Requests
-Using OAuth 2.0 for Mobile and Desktop Applications
-Using OAuth 2.0 for Web Server Applications</description>
-    </item>
-    
-    <item>
-      <title>Python安装oauth2库</title>
-      <link>https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/</link>
-      <pubDate>Sat, 21 Sep 2013 13:50:50 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/</guid>
-      <description>玩一下用python和twitterAPI访问Twitter数据，首先需要安装oauth2库以获得身份验证。pip是PythonPackaging Authority(PyPA)推荐用于安装Python包的工具。首先下载get-pip.py，然后通过下面的命令安装python get-pip.py pip.</description>
-    </item>
-    
-  </channel>
-</rss>
+https://www.dropbox.com/oauth2/authorize?client_id=3t...hi&amp;amp;response_type=code&amp;amp;state=wecidskklsxpxl123 请求用户授权： 显示认证码： 获取访问令牌的HTTP POST请求包含上面获得的code参数：
+POST https://api.dropboxapi.com/1/oauth2/token Content-Type: application/x-www-form-urlencoded Cache-Control: no-cache code=oV...9I&amp;amp;amp;client_id=3t...hi&amp;amp;amp;client_secret=j...7&amp;amp;amp;grant_type=authorization_code 参考 Dropbox API
+Dropbox OAuth Guide Dropbox authorize API Dropbox token API</description></item><item><title>Google Sheets API认证和鉴权</title><link>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</link><pubDate>Tue, 27 Sep 2016 05:44:22 +0000</pubDate><guid>https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/</guid><description>玩一把用于Google Sheets API的OAuth2认证，以获得用于Sheets API的访问令牌。
+注册Google Sheets应用 首先在Google API Console注册一个应用： Google Sheets API鉴权 用于用户登录的HTTPGET请求如下（scope选择了profile、对文件元数据和内容只读访问、对表单和属性只读访问）： GET https://accounts.google.com/o/oauth2/v2/auth? scope=https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive.readonly profile&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; response_type=code&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com 首先要求用户登录：要求登录后用户的授权：返回页面包含授权码： 获取访问令牌的HTTPPOST请求包含上面获得的授权码（在创建Google应用时获得的client_id和client_secret）： POST https://www.googleapis.com/oauth2/v4/token Content-Type: application/x-www-form-urlencoded code=4/-qpp...qA&amp;amp; client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com&amp;amp; client_secret=5...r&amp;amp; redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp; grant_type=authorization_code 参考 Google Sheets Google Sheets API Authorize Google Sheets API Requests Using OAuth 2.0 for Mobile and Desktop Applications Using OAuth 2.0 for Web Server Applications</description></item><item><title>Python安装oauth2库</title><link>https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/</link><pubDate>Sat, 21 Sep 2013 13:50:50 +0000</pubDate><guid>https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/</guid><description>玩一下用python和twitterAPI访问Twitter数据，首先需要安装oauth2库以获得身份验证。pip是PythonPackaging Authority(PyPA)推荐用于安装Python包的工具。首先下载get-pip.py，然后通过下面的命令安装python get-pip.py pip.exe会被安装到\script\目录下。之后就可以用pip安装oauth2包了.</description></item></channel></rss>

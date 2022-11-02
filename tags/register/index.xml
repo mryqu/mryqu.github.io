@@ -1,41 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Register on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/register/</link>
-    <description>Recent content in Register on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Aug 2015 05:54:36 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/register/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Consul服务设置实践</title>
-      <link>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Tue, 04 Aug 2015 05:54:36 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</guid>
-      <description>在向Consul注册/注销外部服务节点中，我实践对Consul节点注册和注销，本帖我实践一些对Consul服务的查看和注销。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>register on Mryqu's Notes</title><link>https://mryqu.github.io/tags/register/</link><description>Recent content in register on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 04 Aug 2015 05:54:36 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/register/index.xml" rel="self" type="application/rss+xml"/><item><title>Consul服务设置实践</title><link>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</link><pubDate>Tue, 04 Aug 2015 05:54:36 +0000</pubDate><guid>https://mryqu.github.io/post/consul%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E5%AE%9E%E8%B7%B5/</guid><description>在向Consul注册/注销外部服务节点中，我实践对Consul节点注册和注销，本帖我实践一些对Consul服务的查看和注销。
 查看当前数据中心所有注册的服务：
-curl http://localhost:8500/v1/catalog/services  查看当前数据中心注册的服务foo的信息：
-curl http://localhost:8500/v1/catalog/service/foo  注销服务节点foo上关联的检查service:foo-192-168-0-123：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;kexiao&amp;quot;, &amp;quot;CheckID&amp;quot;: &amp;quot;service:foo-192-168-0-123&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister  注销服务节点foo上关联的服务foo-192-168-0-123：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;kexiao&amp;quot;, &amp;quot;ServiceID&amp;quot;: &amp;quot;foo-192-168-0-123&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister  参考 Consul - Catalog HTTP Endpoint</description>
-    </item>
-    
-    <item>
-      <title>向Consul注册/注销外部服务节点</title>
-      <link>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</link>
-      <pubDate>Sat, 01 Aug 2015 07:00:25 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</guid>
-      <description>已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
-docker-compose stop foo docker-compose rm foo curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;, &amp;quot;Address&amp;quot;: &amp;quot;foo.cluster.yqu.com&amp;quot;, &amp;quot;Service&amp;quot;: {&amp;quot;Service&amp;quot;:&amp;quot;foo&amp;quot;, &amp;quot;tags&amp;quot;: [&amp;quot;controller&amp;quot;], &amp;quot;port&amp;quot;: 12221}}&#39; http://localhost:8500/v1/catalog/register docker-compose restart consul  切换回系统内部过程的foo服务节点操作过程如下：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul  注销foo服务节点操作过程如下：
-curl -X PUT -H &#39;application/json&#39; -d &#39;{&amp;quot;Node&amp;quot;: &amp;quot;foo&amp;quot;}&#39; http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul  参考 Consul Guide：Registering An External Service</description>
-    </item>
-    
-  </channel>
-</rss>
+curl http://localhost:8500/v1/catalog/services 查看当前数据中心注册的服务foo的信息：
+curl http://localhost:8500/v1/catalog/service/foo 注销服务节点foo上关联的检查service:foo-192-168-0-123：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;kexiao&amp;#34;, &amp;#34;CheckID&amp;#34;: &amp;#34;service:foo-192-168-0-123&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister 注销服务节点foo上关联的服务foo-192-168-0-123：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;kexiao&amp;#34;, &amp;#34;ServiceID&amp;#34;: &amp;#34;foo-192-168-0-123&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister 参考 Consul - Catalog HTTP Endpoint</description></item><item><title>向Consul注册/注销外部服务节点</title><link>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</link><pubDate>Sat, 01 Aug 2015 07:00:25 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%90%91consul%E6%B3%A8%E5%86%8C%E6%88%96%E6%B3%A8%E9%94%80%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9/</guid><description>已有一个docker上的微服务节点foo，但是有可能需要使用系统外部的foo服务集群。 切换到系统外部的foo服务集群的操作过程如下：
+docker-compose stop foo docker-compose rm foo curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;foo&amp;#34;, &amp;#34;Address&amp;#34;: &amp;#34;foo.cluster.yqu.com&amp;#34;, &amp;#34;Service&amp;#34;: {&amp;#34;Service&amp;#34;:&amp;#34;foo&amp;#34;, &amp;#34;tags&amp;#34;: [&amp;#34;controller&amp;#34;], &amp;#34;port&amp;#34;: 12221}}&amp;#39; http://localhost:8500/v1/catalog/register docker-compose restart consul 切换回系统内部过程的foo服务节点操作过程如下：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;foo&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister docker-compose up -d foo docker-compose restart consul 注销foo服务节点操作过程如下：
+curl -X PUT -H &amp;#39;application/json&amp;#39; -d &amp;#39;{&amp;#34;Node&amp;#34;: &amp;#34;foo&amp;#34;}&amp;#39; http://localhost:8500/v1/catalog/deregister docker-compose stop foo docker-compose rm foo docker-compose restart consul 参考 Consul Guide：Registering An External Service</description></item></channel></rss>

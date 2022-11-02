@@ -1,185 +1,23 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>Consul实践 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="Consul实践">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="Consul实践 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/" itemprop="url">
-        Consul实践
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-06-14">
-    2015-06-14
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/consul" itemprop="url" rel="index">
-        <span itemprop="name">Consul</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">131 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<h4 id="consul简介">Consul简介</h4>
-
-<p>最近除了在用Hashicorp公司的Vagrant，也使用了<a href="https://www.consul.io/">Consul</a>。<a href="https://www.consul.io/">Consul</a>是一款以跨数据中心、高可用的方式提供服务注册、发现、配置和编排的工具。Consul可以用来回答一个企业的基础设施中，诸如下列这些问题：</p>
-
-<ul>
-<li>“服务X在哪里”</li>
-<li>“服务Y的实例是否健康”</li>
-<li>“当前正在运行的服务是什么”</li>
-<li>“服务Z的配置是怎样的”</li>
-<li>“在我的平台上是否还有其他人在执行操作A？”</li>
-</ul>
-
-<p>Consul通过DNS或HTTP API提供服务发现功能，同时支持跨数据中心的内部服务或外部服务的发现。使用shell脚本实现了健康检查，并允许创建自定义的服务验证协议。Consul还提供了高可用的键值对存储，由此可以暴露一致的存储值，用于配置参数的调优，而不必非要执行配置管理工具。可调优的操动实例包括指定服务的位置、指明系统处于维护模式，或者设置服务的QoS参数。Consul还提供了一套编排原语、通过UDP协议跨数据中心广播异步“事件”、通过TCP协议让指定的计算机同步执行“exec”指令，以及通过实现长轮询、react、事件机制或者其他操作实现定制化的监控。</p>
-
-<h4 id="安装consul">安装Consul</h4>
-
-<pre><code>echo Installing dependencies...
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Consul实践 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="Consul实践"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="Consul实践 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/ itemprop=url>Consul实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-14">2015-06-14</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/consul itemprop=url rel=index><span itemprop=name>Consul</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>131 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><h4 id=consul简介>Consul简介</h4><p>最近除了在用Hashicorp公司的Vagrant，也使用了<a href=https://www.consul.io/>Consul</a>。<a href=https://www.consul.io/>Consul</a>是一款以跨数据中心、高可用的方式提供服务注册、发现、配置和编排的工具。Consul可以用来回答一个企业的基础设施中，诸如下列这些问题：</p><ul><li>“服务X在哪里”</li><li>“服务Y的实例是否健康”</li><li>“当前正在运行的服务是什么”</li><li>“服务Z的配置是怎样的”</li><li>“在我的平台上是否还有其他人在执行操作A？”</li></ul><p>Consul通过DNS或HTTP API提供服务发现功能，同时支持跨数据中心的内部服务或外部服务的发现。使用shell脚本实现了健康检查，并允许创建自定义的服务验证协议。Consul还提供了高可用的键值对存储，由此可以暴露一致的存储值，用于配置参数的调优，而不必非要执行配置管理工具。可调优的操动实例包括指定服务的位置、指明系统处于维护模式，或者设置服务的QoS参数。Consul还提供了一套编排原语、通过UDP协议跨数据中心广播异步“事件”、通过TCP协议让指定的计算机同步执行“exec”指令，以及通过实现长轮询、react、事件机制或者其他操作实现定制化的监控。</p><h4 id=安装consul>安装Consul</h4><pre tabindex=0><code>echo Installing dependencies...
 sudo apt-get install -y unzip curl
 echo Fetching Consul...
 cd /tmp/
@@ -195,295 +33,56 @@ echo Installing Consul UI...
 unzip dist.zip
 sudo chmod +x dist
 sudo mv dist /usr/mryqu/consul/dist
-</code></pre>
-
-<h4 id="引导一个数据中心">引导一个数据中心</h4>
-
-<p>首先以服务器模式运行第一个Consul代理。Consul需要使用-bootstrap-expect指定集群节点个数，使用-data-dirparameter指定一个数据目录名，使用-ui-dir参数指定Consul UI目录:</p>
-
-<pre><code>$&gt;consul agent -server -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldata -ui-dir /usr/mryqu/consul/dist
-</code></pre>
-
-<p>UI默认地址是<a href="http://localhost:8500/ui">http://localhost:8500/ui</a>
-如果UI没有启动，需要添加额外的-client 0.0.0.0参数重启Consult代理。</p>
-
-<h4 id="注册服务">注册服务</h4>
-
-<p>服务定义是最常用的注册服务的方式。下面是注册一个名为vmstat的服务定义示例：</p>
-
-<pre><code>$&gt;echo ‘{“service”: {“name”: “vmstat”,”tags”:[“master”],”address”: “127.0.0.1”,”port”: 8012,”checks”:[{“script”: “/usr/mryqu/consul/scripts/chkvm.sh”,”interval”: “10s”} ]}} ‘ \ &gt; /usr/mryqu/consul/services/vm.json
-</code></pre>
-
-<p>重启consul并指定服务目录.</p>
-
-<pre><code>$&gt;consul agent -server -client 0.0.0.0 -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldata -ui-dir /usr/mryqu/consul/dist -config-dir /usr/mryqu/consul/services
-</code></pre>
-
-<p>通过日志可以发现该服务已被同步。</p>
-
-<pre><code>[INFO] agent: Synced service ‘vmstat’
+</code></pre><h4 id=引导一个数据中心>引导一个数据中心</h4><p>首先以服务器模式运行第一个Consul代理。Consul需要使用-bootstrap-expect指定集群节点个数，使用-data-dirparameter指定一个数据目录名，使用-ui-dir参数指定Consul UI目录:</p><pre tabindex=0><code>$&gt;consul agent -server -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldata -ui-dir /usr/mryqu/consul/dist
+</code></pre><p>UI默认地址是http://localhost:8500/ui
+如果UI没有启动，需要添加额外的-client 0.0.0.0参数重启Consult代理。</p><h4 id=注册服务>注册服务</h4><p>服务定义是最常用的注册服务的方式。下面是注册一个名为vmstat的服务定义示例：</p><pre tabindex=0><code>$&gt;echo ‘{“service”: {“name”: “vmstat”,”tags”:[“master”],”address”: “127.0.0.1”,”port”: 8012,”checks”:[{“script”: “/usr/mryqu/consul/scripts/chkvm.sh”,”interval”: “10s”} ]}} ‘ \ &gt; /usr/mryqu/consul/services/vm.json
+</code></pre><p>重启consul并指定服务目录.</p><pre tabindex=0><code>$&gt;consul agent -server -client 0.0.0.0 -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldata -ui-dir /usr/mryqu/consul/dist -config-dir /usr/mryqu/consul/services
+</code></pre><p>通过日志可以发现该服务已被同步。</p><pre tabindex=0><code>[INFO] agent: Synced service ‘vmstat’
 [INFO] agent: Synced check ‘service:vmstat’
-</code></pre>
-
-<p>Consul UI <a href="http://localhost:8500/ui/">http://localhost:8500/ui/</a> 显示如下：
-<img src="/images/2015/6/0026uWfMgy6T4bdWupRdb.png" alt="Consul实践" /></p>
-
-<h3 id="参考">参考</h3>
-
-<p><a href="https://www.consul.io/">Consul官网</a><br />
-<a href="http://www.consul.io/intro/index.html">Consul介绍</a><br />
-<a href="http://www.consul.io/docs/guides/index.html">Consul指南</a><br />
-<a href="https://github.com/hashicorp/consul/tree/master/demo/vagrant-cluster">Vagrant Consul Demo</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：Consul实践
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/consul" rel="tag" title="consul">#consul#</a>
-    
-    <a href="/tags/%e6%9c%8d%e5%8a%a1%e6%b3%a8%e5%86%8c" rel="tag" title="服务注册">#服务注册#</a>
-    
-    <a href="/tags/%e6%9c%8d%e5%8a%a1%e5%8f%91%e7%8e%b0" rel="tag" title="服务发现">#服务发现#</a>
-    
-    <a href="/tags/%e6%9c%8d%e5%8a%a1%e9%85%8d%e7%bd%ae" rel="tag" title="服务配置">#服务配置#</a>
-    
-    <a href="/tags/%e6%9c%8d%e5%8a%a1%e7%bc%96%e6%8e%92" rel="tag" title="服务编排">#服务编排#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" rel="next" title="Vagrant运行Docker的几种方法">
-        <i class="fa fa-chevron-left"></i> Vagrant运行Docker的几种方法
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/" rel="prev" title="[OpenUI5] sap.ui.core.ResizeHandler">
-        [OpenUI5] sap.ui.core.ResizeHandler <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/";
-this.page.identifier = "https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#consul简介">Consul简介</a></li>
-<li><a href="#安装consul">安装Consul</a></li>
-<li><a href="#引导一个数据中心">引导一个数据中心</a></li>
-<li><a href="#注册服务">注册服务</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre><p>Consul UI http://localhost:8500/ui/ 显示如下：
+<img src=/images/2015/6/0026uWfMgy6T4bdWupRdb.png alt=Consul实践></p><h3 id=参考>参考</h3><p><a href=https://www.consul.io/>Consul官网</a><br><a href=http://www.consul.io/intro/index.html>Consul介绍</a><br><a href=http://www.consul.io/docs/guides/index.html>Consul指南</a><br><a href=https://github.com/hashicorp/consul/tree/master/demo/vagrant-cluster>Vagrant Consul Demo</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Consul实践<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/consul rel=tag title=consul>#consul#</a>
+<a href=/tags/%e6%9c%8d%e5%8a%a1%e6%b3%a8%e5%86%8c rel=tag title=服务注册>#服务注册#</a>
+<a href=/tags/%e6%9c%8d%e5%8a%a1%e5%8f%91%e7%8e%b0 rel=tag title=服务发现>#服务发现#</a>
+<a href=/tags/%e6%9c%8d%e5%8a%a1%e9%85%8d%e7%bd%ae rel=tag title=服务配置>#服务配置#</a>
+<a href=/tags/%e6%9c%8d%e5%8a%a1%e7%bc%96%e6%8e%92 rel=tag title=服务编排>#服务编排#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/ rel=next title=Vagrant运行Docker的几种方法><i class="fa fa-chevron-left"></i> Vagrant运行Docker的几种方法</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/ rel=prev title=[OpenUI5] sap.ui.core.ResizeHandler>[OpenUI5] sap.ui.core.ResizeHandler <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/",this.page.identifier="https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li></li><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

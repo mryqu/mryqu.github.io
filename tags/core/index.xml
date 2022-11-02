@@ -1,25 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Core on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/core/</link>
-    <description>Recent content in Core on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sat, 13 Jun 2015 21:47:32 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/core/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[OpenUI5] 通过sap.ui.core.Core的registerElement和deregisterElement函数监控View和控件的构造和析构</title>
-      <link>https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/</link>
-      <pubDate>Sat, 13 Jun 2015 21:47:32 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/</guid>
-      <description>在sap.ui.core.Core中有registerElement和deregisterElement函数，它们可用于在调试中监控Element（包括View和控件）的构造和析构。 - registerElement：在控件构造时被调用- deregisterElement：在控件析构时被调用通过下面的代码可知，Core类的mElements存储着元素Id和元素的散列表：
-Core.prototype.registerElement = function(oElement) { var sId = oElement.getId(), oldElement = this.mElements[sId]; if ( oldElement &amp;amp;&amp;amp; oldElement !== oElement ) { if ( oldElement._sapui_candidateForDestroy ) { jQuery.sap.log.debug(&amp;quot;destroying dangling template &amp;quot; + oldElement + &amp;quot; when creating new object with same ID&amp;quot;); oldElement.destroy(); } else { // duplicate ID detected =&amp;gt; fail or at least log a warning if (this.oConfiguration.getNoDuplicateIds()) { jQuery.sap.log.error(&amp;quot;adding element with duplicate id &#39;&amp;quot; + sId + &amp;quot;&#39;&amp;quot;); throw new Error(&amp;quot;Error: adding element with duplicate id &#39;&amp;quot; + sId + &amp;quot;&#39;&amp;quot;); } else { jQuery.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>core on Mryqu's Notes</title><link>https://mryqu.github.io/tags/core/</link><description>Recent content in core on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 13 Jun 2015 21:47:32 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/core/index.xml" rel="self" type="application/rss+xml"/><item><title>[OpenUI5] 通过sap.ui.core.Core的registerElement和deregisterElement函数监控View和控件的构造和析构</title><link>https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/</link><pubDate>Sat, 13 Jun 2015 21:47:32 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/</guid><description>在sap.ui.core.Core中有registerElement和deregisterElement函数，它们可用于在调试中监控Element（包括View和控件）的构造和析构。
+registerElement：在控件构造时被调用 deregisterElement：在控件析构时被调用 通过下面的代码可知，Core类的mElements存储着元素Id和元素的散列表：
+Core.prototype.registerElement = function(oElement) { var sId = oElement.getId(), oldElement = this.mElements[sId]; if ( oldElement &amp;amp;&amp;amp; oldElement !== oElement ) { if ( oldElement._sapui_candidateForDestroy ) { jQuery.sap.log.debug(&amp;#34;destroying dangling template &amp;#34; + oldElement + &amp;#34; when creating new object with same ID&amp;#34;); oldElement.destroy(); } else { // duplicate ID detected =&amp;gt; fail or at least log a warning if (this.oConfiguration.getNoDuplicateIds()) { jQuery.sap.log.error(&amp;#34;adding element with duplicate id &amp;#39;&amp;#34; + sId + &amp;#34;&amp;#39;&amp;#34;); throw new Error(&amp;#34;Error: adding element with duplicate id &amp;#39;&amp;#34; + sId + &amp;#34;&amp;#39;&amp;#34;); } else { jQuery.</description></item></channel></rss>

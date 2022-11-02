@@ -1,474 +1,99 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[Hadoop] 分布式缓存 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[Hadoop] 分布式缓存">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[Hadoop] 分布式缓存 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" itemprop="url">
-        [Hadoop] 分布式缓存
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2013-06-28">
-    2013-06-28
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop&#43;spark" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop&#43;Spark</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/hadoop" itemprop="url" rel="index">
-        <span itemprop="name">Hadoop</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">153 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。</p>
-
-<p>adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[Hadoop] 分布式缓存 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[Hadoop] 分布式缓存"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[Hadoop] 分布式缓存 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/ itemprop=url>[Hadoop] 分布式缓存</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop itemprop=url rel=index><span itemprop=name>Hadoop</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>135 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。</p><p>adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。
 应用程序通过URL（hdfs://或http://）指定通过JobConf进行缓存的文件。分布式缓存假定URL所指定的文件已经存在于Hadoop分布式文件系统或本地文件系统中并可被集群中所有机器访问到。Hadoop框架会在任何作业在节点执行之前将必须的缓存文件复制到任务节点以供使用。为了节省网络带宽，这些文件只会为每个作业复制一次，且归档类型的缓存文件会在任务节点中解压缩。分布式缓存能用于分发简单只读数据或文本文件及复杂文件（存档文件、Jar文件等）。归档文件（zip、tar和tgz/tar.gz文件）在任务节点中解压缩。Jar文件可选择加入任务的类路径，这是基本的软件分发机制。
-分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。</p>
-
-<p>下面的示例介绍了如何使用DistributedCache：
-1. 将所需文件复制到FileSystem:</p>
-
-<pre><code>   $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat 
-   $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip 
-   $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar
-   $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar
-   $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz
-   $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz
-</code></pre>
-
-<ol>
-<li>设置应用程序的JobConf:
-<code>
-JobConf job = new JobConf();
-DistributedCache.addCacheFile(new URI(&quot;/myapp/lookup.dat&quot;), job);
-DistributedCache.addCacheArchive(new URI(&quot;/myapp/map.zip&quot;, job);
-DistributedCache.addFileToClassPath(new Path(&quot;/myapp/mylib.jar&quot;), job);
-DistributedCache.addCacheArchive(new URI(&quot;/myapp/mytar.tar&quot;, job);
-DistributedCache.addCacheArchive(new URI(&quot;/myapp/mytgz.tgz&quot;, job);
-DistributedCache.addCacheArchive(new URI(&quot;/myapp/mytargz.tar.gz&quot;, job);
-</code></li>
-
-<li><p>在<a href="http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/Mapper.html">Mapper</a>或<a href="http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/Reducer.html">Reducer</a>中使用缓存的文件:</p>
-
-<pre><code>public static class MapClass extends MapReduceBase
+分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。</p><p>下面的示例介绍了如何使用DistributedCache：</p><ol><li>将所需文件复制到FileSystem:<pre tabindex=0><code>$ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat 
+$ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip 
+$ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar
+$ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar
+$ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz
+$ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz
+</code></pre></li><li>设置应用程序的JobConf:<pre tabindex=0><code>JobConf job = new JobConf();
+DistributedCache.addCacheFile(new URI(&#34;/myapp/lookup.dat&#34;), job);
+DistributedCache.addCacheArchive(new URI(&#34;/myapp/map.zip&#34;, job);
+DistributedCache.addFileToClassPath(new Path(&#34;/myapp/mylib.jar&#34;), job);
+DistributedCache.addCacheArchive(new URI(&#34;/myapp/mytar.tar&#34;, job);
+DistributedCache.addCacheArchive(new URI(&#34;/myapp/mytgz.tgz&#34;, job);
+DistributedCache.addCacheArchive(new URI(&#34;/myapp/mytargz.tar.gz&#34;, job);
+</code></pre></li><li>在<a href=http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/Mapper.html>Mapper</a>或<a href=http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/Reducer.html>Reducer</a>中使用缓存的文件:<pre tabindex=0><code>public static class MapClass extends MapReduceBase
 implements Mapper{
- private Path[] localArchives;  
- private Path[] localFiles;
-   
- public void configure(JobConf job) {
-   // Get the cached archives/files
-   File f = new File(&quot;./map.zip/some/file/in/zip.txt&quot;);  
- }
-   
- public void map(K key, V value, OutputCollector output,
-                 Reporter reporter)  throws IOException {
-   // Use data from the cached archives/files here
-   // ...
-   // ...
-   output.collect(k, v);  }
+  private Path[] localArchives;  
+  private Path[] localFiles;
+
+  public void configure(JobConf job) {
+    // Get the cached archives/files
+    File f = new File(&#34;./map.zip/some/file/in/zip.txt&#34;);  
+  }
+
+  public void map(K key, V value, OutputCollector output,
+                  Reporter reporter)  throws IOException {
+    // Use data from the cached archives/files here
+    // ...
+    // ...
+    output.collect(k, v);  }
 }
-</code></pre></li>
-</ol>
-
-<p>通过GenericOptionsParser使用分布式缓存是一种常用的方式。用户可以使用-file选项指定待分发的文件，文件内包含以都放分隔的URL列表。文件可以放在本地文件系统、HDFS或其他Hadoop可读文件系统（例如S3）中。如果未指定文件系统，则这些文件默认是本地的（即使默认文件系统并非本地文件系统，也是成立的。）。用户可以使用-archieves选项向自己的任务复制存档文件，这些存档文件会在任务节点解压缩。-libjars选项会把JAR文件添加到mapper和reducer任务的类路径中。当库JAR文件没有打包进作业JAR文件时，会非常有帮助。</p>
-
-<h3 id="工作机制">工作机制</h3>
-
-<p>当用户启动一个作业，Hadoop将由-files、-archieves和-libjars选项所指定的文件复制到jobtracker的文件系统（一般是HDFS）之中。接着，tasktracker在任务运行之前将文件从jobtracker的文件系统中复制到本地磁盘&ndash;缓存—使任务能够访问文件。这些文件在这一刻可以被访问到了。从任务的角度来看，这些文件就已经在那里了（它并不关心这些文件是否来自HDFS）
+</code></pre></li></ol><p>通过GenericOptionsParser使用分布式缓存是一种常用的方式。用户可以使用-file选项指定待分发的文件，文件内包含以都放分隔的URL列表。文件可以放在本地文件系统、HDFS或其他Hadoop可读文件系统（例如S3）中。如果未指定文件系统，则这些文件默认是本地的（即使默认文件系统并非本地文件系统，也是成立的。）。用户可以使用-archieves选项向自己的任务复制存档文件，这些存档文件会在任务节点解压缩。-libjars选项会把JAR文件添加到mapper和reducer任务的类路径中。当库JAR文件没有打包进作业JAR文件时，会非常有帮助。</p><h3 id=工作机制>工作机制</h3><p>当用户启动一个作业，Hadoop将由-files、-archieves和-libjars选项所指定的文件复制到jobtracker的文件系统（一般是HDFS）之中。接着，tasktracker在任务运行之前将文件从jobtracker的文件系统中复制到本地磁盘&ndash;缓存—使任务能够访问文件。这些文件在这一刻可以被访问到了。从任务的角度来看，这些文件就已经在那里了（它并不关心这些文件是否来自HDFS）
 Tasktracker为缓存中的每个文件维护一个计数器来统计使用该文件的任务数。当任务运行之前，文件引用数加1；当所有任务结束后，计数器减1。当计数器值为0时，表明该文件没有被任何任务使用，可以从缓存中移除。当缓存超过一定容量—默认为10GB，无用的文件将被删除以腾出空间来装载新文件。缓存大小可以通过配置属性local.cache.size进行配置，以字节为单位。
 尽管这个机制并不确保在同一tasktracker上运行的作业的后继任务能否在缓存中找到文件，但是成功的概率相当大。原因在于作业的多个任务在调度之后几乎同时开始运行，在此期间基本不可能有足够多的其他任务也在运行，以至于将该任务所需文件从缓存中移除出去。
-文件存放在tasktracker的${mapred.loccal.dir}/taskTracker/archive目录下。但是应用程序无需了解这一点，因为这些文件可在任务工作目录通过符号链接获得。</p>
-
-<h3 id="分布式缓存-api">分布式缓存 API</h3>
-
-<p>由于可以通过GenericOptionsParser间接使用分布式缓存，大多数应用程序不需要使用分布式缓存API。然而，一些应用程序可能需要使用分布式缓存更高级的个噢能能，因此直接使用API。API分为两部分：将数据放入缓存的方法（在Job中）和从缓存中获取数据的方法（在Jobcontext中）
-<table border="1" cellpadding="4" cellspacing="0" frame="border" rules="all" summary="" style="font-family: Arial, Verdana, sans-serif; border-collapse: collapse; border-width: 1px; margin-top: 7pt;"><tbody><tr><th>作业API方法</th><th>GenericOptionsParser等价项</th><th>描述</th></tr><tr><td>addCacheFile(URI uri)</td><td rowspan="2">-files file1,file2,&hellip;</td><td rowspan="2">将文件加入分布式缓存、复制到任务节点。</td></tr><tr><td>setCacheFiles(URI[] files)</td></tr><tr><td>addCacheArchive(URI uri)</td><td rowspan="2">-archives archive1,archive2,…</td><td rowspan="2">将归档文件加入分布式缓存、复制到任务 节点并解压缩。</td></tr><tr><td>setCacheArchives(URI[] files)</td></tr><tr><td>addFileToClassPath(Path file)</td><td>-libjars jar1,jar2,&hellip;</td><td>将文件加入分布式缓存并加入MapReduce 任务类路径。这些文件不会解压缩，因此 是将JAR文件加入类路径的非常有用的一种方式。</td></tr><tr><td>addArchiveToClassPath(Path archive)</td><td>&nbsp;无</td><td>将归档文件加入分布式缓存并解压缩后加 入MapReduce任务类路径。当需要将一个 目录下的所有文件加入类路径时非常有用，因为可以创建包含这些文件的归档文件。 另一种方式是创建JAR文件并使用 addFileToClassPath()方法。</td></tr></tbody></table></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[Hadoop] 分布式缓存
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/hadoop" rel="tag" title="hadoop">#hadoop#</a>
-    
-    <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f%e7%bc%93%e5%ad%98" rel="tag" title="分布式缓存">#分布式缓存#</a>
-    
-    <a href="/tags/distributed" rel="tag" title="distributed">#distributed#</a>
-    
-    <a href="/tags/cache" rel="tag" title="cache">#cache#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%90%9C%E7%B4%A2%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="next" title="博客链接（搜索、统计、数据挖掘）">
-        <i class="fa fa-chevron-left"></i> 博客链接（搜索、统计、数据挖掘）
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/" rel="prev" title="嵌套的动态GemFire region研究">
-        嵌套的动态GemFire region研究 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/";
-this.page.identifier = "https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#工作机制">工作机制</a></li>
-<li><a href="#分布式缓存-api">分布式缓存 API</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+文件存放在tasktracker的${mapred.loccal.dir}/taskTracker/archive目录下。但是应用程序无需了解这一点，因为这些文件可在任务工作目录通过符号链接获得。</p><h3 id=分布式缓存-api>分布式缓存 API</h3><p>由于可以通过GenericOptionsParser间接使用分布式缓存，大多数应用程序不需要使用分布式缓存API。然而，一些应用程序可能需要使用分布式缓存更高级的个噢能能，因此直接使用API。API分为两部分：将数据放入缓存的方法（在Job中）和从缓存中获取数据的方法（在Jobcontext中）</p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[Hadoop] 分布式缓存<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/hadoop rel=tag title=hadoop>#hadoop#</a>
+<a href=/tags/%e5%88%86%e5%b8%83%e5%bc%8f%e7%bc%93%e5%ad%98 rel=tag title=分布式缓存>#分布式缓存#</a>
+<a href=/tags/distributed rel=tag title=distributed>#distributed#</a>
+<a href=/tags/cache rel=tag title=cache>#cache#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%90%9C%E7%B4%A2%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/ rel=next title=博客链接（搜索、统计、数据挖掘）><i class="fa fa-chevron-left"></i> 博客链接（搜索、统计、数据挖掘）</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/ rel=prev title=嵌套的动态GemFire region研究>嵌套的动态GemFire region研究 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/",this.page.identifier="https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#工作机制>工作机制</a></li><li><a href=#分布式缓存-api>分布式缓存 API</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

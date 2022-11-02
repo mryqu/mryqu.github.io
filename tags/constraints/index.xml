@@ -1,28 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Constraints on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/constraints/</link>
-    <description>Recent content in Constraints on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 12 Apr 2016 05:57:21 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/constraints/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[OpenUI5] sap.ui.model.SimpleType及其子类中的约束</title>
-      <link>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</link>
-      <pubDate>Tue, 12 Apr 2016 05:57:21 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</guid>
-      <description>对OpenUI5模型中的数据项如何设置类型，如何设置最大最小值等约束呢？这一切可以通过研究sap.ui.model.SimpleType及其子类获得答案。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>constraints on Mryqu's Notes</title><link>https://mryqu.github.io/tags/constraints/</link><description>Recent content in constraints on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Apr 2016 05:57:21 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/constraints/index.xml" rel="self" type="application/rss+xml"/><item><title>[OpenUI5] sap.ui.model.SimpleType及其子类中的约束</title><link>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</link><pubDate>Tue, 12 Apr 2016 05:57:21 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/</guid><description>对OpenUI5模型中的数据项如何设置类型，如何设置最大最小值等约束呢？这一切可以通过研究sap.ui.model.SimpleType及其子类获得答案。
 sap.ui.model.SimpleType类图 SimpleType子类Integer约束测试 下面的示例中有两个sap.m.Input控件，第一个为文本类型输入没有约束，第二个整数类型输入有约束：
-that.oNameInput = new Input({ id: sFormId+&amp;quot;-name&amp;quot;, type: sap.m.InputType.Text, value: &amp;quot;{/name}&amp;quot;, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) }); that.oCountInput = new Input({ id: sFormId+&amp;quot;-count&amp;quot;, type: sap.m.InputType.Number, value: { path:&#39;/count&#39;, type: &#39;sap.ui.model.type.Integer&#39;, constraints: { minimum : 1, maximum : 50 } }, placeholder: &amp;quot;(1-50)&amp;quot;, layoutData: new GridData({span: &amp;quot;L3 M5 S6&amp;quot;}) });  完整示例代码：二者调试信息的差异：一个仅指定了映射路径；另一个除了指定映射路径外，明确指定了模型数据项类型及约束。
+that.oNameInput = new Input({ id: sFormId+&amp;#34;-name&amp;#34;, type: sap.m.InputType.Text, value: &amp;#34;{/name}&amp;#34;, layoutData: new GridData({span: &amp;#34;L3 M5 S6&amp;#34;}) }); that.oCountInput = new Input({ id: sFormId+&amp;#34;-count&amp;#34;, type: sap.m.InputType.Number, value: { path:&amp;#39;/count&amp;#39;, type: &amp;#39;sap.ui.model.type.Integer&amp;#39;, constraints: { minimum : 1, maximum : 50 } }, placeholder: &amp;#34;(1-50)&amp;#34;, layoutData: new GridData({span: &amp;#34;L3 M5 S6&amp;#34;}) }); 完整示例代码： 二者调试信息的差异： 一个仅指定了映射路径；另一个除了指定映射路径外，明确指定了模型数据项类型及约束。
 测试结果 that.oCountInput施加了范围1到50的约束。如果输入值在范围内，则界面和模型中的count值都会改变；如果输入值不再范围内，则模型中的count值保留上一有效值，而界面发生改变且无告警。 调试堆栈如下：
-PropertyBinding.setExternalValue (sap-ui-core-dbg.js:57174) ManagedObject.updateModelProperty (sap-ui-core-dbg.js:34286) ManagedObject.setProperty (sap-ui-core-dbg.js:32531) InputBase.setProperty (InputBase-dbg.js:690) InputBase.setValue (InputBase-dbg.js:1007) Input.setValue (Input-dbg.</description>
-    </item>
-    
-  </channel>
-</rss>
+PropertyBinding.setExternalValue (sap-ui-core-dbg.js:57174) ManagedObject.updateModelProperty (sap-ui-core-dbg.js:34286) ManagedObject.setProperty (sap-ui-core-dbg.js:32531) InputBase.setProperty (InputBase-dbg.js:690) InputBase.setValue (InputBase-dbg.js:1007) Input.setValue (Input-dbg.</description></item></channel></rss>

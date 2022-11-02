@@ -1,51 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Libcurl on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/libcurl/</link>
-    <description>Recent content in Libcurl on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Jan 2017 05:26:57 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/libcurl/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Upload file to Google Drive using LibCurl</title>
-      <link>https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/</link>
-      <pubDate>Fri, 06 Jan 2017 05:26:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/</guid>
-      <description>This is a sequel to my last blog &amp;ldquo;Upload file to Google Drive using Postman and cURL&amp;rdquo;.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>libcurl on Mryqu's Notes</title><link>https://mryqu.github.io/tags/libcurl/</link><description>Recent content in libcurl on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 06 Jan 2017 05:26:57 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/libcurl/index.xml" rel="self" type="application/rss+xml"/><item><title>Upload file to Google Drive using LibCurl</title><link>https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/</link><pubDate>Fri, 06 Jan 2017 05:26:57 +0000</pubDate><guid>https://mryqu.github.io/post/upload_file_to_google_drive_using_libcurl/</guid><description>This is a sequel to my last blog &amp;ldquo;Upload file to Google Drive using Postman and cURL&amp;rdquo;.
 I wrote C++ code using LibCurl to redo the three types of upload, and all of them work which shown in the below log snippet.
-Simple upload =&amp;gt; Send header, 0000000309 bytes (0x00000135) 0000: 50 4f 53 54 20 2f 75 70 6c 6f 61 64 2f 64 72 69 POST /upload/dri 0010: 76 65 2f 76 33 2f 66 69 6c 65 73 3f 75 70 6c 6f ve/v3/files?</description>
-    </item>
-    
-    <item>
-      <title>[C&#43;&#43;] 调试libcurl程序</title>
-      <link>https://mryqu.github.io/post/c&#43;&#43;_%E8%B0%83%E8%AF%95libcurl%E7%A8%8B%E5%BA%8F/</link>
-      <pubDate>Sun, 25 Dec 2016 21:22:31 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E8%B0%83%E8%AF%95libcurl%E7%A8%8B%E5%BA%8F/</guid>
-      <description>最近在调试通过libcurl发送GoogleSheets API POST请求时，增加了一点经验，特此总结。
-GoogleSheets API 请求 POST /v4/spreadsheets?access_token={YOUR_ACCESSTOKEN}&amp;amp;fields=spreadsheetId HTTP/1.1 Host: sheets.googleapis.com Content-Type: application/json;charset=UTF-8 Accept: application/json Cache-Control: no-cache {&amp;quot;properties&amp;quot;:{&amp;quot;title&amp;quot;:&amp;quot;newhaha&amp;quot;},&amp;quot;sheets&amp;quot;:[{&amp;quot;properties&amp;quot;:{&amp;quot;title&amp;quot;:&amp;quot;Sheet1&amp;quot;}}]}  libcurl调试 当GoogleSheets API 请求失败时，仅能获得返回的状态码和消息。感觉没有更多信息可以研究！后来通过CURLOPT_VERBOSE和CURLOPT_DEBUGFUNCTION获得了更多调试信息。
-使用CURLOPT_VERBOSE curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1L);  这样就可以看到请求报头、响应报头和消息体了。
-使用CURLOPT_DEBUGFUNCTION 使用libcurl API指南中CURLOPT_DEBUGFUNCTION示例代码即可。这样就可以看到完整的请求和响应内容了。</description>
-    </item>
-    
-    <item>
-      <title>[C&#43;&#43;] 编译OpenSSL和libCurl</title>
-      <link>https://mryqu.github.io/post/c&#43;&#43;_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</link>
-      <pubDate>Sun, 01 Mar 2015 23:05:26 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</guid>
-      <description>准备工作 登录一台Linux服务器，并完成下列工作： - 在目录/home/mryqu/创建子目录out，在out目录下创建子目录ssl和curl； - 从OpenSSL项目下载openssl-1.0.2.tar.gz，并解压； - 从curl项目下载curl-7.40.0.tar.gz，并解压
-编译OpenSSL  进入openssl-1.0.2目录; 完成OpenSSL配置，仅支持静态库不支持动态库：  ./config no-shared --openssldir=/home/mryqu/out/ssl  对Makefile文件中的FGLAG和DEPFLAG变量进行修改，增加-fPIC。 编译：  make depend make make install   编译产生如下内容： 编译libCurl  进入curl-7.40.0目录; 首先设定pkg-config路径，指定为上一步OpenSSL编译结果。由于我们的OpenSSL编译结果不在编译器/链接器默认搜索路径，通过pkg-config路径和&amp;ndash;with-ssl让libCurl查找到OpenSSL。通过&amp;ndash;without-zlib禁止掉即时解压缩。  export PKG_CONFIG_PATH=/home/mryqu/out/ssl/lib/pkgconfig ./configure --prefix=/home/mryqu/out/curl --with-ssl --without-zlib make make install   编译产生如下内容： 参考 OpenSSL Compilation and Installation
-how to install curl and libcurl
-OpenSSL Cookbook
-Everything curl</description>
-    </item>
-    
-  </channel>
-</rss>
+Simple upload =&amp;gt; Send header, 0000000309 bytes (0x00000135) 0000: 50 4f 53 54 20 2f 75 70 6c 6f 61 64 2f 64 72 69 POST /upload/dri 0010: 76 65 2f 76 33 2f 66 69 6c 65 73 3f 75 70 6c 6f ve/v3/files?</description></item><item><title>[C++] 调试libcurl程序</title><link>https://mryqu.github.io/post/c++_%E8%B0%83%E8%AF%95libcurl%E7%A8%8B%E5%BA%8F/</link><pubDate>Sun, 25 Dec 2016 21:22:31 +0000</pubDate><guid>https://mryqu.github.io/post/c++_%E8%B0%83%E8%AF%95libcurl%E7%A8%8B%E5%BA%8F/</guid><description>最近在调试通过libcurl发送GoogleSheets API POST请求时，增加了一点经验，特此总结。
+GoogleSheets API 请求 POST /v4/spreadsheets?access_token={YOUR_ACCESSTOKEN}&amp;amp;fields=spreadsheetId HTTP/1.1 Host: sheets.googleapis.com Content-Type: application/json;charset=UTF-8 Accept: application/json Cache-Control: no-cache {&amp;#34;properties&amp;#34;:{&amp;#34;title&amp;#34;:&amp;#34;newhaha&amp;#34;},&amp;#34;sheets&amp;#34;:[{&amp;#34;properties&amp;#34;:{&amp;#34;title&amp;#34;:&amp;#34;Sheet1&amp;#34;}}]} libcurl调试 当GoogleSheets API 请求失败时，仅能获得返回的状态码和消息。感觉没有更多信息可以研究！后来通过CURLOPT_VERBOSE和CURLOPT_DEBUGFUNCTION获得了更多调试信息。
+使用CURLOPT_VERBOSE curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1L); 这样就可以看到请求报头、响应报头和消息体了。
+使用CURLOPT_DEBUGFUNCTION 使用libcurl API指南中CURLOPT_DEBUGFUNCTION示例代码即可。这样就可以看到完整的请求和响应内容了。</description></item><item><title>[C++] 编译OpenSSL和libCurl</title><link>https://mryqu.github.io/post/c++_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</link><pubDate>Sun, 01 Mar 2015 23:05:26 +0000</pubDate><guid>https://mryqu.github.io/post/c++_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</guid><description>准备工作 登录一台Linux服务器，并完成下列工作：
+在目录/home/mryqu/创建子目录out，在out目录下创建子目录ssl和curl； 从OpenSSL项目下载openssl-1.0.2.tar.gz，并解压； 从curl项目下载curl-7.40.0.tar.gz，并解压 编译OpenSSL 进入openssl-1.0.2目录; 完成OpenSSL配置，仅支持静态库不支持动态库： ./config no-shared --openssldir=/home/mryqu/out/ssl 对Makefile文件中的FGLAG和DEPFLAG变量进行修改，增加-fPIC。 编译： make depend make make install 编译产生如下内容： 编译libCurl 进入curl-7.40.0目录; 首先设定pkg-config路径，指定为上一步OpenSSL编译结果。由于我们的OpenSSL编译结果不在编译器/链接器默认搜索路径，通过pkg-config路径和&amp;ndash;with-ssl让libCurl查找到OpenSSL。通过&amp;ndash;without-zlib禁止掉即时解压缩。 export PKG_CONFIG_PATH=/home/mryqu/out/ssl/lib/pkgconfig ./configure --prefix=/home/mryqu/out/curl --with-ssl --without-zlib make make install 编译产生如下内容： 参考 OpenSSL Compilation and Installation how to install curl and libcurl OpenSSL Cookbook Everything curl</description></item></channel></rss>

@@ -1,118 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Onedrive on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/onedrive/</link>
-    <description>Recent content in Onedrive on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 16 Oct 2016 06:40:59 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/onedrive/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>使用OneDrive的根API资源</title>
-      <link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</link>
-      <pubDate>Sun, 16 Oct 2016 06:40:59 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</guid>
-      <description> OneDrive的根API资源 可以使用OneDrive的这些根API资源来访问一个项目或驱动。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>onedrive on Mryqu's Notes</title><link>https://mryqu.github.io/tags/onedrive/</link><description>Recent content in onedrive on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 16 Oct 2016 06:40:59 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/onedrive/index.xml" rel="self" type="application/rss+xml"/><item><title>使用OneDrive的根API资源</title><link>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</link><pubDate>Sun, 16 Oct 2016 06:40:59 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8onedrive%E7%9A%84%E6%A0%B9api%E8%B5%84%E6%BA%90/</guid><description>OneDrive的根API资源 可以使用OneDrive的这些根API资源来访问一个项目或驱动。
 |路径|资源 |&amp;mdash;&amp;ndash; |/drive|用户的默认驱动。 |/drives|列举对认证用户可用的驱动。 |/drives/{drive-id}|通过ID访问一个特定驱动。 |/drives/{drive-id}/root/children|列举特定驱动根路径下项目。 |/drive/items/{item-id}|通过ID访问一个元素。 |/drive/special/{special-id}|通过已知名访问一个特殊（命名）目录。ID目前可取值为：documents、photos、cameraroll、approot、music。 |/shares/{share-id}|通过共享ID或共享URL访问一个元素。
 元素可由路径定位，通过在任何元素或驱动URL后加冒号。
 |路径|资源 |&amp;mdash;&amp;ndash; |/drive/root:/path/to/file|通过根绝对路径访问一个元素。 |/drive/items/{item-id}:/path/to/file|通过相对路径访问一个元素。 |/drive/root:/path/to/file:/children|通过根绝对路径列举一个元素的子项。 |/drive/items/{item-id}:/path/to/file:/children|通过相对路径列举一个元素的子项。
-测试 获取默认驱动 列举可用驱动 通过ID获取指定驱动 列举特定驱动根路径下项目 通过ID访问一个目录&amp;rdquo;文档&amp;rdquo; 访问特殊目录documents 通过共享ID访问文件CN_EN_JP_KO.xlsx 将文件CN_EN_JP_KO.xlsx共享，获取其共享URL： 通过共享ID使用OneDrive API访问文件CN_EN_JP_KO.xlsx： 通过根绝对路径访问文件CN_EN_JP_KO.xlsx 注意root后有冒号： 通过相对路径访问文件CN_EN_JP_KO.xlsx 712B21FCE8E08C92!442是目录&amp;rdquo;文档&amp;rdquo;的ID，注意其后有冒号： 通过根绝对路径列举目录&amp;rdquo;文档&amp;rdquo;的子元素 注意root和路径（/文档）后都有冒号： 通过相对路径列举目录&amp;rdquo;FolderTest&amp;rdquo;的子元素 为了测试，首先我在目录&amp;rdquo;文档&amp;rdquo;创建子目录&amp;rdquo;FolderTest&amp;rdquo;，然后在目录&amp;rdquo;FolderTest&amp;rdquo;中创建mryqu.txt文件。
-712B21FCE8E08C92!442是目录&amp;rdquo;文档&amp;rdquo;的ID，注意其后有冒号；路径（/FolderTest）后也有冒号。 </description>
-    </item>
-    
-    <item>
-      <title>Microsoft OneDrive API访问速率限制</title>
-      <link>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link>
-      <pubDate>Sat, 15 Oct 2016 06:11:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid>
-      <description>一开始查看OneDrive文档Quota facet,，发现里面介绍的是OneDrive存储容量配额，跟API访问速率限制没有关系。除此之外，没有发现任何相关信息。 OneDrive文档Error response里面，看到如下跟访问速率限制相关的错误： - Status code: 429 (Too Many Requests)和509 (Bandwidth LimitExceeded) - The code property: activityLimitReached (The app or user hasbeen throttled) - Detailed error code: throttledRequest (Too many requests)</description>
-    </item>
-    
-    <item>
-      <title>OneDrive认证时的&#34;Public clients can&#39;t send a client secret.&#34;错误</title>
-      <link>https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/</link>
-      <pubDate>Fri, 14 Oct 2016 05:40:38 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/</guid>
-      <description>在进行Microsoft OneDrive认证和登录实验的过程中，曾经用下列命令过去访问令牌：
-POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;client_secret={client_secret} &amp;amp;code={code}&amp;amp;grant_type=authorization_code  结果返回：
-{&amp;quot;error&amp;quot;:&amp;quot;invalid_request&amp;quot;,&amp;quot;error_description&amp;quot;:&amp;quot;Public clients can&#39;t send a client secret.&amp;quot;}  一个&amp;rdquo;public client&amp;rdquo;指的是移动或桌面应用(web服务则是&amp;rdquo;confidentialclient&amp;rdquo;)。由于跳转URI是https://login.live.com/oauth20_desktop.srf，因而MSA返回该错误响应。这种情况下，不应该提供client_secret，使用下列请求即可。
-POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code={code}&amp;amp;grant_type=authorization_code  </description>
-    </item>
-    
-    <item>
-      <title>Microsoft OneDrive认证和登录</title>
-      <link>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link>
-      <pubDate>Thu, 13 Oct 2016 05:59:43 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid>
-      <description>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
+测试 获取默认驱动 列举可用驱动 通过ID获取指定驱动 列举特定驱动根路径下项目 通过ID访问一个目录&amp;quot;文档&amp;quot; 访问特殊目录documents 通过共享ID访问文件CN_EN_JP_KO.xlsx 将文件CN_EN_JP_KO.xlsx共享，获取其共享URL： 通过共享ID使用OneDrive API访问文件CN_EN_JP_KO.xlsx： 通过根绝对路径访问文件CN_EN_JP_KO.xlsx 注意root后有冒号： 通过相对路径访问文件CN_EN_JP_KO.xlsx 712B21FCE8E08C92!442是目录&amp;quot;文档&amp;quot;的ID，注意其后有冒号： 通过根绝对路径列举目录&amp;quot;文档&amp;quot;的子元素 注意root和路径（/文档）后都有冒号： 通过相对路径列举目录&amp;quot;FolderTest&amp;quot;的子元素 为了测试，首先我在目录&amp;quot;文档&amp;quot;创建子目录&amp;quot;FolderTest&amp;quot;，然后在目录&amp;quot;FolderTest&amp;quot;中创建mryqu.txt文件。
+712B21FCE8E08C92!442是目录&amp;quot;文档&amp;quot;的ID，注意其后有冒号；路径（/FolderTest）后也有冒号。</description></item><item><title>Microsoft OneDrive API访问速率限制</title><link>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</link><pubDate>Sat, 15 Oct 2016 06:11:28 +0000</pubDate><guid>https://mryqu.github.io/post/microsoft_onedrive_api%E8%AE%BF%E9%97%AE%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6/</guid><description>一开始查看OneDrive文档Quota facet,，发现里面介绍的是OneDrive存储容量配额，跟API访问速率限制没有关系。除此之外，没有发现任何相关信息。 OneDrive文档Error response里面，看到如下跟访问速率限制相关的错误：
+Status code: 429 (Too Many Requests)和509 (Bandwidth LimitExceeded) The code property: activityLimitReached (The app or user hasbeen throttled) Detailed error code: throttledRequest (Too many requests)</description></item><item><title>OneDrive认证时的"Public clients can't send a client secret."错误</title><link>https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/</link><pubDate>Fri, 14 Oct 2016 05:40:38 +0000</pubDate><guid>https://mryqu.github.io/post/onedrive%E8%AE%A4%E8%AF%81%E6%97%B6%E7%9A%84public_clients_cant_send_a_client_secret%E9%94%99%E8%AF%AF/</guid><description>在进行Microsoft OneDrive认证和登录实验的过程中，曾经用下列命令过去访问令牌：
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;client_secret={client_secret} &amp;amp;code={code}&amp;amp;grant_type=authorization_code 结果返回：
+{&amp;#34;error&amp;#34;:&amp;#34;invalid_request&amp;#34;,&amp;#34;error_description&amp;#34;:&amp;#34;Public clients can&amp;#39;t send a client secret.&amp;#34;} 一个&amp;quot;public client&amp;quot;指的是移动或桌面应用(web服务则是&amp;quot;confidentialclient&amp;quot;)。由于跳转URI是https://login.live.com/oauth20_desktop.srf，因而MSA返回该错误响应。这种情况下，不应该提供client_secret，使用下列请求即可。
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code={code}&amp;amp;grant_type=authorization_code</description></item><item><title>Microsoft OneDrive认证和登录</title><link>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</link><pubDate>Thu, 13 Oct 2016 05:59:43 +0000</pubDate><guid>https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/</guid><description>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
 OneDrive认证 OneDrive authentication and sign-in有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从https://dev.onedrive.com/auth/get-token.js中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为https://dev.onedrive.com/auth/callback.htm。而 OneDrive authentication and sign-in 中提到对于移动应用和桌面应用，跳转URI应设为https://login.live.com/oauth20_desktop.srf （注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。
 Token Flow测试 HTTP GET请求如下：
-https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  响应如下，认证失败：
-https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;amp;error_description=The+provided+value+for+the+input+parameter+&#39;response_type&#39;+is+not+allowed+for+this+client.+Expected+value+is+&#39;code&#39;.  找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！Code Flow测试  用于用户登录的HTTP GET请求如下：  https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=token&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf  请求用户授权：此时浏览器上地址变为：  https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;uaid=78...e6&amp;amp;pid=...16&amp;amp;mkt=EN-US&amp;amp;scft=DSA...hfC&amp;amp;contextid=7F...D6&amp;amp;mkt=EN-US&amp;amp;uiflavor=host&amp;amp;id=27...69&amp;amp;uaid=78...e6&amp;amp;client_id=00...42&amp;amp;rd=none&amp;amp;scope=&amp;amp;cscope=onedrive.readonly+wl.signin  最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数：  POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code=M9...5e-b...a-e...5-6685-d...06&amp;amp;grant_type=authorization_code   在OneDrive API中使用获得的访问令牌：  参考 Getting started with OneDrive API</description>
-    </item>
-    
-    <item>
-      <title>Hello Microsoft OneDrive API</title>
-      <link>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</link>
-      <pubDate>Wed, 12 Oct 2016 06:14:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</guid>
-      <description>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
-测试源 为了省事，就用我自己私人的OneDrive做测试吧。获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&amp;rdquo;050709大同&amp;rdquo;子目录，该子目录的id为&amp;rdquo;712B21FCE8E08C92!112&amp;rdquo;。从整个响应内容可知，根目录包含&amp;rdquo;文档&amp;rdquo;子目录，其id为&amp;rdquo;712B21FCE8E08C92!442&amp;rdquo;。
-查看Drive &amp;ldquo;文档&amp;rdquo;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
+https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf 响应如下，认证失败：
+https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&amp;amp;error_description=The+provided+value+for+the+input+parameter+&amp;#39;response_type&amp;#39;+is+not+allowed+for+this+client.+Expected+value+is+&amp;#39;code&amp;#39;. 找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！
+Code Flow测试 用于用户登录的HTTP GET请求如下： https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=token&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf 请求用户授权：此时浏览器上地址变为： https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&amp;amp;client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;scope=onedrive.readonly+wl.signin&amp;amp;response_type=code&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;uaid=78...e6&amp;amp;pid=...16&amp;amp;mkt=EN-US&amp;amp;scft=DSA...hfC&amp;amp;contextid=7F...D6&amp;amp;mkt=EN-US&amp;amp;uiflavor=host&amp;amp;id=27...69&amp;amp;uaid=78...e6&amp;amp;client_id=00...42&amp;amp;rd=none&amp;amp;scope=&amp;amp;cscope=onedrive.readonly+wl.signin 最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数： POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&amp;amp;redirect_uri=https://login.live.com/oauth20_desktop.srf&amp;amp;code=M9...5e-b...a-e...5-6685-d...06&amp;amp;grant_type=authorization_code 在OneDrive API中使用获得的访问令牌： 参考 Getting started with OneDrive API SDKs for OneDrive integration Registering your app for OneDrive API OneDrive authentication and sign-in Sign-in Microsoft Account &amp;amp; Azure AD users in a single app Develop with the OneDrive API getting #error=unsupported_response_type&amp;amp;error_description=AADSTS70005: with token request</description></item><item><title>Hello Microsoft OneDrive API</title><link>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</link><pubDate>Wed, 12 Oct 2016 06:14:09 +0000</pubDate><guid>https://mryqu.github.io/post/hello_microsoft_onedrive_api/</guid><description>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
+测试源 为了省事，就用我自己私人的OneDrive做测试吧。 获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。
+测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含&amp;quot;050709大同&amp;quot;子目录，该子目录的id为&amp;quot;712B21FCE8E08C92!112&amp;quot;。从整个响应内容可知，根目录包含&amp;quot;文档&amp;quot;子目录，其id为&amp;quot;712B21FCE8E08C92!442&amp;quot;。
+查看Drive &amp;ldquo;文档&amp;quot;目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
 获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
-参考 Develop with the OneDrive API</description>
-    </item>
-    
-    <item>
-      <title>比较OneDrive、OneDriveforBusiness和Office365</title>
-      <link>https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/</link>
-      <pubDate>Tue, 11 Oct 2016 05:43:57 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/</guid>
-      <description>OneDrive与OneDrive for Business的区别 OneDrive与OneDrive for Business名字接近，如果认为是个人版和商业版的区别，OneDrive forBusiness在OneDrive基础上增加一些商业高级功能，那就没有正确理解二者的区别。
- OneDrive（以前称之为SkyDrive）是微软提供的云端私人存储，通过Microsoft账户或Outlook.com获得。使用OneDrive在云上存储文档、图片和其他文件，可以共享给好友，甚至内容协作。可以随意决定你自己的使用方式。 OneDrive forBusiness是用于商业目的的在线存储，它既可以在微软云上也可以在组织/企业的SharePoint服务器上。OneDrive forBusiness是Office365或SharePoint服务器的主要组成部分，提供存储、共享和同步团队或项目工作文档的地方。你的OneDrive forBusiness由你的工作组织/企业管理，以便进行工作文档协作。你的工作组织/企业的网站集管理员控制你对文档库的权限。  功能桌面同步- Windows PC- Mac OS(Soon)移动应用- Windows Tablet- Android- iOS- Windows Phone- XBox在浏览器内创建/编辑Office文档与桌面版Office 集成实时协同编辑Office文档文档版本和历史信息- 简单自动创建版本和版本恢复- 版本管理(主次版本或仅主版本，手动创建版本需要checkout选项和其他高级版本选项)多重身份认证支持审计与报告用于细颗粒度控制的高级管理功能
-审批工作流使用SharePoint Designer创建定制工作流对文档创建列添加自己的元数据高级安全管理对内容创建视图(可保存视图、过滤器等等)创建列表进行数据管理(通告、任务、联系人等等)保留策略(取决于SharePoint计划)文档模板eDiscoverySharePoint提供的功能SSO/ADFS/Directory同步支持内建标准一致性存储容量5GB/15GB1TB/5TB Office 365 Office 365是一套用于个人、教育或商业活动的云服务。商业和企业计划可提供一套提高生产效率的产品。使用Office365，可以获得的Office应用(Word、Excel、PowerPoint、OneNote、Outlook和Publisher)，以及50GB邮箱容量、用于企业即时消息、音视频电话和web会议的Skypefor Business、作为企业社交网络的Yammer、用于文件管理的SharePoint及1TB的OneDrive存储。
-参考 OneDrive for Business vs OneDrive – Know the difference
-OneDrive, OneDrive for Business, and Office 365: What’s Best?
-What is OneDrive for Business?
-Ultimate Guide in choosing between OneDrive, OneDrive for Business and Office 365</description>
-    </item>
-    
-    <item>
-      <title>Tableau不支持导入OneDrive文件？</title>
-      <link>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Sun, 02 Oct 2016 05:39:38 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</guid>
-      <description>没有发现Tableau的Microsoft OneDrive连接器，OData连接器和WebData连接器都不成。查了一下Tableau社区，就寥寥无几的几个帖子提到OneDrive。其中一个帖子提到了Using OneDrive as a Tableau Data Source。这个博文在2015年5月提到Tableau还不支持直连OneDrive上的文件，建议用OneDrive SyncApp同步到Tableau服务器上再导入。 貌似现在还是如此！！</description>
-    </item>
-    
-    <item>
-      <title>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</title>
-      <link>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</link>
-      <pubDate>Mon, 14 Sep 2015 06:22:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</guid>
-      <description>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
+参考 Develop with the OneDrive API</description></item><item><title>比较OneDrive、OneDriveforBusiness和Office365</title><link>https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/</link><pubDate>Tue, 11 Oct 2016 05:43:57 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/</guid><description>OneDrive与OneDrive for Business的区别 OneDrive与OneDrive for Business名字接近，如果认为是个人版和商业版的区别，OneDrive forBusiness在OneDrive基础上增加一些商业高级功能，那就没有正确理解二者的区别。
+OneDrive（以前称之为SkyDrive）是微软提供的云端私人存储，通过Microsoft账户或Outlook.com获得。使用OneDrive在云上存储文档、图片和其他文件，可以共享给好友，甚至内容协作。可以随意决定你自己的使用方式。 OneDrive forBusiness是用于商业目的的在线存储，它既可以在微软云上也可以在组织/企业的SharePoint服务器上。OneDrive forBusiness是Office365或SharePoint服务器的主要组成部分，提供存储、共享和同步团队或项目工作文档的地方。你的OneDrive forBusiness由你的工作组织/企业管理，以便进行工作文档协作。你的工作组织/企业的网站集管理员控制你对文档库的权限。 Office 365 Office 365是一套用于个人、教育或商业活动的云服务。商业和企业计划可提供一套提高生产效率的产品。使用Office365，可以获得的Office应用(Word、Excel、PowerPoint、OneNote、Outlook和Publisher)，以及50GB邮箱容量、用于企业即时消息、音视频电话和web会议的Skypefor Business、作为企业社交网络的Yammer、用于文件管理的SharePoint及1TB的OneDrive存储。
+参考 OneDrive for Business vs OneDrive – Know the difference OneDrive, OneDrive for Business, and Office 365: What’s Best? What is OneDrive for Business?
+Ultimate Guide in choosing between OneDrive, OneDrive for Business and Office 365</description></item><item><title>Tableau不支持导入OneDrive文件？</title><link>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</link><pubDate>Sun, 02 Oct 2016 05:39:38 +0000</pubDate><guid>https://mryqu.github.io/post/tableau%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5onedrive%E6%96%87%E4%BB%B6/</guid><description>没有发现Tableau的Microsoft OneDrive连接器，OData连接器和WebData连接器都不成。查了一下Tableau社区，就寥寥无几的几个帖子提到OneDrive。其中一个帖子提到了Using OneDrive as a Tableau Data Source。这个博文在2015年5月提到Tableau还不支持直连OneDrive上的文件，建议用OneDrive SyncApp同步到Tableau服务器上再导入。 貌似现在还是如此！！</description></item><item><title>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</title><link>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</link><pubDate>Mon, 14 Sep 2015 06:22:41 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</guid><description>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
 Facebook 通过curl命令获取访问密钥：
-curl &amp;quot;https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=client_credentials&amp;quot;  Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
+curl &amp;#34;https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=client_credentials&amp;#34; Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
 Google Analytics 首先通过浏览器访问下列链接获取code：
-https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
-curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Youtube Analytics 首先通过浏览器访问下列链接获取code：
-https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
-curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Google drive &amp;amp; sheets 首先通过浏览器访问下列链接获取code：
-https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
-curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  DropBox 首先通过浏览器访问下列链接获取code：</description>
-    </item>
-    
-  </channel>
-</rss>
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://www.googleapis.com/oauth2/v4/token&amp;#34; Youtube Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://www.googleapis.com/oauth2/v4/token&amp;#34; Google drive &amp;amp; sheets 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://www.googleapis.com/oauth2/v4/token&amp;#34; DropBox 首先通过浏览器访问下列链接获取code：
+https://api.dropbox.com/1/oauth2/authorize?client_id={YOUR_APP_ID}&amp;amp;response_type=code&amp;amp;state=kx123 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://api.</description></item></channel></rss>

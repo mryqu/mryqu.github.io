@@ -1,25 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Alwaysusefullpath on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/alwaysusefullpath/</link>
-    <description>Recent content in Alwaysusefullpath on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Thu, 03 Dec 2015 06:38:56 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/alwaysusefullpath/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping</title>
-      <link>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</link>
-      <pubDate>Thu, 03 Dec 2015 06:38:56 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</guid>
-      <description>简介 SpringMVC的URL映射有一个控制路径匹配的参数alwaysUseFullPath。当它被设置为true后，总是使用当前servlet上下文中的全路径进行URL查找，否则使用当前servlet映射内的路径。默认为false。下面示例一下当一个请求的全路径通过servlet映射找到所服务的RequestDispatcherservelet后alwaysUseFullPath为false时URL映射表现：
-         servlet mapping = &amp;ldquo;/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test/*&amp;ldquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/a&amp;rdquo;   servlet mapping = &amp;ldquo;/test&amp;rdquo;; request URI = &amp;ldquo;/test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;   servlet mapping = &amp;ldquo;/*.test&amp;rdquo;; request URI = &amp;ldquo;/a.test&amp;rdquo; -&amp;gt; &amp;ldquo;&amp;rdquo;    从org.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>alwaysusefullpath on Mryqu's Notes</title><link>https://mryqu.github.io/tags/alwaysusefullpath/</link><description>Recent content in alwaysusefullpath on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 03 Dec 2015 06:38:56 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/alwaysusefullpath/index.xml" rel="self" type="application/rss+xml"/><item><title>[Spring Boot] Use alwaysUseFullPath for Spring MVC URL mapping</title><link>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</link><pubDate>Thu, 03 Dec 2015 06:38:56 +0000</pubDate><guid>https://mryqu.github.io/post/spring_boot_use_alwaysusefullpath_for_spring_mvc_url_mapping/</guid><description>简介 SpringMVC的URL映射有一个控制路径匹配的参数alwaysUseFullPath。当它被设置为true后，总是使用当前servlet上下文中的全路径进行URL查找，否则使用当前servlet映射内的路径。默认为false。下面示例一下当一个请求的全路径通过servlet映射找到所服务的RequestDispatcherservelet后alwaysUseFullPath为false时URL映射表现：
+servlet mapping = &amp;ldquo;/*&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo; servlet mapping = &amp;ldquo;/&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/test/a&amp;rdquo; servlet mapping = &amp;ldquo;/test/*&amp;rdquo;; request URI = &amp;ldquo;/test/a&amp;rdquo; -&amp;gt; &amp;ldquo;/a&amp;rdquo; servlet mapping = &amp;ldquo;/test&amp;rdquo;; request URI = &amp;ldquo;/test&amp;rdquo; -&amp;gt; &amp;quot;&amp;quot; servlet mapping = &amp;ldquo;/*.test&amp;rdquo;; request URI = &amp;ldquo;/a.test&amp;rdquo; -&amp;gt; &amp;quot;&amp;quot; 从org.springframework.web.util.UrlPathHelper的getLookupPathForRequest方法可知，当alwaysUseFullPath为true时使用getPathWithinApplication获得待查找的全路径，否则使用getPathWithinServletMapping获得待查找的剩余路径。 如果对alwaysUseFullPath的设置进行修改，对RestController的请求映射也要做相应的设置修改。
+@RequestMapping(value = {&amp;#34;**/test/dosomething**&amp;#34;}, method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }) 假设servlet映射为&amp;quot;/test/*&amp;ldquo;且RestControoler仅在方法级别进行请求映射，如果alwaysUseFullPath为true时请求映射为上面的&amp;rdquo;/test/dosomething&amp;quot;。则在alwaysUseFullPath改为false后，请求映射相应改为&amp;quot;/dosomething&amp;quot;即可。
+alwaysUseFullPath设置范例 想在SpringBoot应用中设定alwaysUseFullPath为true，可通过BeanPostProcessor完成其设置。
+@SpringBootApplication public class Application implements BeanPostProcessor { public static void main(String[] args) { final ApplicationContext applicationContext = SpringApplication.</description></item></channel></rss>

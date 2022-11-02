@@ -1,60 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>数据库 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
-    <description>Recent content in 数据库 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 07 May 2014 21:20:32 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>JDBC连接池的testQuery/validationQuery设置</title>
-      <link>https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/</link>
-      <pubDate>Wed, 07 May 2014 21:20:32 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/</guid>
-      <description>在《Tomcat中使用Connector/J连接MySQL的超时问题》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？ 原来这跟连接池的实现有关：
-|连接池实现|该功能属性名 |&amp;mdash;&amp;ndash; |The Tomcat JDBC Connection Pool|validationQuery |The Apache Commons DBCP Connection Pool|validationQuery |c3p0 - JDBC3 Connection and Statement Pooling|preferredTestQuery |Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration
-分析Atomikos数据连接池源码，弄清testQuery|testQuery
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数据库 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link><description>Recent content in 数据库 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 07 May 2014 21:20:32 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml"/><item><title>JDBC连接池的testQuery/validationQuery设置</title><link>https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/</link><pubDate>Wed, 07 May 2014 21:20:32 +0000</pubDate><guid>https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/</guid><description>在《Tomcat中使用Connector/J连接MySQL的超时问题》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？ 原来这跟连接池的实现有关：
+|连接池实现|该功能属性名 |&amp;mdash;&amp;ndash; |The Tomcat JDBC Connection Pool|validationQuery |The Apache Commons DBCP Connection Pool|validationQuery |c3p0 - JDBC3 Connection and Statement Pooling|preferredTestQuery | Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration分析Atomikos数据连接池源码，弄清testQuery|testQuery
 此外，测试/验证连接池连接的SQL语句也因数据库而异： Efficient SQL test query or validation query that will work across all (or most) databases DBCP - validationQuery for different Databases
 综合上述两个帖子，汇总结果如下：
-|数据库|测试/验证查询 |&amp;mdash;&amp;ndash; |MySQL|SELECT 1 |PostgreSQL|SELECT 1 |Microsoft SQL Server|SELECT 1 |SQLite|SELECT 1 |H2|SELECT 1 |Ingres|SELECT 1 |Oracle|select 1 from dual |DB2|select 1 from sysibm.</description>
-    </item>
-    
-    <item>
-      <title>PostgreSQL数据库分区的update操作</title>
-      <link>https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/</link>
-      <pubDate>Fri, 19 Jul 2013 23:23:36 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/</guid>
-      <description>CREATE TABLE measurement ( city_id int not null, unitsales int ); CREATE TABLE measurement_1 ( CHECK (unitsales &amp;lt; 100 ) ) INHERITS (measurement); CREATE TABLE measurement_2 ( CHECK (unitsales &amp;gt;= 100 ) ) INHERITS (measurement); CREATE OR REPLACE FUNCTIONmeasurement_insert_trigger() RETURNS TRIGGER AS $$ BEGIN IF (NEW.unitsales &amp;lt; 100) THEN INSERT INTO measurement_1 VALUES (NEW.*); ELSE INSERT INTO measurement_2 VALUES (NEW.*); END IF; RETURNNULL; END; $$ LANGUAGE plpgsql; CREATE TRIGGER insert_measurement_trigger BEFOREINSERT ON measurement FOR EACH ROWEXECUTE PROCEDURE measurement_insert_trigger(); INSERT INTO measurement VALUES (1, 1); INSERT INTO measurement VALUES (2, 2); INSERT INTO measurement VALUES (3, 300); INSERT INTO measurement VALUES (4, 400); mysdm=# select * from measurement_1; city_id | unitsales ---------+----------- 1| 1 2| 2 (2 rows) mysdm=# select * from measurement_2; city_id | unitsales ---------+----------- 3| 300 4| 400 (2 rows)  Postgres没有智能到在update时根据记录的新值变动分区，而是报错！</description>
-    </item>
-    
-    <item>
-      <title>Hibernate shards数据库分片</title>
-      <link>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</link>
-      <pubDate>Fri, 19 Jul 2013 07:01:23 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</guid>
-      <description>简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
-Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。 - 标准Hibernate编程模型 - 灵活的分片策略 - 支持虚拟分片 - 免费/开源
-实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
+|数据库|测试/验证查询 |&amp;mdash;&amp;ndash; |MySQL|SELECT 1 |PostgreSQL|SELECT 1 |Microsoft SQL Server|SELECT 1 |SQLite|SELECT 1 |H2|SELECT 1 |Ingres|SELECT 1 |Oracle|select 1 from dual |DB2|select 1 from sysibm.</description></item><item><title>PostgreSQL数据库分区的update操作</title><link>https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/</link><pubDate>Fri, 19 Jul 2013 23:23:36 +0000</pubDate><guid>https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/</guid><description>CREATE TABLE measurement ( city_id int not null, unitsales int ); CREATE TABLE measurement_1 ( CHECK (unitsales &amp;lt; 100 ) ) INHERITS (measurement); CREATE TABLE measurement_2 ( CHECK (unitsales &amp;gt;= 100 ) ) INHERITS (measurement); CREATE OR REPLACE FUNCTIONmeasurement_insert_trigger() RETURNS TRIGGER AS $$ BEGIN IF (NEW.unitsales &amp;lt; 100) THEN INSERT INTO measurement_1 VALUES (NEW.*); ELSE INSERT INTO measurement_2 VALUES (NEW.*); END IF; RETURNNULL; END; $$ LANGUAGE plpgsql; CREATE TRIGGER insert_measurement_trigger BEFOREINSERT ON measurement FOR EACH ROWEXECUTE PROCEDURE measurement_insert_trigger(); INSERT INTO measurement VALUES (1, 1); INSERT INTO measurement VALUES (2, 2); INSERT INTO measurement VALUES (3, 300); INSERT INTO measurement VALUES (4, 400); mysdm=# select * from measurement_1; city_id | unitsales ---------+----------- 1| 1 2| 2 (2 rows) mysdm=# select * from measurement_2; city_id | unitsales ---------+----------- 3| 300 4| 400 (2 rows) Postgres没有智能到在update时根据记录的新值变动分区，而是报错！</description></item><item><title>Hibernate shards数据库分片</title><link>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</link><pubDate>Fri, 19 Jul 2013 07:01:23 +0000</pubDate><guid>https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/</guid><description>简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
+Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
+标准Hibernate编程模型 灵活的分片策略 支持虚拟分片 免费/开源 实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
 |Hibernate Core接口|Hibernate Shards实现 |&amp;mdash;&amp;ndash; |org.hibernate.Session|org.hibernate.shards.session.ShardedSession |org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory |org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria |org.hibernate.Query|org.hibernate.shards.query.ShardedQuery
 唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。 首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。
-气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM(&#39;AFRICA&#39;, &#39;ANTARCTICA&#39;, &#39;ASIA&#39;, &#39;AUSTRALIA&#39;, &#39;EUROPE&#39;, &#39;NORTH AMERICA&#39;, &#39;SOUTH AMERICA&#39;), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP );  气象报告对象模型 @Entity @Table(name=&amp;quot;WEATHER_REPORT&amp;quot;) public class WeatherReport { @Id @GeneratedValue(generator=&amp;quot;WeatherReportIdGenerator&amp;quot;) @GenericGenerator(name=&amp;quot;WeatherReportIdGenerator&amp;quot;, strategy=&amp;quot;org.</description>
-    </item>
-    
-    <item>
-      <title>PostgreSQL与MySQL数据库分区</title>
-      <link>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</link>
-      <pubDate>Tue, 16 Jul 2013 21:10:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</guid>
-      <description>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
+气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM(&amp;#39;AFRICA&amp;#39;, &amp;#39;ANTARCTICA&amp;#39;, &amp;#39;ASIA&amp;#39;, &amp;#39;AUSTRALIA&amp;#39;, &amp;#39;EUROPE&amp;#39;, &amp;#39;NORTH AMERICA&amp;#39;, &amp;#39;SOUTH AMERICA&amp;#39;), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP ); 气象报告对象模型 @Entity @Table(name=&amp;#34;WEATHER_REPORT&amp;#34;) public class WeatherReport { @Id @GeneratedValue(generator=&amp;#34;WeatherReportIdGenerator&amp;#34;) @GenericGenerator(name=&amp;#34;WeatherReportIdGenerator&amp;#34;, strategy=&amp;#34;org.</description></item><item><title>PostgreSQL与MySQL数据库分区</title><link>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</link><pubDate>Tue, 16 Jul 2013 21:10:39 +0000</pubDate><guid>https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/</guid><description>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
 分类 分区主要有两种形式：
 水平分区 水平分区是将不同的行放入不同的表中。比如将邮编小于50000的客户放入“东部客户”表中，将邮编等于或大于50000的客户放入“西部客户”表中。该例中有两个分区表“东部客户”和“西部客户”，其合集视图就是所有客户的完整视图。 通过这样的方式不同分区里面的物理列分割的数据集得以组合，从而进行个体分割（单分区）或集体分割（1个或多个分区）。所有在表中定义的列在每个数据集中都能找到，所以表的特性依然得以保持。
 垂直分区 垂直分区创建含有（主键加上）较少列的表并使用额外的表存储（主键加上）剩余的列，每个分区表中都含有其中列所对应的行。范式化是内在包含垂直分区的过程。 垂直分区被称为“行分割”，通常用于分割表中（查找很慢的）动态数据和（查找很快的、使用较动态数据更频繁的）静态数据。这样在保证数据相关性的同时，在诸如统计分析之类的查询中访问静态数据还能提高性能。 不同的物理存储也可以用于垂直分区，例如不频繁使用的列或者宽列被存入不同的设备。 其缺点是需要管理冗余列，查询所有数据需要join操作。
@@ -63,46 +16,15 @@ Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
 基于列表的分区 一个分区分配给一列数值。如果分区键为这些值之一，该分区被选中。例如所有国家列为冰岛、挪威、瑞典、芬兰或丹麦的行可以是一个北欧国家分区。
 基于哈希的分区 哈希函数的返回值决定分区归属。假设有四个分区，哈希函数返回值为0到3。 组合分区允许上述分区方案的一定组合。例如先使用基于范围的分区，然后使用基于哈希的分区。
 PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以PostgreSQL 9.1为例介绍一下PostgreSQL数据库分区。
-优点 分区具有下列优点： - 在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 - 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 - 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 - 很少使用的数据可被移往更便宜更慢的存储媒体。
-这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
+优点 分区具有下列优点：
+在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 很少使用的数据可被移往更便宜更慢的存储媒体。 这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
 表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
-CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities);  父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
-SELECT name, altitude FROM cities WHERE altitude &amp;gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &amp;gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。  支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</description>
-    </item>
-    
-    <item>
-      <title>数据库常用操作笔记</title>
-      <link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Sat, 18 Aug 2012 07:10:28 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid>
-      <description>GreenPlum/PostGreSQL操作  Create a new database: createdb medb Drop database: dropdb medb Access database: psql -h gpserver -d gpdatabase -U gpuser -W Get help: medb=# \h Quit: medb=# \q Read command from file: medb=# \i input.sql To dump a database: pg_dump medb &amp;gt; db.out To reload the database: psql -d database -f db.out Dump all database: pg_dumpall &amp;gt; /var/lib/pgsql/backups/dumpall.sql Restore database: psql -f /var/lib/pgsql/backups/dumpall.sql medb Show databases: psql -l medb=# \l; Show users: medb=# select * from &amp;quot;pg_user&amp;quot;; Show tables: medb=# select * from &amp;quot;pg_tables&amp;quot;; Set password: medb=# upadte pg_shadow set passwd = &#39;new_password&#39; where usename = &#39;username&#39;; Clean all databases (Should be done via a daily cron): vacuumdb --quiet --all check column of table medb=# select * from INFORMATION_SCHEMA.</description>
-    </item>
-    
-    <item>
-      <title>数据库catalog的定义</title>
-      <link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93catalog%E7%9A%84%E5%AE%9A%E4%B9%89/</link>
-      <pubDate>Mon, 13 Aug 2012 22:16:37 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93catalog%E7%9A%84%E5%AE%9A%E4%B9%89/</guid>
-      <description>The database catalog of a database instance consists ofmetadata in which definitions of database objects such as basetables, views (virtual tables), synonyms, value ranges, indexes,users, and user groups are stored.
-The SQL standard specifies a uniform means to access thecatalog, called the INFORMATION_SCHEMA, but not all databasesfollow this, even if they implement other aspects of the SQLstandard. For an example of database-specific metadata accessmethods, see Oracle metadata.</description>
-    </item>
-    
-    <item>
-      <title>实践记录：将MDF MSSQL数据库内容导入MySQL</title>
-      <link>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</link>
-      <pubDate>Thu, 24 Sep 2009 10:37:58 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</guid>
-      <description>玩一个例程源码，它使用的是SQL server数据库，虽然我机子装了VS2005带的SQL server2005，我还是想用MySQL。 把自己的转换过程草草记录下来，也不算太无聊吧。
+CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities); 父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
+SELECT name, altitude FROM cities WHERE altitude &amp;gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &amp;gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</description></item><item><title>数据库常用操作笔记</title><link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link><pubDate>Sat, 18 Aug 2012 07:10:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid><description>GreenPlum/PostGreSQL操作 Create a new database: createdb medb Drop database: dropdb medb Access database: psql -h gpserver -d gpdatabase -U gpuser -W Get help: medb=# \h Quit: medb=# \q Read command from file: medb=# \i input.sql To dump a database: pg_dump medb &amp;gt; db.out To reload the database: psql -d database -f db.out Dump all database: pg_dumpall &amp;gt; /var/lib/pgsql/backups/dumpall.sql Restore database: psql -f /var/lib/pgsql/backups/dumpall.sql medb Show databases: psql -l medb=# \l; Show users: medb=# select * from &amp;quot;pg_user&amp;quot;; Show tables: medb=# select * from &amp;quot;pg_tables&amp;quot;; Set password: medb=# upadte pg_shadow set passwd = 'new_password' where usename = 'username'; Clean all databases (Should be done via a daily cron): vacuumdb --quiet --all check column of table medb=# select * from INFORMATION_SCHEMA.</description></item><item><title>数据库catalog的定义</title><link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93catalog%E7%9A%84%E5%AE%9A%E4%B9%89/</link><pubDate>Mon, 13 Aug 2012 22:16:37 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93catalog%E7%9A%84%E5%AE%9A%E4%B9%89/</guid><description>The database catalog of a database instance consists ofmetadata in which definitions of database objects such as basetables, views (virtual tables), synonyms, value ranges, indexes,users, and user groups are stored.
+The SQL standard specifies a uniform means to access thecatalog, called the INFORMATION_SCHEMA, but not all databasesfollow this, even if they implement other aspects of the SQLstandard. For an example of database-specific metadata accessmethods, see Oracle metadata.</description></item><item><title>实践记录：将MDF MSSQL数据库内容导入MySQL</title><link>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</link><pubDate>Thu, 24 Sep 2009 10:37:58 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</guid><description>玩一个例程源码，它使用的是SQL server数据库，虽然我机子装了VS2005带的SQL server2005，我还是想用MySQL。 把自己的转换过程草草记录下来，也不算太无聊吧。
 【环境】VS2005附带的SQL server 2005 &amp;amp; MySQL 5.1
-1、下载并安装Microsoft SQL Server Management StudioExpress（SSMSE）http://www.microsoft.com/downloadS/details.aspx?familyid=C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;displaylang=en
+1、下载并安装Microsoft SQL Server Management StudioExpress（SSMSE） http://www.microsoft.com/downloadS/details.aspx?familyid=C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;displaylang=en
 2、 配置SQL2005
 ==SQL server configuration manager== SQL server service -&amp;gt; 选择SQL serverbrower属性，修改模式为手动，然后启动SQL server brower
 ==SQL Server Surface Area Configuration -&amp;gt;Surface Area Configuration for Services and Connections== SQLEXPRESS -&amp;gt; Database Engine -&amp;gt;Remote connection -&amp;gt; Local and remote connection&amp;amp; using both tcp/ip and named pipes
-==SQL server configuration manager== SQL server 2005 network configuration -&amp;gt; protocolsfor SQLEXPRESS -&amp;gt; 选择TCP/TP属性中IPAddresses，删掉动态端口，设定端口为1433</description>
-    </item>
-    
-  </channel>
-</rss>
+==SQL server configuration manager== SQL server 2005 network configuration -&amp;gt; protocolsfor SQLEXPRESS -&amp;gt; 选择TCP/TP属性中IPAddresses，删掉动态端口，设定端口为1433</description></item></channel></rss>

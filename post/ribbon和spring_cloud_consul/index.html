@@ -1,600 +1,91 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>Ribbon和Spring Cloud Consul - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="Ribbon和Spring Cloud Consul">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="Ribbon和Spring Cloud Consul - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/" itemprop="url">
-        Ribbon和Spring Cloud Consul
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-06-29">
-    2017-06-29
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/service&#43;javaee" itemprop="url" rel="index">
-        <span itemprop="name">Service&#43;JavaEE</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/spring" itemprop="url" rel="index">
-        <span itemprop="name">Spring</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">621 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>学习一下<a href="https://spring.io/guides/gs/client-side-load-balancing/">Client Side Load Balancing with Ribbon and Spring Cloud</a>快速入门指南，这里的客户端负载平衡是借助<a href="https://github.com/Netflix/ribbon">Netflix Ribbon</a>实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。</p>
-
-<h3 id="ribbonclient和-loadbalanced的区别">@RibbonClient和@LoadBalanced的区别</h3>
-
-<p><a href="https://stackoverflow.com/questions/39587317/difference-between-ribbonclient-and-loadbalanced">Difference between @RibbonClient and @LoadBalanced</a>讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。</p>
-
-<pre><code>restTemplate.getForObject(&quot;http://some-service-name/user/{id}&quot;, String.class, 1);
-</code></pre>
-
-<p>@RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。
-在下列两种情况下需要使用@RibbonClient注解：
-*   需要对特定Robbon客户端使用定制Ribbon设置
-*   没有使用任何服务发现</p>
-
-<p>定制Robbon设置：</p>
-
-<pre><code>@Configuration
-@RibbonClient(name = &quot;foo&quot;, configuration = FooConfiguration.class)
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Ribbon和Spring Cloud Consul - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="Ribbon和Spring Cloud Consul"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="Ribbon和Spring Cloud Consul - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/ itemprop=url>Ribbon和Spring Cloud Consul</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2017-06-29">2017-06-29</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>375 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>学习一下<a href=https://spring.io/guides/gs/client-side-load-balancing/>Client Side Load Balancing with Ribbon and Spring Cloud</a>快速入门指南，这里的客户端负载平衡是借助<a href=https://github.com/Netflix/ribbon>Netflix Ribbon</a>实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。</p><h3 id=ribbonclient和loadbalanced的区别>@RibbonClient和@LoadBalanced的区别</h3><p><a href=https://stackoverflow.com/questions/39587317/difference-between-ribbonclient-and-loadbalanced>Difference between @RibbonClient and @LoadBalanced</a>讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。</p><pre tabindex=0><code>restTemplate.getForObject(&#34;http://some-service-name/user/{id}&#34;, String.class, 1);
+</code></pre><p>@RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。
+在下列两种情况下需要使用@RibbonClient注解：</p><ul><li>需要对特定Robbon客户端使用定制Ribbon设置</li><li>没有使用任何服务发现</li></ul><p>定制Robbon设置：</p><pre tabindex=0><code>@Configuration
+@RibbonClient(name = &#34;foo&#34;, configuration = FooConfiguration.class)
 public class TestConfiguration {
 }
-</code></pre>
-
-<p>注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。</p>
-
-<h3 id="spring-cloud-consul和ribbon">Spring Cloud Consul和Ribbon</h3>
-
-<p>在没用使用任何服务发现时，Ribbon从listOfServers配置里的服务器列表进行选择的。偶在项目中是用Consul的，它主业就是干服务发现的工作，而且还支持<a href="https://github.com/Netflix/ribbon">Netflix Ribbon</a>。
-网上有现成的Spring Cloud Consul和Ribbon示例<a href="https://github.com/mgendelman/spring-boot-consul-demo-tax">spring-boot-consul-demo-tax</a>和<a href="https://github.com/mgendelman/spring-boot-consul-demo-invoice">spring-boot-consul-demo-invoice</a>。使用默认Ribbon设置，所以bootstrap.yml/application.yml里没有Ribbon设置，代码也没有使用@RibbonClient。
-启动两个<a href="https://github.com/mgendelman/spring-boot-consul-demo-tax">spring-boot-consul-demo-tax</a>微服务实例和一个<a href="https://github.com/mgendelman/spring-boot-consul-demo-invoice">spring-boot-consul-demo-invoice</a>微服务实例，在浏览器访问<a href="https://github.com/mgendelman/spring-boot-consul-demo-invoice">spring-boot-consul-demo-invoice</a>微服务，就会发现<a href="https://github.com/mgendelman/spring-boot-consul-demo-invoice">spring-boot-consul-demo-invoice</a>微服务实例以RoundRobin轮询方式调用两个<a href="https://github.com/mgendelman/spring-boot-consul-demo-tax">spring-boot-consul-demo-tax</a>微服务实例了。</p>
-
-<h3 id="ribbon组件">Ribbon组件</h3>
-
-<p>通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包含的几个重要组件/属性，正是这几个组件为Ribbon的功能提供支持:</p>
-
-<p>| 组件 | 描述 |
-| - | - |
-|Rule   | 负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。|
-|Ping   | 判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。|
-|ServerList | 服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。|
-|LoadBalancerStats | 负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。|</p>
-
-<h4 id="负载均衡策略-irule">负载均衡策略 IRule</h4>
-
-<p><img src="/images/2017/06/IRule.png" alt="IRule Hierarchy" /></p>
-
-<p>| 策略名 | 策略描述 | 实现说明 |
+</code></pre><p>注意FooConfiguration必须由@Configuration注解，但是它不能在主应用上下文@ComponentScan范围内，否则它将被所有@RibbonClient共享。如果使用@ComponentScan（或@SpringBootApplication），需要避免其被包含在内（例如放入独立不重叠的包内或显示指定@ComponentScan扫描的包）。</p><h3 id=spring-cloud-consul和ribbon>Spring Cloud Consul和Ribbon</h3><p>在没用使用任何服务发现时，Ribbon从listOfServers配置里的服务器列表进行选择的。偶在项目中是用Consul的，它主业就是干服务发现的工作，而且还支持<a href=https://github.com/Netflix/ribbon>Netflix Ribbon</a>。
+网上有现成的Spring Cloud Consul和Ribbon示例<a href=https://github.com/mgendelman/spring-boot-consul-demo-tax>spring-boot-consul-demo-tax</a>和<a href=https://github.com/mgendelman/spring-boot-consul-demo-invoice>spring-boot-consul-demo-invoice</a>。使用默认Ribbon设置，所以bootstrap.yml/application.yml里没有Ribbon设置，代码也没有使用@RibbonClient。
+启动两个<a href=https://github.com/mgendelman/spring-boot-consul-demo-tax>spring-boot-consul-demo-tax</a>微服务实例和一个<a href=https://github.com/mgendelman/spring-boot-consul-demo-invoice>spring-boot-consul-demo-invoice</a>微服务实例，在浏览器访问<a href=https://github.com/mgendelman/spring-boot-consul-demo-invoice>spring-boot-consul-demo-invoice</a>微服务，就会发现<a href=https://github.com/mgendelman/spring-boot-consul-demo-invoice>spring-boot-consul-demo-invoice</a>微服务实例以RoundRobin轮询方式调用两个<a href=https://github.com/mgendelman/spring-boot-consul-demo-tax>spring-boot-consul-demo-tax</a>微服务实例了。</p><h3 id=ribbon组件>Ribbon组件</h3><p>通过BaseLoadBalancer可以看出Ribbon中的负载均衡器所包含的几个重要组件/属性，正是这几个组件为Ribbon的功能提供支持:</p><table><thead><tr><th>组件</th><th>描述</th></tr></thead><tbody><tr><td>Rule</td><td>负载均衡策略，可以插件化地为Ribbon提供各种适用的负载均衡算法。</td></tr><tr><td>Ping</td><td>判断目标服务是否存活。对应不同的协议不同的方式去探测，得到后端服务是否存活。如有http的，还有对于微服务框架内的服务存活的NIWSDiscoveryPing是通过eureka client来获取的instanceinfo中的信息来获取。</td></tr><tr><td>ServerList</td><td>服务器列表，可以是静态的也可以是动态的。如果是（通过DynamicServerListLoadBalancer实现）动态的，会有后台线程以一定的间隔时间更新和过滤列表。</td></tr><tr><td>LoadBalancerStats</td><td>负载均衡器运行信息。记录负载均衡器的实时运行信息，这些运行信息可以被用来作为负载均衡器策略的输入。</td></tr></tbody></table><h4 id=负载均衡策略-irule>负载均衡策略 IRule</h4><p><img src=/images/2017/06/IRule.png alt="IRule Hierarchy"></p><p>| 策略名 | 策略描述 | 实现说明 |
 | - | - |
 | BestAvailableRule | 选择一个最小并发请求的服务器 | 逐个考察服务器的LoadBalancerStats信息，如果服务器被断路器断了则忽略，在其中选择ActiveRequestsCount最小的服务器。 |
 | AvailabilityFilteringRule | 过滤掉那些因为一直连接失败的被断路器断了的服务器，并过滤掉那些高并发的服务器（活跃连接数超过配置的阈值） | 使用一个AvailabilityPredicate来包含过滤服务器的逻辑，其实就是检查LoadBalancerStats里记录各个服务器的断路器状态和ActiveRequestsCount状态。当尝试十次后还无法选出合适的服务器，则通关过轮训策略选出一个。 |
 | ZoneAvoidanceRule | 通过组合判断服务器所在zone的性能和服务器可用性来选择server | 使用ZoneAvoidancePredicate和AvailabilityPredicate来判断是否选择某个服务器，前一个判断判定一个zone的运行性能是否可用，剔除不可用的zone（的所有服务器），AvailabilityPredicate用于过滤掉连接数过多的服务器。 |
-| RoundRobinRule | roundRobin方式轮询选择服务器 | 维护一个AtomicInteger类型的轮询下标，尝试十次从allServers选择下标对应位置的可用服务器（服务器不可用，则下标原子加一取模）。<br>有点疑问，allServers中前十个服务器不可用而第十一服务器可用，RoundRobinRule会取不到服务器，为什么不从reachableServers挑选呢？ |
+| RoundRobinRule | roundRobin方式轮询选择服务器 | 维护一个AtomicInteger类型的轮询下标，尝试十次从allServers选择下标对应位置的可用服务器（服务器不可用，则下标原子加一取模）。有点疑问，allServers中前十个服务器不可用而第十一服务器可用，RoundRobinRule会取不到服务器，为什么不从reachableServers挑选呢？ |
 | WeightedResponseTimeRule | 根据响应时间为每个服务器分配一个权重，使用加权RoundRobin方式选择服务器。 | 一个定时器线程从ServerStats里面读取评估响应时间，为每个服务器计算一个权重。权重为所有服务器平均响应时间总和减去服务器自己的平均响应时间。当刚开始运行，没有形成统计时，使用RoundRobin策略选择服务器。 |
-| RandomRule | 随机选择一个服务器 | 在allServers随机选择下标，在reachableServers选择对应下标的可用服务器。<br>还是如上的疑问，为什么从allServers随机选择下标，而在reachableServers选择？ |
-| RetryRule | 对已有的负载均衡策略加上重试机制。 | 在一个配置时间段内使用subRule的方式无法选择到可用服务器时，重新尝试。 |</p>
-
-<h4 id="服务器存活检查-iping">服务器存活检查 IPing</h4>
-
-<p><img src="/images/2017/06/IPing.png" alt="IPing Hierarchy" /></p>
-
-<p>| IPing方式 | 描述 | 实现说明 |
+| RandomRule | 随机选择一个服务器 | 在allServers随机选择下标，在reachableServers选择对应下标的可用服务器。还是如上的疑问，为什么从allServers随机选择下标，而在reachableServers选择？ |
+| RetryRule | 对已有的负载均衡策略加上重试机制。 | 在一个配置时间段内使用subRule的方式无法选择到可用服务器时，重新尝试。 |</p><h4 id=服务器存活检查-iping>服务器存活检查 IPing</h4><p><img src=/images/2017/06/IPing.png alt="IPing Hierarchy"></p><p>| IPing方式 | 描述 | 实现说明 |
 | - | - |
 | PingConstant | 根据配置返回固定的服务器可用状态。 | isAlive方法仅返回的就是配置值。如果没配置，则默认为true。 |
 | DummyPing | 不进行任何实质操作，始终返回服务器可用。 | isAlive方法仅返回true。与NoOpPing类相比多实现了一个空的initWithNiwsConfig方法。 |
 | NoOpPing | 不进行任何实质操作，始终返回服务器可用。 | isAlive方法仅返回true。 |
 | PingUrl | Ping url以进行健康检查 | 通过对配置的服务器url进行HTTP GET操作，如果返回200 OK且HTTP响应体符合期望，则认为服务器存活，否则认为服务器有故障。 |
-| ConsulPing | Ping一个基于Consul服务发现的服务器 | 没有进行实质HTTP请求，通过Consul健康检查结果获取服务器是否可用信息。|</p>
-
-<h4 id="获取服务器列表-serverlist">获取服务器列表 ServerList</h4>
-
-<p><img src="/images/2017/06/ServerList.png" alt="ServerList Hierarchy" /> 其中ConsulServerList是通过serviceId获取某Consul服务的所有服务器实例列表。</p>
-
-<h4 id="过滤服务器-serverlistfilter">过滤服务器 ServerListFilter</h4>
-
-<p><img src="/images/2017/06/ServerListFilter.png" alt="ServerListFilter Hierarchy" /> 其中HealthServiceServerListFilter是用于过滤，获取通过健康检查的Consul服务器。</p>
-
-<h3 id="ribbon配置">Ribbon配置</h3>
-
-<p>像上面所讲的Ribbon组件，负载均衡策略和服务器存活检查都有多种实现，所以Ribbon配置也是很丰富的。
-<a href="https://github.com/Netflix/ribbon/wiki/Working-with-load-balancers">Working with load balancers</a>提供了一些Ribbon配置项，<a href="http://cloud.spring.io/spring-cloud-static/spring-cloud.html#spring-cloud-ribbon">Client Side Load Balancer: Spring Cloud Ribbon</a>提供了在Spring Boot环境对Ribbon进行配置的方法。
-具体配置项可详见代码<a href="https://github.com/Netflix/ribbon/blob/master/ribbon-core/src/main/java/com/netflix/client/config/DefaultClientConfigImpl.java">com.netflix.client.config.DefaultClientConfigImpl</a>和<a href="https://github.com/Netflix/ribbon/blob/master/ribbon-core/src/main/java/com/netflix/client/config/CommonClientConfigKey.java">com.netflix.client.config.CommonClientConfigKey</a>。</p>
-
-<p>| 配置项 | 配置类型 |
-| - | - |
-| AppName | String |
-| Version | String |
-| Port | Integer |
-| SecurePort | Integer |
-| VipAddress | String |
-| ForceClientPortConfiguration | Boolean |
-| DeploymentContextBasedVipAddresses | String |
-| MaxAutoRetries | Integer |
-| MaxAutoRetriesNextServer | Integer |
-| OkToRetryOnAllOperations | Boolean |
-| RequestSpecificRetryOn | Boolean |
-| ReceiveBufferSize | Integer |
-| EnablePrimeConnections | Boolean |
-| PrimeConnectionsClassName | String |
-| MaxRetriesPerServerPrimeConnection | Integer |
-| MaxTotalTimeToPrimeConnections | Integer |
-| MinPrimeConnectionsRatio | Float |
-| PrimeConnectionsURI | String |
-| PoolMaxThreads | Integer |
-| PoolMinThreads | Integer |
-| PoolKeepAliveTime | Integer |
-| PoolKeepAliveTimeUnits | String |
-| EnableConnectionPool | Boolean |
-| MaxHttpConnectionsPerHost | Integer |
-| MaxTotalHttpConnections | Integer |
-| MaxConnectionsPerHost | Integer |
-| MaxTotalConnections | Integer |
-| IsSecure | Boolean |
-| GZipPayload | Boolean |
-| ConnectTimeout | Integer |
-| BackoffTimeout | Integer |
-| ReadTimeout | Integer |
-| SendBufferSize | Integer |
-| StaleCheckingEnabled | Boolean |
-| Linger | Integer |
-| ConnectionManagerTimeout | Integer |
-| FollowRedirects | Boolean |
-| ConnectionPoolCleanerTaskEnabled | Boolean |
-| ConnIdleEvictTimeMilliSeconds | Integer |
-| ConnectionCleanerRepeatInterval | Integer |
-| EnableGZIPContentEncodingFilter | Boolean |
-| ProxyHost | String |
-| ProxyPort | Integer |
-| KeyStore | String |
-| KeyStorePassword | String |
-| TrustStore | String |
-| TrustStorePassword | String |
-| IsClientAuthRequired | Boolean |
-| CustomSSLSocketFactoryClassName | String |
-| IsHostnameValidationRequired | Boolean |
-| IgnoreUserTokenInConnectionPoolForSecureClient | Boolean |
-| ClientClassName | String |
-| InitializeNFLoadBalancer | Boolean |
-| NFLoadBalancerClassName | String |
-| NFLoadBalancerRuleClassName | String |
-| NFLoadBalancerPingClassName | String |
-| NFLoadBalancerPingInterval | Integer |
-| NFLoadBalancerMaxTotalPingTime | Integer |
-| NIWSServerListClassName | String |
-| ServerListUpdaterClassName | String |
-| NIWSServerListFilterClassName | String |
-| ServerListRefreshInterval | Integer |
-| EnableMarkingServerDownOnReachingFailureLimit | Boolean |
-| ServerDownFailureLimit | Integer |
-| ServerDownStatWindowInMillis | Integer |
-| EnableZoneAffinity | Boolean |
-| EnableZoneExclusivity | Boolean |
-| PrioritizeVipAddressBasedServers | Boolean |
-| VipAddressResolverClassName | String |
-| TargetRegion | String |
-| RulePredicateClasses | String |
-| RequestIdHeaderName | String |
-| UseIPAddrForServer | Boolean |
-| listOfServers | String |</p>
-
-<h4 id="ribbon调用流">Ribbon调用流</h4>
-
-<p>LoadBalancerAutoConfiguration类会创建了一个LoadBalancerInterceptor的Bean，用于实现对客户端发起请求时进行拦截，以实现客户端负载均衡；会创建了一个RestTemplateCustomizer的Bean，用于给RestTemplate增加LoadBalancerInterceptor拦截器；会维护了一个被@LoadBalanced注解修饰的RestTemplate对象列表，并在这里进行初始化，通过调用RestTemplateCustomizer的实例来给需要客户端负载均衡的RestTemplate增加LoadBalancerInterceptor拦截器。
+| ConsulPing | Ping一个基于Consul服务发现的服务器 | 没有进行实质HTTP请求，通过Consul健康检查结果获取服务器是否可用信息。|</p><h4 id=获取服务器列表-serverlist>获取服务器列表 ServerList</h4><p><img src=/images/2017/06/ServerList.png alt="ServerList Hierarchy"> 其中ConsulServerList是通过serviceId获取某Consul服务的所有服务器实例列表。</p><h4 id=过滤服务器-serverlistfilter>过滤服务器 ServerListFilter</h4><p><img src=/images/2017/06/ServerListFilter.png alt="ServerListFilter Hierarchy"> 其中HealthServiceServerListFilter是用于过滤，获取通过健康检查的Consul服务器。</p><h3 id=ribbon配置>Ribbon配置</h3><p>像上面所讲的Ribbon组件，负载均衡策略和服务器存活检查都有多种实现，所以Ribbon配置也是很丰富的。
+<a href=https://github.com/Netflix/ribbon/wiki/Working-with-load-balancers>Working with load balancers</a>提供了一些Ribbon配置项，<a href=http://cloud.spring.io/spring-cloud-static/spring-cloud.html#spring-cloud-ribbon>Client Side Load Balancer: Spring Cloud Ribbon</a>提供了在Spring Boot环境对Ribbon进行配置的方法。
+具体配置项可详见代码<a href=https://github.com/Netflix/ribbon/blob/master/ribbon-core/src/main/java/com/netflix/client/config/DefaultClientConfigImpl.java>com.netflix.client.config.DefaultClientConfigImpl</a>和<a href=https://github.com/Netflix/ribbon/blob/master/ribbon-core/src/main/java/com/netflix/client/config/CommonClientConfigKey.java>com.netflix.client.config.CommonClientConfigKey</a>。</p><table><thead><tr><th>配置项</th><th>配置类型</th></tr></thead><tbody><tr><td>AppName</td><td>String</td></tr><tr><td>Version</td><td>String</td></tr><tr><td>Port</td><td>Integer</td></tr><tr><td>SecurePort</td><td>Integer</td></tr><tr><td>VipAddress</td><td>String</td></tr><tr><td>ForceClientPortConfiguration</td><td>Boolean</td></tr><tr><td>DeploymentContextBasedVipAddresses</td><td>String</td></tr><tr><td>MaxAutoRetries</td><td>Integer</td></tr><tr><td>MaxAutoRetriesNextServer</td><td>Integer</td></tr><tr><td>OkToRetryOnAllOperations</td><td>Boolean</td></tr><tr><td>RequestSpecificRetryOn</td><td>Boolean</td></tr><tr><td>ReceiveBufferSize</td><td>Integer</td></tr><tr><td>EnablePrimeConnections</td><td>Boolean</td></tr><tr><td>PrimeConnectionsClassName</td><td>String</td></tr><tr><td>MaxRetriesPerServerPrimeConnection</td><td>Integer</td></tr><tr><td>MaxTotalTimeToPrimeConnections</td><td>Integer</td></tr><tr><td>MinPrimeConnectionsRatio</td><td>Float</td></tr><tr><td>PrimeConnectionsURI</td><td>String</td></tr><tr><td>PoolMaxThreads</td><td>Integer</td></tr><tr><td>PoolMinThreads</td><td>Integer</td></tr><tr><td>PoolKeepAliveTime</td><td>Integer</td></tr><tr><td>PoolKeepAliveTimeUnits</td><td>String</td></tr><tr><td>EnableConnectionPool</td><td>Boolean</td></tr><tr><td>MaxHttpConnectionsPerHost</td><td>Integer</td></tr><tr><td>MaxTotalHttpConnections</td><td>Integer</td></tr><tr><td>MaxConnectionsPerHost</td><td>Integer</td></tr><tr><td>MaxTotalConnections</td><td>Integer</td></tr><tr><td>IsSecure</td><td>Boolean</td></tr><tr><td>GZipPayload</td><td>Boolean</td></tr><tr><td>ConnectTimeout</td><td>Integer</td></tr><tr><td>BackoffTimeout</td><td>Integer</td></tr><tr><td>ReadTimeout</td><td>Integer</td></tr><tr><td>SendBufferSize</td><td>Integer</td></tr><tr><td>StaleCheckingEnabled</td><td>Boolean</td></tr><tr><td>Linger</td><td>Integer</td></tr><tr><td>ConnectionManagerTimeout</td><td>Integer</td></tr><tr><td>FollowRedirects</td><td>Boolean</td></tr><tr><td>ConnectionPoolCleanerTaskEnabled</td><td>Boolean</td></tr><tr><td>ConnIdleEvictTimeMilliSeconds</td><td>Integer</td></tr><tr><td>ConnectionCleanerRepeatInterval</td><td>Integer</td></tr><tr><td>EnableGZIPContentEncodingFilter</td><td>Boolean</td></tr><tr><td>ProxyHost</td><td>String</td></tr><tr><td>ProxyPort</td><td>Integer</td></tr><tr><td>KeyStore</td><td>String</td></tr><tr><td>KeyStorePassword</td><td>String</td></tr><tr><td>TrustStore</td><td>String</td></tr><tr><td>TrustStorePassword</td><td>String</td></tr><tr><td>IsClientAuthRequired</td><td>Boolean</td></tr><tr><td>CustomSSLSocketFactoryClassName</td><td>String</td></tr><tr><td>IsHostnameValidationRequired</td><td>Boolean</td></tr><tr><td>IgnoreUserTokenInConnectionPoolForSecureClient</td><td>Boolean</td></tr><tr><td>ClientClassName</td><td>String</td></tr><tr><td>InitializeNFLoadBalancer</td><td>Boolean</td></tr><tr><td>NFLoadBalancerClassName</td><td>String</td></tr><tr><td>NFLoadBalancerRuleClassName</td><td>String</td></tr><tr><td>NFLoadBalancerPingClassName</td><td>String</td></tr><tr><td>NFLoadBalancerPingInterval</td><td>Integer</td></tr><tr><td>NFLoadBalancerMaxTotalPingTime</td><td>Integer</td></tr><tr><td>NIWSServerListClassName</td><td>String</td></tr><tr><td>ServerListUpdaterClassName</td><td>String</td></tr><tr><td>NIWSServerListFilterClassName</td><td>String</td></tr><tr><td>ServerListRefreshInterval</td><td>Integer</td></tr><tr><td>EnableMarkingServerDownOnReachingFailureLimit</td><td>Boolean</td></tr><tr><td>ServerDownFailureLimit</td><td>Integer</td></tr><tr><td>ServerDownStatWindowInMillis</td><td>Integer</td></tr><tr><td>EnableZoneAffinity</td><td>Boolean</td></tr><tr><td>EnableZoneExclusivity</td><td>Boolean</td></tr><tr><td>PrioritizeVipAddressBasedServers</td><td>Boolean</td></tr><tr><td>VipAddressResolverClassName</td><td>String</td></tr><tr><td>TargetRegion</td><td>String</td></tr><tr><td>RulePredicateClasses</td><td>String</td></tr><tr><td>RequestIdHeaderName</td><td>String</td></tr><tr><td>UseIPAddrForServer</td><td>Boolean</td></tr><tr><td>listOfServers</td><td>String</td></tr></tbody></table><h4 id=ribbon调用流>Ribbon调用流</h4><p>LoadBalancerAutoConfiguration类会创建了一个LoadBalancerInterceptor的Bean，用于实现对客户端发起请求时进行拦截，以实现客户端负载均衡；会创建了一个RestTemplateCustomizer的Bean，用于给RestTemplate增加LoadBalancerInterceptor拦截器；会维护了一个被@LoadBalanced注解修饰的RestTemplate对象列表，并在这里进行初始化，通过调用RestTemplateCustomizer的实例来给需要客户端负载均衡的RestTemplate增加LoadBalancerInterceptor拦截器。
 RestTemplate被@LoadBalance注解后，其在ClientHttpRequestExecution调用的过程中被名为LoadBalancerInterceptor的ClientHttpRequestInterceptor拦截器截获，进而交给负载均衡器LoadBalancerClient去处理。
-LoadBalancerClient只是一个抽象的负载均衡器接口，核心功能交给了ILoadBalancer实现类来处理。ILoadBalancer实现类通过配置IRule、IPing等信息，通过ConsulClient获取注册列表的信息并定时检查服务器健康状态，得到注册列表后，ILoadBalancer实现类就可以根据IRule的策略进行负载均衡。</p>
-
-<h3 id="参考">参考</h3>
-
-<hr />
-
-<p><a href="http://cloud.spring.io/spring-cloud-static/spring-cloud.html#spring-cloud-ribbon">Client Side Load Balancer: Spring Cloud Ribbon</a><br />
-<a href="https://content.pivotal.io/slides/advanced-spring-boot-consul">Advanced Spring Boot with Consul</a><br />
-<a href="http://blog.trifork.com/2016/12/14/service-discovery-using-consul-and-spring-cloud/">SERVICE DISCOVERY USING CONSUL &amp; SPRING CLOUD</a><br />
-<a href="https://github.com/Netflix/ribbon">GitHub: Netflix/ribbon</a><br />
-<a href="http://www.idouba.net/netflix-source-loadbalancer-implementation-ribbon/">Netflix源码解析之Ribbon：客户端负载均衡器Ribbon的设计和实现</a><br />
-<a href="http://www.idouba.net/netflix-source-ribbon-rule/">Netflix源码解析之Ribbon：负载均衡策略的定义和实现</a><br />
-<a href="http://blog.didispace.com/springcloud-sourcecode-ribbon/">Spring Cloud源码分析（二）Ribbon</a><br />
-<a href="http://blog.csdn.net/forezp/article/details/74820899">深入理解Ribbon之源码解析</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：Ribbon和Spring Cloud Consul
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/ribbon" rel="tag" title="ribbon">#ribbon#</a>
-    
-    <a href="/tags/consul" rel="tag" title="consul">#consul#</a>
-    
-    <a href="/tags/spring" rel="tag" title="spring">#spring#</a>
-    
-    <a href="/tags/loadbalance" rel="tag" title="loadbalance">#loadbalance#</a>
-    
-    <a href="/tags/%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" rel="tag" title="负载均衡">#负载均衡#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/" rel="next" title="swagger-codegen 2.2.3与2.1.5区别">
-        <i class="fa fa-chevron-left"></i> swagger-codegen 2.2.3与2.1.5区别
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/spring_cloud_consul_config/" rel="prev" title="Spring Cloud Consul Config">
-        Spring Cloud Consul Config <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/";
-this.page.identifier = "https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#ribbonclient和-loadbalanced的区别">@RibbonClient和@LoadBalanced的区别</a></li>
-<li><a href="#spring-cloud-consul和ribbon">Spring Cloud Consul和Ribbon</a></li>
-<li><a href="#ribbon组件">Ribbon组件</a>
-<ul>
-<li><a href="#负载均衡策略-irule">负载均衡策略 IRule</a></li>
-<li><a href="#服务器存活检查-iping">服务器存活检查 IPing</a></li>
-<li><a href="#获取服务器列表-serverlist">获取服务器列表 ServerList</a></li>
-<li><a href="#过滤服务器-serverlistfilter">过滤服务器 ServerListFilter</a></li>
-</ul></li>
-<li><a href="#ribbon配置">Ribbon配置</a>
-<ul>
-<li><a href="#ribbon调用流">Ribbon调用流</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+LoadBalancerClient只是一个抽象的负载均衡器接口，核心功能交给了ILoadBalancer实现类来处理。ILoadBalancer实现类通过配置IRule、IPing等信息，通过ConsulClient获取注册列表的信息并定时检查服务器健康状态，得到注册列表后，ILoadBalancer实现类就可以根据IRule的策略进行负载均衡。</p><h3 id=参考>参考</h3><hr><p><a href=http://cloud.spring.io/spring-cloud-static/spring-cloud.html#spring-cloud-ribbon>Client Side Load Balancer: Spring Cloud Ribbon</a><br><a href=https://content.pivotal.io/slides/advanced-spring-boot-consul>Advanced Spring Boot with Consul</a><br><a href=http://blog.trifork.com/2016/12/14/service-discovery-using-consul-and-spring-cloud/>SERVICE DISCOVERY USING CONSUL & SPRING CLOUD</a><br><a href=https://github.com/Netflix/ribbon>GitHub: Netflix/ribbon</a><br><a href=http://www.idouba.net/netflix-source-loadbalancer-implementation-ribbon/>Netflix源码解析之Ribbon：客户端负载均衡器Ribbon的设计和实现</a><br><a href=http://www.idouba.net/netflix-source-ribbon-rule/>Netflix源码解析之Ribbon：负载均衡策略的定义和实现</a><br><a href=http://blog.didispace.com/springcloud-sourcecode-ribbon/>Spring Cloud源码分析（二）Ribbon</a><br><a href=http://blog.csdn.net/forezp/article/details/74820899>深入理解Ribbon之源码解析</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Ribbon和Spring Cloud Consul<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/ribbon rel=tag title=ribbon>#ribbon#</a>
+<a href=/tags/consul rel=tag title=consul>#consul#</a>
+<a href=/tags/spring rel=tag title=spring>#spring#</a>
+<a href=/tags/loadbalance rel=tag title=loadbalance>#loadbalance#</a>
+<a href=/tags/%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1 rel=tag title=负载均衡>#负载均衡#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/swagger-codegen_2.2.3%E4%B8%8E2.1.5%E5%8C%BA%E5%88%AB/ rel=next title="swagger-codegen 2.2.3与2.1.5区别"><i class="fa fa-chevron-left"></i> swagger-codegen 2.2.3与2.1.5区别</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/spring_cloud_consul_config/ rel=prev title="Spring Cloud Consul Config">Spring Cloud Consul Config <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/",this.page.identifier="https://mryqu.github.io/post/ribbon%E5%92%8Cspring_cloud_consul/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#ribbonclient和loadbalanced的区别>@RibbonClient和@LoadBalanced的区别</a></li><li><a href=#spring-cloud-consul和ribbon>Spring Cloud Consul和Ribbon</a></li><li><a href=#ribbon组件>Ribbon组件</a></li><li><a href=#ribbon配置>Ribbon配置</a></li><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

@@ -1,132 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Curl on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/curl/</link>
-    <description>Recent content in Curl on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 03 Jan 2017 05:07:44 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/curl/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Upload file to Google Drive using Postman and cURL</title>
-      <link>https://mryqu.github.io/post/upload_file_to_google_drive_using_postman_and_curl/</link>
-      <pubDate>Tue, 03 Jan 2017 05:07:44 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/upload_file_to_google_drive_using_postman_and_curl/</guid>
-      <description>Simple upload For quick transfer of smaller files, for example, 5 MB or less.
-Postman cURL curl -T mytest.csv -X POST -H &amp;quot;Content-Type: text/csv&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; &amp;quot;https://www.googleapis.com/upload/drive/v3/files?uploadType=media&amp;amp;access_token={YOUR_ACCESS_TOKEN}&amp;quot;  Multipart upload For quick transfer of smaller files and metadata; transfers the file along with metadata that describes it, all in a single request.
-Postman At the beginning, I try to use form-data for body, then the second value can use file directly.</description>
-    </item>
-    
-    <item>
-      <title>获取Facebook User Token</title>
-      <link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</link>
-      <pubDate>Tue, 09 Aug 2016 05:25:47 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</guid>
-      <description>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。 获取Facebook App Token一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>curl on Mryqu's Notes</title><link>https://mryqu.github.io/tags/curl/</link><description>Recent content in curl on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Jan 2017 05:07:44 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/curl/index.xml" rel="self" type="application/rss+xml"/><item><title>Upload file to Google Drive using Postman and cURL</title><link>https://mryqu.github.io/post/upload_file_to_google_drive_using_postman_and_curl/</link><pubDate>Tue, 03 Jan 2017 05:07:44 +0000</pubDate><guid>https://mryqu.github.io/post/upload_file_to_google_drive_using_postman_and_curl/</guid><description>Simple upload For quick transfer of smaller files, for example, 5 MB or less.
+Postman cURL curl -T mytest.csv -X POST -H &amp;#34;Content-Type: text/csv&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; &amp;#34;https://www.googleapis.com/upload/drive/v3/files?uploadType=media&amp;amp;access_token={YOUR_ACCESS_TOKEN}&amp;#34; Multipart upload For quick transfer of smaller files and metadata; transfers the file along with metadata that describes it, all in a single request.
+Postman At the beginning, I try to use form-data for body, then the second value can use file directly.</description></item><item><title>获取Facebook User Token</title><link>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</link><pubDate>Tue, 09 Aug 2016 05:25:47 +0000</pubDate><guid>https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96facebook_user_token/</guid><description>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。 获取Facebook App Token一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。
 参考3 Facebook Login - Advance - Manually Build a Login Flow给出了如何构建一个signURL，RestFB的getLoginDialogUrl方法就实现了这样的功能。redirectUri一开始直接想用带外认证urn:ietf:wg:oauth:2.0:oob，可是Facebook不认呀。 Facebook Login - Advance - Manually Build a Login Flow已经提到了：对于桌面应用，redirectUri必须是https://www.facebook.com/connect/login_success.html 。
 获取Facebook User Token步骤 生成signURL 生成signURL并进行Get请求：
-curl &amp;quot;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;amp;response_type=token&amp;amp;scope=public_profile&amp;quot;  可以从返回的页面中获取登录表单：认证 使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：
-curl -X POST &amp;quot;{form-action}&amp;quot; -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; --data &amp;quot;lsd={lsd_value}&amp;amp;api_key={api_key_value}&amp;amp;cancel_url={cancel_rul_value}&amp;amp;isprivate={isprivate=_value}&amp;amp;legacy_return={legacy_return_value}&amp;amp;profile_selector_ids={profile_selector_ids_value}&amp;amp;return_session={return_session_value}&amp;amp;skip_api_login={skip_api_login_value}&amp;amp;signed_next={skip_api_login_value}&amp;amp;trynum={trynum_value}&amp;amp;timezone={timezone_value}&amp;amp;lgndim={lgndim_value}&amp;amp;lgnrnd={lgnrnd_value}&amp;amp;lgnjs={lgnjs_value}&amp;amp;email={your_facebook_account}&amp;amp;pass={your_facebook_password}&amp;amp;login={login_value}&amp;amp;persistent={persistent_value}&amp;amp;default_persistent={default_persistent_value}&amp;quot;  获取User Token Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。
-https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;amp;expires_in={expire}  参考 Facebook Login - Access Tokens
-Facebook Login - Access Tokens - App Access Tokens</description>
-    </item>
-    
-    <item>
-      <title>[Zookeeper] 运行Zookeeper REST服务实践</title>
-      <link>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Wed, 02 Mar 2016 05:57:16 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</guid>
-      <description>Zookeeper REST服务介绍 通常我们应该使用Java/C客户端绑定访问ZooKeeper服务器。不过由于大多数语言内建支持基于HTTP的协议，RESTZooKeeper网关还是很有用的。ZooKeeper REST实现使用Jersey JAX-RS，其REST绑定参考SPEC.txt。其中org.apache.zookeeper.server.jersey.resources.ZNodeResource是项目的核心类，提供Http请求方式对ZooKeeper节点的添加、修改、查询和删除功能，以xml方式返回数据；org.apache.zookeeper.server.jersey.RestMain提供主函数入口。
+curl &amp;#34;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;amp;response_type=token&amp;amp;scope=public_profile&amp;#34; 可以从返回的页面中获取登录表单：
+认证 使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：
+curl -X POST &amp;#34;{form-action}&amp;#34; -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; --data &amp;#34;lsd={lsd_value}&amp;amp;api_key={api_key_value}&amp;amp;cancel_url={cancel_rul_value}&amp;amp;isprivate={isprivate=_value}&amp;amp;legacy_return={legacy_return_value}&amp;amp;profile_selector_ids={profile_selector_ids_value}&amp;amp;return_session={return_session_value}&amp;amp;skip_api_login={skip_api_login_value}&amp;amp;signed_next={skip_api_login_value}&amp;amp;trynum={trynum_value}&amp;amp;timezone={timezone_value}&amp;amp;lgndim={lgndim_value}&amp;amp;lgnrnd={lgnrnd_value}&amp;amp;lgnjs={lgnjs_value}&amp;amp;email={your_facebook_account}&amp;amp;pass={your_facebook_password}&amp;amp;login={login_value}&amp;amp;persistent={persistent_value}&amp;amp;default_persistent={default_persistent_value}&amp;#34; 获取User Token Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。
+https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;amp;expires_in={expire} 参考 Facebook Login - Access Tokens Facebook Login - Access Tokens - App Access Tokens Facebook Login - Advance - Manually Build a Login Flow RestFB： GET LOGIN DIALOG URL RestFB： EXTENDING AN ACCESS TOKEN Facebook Dialog OAuth Tutorial</description></item><item><title>[Zookeeper] 运行Zookeeper REST服务实践</title><link>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</link><pubDate>Wed, 02 Mar 2016 05:57:16 +0000</pubDate><guid>https://mryqu.github.io/post/zookeeper_%E8%BF%90%E8%A1%8Czookeeper_rest%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5/</guid><description>Zookeeper REST服务介绍 通常我们应该使用Java/C客户端绑定访问ZooKeeper服务器。不过由于大多数语言内建支持基于HTTP的协议，RESTZooKeeper网关还是很有用的。ZooKeeper REST实现使用Jersey JAX-RS，其REST绑定参考SPEC.txt。其中org.apache.zookeeper.server.jersey.resources.ZNodeResource是项目的核心类，提供Http请求方式对ZooKeeper节点的添加、修改、查询和删除功能，以xml方式返回数据；org.apache.zookeeper.server.jersey.RestMain提供主函数入口。
 以Ant脚本方式启动 这是GitHub：apache/zookeeper - REST implementation中介绍的方式。
-cd $ZOOPEEPER_HOME ant cd src/contrib/rest nohup ant run&amp;amp;  如果仅是临时运行一下REST服务，ant run即可。 通过nohug提交作业可以确保在退出控制台后ZookeeperREST服务仍在后台运行。当需要关闭时，通过jobs命令查找当前所有运行的作业，通过fg [job_spec]命令关闭作业。 以rest.sh方式启动 cd $ZOOKEEPER_HOME mkdir src/contrib/rest/lib cp build/contrib/rest/zookeeper-dev-rest.jar src/contrib/rest/lib/ cp build/contrib/rest/lib/*.jar src/contrib/rest/lib/ cp zookeeper-3.4.X.jar src/contrib/rest/lib/ cp src/java/lib/*.jar src/contrib/rest/lib/  启动
-cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh start  停止
-cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh stop  查看日志
-cd $ZOOKEEPER_HOME/src/contrib/rest tail -f zkrest.log  测试 将我的Zookeeper从node50064复制到node50069和node51054上，分别在三台机器上启动Zookeeper和ZookeeperREST服务。
-访问application.wadl 获取根节点数据 获取根节点的子节点 导出节点及znode层次数据 参考 GitHub：apache/zookeeper - REST implementation</description>
-    </item>
-    
-    <item>
-      <title>cURL错误处理</title>
-      <link>https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
-      <pubDate>Thu, 07 Jan 2016 06:08:54 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid>
-      <description>cURL执行错误分为两种： - 通过curl_easy_perform函数执行请求结果，返回值不是CURLE_OK。错误信息除了可以对照CURLcode定义查看，也可以通过设置CURLOPT_ERRORBUFFER设置错误缓存区获得人类易读的错误文字信息。范例见https://curl.haxx.se/libcurl/c/CURLOPT_ERRORBUFFER.html
- curl = curl_easy_init(); if(curl) { CURLcode res; char errbuf[CURL_ERROR_SIZE]; curl_easy_setopt(curl, CURLOPT_URL, &amp;quot;http://example.com&amp;quot;); curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf); errbuf[0] = 0; res = curl_easy_perform(curl); if(res != CURLE_OK) { size_t len = strlen(errbuf); fprintf(stderr, &amp;quot;\nlibcurl: (%d) &amp;quot;, res); if(len) fprintf(stderr, &amp;quot;%s%s&amp;quot;, errbuf, ((errbuf[len - 1] != &#39;\n&#39;) ? &amp;quot;\n&amp;quot; : &amp;quot;&amp;quot;)); else fprintf(stderr, &amp;quot;%s\n&amp;quot;, curl_easy_strerror(res)); } }   另一种是curl_easy_perform返回CURLE_OK，但是HTTP响应代码为400及以上的整数。HTTP响应代码可以通过curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE,&amp;amp;httpCode)获得错误消息需要通过curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,curlCallback)获得消息体后解析而得。  </description>
-    </item>
-    
-    <item>
-      <title>为cURL库设置HTTP代理的代码片段</title>
-      <link>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link>
-      <pubDate>Wed, 06 Jan 2016 06:01:08 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</guid>
-      <description>在twitcurl看到cURL库设置http代理的方法，记录一下。
-void twitCurl::prepareCurlProxy() { if( m_curlProxyParamsSet ) { return; } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYUSERPWD, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYAUTH, (long)CURLAUTH_ANY ); std::string proxyIpPort(&amp;quot;&amp;quot;); if( getProxyServerIp().size() ) { utilMakeCurlParams( proxyIpPort, getProxyServerIp(), getProxyServerPort() ); } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, proxyIpPort.c_str() ); if( m_proxyUserName.length() &amp;amp;amp;&amp;amp;amp; m_proxyPassword.length() ) { std::string proxyUserPass; utilMakeCurlParams( proxyUserPass,getProxyUserName(),getProxyPassword() ); curl_easy_setopt( m_curlHandle,CURLOPT_PROXYUSERPWD,proxyUserPass.c_str() ); } m_curlProxyParamsSet = true; }  </description>
-    </item>
-    
-    <item>
-      <title>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</title>
-      <link>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</link>
-      <pubDate>Mon, 14 Sep 2015 06:22:41 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</guid>
-      <description>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
+cd $ZOOPEEPER_HOME ant cd src/contrib/rest nohup ant run&amp;amp; 如果仅是临时运行一下REST服务，ant run即可。 通过nohug提交作业可以确保在退出控制台后ZookeeperREST服务仍在后台运行。当需要关闭时，通过jobs命令查找当前所有运行的作业，通过fg [job_spec]命令关闭作业。 以rest.sh方式启动 cd $ZOOKEEPER_HOME mkdir src/contrib/rest/lib cp build/contrib/rest/zookeeper-dev-rest.jar src/contrib/rest/lib/ cp build/contrib/rest/lib/*.jar src/contrib/rest/lib/ cp zookeeper-3.4.X.jar src/contrib/rest/lib/ cp src/java/lib/*.jar src/contrib/rest/lib/ 启动
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh start 停止
+cd $ZOOKEEPER_HOME/src/contrib/rest ./rest.sh stop 查看日志
+cd $ZOOKEEPER_HOME/src/contrib/rest tail -f zkrest.log 测试 将我的Zookeeper从node50064复制到node50069和node51054上，分别在三台机器上启动Zookeeper和ZookeeperREST服务。
+访问application.wadl 获取根节点数据 获取根节点的子节点 导出节点及znode层次数据 参考 GitHub：apache/zookeeper - REST implementation Zookeeper开启Rest服务(3.4.6) Hue（五）集成Zookeeper New ZooKeeper Browser app!</description></item><item><title>cURL错误处理</title><link>https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link><pubDate>Thu, 07 Jan 2016 06:08:54 +0000</pubDate><guid>https://mryqu.github.io/post/curl%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid><description>cURL执行错误分为两种：
+通过curl_easy_perform函数执行请求结果，返回值不是CURLE_OK。错误信息除了可以对照CURLcode定义查看，也可以通过设置CURLOPT_ERRORBUFFER设置错误缓存区获得人类易读的错误文字信息。范例见https://curl.haxx.se/libcurl/c/CURLOPT_ERRORBUFFER.html curl = curl_easy_init(); if(curl) { CURLcode res; char errbuf[CURL_ERROR_SIZE]; curl_easy_setopt(curl, CURLOPT_URL, &amp;#34;http://example.com&amp;#34;); curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf); errbuf[0] = 0; res = curl_easy_perform(curl); if(res != CURLE_OK) { size_t len = strlen(errbuf); fprintf(stderr, &amp;#34;\nlibcurl: (%d) &amp;#34;, res); if(len) fprintf(stderr, &amp;#34;%s%s&amp;#34;, errbuf, ((errbuf[len - 1] != &amp;#39;\n&amp;#39;) ? &amp;#34;\n&amp;#34; : &amp;#34;&amp;#34;)); else fprintf(stderr, &amp;#34;%s\n&amp;#34;, curl_easy_strerror(res)); } } 另一种是curl_easy_perform返回CURLE_OK，但是HTTP响应代码为400及以上的整数。HTTP响应代码可以通过curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE,&amp;amp;httpCode)获得错误消息需要通过curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,curlCallback)获得消息体后解析而得。</description></item><item><title>为cURL库设置HTTP代理的代码片段</title><link>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</link><pubDate>Wed, 06 Jan 2016 06:01:08 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</guid><description>在twitcurl看到cURL库设置http代理的方法，记录一下。
+void twitCurl::prepareCurlProxy() { if( m_curlProxyParamsSet ) { return; } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYUSERPWD, NULL ); curl_easy_setopt( m_curlHandle, CURLOPT_PROXYAUTH, (long)CURLAUTH_ANY ); std::string proxyIpPort(&amp;#34;&amp;#34;); if( getProxyServerIp().size() ) { utilMakeCurlParams( proxyIpPort, getProxyServerIp(), getProxyServerPort() ); } curl_easy_setopt( m_curlHandle, CURLOPT_PROXY, proxyIpPort.c_str() ); if( m_proxyUserName.length() &amp;amp;amp;&amp;amp;amp; m_proxyPassword.length() ) { std::string proxyUserPass; utilMakeCurlParams( proxyUserPass,getProxyUserName(),getProxyPassword() ); curl_easy_setopt( m_curlHandle,CURLOPT_PROXYUSERPWD,proxyUserPass.c_str() ); } m_curlProxyParamsSet = true; }</description></item><item><title>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</title><link>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</link><pubDate>Mon, 14 Sep 2015 06:22:41 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/</guid><description>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
 Facebook 通过curl命令获取访问密钥：
-curl &amp;quot;https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=client_credentials&amp;quot;  Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
+curl &amp;#34;https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=client_credentials&amp;#34; Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
 Google Analytics 首先通过浏览器访问下列链接获取code：
-https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
-curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Youtube Analytics 首先通过浏览器访问下列链接获取code：
-https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
-curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  Google drive &amp;amp; sheets 首先通过浏览器访问下列链接获取code：
-https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID}  通过curl命令获取访问密钥：
-curl -X POST -H &amp;quot;Content-Type: application/x-www-form-urlencoded&amp;quot; -H &amp;quot;Cache-Control: no-cache&amp;quot; -d &#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&#39; &amp;quot;https://www.googleapis.com/oauth2/v4/token&amp;quot;  DropBox 首先通过浏览器访问下列链接获取code：</description>
-    </item>
-    
-    <item>
-      <title>cURL速查表</title>
-      <link>https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/</link>
-      <pubDate>Thu, 30 Apr 2015 06:16:21 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid>
-      <description>cURL是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。 cURL支持的通訊协议有FTP、FTPS、HTTP、HTTPS、TFTP、SFTP、Gopher、SCP、Telnet、DICT、FILE、LDAP、LDAPS、IMAP、POP3、SMTP和RTSP。
-请求多个资源curl http://api.test.com/pp/[123-321]
-curl http://api.test.com/pp/{abc,def,ghi}/status允许重定向-L如果服务器返回3XX响应，使用-L选项可以让curl向新新地址发送请求。Cookies-b --cookie {name=data}发送原始Cookies或文件中的Cookies
-范例：-b &#39;n1=v1; n2=v2&#39;-c / --cookie-jar {file name}将Cookies存入文件发送数据-d / --data {data}-d {data} 发送原始数据
--d {@filename} 发送文件中的数据。
-如果不想对@进行解析，可以使用--data-raw。
-JSON范例：
--d &#39;{&#34;firstName&#34;:&#34;yd&#34;, &#34;lastName&#34;:&#34;q&#34;}&#39;
-原始数据范例：
--d &#39;name=yqu&#39; -d &#39;sex=male&#39;--data-ascii {data}等同于--data
---data-raw {data}几乎等同于--data，除了不对@进行解析。--data-binary {data}--data-binary {data} 发送原始二进制数据
---data-binary {@filename} 发送文件中的二进制数据。
-在发送前对数据不做任何处理。发送表单-F / --form {name=content}以Content-Type: multipart/form-data方式发送数据
-范例：
-curl -F password=@/etc/passwd www.mypasswords.com允许&#34;不安全&#34;SSL-k / --insecure所有的SSL连接使用默认安装的CA证书捆绑试图保障其安全。除非使用-k/--insecure，否则所有被认为是“不安全”的连接将会失败。认证-u / --user {user:password}服务器认证
--U / --proxy-user {user:password}代理认证
-代理-x / --proxyHTTP方法-X / --request {request}可以指定的方法为：POST、HEAD、PUT、GET、DELETE输出至文件-o / --output {file}输出到文件而不是标准输出输出至与远端文件同名的本地文件-O / --remote-name上传文件-T / --upload-file {file}curl -T &#34;</description>
-    </item>
-    
-    <item>
-      <title>[C&#43;&#43;] 编译OpenSSL和libCurl</title>
-      <link>https://mryqu.github.io/post/c&#43;&#43;_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</link>
-      <pubDate>Sun, 01 Mar 2015 23:05:26 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/c&#43;&#43;_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</guid>
-      <description>准备工作 登录一台Linux服务器，并完成下列工作： - 在目录/home/mryqu/创建子目录out，在out目录下创建子目录ssl和curl； - 从OpenSSL项目下载openssl-1.0.2.tar.gz，并解压； - 从curl项目下载curl-7.40.0.tar.gz，并解压
-编译OpenSSL  进入openssl-1.0.2目录; 完成OpenSSL配置，仅支持静态库不支持动态库：  ./config no-shared --openssldir=/home/mryqu/out/ssl  对Makefile文件中的FGLAG和DEPFLAG变量进行修改，增加-fPIC。 编译：  make depend make make install   编译产生如下内容： 编译libCurl  进入curl-7.40.0目录; 首先设定pkg-config路径，指定为上一步OpenSSL编译结果。由于我们的OpenSSL编译结果不在编译器/链接器默认搜索路径，通过pkg-config路径和&amp;ndash;with-ssl让libCurl查找到OpenSSL。通过&amp;ndash;without-zlib禁止掉即时解压缩。  export PKG_CONFIG_PATH=/home/mryqu/out/ssl/lib/pkgconfig ./configure --prefix=/home/mryqu/out/curl --with-ssl --without-zlib make make install   编译产生如下内容： 参考 OpenSSL Compilation and Installation
-how to install curl and libcurl
-OpenSSL Cookbook
-Everything curl</description>
-    </item>
-    
-  </channel>
-</rss>
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://www.googleapis.com/oauth2/v4/token&amp;#34; Youtube Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://www.googleapis.com/oauth2/v4/token&amp;#34; Google drive &amp;amp; sheets 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;response_type=code&amp;amp;client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://www.googleapis.com/oauth2/v4/token&amp;#34; DropBox 首先通过浏览器访问下列链接获取code：
+https://api.dropbox.com/1/oauth2/authorize?client_id={YOUR_APP_ID}&amp;amp;response_type=code&amp;amp;state=kx123 通过curl命令获取访问密钥：
+curl -X POST -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; -H &amp;#34;Cache-Control: no-cache&amp;#34; -d &amp;#39;code={GOTTEN_CODE}&amp;amp;client_id={YOUR_APP_ID}&amp;amp;client_secret={YOUR_APP_SECRET}&amp;amp;grant_type=authorization_code&amp;#39; &amp;#34;https://api.</description></item><item><title>cURL速查表</title><link>https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/</link><pubDate>Thu, 30 Apr 2015 06:16:21 +0000</pubDate><guid>https://mryqu.github.io/post/curl%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid><description>cURL是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。 cURL支持的通訊协议有FTP、FTPS、HTTP、HTTPS、TFTP、SFTP、Gopher、SCP、Telnet、DICT、FILE、LDAP、LDAPS、IMAP、POP3、SMTP和RTSP。
+参考 cURL Man Page curl cheat-sheet</description></item><item><title>[C++] 编译OpenSSL和libCurl</title><link>https://mryqu.github.io/post/c++_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</link><pubDate>Sun, 01 Mar 2015 23:05:26 +0000</pubDate><guid>https://mryqu.github.io/post/c++_%E7%BC%96%E8%AF%91openssl%E5%92%8Clibcurl/</guid><description>准备工作 登录一台Linux服务器，并完成下列工作：
+在目录/home/mryqu/创建子目录out，在out目录下创建子目录ssl和curl； 从OpenSSL项目下载openssl-1.0.2.tar.gz，并解压； 从curl项目下载curl-7.40.0.tar.gz，并解压 编译OpenSSL 进入openssl-1.0.2目录; 完成OpenSSL配置，仅支持静态库不支持动态库： ./config no-shared --openssldir=/home/mryqu/out/ssl 对Makefile文件中的FGLAG和DEPFLAG变量进行修改，增加-fPIC。 编译： make depend make make install 编译产生如下内容： 编译libCurl 进入curl-7.40.0目录; 首先设定pkg-config路径，指定为上一步OpenSSL编译结果。由于我们的OpenSSL编译结果不在编译器/链接器默认搜索路径，通过pkg-config路径和&amp;ndash;with-ssl让libCurl查找到OpenSSL。通过&amp;ndash;without-zlib禁止掉即时解压缩。 export PKG_CONFIG_PATH=/home/mryqu/out/ssl/lib/pkgconfig ./configure --prefix=/home/mryqu/out/curl --with-ssl --without-zlib make make install 编译产生如下内容： 参考 OpenSSL Compilation and Installation how to install curl and libcurl OpenSSL Cookbook Everything curl</description></item></channel></rss>

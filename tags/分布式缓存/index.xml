@@ -1,65 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>分布式缓存 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link>
-    <description>Recent content in 分布式缓存 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 28 Jun 2013 21:30:09 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Hadoop] 分布式缓存</title>
-      <link>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link>
-      <pubDate>Fri, 28 Jun 2013 21:30:09 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</guid>
-      <description>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>分布式缓存 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link><description>Recent content in 分布式缓存 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 28 Jun 2013 21:30:09 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hadoop] 分布式缓存</title><link>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</link><pubDate>Fri, 28 Jun 2013 21:30:09 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/</guid><description>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
 adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。 应用程序通过URL（hdfs://或http://）指定通过JobConf进行缓存的文件。分布式缓存假定URL所指定的文件已经存在于Hadoop分布式文件系统或本地文件系统中并可被集群中所有机器访问到。Hadoop框架会在任何作业在节点执行之前将必须的缓存文件复制到任务节点以供使用。为了节省网络带宽，这些文件只会为每个作业复制一次，且归档类型的缓存文件会在任务节点中解压缩。分布式缓存能用于分发简单只读数据或文本文件及复杂文件（存档文件、Jar文件等）。归档文件（zip、tar和tgz/tar.gz文件）在任务节点中解压缩。Jar文件可选择加入任务的类路径，这是基本的软件分发机制。 分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。
-下面的示例介绍了如何使用DistributedCache： 1. 将所需文件复制到FileSystem:
- $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz   设置应用程序的JobConf:  JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI(&amp;quot;/myapp/lookup.dat&amp;quot;), job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/map.zip&amp;quot;, job); DistributedCache.addFileToClassPath(new Path(&amp;quot;/myapp/mylib.jar&amp;quot;), job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytar.tar&amp;quot;, job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytgz.tgz&amp;quot;, job); DistributedCache.addCacheArchive(new URI(&amp;quot;/myapp/mytargz.</description>
-    </item>
-    
-    <item>
-      <title>GemFire 数据逐出和持久化</title>
-      <link>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</link>
-      <pubDate>Fri, 17 May 2013 15:48:33 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
-      <description>为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
-数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。 - 条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 - Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。
-对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作： - Region.containsKey - Region.containsValue - Region.getEntry
-当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
-分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行: - 对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 - 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。
-动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
+下面的示例介绍了如何使用DistributedCache：
+将所需文件复制到FileSystem: $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz 设置应用程序的JobConf: JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI(&amp;#34;/myapp/lookup.dat&amp;#34;), job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/map.zip&amp;#34;, job); DistributedCache.addFileToClassPath(new Path(&amp;#34;/myapp/mylib.jar&amp;#34;), job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytar.tar&amp;#34;, job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytgz.tgz&amp;#34;, job); DistributedCache.addCacheArchive(new URI(&amp;#34;/myapp/mytargz.tar.gz&amp;#34;, job); 在Mapper或Reducer中使用缓存的文件: public static class MapClass extends MapReduceBase implements Mapper{ private Path[] localArchives; private Path[] localFiles; public void configure(JobConf job) { // Get the cached archives/files File f = new File(&amp;#34;.</description></item><item><title>GemFire 数据逐出和持久化</title><link>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</link><pubDate>Fri, 17 May 2013 15:48:33 +0000</pubDate><guid>https://mryqu.github.io/post/gemfire_%E6%95%B0%E6%8D%AE%E9%80%90%E5%87%BA%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</guid><description>为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
+数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。
+条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。 对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作：
+Region.containsKey Region.containsValue Region.getEntry 当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
+分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行:
+对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。 动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
 | |数据无持久化|数据持久化 |&amp;mdash;&amp;ndash; |EvictionAction.NONE|条目将在内存中一直保存。|条目将在内存和磁盘中一直保存。 |EvictionAction.LOCAL_DESTROY|条目（键和值两部分）将从内存中释放。仅当被逐出数据可从外部数据源加载时可用。| |EvictionAction.OVERFLOW_TO_DISK|条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。|条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。
 磁盘存储文件名和扩展名 磁盘存储文件包括存储管理、访问控制文件和操作日志（oplog，记录了删除和其他所有操作）。下面的表描述了文件名和扩展名及示例。
 文件名 文件名包括三部分:
 第一部分: 使用标识 |值|用途|示例 |&amp;mdash;&amp;ndash; |OVERFLOW|仅为溢出region和队列的操作日志数据。|OVERFLOWoverflowDS1_1.crf |BACKUP|持久化、持久化+溢出rgion和队列操作日志数据。|BACKUPoverflowDS1.if, BACKUPDEFAULT.if |DRLK_IF|访问控制 - 对磁盘存储上锁。|DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk
-第二部分: 磁盘存储名 |值|用途|示例 |&amp;mdash;&amp;ndash; |&amp;lt;磁盘存储名&amp;gt;|非默认磁盘存储。|name=&amp;ldquo;overflowDS1&amp;rdquo; DRLK_IFoverflowDS1.lk,
-name=&amp;ldquo;persistDS1&amp;rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf
-第三部分: 操作日志序列号 |值|用途|示例 |&amp;mdash;&amp;ndash; |序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf</description>
-    </item>
-    
-    <item>
-      <title>GemFire Region分类</title>
-      <link>https://mryqu.github.io/post/gemfire_region%E5%88%86%E7%B1%BB/</link>
-      <pubDate>Wed, 15 May 2013 07:28:53 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gemfire_region%E5%88%86%E7%B1%BB/</guid>
-      <description>GemFire开发指南6.5的第4.2节仅列举了分区、复制（分布式）、分布式（非复制）和本地四种Region类型，但RegionShortcut类却定义了23个快捷预定义属性Region。Region的主要行为取决于数据策略、关注策略、范围、本地最大内存和冗余拷贝数（仅用于分区Region）、逐出算法和动作。
-Region快捷预定义属性数据策略范围本地
-最大
-内存
-注1冗余
-拷贝
-数
-注1逐出算法逐出动作LOCALNORMALLOCAL    LOCAL_HEAP_LRUNORMALLOCAL  LRU_HEAPLOCAL_DESTROYLOCAL_OVERFLOWNORMALLOCAL  LRU_HEAPOVERFLOW_TO_DISKLOCAL_PERSISTENTPERSISTENT_REPLICATELOCAL    LOCAL_PERSISTENT_OVERFLOWPERSISTENT_REPLICATELOCAL  LRU_HEAPOVERFLOW_TO_DISKPARTITIONPARTITION     PARTITION_HEAP_LRUPARTITION   LRU_HEAPLOCAL_DESTROYPARTITION_OVERFLOWPARTITION   LRU_HEAPOVERFLOW_TO_DISKPARTITION_PERSISTENTPERSISTENT_PARTITION     PARTITION_PERSISTENT_OVERFLOWPERSISTENT_PARTITION   LRU_HEAPOVERFLOW_TO_DISKPARTITION_PROXYPARTITION 0   PARTITION_PROXY_REDUNDANTPARTITION 01  PARTITION_REDUNDANTPARTITION  1  PARTITION_REDUNDANT_HEAP_LRUPARTITION  1LRU_HEAPLOCAL_DESTROYPARTITION_REDUNDANT_OVERFLOWPARTITION  1LRU_HEAPOVERFLOW_TO_DISKPARTITION_REDUNDANT_PERSISTENTPERSISTENT_PARTITION  1  PARTITION_REDUNDANT_
-PERSISTENT_OVERFLOWPERSISTENT_PARTITION  1LRU_HEAPOVERFLOW_TO_DISKREPLICATEREPLICATEDISTRIBUTED_ACK    REPLICATE_HEAP_LRUPRELOADDISTRIBUTED_ACK  LRU_HEAPLOCAL_DESTROYREPLICATE_OVERFLOWREPLICATEDISTRIBUTED_ACK  LRU_HEAPOVERFLOW_TO_DISKREPLICATE_PERSISTENTPERSISTENT_REPLICATEDISTRIBUTED_ACK    REPLICATE_PERSISTENT_OVERFLOWPERSISTENT_REPLICATEDISTRIBUTED_ACK  LRU_HEAPOVERFLOW_TO_DISKREPLICATE_PROXYEMPTYDISTRIBUTED_ACK     注1：仅用于分区region http://www.</description>
-    </item>
-    
-  </channel>
-</rss>
+第二部分: 磁盘存储名 |值|用途|示例 |&amp;mdash;&amp;ndash; |&amp;lt;磁盘存储名&amp;gt;|非默认磁盘存储。|name=&amp;ldquo;overflowDS1&amp;rdquo; DRLK_IFoverflowDS1.lk,name=&amp;ldquo;persistDS1&amp;rdquo; BACKUPpersistDS1_1.crf |DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf
+第三部分: 操作日志序列号 |值|用途|示例 |&amp;mdash;&amp;ndash; |序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf
+文件扩展名 |文件扩展名|用途|注释 |&amp;mdash;&amp;ndash; |if|数据存储元数据|存放在存储所列的第一个目录。文件很小可以忽略不计-在文件大小控制中不考虑。 |lk|磁盘存储访问控制|存放在存储所列的第一个目录。文件很小可以忽略不计-在文件大小控制中不考虑。 |crf|Oplog: 创建、更新和“使无效”操作|在创建时其文件大小预分配为max-oplog-size的90%。 |drf|Oplog: 删除操作|在创建时其文件大小预分配为max-oplog-size的90%。 |krf|Oplog: 键和crf偏移量信息|当操作日志文件大小达到max-oplog-size后创建。用于增强启动时的性能。</description></item><item><title>GemFire Region分类</title><link>https://mryqu.github.io/post/gemfire_region%E5%88%86%E7%B1%BB/</link><pubDate>Wed, 15 May 2013 07:28:53 +0000</pubDate><guid>https://mryqu.github.io/post/gemfire_region%E5%88%86%E7%B1%BB/</guid><description>GemFire开发指南6.5的第4.2节仅列举了分区、复制（分布式）、分布式（非复制）和本地四种Region类型，但RegionShortcut类却定义了23个快捷预定义属性Region。Region的主要行为取决于数据策略、关注策略、范围、本地最大内存和冗余拷贝数（仅用于分区Region）、逐出算法和动作。
+注1：仅用于分区region http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/RegionShortcut.html |数据策略|行为 |&amp;mdash;&amp;ndash; |EMPTY|在本地缓存中没有数据存储。Region始终表现为空。没有内存成本的、零数据存储占用的生产者本地缓存收发其他缓存节点的时间，零数据存储占用的消费者仅接受事件。为了使空Region接受事件，需设置关注策略为ALL。 |NORMAL(默认)|本地使用的数据存储在本地缓存。此策略允许缓存内容不用于其他缓存节点的内容。 |REPLICATE|Region使用其他节点缓存的数据初始化。初始化后，分布式Region的所有事件会自动复制到本地缓存，在本地缓存保持整个分布式Region的复制。不允许会导致内容与其他缓存节点不一致的操作。此策略与本地范围共用时，行为与正常Region相同。 |PARTITION|通过使用自动数据分布，数据在本地和远程缓存中分区。 |PERSISTENT_REPLICATE|行为与复制Region一样同时数据在硬盘中持久化。 |PERSISTENT_PARTITION|行为与分区Region一样同时数据在硬盘中持久化。 |PRELOADED|初始化时行为像复制Region，之后行为像正常Region。
+http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/DataPolicy.html
+|关注策略|行为 |&amp;mdash;&amp;ndash; |ALL|注册对分布式或分区Region中所有条目的事件进行关注，无论这些条目是否存在于本地缓存。 |CACHE_CONTENT(默认)|仅对存在于本地缓存的条目事件进行关注。对于分区Region，本地节点必须保存条目数据的主备份。
+http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/InterestPolicy.html
+|范围|行为 |&amp;mdash;&amp;ndash; |GLOBAL|条目更新过程中自动使用GemFire锁服务。这确报即使两个节点通过更新同一条目也保持一致性。一个更新会在所有节点先执行，然后第二个跟新才执行。对于下面的分布式确认或分布式无确认，两个节点同时更新同一条目时，该条目在两个节点的值可能会不一致。 |DISTRIBUTED_ACK|条目更新过程中不会上锁，但执行更新的节点会在获得其他节点响应之后结束操作，因此可以避免简单通信问题（例如网络传输层临时故障期间分布失效）。 |DISTRIBUTED_NO_ACK(默认)|与确认式分布类似，但节点执行更新时不会等待其他节点响应。两个节点除了可能更新后数据不一致，而且无法保证更新被分布成功。 |LOCAL|非分布式。Region尽对在该GemFire节点内运行的线程可见。
+http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/Scope.html
+|逐出算法|行为 |&amp;mdash;&amp;ndash; |NONE (默认)|无逐出。 |LRU_ENTRY|通过Region中条目数量驱动逐出行动的算法。 |LRU_HEAP|通过当前所消耗的Java虚拟机堆空间百分比驱动逐出行动的算法。 |LRU_MEMORY|通过Region所消耗内存字节数驱动逐出行动的算法。
+http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/EvictionAlgorithm.html
+|逐出动作|行为 |&amp;mdash;&amp;ndash; |NONE|无逐出。 |LOCAL_DESTROY (默认)|对最近最少使用到的条目执行本地销毁。 |OVERFLOW_TO_DISK|将最近最少使用到的条目写入硬盘并将内存中条目的值置为null以释放堆空间。该动作仅在Region配置为可访问磁盘数据时可用。
+http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/EvictionAction.html</description></item></channel></rss>

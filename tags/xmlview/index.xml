@@ -1,38 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Xmlview on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/xmlview/</link>
-    <description>Recent content in Xmlview on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 01 Mar 2017 06:14:39 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/xmlview/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[OpenUI5] 在XMLView中使用带有参数的I18N消息</title>
-      <link>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</link>
-      <pubDate>Wed, 01 Mar 2017 06:14:39 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</guid>
-      <description>在做的一个新项目中，美国团队那边齐刷刷地一色用XMLView而不是JSView，碰到一个小问题：那就是怎么在XMLView中设置带有参数的I18N消息。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>xmlview on Mryqu's Notes</title><link>https://mryqu.github.io/tags/xmlview/</link><description>Recent content in xmlview on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Mar 2017 06:14:39 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/xmlview/index.xml" rel="self" type="application/rss+xml"/><item><title>[OpenUI5] 在XMLView中使用带有参数的I18N消息</title><link>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</link><pubDate>Wed, 01 Mar 2017 06:14:39 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_%E5%9C%A8xmlview%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84i18n%E6%B6%88%E6%81%AF/</guid><description>在做的一个新项目中，美国团队那边齐刷刷地一色用XMLView而不是JSView，碰到一个小问题：那就是怎么在XMLView中设置带有参数的I18N消息。
 参考Passing parameters to i18n model within XML view帖子中的方案，基本搞定：
-&amp;lt;Input id=&amp;quot;myInput&amp;quot; type=&amp;quot;Text&amp;quot; required=&amp;quot;true&amp;quot; value=&amp;quot;{myyquInput}&amp;quot; placeholder=&amp;quot;{parts:[&#39;i18n&amp;gt;myKey.txt&#39;, &#39;myModel&amp;gt;myProp&#39;], formatter: &#39;jQuery.sap.formatMessage&#39;}&amp;quot; change=&amp;quot;.handleChangeForMyInput&amp;quot;&amp;gt; &amp;lt;layoutData&amp;gt; &amp;lt;l:GridData span=&amp;quot;L6 M8 S9&amp;quot; /&amp;gt; &amp;lt;/layoutData&amp;gt; &amp;lt;/Input&amp;gt;  messagebundle.properties：
-myKey.txt=&amp;quot;(Example: {0})&amp;quot;  使用sap.ui.model.CompositeBinding可以通过XMLView中的parts加载多个参数，达到我的目的。缺点就是每个参数只能是model/path组合，或者省略model的path。我没有找到直接输入参数值的便捷方法。 阅读sap.ui.base.ManagedObject的bindProperty方法可知，它对part中每一元素查找是否有“&amp;gt;”，有则认为是model/path组合，否则即为path。
-ManagedObject.prototype.bindProperty = function(sName, oBindingInfo, _vFormat, _sMode) { var iSeparatorPos, bAvailable = true, oProperty = this.getMetadata().getPropertyLikeSetting(sName); // check whether property or alternative type on aggregation exists if (!oProperty) { throw new Error(&amp;quot;Property \&amp;quot;&amp;quot; + sName + &amp;quot;\&amp;quot; does not exist in &amp;quot; + this); } // old API compatibility (sName, sPath, _vFormat, _sMode) if (typeof oBindingInfo == &amp;quot;string&amp;quot;) { oBindingInfo = { parts: [ { path: oBindingInfo, type: _vFormat instanceof Type ?</description>
-    </item>
-    
-    <item>
-      <title>[OpenUI5] 折腾了一下JSView转换XMLView</title>
-      <link>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</link>
-      <pubDate>Tue, 21 Feb 2017 05:49:10 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</guid>
-      <description>根据OpenUI5 Developer Guide - Diagnostics Window中的介绍，尝试一下XML View Conversion。
- Many code samples are written in JavaScript. To facilitate the conversion of these code samples into XML, OpenUI5 provides a generic conversion tool. To run the tool, proceed as follows: 1. Run the OpenUI5 app in your browser, for example, open a page in the test suite. 2. Open the support tool by choosing CTRL+ALT+SHIFT+S. 3. Open the Control Tree panel. 4.</description>
-    </item>
-    
-  </channel>
-</rss>
+&amp;lt;Input id=&amp;#34;myInput&amp;#34; type=&amp;#34;Text&amp;#34; required=&amp;#34;true&amp;#34; value=&amp;#34;{myyquInput}&amp;#34; placeholder=&amp;#34;{parts:[&amp;#39;i18n&amp;gt;myKey.txt&amp;#39;, &amp;#39;myModel&amp;gt;myProp&amp;#39;], formatter: &amp;#39;jQuery.sap.formatMessage&amp;#39;}&amp;#34; change=&amp;#34;.handleChangeForMyInput&amp;#34;&amp;gt; &amp;lt;layoutData&amp;gt; &amp;lt;l:GridData span=&amp;#34;L6 M8 S9&amp;#34; /&amp;gt; &amp;lt;/layoutData&amp;gt; &amp;lt;/Input&amp;gt; messagebundle.properties：
+myKey.txt=&amp;#34;(Example: {0})&amp;#34; 使用sap.ui.model.CompositeBinding可以通过XMLView中的parts加载多个参数，达到我的目的。缺点就是每个参数只能是model/path组合，或者省略model的path。我没有找到直接输入参数值的便捷方法。 阅读sap.ui.base.ManagedObject的bindProperty方法可知，它对part中每一元素查找是否有“&amp;gt;”，有则认为是model/path组合，否则即为path。
+ManagedObject.prototype.bindProperty = function(sName, oBindingInfo, _vFormat, _sMode) { var iSeparatorPos, bAvailable = true, oProperty = this.getMetadata().getPropertyLikeSetting(sName); // check whether property or alternative type on aggregation exists if (!oProperty) { throw new Error(&amp;#34;Property \&amp;#34;&amp;#34; + sName + &amp;#34;\&amp;#34; does not exist in &amp;#34; + this); } // old API compatibility (sName, sPath, _vFormat, _sMode) if (typeof oBindingInfo == &amp;#34;string&amp;#34;) { oBindingInfo = { parts: [ { path: oBindingInfo, type: _vFormat instanceof Type ?</description></item><item><title>[OpenUI5] 折腾了一下JSView转换XMLView</title><link>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</link><pubDate>Tue, 21 Feb 2017 05:49:10 +0000</pubDate><guid>https://mryqu.github.io/post/openui5_%E6%8A%98%E8%85%BE%E4%BA%86%E4%B8%80%E4%B8%8Bjsview%E8%BD%AC%E6%8D%A2xmlview/</guid><description>根据OpenUI5 Developer Guide - Diagnostics Window中的介绍，尝试一下XML View Conversion。
+Many code samples are written in JavaScript. To facilitate the conversion of these code samples into XML, OpenUI5 provides a generic conversion tool. To run the tool, proceed as follows:
+Run the OpenUI5 app in your browser, for example, open a page in the test suite. Open the support tool by choosing CTRL+ALT+SHIFT+S. Open the Control Tree panel. Select the root UI area in the tree on the left hand side.</description></item></channel></rss>

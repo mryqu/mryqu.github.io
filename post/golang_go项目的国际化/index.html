@@ -1,228 +1,49 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[Golang] Go项目的国际化  - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[Golang] Go项目的国际化 ">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[Golang] Go项目的国际化  - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/" itemprop="url">
-        [Golang] Go项目的国际化 
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2017-10-21">
-    2017-10-21
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/golang" itemprop="url" rel="index">
-        <span itemprop="name">Golang</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">556 字 ~3分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p>因为我看的那些书里都没有提及Go项目的国际化实现，但在放狗搜索前，还是觉得跟Java/JS项目中的实践应该都差不多。搜了一下才发现自己Too young too simple！
-在<a href="https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/_dHb28WG68g">Internationalization plan for Go</a>中提到了Golang曾经的I18N路线图：
-*   对国际化文本提供全面支持
-*   对国际化日期、时间等提供支持
-*   对多语言消息提供支持</p>
-
-<p>这个2011年的讨论有人提及Golang已经支持UTF8/unicode，日期时间自己可以格式化，其他人纷纷表示不同意他的观点，然后就没有然后了。
-Golang的标准库还有提供完整的I18N支持，所以还需要对众多的Golang I18N库进行技术选型。通过<a href="https://golanglibs.com/search?q=i18n">https://golanglibs.com/search?q=i18n</a>可知<a href="https://github.com/nicksnyder/go-i18n">go-i18n</a>排名第一，而且使用者也比较多。<a href="https://github.com/maximilien/i18n4go">i18n4go</a>为大厂IBM的cloud CTO出品，从Cloud Foundary CLI中提取出来的，估计能遇到的坎都解决掉了，但是排名并不靠前。
-最终决定开始我的go-18n学习之旅。</p>
-
-<h2 id="通过go-bindata嵌入i18n-properties文件">通过go-bindata嵌入i18n properties文件</h2>
-
-<p>具体细节见之前的博文<a href="/post/golang_go程序内嵌i18n_properties文件">Go程序内嵌I18N properties文件</a>。</p>
-
-<h3 id="资源文件">资源文件</h3>
-
-<h4 id="i18n-resources-locale-properties">i18n/resources/locale.properties</h4>
-
-<pre><code>mryqu.hello=Welcome to Golang world!
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[Golang] Go项目的国际化 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[Golang] Go项目的国际化 "><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[Golang] Go项目的国际化  - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/ itemprop=url>[Golang] Go项目的国际化</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2017-10-21">2017-10-21</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/golang itemprop=url rel=index><span itemprop=name>Golang</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>548 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>因为我看的那些书里都没有提及Go项目的国际化实现，但在放狗搜索前，还是觉得跟Java/JS项目中的实践应该都差不多。搜了一下才发现自己Too young too simple！
+在<a href="https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/_dHb28WG68g">Internationalization plan for Go</a>中提到了Golang曾经的I18N路线图：</p><ul><li>对国际化文本提供全面支持</li><li>对国际化日期、时间等提供支持</li><li>对多语言消息提供支持</li></ul><p>这个2011年的讨论有人提及Golang已经支持UTF8/unicode，日期时间自己可以格式化，其他人纷纷表示不同意他的观点，然后就没有然后了。
+Golang的标准库还有提供完整的I18N支持，所以还需要对众多的Golang I18N库进行技术选型。通过<a href="https://golanglibs.com/search?q=i18n">https://golanglibs.com/search?q=i18n</a>可知<a href=https://github.com/nicksnyder/go-i18n>go-i18n</a>排名第一，而且使用者也比较多。<a href=https://github.com/maximilien/i18n4go>i18n4go</a>为大厂IBM的cloud CTO出品，从Cloud Foundary CLI中提取出来的，估计能遇到的坎都解决掉了，但是排名并不靠前。
+最终决定开始我的go-18n学习之旅。</p><h2 id=通过go-bindata嵌入i18n-properties文件>通过go-bindata嵌入i18n properties文件</h2><p>具体细节见之前的博文<a href=/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6>Go程序内嵌I18N properties文件</a>。</p><h3 id=资源文件>资源文件</h3><h4 id=i18nresourceslocaleproperties>i18n/resources/locale.properties</h4><pre tabindex=0><code>mryqu.hello=Welcome to Golang world!
 mryqu.intro=This is a go-bindata-i18n example.
 mryqu.verinfo={{.Cli}} Version {{.Version}} (Build: {{.Build}})
-</code></pre>
-
-<h4 id="i18n-resources-locale-en-properties">i18n/resources/locale_en.properties</h4>
-
-<pre><code>mryqu.hello=Welcome to Golang world!
+</code></pre><h4 id=i18nresourceslocale_enproperties>i18n/resources/locale_en.properties</h4><pre tabindex=0><code>mryqu.hello=Welcome to Golang world!
 mryqu.intro=This is a go-bindata-i18n example.
 mryqu.verinfo={{.Cli}} Version {{.Version}} (Build: {{.Build}})
-</code></pre>
-
-<h4 id="i18n-resources-locale-zh-cn-properties">i18n/resources/locale_zh-CN.properties</h4>
-
-<pre><code>mryqu.hello=欢迎来到Golang世界！
+</code></pre><h4 id=i18nresourceslocale_zh-cnproperties>i18n/resources/locale_zh-CN.properties</h4><pre tabindex=0><code>mryqu.hello=欢迎来到Golang世界！
 mryqu.intro=这是一个go-bindata-i18n示例。
 mryqu.verinfo={{.Cli}} 版本 {{.Version}} (构建：{{.Build}})
-</code></pre>
-
-<h2 id="其他源码">其他源码</h2>
-
-<h3 id="i18n-i18n-go">i18n/i18n.go</h3>
-
-<p>与之前的博文<a href="/post/golang_go程序内嵌i18n_properties文件">Go程序内嵌I18N properties文件</a>相比，这里添加了下面内容：
-1. 使用github.com/magiconair/properties包获取properties文件内的键值对；
-2. 通过github.com/nicksnyder/go-i18n/i18n包判断properties文件语言、为文件内所有键值对创建新的翻译。（如果不用properties文件，而是json或TOML格式文件，i18n.LoadTranslationFile就可以直接完成这些事情了，见<a href="https://github.com/nicksnyder/go-i18n/blob/master/i18n/bundle/bundle.go">https://github.com/nicksnyder/go-i18n/blob/master/i18n/bundle/bundle.go</a>。）</p>
-
-<p>go-i18n的优点：
-*   实现了<a href="http://cldr.unicode.org/index/cldr-spec/plural-rules">CLDR plural rules</a>。
-*   使用<a href="https://golang.google.cn/pkg/text/template/">text/template</a>处理带有变量的字符串。
-*   翻译文件可以是简单的JSON、TOML和YAML。</p>
-
-<pre><code>package i18n
+</code></pre><h2 id=其他源码>其他源码</h2><h3 id=i18ni18ngo>i18n/i18n.go</h3><p>与之前的博文<a href=/post/golang_go%E7%A8%8B%E5%BA%8F%E5%86%85%E5%B5%8Ci18n_properties%E6%96%87%E4%BB%B6>Go程序内嵌I18N properties文件</a>相比，这里添加了下面内容：</p><ol><li>使用github.com/magiconair/properties包获取properties文件内的键值对；</li><li>通过github.com/nicksnyder/go-i18n/i18n包判断properties文件语言、为文件内所有键值对创建新的翻译。（如果不用properties文件，而是json或TOML格式文件，i18n.LoadTranslationFile就可以直接完成这些事情了，见<a href=https://github.com/nicksnyder/go-i18n/blob/master/i18n/bundle/bundle.go>https://github.com/nicksnyder/go-i18n/blob/master/i18n/bundle/bundle.go</a>。）</li></ol><p>go-i18n的优点：</p><ul><li>实现了<a href=http://cldr.unicode.org/index/cldr-spec/plural-rules>CLDR plural rules</a>。</li><li>使用<a href=https://golang.google.cn/pkg/text/template/>text/template</a>处理带有变量的字符串。</li><li>翻译文件可以是简单的JSON、TOML和YAML。</li></ul><pre tabindex=0><code>package i18n
 
 //go:generate go-bindata -pkg i18n -o resources.go resources/
 
 import (
-  &quot;fmt&quot;
-  &quot;github.com/magiconair/properties&quot;
-  &quot;github.com/nicksnyder/go-i18n/i18n&quot;
-  &quot;github.com/nicksnyder/go-i18n/i18n/language&quot;
-  &quot;github.com/nicksnyder/go-i18n/i18n/translation&quot;
-  &quot;strings&quot;
+  &#34;fmt&#34;
+  &#34;github.com/magiconair/properties&#34;
+  &#34;github.com/nicksnyder/go-i18n/i18n&#34;
+  &#34;github.com/nicksnyder/go-i18n/i18n/language&#34;
+  &#34;github.com/nicksnyder/go-i18n/i18n/translation&#34;
+  &#34;strings&#34;
 )
 
 const (
-  DefaultLocale = &quot;en&quot;
-  AssetSuffix    = &quot;.properties&quot;
-  FileNamePrefix = &quot;locale_&quot;
+  DefaultLocale = &#34;en&#34;
+  AssetSuffix    = &#34;.properties&#34;
+  FileNamePrefix = &#34;locale_&#34;
 )
 
 var locale = DefaultLocale
@@ -230,29 +51,29 @@ var tDefault i18n.TranslateFunc = i18n.IdentityTfunc()
 var T i18n.TranslateFunc
 
 func init() {
-  assets, err := AssetDir(&quot;resources&quot;)
+  assets, err := AssetDir(&#34;resources&#34;)
   if err != nil {
-    fmt.Println(&quot;Unable to read required assets:&quot;+err.Error())
+    fmt.Println(&#34;Unable to read required assets:&#34;+err.Error())
   }
   for _, asset := range assets {
     flName := strings.TrimSuffix(asset, AssetSuffix)
     assetLocale := strings.TrimPrefix(flName, FileNamePrefix)
-    if &quot;&quot; == assetLocale {
-      assetLocale = &quot;en&quot;
+    if &#34;&#34; == assetLocale {
+      assetLocale = &#34;en&#34;
     }
-    transFile := string(MustAsset(&quot;resources/&quot; + asset))
+    transFile := string(MustAsset(&#34;resources/&#34; + asset))
 
     p, err := properties.Load([]byte(transFile), properties.UTF8)
     if err != nil {
-      fmt.Printf(&quot;ERROR: during properties processing - %+v\n&quot;, err)
+      fmt.Printf(&#34;ERROR: during properties processing - %+v\n&#34;, err)
     }
 
     tranDocuments := []map[string]interface{}{}
     for _, k := range p.Keys() {
       tranDocuments = append(tranDocuments,
         map[string]interface{}{
-          &quot;id&quot;:          k,
-          &quot;translation&quot;: p.GetString(k, k),
+          &#34;id&#34;:          k,
+          &#34;translation&#34;: p.GetString(k, k),
         })
     }
 
@@ -262,7 +83,7 @@ func init() {
         // TODO error handling
         t, err := translation.NewTranslation(trans)
         if err != nil {
-          fmt.Printf(&quot;ERROR: during translation processing - %+v\n&quot;, err)
+          fmt.Printf(&#34;ERROR: during translation processing - %+v\n&#34;, err)
         }
         i18n.AddTranslation(lang, t)
       }
@@ -282,7 +103,7 @@ func SetLocale(l string) {
 func TfuncWithFallback(l string) i18n.TranslateFunc {
   t, err := i18n.Tfunc(l)
   if err != nil {
-    fmt.Println(&quot;failed to set i18n.Tfunc with &quot;+l)
+    fmt.Println(&#34;failed to set i18n.Tfunc with &#34;+l)
   }
   return func(translationID string, args ...interface{}) string {
     if translated := t(translationID, args...); translated != translationID {
@@ -292,31 +113,27 @@ func TfuncWithFallback(l string) i18n.TranslateFunc {
     return tDefault(translationID, args...)
   }
 }
-</code></pre>
-
-<h3 id="main-go">main.go</h3>
-
-<pre><code>package main
+</code></pre><h3 id=maingo>main.go</h3><pre tabindex=0><code>package main
 
 import (    
-  &quot;flag&quot;
-  &quot;fmt&quot;  
-  &quot;os&quot;
-  &quot;hello-bindata-i18n/i18n&quot;
+  &#34;flag&#34;
+  &#34;fmt&#34;  
+  &#34;os&#34;
+  &#34;hello-bindata-i18n/i18n&#34;
 )
 
 var (
-  Cli     string = &quot;hello-bindata-i18n&quot;
+  Cli     string = &#34;hello-bindata-i18n&#34;
   Version string
   Build   string
 )
 
 func main() {
   if len(os.Args) &gt; 1 {
-    version := flag.Bool(&quot;version&quot;, false,
-      &quot;print version information and exit&quot;)
-    locale := flag.String(&quot;locale&quot;, &quot;en&quot;,
-      &quot;locale info&quot;)
+    version := flag.Bool(&#34;version&#34;, false,
+      &#34;print version information and exit&#34;)
+    locale := flag.String(&#34;locale&#34;, &#34;en&#34;,
+      &#34;locale info&#34;)
     flag.Parse()
 
     if locale != nil {
@@ -324,23 +141,17 @@ func main() {
     }
 
     if *version {
-      fmt.Println(i18n.T(&quot;mryqu.verinfo&quot;,
-        map[string]interface{}{&quot;Cli&quot;: Cli, &quot;Version&quot;: Version, &quot;Build&quot;: Build}))
+      fmt.Println(i18n.T(&#34;mryqu.verinfo&#34;,
+        map[string]interface{}{&#34;Cli&#34;: Cli, &#34;Version&#34;: Version, &#34;Build&#34;: Build}))
       os.Exit(0)
     }
   }
 
-  fmt.Println(i18n.T(&quot;mryqu.hello&quot;))
+  fmt.Println(i18n.T(&#34;mryqu.hello&#34;))
 }
-</code></pre>
-
-<h3 id="makefile">Makefile</h3>
-
-<p>更多细节见之前的博文<a href="/post/golang_使用makefile实现go项目的跨平台构建">使用Makefile实现Go项目的跨平台构建</a> 。这里在setup规则里增加了glide update，增加了generate规则。</p>
-
-<pre><code>BUILD_ENV := CGO_ENABLED=0
+</code></pre><h3 id=makefile>Makefile</h3><p>更多细节见之前的博文<a href=/post/golang_%E4%BD%BF%E7%94%A8makefile%E5%AE%9E%E7%8E%B0go%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9E%84%E5%BB%BA>使用Makefile实现Go项目的跨平台构建</a> 。这里在setup规则里增加了glide update，增加了generate规则。</p><pre tabindex=0><code>BUILD_ENV := CGO_ENABLED=0
 BUILD=`date +%FT%T%z`
-LDFLAGS=-ldflags &quot;-w -s -X main.Version=${VERSION} -X main.Build=${BUILD}&quot;
+LDFLAGS=-ldflags &#34;-w -s -X main.Version=${VERSION} -X main.Build=${BUILD}&#34;
 
 TARGET_EXEC := helloi18n
 
@@ -368,11 +179,7 @@ build-osx: setup
 
 build-windows: setup
         ${BUILD_ENV} GOARCH=amd64 GOOS=windows go build ${LDFLAGS} -o build/windows/${TARGET_EXEC}.exe
-</code></pre>
-
-<h2 id="测试">测试</h2>
-
-<pre><code>  $ build/windows/helloi18n.exe
+</code></pre><h2 id=测试>测试</h2><pre tabindex=0><code>  $ build/windows/helloi18n.exe
   Welcome to Golang world!
 
   $ build/windows/helloi18n.exe -version
@@ -393,276 +200,49 @@ build-windows: setup
   $ build/windows/helloi18n.exe -locale fr
   failed to set i18n.Tfunc with fr
   Welcome to Golang world!
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
-<hr />
-
-<p><a href="https://github.com/nicksnyder/go-i18n">GitHub：nicksnyder/go-i18n</a><br />
-<a href="https://github.com/jteeuwen/go-bindata">GitHub：jteeuwen/go-bindata</a><br />
-<a href="https://studygolang.com/articles/5068">Go 内嵌静态资源</a><br />
-<a href="https://blog.golang.org/generate">The Go Blog - Generating code</a><br />
-<a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/10.0.md">Go Web 编程 - 10 国际化和本地化</a><br />
-<a href="https://stackoverflow.com/questions/14124630/i18n-strategies-for-go-with-app-engine">I18n strategies for Go with App Engine?</a><br />
-<a href="https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/_dHb28WG68g">Internationalization plan for Go</a><br />
-<a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext utilities</a></p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[Golang] Go项目的国际化 
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/golang" rel="tag" title="golang">#golang#</a>
-    
-    <a href="/tags/i18n" rel="tag" title="i18n">#i18n#</a>
-    
-    <a href="/tags/go-bindata" rel="tag" title="go-bindata">#go-bindata#</a>
-    
-    <a href="/tags/properties" rel="tag" title="properties">#properties#</a>
-    
-    <a href="/tags/go-i18n" rel="tag" title="go-i18n">#go-i18n#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8dep/" rel="next" title="[Golang] 使用dep">
-        <i class="fa fa-chevron-left"></i> [Golang] 使用dep
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/" rel="prev" title="[Golang] GOPATH和包导入">
-        [Golang] GOPATH和包导入 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/";
-this.page.identifier = "https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#通过go-bindata嵌入i18n-properties文件">通过go-bindata嵌入i18n properties文件</a>
-<ul>
-<li><a href="#资源文件">资源文件</a>
-<ul>
-<li><a href="#i18n-resources-locale-properties">i18n/resources/locale.properties</a></li>
-<li><a href="#i18n-resources-locale-en-properties">i18n/resources/locale_en.properties</a></li>
-<li><a href="#i18n-resources-locale-zh-cn-properties">i18n/resources/locale_zh-CN.properties</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#其他源码">其他源码</a>
-<ul>
-<li><a href="#i18n-i18n-go">i18n/i18n.go</a></li>
-<li><a href="#main-go">main.go</a></li>
-<li><a href="#makefile">Makefile</a></li>
-</ul></li>
-<li><a href="#测试">测试</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre><h2 id=参考>参考</h2><hr><p><a href=https://github.com/nicksnyder/go-i18n>GitHub：nicksnyder/go-i18n</a><br><a href=https://github.com/jteeuwen/go-bindata>GitHub：jteeuwen/go-bindata</a><br><a href=https://studygolang.com/articles/5068>Go 内嵌静态资源</a><br><a href=https://blog.golang.org/generate>The Go Blog - Generating code</a><br><a href=https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/10.0.md>Go Web 编程 - 10 国际化和本地化</a><br><a href=https://stackoverflow.com/questions/14124630/i18n-strategies-for-go-with-app-engine>I18n strategies for Go with App Engine?</a><br><a href="https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/_dHb28WG68g">Internationalization plan for Go</a><br><a href=https://www.gnu.org/software/gettext/manual/gettext.html>GNU gettext utilities</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[Golang] Go项目的国际化<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/golang rel=tag title=golang>#golang#</a>
+<a href=/tags/i18n rel=tag title=i18n>#i18n#</a>
+<a href=/tags/go-bindata rel=tag title=go-bindata>#go-bindata#</a>
+<a href=/tags/properties rel=tag title=properties>#properties#</a>
+<a href=/tags/go-i18n rel=tag title=go-i18n>#go-i18n#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/golang_%E4%BD%BF%E7%94%A8dep/ rel=next title="[Golang] 使用dep"><i class="fa fa-chevron-left"></i> [Golang] 使用dep</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/golang_gopath%E5%92%8C%E5%8C%85%E5%AF%BC%E5%85%A5/ rel=prev title="[Golang] GOPATH和包导入">[Golang] GOPATH和包导入 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/",this.page.identifier="https://mryqu.github.io/post/golang_go%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#通过go-bindata嵌入i18n-properties文件>通过go-bindata嵌入i18n properties文件</a><ul><li><a href=#资源文件>资源文件</a></li></ul></li><li><a href=#其他源码>其他源码</a><ul><li><a href=#i18ni18ngo>i18n/i18n.go</a></li><li><a href=#maingo>main.go</a></li><li><a href=#makefile>Makefile</a></li></ul></li><li><a href=#测试>测试</a></li><li><a href=#参考>参考</a></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

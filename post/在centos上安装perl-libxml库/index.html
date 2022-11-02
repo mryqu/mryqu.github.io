@@ -1,190 +1,44 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>在Centos上安装Perl LibXML库记录 - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="在Centos上安装Perl LibXML库记录">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="在Centos上安装Perl LibXML库记录 - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/" itemprop="url">
-        在Centos上安装Perl LibXML库记录
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2021-01-04">
-    2021-01-04
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/linux" itemprop="url" rel="index">
-        <span itemprop="name">Linux</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">14882 字 ~70分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    <p>一开始使用cpan安装，揍是不成功。</p>
-
-<pre><code>[root@mryqulax ~]# perldoc -m XML::LibXML
-No module found for &quot;XML::LibXML&quot;.
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>在Centos上安装Perl LibXML库记录 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="在Centos上安装Perl LibXML库记录"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="在Centos上安装Perl LibXML库记录 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/ itemprop=url>在Centos上安装Perl LibXML库记录</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2021-01-04">2021-01-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>14882 字 ~70分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>一开始使用cpan安装，揍是不成功。</p><pre tabindex=0><code>[root@mryqulax ~]# perldoc -m XML::LibXML
+No module found for &#34;XML::LibXML&#34;.
 [root@mryqulax ~]# perl -MCPAN -e shell
 Terminal does not support AddHistory.
 
 cpan shell -- CPAN exploration and modules installation (v1.9800)
-Enter 'h' for help.
+Enter &#39;h&#39; for help.
 
 cpan[1]&gt; install XML::LibXML
 CPAN: Storable loaded ok (v2.20)
-Reading '/root/.cpan/Metadata'
+Reading &#39;/root/.cpan/Metadata&#39;
   Database was generated on Sun, 24 Nov 2013 10:53:02 GMT
 CPAN: LWP::UserAgent loaded ok (v6.04)
 CPAN: Time::HiRes loaded ok (v1.9721)
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/01mailrc.txt.gz
-Reading '/root/.cpan/sources/authors/01mailrc.txt.gz'
+Reading &#39;/root/.cpan/sources/authors/01mailrc.txt.gz&#39;
 CPAN: Compress::Zlib loaded ok (v2.049)
 ............................................................................DONE
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/modules/02packages.details.txt.gz
-Reading '/root/.cpan/sources/modules/02packages.details.txt.gz'
+Reading &#39;/root/.cpan/sources/modules/02packages.details.txt.gz&#39;
   Database was generated on Tue, 29 Dec 2020 11:56:01 GMT
 .............
   New CPAN.pm version (v2.28) available.
@@ -199,10 +53,10 @@ Reading '/root/.cpan/sources/modules/02packages.details.txt.gz'
 ...............................................................DONE
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/modules/03modlist.data.gz
-Reading '/root/.cpan/sources/modules/03modlist.data.gz'
+Reading &#39;/root/.cpan/sources/modules/03modlist.data.gz&#39;
 DONE
 Writing /root/.cpan/Metadata
-Running install for module 'XML::LibXML'
+Running install for module &#39;XML::LibXML&#39;
 Running make for S/SH/SHLOMIF/XML-LibXML-2.0206.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/S/SH/SHLOMIF/XML-LibXML-2.0206.tar.gz
@@ -464,12 +318,12 @@ CPAN: Module::CoreList loaded ok (v2.18)
     Alien::Base::Wrapper [build_requires]
     Alien::Libxml2 [build_requires]
 Running make test
-  Make had some problems, won't test
+  Make had some problems, won&#39;t test
   Delayed until after prerequisites
 Running make install
-  Make had some problems, won't install
+  Make had some problems, won&#39;t install
   Delayed until after prerequisites
-Running install for module 'Alien::Base::Wrapper'
+Running install for module &#39;Alien::Base::Wrapper&#39;
 Running make for P/PL/PLICEASE/Alien-Build-2.37.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/P/PL/PLICEASE/Alien-Build-2.37.tar.gz
@@ -952,12 +806,12 @@ Alien-Build-2.37/corpus/vcpkg/r2/installed/vcpkg/info/openssl-windows_1.1.1d-1_x
     ExtUtils::ParseXS [build_requires]
     File::Which [build_requires]
 Running make test
-  Make had some problems, won't test
+  Make had some problems, won&#39;t test
   Delayed until after prerequisites
 Running make install
-  Make had some problems, won't install
+  Make had some problems, won&#39;t install
   Delayed until after prerequisites
-Running install for module 'ExtUtils::MakeMaker'
+Running install for module &#39;ExtUtils::MakeMaker&#39;
 Running make for B/BI/BINGOS/ExtUtils-MakeMaker-7.58.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-7.58.tar.gz
@@ -1233,15 +1087,15 @@ cp lib/ExtUtils/MakeMaker/Locale.pm blib/lib/ExtUtils/MakeMaker/Locale.pm
 cp lib/ExtUtils/MakeMaker/version.pm blib/lib/ExtUtils/MakeMaker/version.pm
 cp lib/ExtUtils/MakeMaker/version/vpp.pm blib/lib/ExtUtils/MakeMaker/version/vpp.pm
 cp bin/instmodsh blib/script/instmodsh
-&quot;/usr/bin/perl&quot; &quot;-Iblib/arch&quot; &quot;-Iblib/lib&quot; -MExtUtils::MY -e 'MY-&gt;fixin(shift)' -- blib/script/instmodsh
+&#34;/usr/bin/perl&#34; &#34;-Iblib/arch&#34; &#34;-Iblib/lib&#34; -MExtUtils::MY -e &#39;MY-&gt;fixin(shift)&#39; -- blib/script/instmodsh
 Manifying 1 pod document
 Manifying 38 pod documents
 Manifying 9 pod documents
   BINGOS/ExtUtils-MakeMaker-7.58.tar.gz
   /usr/bin/make -- OK
-'YAML' not installed, will not store persistent state
+&#39;YAML&#39; not installed, will not store persistent state
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-Iblib/arch&quot; &quot;-Iblib/lib&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-Iblib/arch&#34; &#34;-Iblib/lib&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00compile.t ............. ok
 t/01perl_bugs.t ........... ok
 t/02-xsdynamic.t .......... ok
@@ -1315,7 +1169,7 @@ Result: PASS
   BINGOS/ExtUtils-MakeMaker-7.58.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/ExtUtils-MakeMaker-7.58-NFyNXM/blib/arch /root/.cpan/build/ExtUtils-MakeMaker-7.58-NFyNXM/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/ExtUtils-MakeMaker-7.58-NFyNXM/blib/arch /root/.cpan/build/ExtUtils-MakeMaker-7.58-NFyNXM/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Manifying 38 pod documents
 Manifying 9 pod documents
@@ -1422,7 +1276,7 @@ Installing /usr/local/bin/instmodsh
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   BINGOS/ExtUtils-MakeMaker-7.58.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'ExtUtils::ParseXS'
+Running install for module &#39;ExtUtils::ParseXS&#39;
 Running make for S/SM/SMUELLER/ExtUtils-ParseXS-3.35.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/S/SM/SMUELLER/ExtUtils-ParseXS-3.35.tar.gz
@@ -1528,13 +1382,13 @@ cp lib/ExtUtils/Typemaps/Cmd.pm blib/lib/ExtUtils/Typemaps/Cmd.pm
 cp lib/ExtUtils/ParseXS/Eval.pm blib/lib/ExtUtils/ParseXS/Eval.pm
 cp lib/ExtUtils/Typemaps.pm blib/lib/ExtUtils/Typemaps.pm
 cp lib/ExtUtils/xsubpp blib/script/xsubpp
-&quot;/usr/bin/perl&quot; -MExtUtils::MY -e 'MY-&gt;fixin(shift)' -- blib/script/xsubpp
+&#34;/usr/bin/perl&#34; -MExtUtils::MY -e &#39;MY-&gt;fixin(shift)&#39; -- blib/script/xsubpp
 Manifying 1 pod document
 Manifying 9 pod documents
   SMUELLER/ExtUtils-ParseXS-3.35.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/001-basic.t ............................ 1/17 XSTest.c: In function ‘XS_XSTest_T_BOOL_2’:
 XSTest.c:306: warning: unused variable ‘RETVAL’
 t/001-basic.t ............................ ok
@@ -1576,7 +1430,7 @@ Result: PASS
   SMUELLER/ExtUtils-ParseXS-3.35.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/ExtUtils-ParseXS-3.35-MOietH/blib/arch /root/.cpan/build/ExtUtils-ParseXS-3.35-MOietH/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/ExtUtils-ParseXS-3.35-MOietH/blib/arch /root/.cpan/build/ExtUtils-ParseXS-3.35-MOietH/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Manifying 9 pod documents
 Installing /usr/local/share/perl5/ExtUtils/xsubpp
@@ -1605,7 +1459,7 @@ Installing /usr/local/bin/xsubpp
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   SMUELLER/ExtUtils-ParseXS-3.35.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'File::Which'
+Running install for module &#39;File::Which&#39;
 Running make for P/PL/PLICEASE/File-Which-1.23.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/P/PL/PLICEASE/File-Which-1.23.tar.gz
@@ -1664,7 +1518,7 @@ Manifying 1 pod document
   PLICEASE/File-Which-1.23.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00_diag.t ..... 1/1 #
 #
 #
@@ -1701,7 +1555,7 @@ Result: PASS
   PLICEASE/File-Which-1.23.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/File-Which-1.23-Ea_yBV/blib/arch /root/.cpan/build/File-Which-1.23-Ea_yBV/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/File-Which-1.23-Ea_yBV/blib/arch /root/.cpan/build/File-Which-1.23-Ea_yBV/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/File/Which.pm
 Installing /usr/local/share/man/man3/File::Which.3pm
@@ -1738,7 +1592,7 @@ Running make test
   Delayed until after prerequisites
 Running make install
   Delayed until after prerequisites
-Running install for module 'Capture::Tiny'
+Running install for module &#39;Capture::Tiny&#39;
 Running make for D/DA/DAGOLDEN/Capture-Tiny-0.48.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/D/DA/DAGOLDEN/Capture-Tiny-0.48.tar.gz
@@ -1820,7 +1674,7 @@ Manifying 1 pod document
   DAGOLDEN/Capture-Tiny-0.48.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00-report-prereqs.t ...... #
 # Versions for all modules listed in MYMETA.json (including optional ones):
 #
@@ -1895,14 +1749,14 @@ Result: PASS
   DAGOLDEN/Capture-Tiny-0.48.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Capture-Tiny-0.48-YRNVlY/blib/arch /root/.cpan/build/Capture-Tiny-0.48-YRNVlY/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Capture-Tiny-0.48-YRNVlY/blib/arch /root/.cpan/build/Capture-Tiny-0.48-YRNVlY/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/Capture/Tiny.pm
 Installing /usr/local/share/man/man3/Capture::Tiny.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   DAGOLDEN/Capture-Tiny-0.48.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'Test2::API'
+Running install for module &#39;Test2::API&#39;
 Running make for E/EX/EXODIST/Test-Simple-1.302183.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/E/EX/EXODIST/Test-Simple-1.302183.tar.gz
@@ -2408,7 +2262,7 @@ Manifying 1 pod document
   EXODIST/Test-Simple-1.302183.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t t/Legacy/*.t t/Legacy/Bugs/*.t t/Legacy/Builder/*.t t/Legacy/Regression/*.t t/Legacy/Simple/*.t t/Legacy/Test2/*.t t/Legacy/Tester/*.t t/Legacy/subtest/*.t t/Legacy_And_Test2/*.t t/Test2/acceptance/*.t t/Test2/behavior/*.t t/Test2/legacy/*.t t/Test2/modules/*.t t/Test2/modules/API/*.t t/Test2/modules/API/InterceptResult/*.t t/Test2/modules/Event/*.t t/Test2/modules/Event/TAP/*.t t/Test2/modules/EventFacet/*.t t/Test2/modules/Formatter/*.t t/Test2/modules/Hub/*.t t/Test2/modules/Hub/Interceptor/*.t t/Test2/modules/IPC/*.t t/Test2/modules/IPC/Driver/*.t t/Test2/modules/Tools/*.t t/Test2/modules/Util/*.t t/Test2/regression/*.t t/regression/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t t/Legacy/*.t t/Legacy/Bugs/*.t t/Legacy/Builder/*.t t/Legacy/Regression/*.t t/Legacy/Simple/*.t t/Legacy/Test2/*.t t/Legacy/Tester/*.t t/Legacy/subtest/*.t t/Legacy_And_Test2/*.t t/Test2/acceptance/*.t t/Test2/behavior/*.t t/Test2/legacy/*.t t/Test2/modules/*.t t/Test2/modules/API/*.t t/Test2/modules/API/InterceptResult/*.t t/Test2/modules/Event/*.t t/Test2/modules/Event/TAP/*.t t/Test2/modules/EventFacet/*.t t/Test2/modules/Formatter/*.t t/Test2/modules/Hub/*.t t/Test2/modules/Hub/Interceptor/*.t t/Test2/modules/IPC/*.t t/Test2/modules/IPC/Driver/*.t t/Test2/modules/Tools/*.t t/Test2/modules/Util/*.t t/Test2/regression/*.t t/regression/*.t
 t/00-report.t .................................... 1/?
 # DIAGNOSTICS INFO IN CASE OF FAILURE:
 
@@ -2666,7 +2520,7 @@ t/Test2/regression/746-forking-subtest.t ......... ok
 t/Test2/regression/gh_16.t ....................... skipped: Crazy test, only run on 5.20+, or when AUTHOR_TESTING is set
 t/Test2/regression/ipc_files_abort_exit.t ........ skipped: Set AUTHOR_TESTING to run this test
 t/zzz-check-breaks.t ............................. 1/? # You have the following modules installed, which are not compatible with the latest Test::More:
-# Installed version (0.31) of Test::Exception is in range '&lt;= 0.42'
+# Installed version (0.31) of Test::Exception is in range &#39;&lt;= 0.42&#39;
 #
 # You should now update these modules!
 # You should also see Test2::Transition!
@@ -2677,7 +2531,7 @@ Result: PASS
   EXODIST/Test-Simple-1.302183.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Test-Simple-1.302183-FFuls2/blib/arch /root/.cpan/build/Test-Simple-1.302183-FFuls2/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Test-Simple-1.302183-FFuls2/blib/arch /root/.cpan/build/Test-Simple-1.302183-FFuls2/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 36 pod documents
 Manifying 34 pod documents
 Manifying 1 pod document
@@ -2828,7 +2682,7 @@ Installing /usr/local/share/man/man3/Test2::EventFacet::Amnesty.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   EXODIST/Test-Simple-1.302183.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'File::chdir'
+Running install for module &#39;File::chdir&#39;
 Running make for D/DA/DAGOLDEN/File-chdir-0.1010.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/D/DA/DAGOLDEN/File-chdir-0.1010.tar.gz
@@ -2886,7 +2740,7 @@ Manifying 1 pod document
   DAGOLDEN/File-chdir-0.1010.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00-report-prereqs.t .. #
 # Versions for all modules listed in MYMETA.json (including optional ones):
 #
@@ -2941,14 +2795,14 @@ Result: PASS
   DAGOLDEN/File-chdir-0.1010.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/File-chdir-0.1010-8t4bgD/blib/arch /root/.cpan/build/File-chdir-0.1010-8t4bgD/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/File-chdir-0.1010-8t4bgD/blib/arch /root/.cpan/build/File-chdir-0.1010-8t4bgD/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/File/chdir.pm
 Installing /usr/local/share/man/man3/File::chdir.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   DAGOLDEN/File-chdir-0.1010.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'List::Util'
+Running install for module &#39;List::Util&#39;
 Running make for P/PE/PEVANS/Scalar-List-Utils-1.55.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/P/PE/PEVANS/Scalar-List-Utils-1.55.tar.gz
@@ -3023,11 +2877,11 @@ cp lib/Sub/Util.pm blib/lib/Sub/Util.pm
 cp lib/List/Util.pm blib/lib/List/Util.pm
 cp lib/Scalar/Util.pm blib/lib/Scalar/Util.pm
 Running Mkbootstrap for Util ()
-chmod 644 &quot;Util.bs&quot;
-&quot;/usr/bin/perl&quot; -MExtUtils::Command::MM -e 'cp_nonempty' -- Util.bs blib/arch/auto/List/Util/Util.bs 644
-&quot;/usr/bin/perl&quot; &quot;/usr/local/share/perl5/ExtUtils/xsubpp&quot;  -typemap '/usr/share/perl5/ExtUtils/typemap'  ListUtil.xs &gt; ListUtil.xsc
+chmod 644 &#34;Util.bs&#34;
+&#34;/usr/bin/perl&#34; -MExtUtils::Command::MM -e &#39;cp_nonempty&#39; -- Util.bs blib/arch/auto/List/Util/Util.bs 644
+&#34;/usr/bin/perl&#34; &#34;/usr/local/share/perl5/ExtUtils/xsubpp&#34;  -typemap &#39;/usr/share/perl5/ExtUtils/typemap&#39;  ListUtil.xs &gt; ListUtil.xsc
 mv ListUtil.xsc ListUtil.c
-gcc -c   -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;1.55\&quot; -DXS_VERSION=\&quot;1.55\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DPERL_EXT -DUSE_PPPORT_H ListUtil.c
+gcc -c   -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;1.55\&#34; -DXS_VERSION=\&#34;1.55\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DPERL_EXT -DUSE_PPPORT_H ListUtil.c
 ListUtil.xs: In function ‘XS_List__Util_uniq’:
 ListUtil.xs:1397: warning: value computed is not used
 ListUtil.xs: In function ‘XS_List__Util_uniqnum’:
@@ -3046,8 +2900,8 @@ Manifying 4 pod documents
   PEVANS/Scalar-List-Utils-1.55.tar.gz
   /usr/bin/make -- OK
 Running make test
-&quot;/usr/bin/perl&quot; -MExtUtils::Command::MM -e 'cp_nonempty' -- Util.bs blib/arch/auto/List/Util/Util.bs 644
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+&#34;/usr/bin/perl&#34; -MExtUtils::Command::MM -e &#39;cp_nonempty&#39; -- Util.bs blib/arch/auto/List/Util/Util.bs 644
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00version.t ......... ok
 t/any-all.t ........... ok
 t/blessed.t ........... ok
@@ -3089,8 +2943,8 @@ Result: PASS
   PEVANS/Scalar-List-Utils-1.55.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Scalar-List-Utils-1.55-x2Ru2r/blib/arch /root/.cpan/build/Scalar-List-Utils-1.55-x2Ru2r/blib/lib to PERL5LIB for 'install'
-&quot;/usr/bin/perl&quot; -MExtUtils::Command::MM -e 'cp_nonempty' -- Util.bs blib/arch/auto/List/Util/Util.bs 644
+Prepending /root/.cpan/build/Scalar-List-Utils-1.55-x2Ru2r/blib/arch /root/.cpan/build/Scalar-List-Utils-1.55-x2Ru2r/blib/lib to PERL5LIB for &#39;install&#39;
+&#34;/usr/bin/perl&#34; -MExtUtils::Command::MM -e &#39;cp_nonempty&#39; -- Util.bs blib/arch/auto/List/Util/Util.bs 644
 Manifying 4 pod documents
 Files found in blib/arch: installing files in blib/lib into architecture dependent library tree
 Installing /usr/local/lib64/perl5/auto/List/Util/Util.so
@@ -3105,7 +2959,7 @@ Installing /usr/local/share/man/man3/List::Util.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   PEVANS/Scalar-List-Utils-1.55.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'Test2::V0'
+Running install for module &#39;Test2::V0&#39;
 Running make for E/EX/EXODIST/Test2-Suite-0.000139.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/E/EX/EXODIST/Test2-Suite-0.000139.tar.gz
@@ -3414,7 +3268,7 @@ Running make test
   Delayed until after prerequisites
 Running make install
   Delayed until after prerequisites
-Running install for module 'Scope::Guard'
+Running install for module &#39;Scope::Guard&#39;
 Running make for C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
@@ -3448,7 +3302,7 @@ Manifying 1 pod document
   CHOCOLATE/Scope-Guard-0.21.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/guard.t ........ ok
 t/new.t .......... ok
 t/scope_guard.t .. ok
@@ -3458,14 +3312,14 @@ Result: PASS
   CHOCOLATE/Scope-Guard-0.21.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Scope-Guard-0.21-lhZaoj/blib/arch /root/.cpan/build/Scope-Guard-0.21-lhZaoj/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Scope-Guard-0.21-lhZaoj/blib/arch /root/.cpan/build/Scope-Guard-0.21-lhZaoj/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/Scope/Guard.pm
 Installing /usr/local/share/man/man3/Scope::Guard.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   CHOCOLATE/Scope-Guard-0.21.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'Sub::Info'
+Running install for module &#39;Sub::Info&#39;
 Running make for E/EX/EXODIST/Sub-Info-0.002.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/E/EX/EXODIST/Sub-Info-0.002.tar.gz
@@ -3500,7 +3354,7 @@ Running make test
   Delayed until after prerequisites
 Running make install
   Delayed until after prerequisites
-Running install for module 'Importer'
+Running install for module &#39;Importer&#39;
 Running make for E/EX/EXODIST/Importer-0.026.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/E/EX/EXODIST/Importer-0.026.tar.gz
@@ -3537,7 +3391,7 @@ Manifying 1 pod document
   EXODIST/Importer-0.026.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/all_tag.t ...... ok
 t/export_fail.t .. ok
 t/import.t ....... ok
@@ -3550,7 +3404,7 @@ Result: PASS
   EXODIST/Importer-0.026.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Importer-0.026-9Xej4J/blib/arch /root/.cpan/build/Importer-0.026-9Xej4J/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Importer-0.026-9Xej4J/blib/arch /root/.cpan/build/Importer-0.026-9Xej4J/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/Importer.pm
 Installing /usr/local/share/man/man3/Importer.3pm
@@ -3567,7 +3421,7 @@ Manifying 1 pod document
   EXODIST/Sub-Info-0.002.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/Sub.t .. ok
 All tests successful.
 Files=1, Tests=68,  0 wallclock secs ( 0.01 usr  0.00 sys +  0.03 cusr  0.00 csys =  0.04 CPU)
@@ -3575,14 +3429,14 @@ Result: PASS
   EXODIST/Sub-Info-0.002.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Sub-Info-0.002-WZkVGI/blib/arch /root/.cpan/build/Sub-Info-0.002-WZkVGI/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Sub-Info-0.002-WZkVGI/blib/arch /root/.cpan/build/Sub-Info-0.002-WZkVGI/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/Sub/Info.pm
 Installing /usr/local/share/man/man3/Sub::Info.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   EXODIST/Sub-Info-0.002.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'Term::Table'
+Running install for module &#39;Term::Table&#39;
 Running make for E/EX/EXODIST/Term-Table-0.015.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/E/EX/EXODIST/Term-Table-0.015.tar.gz
@@ -3637,7 +3491,7 @@ Manifying 6 pod documents
   EXODIST/Term-Table-0.015.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t t/Table/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t t/Table/*.t
 t/bad_blank_line.t ........ ok
 t/HashBase.t .............. ok
 t/honor_env_in_non_tty.t .. ok
@@ -3652,7 +3506,7 @@ Result: PASS
   EXODIST/Term-Table-0.015.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Term-Table-0.015-7FZ5q9/blib/arch /root/.cpan/build/Term-Table-0.015-7FZ5q9/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Term-Table-0.015-7FZ5q9/blib/arch /root/.cpan/build/Term-Table-0.015-7FZ5q9/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 6 pod documents
 Installing /usr/local/share/perl5/Term/Table.pm
 Installing /usr/local/share/perl5/Term/Table/Spacer.pm
@@ -3799,7 +3653,7 @@ Manifying 16 pod documents
   EXODIST/Test2-Suite-0.000139.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t t/acceptance/*.t t/behavior/*.t t/modules/*.t t/modules/AsyncSubtest/*.t t/modules/AsyncSubtest/Event/*.t t/modules/Bundle/*.t t/modules/Compare/*.t t/modules/Plugin/*.t t/modules/Require/*.t t/modules/Tools/*.t t/modules/Util/*.t t/modules/Util/Table/*.t t/modules/Workflow/*.t t/modules/Workflow/Task/*.t t/regression/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t t/acceptance/*.t t/behavior/*.t t/modules/*.t t/modules/AsyncSubtest/*.t t/modules/AsyncSubtest/Event/*.t t/modules/Bundle/*.t t/modules/Compare/*.t t/modules/Plugin/*.t t/modules/Require/*.t t/modules/Tools/*.t t/modules/Util/*.t t/modules/Util/Table/*.t t/modules/Workflow/*.t t/modules/Workflow/Task/*.t t/regression/*.t
 t/00-report.t ................................... #
 # DIAGNOSTICS INFO IN CASE OF FAILURE:
 # +------+----------+
@@ -3962,7 +3816,7 @@ Result: PASS
   EXODIST/Test2-Suite-0.000139.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Test2-Suite-0.000139-iLiO6R/blib/arch /root/.cpan/build/Test2-Suite-0.000139-iLiO6R/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Test2-Suite-0.000139-iLiO6R/blib/arch /root/.cpan/build/Test2-Suite-0.000139-iLiO6R/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 34 pod documents
 Manifying 29 pod documents
 Manifying 35 pod documents
@@ -4201,7 +4055,7 @@ Installing /usr/local/share/man/man3/Test2::Require::Perl.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   EXODIST/Test2-Suite-0.000139.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'FFI::CheckLib'
+Running install for module &#39;FFI::CheckLib&#39;
 Running make for P/PL/PLICEASE/FFI-CheckLib-0.27.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/P/PL/PLICEASE/FFI-CheckLib-0.27.tar.gz
@@ -4344,7 +4198,7 @@ Manifying 1 pod document
   PLICEASE/FFI-CheckLib-0.27.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00_diag.t ................... 1/? #
 #
 #
@@ -4381,7 +4235,7 @@ t/00_diag.t ................... 1/? #
 t/00_diag.t ................... ok
 t/ci.t ........................ skipped: This test only runs if the $EXTRA_CI environment variable is set
 t/ffi_checklib.t .............. ok
-t/ffi_checklib__exit.t ........ skipped: Module 'Test::Exit' is not installed
+t/ffi_checklib__exit.t ........ skipped: Module &#39;Test::Exit&#39; is not installed
 t/ffi_checklib__os_cygwin.t ... ok
 t/ffi_checklib__os_darwin.t ... ok
 t/ffi_checklib__os_mswin32.t .. ok
@@ -4393,14 +4247,14 @@ Result: PASS
   PLICEASE/FFI-CheckLib-0.27.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/FFI-CheckLib-0.27-NtHFa5/blib/arch /root/.cpan/build/FFI-CheckLib-0.27-NtHFa5/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/FFI-CheckLib-0.27-NtHFa5/blib/arch /root/.cpan/build/FFI-CheckLib-0.27-NtHFa5/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/FFI/CheckLib.pm
 Installing /usr/local/share/man/man3/FFI::CheckLib.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   PLICEASE/FFI-CheckLib-0.27.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'Path::Tiny'
+Running install for module &#39;Path::Tiny&#39;
 Running make for D/DA/DAGOLDEN/Path-Tiny-0.114.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/D/DA/DAGOLDEN/Path-Tiny-0.114.tar.gz
@@ -4485,7 +4339,7 @@ Manifying 1 pod document
   DAGOLDEN/Path-Tiny-0.114.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00-report-prereqs.t ............. #
 # Versions for all modules listed in MYMETA.json (including optional ones):
 #
@@ -4592,7 +4446,7 @@ Result: PASS
   DAGOLDEN/Path-Tiny-0.114.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Path-Tiny-0.114-RaTt1X/blib/arch /root/.cpan/build/Path-Tiny-0.114-RaTt1X/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Path-Tiny-0.114-RaTt1X/blib/arch /root/.cpan/build/Path-Tiny-0.114-RaTt1X/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/Path/Tiny.pm
 Installing /usr/local/share/man/man3/Path::Tiny.3pm
@@ -4695,7 +4549,7 @@ Manifying 29 pod documents
   PLICEASE/Alien-Build-2.37.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00_diag.t .......................................... 1/? #
 #
 #
@@ -4767,20 +4621,20 @@ t/00_diag.t .......................................... 1/? #
 #
 #
 # $VAR1 = {
-#           'system_type' =&gt; 'unix',
-#           'pkg-config' =&gt; {
-#                             'pkgconf' =&gt; undef,
-#                             'pkg-config' =&gt; '/usr/bin/pkg-config'
+#           &#39;system_type&#39; =&gt; &#39;unix&#39;,
+#           &#39;pkg-config&#39; =&gt; {
+#                             &#39;pkgconf&#39; =&gt; undef,
+#                             &#39;pkg-config&#39; =&gt; &#39;/usr/bin/pkg-config&#39;
 #                           },
-#           'compiler_type' =&gt; 'unix',
-#           'cmake_generator' =&gt; 'Unix Makefiles'
+#           &#39;compiler_type&#39; =&gt; &#39;unix&#39;,
+#           &#39;cmake_generator&#39; =&gt; &#39;Unix Makefiles&#39;
 #         };
 # pkg-config negotiate pick = PkgConfig::CommandLine
 #
 #
 # [config.site]
 # # file automatically generated by /root/.cpan/build/Alien-Build-2.37-izR6En/blib/lib/Alien/Build/Plugin/Build/Autoconf.pm
-# libdir='${prefix}/lib'
+# libdir=&#39;${prefix}/lib&#39;
 #
 #
 #
@@ -4869,7 +4723,7 @@ Result: PASS
   PLICEASE/Alien-Build-2.37.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Alien-Build-2.37-izR6En/blib/arch /root/.cpan/build/Alien-Build-2.37-izR6En/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/Alien-Build-2.37-izR6En/blib/arch /root/.cpan/build/Alien-Build-2.37-izR6En/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 30 pod documents
 Manifying 26 pod documents
 Manifying 29 pod documents
@@ -5046,7 +4900,7 @@ Installing /usr/local/share/man/man3/Alien::Build.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   PLICEASE/Alien-Build-2.37.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'Alien::Libxml2'
+Running install for module &#39;Alien::Libxml2&#39;
 Running make for P/PL/PLICEASE/Alien-Libxml2-0.17.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/P/PL/PLICEASE/Alien-Libxml2-0.17.tar.gz
@@ -5105,14 +4959,14 @@ Generating a Unix-style Makefile
 Writing Makefile for Alien::Libxml2
 Writing MYMETA.yml and MYMETA.json
 cp lib/Alien/Libxml2.pm blib/lib/Alien/Libxml2.pm
-&quot;/usr/bin/perl&quot; -MAlien::Build::MM=cmd -e prefix site /usr/lib64/perl5 /usr/local/lib64/perl5 /usr/lib64/perl5/vendor_perl
+&#34;/usr/bin/perl&#34; -MAlien::Build::MM=cmd -e prefix site /usr/lib64/perl5 /usr/local/lib64/perl5 /usr/lib64/perl5/vendor_perl
 Alien::Build::Plugin::PkgConfig::Negotiate&gt; Using PkgConfig plugin: PkgConfig::CommandLine
 main&gt; prefix /usr/local/lib64/perl5/auto/share/dist/Alien-Libxml2
-&quot;/usr/bin/perl&quot; -MAlien::Build::MM=cmd -e version 0.17
+&#34;/usr/bin/perl&#34; -MAlien::Build::MM=cmd -e version 0.17
 Alien::Build::Plugin::PkgConfig::Negotiate&gt; Using PkgConfig plugin: PkgConfig::CommandLine
-&quot;/usr/bin/perl&quot; -MAlien::Build::MM=cmd -e download
+&#34;/usr/bin/perl&#34; -MAlien::Build::MM=cmd -e download
 Alien::Build::Plugin::PkgConfig::Negotiate&gt; Using PkgConfig plugin: PkgConfig::CommandLine
-&quot;/usr/bin/perl&quot; -MAlien::Build::MM=cmd -e build
+&#34;/usr/bin/perl&#34; -MAlien::Build::MM=cmd -e build
 Alien::Build::Plugin::PkgConfig::Negotiate&gt; Using PkgConfig plugin: PkgConfig::CommandLine
 Alien::Build::Plugin::Core::Legacy&gt; adding legacy hash to config
 Alien::Build::Plugin::Core::Gather&gt; mkdir -p /root/.cpan/build/Alien-Libxml2-0.17-sEkEhP/blib/lib/auto/share/dist/Alien-Libxml2/_alien
@@ -5120,9 +4974,9 @@ Manifying 1 pod document
   PLICEASE/Alien-Libxml2-0.17.tar.gz
   /usr/bin/make -- OK
 Running make test
-&quot;/usr/bin/perl&quot; -MAlien::Build::MM=cmd -e test
+&#34;/usr/bin/perl&#34; -MAlien::Build::MM=cmd -e test
 Alien::Build::Plugin::PkgConfig::Negotiate&gt; Using PkgConfig plugin: PkgConfig::CommandLine
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00_diag.t ........ 1/? #
 #
 #
@@ -5174,8 +5028,8 @@ Result: PASS
   PLICEASE/Alien-Libxml2-0.17.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/Alien-Libxml2-0.17-sEkEhP/blib/arch /root/.cpan/build/Alien-Libxml2-0.17-sEkEhP/blib/lib to PERL5LIB for 'install'
-&quot;/usr/bin/perl&quot; -MAlien::Build::MM=cmd -e clean_install
+Prepending /root/.cpan/build/Alien-Libxml2-0.17-sEkEhP/blib/arch /root/.cpan/build/Alien-Libxml2-0.17-sEkEhP/blib/lib to PERL5LIB for &#39;install&#39;
+&#34;/usr/bin/perl&#34; -MAlien::Build::MM=cmd -e clean_install
 Alien::Build::Plugin::PkgConfig::Negotiate&gt; Using PkgConfig plugin: PkgConfig::CommandLine
 Manifying 1 pod document
 Files found in blib/arch: installing files in blib/lib into architecture dependent library tree
@@ -5213,7 +5067,7 @@ Running make test
   Delayed until after prerequisites
 Running make install
   Delayed until after prerequisites
-Running install for module 'XML::SAX'
+Running install for module &#39;XML::SAX&#39;
 Running make for G/GR/GRANTM/XML-SAX-1.02.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/G/GR/GRANTM/XML-SAX-1.02.tar.gz
@@ -5308,7 +5162,7 @@ Running make test
   Delayed until after prerequisites
 Running make install
   Delayed until after prerequisites
-Running install for module 'XML::SAX::Base'
+Running install for module &#39;XML::SAX::Base&#39;
 Running make for G/GR/GRANTM/XML-SAX-Base-1.09.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/G/GR/GRANTM/XML-SAX-Base-1.09.tar.gz
@@ -5363,7 +5217,7 @@ Manifying 3 pod documents
   GRANTM/XML-SAX-Base-1.09.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00basic.t ............. ok
 t/01exception.t ......... ok
 t/01simpledriver.t ...... ok
@@ -5389,7 +5243,7 @@ Result: PASS
   GRANTM/XML-SAX-Base-1.09.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/XML-SAX-Base-1.09-9DvSN5/blib/arch /root/.cpan/build/XML-SAX-Base-1.09-9DvSN5/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/XML-SAX-Base-1.09-9DvSN5/blib/arch /root/.cpan/build/XML-SAX-Base-1.09-9DvSN5/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 3 pod documents
 Installing /usr/local/share/perl5/XML/SAX/BuildSAXBase.pl
 Installing /usr/local/share/perl5/XML/SAX/Base.pm
@@ -5400,7 +5254,7 @@ Installing /usr/local/share/man/man3/XML::SAX::Base.3pm
 Appending installation info to /usr/lib64/perl5/perllocal.pod
   GRANTM/XML-SAX-Base-1.09.tar.gz
   /usr/bin/make install  -- OK
-Running install for module 'XML::NamespaceSupport'
+Running install for module &#39;XML::NamespaceSupport&#39;
 Running make for P/PE/PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
 Fetching with LWP:
 ftp://cpan.cs.utah.edu/CPAN/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
@@ -5435,7 +5289,7 @@ Manifying 1 pod document
   PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00base.t .. ok
 All tests successful.
 Files=1, Tests=49,  0 wallclock secs ( 0.01 usr  0.00 sys +  0.03 cusr  0.00 csys =  0.04 CPU)
@@ -5443,7 +5297,7 @@ Result: PASS
   PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/XML-NamespaceSupport-1.12-IaOLLY/blib/arch /root/.cpan/build/XML-NamespaceSupport-1.12-IaOLLY/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/XML-NamespaceSupport-1.12-IaOLLY/blib/arch /root/.cpan/build/XML-NamespaceSupport-1.12-IaOLLY/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 1 pod document
 Installing /usr/local/share/perl5/XML/NamespaceSupport.pm
 Installing /usr/local/share/man/man3/XML::NamespaceSupport.3pm
@@ -5479,7 +5333,7 @@ Manifying 6 pod documents
   GRANTM/XML-SAX-1.02.tar.gz
   /usr/bin/make -- OK
 Running make test
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00basic.t ....... ok
 t/01known.t ....... ok
 t/10xmldecl1.t .... ok
@@ -5503,7 +5357,7 @@ Result: PASS
   GRANTM/XML-SAX-1.02.tar.gz
   /usr/bin/make test -- OK
 Running make install
-Prepending /root/.cpan/build/XML-SAX-1.02-XfNlbt/blib/arch /root/.cpan/build/XML-SAX-1.02-XfNlbt/blib/lib to PERL5LIB for 'install'
+Prepending /root/.cpan/build/XML-SAX-1.02-XfNlbt/blib/arch /root/.cpan/build/XML-SAX-1.02-XfNlbt/blib/lib to PERL5LIB for &#39;install&#39;
 Manifying 6 pod documents
 Installing /usr/local/share/perl5/XML/SAX.pm
 Installing /usr/local/share/perl5/XML/SAX/PurePerl.pm
@@ -5586,25 +5440,25 @@ cp lib/XML/LibXML/Pattern.pod blib/lib/XML/LibXML/Pattern.pod
 cp lib/XML/LibXML/XPathExpression.pod blib/lib/XML/LibXML/XPathExpression.pod
 cp lib/XML/LibXML/XPathContext.pod blib/lib/XML/LibXML/XPathContext.pod
 Running Mkbootstrap for LibXML ()
-chmod 644 &quot;LibXML.bs&quot;
-&quot;/usr/bin/perl&quot; -MExtUtils::Command::MM -e 'cp_nonempty' -- LibXML.bs blib/arch/auto/XML/LibXML/LibXML.bs 644
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 Av_CharPtrPtr.c
-&quot;/usr/bin/perl&quot; &quot;/usr/local/share/perl5/ExtUtils/xsubpp&quot;  -typemap '/usr/share/perl5/ExtUtils/typemap' -typemap '/root/.cpan/build/XML-LibXML-2.0206-0MmN2e/typemap'  Devel.xs &gt; Devel.xsc
+chmod 644 &#34;LibXML.bs&#34;
+&#34;/usr/bin/perl&#34; -MExtUtils::Command::MM -e &#39;cp_nonempty&#39; -- LibXML.bs blib/arch/auto/XML/LibXML/LibXML.bs 644
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 Av_CharPtrPtr.c
+&#34;/usr/bin/perl&#34; &#34;/usr/local/share/perl5/ExtUtils/xsubpp&#34;  -typemap &#39;/usr/share/perl5/ExtUtils/typemap&#39; -typemap &#39;/root/.cpan/build/XML-LibXML-2.0206-0MmN2e/typemap&#39;  Devel.xs &gt; Devel.xsc
 mv Devel.xsc Devel.c
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 Devel.c
-&quot;/usr/bin/perl&quot; &quot;/usr/local/share/perl5/ExtUtils/xsubpp&quot;  -typemap '/usr/share/perl5/ExtUtils/typemap' -typemap '/root/.cpan/build/XML-LibXML-2.0206-0MmN2e/typemap'  LibXML.xs &gt; LibXML.xsc
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 Devel.c
+&#34;/usr/bin/perl&#34; &#34;/usr/local/share/perl5/ExtUtils/xsubpp&#34;  -typemap &#39;/usr/share/perl5/ExtUtils/typemap&#39; -typemap &#39;/root/.cpan/build/XML-LibXML-2.0206-0MmN2e/typemap&#39;  LibXML.xs &gt; LibXML.xsc
 mv LibXML.xsc LibXML.c
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 LibXML.c
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 LibXML.c
 LibXML.c: In function ‘XS_XML__LibXML__Node_unbindNode’:
 LibXML.xs:4982: warning: unused variable ‘docfrag’
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 dom.c
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 perl-libxml-mm.c
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 perl-libxml-sax.c
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 dom.c
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 perl-libxml-mm.c
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 perl-libxml-sax.c
 perl-libxml-sax.c: In function ‘PSaxSetDocumentLocator’:
 perl-libxml-sax.c:883: warning: unused variable ‘empty’
-gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&quot;2.0206\&quot; -DXS_VERSION=\&quot;2.0206\&quot; -fPIC &quot;-I/usr/lib64/perl5/CORE&quot;  -DHAVE_UTF8 xpath.c
+gcc -c  -I/usr/include/libxml2 -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic   -DVERSION=\&#34;2.0206\&#34; -DXS_VERSION=\&#34;2.0206\&#34; -fPIC &#34;-I/usr/lib64/perl5/CORE&#34;  -DHAVE_UTF8 xpath.c
 rm -f blib/arch/auto/XML/LibXML/LibXML.so
-LD_RUN_PATH=&quot;/usr/lib64:/lib64&quot; gcc  -shared -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic  Av_CharPtrPtr.o Devel.o LibXML.o dom.o perl-libxml-mm.o perl-libxml-sax.o xpath.o  -o blib/arch/auto/XML/LibXML/LibXML.so  \
+LD_RUN_PATH=&#34;/usr/lib64:/lib64&#34; gcc  -shared -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic  Av_CharPtrPtr.o Devel.o LibXML.o dom.o perl-libxml-mm.o perl-libxml-sax.o xpath.o  -o blib/arch/auto/XML/LibXML/LibXML.so  \
            -lxml2 -lz -lm   \
 
 chmod 755 blib/arch/auto/XML/LibXML/LibXML.so
@@ -5612,8 +5466,8 @@ Manifying 34 pod documents
   SHLOMIF/XML-LibXML-2.0206.tar.gz
   /usr/bin/make -- OK
 Running make test
-&quot;/usr/bin/perl&quot; -MExtUtils::Command::MM -e 'cp_nonempty' -- LibXML.bs blib/arch/auto/XML/LibXML/LibXML.bs 644
-PERL_DL_NONLAZY=1 &quot;/usr/bin/perl&quot; &quot;-MExtUtils::Command::MM&quot; &quot;-MTest::Harness&quot; &quot;-e&quot; &quot;undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')&quot; t/*.t
+&#34;/usr/bin/perl&#34; -MExtUtils::Command::MM -e &#39;cp_nonempty&#39; -- LibXML.bs blib/arch/auto/XML/LibXML/LibXML.bs 644
+PERL_DL_NONLAZY=1 &#34;/usr/bin/perl&#34; &#34;-MExtUtils::Command::MM&#34; &#34;-MTest::Harness&#34; &#34;-e&#34; &#34;undef *Test::Harness::Switches; test_harness(0, &#39;blib/lib&#39;, &#39;blib/arch&#39;)&#34; t/*.t
 t/00-report-prereqs.t .............................. #
 # Versions for all modules listed in MYMETA.json (including optional ones):
 #
@@ -5714,7 +5568,7 @@ t/40reader.t ....................................... ok
 t/40reader_mem_error.t ............................. ok
 t/41xinclude.t ..................................... ok
 t/42common.t ....................................... ok
-t/43options.t ...................................... 1/291 file:///etc/passwd:486: parser error : EntityRef: expecting ';'
+t/43options.t ...................................... 1/291 file:///etc/passwd:486: parser error : EntityRef: expecting &#39;;&#39;
 bctrace:zLzFwVrbP1nvE:9140:100:BI R\&amp;D Race Testing,S2102,+1 (919) 531-6645,9999
                                       ^
 file:///etc/passwd:1666: parser error : PCDATA invalid Char value 27
@@ -5723,10 +5577,10 @@ devsecops:jwOiSzr6nHohk:18893:108:devsecops,XXXX,x157,9999999,3329:/user
 file:///etc/passwd:1666: parser error : PCDATA invalid Char value 27
 devsecops:jwOiSzr6nHohk:18893:108:devsecops,XXXX,x157,9999999,3329:/user
                                                           ^
-file:///etc/passwd:1671: parser error : EntityRef: expecting ';'
+file:///etc/passwd:1671: parser error : EntityRef: expecting &#39;;&#39;
 dfxrnd:t2tdFBHxTmX36:46473:100:DFD R&amp;D Account,229,3136,9999999,9150:/users/dfxr
                                       ^
-file:///etc/passwd:2996: parser error : EntityRef: expecting ';'
+file:///etc/passwd:2996: parser error : EntityRef: expecting &#39;;&#39;
 javadev:yMvYA3mB6glOk:16636:100:R&amp;D Java Development,R1240,17771,9999999,1599:/u
                                    ^
 file:///etc/passwd:4667: parser error : Input is not proper UTF-8, indicate encoding !
@@ -5739,283 +5593,283 @@ oradbt:4.gtD5AXK9t2g:33363:70:[MIS] Dunn &amp; Bradstreet Project,E308,10434,999
 file:///etc/passwd:5112: parser error : xmlParseEntityRef: no name
 qstsdmdb:&amp;8fG7r.yBmpkM:34640:100:qstsdmdb,XXXX,XXXX,9999999,5331:/users/qstsdmdb
           ^
-file:///etc/passwd:5189: parser error : EntityRef: expecting ';'
+file:///etc/passwd:5189: parser error : EntityRef: expecting &#39;;&#39;
 rdcjenk:IkhCC922AqvpE:9349:100:[RDC] R\&amp;D Jenkins Admin,RA432,+1 (919) 531-6196,
                                          ^
-file:///etc/passwd:5221: parser error : EntityRef: expecting ';'
+file:///etc/passwd:5221: parser error : EntityRef: expecting &#39;;&#39;
 rdwebs:WmU/yzETQKRHQ:14789:100:R&amp;D Generic Web ID,S2062,14533,9999999,4359:/r/ge
                                   ^
 file:///etc/passwd:6785: parser error : xmlParseEntityRef: no name
 sdesas:d4lXOllg0XCoE:6048:44:[SDE] Build &amp; Test Department,R4236,16698,9999999,2
                                           ^
-file:///etc/passwd:7174: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7174: parser error : EntityRef: expecting &#39;;&#39;
 sinasc:qRIM.65KAzgvc:11223:100:Atish Chintawar,SAS R&amp;D,XXXX,,E31605:/users/sinas
                                                       ^
-file:///etc/passwd:7193: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7193: parser error : EntityRef: expecting &#39;;&#39;
 sinawn:tLjmHhOd9.WL6:11400:100:Ashwini Annadate,SAS R&amp;D,XXXX,,E31618:/users/sina
                                                        ^
-file:///etc/passwd:7272: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7272: parser error : EntityRef: expecting &#39;;&#39;
 singre:IbvTu4ps4Ykzw:11489:100:Ganpati Revankar,SAS R&amp;D,XXXX,,E31623:/users/sing
                                                        ^
-file:///etc/passwd:7328: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7328: parser error : EntityRef: expecting &#39;;&#39;
 sinklg:VZ9WgHQCo5GRk:11353:100:Kanhaiya Gupta,SAS R&amp;D,XXXX,,E31614:/users/sinklg
                                                      ^
-file:///etc/passwd:7381: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7381: parser error : EntityRef: expecting &#39;;&#39;
 sinmjh:HgDH0sVUGNqo2:11150:100:Manish Jhunjhunwala,SAS R&amp;D,XXXX,,E31601:/users/s
                                                           ^
-file:///etc/passwd:7399: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7399: parser error : EntityRef: expecting &#39;;&#39;
 sinmru:rHy0du4d9H8nQ:11007:100:Mrudula Shrimant,SAS R&amp;D,XXXX,,E31588:/users/sinm
                                                        ^
-file:///etc/passwd:7459: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7459: parser error : EntityRef: expecting &#39;;&#39;
 sinpkr:wEV9vuUcDg75U:10750:100:Priya Khirodkar,SAS R&amp;D,XXXX,,E31578:/users/sinpk
                                                       ^
-file:///etc/passwd:7471: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7471: parser error : EntityRef: expecting &#39;;&#39;
 sinppw:NqgiPwtt5KkTQ:11119:100:Prasad Pawar,SAS R&amp;D,XXXX,,E31599:/users/sinppw:/
                                                    ^
-file:///etc/passwd:7481: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7481: parser error : EntityRef: expecting &#39;;&#39;
 sinpse:I.AjGNwMJOdlg:11001:100:Pallavi Sethi,SAS R&amp;D,XXXX,,E31587:/users/sinpse:
                                                     ^
-file:///etc/passwd:7504: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7504: parser error : EntityRef: expecting &#39;;&#39;
 sinrit:cLBhOFp7nL8lU:11099:100:Ritesh Nigam,SAS R&amp;D,XXXX,,E31592:/users/sinrit:/
                                                    ^
-file:///etc/passwd:7516: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7516: parser error : EntityRef: expecting &#39;;&#39;
 sinrmg:s.jETp5Go.m/2:11469:100:Ramnik Gahrotra,SAS R&amp;D,XXXX,,E31622:/users/sinrm
                                                       ^
-file:///etc/passwd:7610: parser error : EntityRef: expecting ';'
+file:///etc/passwd:7610: parser error : EntityRef: expecting &#39;;&#39;
 sinspl:X7cn0eALPDe2M:11128:100:Suhas Papal,SAS R&amp;D,XXXX,,E31596:/users/sinspl:/b
                                                   ^
 file:///etc/passwd:9456: parser error : xmlParseEntityRef: no name
 vdmrace:Dlm57/s6QXpuI:44888:100:DEI VDM Usage &amp; RACE Deployment,R4224,17792,9999
                                                ^
-file:///etc/passwd:9938: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9938: parser error : EntityRef: expecting &#39;;&#39;
 rdt0001:slCUNJ0bcEkVI:20804:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9939: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9939: parser error : EntityRef: expecting &#39;;&#39;
 rdt0002:slCUNJ0bcEkVI:20805:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9940: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9940: parser error : EntityRef: expecting &#39;;&#39;
 rdt0003:slCUNJ0bcEkVI:20806:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9941: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9941: parser error : EntityRef: expecting &#39;;&#39;
 rdt0004:slCUNJ0bcEkVI:20807:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9942: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9942: parser error : EntityRef: expecting &#39;;&#39;
 rdt0005:slCUNJ0bcEkVI:20808:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9943: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9943: parser error : EntityRef: expecting &#39;;&#39;
 rdt0006:slCUNJ0bcEkVI:20809:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9944: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9944: parser error : EntityRef: expecting &#39;;&#39;
 rdt0007:slCUNJ0bcEkVI:20810:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9945: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9945: parser error : EntityRef: expecting &#39;;&#39;
 rdt0008:slCUNJ0bcEkVI:20811:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9946: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9946: parser error : EntityRef: expecting &#39;;&#39;
 rdt0009:slCUNJ0bcEkVI:20812:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9947: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9947: parser error : EntityRef: expecting &#39;;&#39;
 rdt0010:slCUNJ0bcEkVI:20813:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9948: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9948: parser error : EntityRef: expecting &#39;;&#39;
 rdt0011:slCUNJ0bcEkVI:20814:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9949: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9949: parser error : EntityRef: expecting &#39;;&#39;
 rdt0012:slCUNJ0bcEkVI:20815:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9950: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9950: parser error : EntityRef: expecting &#39;;&#39;
 rdt0013:slCUNJ0bcEkVI:20816:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9951: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9951: parser error : EntityRef: expecting &#39;;&#39;
 rdt0014:slCUNJ0bcEkVI:20817:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9952: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9952: parser error : EntityRef: expecting &#39;;&#39;
 rdt0015:slCUNJ0bcEkVI:20818:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9953: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9953: parser error : EntityRef: expecting &#39;;&#39;
 rdt0016:slCUNJ0bcEkVI:20819:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9954: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9954: parser error : EntityRef: expecting &#39;;&#39;
 rdt0017:slCUNJ0bcEkVI:20820:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9955: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9955: parser error : EntityRef: expecting &#39;;&#39;
 rdt0018:slCUNJ0bcEkVI:20821:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9956: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9956: parser error : EntityRef: expecting &#39;;&#39;
 rdt0019:slCUNJ0bcEkVI:20822:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9957: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9957: parser error : EntityRef: expecting &#39;;&#39;
 rdt0020:slCUNJ0bcEkVI:20823:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9958: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9958: parser error : EntityRef: expecting &#39;;&#39;
 rdt0021:slCUNJ0bcEkVI:20824:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9959: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9959: parser error : EntityRef: expecting &#39;;&#39;
 rdt0022:slCUNJ0bcEkVI:20825:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9960: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9960: parser error : EntityRef: expecting &#39;;&#39;
 rdt0023:slCUNJ0bcEkVI:20826:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9961: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9961: parser error : EntityRef: expecting &#39;;&#39;
 rdt0024:slCUNJ0bcEkVI:20827:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9962: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9962: parser error : EntityRef: expecting &#39;;&#39;
 rdt0025:slCUNJ0bcEkVI:20828:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9963: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9963: parser error : EntityRef: expecting &#39;;&#39;
 rdt0026:slCUNJ0bcEkVI:20829:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9964: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9964: parser error : EntityRef: expecting &#39;;&#39;
 rdt0027:slCUNJ0bcEkVI:20830:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9965: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9965: parser error : EntityRef: expecting &#39;;&#39;
 rdt0028:slCUNJ0bcEkVI:20831:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9966: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9966: parser error : EntityRef: expecting &#39;;&#39;
 rdt0029:slCUNJ0bcEkVI:20832:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9967: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9967: parser error : EntityRef: expecting &#39;;&#39;
 rdt0030:slCUNJ0bcEkVI:20833:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9968: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9968: parser error : EntityRef: expecting &#39;;&#39;
 rdt0031:slCUNJ0bcEkVI:20834:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9969: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9969: parser error : EntityRef: expecting &#39;;&#39;
 rdt0032:slCUNJ0bcEkVI:20835:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9970: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9970: parser error : EntityRef: expecting &#39;;&#39;
 rdt0033:slCUNJ0bcEkVI:20836:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9971: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9971: parser error : EntityRef: expecting &#39;;&#39;
 rdt0034:slCUNJ0bcEkVI:20837:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9972: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9972: parser error : EntityRef: expecting &#39;;&#39;
 rdt0035:slCUNJ0bcEkVI:20838:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9973: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9973: parser error : EntityRef: expecting &#39;;&#39;
 rdt0036:slCUNJ0bcEkVI:20839:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9974: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9974: parser error : EntityRef: expecting &#39;;&#39;
 rdt0037:slCUNJ0bcEkVI:20840:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9975: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9975: parser error : EntityRef: expecting &#39;;&#39;
 rdt0038:slCUNJ0bcEkVI:20841:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9976: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9976: parser error : EntityRef: expecting &#39;;&#39;
 rdt0039:slCUNJ0bcEkVI:20842:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9977: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9977: parser error : EntityRef: expecting &#39;;&#39;
 rdt0040:slCUNJ0bcEkVI:20843:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9978: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9978: parser error : EntityRef: expecting &#39;;&#39;
 rdt0041:slCUNJ0bcEkVI:20844:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9979: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9979: parser error : EntityRef: expecting &#39;;&#39;
 rdt0042:slCUNJ0bcEkVI:20845:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9980: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9980: parser error : EntityRef: expecting &#39;;&#39;
 rdt0043:slCUNJ0bcEkVI:20846:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9981: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9981: parser error : EntityRef: expecting &#39;;&#39;
 rdt0044:slCUNJ0bcEkVI:20847:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9982: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9982: parser error : EntityRef: expecting &#39;;&#39;
 rdt0045:slCUNJ0bcEkVI:20848:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9983: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9983: parser error : EntityRef: expecting &#39;;&#39;
 rdt0046:slCUNJ0bcEkVI:20849:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9984: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9984: parser error : EntityRef: expecting &#39;;&#39;
 rdt0047:slCUNJ0bcEkVI:20850:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9985: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9985: parser error : EntityRef: expecting &#39;;&#39;
 rdt0048:slCUNJ0bcEkVI:20851:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9986: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9986: parser error : EntityRef: expecting &#39;;&#39;
 rdt0049:slCUNJ0bcEkVI:20852:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9987: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9987: parser error : EntityRef: expecting &#39;;&#39;
 rdt0050:slCUNJ0bcEkVI:20853:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9988: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9988: parser error : EntityRef: expecting &#39;;&#39;
 rdt0051:slCUNJ0bcEkVI:20854:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9989: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9989: parser error : EntityRef: expecting &#39;;&#39;
 rdt0052:slCUNJ0bcEkVI:20855:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9990: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9990: parser error : EntityRef: expecting &#39;;&#39;
 rdt0053:slCUNJ0bcEkVI:20856:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9991: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9991: parser error : EntityRef: expecting &#39;;&#39;
 rdt0054:slCUNJ0bcEkVI:20857:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9992: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9992: parser error : EntityRef: expecting &#39;;&#39;
 rdt0055:slCUNJ0bcEkVI:20858:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9993: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9993: parser error : EntityRef: expecting &#39;;&#39;
 rdt0056:slCUNJ0bcEkVI:20859:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9994: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9994: parser error : EntityRef: expecting &#39;;&#39;
 rdt0057:slCUNJ0bcEkVI:20860:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9995: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9995: parser error : EntityRef: expecting &#39;;&#39;
 rdt0058:slCUNJ0bcEkVI:20861:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9996: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9996: parser error : EntityRef: expecting &#39;;&#39;
 rdt0059:slCUNJ0bcEkVI:20862:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9997: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9997: parser error : EntityRef: expecting &#39;;&#39;
 rdt0060:slCUNJ0bcEkVI:20863:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9998: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9998: parser error : EntityRef: expecting &#39;;&#39;
 rdt0061:slCUNJ0bcEkVI:20864:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:9999: parser error : EntityRef: expecting ';'
+file:///etc/passwd:9999: parser error : EntityRef: expecting &#39;;&#39;
 rdt0062:slCUNJ0bcEkVI:20865:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10000: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10000: parser error : EntityRef: expecting &#39;;&#39;
 rdt0063:slCUNJ0bcEkVI:20866:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10001: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10001: parser error : EntityRef: expecting &#39;;&#39;
 rdt0064:slCUNJ0bcEkVI:20867:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10002: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10002: parser error : EntityRef: expecting &#39;;&#39;
 rdt0065:slCUNJ0bcEkVI:20868:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10003: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10003: parser error : EntityRef: expecting &#39;;&#39;
 rdt0066:slCUNJ0bcEkVI:20869:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10004: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10004: parser error : EntityRef: expecting &#39;;&#39;
 rdt0067:slCUNJ0bcEkVI:20870:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10005: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10005: parser error : EntityRef: expecting &#39;;&#39;
 rdt0068:slCUNJ0bcEkVI:20871:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10006: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10006: parser error : EntityRef: expecting &#39;;&#39;
 rdt0069:slCUNJ0bcEkVI:20872:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10007: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10007: parser error : EntityRef: expecting &#39;;&#39;
 rdt0070:slCUNJ0bcEkVI:20873:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10008: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10008: parser error : EntityRef: expecting &#39;;&#39;
 rdt0071:slCUNJ0bcEkVI:20874:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10009: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10009: parser error : EntityRef: expecting &#39;;&#39;
 rdt0072:slCUNJ0bcEkVI:20875:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10010: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10010: parser error : EntityRef: expecting &#39;;&#39;
 rdt0073:slCUNJ0bcEkVI:20876:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10011: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10011: parser error : EntityRef: expecting &#39;;&#39;
 rdt0074:slCUNJ0bcEkVI:20877:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10012: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10012: parser error : EntityRef: expecting &#39;;&#39;
 rdt0075:slCUNJ0bcEkVI:20878:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10013: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10013: parser error : EntityRef: expecting &#39;;&#39;
 rdt0076:slCUNJ0bcEkVI:20879:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
-file:///etc/passwd:10014: parser error : EntityRef: expecting ';'
+file:///etc/passwd:10014: parser error : EntityRef: expecting &#39;;&#39;
 rdt0077:slCUNJ0bcEkVI:20880:100:R&amp;D/CTN LOCAL Test Accounts,R3208,7567,8331470,1
                                    ^
 # Looks like your test exited with 255 just after 50.
@@ -6071,18 +5925,14 @@ make: *** [test_dynamic] Error 255
 //hint// to see the cpan-testers results for installing this module, try:
   reports SHLOMIF/XML-LibXML-2.0206.tar.gz
 Running make install
-  make test had returned bad status, won't install without force
+  make test had returned bad status, won&#39;t install without force
 Failed during this command:
  SHLOMIF/XML-LibXML-2.0206.tar.gz             : make_test NO
 
 cpan[2]&gt; exit
 Terminal does not support GetHistory.
 Lockfile removed.
-</code></pre>
-
-<p>后来还是通过下载rpm包解决了。</p>
-
-<pre><code>[root@mryqulax ~]# lsb_release -a
+</code></pre><p>后来还是通过下载rpm包解决了。</p><pre tabindex=0><code>[root@mryqulax ~]# lsb_release -a
 LSB Version:    :core-4.0-amd64:core-4.0-noarch:graphics-4.0-amd64:graphics-4.0-noarch:printing-4.0-amd64:printing-4.0-noarch
 Distributor ID: RedHatEnterpriseServer
 Description:    Red Hat Enterprise Linux Server release 6.1 (Santiago)
@@ -6124,7 +5974,7 @@ Preparing...                ########################################### [100%]
         file /usr/bin/xmllint from install of libxml2-2.7.6-1.el6.x86_64 conflicts with file from package libxml2-2.7.6-1.el6.x86_64
         file /usr/lib64/libxml2.so.2.7.6 from install of libxml2-2.7.6-1.el6.x86_64 conflicts with file from package libxml2-2.7.6-1.el6.x86_64
 [root@mryqulax ~]# perldoc -l XML::LibXML
-No documentation found for &quot;XML::LibXML&quot;.
+No documentation found for &#34;XML::LibXML&#34;.
 [root@mryqulax ~]# wget https://vault.centos.org/6.1/os/x86_64/Packages/perl-XML-Parser-2.36-7.el6.x86_64.rpm
 --2021-01-03 21:41:39--  https://vault.centos.org/6.1/os/x86_64/Packages/perl-XML-Parser-2.36-7.el6.x86_64.rpm
 Resolving vault.centos.org... 3.22.185.178, 2600:1f16:c1:5e03:a992:8ee1:99d2:6f8
@@ -6225,236 +6075,47 @@ Preparing...                ########################################### [100%]
    2:perl-XML-LibXML        ########################################### [100%]
 [root@mryqulax ~]# perldoc -l XML::LibXML
 /usr/lib64/perl5/XML/LibXML.pod
-</code></pre>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：在Centos上安装Perl LibXML库记录
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/xmllibxml" rel="tag" title="XML::LibXML">#XML::LibXML#</a>
-    
-    <a href="/tags/install" rel="tag" title="install">#install#</a>
-    
-    <a href="/tags/centos" rel="tag" title="Centos">#Centos#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/go-get-github.comjessevdkgo-assets%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/" rel="next" title="go get github.comjessevdkgo-assets解决记录">
-        <i class="fa fa-chevron-left"></i> go get github.comjessevdkgo-assets解决记录
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/shell%E4%B9%8Brev%E4%B8%8Etac/" rel="prev" title="Shell之rev与tac">
-        Shell之rev与tac <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/";
-this.page.identifier = "https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：在Centos上安装Perl LibXML库记录<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/xmllibxml rel=tag title=XML::LibXML>#XML::LibXML#</a>
+<a href=/tags/install rel=tag title=install>#install#</a>
+<a href=/tags/centos rel=tag title=Centos>#Centos#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/shell-substitutes-for-filepath.clean-of-golang/ rel=next title=GoLang语言filepath.Clean功能在AIX脚本中的实现><i class="fa fa-chevron-left"></i> GoLang语言filepath.Clean功能在AIX脚本中的实现</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/shell-commands_rev-and-tac/ rel=prev title=Shell之rev与tac>Shell之rev与tac <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/",this.page.identifier="https://mryqu.github.io/post/%E5%9C%A8centos%E4%B8%8A%E5%AE%89%E8%A3%85perl-libxml%E5%BA%93/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

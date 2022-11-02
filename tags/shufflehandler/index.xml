@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Shufflehandler on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/shufflehandler/</link>
-    <description>Recent content in Shufflehandler on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 01 Feb 2015 12:39:55 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/shufflehandler/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[Hadoop] YARN中的AuxiliaryService</title>
-      <link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</link>
-      <pubDate>Sun, 01 Feb 2015 12:39:55 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</guid>
-      <description>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&amp;ldquo;yarn.nodemanager.aux-services&amp;rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即&amp;rdquo;yarn.nodemanager.aux-services&amp;rdquo;）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即&amp;rdquo;yarn.nodemanager.aux-services.%s.class&amp;rdquo;）获得对应的服务类名。例如&amp;rdquo;yarn.nodemanager.aux-services.mapreduce_shuffle.class&amp;rdquo;对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
-public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent&amp;gt; implements Event { private final TYPE type; private final long timestamp; }  在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
-参考 AuxiliaryService in Hadoop 2</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shufflehandler on Mryqu's Notes</title><link>https://mryqu.github.io/tags/shufflehandler/</link><description>Recent content in shufflehandler on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 01 Feb 2015 12:39:55 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/shufflehandler/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hadoop] YARN中的AuxiliaryService</title><link>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</link><pubDate>Sun, 01 Feb 2015 12:39:55 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/</guid><description>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&amp;ldquo;yarn.nodemanager.aux-services&amp;rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即&amp;quot;yarn.nodemanager.aux-services&amp;quot;）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即&amp;quot;yarn.nodemanager.aux-services.%s.class&amp;quot;）获得对应的服务类名。例如&amp;quot;yarn.nodemanager.aux-services.mapreduce_shuffle.class&amp;quot;对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
+public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent&amp;gt; implements Event { private final TYPE type; private final long timestamp; } 在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
+参考 AuxiliaryService in Hadoop 2 Implementing a Custom Shuffle and a Custom Sort</description></item></channel></rss>

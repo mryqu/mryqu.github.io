@@ -1,478 +1,72 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-    <title>[C&#43;&#43;] GNU Binutils之ar和ranlib - Mryqu&#39;s Notes</title>
-    <meta name="keywords" content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享">
-    
-    <meta property="og:title" content="[C&#43;&#43;] GNU Binutils之ar和ranlib">
-    <meta property="og:site_name" content="Mryqu&#39;s Notes">
-    <meta property="og:image" content="/img/author.jpg"> 
-    <meta name="title" content="[C&#43;&#43;] GNU Binutils之ar和ranlib - Mryqu&#39;s Notes" />
-    <meta name="description" content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"> 
-    
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon.png" />
-    <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-    <link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-    <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <link href="/css/syntax.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-     fancybox: true, 
-    motion: true
-  };
-</script>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<div class="container one-collumn sidebar-position-left page-home  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-meta  custom-logo ">
-
-  <div class="custom-logo-site-title">
-    <a href="https://mryqu.github.io/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Mryqu&#39;s Notes</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-    <ul id="menu" class="menu">
-      
-      
-        <li class="menu-item ">
-          <a href="/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/tags/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/categories/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />分类
-          </a>
-        </li>
-      
-        <li class="menu-item ">
-          <a href="/post/" rel="section">
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档
-          </a>
-        </li>
-      
-      <li class="menu-item menu-item-search">
-        <a href="javascript:;" class="popup-trigger"> <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索</a>
-      </li>
-    </ul>
-    <div class="site-search">
-      <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-    </div>
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<section id="posts" class="posts-expand">
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link" href="https://mryqu.github.io/post/c&#43;&#43;_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/" itemprop="url">
-        [C&#43;&#43;] GNU Binutils之ar和ranlib
-        </a>
-      </h1>
-      <div class="post-meta">
-      <span class="post-time">
-<span class="post-meta-item-icon">
-    <i class="fa fa-calendar-o"></i>
-</span>
-<span class="post-meta-item-text">时间：</span>
-<time itemprop="dateCreated" datetime="2016-03-22T13:04:35+08:00" content="2015-12-06">
-    2015-12-06
-</time>
-</span> 
-      
-
-  <span class="post-category" >
-  &nbsp; | &nbsp;
-  <span class="post-meta-item-icon">
-    <i class="fa fa-folder-o"></i>
-  </span>
-  <span class="post-meta-item-text">分类：</span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/tool" itemprop="url" rel="index">
-        <span itemprop="name">Tool</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-    <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-      <a href="/categories/c&#43;&#43;" itemprop="url" rel="index">
-        <span itemprop="name">C&#43;&#43;</span>
-      </a>
-      &nbsp; 
-    </span>
-  
-</span>
-
-
-       <span>
-&nbsp; | &nbsp;
-<span class="post-meta-item-icon">
-    <i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读：</span>
-<span class="leancloud-visitors-count">69 字 ~1分钟</span>
-</span>
-      </div>
-    </header>
-    <div class="post-body" itemprop="articleBody">
-    
-
-<p><a href="https://www.gnu.org/software/binutils/">GNU binutils</a>是一组二进制工具集。包括：ld、as、addr2line、ar、gprof、nm、objcopy、objdump、ranlib、size、strings、strip等。本文重点学习一下其中的ar和ranlib。</p>
-
-<h3 id="ar-https-linux-die-net-man-1-ar-命令"><a href="https://linux.die.net/man/1/ar">ar</a>命令</h3>
-
-<p><a href="https://linux.die.net/man/1/ar">ar</a>用于建立、修改、提取档案文件(archive)。archive是一个包含多个被包含文件的单一文件（也称之为库文件），其结构保证了可以从中检索并得到原始的被包含文件（称之为archive中的member）。member的原始文件内容、模式（权限）、时间戳、所有者和组等属性都被保存在archive中。member被提取后，他们的属性被恢复到初始状态。
-<a href="https://linux.die.net/man/1/ar">ar</a>命令第一个参数可混合指令代码（operationcode p）和修饰符标志（modifier flags mod），可按意愿添加一个折线。</p>
-
-<pre><code>ar [--plugin name] [-X32_64] [-]p[mod [relpos] [count]] archive [member...]
-</code></pre>
-
-<h4 id="指令参数">指令参数</h4>
-
-<ul>
-<li>d：删除档案文件中的成员文件。</li>
-<li>m：移动在档案文件中的成员文件，改变次序。可以借助修饰符标志a、b、i移动到指定位置。</li>
-<li>p：显示档案文件中的成员文件内容。</li>
-<li>q：将文件快速附加在档案文件末端。不检查、不替换已有同名成员文件，也不更新档案文件的符号表索引，修饰符标志a、b、i无效。然而很多不同系统都假设q指令重建档案文件的符号表索引，因此GNU将其按照r指令进行相同实现。</li>
-<li>r：将文件插入档案文件中。检查并替换已有同名成员文件，重建档案文件的符号表索引，借助修饰符标志a、b、i将文件插入到指定位置。</li>
-<li>t：显示档案文件中所包含的文件。</li>
-<li>x：自档案文件中取出成员文件。</li>
-</ul>
-
-<h4 id="修饰符标志">修饰符标志</h4>
-
-<ul>
-<li>a &lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之后。</li>
-<li>b&lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之前。</li>
-<li>c：建立档案文件。当更新档案文件时，档案文件不存在则创建档案文件，但会告警。此标志可抑制告警。</li>
-<li>D：以确定模式工作。</li>
-<li>f：为避免过长的文件名不兼容于其他系统的ar指令指令，可利用此参数，截掉要放入档案文件中过长的成员文件名称。</li>
-<li>i &lt;成员文件&gt;：将文件插入档案文件中指定的成员文件之前。（等同标志b）</li>
-<li>I：可接受但不使用。</li>
-<li>N：使用count参数。当档案文件中存在多个同名成员，用于指定提取/删除的个数。</li>
-<li>o：保留档案文件中文件的日期。如无此参数，则输出文件的修改时间为提取时间。</li>
-<li>s：若档案文件中包含了对象模式，可利用此参数建立档案文件的符号表。</li>
-<li>S：不产生符号表。</li>
-<li>T：使指定档案文件成为瘦档案文件。例如将多个档案文件加入目标档案文件，目标档案文件可以包含符号索引及对源档案文件中成员文件的引用。</li>
-<li>u：只将日期较新文件插入档案文件中。</li>
-<li>v：程序执行时显示详细的信息。</li>
-<li>V：显示版本信息。</li>
-</ul>
-
-<h4 id="练习">练习</h4>
-
-<pre><code># 将当前目录下所有.o打包成libyqutest.a档案文件：r插入，v显示操作信息，s生成符号表。 
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>[C++] GNU Binutils之ar和ranlib - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="[C++] GNU Binutils之ar和ranlib"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="[C++] GNU Binutils之ar和ranlib - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/ itemprop=url>[C++] GNU Binutils之ar和ranlib</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-12-06">2015-12-06</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>67 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p><a href=https://www.gnu.org/software/binutils/>GNU binutils</a>是一组二进制工具集。包括：ld、as、addr2line、ar、gprof、nm、objcopy、objdump、ranlib、size、strings、strip等。本文重点学习一下其中的ar和ranlib。</p><h3 id=arhttpslinuxdienetman1ar命令><a href=https://linux.die.net/man/1/ar>ar</a>命令</h3><p><a href=https://linux.die.net/man/1/ar>ar</a>用于建立、修改、提取档案文件(archive)。archive是一个包含多个被包含文件的单一文件（也称之为库文件），其结构保证了可以从中检索并得到原始的被包含文件（称之为archive中的member）。member的原始文件内容、模式（权限）、时间戳、所有者和组等属性都被保存在archive中。member被提取后，他们的属性被恢复到初始状态。
+<a href=https://linux.die.net/man/1/ar>ar</a>命令第一个参数可混合指令代码（operationcode p）和修饰符标志（modifier flags mod），可按意愿添加一个折线。</p><pre tabindex=0><code>ar [--plugin name] [-X32_64] [-]p[mod [relpos] [count]] archive [member...]
+</code></pre><h4 id=指令参数>指令参数</h4><ul><li>d：删除档案文件中的成员文件。</li><li>m：移动在档案文件中的成员文件，改变次序。可以借助修饰符标志a、b、i移动到指定位置。</li><li>p：显示档案文件中的成员文件内容。</li><li>q：将文件快速附加在档案文件末端。不检查、不替换已有同名成员文件，也不更新档案文件的符号表索引，修饰符标志a、b、i无效。然而很多不同系统都假设q指令重建档案文件的符号表索引，因此GNU将其按照r指令进行相同实现。</li><li>r：将文件插入档案文件中。检查并替换已有同名成员文件，重建档案文件的符号表索引，借助修饰符标志a、b、i将文件插入到指定位置。</li><li>t：显示档案文件中所包含的文件。</li><li>x：自档案文件中取出成员文件。</li></ul><h4 id=修饰符标志>修饰符标志</h4><ul><li>a &lt;成员文件>：将文件插入档案文件中指定的成员文件之后。</li><li>b&lt;成员文件>：将文件插入档案文件中指定的成员文件之前。</li><li>c：建立档案文件。当更新档案文件时，档案文件不存在则创建档案文件，但会告警。此标志可抑制告警。</li><li>D：以确定模式工作。</li><li>f：为避免过长的文件名不兼容于其他系统的ar指令指令，可利用此参数，截掉要放入档案文件中过长的成员文件名称。</li><li>i &lt;成员文件>：将文件插入档案文件中指定的成员文件之前。（等同标志b）</li><li>I：可接受但不使用。</li><li>N：使用count参数。当档案文件中存在多个同名成员，用于指定提取/删除的个数。</li><li>o：保留档案文件中文件的日期。如无此参数，则输出文件的修改时间为提取时间。</li><li>s：若档案文件中包含了对象模式，可利用此参数建立档案文件的符号表。</li><li>S：不产生符号表。</li><li>T：使指定档案文件成为瘦档案文件。例如将多个档案文件加入目标档案文件，目标档案文件可以包含符号索引及对源档案文件中成员文件的引用。</li><li>u：只将日期较新文件插入档案文件中。</li><li>v：程序执行时显示详细的信息。</li><li>V：显示版本信息。</li></ul><h4 id=练习>练习</h4><pre tabindex=0><code># 将当前目录下所有.o打包成libyqutest.a档案文件：r插入，v显示操作信息，s生成符号表。 
 ar rvs libyqutest.a *.o 
 
 # 制作瘦档案文件：r插入，c建立档案文件，T指定为瘦档案文件。
 ar -rcT libkx.a libke.a libxiao.a
-</code></pre>
-
-<h3 id="ranlib-https-linux-die-net-man-1-ranlib-命令"><a href="https://linux.die.net/man/1/ranlib">ranlib</a>命令</h3>
-
-<p>为档案文件创建符号索引。</p>
-
-<pre><code>ranlib [-vVt] archive
-</code></pre>
-
-<p>选项：
-- -v、-V或&ndash;version：显示版本
-- -t：更新档案文件符号映射的时戳。</p>
-
-<p>最早在Unix系统上ar程序是单纯用来打包多个.o到.a（类似于tar做的事情），而不处理.o里的符号表。Linker程序则需要.a文件提供一个完整的符号表，所以当时就写了单独的ranlib程序用来产生linker所需要的符号信息，也就是说那时，产生一个对linker合格的的.a文件需要做ar和ranlib两步 。如今，ar-s就做了ranlib的工作，但为了保证这些早期Makefile文件的兼容性，ranlib被保留下来了。</p>
-
-    </div>
-    <footer class="post-footer">
-     <div class="post-nav">
-<div style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 10px; background-color: #fffeee; background-repeat: no-repeat; background-attachment: scroll; background-position: 1% 50%; -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    <div>
-        <p style="margin-top:0px;">
-            标题：[C&#43;&#43;] GNU Binutils之ar和ranlib
-        <br />作者：<a target="_blank" href="/">mryqu</a>
-        <br />声明： 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
-        </p>
-    </div>
-</div>
-<div class="clear"></div>
-</div>
-     
- 
-<div class="post-tags">     
-     
-    <a href="/tags/ar" rel="tag" title="ar">#ar#</a>
-    
-    <a href="/tags/ranlib" rel="tag" title="ranlib">#ranlib#</a>
-    
-    <a href="/tags/binutils" rel="tag" title="binutils">#binutils#</a>
-    
-    <a href="/tags/gcc" rel="tag" title="gcc">#gcc#</a>
-    
-</div>
-
-
-
-     <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/c&#43;&#43;_%E4%BD%BF%E7%94%A8ldd/" rel="next" title="[C&#43;&#43;] 使用ldd">
-        <i class="fa fa-chevron-left"></i> [C&#43;&#43;] 使用ldd
-        </a>
-    
-    </div>
-
-    <div class="post-nav-prev post-nav-item">
-    
-        <a href="https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/" rel="prev" title="[MapR培训笔记] Hadoop生态系统">
-        [MapR培训笔记] Hadoop生态系统 <i class="fa fa-chevron-right"></i>
-        </a>
-    
-    </div>
-</div>
-      
-     
-     
-     
-     
-
-
-
-<div class="comments" id="comments">
-<div id="disqus_thread"></div>
-<script>
-
-
-var disqus_config = function () {
-this.page.url = "https://mryqu.github.io/post/c++_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/";
-this.page.identifier = "https://mryqu.github.io/post/c++_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-s.src = '//mryqu.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
-
-    </footer>
-  </article>
-</section>
-
-          </div>
-        </div>
-        <div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-inner"> 
-
-  <ul class="sidebar-nav motion-element">
-    <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li>
-    <li class="sidebar-nav-overview" data-target="site-overview">站点概览</li>
-  </ul>
-
-    <section class="site-overview sidebar-panel ">
-      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-        src="/img/author.jpg"
-        alt="" />
-    <p class="site-author-name" itemprop="name"></p>
-    <p class="site-description motion-element" itemprop="description"> 
-        Programmer &amp; Architect</p>
-</div>
-      <nav class="site-state motion-element">
-    <div class="site-state-item site-state-posts">
-      <a href="/post/">
-        <span class="site-state-item-count">709</span>
-        <span class="site-state-item-name">日志</span>
-      </a>
-    </div>
-    <div class="site-state-item site-state-categories">    
-        <a href="/categories/">      
-         
-        <span class="site-state-item-count">44</span>
-        
-        <span class="site-state-item-name">分类</span>
-        
-        </a>
-    </div>
-
-    <div class="site-state-item site-state-tags">
-        <a href="/tags/">
-         
-        <span class="site-state-item-count">1515</span>
-        
-        <span class="site-state-item-name">标签</span>
-        </a>
-    </div>
-</nav>
-      
-      
-<div class="links-of-author motion-element">
-    
-        <span class="links-of-author-item">
-        <a href="https://github.com/mryqu" target="_blank" title="GitHub">
-            <i class="fa fa-fw fa-github"></i>
-            GitHub
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://twitter.com/yandongqu" target="_blank" title="Twitter">
-            <i class="fa fa-fw fa-twitter"></i>
-            Twitter
-        </a>
-        </span>
-    
-        <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yandongqu" target="_blank" title="FB Page">
-            <i class="fa fa-fw fa-facebook"></i>
-            FB Page
-        </a>
-        </span>
-    
-</div>
-
-      
-      <div class="links-of-blogroll motion-element inline">
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;bv=35" async="async"></script>
-</div>
-
-    </section>
-    
-<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-    <div class="post-toc">
-        <div class="post-toc-content"><nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#ar-https-linux-die-net-man-1-ar-命令"><a href="https://linux.die.net/man/1/ar">ar</a>命令</a>
-<ul>
-<li><a href="#指令参数">指令参数</a></li>
-<li><a href="#修饰符标志">修饰符标志</a></li>
-<li><a href="#练习">练习</a></li>
-</ul></li>
-<li><a href="#ranlib-https-linux-die-net-man-1-ranlib-命令"><a href="https://linux.die.net/man/1/ranlib">ranlib</a>命令</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav></div>
-    </div>
-</section>
-
-  </div>
-</aside>
-
-      </div>
-    </main>
-   
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  <span itemprop="copyrightYear">  &copy; 
-  2009 - 2021</span>
-  <span class="with-love"><i class="fa fa-heart"></i></span>
-  <span class="author" itemprop="copyrightHolder">Mryqu&#39;s Notes</span>
-</div>
-<div class="powered-by">
-  Powered by - <a class="theme-link" href="http://gohugo.io" target="_blank" title="hugo" >Hugo v0.52</a>
-</div>
-<div class="theme-info">
-  Theme by - <a class="theme-link" href="https://github.com/xtfly/hugo-theme-next" target="_blank"> NexT
-  </a>
-</div>
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-      <span id="scrollpercent"><span>0</span>%</span>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-<script type="text/javascript" src="/js/vendor/jquery/index.js?v=2.1.3"></script>
-<script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script> 
-<script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
-<script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+</code></pre><h3 id=ranlibhttpslinuxdienetman1ranlib命令><a href=https://linux.die.net/man/1/ranlib>ranlib</a>命令</h3><p>为档案文件创建符号索引。</p><pre tabindex=0><code>ranlib [-vVt] archive
+</code></pre><p>选项：</p><ul><li>-v、-V或&ndash;version：显示版本</li><li>-t：更新档案文件符号映射的时戳。</li></ul><p>最早在Unix系统上ar程序是单纯用来打包多个.o到.a（类似于tar做的事情），而不处理.o里的符号表。Linker程序则需要.a文件提供一个完整的符号表，所以当时就写了单独的ranlib程序用来产生linker所需要的符号信息，也就是说那时，产生一个对linker合格的的.a文件需要做ar和ranlib两步 。如今，ar-s就做了ranlib的工作，但为了保证这些早期Makefile文件的兼容性，ranlib被保留下来了。</p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[C++] GNU Binutils之ar和ranlib<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/ar rel=tag title=ar>#ar#</a>
+<a href=/tags/ranlib rel=tag title=ranlib>#ranlib#</a>
+<a href=/tags/binutils rel=tag title=binutils>#binutils#</a>
+<a href=/tags/gcc rel=tag title=gcc>#gcc#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/c++_%E4%BD%BF%E7%94%A8ldd/ rel=next title=[C++] 使用ldd><i class="fa fa-chevron-left"></i> [C++] 使用ldd</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/mapr%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0_hadoop%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F/ rel=prev title=[MapR培训笔记] Hadoop生态系统>[MapR培训笔记] Hadoop生态系统 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/c++_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/",this.page.identifier="https://mryqu.github.io/post/c++_gnu_binutils%E4%B9%8Bar%E5%92%8Cranlib/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#arhttpslinuxdienetman1ar命令><a href=https://linux.die.net/man/1/ar>ar</a>命令</a></li><li><a href=#ranlibhttpslinuxdienetman1ranlib命令><a href=https://linux.die.net/man/1/ranlib>ranlib</a>命令</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-
 <script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/motion.js"></script>
-<script type="text/javascript" src="/js/affix.js"></script>
-<script type="text/javascript" src="/js/schemes/pisces.js"></script>
-
-<script type="text/javascript" src="/js/scrollspy.js"></script>
-<script type="text/javascript" src="/js/post-details.js"></script>
-<script type="text/javascript" src="/js/toc.js"></script>
-
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="/js/search.js"></script>
-</body>
-</html>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

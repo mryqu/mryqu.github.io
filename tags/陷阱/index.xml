@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>陷阱 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/%E9%99%B7%E9%98%B1/</link>
-    <description>Recent content in 陷阱 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sat, 18 Jan 2014 18:12:43 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/%E9%99%B7%E9%98%B1/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>遭遇Python*重复运算符陷阱</title>
-      <link>https://mryqu.github.io/post/%E9%81%AD%E9%81%87python%E9%87%8D%E5%A4%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%99%B7%E9%98%B1/</link>
-      <pubDate>Sat, 18 Jan 2014 18:12:43 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/%E9%81%AD%E9%81%87python%E9%87%8D%E5%A4%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%99%B7%E9%98%B1/</guid>
-      <description>在python中有个特殊的符号“*”，可以用做数值运算的乘法算子，也是用作对象的重复算子，但在作为重复算子使用时一定要注意* 重复出来的对象有可能是指向在内存中同一块地址的同一对象。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>陷阱 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/%E9%99%B7%E9%98%B1/</link><description>Recent content in 陷阱 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 18 Jan 2014 18:12:43 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/%E9%99%B7%E9%98%B1/index.xml" rel="self" type="application/rss+xml"/><item><title>遭遇Python*重复运算符陷阱</title><link>https://mryqu.github.io/post/%E9%81%AD%E9%81%87python%E9%87%8D%E5%A4%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%99%B7%E9%98%B1/</link><pubDate>Sat, 18 Jan 2014 18:12:43 +0000</pubDate><guid>https://mryqu.github.io/post/%E9%81%AD%E9%81%87python%E9%87%8D%E5%A4%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%99%B7%E9%98%B1/</guid><description>在python中有个特殊的符号“*”，可以用做数值运算的乘法算子，也是用作对象的重复算子，但在作为重复算子使用时一定要注意* 重复出来的对象有可能是指向在内存中同一块地址的同一对象。
 测试代码：
-grid_width=2 grid_height=2 def modify_grid(cells, row, col, val): cells[row][col]=val print cells #testing 1 print &#39;\ntesting 1&#39; cells=[ [88 for col in range(grid_width)] for row in range(grid_height)] print cells modify_grid(cells,0,1,66) #testing 2: In the trap print &#39;\ntesting 2&#39; cells=[[88]*grid_width]*grid_height print cells modify_grid(cells,0,1,66) print &#39;\n&#39; cells=[[&amp;quot;88&amp;quot;]*grid_width]*grid_height print cells modify_grid(cells,0,1,&amp;quot;66&amp;quot;) #testing 3 print &#39;\ntesting 3&#39; cells=[] for idx in range(grid_height): cells.append([88]*grid_width) print cells modify_grid(cells,0,1,66) #testing 4 print &#39;\ntesting 4&#39; cells=[123]*(grid_height*grid_width) print cells cells[1]=321 print cells  结果</description>
-    </item>
-    
-  </channel>
-</rss>
+grid_width=2 grid_height=2 def modify_grid(cells, row, col, val): cells[row][col]=val print cells #testing 1 print &amp;#39;\ntesting 1&amp;#39; cells=[ [88 for col in range(grid_width)] for row in range(grid_height)] print cells modify_grid(cells,0,1,66) #testing 2: In the trap print &amp;#39;\ntesting 2&amp;#39; cells=[[88]*grid_width]*grid_height print cells modify_grid(cells,0,1,66) print &amp;#39;\n&amp;#39; cells=[[&amp;#34;88&amp;#34;]*grid_width]*grid_height print cells modify_grid(cells,0,1,&amp;#34;66&amp;#34;) #testing 3 print &amp;#39;\ntesting 3&amp;#39; cells=[] for idx in range(grid_height): cells.append([88]*grid_width) print cells modify_grid(cells,0,1,66) #testing 4 print &amp;#39;\ntesting 4&amp;#39; cells=[123]*(grid_height*grid_width) print cells cells[1]=321 print cells 结果</description></item></channel></rss>

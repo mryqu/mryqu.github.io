@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>对象查询语言 on Mryqu&#39;s Notes</title>
-    <link>https://mryqu.github.io/tags/%E5%AF%B9%E8%B1%A1%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/</link>
-    <description>Recent content in 对象查询语言 on Mryqu&#39;s Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 15 May 2013 07:30:01 +0000</lastBuildDate>
-    
-	<atom:link href="https://mryqu.github.io/tags/%E5%AF%B9%E8%B1%A1%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>GemFire查询</title>
-      <link>https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/</link>
-      <pubDate>Wed, 15 May 2013 07:30:01 +0000</pubDate>
-      
-      <guid>https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/</guid>
-      <description>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>对象查询语言 on Mryqu's Notes</title><link>https://mryqu.github.io/tags/%E5%AF%B9%E8%B1%A1%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/</link><description>Recent content in 对象查询语言 on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 May 2013 07:30:01 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/%E5%AF%B9%E8%B1%A1%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml"/><item><title>GemFire查询</title><link>https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/</link><pubDate>Wed, 15 May 2013 07:30:01 +0000</pubDate><guid>https://mryqu.github.io/post/gemfire%E6%9F%A5%E8%AF%A2/</guid><description>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。
 Region存储示例 本文的查询示例基于类Porfolio和Positon的对象。
-Portfolio.java package query; import java.io.DataInput; import java.io.DataOutput; import java.io.IOException; import java.io.Serializable; import java.util.HashMap; import java.util.Iterator; import java.util.Map; import com.gemstone.gemfire.DataSerializable; import com.gemstone.gemfire.DataSerializer; public class Portfolio implements Serializable, DataSerializable { private int ID; public String pkid; public Position position1; public Position position2; public String description; public HashMap positions = new HashMap(); String type; public String status; public String [] names={&amp;quot;aaa&amp;quot;,&amp;quot;bbb&amp;quot;,&amp;quot;ccc&amp;quot;,&amp;quot;ddd&amp;quot;}; public int getID() { return ID; } public String getPk() { return pkid; } public HashMap getPositions() { return positions; } public Position getP1() { return position1; } public Position getP2() { return position2; } public boolean isActive() { return status.</description>
-    </item>
-    
-  </channel>
-</rss>
+Portfolio.java package query; import java.io.DataInput; import java.io.DataOutput; import java.io.IOException; import java.io.Serializable; import java.util.HashMap; import java.util.Iterator; import java.util.Map; import com.gemstone.gemfire.DataSerializable; import com.gemstone.gemfire.DataSerializer; public class Portfolio implements Serializable, DataSerializable { private int ID; public String pkid; public Position position1; public Position position2; public String description; public HashMap positions = new HashMap(); String type; public String status; public String [] names={&amp;#34;aaa&amp;#34;,&amp;#34;bbb&amp;#34;,&amp;#34;ccc&amp;#34;,&amp;#34;ddd&amp;#34;}; public int getID() { return ID; } public String getPk() { return pkid; } public HashMap getPositions() { return positions; } public Position getP1() { return position1; } public Position getP2() { return position2; } public boolean isActive() { return status.</description></item></channel></rss>
