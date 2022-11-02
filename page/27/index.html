@@ -4,25 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/ itemprop=url>[Hive] Hive 表UDTF和汇聚UDAF学习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-20">2015-08-20</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hive itemprop=url rel=index><span itemprop=name>Hive</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>403 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>在之前的博文[Hive] Hive Macro和UDF实践中，我对Hive的宏和普通UDF进行学习并实践，这里将针对Hive表UDF（UDTF）和汇聚UDF（UDAF）进行学习。 普通UDF可以对一行表数据进行处理输出一个单元格数据；UDTF可以对一行表数据进行处理输出多列甚至多行数据；UDAF可以对整表数据进行处理输出某种汇聚结果。
-UDTF Hive支持的内建UDTF有explode()、json_tuple()和inline()等函数。
-查看UDTF介绍 选个好理解的explode函数吧。
-hive> describe function explode; OK explode(a) - separates the elements of array a into multiple rows, or the elements of a map into multiple rows and columns Time taken: 0.009 seconds, Fetched: 1 row(s) 测试内建UDTF 像inline函数需要根元素为ARRAY，第二层元素为STRUCT，搭建环境有点麻烦。所以还是接着擼explode函数吧。 上述命令将三行的列a中数组元素拆成7行字符串。那执行"select explode(a), b fromcomplex_datatypes_example;&ldquo;会返回什么呢？结果是7行还是3行？ 谜底就是错误提示"Only a single exp.ression in the SELECT clause issupported with UDTF&rsquo;s."！
-UDTF实现 一个定制UDTF要继承GenericUDTF抽象类并实现initialize、process及close方法。Hive调用initialize方法以将参数类型通知给UDTF。UDTF必须返回UDTF之后产生的行对象相应的对象观察器。一旦initialize()被调用后，Hive将使用process()方法将行传递给UDTF。在process()方法中，UDTF生成行并调用forward()方法将行转给其他运算符。当所有的行都传递给UDTF后，Hive将最终调用close()方法。 通过FunctionRegistry类可知explode函数的实现类为GenericUDTFExplode。下面通过GenericUDTFExplode对照参考四Hive Developer Guide - UDTF学习一下UDTF实现。
-GenericUDTFExplode继承了抽象父类GenericUDTF 在initialize方法中，GenericUDTFExplode检查输入列是否为ARRAY或MAP类型，不是的话抛出异常。如果输入列为ARRAY类型，则输出列名为col，类型为输入列数组中元素类型；如果输入列为MAP类型，则输出列名为key和value，类型分别为输入列MAP的键与值相应的类型； 在process方法中，针对输入列ARRAY或MAP的每一个元素调用forward()方法将所生成的行转给其他运算符； 在close()方法中，实现为空。 UDAF Hive支持的内建UDAF有sum()、count()、min()和histogram_numeric()等函数。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/ itemprop=url>安装Gerrit的commit-msg钩子</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/ itemprop=url>安装Gerrit的commit-msg钩子</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-19">2015-08-19</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -44,9 +26,7 @@ Gerrit工作流</div><footer class=post-footer><div class=post-eof></div></foote
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hive itemprop=url rel=index><span itemprop=name>Hive</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -57,7 +37,7 @@ Gerrit工作流</div><footer class=post-footer><div class=post-eof></div></foote
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -70,9 +50,7 @@ Gerrit工作流</div><footer class=post-footer><div class=post-eof></div></foote
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hive itemprop=url rel=index><span itemprop=name>Hive</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -85,9 +63,7 @@ Gerrit工作流</div><footer class=post-footer><div class=post-eof></div></foote
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hive itemprop=url rel=index><span itemprop=name>Hive</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -114,9 +90,7 @@ GitHub：Objenesis</div><footer class=post-footer><div class=post-eof></div></fo
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hive itemprop=url rel=index><span itemprop=name>Hive</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -128,7 +102,7 @@ hive> create table t2 (id int, time timestamp); OK Time taken: 0.045 seconds hiv
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -141,13 +115,25 @@ var mTypes = { "any" : createType("any", { defaultValue : null, isValid : functi
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学习了一下如何判断jQuery版本：
-if (window.jQuery) { jQuery().jquery; } 测试：</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/26/><i class="fa fa-angle-left"></i></a>
+if (window.jQuery) { jQuery().jquery; } 测试：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/ itemprop=url>在jQuery AJAX中使用statusCode</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-05">2015-08-05</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>151 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>jQuery.ajax中提供了statusCode设置，以便根据响应状态值进行相应处理。
+var data = JSON.stringify({ name: "mryqu", count: 123 }); $.ajax({ //cache: false, url: "/test", type: "post", contentType: "application/json", dataType: "json", data: data, beforeSend: function (xhr) { console.log("beforeSend called"); }, statusCode: { 401: function() { console.log("statusCode 401 called"); }, 449: function() { console.log("statusCode 449 called"); } }, error: function (oResult, textStatus, errorThrown) { if (oResult.status !==401 && oResult.status !==449) { console.log("error called"); } }, success: function (oResult) { console.log("success called"); } }); 有时候发现statusCode不被调用，所以我更喜欢用下面这种更保险的方式。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%9C%A8jquery_ajax%E4%B8%AD%E4%BD%BF%E7%94%A8statuscode/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/26/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/23/>23</a>
 <a class=page-number href=/page/24/>24</a>
 <a class=page-number href=/page/25/>25</a>
@@ -159,9 +145,9 @@ if (window.jQuery) { jQuery().jquery; } 测试：</div><footer class=post-footer
 <a class=page-number href=/page/31/>31</a>
 <a class="extend next" rel=next href=/page/28/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>694</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>32</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -4,111 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/ubuntu-notes/ itemprop=url>Ubuntu操作笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-05">2013-08-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>206 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s 更多细节见hostname帮助文档。
-修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname 更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
-在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
-apt-get install net-tools 在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
-net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1 如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
-sudo sysctl -p 之后，运行:
-$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6 它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
-apt-get --version 结果近似于:</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/ubuntu-notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/ itemprop=url>Java线程是否会被垃圾回收？</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-30">2013-07-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>222 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>如果将线程启动后，然后线程变量置空，线程会怎么样？
-import java.lang.ref.WeakReference; public class TestThread { public static void testUnreferencedThread() { // anonymous class extends Thread Thread t = new Thread() { public void run() { // infinite loop while (true) { try { Thread.sleep(1000); } catch (InterruptedException e) {} // as long as this line printed out, you know it is alive. System.out.println("thread is running..."); } } }; t.start(); WeakReference&lt;Thread> wr = new WeakReference&lt;Thread>(t); t = null; // no more references for Thread t // another infinite loop while (true) { try { Thread.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/ itemprop=url>显示jar文件中某个类的公开方法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-26">2013-07-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>144 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用jar命令显示jar文件的内容 C:\>jar tvf log4j.jar 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/ 262 Sat Aug 25 00:29:44GMT+08:00 2007 META-INF/MANIFEST.MF 0 SatAug 25 00:10:04 GMT+08:00 2007 org/ 0 SatAug 25 00:10:04 GMT+08:00 2007 org/apache/ 0 SatAug 25 00:10:06 GMT+08:00 2007 org/apache/log4j/ ................. 676 Sat Aug 25 00:10:04GMT+08:00 2007 org/apache/log4j/Appender.class 2567 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Logger.class 1038 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Layout.class ................. 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/log4j/ 17780 Sat Aug 25 00:09:44 GMT+08:00 2007META-INF/maven/log4j/log4j/pom.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java_rmi_%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E8%B0%83callback/ itemprop=url>Java RMI 客户端回调（callback）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-26">2013-07-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>5 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>项目的代码用到了Java RMI 客户端回调，了解一下这方面资料。 http://docs.oracle.com/cd/E13211_01/wle/rmi/callbak.htm
-http://blog.sina.com.cn/s/blog_6a1928130100mmk5.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/python_dictionary_practice/ itemprop=url>Python dictionary practice</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-25">2013-07-25</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>194 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>reverse Dict (Swap Key and Value) >>> a={"a":123,"b":222,"c":30,"d":6,"e":1} >>> print a {'a': 123, 'c': 30, 'b': 222, 'e': 1, 'd': 6} >>> res = dict((v,k) for k,v in a.iteritems()) >>> print res {1: 'e', 6: 'd', 123: 'a', 222: 'b', 30: 'c'} >>> a={"a":123,"b":222,"c":30,"d":6,"e":1} >>> print a {'a': 123, 'c': 30, 'b': 222, 'e': 1, 'd': 6} >>> res = dict(zip(a.values(), a.keys())) >>> print res {1: 'e', 6: 'd', 123: 'a', 222: 'b', 30: 'c'} Top N by Dict Value >>> from collections import Counter >>> a={"a":123,"b":222,"c":30,"d":6,"e":1} >>> top_three = Counter(a).</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/python_dictionary_practice/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/ itemprop=url>[Hadoop] 在RACE虚拟机上安装单节点Hadoop</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-24">2013-07-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop itemprop=url rel=index><span itemprop=name>Hadoop</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>154 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>RACE（Remote Access ComputerEnvironment）是SAS公司内使用的虚拟机集成系统。通过RACE系统申请虚拟机，使用自己或别的项目组、同事创建的RACEimage安装操作系统和应用程序，省心省力。
-RACE安装及配置 申请一台RACE虚拟机，使用RACE Image（Id：579290，STG_LAX_RHEL6_SAS94_16G_Ora112 ）安装了RHEL linux操作系统。 启动后，使用下列脚本替换主机信息
-/nfs/cardio/vol/vol1/sasinside/setup/changehost94.sh 安装Java JDK 如果RACE Image没有安装Java JDK的话，需要自己安装：
-yum install java-1.6.0-openjdk java-1.6.0-openjdk-devel 幸好在/sasjdk/jdk发现很多版本的Java JDK，最后决定使用下列位置的openjdk:
-/usr/lib/jvm/java-openjdk/ 创建帐号 原系统中没有安装hadoop，但是有hadoop帐号。我没有找到密码，只好重做一把：
-userdel hadoop useradd hadoop passwd hadoop 下载并解压缩Hadoop 因为Hadoop 2.0采用YARN，hive、mahout等需要MapReduce V1的可能无法使用，这里安装的是Hadoop 1.2.1。
-# mkdir /opt/hadoop # cd /opt/hadoop/ # wget http://download.nextag.com/apache/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz # tar -xzf hadoop-1.2.1.tar.gz # chown -R hadoop /opt/hadoop # cd /opt/hadoop/hadoop-1.2.1/ 配置Hadoop 下列为Hadoop的单节点伪分布模式配置。 conf/core-site.xml:
-fs.default.name hdfs://localhost:9000/ conf/hdfs-site.xml:
-dfs.replication 1 conf/mapred-site.xml:
-mapred.job.tracker localhost:9001 conf/hadoop-env.sh:
-export JAVA_HOME=/usr/lib/jvm/java-openjdk/ export HADOOP_OPTS=-Djava.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E5%9C%A8race%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9hadoop/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/ itemprop=url>ActiveMQ集群</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-24">2013-07-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/mq itemprop=url rel=index><span itemprop=name>MQ</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>287 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>ActiveMQ Introduction ActiveMQ is an open source (Apache 2.0 licensed) message brokerwhich fully implements the Java Message Service 1.1. It providesadvanced features like clustering, multiple message stores, andability to use file systems, and databases as a JMS persistenceprovider.
-ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages on a queue across consumers. If a consumer dies, anyunacknowledged messages are redelivered to other consumers on thequeue. If one consumer is faster than the others it gets moremessages etc.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/ itemprop=url>PostgreSQL数据库分区的update操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/ itemprop=url>PostgreSQL数据库分区的update操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-19">2013-07-19</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -161,7 +57,125 @@ PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以Po
 在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 很少使用的数据可被移往更便宜更慢的存储媒体。 这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
 表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
 CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities); 父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
-SELECT name, altitude FROM cities WHERE altitude > 500; SELECT name, altitude FROM ONLY cities WHERE altitude > 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/63/><i class="fa fa-angle-left"></i></a>
+SELECT name, altitude FROM cities WHERE altitude > 500; SELECT name, altitude FROM ONLY cities WHERE altitude > 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/ itemprop=url>R语言字符处理</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>430 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>$qu [1] &ldquo;qw&rdquo; &ldquo;rty&rdquo;
+[[3]] [1] &ldquo;70&rdquo;
+[[4]] [1] &ldquo;y&rdquo; &ldquo;s&rdquo;
+strsplit(&ldquo;Hello world!&rdquo;, NULL) [[1]] [1] &ldquo;H&rdquo; &ldquo;e&rdquo; &ldquo;l&rdquo; &ldquo;l&rdquo; &ldquo;o&rdquo; " " &ldquo;w&rdquo; &ldquo;o&rdquo; &ldquo;r&rdquo; &ldquo;l&rdquo; &ldquo;d&rdquo; &ldquo;!&rdquo;
+Note that &lsquo;split&rsquo; is a regexp! unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;.&rdquo;)) [1] "" "" "" "" ""
+If you really want to split on &lsquo;.&rsquo;, use unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;[.]&rdquo;)) [1] &ldquo;a&rdquo; &ldquo;b&rdquo; &ldquo;c&rdquo; unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;.&rdquo;, TRUE)) [1] &ldquo;a&rdquo; &ldquo;b&rdquo; &ldquo;c&rdquo;字符转换和大小写转换chartr(old, new, x)将x中的字符old变换为字符new> x &lt;- &ldquo;MiXeD cAsE 123&rdquo; chartr(&ldquo;iXs&rdquo;, &ldquo;why&rdquo;, x) [1] &ldquo;MwheD cAyE 123&rdquo; chartr(&ldquo;a-cX&rdquo;, &ldquo;D-Fw&rdquo;, x) [1] &ldquo;MiweD FAsE 123&rdquo;tolower(x)toupper(x)casefold(x, upper = FALSE)casefold是为了兼容S-PLUS而实现的tolower和toupper函数封装器。> x &lt;- &ldquo;MiXeD cAsE 123&rdquo; tolower(x) [1] &ldquo;mixed case 123&rdquo; toupper(x) [1] &ldquo;MIXED CASE 123&rdquo;格式化输出sprintf(fmt, &mldr;) 系统C库函数sprintf封装器> sprintf("%s is %f feet tall\n", &ldquo;Sven&rdquo;, 7.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ itemprop=url>R语言数值计算</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>R中数值计算的对象一般是向量或列表，不同长度的对象进行计算时，短的对象元素将被循环使用。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/ itemprop=url>git资料</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>74 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>综合 Pro Git 英文版 中文版
+Git Community Book 英文版 中文版
+GotGitHub
+Git使用详解
+项目主页 Creating Project Pages manually
+Setup GitHub Pages &ldquo;gh-pages&rdquo; branch and &ldquo;master&rdquo; branch as subfolders of a parent project folder (&ldquo;grandmaster&rdquo;).
+Setup GitHub Pages &ldquo;gh-pages&rdquo; branch as a subfolder within the &ldquo;master&rdquo; project on your local checkout - a step-by-step guide.
+其他 Collaborative Github Workflow
+如何理解git reset 取消提交的操作？
+Git Document
+Atlassian Git Tutorial
+版本管理svn,git,cvs比较
+learnGitBranching
+a successful git branching model</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/ itemprop=url>[Hadoop] mapred和mapreduce包的区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-12">2013-07-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>24 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
+区别 本文将通过WordCount示例代码，介绍一下二者的区别。WordCount示例代码分别取自0.19和0.23.9版本的Hadoop源码。
+0.19版WordCount示例 0.23.9版WordCount示例 注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
+参考 Upgrading To The New Map Reduce API
+Difference between Hadoop OLD API and NEW API</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/eclipse_rcp%E8%B5%84%E6%96%99/ itemprop=url>Eclipse RCP资料</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-11">2013-07-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Lubos: Eclipse plugin and RCP development notes</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/ itemprop=url>分布式事务处理</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-11">2013-07-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>120 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>事务 概念 企业级应用程序经常需要访问多个组件共享的分布式数据并执行操作。这些程序应该在下列情况下保持（由应用程序商业规则所定义的）数据完整性：
+分布式访问单个数据资源 从单个应用组件访问分布式资源 在这种情况下，对（分布式）资源上的一组操作可能需要被作为一个工作单元来对待。在一个工作单元中的所有操作必须全部成功或在失败时一起回滚到之前的状态。
+下列情况下情况会更加复杂，需要应用程序维护工作单元的成功或失败信息：
+在一组分布式组件上实现的工作单元对多个资源上的数据进行操作 串行或在并行线程中执行的操作需要协调或同步 事务(Transaction)以及事务管理器（或事务处理服务）降低了企业级分布式应用程序构建难度，维护了数据的完整性。
+特性 事务是恢复和并发控制的基本单位。 事务应该具有4个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为ACID特性。
+原子性（atomicity）。一个事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做。当任一操作失败，事务中的所有操作需要撤销，数据恢复到之前的状态。 一致性（consistency）。事务必须保持定义在数据上的不变属性（例如完整性约束）。在事务成功结束后，数据必须处于一致状态。换句话说，事务必须是使资源从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。 隔离性（isolation）。一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰。这需要：在事务执行期间，数据的（可能不一致的）中间状态不会暴露给其他事务；两个并发事务不能对同一数据进行操作。数据库管理系统通常使用锁机制实现这一功能。 持久性（durability）。持续性也称永久性（permanence），指一个事务一旦提交，它对资源中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。 嵌套事务 事务处理组件 应用程序组件 应用程序组件是事务型资源的客户端，包含商业事务程序。在事务管理器的帮助下，这些组件创建全局事务并划分事务界限，在必要时传播事务上下文，在事务范围内通过资源管理器对事务型资源进行操作。这些组件不负责实现事务语义。然而，作为应用逻辑的一部分，这些组件通常决定是否提交还是回滚事务。
+资源管理器 资源管理器是管理持久化和稳定数据存储系统的组件，并同事务管理器一起参与两阶段提交和恢复协议。 资源管理器通常是稳定数据存储系统的驱动或者包装器，提供两套接口接口：一套接口用于应用程序组件获得连接并操作数据、另一套接口用于事务管理器参与两阶段提交和恢复协议。该组件可能也直接或间接向事务管理器注册资源，以便事务管理器能够跟踪所有参与事务的资源。该过程称之为资源征集（enlistment）。为了实现两阶段提交和恢复协议，资源管理器应该实现辅助机制用于事务恢复。
+事务管理器 事务管理器是事务处理环境中的核心组件。主要职责是应应用程序组件请求创建事务、允许资源征集（enlistment）和遣散（delistment）、同资源管理器一起实施两阶段提交和恢复协议。 一个典型事务型应用程序发起事务，向事务管理器发出请求初始化一个事务。作为应答，事务管理器启动一个事务并与当前线程关联。事务管理器也会创建一个事务上下文。所有参与事务的应用程序组件/线程共享事务上下文。发起事务的线程或其他线程在事务管理器允许的情况下通过发出提交或回滚请求来终止事务。 在事务终止之前，任意数量的组件或线程可在事务管理器已知的任意数量事务型资源上执行事务型操作。在资源管理器允许的情况下，事务在最终终止之前可以被挂起或恢复。 一旦应用程序发出提交请求，事务管理器（通过投票）准备用于提交操作的所有资源，并基于是否所有资源准备好提交向所有资源发出提交或回滚请求。在两阶段提交和恢复协议处理过程前后调用应用程序组件synchronization回调。
+两阶段提交（2PC） 两阶段提交分为两个阶段：投票阶段和决策阶段。
+在投票（或准备）阶段，事务管理器会询问每个资源管理器是否同意成功执行。资源管理器有可能返回否定应答，例如当超时导致数据库回滚。如果资源管理器做肯定应答的话，它应该确信它始终可以将工作持久化（这暗示它不会应为内部超时取消工作）， 事务管理器接收到所有应答（也称之为选票），会对事务结果作出全局决策。该决策取决于收集的应答: 如果所有应答都是肯定的（意味着每个稳定数据存储系统都可以将工作持久化），事务管理器会指示每个资源管理器进行提交。 如果有一个应答是否定的（或丢失），则回滚决策会发给剩余的资源，剩余资源取消该事务中的工作。 有两件事需要注意:
+每个资源必须有能力理解两阶段提交：它需要回复来自事务管理器的准备请求，并能在事务管理器决定回滚时取消工作。 如果资源在准备阶段投肯定票之后跟事务管理器联系中断（例如事务管理器崩溃），它将不知道如何去做。由于两阶段提交协议规则它不能自己取消，因此它需要无期限地记着这个事务。此外，这限制了其他事务的并发访问。在这种情况下，该资源被称为不确定的。 资源处于不确定状态并限制并发访问令很多厂商烦恼。为了减少限制，两阶段提交协议的实践变种包含一种叫做试探性决策：太长时间处于不确定状态的资源会决定单方面回滚（或提交）事务，有可能导致违背全部接受或全部不接受的特性。 事务处理标准和技术 X/Open 分布式事务处理(DTP)模型是厂商协会OpenGroup提出的一个分布式处理模型，在事务处理和数据库领域中多数商业厂商间的一个标准。 对象事务服务(OTS)是由对象管理组织(OMG)规定的分布式事务处理服务。这个规范扩展了 CORBA 模型并定义了一系列跨越多个CORBA 对象完成事务处理的接口。 JTA和JTS是Sun提出的事务处理和事务服务的Java规范。 微软事务服务器（MTS）是一个基于构件的事务服务器，它的构件基于微软的构件对象模型(COM)。MTS编程模型为建造事务性COM构件提供接口，而MTS运行环境提供一个部署和管理这些构件和管理事务的方法。使用了MTS，由多个COM构件做的工作可被组合在一个单一的事务中。 企业级Java Beans (EJB)是Sun提出的一个技术规范。它规定了一个建造基于构件的分布式应用的框架。
+JTA 概念 JTA是Java事务API的缩写，定义了在事务管理器与分布式事务系统的资源管理器、应用服务器、事务型应用程序之间的标准Java接口，包括javax.transaction和javax.transaction.xa包。在实际系统中还需要厂商专有的JTA实现。JTA是JavaEE平台的标准部分和每个EJB应用服务器都包含了JTA实现。
+JTA组件 JTA的主要组件为：
+TransactionManager TransactionManager可用于创建事务，获取、挂起和恢复当前事务,设置事务超时值属性。其方法为线程安全的，多个并发线程可以创建自己的事务，获取仅自己创建的事务。
+|begin|创建一个新事务并与当前线程关联 |commit|提交当前线程关联的事务 |getStatus|获取当前线程关联的事务状态 |getTransaction|获取当前线程关联的事务 |resume|使用挂起的事务对象代表的事务恢复调用线程的事务上下文 |rollback|回滚当前线程关联的事务 |setRollbackOnly|修改当前线程关联的事务以致事务的唯一可能结果是回滚 |setTransactionTimeout|修改当前线程使用begin方法启动的事务的超时值 |suspend|挂起调用线程当前关联的事务并返回代表正在挂起事务上下文的事务对象
+Transaction Transaction允许对有效的事务进行操作。一个事务对象对应着一个全局事务，它可用于资源征集/遣散、synchronization注册、结束事务和状态查询操作。
+|commit|提交事务对象代表的事务 |delistResource|接触资源与目标事务对象代表的事务之间的关联 |enlistResource|关联资源与目标事务对象代表的事务 |getStatus|获得目标事务对象代表的事务 |registerSynchronization|向目标事务对象代表的事务注册Synchronization |rollback|回滚事务对象代表的事务 |setRollbackOnly|修改目标事务对象代表的事务以致事务的唯一可能结果是回滚</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/ itemprop=url>小玩Java序列化</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-08">2013-07-08</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>101 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>折腾GemFire，免不了要折腾序列化和发序列化。GemFire支持Java的序列化，同时也有自己的DataSerializable接口实现自己的序列化，此外还有Delta接口支持数据同步时仅传送上一次数据同步后的更新。 今天测试的实现先用Java的序列化，一开始玩java.io.Serializable接口，后来玩writeObject()和readObject()方法。顺便看看有writeObject方法后ObjectOutputStream调用堆栈与原有分支的不同。
+private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push("custom writeObject data (class \"" + slotDesc.getName() + "\")"); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/63/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/60/>60</a>
 <a class=page-number href=/page/61/>61</a>
 <a class=page-number href=/page/62/>62</a>
@@ -173,9 +187,9 @@ SELECT name, altitude FROM cities WHERE altitude > 500; SELECT name, a
 <a class=page-number href=/page/68/>68</a>
 <a class="extend next" rel=next href=/page/65/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>694</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>32</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

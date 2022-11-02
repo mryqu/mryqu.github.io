@@ -4,99 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/quickedit_mode_of_command_prompt/ itemprop=url>QuickEdit mode of command prompt</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-17">2014-05-17</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>从Windows命令行复制内容每次都需要点击Edit菜单中的Mark子菜单项，颇为不便。
-原来这个行为可以通过属性对话框中的QuickEdit mode改变：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%9C%A8mapreduce%E4%B8%AD%E4%BD%BF%E7%94%A8hbase%E6%95%B0%E6%8D%AE/ itemprop=url>[Hadoop] 在MapReduce中使用HBase数据</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-11">2014-05-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop itemprop=url rel=index><span itemprop=name>Hadoop</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>43 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>对于MapReduce程序来说，除了可以用HDFS文件系统作为输入源和输出目标，同样可以使用HBase作为输入源和输出目标。下面做一个小练习进行学习。
-MapReduceOnHBaseDemo.java rebuild.sh #!/bin/bash CLASSPATH=.:$(hbase classpath):$(hadoop classpath) javac -d classes -cp $CLASSPATH *.java jar -cvf YquMapreduceDemo.jar -C classes/ . 测试 执行下列命令运行MapReduce作业:
-HADOOP_CLASSPATH=$(hbase mapredcp):${HBASE_HOME}/conf hadoop jar YquMapreduceDemo.jar MapReduceOnHBaseDemo -libjars $(hbase mapredcp | tr ':' ',') HBase结果如下: 与普通MapReduce程序的差异 本例中ScoreMapper类继承自抽象类TableMapper。TableMapper是Mapper抽象类的子类，指定输入键类型为ImmutableBytesWritable，输入值类型为Result。因此ScoreMapper类定义仅指定输出键和值类型，而其mapper方法前两个参数为ImmutableBytesWritable和Result类型。 本例中ScoreReducer类继承自抽象类TableReducer。TableReducer是Reduccer抽象类的子类，指定输出值类型为Mutation。因此ScoreReducer定义仅指定输入键和值、输出键的类型。有下图可知，TableReducer输出值类型支持Append、Delete、Increment和Put。 本例中Driver部分通过TableMapReduceUtil类的initTableMapperJob和initTableReducerJob方法合并Hadoop和HBase配置，配置job属性。 参考 HBase and MapReduce</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/ itemprop=url>JDBC连接池的testQuery/validationQuery设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-07">2014-05-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>104 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在《Tomcat中使用Connector/J连接MySQL的超时问题》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？ 原来这跟连接池的实现有关：
-|连接池实现|该功能属性名 |&mdash;&ndash; |The Tomcat JDBC Connection Pool|validationQuery |The Apache Commons DBCP Connection Pool|validationQuery |c3p0 - JDBC3 Connection and Statement Pooling|preferredTestQuery | Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration分析Atomikos数据连接池源码，弄清testQuery|testQuery
-此外，测试/验证连接池连接的SQL语句也因数据库而异： Efficient SQL test query or validation query that will work across all (or most) databases DBCP - validationQuery for different Databases
-综合上述两个帖子，汇总结果如下：
-|数据库|测试/验证查询 |&mdash;&ndash; |MySQL|SELECT 1 |PostgreSQL|SELECT 1 |Microsoft SQL Server|SELECT 1 |SQLite|SELECT 1 |H2|SELECT 1 |Ingres|SELECT 1 |Oracle|select 1 from dual |DB2|select 1 from sysibm.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/ itemprop=url>Tomcat中使用Connector/J连接MySQL的超时问题</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-05">2014-05-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/web-application-server itemprop=url rel=index><span itemprop=name>Web Application Server</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>238 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩的一个Web项目，上一个晚上做一些操作，第二天超时需要再登陆，却总是报密码不正确。需要重启tomcat才能解决。异常如下：
-Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 442,814,107 milliseconds ago. The last packet sent successfully to the server was 442,814,107 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Co nnector/J connection property 'autoReconnect=true' to avoid this problem.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E4%B8%BB%E5%8A%9B%E4%B9%A6%E7%B1%8D/ itemprop=url>网络资源(主力书籍)</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-04">2014-05-04</time></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>19 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>外文书籍 Library Genesis BookZZ 爱挖盘 manybooks 14个值得收藏可免费搜索/下载PDF电子图书（文档）的搜索引擎 图书馆 全球免费开放的电子图书馆 古籍 书格 专利 史上最完整的专利信息数据库网址大全 杂志 http://pdfmagazines.org/ http://www.gqzzw.com/ http://www.pdfzj.com/ http://pdf-giant.com/ http://www.magazine6.com/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/ itemprop=url>[Gradle] 在build.gradle中添加本地包依赖</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-16">2014-04-16</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>49 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一直在Gradle中用的依赖包都是来自仓库，头一次添加本地包依赖。
-buildscript { repositories { mavenCentral() } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' jar { baseName = 'HelloAlgs' version = '0.1.0' } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 dependencies { runtime files('libs/algs4.jar') } task wrapper(type: Wrapper) { gradleVersion = '2.3' }</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/ itemprop=url>[Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-15">2014-04-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop itemprop=url rel=index><span itemprop=name>Hadoop</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Windows平台编译Hadoop时遇到了compile-ms-winutils执行失败的问题。Hadoop默认需要用VS2010编译，但是我的环境只有VS2013。
-问题及解决方案如下：
-Cannot run program &ldquo;msbuild&rdquo; 将C:\Windows\Microsoft.NET\Framework\v4.0.30319放入PATH环境变量 Command execution failed. Process exited with an error: 1(Exitvalue: 1) -> [Help 1] 打开hadoop-common\hadoop-hdfs-project\hadoop-hdfs\pom.xml，将&rsquo;VisualStudio 10 Win64&rsquo;改成&rsquo;Visual Studio 12 Win64&rsquo;。 将如下两个Visual Studio项目用VS2013打开，手动编译。 hadoop-common\hadoop-common-project\hadoop-common\src\main\winutils\winutils.sln hadoop-common\hadoop-common-project\hadoop-common\src\main\native\winutils.sln 重新执行：
-C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat mvn install -DskipTests 上述问题不再出现。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/ itemprop=url>在R作图系统中自定义坐标轴</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/ itemprop=url>在R作图系统中自定义坐标轴</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-15">2014-04-15</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -130,7 +38,108 @@ C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat m
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>0 字 ~0分钟</span></span></div></header><div class=post-body itemprop=articleBody></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/50/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>0 字 ~0分钟</span></span></div></header><div class=post-body itemprop=articleBody></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/ itemprop=url>MongoDB副本集实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-05">2014-04-05</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>416 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>副本集（ReplicaSet）就是有自动故障恢复功能的主从集群。副本集和主从集群最为明显的区别就是副本集没有固定的“主节点”：整个集群会选取出一个“主节点”，当其不能工作时则变更到其他节点。然而，两者看上去非常相似：副本集总会有一个活跃节点（primary）和一个或多个备份节点（secondary）。 副本集中可以有以下类型的节点：
+常规节点（standard）：存储一份完整的数据副本，参与选举投票，有可能成为活跃节点。 被动节点（passive）：存储完整的数据副本，参与投票，不能成为活跃节点。 仲裁节点（arbiter）：仅参与投票，不接受复制的数据，也不能成为活跃节点。 副本集对数据库管理员和开发者都是非常友好的。副本集的管理是自动化的，无需数据库管理员频繁监控和干预，可以自动提升备份节点成为活跃节点，以确保运转正常。对于开发者而言，仅需为副本集指定一下服务器，驱动程序就会自动找到副本集的节点集群。 每个参与节点（非仲裁节点）都有一个权重，权重值取值范围0-1000，默认值为1。权重为0的节点不能成为活跃节点。活跃节点选举根据高优先级优先、优先级相同时数据较新优先的原则进行比较。应用仅能向活跃节点进行写操作。默认情况下，应用会向活跃节点进行读操作也获取最新数据。如果无需获得最新数据时，可以为了提高读操作吞吐量或减少应用延迟而向备份节点进行读操作。读操作偏好模式如下：
+primary primaryPreferred secondary secondaryPreferred nearestMongoDB命令行提供了下列关于副本集的指令： > rs.help() rs.status() { replSetGetStatus : 1 } checks repl set status rs.initiate() { replSetInitiate : null } initiates set with default settings rs.initiate(cfg) { replSetInitiate : cfg } initiates set with configuration cfg rs.conf() get the current configuration object from local.system.replset rs.reconfig(cfg) updates the configuration of a running replica set with cfg (disconnects) rs.add(hostportstr) add a new member to the set with default attributes (disconnects) rs.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ itemprop=url>MongoDB主从复制实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-03">2014-04-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>221 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>MongoDB主从复制（Master-slave replication）跟副本集（ReplicaSet）相比可以对主MongoDB节点设置多个从节点，并且可以将复制操作限制到特定数据库。但是MongoDB主从复制提供的冗余度更低而且无法自动故障切换，因此一般新的部署都倾向使用副本集而不是主从复制。
+实验环境 两个节点中，MongoDB都安装在c:\mongodb目录下且MongoDB配置文件（c:\mongodb\etc\mongo.conf）均为：
+systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: false net: http: enabled: true RESTInterfaceEnabled: true 启动MongoDB 主节点启动命令：
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --master --oplogSize=2048 从节点启动命令：
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10.120.8.231 --slavedelay 10 --autoresync 主从复制测试 检查主节点 > show dbs; admin (empty) local 8.074GB test 0.078GB > db.isMaster() { "ismaster" : true, "maxBsonObjectSize" : 16777216, "maxMessageSizeBytes" : 48000000, "maxWriteBatchSize" : 1000, "localTime" : ISODate("2014-04-03T01:47:49.780Z"), "maxWireVersion" : 2, "minWireVersion" : 0, "ok" : 1 } 检查从节点 > show dbs; admin (empty) local 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/ itemprop=url>差一点搞混了Transactional注解</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-01">2014-04-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>13 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天给我的Srping业务层加如下Service和Transactional注解：
+@Service @Scope(BeanDefinition.SCOPE_SINGLETON) @Transactional(propagation=Propagation.REQUIRED, timeout=600, rollbackFor=Exception.class) 结果总是不认propagation、timeout和rollbackFor，后来才发现我引入类定义错了，本来应该用Spring的org.springframework.transaction.annotation.Transactional，可是引入了JavaEE用于CDI(Contextsand Dependency Injection for the Java EEplatform，上下文和依赖注入)bean的javax.transaction.Transactional,不注意还真容易混淆。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/ itemprop=url>使用YCSB测试MongoDB</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-31">2014-03-31</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>66 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>YCSB介绍 YCSB（Yahoo! Cloud Serving Benchmark）是雅虎开源的一款用于测试各类云服务/NoSQL/键值对存储的性能基准测试工具。覆盖的测试对象有：
+PNUTS BigTable HBase Hypertable Azure Cassandra CouchDB Voldemort MongoDB OrientDB Infinispan Dynomite Redis GemFire GigaSpaces XAP DynamoDB YCSB项目的目标是提供一个标准的工具用来衡量不同键值对存储或云服务存储的性能。YCSB做了很多优化来提高客户端性能，例如在数据类型上用了最原始的比特数组以减少数据对象本身创建转换所需的时间等。YCSB的几大特性：
+支持常见的数据存储读写操作，如插入，修改，删除及读取 多线程支持。YCSB用Java实现，有很好的多线程支持。 灵活定义场景文件。可以通过参数灵活的指定测试场景，如100%插入， 50%读50%写等等 数据请求分布方式：支持随机，zipfian(只有小部分的数据得到大部分的访问请求）以及最新数据几种请求分布方式 可扩展性：可以通过扩展Workload的方式来修改或者扩展YCSB的功能 使用YCSB测试MongoDB 初试YCSB 下载https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz 并解压缩。执行如下命令查看帮助：接下来开始使用YCSB测试MongoDB2.6，不过这其中遇到一些问题。期望YCSB的下一版本能够解决这些问题。
+解决java.lang.ClassNotFoundException:com.yahoo.ycsb.Client问题 执行测试失败：
+问题出在C:\ycsb-0.1.4\bin\ycsb，对于Windows操作系统将classpath参数连接符由":&ldquo;改成&rdquo;;&ldquo;即可
+ycsb_command = ["java", "-cp", ":".join(find_jars(ycsb_home, database)), \ COMMANDS[sys.argv[1]]["main"], "-db", db_classname] + options 解决Could not initialize MongoDB connection pool for Loader:java.lang.NullPointerException问题 重新执行测试失败：
+看源代码也没什么问题。网上有帖子说可以自己编译源代码，然后就会一切正常了。下载源代码并编译，还是有问题，不过遇山开山、遇水架桥，好歹Core YCSB和Mongo DBBinding都编译出来了。
+测试 YCSB现在大概可用了，下一步就是编写所需的workload了。
+参考 YCSB（GitHub） YCSB Wiki</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_mongodb_java_driver/ itemprop=url>Hello MongoDB Java Driver</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-30">2014-03-30</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>466 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。 Java代码如下：
+package com.yqu.mongodb; import java.net.UnknownHostException; import java.util.List; import java.util.Set; import com.mongodb.BasicDBObject; import com.mongodb.DB; import com.mongodb.DBCollection; import com.mongodb.DBCursor; import com.mongodb.DBObject; import com.mongodb.MongoClient; import com.mongodb.MongoClientURI; import com.mongodb.MongoException; public class HelloMongoDB { public static void main(String[] args) { MongoClient mongoClient = null; try { // Since 2.10.0, uses MongoClient // mongoClient = new MongoClient("localhost", 27017); String host = "mongodb://localhost:27017"; mongoClient = new MongoClient(new MongoClientURI(host)); showdbs(mongoClient); // MongoDB will create it if database doesn't exists DB db = mongoClient.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hello_mongodb_java_driver/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/windows%E4%B8%8Bmongodb%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/ itemprop=url>Windows下MongoDB安装与配置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-30">2014-03-30</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>66 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>到官网http://www.mongodb.org/downloads下载MongoDB并安装在c:\mongodb目录下，安装后需要进行配置才能启动MongoDB。首先创建如下目录：
+md c:\mongodb\data md c:\mongodb\db md c:\mongodb\log md c:\mongodb\etc 接着创建MongoDB配置文件：c:\mongodb\etc\mongo.conf systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: true net: http: enabled: true RESTInterfaceEnabled: true 通过如下命令启动MongoDB：
+C:\mongodb\bin\mongod.exe --config C:\mongodb\etc\mongo.conf 可以通过以下三种方式验证MongoDB是否安装成功：
+访问MongoDB监听端口 http://localhost:27017/ ，确认出现类似信息。 通过C:\mongodb\bin\mongo.exe登录Javascript shell并使用 访问HTTP接口 http://localhost:28017/ 并查看MongoDB服务器信息 在启动MongoDB的窗口通过Ctrl+ C停止MongoDB的运行。 最后通过如下命令将MongoDB配置成Windows服务：
+C:\mongodb\bin\mongod.exe --config C:\mongodb\etc\mongo.conf--install 当然也可以通过如下命令手工配置Windows服务：
+sc create MongoDB binPath= "C:\mongodb\bin\mongod.exe--config=C:\mongodb\etc\mongo.conf--service" start= demand DisplayName= "MongoDB" 参考 Install MongoDB on Windows MongoDB Configuration Options</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%87%8D%E6%B8%A9mvc%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A5%BD%E7%9A%84mvc%E5%9B%BE/ itemprop=url>重温MVC:一个很好的MVC图</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-26">2014-03-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一个帖子A terrific Model View Controller (MVC) diagram，感觉文中说的很对：一个技术如果能简洁地表达出来，才容易被人记住并记的牢。该文中的Model/View/ControllerUML图共有两个，第一个图非常简单，仅展示作者用于控制器、视图和模型的符号。第二个图展示了MVC模式允许的操作和禁止的操作。
+用户与视图对象交互。 视图对象和控制器对象可以相互访问调用。 不同的控制器对象之间可以相互访问调用。 控制器对象可以访问调用模型对象。 除了上面这四种访问方式，禁止对象之间的其他通信方法。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/50/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/47/>47</a>
 <a class=page-number href=/page/48/>48</a>
 <a class=page-number href=/page/49/>49</a>
@@ -142,9 +151,9 @@ C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat m
 <a class=page-number href=/page/55/>55</a>
 <a class="extend next" rel=next href=/page/52/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>694</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>32</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

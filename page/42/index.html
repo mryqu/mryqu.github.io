@@ -4,28 +4,13 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_yarn%E4%B8%AD%E7%9A%84auxiliaryservice/ itemprop=url>[Hadoop] YARN中的AuxiliaryService</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-02-01">2015-02-01</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop itemprop=url rel=index><span itemprop=name>Hadoop</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>76 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置&ldquo;yarn.nodemanager.aux-services&rdquo;定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。 AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。 MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。 当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即"yarn.nodemanager.aux-services"）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即"yarn.nodemanager.aux-services.%s.class"）获得对应的服务类名。例如"yarn.nodemanager.aux-services.mapreduce_shuffle.class"对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。
-public enum AuxServicesEventType { APPLICATION_INIT, APPLICATION_STOP, CONTAINER_INIT, CONTAINER_STOP } public class AuxServicesEvent extends AbstractEvent { private final String user; private final String serviceId; private final ByteBuffer serviceData; private final ApplicationId appId; private final Container container; } public abstract class AbstractEvent> implements Event { private final TYPE type; private final long timestamp; } 在handle(AuxServicesEventevent)方法中，每个事件与AuxiliaryService中的一个API调用相关连。例如，只要AuxServices收到一个APPLICATION_INIT事件，对应AuxiliaryService的initializeApplication()方法就会被调用。 那一个事件如何被传递给AuxServices的？ NodeManager类包含一个ContainerManagerImpl对象变量，而ContainerManagerImpl类包含一个AuxServices对象变量。此外ContainerManagerImpl类有自己的AsyncDispatcher,它会向AuxServices分发所有AuxServicesEventType类型事件。 AuxServicesEventType.APPLICATION_STOP事件在ApplicationImpl类中被创建，节点管理器中应用表述的状态机触发。 其他三个的AuxServicesEventType事件，例如APPLICATION_INIT、CONTAINER_INIT和CONTAINER_STOP，在ContainerImpl类中随着容器的生命周期被创建。
-参考 AuxiliaryService in Hadoop 2 Implementing a Custom Shuffle and a Custom Sort</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%92%8C%E5%8F%A6%E5%AD%98%E6%96%87%E4%BB%B6/ itemprop=url>[JavaScript] Open/SaveAs File</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%92%8C%E5%8F%A6%E5%AD%98%E6%96%87%E4%BB%B6/ itemprop=url>[JavaScript] Open/SaveAs File</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-31">2015-01-31</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -83,7 +68,7 @@ C:\test>mkdir GitTest C:\test>cd GitTest C:\test\GitTest>git init Initialized em
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -123,7 +108,7 @@ IT Hit WebDAV Ajax Library：http://www.webdavsystem.com/ajax/programming https:
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
@@ -134,13 +119,25 @@ IT Hit WebDAV Ajax Library：http://www.webdavsystem.com/ajax/programming https:
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>获得当前页面语言的方法：
-javascript:document.getElementsByTagName('html')[0].getAttribute('lang') jQuery: $('html').attr('lang') OpenUI5: sap.ui.getCore().getConfiguration().getLanguage() 示例：</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/41/><i class="fa fa-angle-left"></i></a>
+javascript:document.getElementsByTagName('html')[0].getAttribute('lang') jQuery: $('html').attr('lang') OpenUI5: sap.ui.getCore().getConfiguration().getLanguage() 示例：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Dopenui5%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95/ itemprop=url>[OpenUI5] 快速定位OpenUI5问题的一个方法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-09">2015-01-09</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>38 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>sap.ui.base.Object是所有OpenUI5对象的父类，它的某些方法对快速定位OpenUI5问题很有帮助。我写了一个小函数通过OpenUI5对象的元数据获得类名，并且获得OpenUI5对象的ID信息。
+traceUI5Object: function(obj) { if(obj instanceof sap.ui.base.Object) console.log(obj.getMetadata().getName()+"{id:\'"+obj.getId()+"\'}"); } traceUI5EventProviders: function(obj) { var that = obj; while (that && that instanceof sap.ui.base.EventProvider) { console.log(that.getMetadata().getName()+"{id:\'"+that.getId()+"\'}"); that = that.getEventingParent(); } } traceUI5EventProviders函数运行结果示例： sap.ui.commons.CheckBox{id:'check1'} sap.ui.commons.Panel{id:'panel1'} sap.ui.core.mvc.JSView{id:'leftView'} sap.ui.commons.Splitter{id:'Splitter1'} sap.ui.core.mvc.JSView{id:'__jsview0'} sap.ui.core.UIArea{id:'content'} 在编写和调试OpenUI5时，有时会有Exception抛出。 假定上面图中代码会抛出Exception，通过this我们看到的的是一个Factory，通过sId我们可以找到发生问题的定义了ID的控件。但是如果控件ID是自生成的，就不太容易了。我们可以通过监视表达式获取（组件链上所有的）组件类名及ID，这样就可以更快定位导致抛出Exception的OpenUI5视图/控件了。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/41/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/38/>38</a>
 <a class=page-number href=/page/39/>39</a>
 <a class=page-number href=/page/40/>40</a>
@@ -152,9 +149,9 @@ javascript:document.getElementsByTagName('html')[0].getAttribute('lang') jQuery:
 <a class=page-number href=/page/46/>46</a>
 <a class="extend next" rel=next href=/page/43/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>694</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>32</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

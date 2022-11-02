@@ -4,110 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/ itemprop=url>[Hadoop] 分布式缓存</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop+spark itemprop=url rel=index><span itemprop=name>Hadoop+Spark</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hadoop itemprop=url rel=index><span itemprop=name>Hadoop</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>135 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
-adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。 应用程序通过URL（hdfs://或http://）指定通过JobConf进行缓存的文件。分布式缓存假定URL所指定的文件已经存在于Hadoop分布式文件系统或本地文件系统中并可被集群中所有机器访问到。Hadoop框架会在任何作业在节点执行之前将必须的缓存文件复制到任务节点以供使用。为了节省网络带宽，这些文件只会为每个作业复制一次，且归档类型的缓存文件会在任务节点中解压缩。分布式缓存能用于分发简单只读数据或文本文件及复杂文件（存档文件、Jar文件等）。归档文件（zip、tar和tgz/tar.gz文件）在任务节点中解压缩。Jar文件可选择加入任务的类路径，这是基本的软件分发机制。 分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。
-下面的示例介绍了如何使用DistributedCache：
-将所需文件复制到FileSystem: $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz 设置应用程序的JobConf: JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI("/myapp/lookup.dat"), job); DistributedCache.addCacheArchive(new URI("/myapp/map.zip", job); DistributedCache.addFileToClassPath(new Path("/myapp/mylib.jar"), job); DistributedCache.addCacheArchive(new URI("/myapp/mytar.tar", job); DistributedCache.addCacheArchive(new URI("/myapp/mytgz.tgz", job); DistributedCache.addCacheArchive(new URI("/myapp/mytargz.tar.gz", job); 在Mapper或Reducer中使用缓存的文件: public static class MapClass extends MapReduceBase implements Mapper{ private Path[] localArchives; private Path[] localFiles; public void configure(JobConf job) { // Get the cached archives/files File f = new File(".</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/ itemprop=url>嵌套的动态GemFire region研究</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gemfire itemprop=url rel=index><span itemprop=name>GemFire</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>155 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>研究目的和结论 研究多级动态region是否可行，结论可行 研究嵌套region(一个region是另一个region的值)是否可行，结论可行 Java代码 import java.util.Set; import com.gemstone.gemfire.cache.Cache; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.DynamicRegionFactory; import com.gemstone.gemfire.cache.Region; public class EmbededDynamicRegion { public static void main(String[] args) { System.out.println("\nConnecting to the distributed system and creating the cache."); Cache cache = null; try { // Create the cache which causes the cache-xml-file to be parsed cache = new CacheFactory().set("name", "yqu_test_cache") .set("cache-xml-file", "xml/YquTest.xml").create(); // Get the exampleRegion Region yquRegion = cache.getRegion("yqu_region"); printRegionFullPath(yquRegion); DynamicRegionFactory dynRegFactory = DynamicRegionFactory.get(); for(int i=0;i&lt;3;i++) { Region keyRegion = dynRegFactory.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8A%A8%E6%80%81gemfire_region%E7%A0%94%E7%A9%B6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/nslookup%E7%AC%94%E8%AE%B0/ itemprop=url>nslookup笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/network itemprop=url rel=index><span itemprop=name>NetWork</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>123 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>nslookup命令是用来查询因特网域名服务器的。该命令在Unix、Linux和Windows平台都有提供。如果在Linux平台上找不到nslookup命令，检查是否安装bind-utils。
-nslookup的使用模式 nslookup有两种模式：交互式和非交互式。
-交互式模式允许向域名服务器查询各种主机、域名或打印域内主机列表。 非交互式模式用于查询一个主机或域的信息。 C:\>nslookup /? Usage: nslookup [-opt ...] # interactive mode using default server nslookup [-opt ...] - server # interactive mode using 'server' nslookup [-opt ...] host # just look up 'host' using default server nslookup [-opt ...] host server # just look up 'host' using 'server' 制定了查询对象就进入非交互式模式，否则进入交互模式。示例如下： 这两次查询百度的命令区别在于：第一次使用了默认DNS，第二次指定了Google的DNS。返回结果是非权威答案，即从上连DNS服务器的本地缓存中读取出的值，而非实际去查询到的值。
-nslookup选项 set all：列出nslookup工具的常用选项的当前设置值。 set class=[value]：可以更改查询类 IN：Internet类（默认） CH：Chaos类 HS：Hesiod类 ANY：通配 Chaos和Hesiod现在几乎无人使用。 set [no]debug：可以用来设置是否进入调试模式。如果setdebug，则会进入到调试模式，查询过程中会显示完整的响应包以及其中的交互包。 set[no]d2：开启了高级调试模式，会输出很多nslookup内部工作的信息，包括了许多函数调用信息。 set domain=[name]：用于设置默认的域。 set [no]search：使用域搜索列表。 setport=[value]：众所周知，DNS默认的服务端口是53。当某些特殊情况，此端口改变时，可以通过本命令来设置。 set type=[value]：也可以写成setquerytype=[value]，用于更改信息查询类型。默认情况下，nslookup是查询域名所对应的A记录，而如果你想查询其对应的MX记录等信息时，就需要专门设置type值了。目前常用的type值如下： A：查看主机的IPv4地址 AAAA：查看主机的IPv6地址 ANY：查看关于主机域的所有信息 CNAME：查找与别名对应的正式名字 ISDN：域名对应的ISDN号码 HINFO：查找主机的CPU与操作系统类型 MB：存放指定邮箱的服务器 MG：邮件组记录 MINFO：查找邮箱信息 MR：改名的邮箱记录 MX：查找邮件交换信息 NS：查找主机域的域名服务器 PTR：查找与给定IP地址匹配的主机名 RP：查找域负责人记录 RT：路由穿透记录 SOA：查找域内的SOA地址 SRV：TCP服务器信息记录 TXT：域名对应的文本信息 UINFO：查找用户信息 X25：域名对应的X.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/nslookup%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B8%B8%E7%94%A8html%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6/ itemprop=url>常用HTML转义字符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-25">2013-06-25</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%89%8D%E7%AB%AF itemprop=url rel=index><span itemprop=name>前端</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>657 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>最常用的字符实体 |显示|说明|实体名称|实体编号 |&mdash;&ndash; | |半方大的空白|& ensp;|& #8194; | |全方大的空白|& emsp;|& #8195; | |不断行的空白格|& nbsp;|& #160; |&lt; |小于|& lt;|& #60; |>|大于|& gt;|& #62; |&|& 符号|& amp;|& #38; |"|双引号|& quot;|& #34; |©|版权|& copy;|& #169; |®|已注册商标|& reg;|& #174; |™|商标（美国）|& trade;|& #8482; |×|乘号|& times;|& #215; |÷|除号|& divide;|& #247;
-ISO 8859-1 (Latin-1)字符集 HTML 4.01 支持 ISO 8859-1 (Latin-1) 字符集。
-备注：为了方便起见，以下表格中，“实体名称”简称为“名称”，“实体编号”简称为“编号”
-|显示|名称|编号|显示|名称|编号|显示|名称|编号 |&mdash;&ndash; | |& nbsp;|& #160;|¡|& iexcl;|& #161;|¢|& cent;|& #162; |£|& pound;|& #163;|¤|& curren;|& #164;|¥|& yen;|& #165; |¦|& brvbar;|& #166;|§|& sect;|& #167;|¨|& uml;|& #168; |©|& copy;|& #169;|ª|& ordf;|& #170;|«|& laquo;|& #171; |¬|& not;|& #172;|­|& shy;|& #173;|®|& reg;|& #174; |¯|& macr;|& #175;|°|& deg;|& #176;|±|& plusmn;|& #177; |²|& sup2;|& #178;|³|& sup3;|& #179;|´|& acute;|& #180; |µ|& micro;|& #181;|¶|& para;|& #182;|·|& middot;|& #183; |¸|& cedil;|& #184;|¹|& sup1;|& #185;|º|& ordm;|& #186; |»|& raquo;|& #187;|¼|& frac14;|& #188;|½|& frac12;|& #189; |¾|& frac34;|& #190;|¿|& iquest;|& #191;|À|& Agrave;|& #192; |Á|& Aacute;|& #193;|Â|& Acirc;|& #194;|Ã|& Atilde;|& #195; |Ä|& Auml;|& #196;|Å|& Aring;|& #197;|Æ|& AElig;|& #198; |Ç|& Ccedil;|& #199;|È|& Egrave;|& #200;|É|& Eacute;|& #201; |Ê|& Ecirc;|& #202;|Ë|& Euml;|& #203;|Ì|& Igrave;|& #204; |Í|& Iacute;|& #205;|Î|& Icirc;|& #206;|Ï|& Iuml;|& #207; |Ð|& ETH;|& #208;|Ñ|& Ntilde;|& #209;|Ò|& Ograve;|& #210; |Ó|& Oacute;|& #211;|Ô|& Ocirc;|& #212;|Õ|& Otilde;|& #213; |Ö|& Ouml;|& #214;|×|& times;|& #215;|Ø|& Oslash;|& #216; |Ù|& Ugrave;|& #217;|Ú|& Uacute;|& #218;|Û|& Ucirc;|& #219; |Ü|& Uuml;|& #220;|Ý|& Yacute;|& #221;|Þ|& THORN;|& #222; |ß|& szlig;|& #223;|à|& agrave;|& #224;|á|& aacute;|& #225; |â|& acirc;|& #226;|ã|& atilde;|& #227;|ä|& auml;|& #228; |å|& aring;|& #229;|æ|& aelig;|& #230;|ç|& ccedil;|& #231; |è|& egrave;|& #232;|é|& eacute;|& #233;|ê|& ecirc;|& #234; |ë|& euml;|& #235;|ì|& igrave;|& #236;|í|& iacute;|& #237; |î|& icirc;|& #238;|ï|& iuml;|& #239;|ð|& eth;|& #240; |ñ|& ntilde;|& #241;|ò|& ograve;|& #242;|ó|& oacute;|& #243; |ô|& ocirc;|& #244;|õ|& otilde;|& #245;|ö|& ouml;|& #246; |÷|& divide;|& #247;|ø|& oslash;|& #248;|ù|& ugrave;|& #249; |ú|& uacute;|& #250;|û|& ucirc;|& #251;|ü|& uuml;|& #252; |ý|& yacute;|& #253;|þ|& thorn;|& #254;|ÿ|& yuml;|& #255;</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B8%B8%E7%94%A8html%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mysqlpostgresoraclesql_serverdb2teradatanetezza%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/ itemprop=url>MySQL、Postgres、Oracle、SQL server、DB2、Teradata、Netezza数据类型比较</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-24">2013-06-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>0 字 ~0分钟</span></span></div></header><div class=post-body itemprop=articleBody></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/shell%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95/ itemprop=url>Shell参数扩展</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-23">2013-06-23</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>32 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在hadoop-env.sh中，有如下语句：
-export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-"/etc/hadoop"} 这种用法在Shell Parameter Expansion中进行了详尽的介绍，系统学习一下。 Bash中的$符号的作用是参数替换，将参数名替换为参数所代表的值。对于$来说，大括号是可选的，即$ABC和${ABC}代表同一个参数。但是它可以防止变量被错误解析，比如：${hello}world、${arr[1]}。 参数扩展 下列Bash对参数的测试项为未设置和null。如果略掉冒号，则仅测试未设置。
-|表达式|含义 |&mdash;&ndash; |${parameter:-word}|如果parameter没有被声明或者其值为空的话，则表达式替换成word；否则替换成parameter的值。 |${parameter:=word}|如果parameter没有被声明或者其值为空的话，则parameter设为word之后表达式返回parameter的值；否则替换成parameter的值。 |${parameter?word}|如果parameter没有被声明或者其值为空的话，则word被写往标准错误输出和Shell，非可交互的情况下退出；否则替换成parameter的值。 |${parameter:+word}|如果parameter没有被声明或者其值为空的话，则不进行替换；否则替换成parameter的值。 |${!varprefix*}${!varprefix@}|匹配之前所有以varprefix开头进行声明的变量 |${!name[@]}${!name[*]}|如果name是数组对象，返回数组下标列表；如果name以设置但不为数组对象，返回0；否则返回null。
-字符串操作 |表达式|含义 |&mdash;&ndash; |${% raw %}{#{% endraw %}parameter}|parameter的长度。 |${parameter:offset}|在parameter中，从位置offset开始提取子串。 |${parameter:offset:length}|在parameter中，从位置offset开始提取长度为length的子串。 |${parameter#word}${parameter##word}|从头开始扫描parameter对应值，将匹配word正则表达式的字符删除掉#为最短匹配，##为最长匹配。 |${parameter%word}${parameter%%word}|从尾开始扫描parameter对应值，将匹配word正则表达式的字符删除掉%为最短匹配，%%为最长匹配。 |${parameter/pattern/string}${parameter//pattern/string}|将parameter对应值的pattern代替为string。/表示只替换一次，//表示全部替换。 |${parameter^pattern}${parameter^^pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为大写。^表示只转换匹配的首字母，^^表示全部转换。 |${parameter,pattern}${parameter,,pattern}|如果pattern是单个字符，将parameter对应值中匹配pattern的字符转换为小写。,表示只转换匹配的首字母，,,表示全部转换。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E5%88%86%E6%9E%90/ itemprop=url>Java对象的内存使用量分析</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-19">2013-06-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>22 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>前段时间做GemFire中对象的内存使用量分析时，学习了一下Java对象的内存使用量分析。 如果不知道一个没有变量的空对象占8字节，空数组占12字节，空字符串对象占40字节的话，有必要看一下下面的链接进行学习。 Memory usage of Java Strings and string-related objects
-Determining Memory Usage in Java
-Java对象内存结构
-主题：如何获取一个对象的在内存中的大小？
-JAVA Objects Memory Size Reference</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/ itemprop=url>发现Hibernate 3.2.6统计中一个bug</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/ itemprop=url>发现Hibernate 3.2.6统计中一个bug</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-18">2013-06-18</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -161,7 +58,105 @@ GemFire相关配置 设置GemFire缓存属性
 &lt;property name="gemfire.default-region-attributes-id"> REGION_ATTRIBUTE &lt;/property> REGION_ATTRIBUTE是预定义region类型快捷定义中的任一个。默认为REPLICATE_HEAP_LRU。其他有效region快捷定义包括:REPLICATE、 REPLICATE_PERSISTENT、 PARTITION、 PARTITION_PERSISTENT、PARTITION_REDUNDANT、 PARTITION_REDUNDANT_PERSISTENT。
 设置特定GemFire缓存region属性
 &lt;property name="gemfire.region-attributes-for: com.foo.Bar"> REGION_ATTRIBUTE &lt;/property> 缓存映射 @Cache ( CacheConcurrencyStrategy usage(); String region() default ""; String include() default "all"; ) usage: 缓存并发策略(NONE, READ_ONLY, NONSTRICT_READ_WRITE, READ_WRITE,TRANSACTIONAL) region (可选项，默认为实体类的全类名或集合的全类名加属性名):缓存region名 include (选项项，默认为all): all则缓存所有实体属性，non-lazy仅缓存非懒惰加载的实体属性。
-对缓存实体使用注释 @Entity @Cacheable @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) public class Forest { .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/65/><i class="fa fa-angle-left"></i></a>
+对缓存实体使用注释 @Entity @Cacheable @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) public class Forest { .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%94%A8gemfire%E5%81%9Ahibernate%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql_jdbc_setfetchsize/ itemprop=url>PostgreSQL JDBC setFetchSize</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-14">2013-06-14</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>6 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看到我们的Hiberante配置没有设hibernate.jdbc.fetch_size。 Fetch Size是设定JDBC的Statement读取数据的时候每次从数据库中取出的记录条数。例如一次查询1万条记录，对于Oracle的JDBC驱动来说，是不会1次性把1万条取出来的，而只会取出FetchSize条数，当纪录集遍历完了这些记录以后，再去数据库取Fetch Size条数据。因此大大节省了无谓的内存消耗。当然FetchSize设的越大，读数据库的次数越少，速度越快；FetchSize越小，读数据库的次数越多，速度越慢。这有点像平时我们写程序写硬盘文件一样，设立一个缓冲，每次写入缓冲，等缓冲满了以后，一次写入硬盘，道理相同。 看了一下Postgres，它的JDBC驱动却是一次将查询的所有结果都返回。相反使用游标、设置fetchsize倒是麻烦不少。 http://jdbc.postgresql.org/documentation/head/query.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/ itemprop=url>Hibernate3 HQL: ClassCastException解决办法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-11">2013-06-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>312 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>下面的示例代码跑在Hibernate 3.6.8，会抛出异常java.lang.ClassCastException:[Ljava.lang.Object 无法转换成实体对象。通过调试可知返回的仍然是标量字段对象数组，而不是实体对象。
+public class DemoEntity { public static final String DEMO_ENTITY_ID = "demoEntityID"; public static final String USER_ID = "userID"; public static final String OFFICE_ID = "officeID"; private Integer demoEntityID; private String userID; private Integer officeID; private String subjectTxt; public List findDemoEntitys(int startID, int limit, boolean includeStartIdInResults) { try { StringBuilder querySb = new StringBuilder(); querySb.append("select demo.").append(DemoEntity.DEMO_ENTITY_ID); querySb.append(", demo.").append(DemoEntity.USER_ID); querySb.append(", demo.").append(DemoEntity.OFFICE_ID); querySb.append(" from DemoEntity demo where demo.").append(DemoEntity.DEMO_ENTITY_ID); if (includeStartIdInResults) { querySb.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/ itemprop=url>Hibernate3.X升级到4.X实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-07">2013-06-07</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>87 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Jar调查 |jar文件|Hibernate 4.2.2|当前的Hibernate|操作 |&mdash; |antlr.jar|required, 2.7.7|3.2.0|无需改变。 |dom4j.jar|required, 1.6.1|1.6.1|无需改变。 |hibernate-commons-annotations.jar|required, 4.0.2|3.3.1|替换。 |hibernate-corel.jar|required, 4.2.2|3.2.6|替换。 |hibernate-jpa-2.0-api.jar|required, 1.0.1||增加。 |javassist.jar|required, 3.15.0|3.15.0|无需改变。 |jboss-logging.jar|required, 3.1.0||增加。 |jboss-transaction-api_1.1_specl.jar|required, 1.0.1||一开始增加，后来去掉了。 |hibernate-annotations.jar|null|3.3.1|去掉。从Hibernate3.6.0开始hibernate-annotations被合并到hibernate-core。 |hibernate-entitymanager.jar|jpa, 4.2.2|3.2.2|替换。
+修改HibernateUtil 将AnnotationConfiguration替换成Configuration； 在使用ServiceRegistry;
+Configuration config = new Configuration().configure(); ServiceRegistry serviceRegistry = newServiceRegistryBuilder() .applySettings(config.getProperties()).buildServiceRegistry(); sessionFactory = config.buildSessionFactory(serviceRegistry); Hibernate4不支持Ant HibernateToolTask。 使用Hibernate3和HibernateToolTask创建hibernate.cfg.xml 使用Hibernate4编译。 https://community.jboss.org/thread/177200
+修改Web容器下的jar文件 替换hibernate3.jar为hibernate-core.jar 替换hibernate-commons-annotations.jar 删除ejb3-persistence.jar 删除hibernate-annotations.jar 复制hibernate-entitymanager.jar 复制hibernate-jpa-2.0-api.jar 复制jboss-logging.jar 复制jboss-transaction-api_1.1_spec.jar （最终没有复制） 通过删除jboss-transaction-api_1.1_spec.jar解决TransactionManager冲突 org.springframework.jndi.TypeMismatchNamingException: Objectof type [class com.atomikos.icatch.jta.J2eeTransactionManager]available at JNDI location [java:comp/env/TransactionManager] isnot assignable to [javax.transaction.TransactionManager] 通过删除ejb3-persistence.jar解决javax.persistence冲突 java.lang.NoSuchMethodError:javax.persistence.OneToMany.orphanRemoval() ejb3-persistence.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/ itemprop=url>多维数据遍历</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-31">2013-05-31</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>363 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>在联机分析处理（OLAP）系统中，需要对存储在数据库或数据仓库中的数据提供分析。由于数据维数不定，无法采用多重for循环进行数据遍历。我在开发过程中一般使用扁平化下标对多维数据进行遍历，今天尝试了一下递归方式，效率更高一些，但是对栈的消耗也更多一些。下面的代码示例使用两种不同的方式对多维数据进行遍历：
+递归 采用扁平化下标 示例代码 package com.yqu.collection; import java.util.ArrayList; import java.util.List; public class MultipleDimensionTraveling &lt;T>{ private List&lt;List&lt;T>> mdList; public MultipleDimensionTraveling(){ mdList = new ArrayList&lt;List&lt;T>>(); } public MultipleDimensionTraveling(List&lt;List&lt;T>> mdList){ this.mdList = mdList; } public void addDimension(List&lt;T> dim){ mdList.add(dim); } public void travelByRecursion(){ if(!mdList.isEmpty()) travelByRecursion(0, new ArrayList&lt;T>(mdList.size())); } private void travelByRecursion(int dimIdx, List&lt;T> crossing){ for(int i=0;i&lt;mdList.get(dimIdx).size();i++){ if(crossing.size()&lt;mdList.size()) crossing.add(dimIdx, mdList.get(dimIdx).get(i)); else crossing.set(dimIdx, mdList.get(dimIdx).get(i)); if(dimIdx==mdList.size()-1){ System.out.println(crossing.toString()); } else { travelByRecursion(dimIdx+1, crossing); } } } public void travelByFlatIndice(){ if(!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/servlet/ itemprop=url>Servlet</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-29">2013-05-29</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>38 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>现在用的VFabric tc Server 2.8.0基于Apache的Tomcat7.0.3版本，支持Servlet3.0和JSP 2.2规范。 Java Servlet3.1规范这周可以下载了，目前正在学习当中。将Servlet的不同版本的资料汇总一下，利人利己。 JSR 340：Java Servlet 3.1 Specification
+JSR 315：Java Servlet 3.0 Specification
+JSR 154：Java Servlet 2.4 Specification
+JSR 53：Java Servlet 2.3 and JavaServer Pages 1.2 Specification
+Servlet API 2.2 的新特性
+Servlet 3.0 新特性详解</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/ itemprop=url>Hibernate缓存</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-25">2013-05-25</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>375 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Hibernate缓存 Hibernate带有三种不同缓存机制：一级缓存、二级缓存和查询缓存。
+SessionFactory和Session SessionFactory(在JEE中叫做EntityManager)的用途是创建会话，初始化JDBC链接并（使用例如C3P0之类的可插拔provider）进行池化。SessionFactory是非可变的，通过hibernate.cfg.cml文件或Springbean配置中提供的匹配信息、缓存信息等配置进行创建。会话是最低级的工作单元，对应一个数据库事物。当会话创建后并对Hibernate实体机型一些操作，比如设置实体的一个属性，Hibernate不会立即更新底层数据库表。相反Hibernate记录实体的状态（是否为脏数据），并在会话最终刷新更新到数据库。这就是Hibernate所谓的一级缓存。
+一级缓存 一级缓存是Hibernate记录正在进行的会话加载和接触的实体有可能的脏数据状态。正在进行的会话代表工作单元，始终使用，无法关闭。一级缓存的用途是隐藏对数据库许多SQL查询或更新，并在会话最终批量一起执行。当想起一级缓存的时候就应该想到会话。
+二级缓存 二级缓存是进程范围内的缓存，与一个SessionFactory绑定。二级缓存可被相同（通常一个应用程序仅一个）SessionFactory的所有会话共享。默认二级缓存没有使能。二级缓存不存储任何实体实例，而是存储“脱水”状态，即字符串或整形数组代表实体的属性，一个实体id指向“脱水”的实体。概念上可以认为它是一个映射，id作为键，数组作为值。或像下面用于缓存region的这些东西：
+public class Person { private Person parent; private Set&lt;Person> children; public void setParent(Person p) { parent = p; } public void setChildren(Set&lt;Person> set) { children = set; } public Set&lt;Person> getChildren() { return children; } public Person getParent() { return parent; } } Hibernate映射配置如下:
+&lt;class name="org.javalobby.tnt.hibernate.Person"> &lt;cache usage="read-write"/> &lt;id name="id" column="id" type="long"> &lt;generator class="identity"/> &lt;/id> &lt;property name="firstName" type="string"/> &lt;property name="middleInitial" type="string"/> &lt;property name="lastName" type="string"/> &lt;many-to-one name="parent" column="parent_id" class="Person"/> &lt;set name="children"> &lt;key column="parent_id"/> &lt;one-to-many class="Person"/> &lt;/set> &lt;/class> Hibernate概念上为此类持有如下记录:</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate%E7%BC%93%E5%AD%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javase_%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/ itemprop=url>JavaSE 新增特性</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-22">2013-05-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>33 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>参考 Wiki：Java version history JDK各版本很cool的特性 JDK6中httpserver实例 IBM developerWorks：JDK 7 新特性 - 总览 Try-with-resources in Java 7 Java 7 的新特性一览表 编程没有银弹：探讨 Java 8 新增特性的优缺点 IBM developerWorks：Java 8 新特性概述 Java 8 的新特性和改进总览 Java 8 正式发布，新特性全搜罗</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/65/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/62/>62</a>
 <a class=page-number href=/page/63/>63</a>
 <a class=page-number href=/page/64/>64</a>
@@ -173,9 +168,9 @@ GemFire相关配置 设置GemFire缓存属性
 <a class=page-number href=/page/70/>70</a>
 <a class="extend next" rel=next href=/page/67/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>701</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>44</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1513</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>694</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>32</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
