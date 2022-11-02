@@ -2,7 +2,7 @@
 title: 'JavaScript编辑器'
 date: 2007-12-24 23:59:25
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - editor

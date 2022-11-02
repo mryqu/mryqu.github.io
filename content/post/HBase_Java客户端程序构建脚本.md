@@ -2,8 +2,7 @@
 title: '[HBase] Java客户端程序构建脚本'
 date: 2014-01-03 00:05:34
 categories: 
-- Hadoop+Spark
-- HBase
+- BigData
 tags: 
 - hbase
 - java

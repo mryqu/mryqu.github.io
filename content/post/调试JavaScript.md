@@ -2,7 +2,7 @@
 title: '调试Javascript'
 date: 2014-12-12 23:30:00
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - 调试

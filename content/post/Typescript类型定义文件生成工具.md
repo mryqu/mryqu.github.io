@@ -2,7 +2,7 @@
 title: 'Typescript类型定义文件(.d.ts)生成工具'
 date: 2017-12-07 06:10:34
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - typescript
 - type

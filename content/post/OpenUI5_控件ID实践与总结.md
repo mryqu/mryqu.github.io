@@ -2,7 +2,7 @@
 title: '[OpenUI5] 控件ID实践与总结'
 date: 2015-05-03 06:53:44
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

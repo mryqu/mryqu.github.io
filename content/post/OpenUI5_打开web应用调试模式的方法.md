@@ -2,7 +2,7 @@
 title: '[OpenUI5] 打开web应用调试模式的方法'
 date: 2014-12-22 23:27:31
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - web
 - openui5

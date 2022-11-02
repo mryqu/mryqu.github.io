@@ -2,7 +2,7 @@
 title: '[JavaScript] 逻辑操作符的特殊行为'
 date: 2013-12-07 14:47:35
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - logical

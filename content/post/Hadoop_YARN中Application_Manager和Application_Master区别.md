@@ -2,8 +2,7 @@
 title: '[Hadoop] YARN中Application Manager和Application Master区别'
 date: 2015-11-28 05:56:33
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - yarn
 - hadoop

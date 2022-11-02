@@ -2,7 +2,7 @@
 title: '[JavaScript] 继承'
 date: 2014-08-27 20:41:17
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - inheritance

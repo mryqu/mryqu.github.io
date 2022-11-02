@@ -2,8 +2,7 @@
 title: '[Hadoop] 消除WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.'
 date: 2015-04-19 06:40:44
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - nativecodeloader

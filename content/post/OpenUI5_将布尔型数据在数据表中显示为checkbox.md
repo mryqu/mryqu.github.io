@@ -2,7 +2,7 @@
 title: '[OpenUI5] 将布尔型数据在数据表中显示为checkbox'
 date: 2015-03-14 18:09:18
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - datatables

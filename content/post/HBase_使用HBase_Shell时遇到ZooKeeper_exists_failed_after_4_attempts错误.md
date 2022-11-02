@@ -2,8 +2,7 @@
 title: '[HBase] 使用HBase Shell时遇到ZooKeeper exists failed after 4 attempts错误'
 date: 2016-03-05 06:21:09
 categories: 
-- Hadoop+Spark
-- HBase
+- BigData
 tags: 
 - hbase
 - shell

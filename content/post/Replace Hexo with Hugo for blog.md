@@ -264,3 +264,4 @@ jobs:
 [11个最流行的静态(博客)网站生成工具](http://topspeedsnail.com/static-website-generators_or_tools/)  
 [使用travis-ci自动部署github上的项目](https://www.cnblogs.com/morang/p/7228488.html)  
 [Hugo on GitHub Pages with Travis CI](https://www.sidorenko.io/post/2018/12/hugo-on-github-pages-with-travis-ci/)  
+[GitHub Actions for GitHub Pages](https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-first-deployment-with-github_token)  

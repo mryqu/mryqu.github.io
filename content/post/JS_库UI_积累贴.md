@@ -2,7 +2,7 @@
 title: 'JS 库/UI 积累贴'
 date: 2015-05-19 06:10:19
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - bootstrap
 - javascript

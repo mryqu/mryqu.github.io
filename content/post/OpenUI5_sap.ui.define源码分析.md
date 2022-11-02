@@ -2,7 +2,7 @@
 title: '[OpenUI5] sap.ui.define源码分析'
 date: 2015-08-23 06:35:00
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - sap.ui.define

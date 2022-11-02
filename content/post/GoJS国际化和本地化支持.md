@@ -2,7 +2,7 @@
 title: 'GoJS国际化和本地化支持'
 date: 2015-04-10 05:50:49
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - gojs
 - 国际化

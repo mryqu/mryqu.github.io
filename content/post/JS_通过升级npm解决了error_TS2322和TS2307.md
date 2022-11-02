@@ -2,7 +2,7 @@
 title: '[JS] 通过升级npm解决了error TS2322和TS2307'
 date: 2018-01-28 05:48:25
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - npm
 - grunt

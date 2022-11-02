@@ -2,7 +2,7 @@
 title: '[OpenUI5] logging'
 date: 2014-11-16 09:21:34
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

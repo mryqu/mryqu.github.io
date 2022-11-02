@@ -2,7 +2,7 @@
 title: '[OpenUI5] MVC示例:JSView embedding JSVIEW'
 date: 2015-01-07 23:47:47
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - mvc

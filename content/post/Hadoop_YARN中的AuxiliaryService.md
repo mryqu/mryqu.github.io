@@ -2,8 +2,7 @@
 title: '[Hadoop] YARN中的AuxiliaryService'
 date: 2015-02-01 12:39:55
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - yarn

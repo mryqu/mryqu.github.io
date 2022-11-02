@@ -2,7 +2,7 @@
 title: '[OpenUI5] 自定义控件属性支持的数据类型'
 date: 2015-08-08 08:05:21
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - control

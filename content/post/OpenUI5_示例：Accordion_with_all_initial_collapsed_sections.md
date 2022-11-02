@@ -2,7 +2,7 @@
 title: '[OpenUI5] 示例：Accordion with all initial collapsed sections'
 date: 2015-05-04 00:01:32
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

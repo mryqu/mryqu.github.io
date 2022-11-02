@@ -2,7 +2,7 @@
 title: '[OpenUI5] 复习Controller lifecycle'
 date: 2016-05-27 05:36:54
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - controller

@@ -2,7 +2,7 @@
 title: '[JavaScript] 函数的prototype对象属性'
 date: 2014-08-22 21:44:13
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - prototype

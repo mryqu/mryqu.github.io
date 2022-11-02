@@ -2,8 +2,7 @@
 title: '[Hive] Hive CLI和Beeline学习'
 date: 2015-07-28 05:59:51
 categories: 
-- Hadoop+Spark
-- Hive
+- BigData
 tags: 
 - hive
 - shell

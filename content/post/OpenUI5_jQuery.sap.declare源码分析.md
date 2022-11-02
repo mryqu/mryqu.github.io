@@ -2,7 +2,7 @@
 title: '[OpenUI5] jQuery.sap.declare源码分析'
 date: 2015-08-23 00:03:20
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - jquery.sap.declare

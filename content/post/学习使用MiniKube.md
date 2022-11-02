@@ -2,8 +2,7 @@
 title: '学习使用Minikube'
 date: 2019-06-13 06:12:34
 categories: 
-- tool
-- kubernetes
+- Cloud
 tags: 
 - kubernetes
 - minikube

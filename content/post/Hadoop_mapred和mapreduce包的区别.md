@@ -2,8 +2,7 @@
 title: '[Hadoop] mapred和mapreduce包的区别'
 date: 2013-07-12 16:55:48
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapred

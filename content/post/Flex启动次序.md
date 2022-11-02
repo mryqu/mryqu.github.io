@@ -2,7 +2,7 @@
 title: 'Flex启动次序'
 date: 2012-07-18 13:28:23
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - flex
 - 组件

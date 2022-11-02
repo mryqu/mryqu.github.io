@@ -2,7 +2,7 @@
 title: '如何链接并执行GitHub上的JavaScript文件'
 date: 2015-07-10 00:28:30
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - github
 - javascript

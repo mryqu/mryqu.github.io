@@ -2,8 +2,7 @@
 title: '[Hadoop] 压缩MapReduce的Mapper输出'
 date: 2014-03-03 20:13:37
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapreduce

@@ -2,7 +2,7 @@
 title: '[OpenUI5] 折腾了一下JSView转换XMLView'
 date: 2017-02-21 05:49:10
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

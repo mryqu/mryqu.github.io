@@ -2,8 +2,7 @@
 title: '[Hadoop] 使用ChainMapper和ChainReducer运行MapReduce作业链'
 date: 2015-05-24 00:07:44
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - chainmapper

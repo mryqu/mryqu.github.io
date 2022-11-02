@@ -33,7 +33,7 @@ apt-get是Debian Linux用于管理软件包的命令行工具：
 - 打安全补丁
 - 使Debian系统更新到最新状态
 - 下载源.deb文件
-- 前端有很多GUI和应用
+- FrontEnd有很多GUI和应用
 
 |语法|描述|示例
 |---

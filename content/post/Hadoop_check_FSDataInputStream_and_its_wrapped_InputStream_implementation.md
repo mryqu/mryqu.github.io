@@ -2,8 +2,7 @@
 title: '[Hadoop] check FSDataInputStream and its wrapped InputStream implementation'
 date: 2015-05-01 01:15:35
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - hdfs

@@ -2,7 +2,7 @@
 title: '[OpenUI5] jQuery.sap.formatMessage的一点注意事项'
 date: 2016-12-19 05:34:50
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - jquery

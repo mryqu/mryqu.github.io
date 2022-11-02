@@ -2,7 +2,7 @@
 title: '[OpenUI5] sap.m.Input的change回调'
 date: 2015-05-26 05:27:41
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - input

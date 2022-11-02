@@ -2,7 +2,7 @@
 title: 'React.js开发环境设置'
 date: 2020-04-19 12:01:23
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - react
 

@@ -2,7 +2,7 @@
 title: '[OpenUI5] 示例: open dialog which content is a form defined in another view'
 date: 2015-01-11 21:11:32
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

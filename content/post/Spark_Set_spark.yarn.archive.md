@@ -2,8 +2,7 @@
 title: '[Spark] Set spark.yarn.archive'
 date: 2016-08-01 05:30:15
 categories: 
-- Hadoop+Spark
-- Spark
+- BigData
 tags: 
 - spark
 - spark.yarn.jars

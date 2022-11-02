@@ -2,8 +2,7 @@
 title: '[Hadoop] 分布式缓存'
 date: 2013-06-28 21:30:09
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - 分布式缓存

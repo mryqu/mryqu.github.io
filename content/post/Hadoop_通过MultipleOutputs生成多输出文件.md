@@ -2,8 +2,7 @@
 title: '[Hadoop] 通过MultipleOutputs生成多输出文件'
 date: 2014-09-29 18:39:27
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapreduce

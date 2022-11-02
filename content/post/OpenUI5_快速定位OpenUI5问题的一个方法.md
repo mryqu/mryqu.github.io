@@ -2,7 +2,7 @@
 title: '[OpenUI5] 快速定位OpenUI5问题的一个方法'
 date: 2015-01-09 16:30:12
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - html

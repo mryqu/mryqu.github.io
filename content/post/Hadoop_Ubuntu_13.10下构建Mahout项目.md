@@ -2,8 +2,7 @@
 title: '[Hadoop] Ubuntu 13.10下构建Mahout项目'
 date: 2013-10-18 20:58:18
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - jdk
 - eclipse

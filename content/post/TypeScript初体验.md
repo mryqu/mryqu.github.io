@@ -2,7 +2,7 @@
 title: 'TypeScript初体验'
 date: 2017-02-08 05:59:50
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - typescript
 - javascript

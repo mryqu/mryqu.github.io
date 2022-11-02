@@ -2,7 +2,7 @@
 title: '[OpenUI5] MVC和EventBus示例'
 date: 2015-01-09 12:11:23
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - mvc

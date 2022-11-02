@@ -2,7 +2,7 @@
 title: '[OpenUI5] 第三方JavaScript库加载'
 date: 2015-02-06 20:28:33
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

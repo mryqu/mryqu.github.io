@@ -2,7 +2,7 @@
 title: '[Flex] 显式使用public namespace'
 date: 2012-09-01 17:24:28
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - flex
 - namespace

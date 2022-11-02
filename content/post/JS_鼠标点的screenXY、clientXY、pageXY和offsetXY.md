@@ -2,7 +2,7 @@
 title: '[JS] 鼠标点的screenX/Y、clientX/Y、pageX/Y和offsetX/Y'
 date: 2018-01-09 05:55:33
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - mousepoint

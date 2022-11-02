@@ -2,7 +2,7 @@
 title: '[OpenUI5] jQuery.sap.require源码分析'
 date: 2015-08-22 07:32:23
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - jquery.sap.require

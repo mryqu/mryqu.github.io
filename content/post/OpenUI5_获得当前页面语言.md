@@ -2,7 +2,7 @@
 title: '[OpenUI5] 获得当前页面语言'
 date: 2015-01-10 15:33:19
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

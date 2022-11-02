@@ -2,7 +2,7 @@
 title: '[JavaScript] 调试及console.log'
 date: 2013-12-21 11:49:44
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - console

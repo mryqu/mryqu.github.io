@@ -2,7 +2,7 @@
 title: '用JS处理粘贴而来的HTML表单'
 date: 2014-01-12 22:03:18
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - regex

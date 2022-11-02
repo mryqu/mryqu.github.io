@@ -2,8 +2,7 @@
 title: '[Hadoop] YARN DistributedShell实践'
 date: 2016-01-31 06:20:46
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - yarn

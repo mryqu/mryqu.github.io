@@ -2,7 +2,7 @@
 title: '折腾openui5-sample-app之使用Yarn替换Bower'
 date: 2018-09-13
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - build
 - nodejs

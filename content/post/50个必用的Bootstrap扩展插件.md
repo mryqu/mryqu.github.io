@@ -2,7 +2,7 @@
 title: '50个必用的Bootstrap扩展插件'
 date: 2014-08-19 23:13:13
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - bootstrap
 - html5

@@ -2,7 +2,7 @@
 title: '[OpenUI5] sap.ui.core.format.DateFormat使用'
 date: 2015-03-15 17:02:46
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

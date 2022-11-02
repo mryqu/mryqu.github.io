@@ -2,8 +2,7 @@
 title: '[Hadoop] Map Reduce Slot'
 date: 2014-10-17 19:29:17
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapreduce

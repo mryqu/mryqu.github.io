@@ -2,7 +2,7 @@
 title: '[OpenUI5] 数据绑定模式'
 date: 2015-02-02 00:24:09
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - data

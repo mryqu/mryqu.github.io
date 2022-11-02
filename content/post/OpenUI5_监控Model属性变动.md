@@ -2,7 +2,7 @@
 title: '[OpenUI5] 监控Model属性变动'
 date: 2019-07-18 06:36:28
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - web
 - openui5

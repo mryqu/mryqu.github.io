@@ -2,7 +2,7 @@
 title: '[OpenUI5] sap.ui.core.ResizeHandler'
 date: 2015-06-14 09:10:23
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - resize

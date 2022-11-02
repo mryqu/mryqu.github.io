@@ -2,7 +2,7 @@
 title: '[JavaScript] === 与 == 操作符的区别'
 date: 2013-11-08 19:07:08
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - strict

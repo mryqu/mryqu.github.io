@@ -2,8 +2,7 @@
 title: '[MapR培训笔记] Hadoop生态系统'
 date: 2015-12-05 00:00:41
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - ecosystem

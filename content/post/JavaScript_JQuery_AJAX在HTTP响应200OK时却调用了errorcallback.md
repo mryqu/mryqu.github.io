@@ -2,7 +2,7 @@
 title: '[JavaScript] JQuery AJAX在HTTP响应200OK时却调用了errorcallback'
 date: 2014-05-25 08:02:32
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - jquery

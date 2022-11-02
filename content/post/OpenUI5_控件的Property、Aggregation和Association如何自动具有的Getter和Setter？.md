@@ -2,7 +2,7 @@
 title: '[OpenUI5] 控件的Property、Aggregation和Association如何自动具有的Getter和Setter？'
 date: 2015-11-13 06:04:43
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - control

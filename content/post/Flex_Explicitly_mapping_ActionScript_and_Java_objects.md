@@ -2,7 +2,7 @@
 title: '[Flex] Explicitly mapping ActionScript and Java objects'
 date: 2012-09-16 10:30:48
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - flex
 - action script

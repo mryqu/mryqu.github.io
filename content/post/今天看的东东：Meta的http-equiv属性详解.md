@@ -2,7 +2,7 @@
 title: 'Meta的http-equiv属性详解'
 date: 2008-10-03 19:25:51
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - http-equiv
 - meta

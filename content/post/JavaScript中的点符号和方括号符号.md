@@ -2,7 +2,7 @@
 title: 'JavaScript中的点符号和方括号符号'
 date: 2014-11-08 09:18:27
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - dot

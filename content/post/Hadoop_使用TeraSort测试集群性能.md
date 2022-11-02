@@ -2,8 +2,7 @@
 title: '[Hadoop] 使用TeraSort测试集群性能'
 date: 2015-05-25 06:04:00
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - terasort

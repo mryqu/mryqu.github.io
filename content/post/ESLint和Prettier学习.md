@@ -2,7 +2,7 @@
 title: ESLint和Prettier学习  
 date: 2020-05-01 06:01:23
 categories: 
-- 前端
+- FrontEnd
 tags:
 - JavaScript
 - ESLint

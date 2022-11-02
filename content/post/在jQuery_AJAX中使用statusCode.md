@@ -2,7 +2,7 @@
 title: '在jQuery AJAX中使用statusCode'
 date: 2015-08-05 05:49:50
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - jquery
 - ajax

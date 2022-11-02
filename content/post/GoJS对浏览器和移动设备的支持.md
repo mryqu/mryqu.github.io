@@ -2,7 +2,7 @@
 title: 'GoJS对浏览器和移动设备的支持'
 date: 2015-03-04 19:47:40
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - gojs
 - browser

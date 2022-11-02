@@ -2,7 +2,7 @@
 title: '[OpenUI5] 通过sap.ui.core.Core的registerElement和deregisterElement函数监控View和控件的构造和析构'
 date: 2015-06-13 21:47:32
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - core

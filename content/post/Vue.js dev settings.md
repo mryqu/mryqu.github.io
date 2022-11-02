@@ -2,7 +2,7 @@
 title: 'Vue.js开发环境设置'
 date: 2020-04-20 06:01:23
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - vue
 

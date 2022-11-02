@@ -2,7 +2,7 @@
 title: 'jQuery资料帖'
 date: 2013-12-20 19:21:43
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - jquery
 - 资料

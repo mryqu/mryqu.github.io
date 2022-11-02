@@ -2,8 +2,7 @@
 title: '[AWS] 安装AWSCLI '
 date: 2018-07-02 05:40:10
 categories: 
-- Tool
-- AWS
+- Cloud
 tags: 
 - aws
 - cli

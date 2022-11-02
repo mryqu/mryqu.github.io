@@ -2,8 +2,7 @@
 title: '[AWS] 学习AWS上SAS联合账户的使用'
 date: 2018-04-18 06:11:04
 categories: 
-- Tool
-- AWS
+- Cloud
 tags: 
 - aws
 - ec2

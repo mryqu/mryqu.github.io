@@ -2,8 +2,7 @@
 title: '[Hue] 清空MySQL数据库的hue.django_content_type表时遇到由于外键约束无法删除错误!'
 date: 2016-08-26 05:24:54
 categories: 
-- Hadoop+Spark
-- Hue
+- BigData
 tags: 
 - hue
 - django_content_type

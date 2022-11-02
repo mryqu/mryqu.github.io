@@ -2,7 +2,7 @@
 title: 'GoJS中的类'
 date: 2015-04-09 06:06:24
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - gojs
 - class

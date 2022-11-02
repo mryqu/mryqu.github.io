@@ -2,7 +2,7 @@
 title: '[OpenUI5] 调节元素间距'
 date: 2015-01-05 20:31:26
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

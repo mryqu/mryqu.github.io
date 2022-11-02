@@ -2,7 +2,7 @@
 title: '[JavaScript] 判断jQuery版本'
 date: 2015-08-06 05:52:03
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - jquery
 - version

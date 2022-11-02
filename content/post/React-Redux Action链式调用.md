@@ -2,7 +2,7 @@
 title: React-Redux Action链式调用  
 date: 2020-05-10 06:01:23
 categories: 
-- 前端
+- FrontEnd
 tags:
 - React
 - Redux

@@ -2,7 +2,7 @@
 title: '[JavaScript] 函数的Arguments对象属性'
 date: 2014-08-21 20:53:34
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - argruments

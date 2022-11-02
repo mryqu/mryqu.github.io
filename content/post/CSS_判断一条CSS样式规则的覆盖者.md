@@ -2,7 +2,7 @@
 title: '[CSS] 判断一条CSS样式规则的覆盖者'
 date: 2016-01-14 05:48:14
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - css
 - rule

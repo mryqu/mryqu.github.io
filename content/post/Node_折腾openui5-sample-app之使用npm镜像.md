@@ -2,7 +2,7 @@
 title: '折腾openui5-sample-app之使用npm镜像'
 date: 2018-09-12
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - build
 - nodejs

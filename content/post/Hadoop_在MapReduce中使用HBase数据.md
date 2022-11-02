@@ -2,8 +2,7 @@
 title: '[Hadoop] 在MapReduce中使用HBase数据'
 date: 2014-05-11 22:58:25
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - MapReduce
 - hbase

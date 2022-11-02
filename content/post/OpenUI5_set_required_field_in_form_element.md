@@ -2,7 +2,7 @@
 title: '[OpenUI5] set required field in form element'
 date: 2015-03-19 19:27:48
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - form

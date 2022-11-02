@@ -2,8 +2,7 @@
 title: '[Hadoop] 使用DFSIO测试集群I/O性能'
 date: 2015-05-23 09:12:41
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - dfsio

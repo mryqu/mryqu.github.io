@@ -2,8 +2,7 @@
 title: '[Hadoop] 处理跨块边界的InputSplit'
 date: 2014-01-02 07:50:10
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - inputformat

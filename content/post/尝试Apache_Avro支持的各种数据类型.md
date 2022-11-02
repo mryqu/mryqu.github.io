@@ -2,7 +2,7 @@
 title: '尝试Apache Avro支持的各种数据类型'
 date: 2013-09-18 22:16:28
 categories: 
-- Hadoop+Spark
+- BigData
 tags: 
 - apache
 - avro

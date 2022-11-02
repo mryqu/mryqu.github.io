@@ -2,7 +2,7 @@
 title: '[OpenUI5] JSView的createContent和Controller的onInit孰先孰后？'
 date: 2014-11-14 20:06:02
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - createcontent

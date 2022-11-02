@@ -2,7 +2,7 @@
 title: '[OpenUI5] 自定义控件示例'
 date: 2015-06-05 05:42:01
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - custom

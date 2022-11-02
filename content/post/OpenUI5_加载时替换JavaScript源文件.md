@@ -2,7 +2,7 @@
 title: '[OpenUI5] 加载时替换JavaScript源文件'
 date: 2015-08-16 07:22:40
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - replace

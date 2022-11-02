@@ -2,8 +2,7 @@
 title: '[Hadoop] Windows平台编译Hadoop2.6.0笔记'
 date: 2015-04-02 05:25:54
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - windows
 - hadoop

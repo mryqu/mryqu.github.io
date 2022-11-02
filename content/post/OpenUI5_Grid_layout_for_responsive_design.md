@@ -2,7 +2,7 @@
 title: '[OpenUI5] Grid layout for responsive design'
 date: 2015-03-01 09:29:25
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - layout

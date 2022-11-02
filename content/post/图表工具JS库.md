@@ -2,7 +2,7 @@
 title: '图表工具JS库'
 date: 2015-04-08 05:53:33
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - 图表
 - diagram

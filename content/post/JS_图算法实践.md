@@ -2,7 +2,7 @@
 title: '[JS] 图算法实践'
 date: 2019-07-18 20:17:16
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - algorithm

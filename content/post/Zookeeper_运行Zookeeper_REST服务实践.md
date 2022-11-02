@@ -2,8 +2,7 @@
 title: '[Zookeeper] 运行Zookeeper REST服务实践'
 date: 2016-03-02 05:57:16
 categories: 
-- Hadoop+Spark
-- Zookeeper
+- BigData
 tags: 
 - zookeeper
 - rest

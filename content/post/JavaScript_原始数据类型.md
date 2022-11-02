@@ -2,7 +2,7 @@
 title: '[JavaScript] 原始数据类型'
 date: 2013-12-07 10:09:54
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - primitive

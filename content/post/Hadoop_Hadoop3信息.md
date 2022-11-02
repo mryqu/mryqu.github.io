@@ -2,8 +2,7 @@
 title: '[Hadoop] Hadoop3信息'
 date: 2016-02-21 07:12:33
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - 3.0.0

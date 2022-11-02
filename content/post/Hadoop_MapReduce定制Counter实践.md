@@ -2,8 +2,7 @@
 title: '[Hadoop] MapReduce定制Counter实践'
 date: 2014-09-04 21:11:13
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapreduce

@@ -2,8 +2,7 @@
 title: '[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别'
 date: 2013-10-14 20:06:53
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapreduce

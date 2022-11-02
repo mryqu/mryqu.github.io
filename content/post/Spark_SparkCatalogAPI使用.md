@@ -2,8 +2,7 @@
 title: '[Spark] SparkCatalogAPI使用'
 date: 2018-07-16 06:12:39
 categories: 
-- Hadoop+Spark
-- Spark
+- BigData
 tags: 
 - spark
 - catalog

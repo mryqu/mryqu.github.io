@@ -2,7 +2,7 @@
 title: '升级tsc.js解决TypeScript编译失败问题'
 date: 2017-03-07 06:10:36
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - ts5052
 - sourcemap

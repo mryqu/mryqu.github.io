@@ -2,8 +2,7 @@
 title: '[HBase] 安装HBase 1.2.x + ZooKeeper 3.4.x 集群'
 date: 2016-02-29 06:23:10
 categories: 
-- Hadoop+Spark
-- HBase
+- BigData
 tags: 
 - hadoop
 - hbase

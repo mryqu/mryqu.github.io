@@ -2,7 +2,7 @@
 title: '[OpenUI5] MVC：访问其他View/Controller的方法'
 date: 2015-01-08 19:42:03
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - mvc

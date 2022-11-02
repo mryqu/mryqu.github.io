@@ -2,7 +2,7 @@
 title: 'HTML Busy Indicator'
 date: 2015-01-04 20:13:28
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - busy.indicator
 - html

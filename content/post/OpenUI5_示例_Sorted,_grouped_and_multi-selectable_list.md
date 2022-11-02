@@ -2,7 +2,7 @@
 title: '[OpenUI5] 示例: Sorted, grouped and multi-selectable list'
 date: 2015-05-02 08:14:50
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - list

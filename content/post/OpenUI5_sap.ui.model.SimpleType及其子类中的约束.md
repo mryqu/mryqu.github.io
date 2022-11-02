@@ -2,7 +2,7 @@
 title: '[OpenUI5] sap.ui.model.SimpleType及其子类中的约束'
 date: 2016-04-12 05:57:21
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - model

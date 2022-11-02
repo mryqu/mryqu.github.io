@@ -2,7 +2,7 @@
 title: '了解PhantomJS'
 date: 2016-04-13 06:02:28
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - phantomjs
 ---

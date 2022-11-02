@@ -2,7 +2,7 @@
 title: 'FLEX组件的生命周期'
 date: 2012-07-16 13:19:52
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - flex
 - 组件

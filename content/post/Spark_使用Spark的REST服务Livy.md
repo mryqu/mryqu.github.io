@@ -2,8 +2,7 @@
 title: '[Spark] 使用Spark的REST服务Livy'
 date: 2018-07-17 06:09:41
 categories: 
-- Hadoop+Spark
-- Spark
+- BigData
 tags: 
 - spark
 - livy

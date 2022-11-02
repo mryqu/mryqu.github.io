@@ -2,7 +2,7 @@
 title: '[OpenUI5] 在XMLView中使用带有参数的I18N消息'
 date: 2017-03-01 06:14:39
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - openui5
 - javascript

@@ -2,7 +2,7 @@
 title: '[OpenUI5] 十分钟了解sap.ui.table.Table'
 date: 2014-11-12 20:00:19
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - web
 - openui5

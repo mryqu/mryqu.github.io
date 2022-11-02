@@ -2,8 +2,7 @@
 title: '[MapR培训笔记]Hadoop基础'
 date: 2015-11-25 06:23:37
 categories: 
-- Hadoop+Spark
-- Hadoop
+- BigData
 tags: 
 - hadoop
 - mapr-fs

@@ -2,7 +2,7 @@
 title: '关于JavaScript框架'
 date: 2009-02-04 00:11:44
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - javascript
 - dojo

@@ -2,7 +2,7 @@
 title: '使用Fetch_API'
 date: 2018-03-09 05:50:21
 categories: 
-- 前端
+- FrontEnd
 tags: 
 - fetch_api
 - chrome

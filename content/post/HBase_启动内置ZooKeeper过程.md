@@ -2,8 +2,7 @@
 title: '[HBase] 启动内置ZooKeeper过程'
 date: 2015-02-24 07:00:09
 categories: 
-- Hadoop+Spark
-- HBase
+- BigData
 tags: 
 - hbase
 - zookeeper

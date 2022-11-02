@@ -2,8 +2,7 @@
 title: '[HBase] 查看ZooKeeper服务器'
 date: 2015-05-20 06:10:22
 categories: 
-- Hadoop+Spark
-- HBase
+- BigData
 tags: 
 - hbase
 - zookeeper
