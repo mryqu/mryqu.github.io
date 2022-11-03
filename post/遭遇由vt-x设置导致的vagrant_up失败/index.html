@@ -17,7 +17,10 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>77 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>我在同事申请的一台机器上安装Vagrant box，结果<code>vagrant up</code>失败，报如下错误：</p><p>打开VirtualBox界面，重新执行<code>vagrant up</code>，然后在VirtualBox里获取日志，显示如下错误：</p><p>对于64位虚拟机，没有VT扩展的话，Virtualbox不支持64位客户机。解决方案是在BIOS使能Intel虚拟技术（VT-X）。
+<span class=leancloud-visitors-count>174 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>我在同事申请的一台机器上安装Vagrant box，结果<code>vagrant up</code>失败，报如下错误：</p><pre>
+The guest machine entered an invalid state while waiting for it to boot. Valid states are 'starting, running'. The machine is in the 'poweroff' state. Please verify everything is configured properly and try again.
+If the provider you're using has a GUI that comes with it, it is often helpful to open that and watch the machine, since the GUI often has more helpful error messages than Vagrant can retrieve. For example, if you're using VirtualBox, run `vagrant up` while the VirtualBox GUI is open.
+</pre><p>打开VirtualBox界面，重新执行<code>vagrant up</code>，然后在VirtualBox里获取日志，显示如下错误：</p><pre>Failed toopen a session for the virtual machine <font color=#B4B4B4>XXXXXXXXXXXXXXXX</font>.<font color=#FF0000>VT-x is not available.(VERR_VMX_NO_VMX).</font></pre><p>对于64位虚拟机，没有VT扩展的话，Virtualbox不支持64位客户机。解决方案是在BIOS使能Intel虚拟技术（VT-X）。
 如果宿主机不支持VT-X，网上有一个解决方案（未经本人验证）：</p><pre tabindex=0><code>config.vm.provider :virtualbox do |vb|
   vb.customize [&#34;modifyvm&#34;, :id, &#34;--hwvirtex&#34;, &#34;off&#34;]
 end

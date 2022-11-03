@@ -15,13 +15,13 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>104 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>在《<a href=/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98>Tomcat中使用Connector/J连接MySQL的超时问题</a>》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？
+<span class=leancloud-visitors-count>105 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>在《<a href=/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98>Tomcat中使用Connector/J连接MySQL的超时问题</a>》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？
 原来这跟连接池的实现有关：</p><p>|连接池实现|该功能属性名
 |&mdash;&ndash;
 |<a href=https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html>The Tomcat JDBC Connection Pool</a>|validationQuery
 |<a href=http://commons.apache.org/proper/commons-dbcp/configuration.html>The Apache Commons DBCP Connection Pool</a>|validationQuery
 |<a href=http://www.mchange.com/projects/c3p0/#preferredTestQuery>c3p0 - JDBC3 Connection and Statement Pooling</a>|preferredTestQuery
-|<a href=http://www.atomikos.com/Documentation/TomcatSpringActiveMQMySQLJMXIntegration> Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration</a><a href=http://blog.csdn.net/fbysss/article/details/5393626>分析Atomikos数据连接池源码，弄清testQuery</a>|testQuery</p><p>此外，测试/验证连接池连接的SQL语句也因数据库而异：
+|<a href=http://www.atomikos.com/Documentation/TomcatSpringActiveMQMySQLJMXIntegration> Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration</a><br><a href=http://blog.csdn.net/fbysss/article/details/5393626>分析Atomikos数据连接池源码，弄清testQuery</a>|testQuery</p><p>此外，测试/验证连接池连接的SQL语句也因数据库而异：
 <a href=http://stackoverflow.com/questions/3668506/efficient-sql-test-query-or-validation-query-that-will-work-across-all-or-most>Efficient SQL test query or validation query that will work across all (or most) databases</a>
 <a href=http://vondrnotes.blogspot.com.au/2012/05/validationquery-for-different-databases.html>DBCP - validationQuery for different Databases</a></p><p>综合上述两个帖子，汇总结果如下：</p><p>|数据库|测试/验证查询
 |&mdash;&ndash;

@@ -17,7 +17,7 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>76 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>下面我以<a href=https://spring.io/guides/gs/spring-boot/>https://spring.io/guides/gs/spring-boot/</a>中的gs-spring-boot项目为例，使用Gradle输出依赖包。</p><p>首先对build.gradle做如下修改：</p><pre tabindex=0><code>buildscript {
+<span class=leancloud-visitors-count>89 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>下面我以<a href=https://spring.io/guides/gs/spring-boot/>https://spring.io/guides/gs/spring-boot/</a>中的gs-spring-boot项目为例，使用Gradle输出依赖包。</p><p>首先对build.gradle做如下修改：</p><pre tabindex=0><code>buildscript {
     repositories {
         mavenCentral()
     }
@@ -60,7 +60,9 @@ dependencies {
     testCompile(&#34;org.springframework.boot:spring-boot-starter-test&#34;)
     // end::tests[]
 }
-</code></pre><p>首先可以在命令行中看到：</p><p>跟下面<a href=https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_plugin_and_dependency_management>Java插件- 依赖配置</a>相比，少了一些，可能是根据build.gradle生成的configurations。
+</code></pre><p>首先可以在命令行中看到：</p><pre>
+[configuration ':archives', configuration ':compile', configuration ':default', configuration ':runtime', configuration ':testCompile', configur:clean':testRuntime', configuration ':versionManagement']
+</pre><p>跟下面<a href=https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_plugin_and_dependency_management>Java插件- 依赖配置</a>相比，少了一些，可能是根据build.gradle生成的configurations。
 <img src=/images/2015/4/0026uWfMzy74OGJdVGcc4.jpg alt=[Gradle] 输出依赖包>
 此时在gs-spring-boot\complete\build\dep-libs目录下有32个jar文件；如果改成from configurations.testCompile，则该目录下会有48个jar文件。</p><p>最后要说的的是，我输出这些依赖包的目的是为了可以摆脱Gradle，通过java命令执行程序或进行测试。</p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[Gradle] 输出依赖包<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/gradle rel=tag title=gradle>#gradle#</a>
 <a href=/tags/dependencies rel=tag title=dependencies>#dependencies#</a>

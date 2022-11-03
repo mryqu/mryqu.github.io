@@ -33,7 +33,7 @@ ENABLED=false
 </code></pre><h3 id=自动重载>自动重载</h3><p>使用PaaS，当你修改任何配置时你的应用将自动重启。我们可以以最小的代价通过Consul和Envconsul实现相同效果。
 通过对envconsul添加<code>-reload</code>标志，一旦配置键发生增删改，envconsul将中断(SIGTERM)并重启你的应用：</p><pre tabindex=0><code>$ envconsul -reload foo bin/rails server
 ...
-</code></pre><p>注：该功能已经在0.4.0版本移除。
+</code></pre><p><font color=#FF0000>注：该功能已经在0.4.0版本移除。</font>
 <a href=http://www.consul.io/docs/agent/http.html>Consul HTTP API</a>支持对给定前缀KV中的变更进行长轮询。一旦KV中发生变更，Envconsul通过这种方式可以高效地进行检测。</p><h3 id=改良流程>改良流程</h3><p>对应用配置使用Consul和envconsul可以将PaaS化应用配置易用性带入你自己的原生环境。
 对于开发者而言，他们可以无需跟运营工程师沟通或重新部署应用就可以设置配置。
 对于运营来说，Consul对整个基础架构的服务发现和配置提供了统一的解决方案。Consul自动复制数据并存储在磁盘上以方便备份，运营工程师也可以高枕无忧了。</p><h3 id=我的实践>我的实践</h3><p>Envconsul获取的环境变量既可以直接给启动服务器的命令使用（例如上面启动Rails内建服务器的<code>bin/rails</code>命令）；也可以通过python之类的脚本存成Java系统属性文件，通过chpst这样可以加载环境变量/系统属性文件的命令间接给Java命令使用。</p><pre tabindex=0><code>envconsul \

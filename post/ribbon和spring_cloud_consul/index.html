@@ -17,7 +17,7 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>375 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>学习一下<a href=https://spring.io/guides/gs/client-side-load-balancing/>Client Side Load Balancing with Ribbon and Spring Cloud</a>快速入门指南，这里的客户端负载平衡是借助<a href=https://github.com/Netflix/ribbon>Netflix Ribbon</a>实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。</p><h3 id=ribbonclient和loadbalanced的区别>@RibbonClient和@LoadBalanced的区别</h3><p><a href=https://stackoverflow.com/questions/39587317/difference-between-ribbonclient-and-loadbalanced>Difference between @RibbonClient and @LoadBalanced</a>讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。</p><pre tabindex=0><code>restTemplate.getForObject(&#34;http://some-service-name/user/{id}&#34;, String.class, 1);
+<span class=leancloud-visitors-count>377 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>学习一下<a href=https://spring.io/guides/gs/client-side-load-balancing/>Client Side Load Balancing with Ribbon and Spring Cloud</a>快速入门指南，这里的客户端负载平衡是借助<a href=https://github.com/Netflix/ribbon>Netflix Ribbon</a>实现的。很魔性，除了application.yml里有Ribbon的配置以及代码包含@RibbonClient、@LoadBalanced注解，应用程序几乎没什么工作要做了。</p><h3 id=ribbonclient和loadbalanced的区别>@RibbonClient和@LoadBalanced的区别</h3><p><a href=https://stackoverflow.com/questions/39587317/difference-between-ribbonclient-and-loadbalanced>Difference between @RibbonClient and @LoadBalanced</a>讲解了@RibbonClient和@LoadBalanced的区别。 @LoadBalanced是个标记注解，指示被注解的RestTemplate应该使用RibbonLoadBalancerClient与服务进行交互。反过来，这允许在URL除了使用物理主机名+端口号组合外，还可以使用服务名的逻辑标识符。</p><pre tabindex=0><code>restTemplate.getForObject(&#34;http://some-service-name/user/{id}&#34;, String.class, 1);
 </code></pre><p>@RibbonClient是用于配置Ribbon客户端的。它不是必须的，当使用服务发现且默认Ribbon设置就可以满足需求时，无需使用@RibbonClient注解。
 在下列两种情况下需要使用@RibbonClient注解：</p><ul><li>需要对特定Robbon客户端使用定制Ribbon设置</li><li>没有使用任何服务发现</li></ul><p>定制Robbon设置：</p><pre tabindex=0><code>@Configuration
 @RibbonClient(name = &#34;foo&#34;, configuration = FooConfiguration.class)
@@ -30,9 +30,9 @@ public class TestConfiguration {
 | BestAvailableRule | 选择一个最小并发请求的服务器 | 逐个考察服务器的LoadBalancerStats信息，如果服务器被断路器断了则忽略，在其中选择ActiveRequestsCount最小的服务器。 |
 | AvailabilityFilteringRule | 过滤掉那些因为一直连接失败的被断路器断了的服务器，并过滤掉那些高并发的服务器（活跃连接数超过配置的阈值） | 使用一个AvailabilityPredicate来包含过滤服务器的逻辑，其实就是检查LoadBalancerStats里记录各个服务器的断路器状态和ActiveRequestsCount状态。当尝试十次后还无法选出合适的服务器，则通关过轮训策略选出一个。 |
 | ZoneAvoidanceRule | 通过组合判断服务器所在zone的性能和服务器可用性来选择server | 使用ZoneAvoidancePredicate和AvailabilityPredicate来判断是否选择某个服务器，前一个判断判定一个zone的运行性能是否可用，剔除不可用的zone（的所有服务器），AvailabilityPredicate用于过滤掉连接数过多的服务器。 |
-| RoundRobinRule | roundRobin方式轮询选择服务器 | 维护一个AtomicInteger类型的轮询下标，尝试十次从allServers选择下标对应位置的可用服务器（服务器不可用，则下标原子加一取模）。有点疑问，allServers中前十个服务器不可用而第十一服务器可用，RoundRobinRule会取不到服务器，为什么不从reachableServers挑选呢？ |
+| RoundRobinRule | roundRobin方式轮询选择服务器 | 维护一个AtomicInteger类型的轮询下标，尝试十次从allServers选择下标对应位置的可用服务器（服务器不可用，则下标原子加一取模）。<br>有点疑问，allServers中前十个服务器不可用而第十一服务器可用，RoundRobinRule会取不到服务器，为什么不从reachableServers挑选呢？ |
 | WeightedResponseTimeRule | 根据响应时间为每个服务器分配一个权重，使用加权RoundRobin方式选择服务器。 | 一个定时器线程从ServerStats里面读取评估响应时间，为每个服务器计算一个权重。权重为所有服务器平均响应时间总和减去服务器自己的平均响应时间。当刚开始运行，没有形成统计时，使用RoundRobin策略选择服务器。 |
-| RandomRule | 随机选择一个服务器 | 在allServers随机选择下标，在reachableServers选择对应下标的可用服务器。还是如上的疑问，为什么从allServers随机选择下标，而在reachableServers选择？ |
+| RandomRule | 随机选择一个服务器 | 在allServers随机选择下标，在reachableServers选择对应下标的可用服务器。<br>还是如上的疑问，为什么从allServers随机选择下标，而在reachableServers选择？ |
 | RetryRule | 对已有的负载均衡策略加上重试机制。 | 在一个配置时间段内使用subRule的方式无法选择到可用服务器时，重新尝试。 |</p><h4 id=服务器存活检查-iping>服务器存活检查 IPing</h4><p><img src=/images/2017/06/IPing.png alt="IPing Hierarchy"></p><p>| IPing方式 | 描述 | 实现说明 |
 | - | - |
 | PingConstant | 根据配置返回固定的服务器可用状态。 | isAlive方法仅返回的就是配置值。如果没配置，则默认为true。 |

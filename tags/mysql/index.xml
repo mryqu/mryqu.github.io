@@ -46,7 +46,35 @@ PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以Po
 在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 很少使用的数据可被移往更便宜更慢的存储媒体。 这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
 表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
 CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities); 父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
-SELECT name, altitude FROM cities WHERE altitude &amp;gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &amp;gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</description></item><item><title>MySQL、Postgres、Oracle、SQL server、DB2、Teradata、Netezza数据类型比较</title><link>https://mryqu.github.io/post/mysqlpostgresoraclesql_serverdb2teradatanetezza%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/</link><pubDate>Mon, 24 Jun 2013 20:49:03 +0000</pubDate><guid>https://mryqu.github.io/post/mysqlpostgresoraclesql_serverdb2teradatanetezza%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/</guid><description/></item><item><title>数据库常用操作笔记</title><link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link><pubDate>Sat, 18 Aug 2012 07:10:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid><description>GreenPlum/PostGreSQL操作 Create a new database: createdb medb Drop database: dropdb medb Access database: psql -h gpserver -d gpdatabase -U gpuser -W Get help: medb=# \h Quit: medb=# \q Read command from file: medb=# \i input.sql To dump a database: pg_dump medb &amp;gt; db.out To reload the database: psql -d database -f db.out Dump all database: pg_dumpall &amp;gt; /var/lib/pgsql/backups/dumpall.sql Restore database: psql -f /var/lib/pgsql/backups/dumpall.sql medb Show databases: psql -l medb=# \l; Show users: medb=# select * from &amp;quot;pg_user&amp;quot;; Show tables: medb=# select * from &amp;quot;pg_tables&amp;quot;; Set password: medb=# upadte pg_shadow set passwd = 'new_password' where usename = 'username'; Clean all databases (Should be done via a daily cron): vacuumdb --quiet --all check column of table medb=# select * from INFORMATION_SCHEMA.</description></item><item><title>实践记录：将MDF MSSQL数据库内容导入MySQL</title><link>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</link><pubDate>Thu, 24 Sep 2009 10:37:58 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</guid><description>玩一个例程源码，它使用的是SQL server数据库，虽然我机子装了VS2005带的SQL server2005，我还是想用MySQL。 把自己的转换过程草草记录下来，也不算太无聊吧。
+SELECT name, altitude FROM cities WHERE altitude &amp;gt; 500; SELECT name, altitude FROM ONLY cities WHERE altitude &amp;gt; 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</description></item><item><title>MySQL、Postgres、Oracle、SQL server、DB2、Teradata、Netezza数据类型比较</title><link>https://mryqu.github.io/post/mysqlpostgresoraclesql_serverdb2teradatanetezza%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/</link><pubDate>Mon, 24 Jun 2013 20:49:03 +0000</pubDate><guid>https://mryqu.github.io/post/mysqlpostgresoraclesql_serverdb2teradatanetezza%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/</guid><description>mysqlpostgresoraclemssqldb2teredatanetezzabigint8bytes
+-9223372036854775808~9223372036854775807
+0~184467440737095516158bytes
+-9223372036854775808~9223372036854775807Not support8bytes
+-9223372036854775808~92233720368547758078bytes (precision of 19digits)
+-9223372036854775808~92233720368547758078bytes
+-9223372036854775808~92233720368547758078bytes
+-9223372036854775808~9223372036854775807decimal(m,n)65digits
+64: MySQL 5.0.3~5.0.5
+8?: MySQL 5.0.3 beforeno limit?
+1000digits?m:1 ~38
+n:-84~127.m:1 ~38
+n:0~m1~31digitsm:1~18m:1 ~38
+n:0~mnumeric=decimalnumeric=decimalnumeric=decimalnumeric=decimalnumeric=decimalinteger4bytes
+-2147483648~2147483647
+0~42949672954bytes
+-2147483648~2147483647INTEGER=NUMBER(38)
+int
+4bytes
+-2147483648~21474836474bytes (precision of 10digits)
+-2147483648~21474836474bytes
+-2147483648~21474836474bytes
+-2147483648~2147483647varchar(n)0~255characters : MySQLbefore
+0~65,535characters : MySQL 5.0.3 and above
+unlimited lengthvarchar2(n)
+4000 bytes800032672bytes64000 bytes64000 characterschar(n)0~255characters?&amp;nbsp;unlimited length2000 bytes80001~25464000 bytes64000 characterstextTINYTEXT:255(2^8)bytes
+TEXT:65535(2^16)bytes
+MEDIUMTEXT:16777215 (2^24)bytes
+LONGTEXT:4294967295 (2^32)bytesunlimited lengthCLOB: (4 gigabytes - 1) * (database block size).</description></item><item><title>数据库常用操作笔记</title><link>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</link><pubDate>Sat, 18 Aug 2012 07:10:28 +0000</pubDate><guid>https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/</guid><description>GreenPlum/PostGreSQL操作 Create a new database: createdb medb Drop database: dropdb medb Access database: psql -h gpserver -d gpdatabase -U gpuser -W Get help: medb=# \h Quit: medb=# \q Read command from file: medb=# \i input.sql To dump a database: pg_dump medb &amp;gt; db.out To reload the database: psql -d database -f db.out Dump all database: pg_dumpall &amp;gt; /var/lib/pgsql/backups/dumpall.sql Restore database: psql -f /var/lib/pgsql/backups/dumpall.sql medb Show databases: psql -l medb=# \l; Show users: medb=# select * from &amp;quot;pg_user&amp;quot;; Show tables: medb=# select * from &amp;quot;pg_tables&amp;quot;; Set password: medb=# upadte pg_shadow set passwd = 'new_password' where usename = 'username'; Clean all databases (Should be done via a daily cron): vacuumdb --quiet --all check column of table medb=# select * from INFORMATION_SCHEMA.</description></item><item><title>实践记录：将MDF MSSQL数据库内容导入MySQL</title><link>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</link><pubDate>Thu, 24 Sep 2009 10:37:58 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95%E5%B0%86mdf_mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AE%B9%E5%AF%BC%E5%85%A5mysql/</guid><description>玩一个例程源码，它使用的是SQL server数据库，虽然我机子装了VS2005带的SQL server2005，我还是想用MySQL。 把自己的转换过程草草记录下来，也不算太无聊吧。
 【环境】VS2005附带的SQL server 2005 &amp;amp; MySQL 5.1
 1、下载并安装Microsoft SQL Server Management StudioExpress（SSMSE） http://www.microsoft.com/downloadS/details.aspx?familyid=C243A5AE-4BD1-4E3D-94B8-5A0F62BF7796&amp;amp;displaylang=en
 2、 配置SQL2005

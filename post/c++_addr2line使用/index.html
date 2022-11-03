@@ -67,7 +67,7 @@ main
 /lib64/libpthread.so.0(+0x7a51) [0x7f71448a5a51]
 /lib64/libc.so.6(clone+0x6d) [0x7f7143f339ad]
 </code></pre><p>当指令指针位置为动态库偏移量时，如mydrv.so**(+0x2c850)<strong>，则可以直接使用addr2line查看源码位置。
-当指令指针位置为函数偏移量时，如mydrv.so</strong>(exceptionHandler+0x13a)**，则需要先查找函数（如exceptionHandler）相对动态库的偏移量，之后与相对偏移量相加以用于addr2line命令。
+当指令指针位置为函数偏移量时，如mydrv.so</strong><font color=red>(exceptionHandler+0x13a)</font>**，则需要先查找函数（如exceptionHandler）相对动态库的偏移量，之后与相对偏移量相加以用于addr2line命令。
 可以通过objdump-S命令查找函数的指令指针地址：
 <img src=/images/2015/9/0026uWfMzy7cKgHJe3ec8.png alt=[C++] addr2line使用></p><h3 id=参考>参考</h3><p><a href=https://linux.die.net/man/1/addr2line>addr2line - linux man page</a><br><a href=https://www.ibm.com/developerworks/cn/linux/l-graphvis/>用 Graphviz 可视化函数调用</a><br><a href=http://blog.csdn.net/chrovery/article/details/48035235>addr2line objdump命令使用方法</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[C++] addr2line使用<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/addr2line rel=tag title=addr2line>#addr2line#</a>
 <a href=/tags/objdump rel=tag title=objdump>#objdump#</a>

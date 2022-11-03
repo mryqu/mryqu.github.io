@@ -9,11 +9,26 @@ Spring MVC REST工作流 传统Spring MVC REST工作流步骤如下:
 创建名为Employee的Java POJO类。
 package com.example.spring.model; import javax.</description></item><item><title>[Gradle] buildScript块与allprojects块及根级别的repositories区别</title><link>https://mryqu.github.io/post/gradle_buildscript%E5%9D%97%E4%B8%8Eallprojects%E5%9D%97%E5%8F%8A%E6%A0%B9%E7%BA%A7%E5%88%AB%E7%9A%84repositories%E5%8C%BA%E5%88%AB/</link><pubDate>Mon, 29 Jun 2015 00:03:59 +0000</pubDate><guid>https://mryqu.github.io/post/gradle_buildscript%E5%9D%97%E4%B8%8Eallprojects%E5%9D%97%E5%8F%8A%E6%A0%B9%E7%BA%A7%E5%88%AB%E7%9A%84repositories%E5%8C%BA%E5%88%AB/</guid><description>一直对为什么buildScript块里定义了repositories而allprojects段或根还定义repositories没有思考过，偶然有了念头想要探究一下。
 build.gradle：
-buildScript块主要是为了Gradle脚本自身的执行，获取脚本依赖插件。我在写的一篇博客《尝试Artifactory》中Gradle脚本需要com.jfrog.artifactory插件才能执行成功，而这个插件是从URL为https://plugins.gradle.org/m2/的Maven仓库获得。 根级别的repositories主要是为了当前项目提供所需依赖包，比如log4j、spring-core等依赖包可从mavenCentral仓库获得。 allprojects块的repositories用于多项目构建，为所有项目提供共同所需依赖包。而子项目可以配置自己的repositories以获取自己独需的依赖包。
+buildscript { repositories { ... } dependencies { ... } } allprojects { repositories { ... } dependencies { ... } }repositories { ... } dependencies { ... } buildScript块主要是为了Gradle脚本自身的执行，获取脚本依赖插件。我在写的一篇博客《尝试Artifactory》中Gradle脚本需要com.jfrog.artifactory插件才能执行成功，而这个插件是从URL为https://plugins.gradle.org/m2/的Maven仓库获得。 根级别的repositories主要是为了当前项目提供所需依赖包，比如log4j、spring-core等依赖包可从mavenCentral仓库获得。 allprojects块的repositories用于多项目构建，为所有项目提供共同所需依赖包。而子项目可以配置自己的repositories以获取自己独需的依赖包。
 参考 What&amp;rsquo;s the difference between buildscript and allprojects in build.gradle?
 Gradle buildscript dependencies
 Gradle: Project</description></item><item><title>[Hadoop] mapred和mapreduce包的区别</title><link>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Fri, 12 Jul 2013 16:55:48 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>背景介绍 在Hadoop的代码中，存在org.apache.hadoop.mapred和org.apache.hadoop.mapreduce两个包。mapred包下是老的API，在Hadoop0.20时被废弃了，引入了新包mapreduce，但是由于新的API迟迟没有完成，所以在Hadoop0.21中取消了mapred包的废弃状态。原来的设想中老包mapred在Hadoop0.22和1.0中将再次设成废弃状态，但时至今日也没有被废弃。
 区别 本文将通过WordCount示例代码，介绍一下二者的区别。WordCount示例代码分别取自0.19和0.23.9版本的Hadoop源码。
-0.19版WordCount示例 0.23.9版WordCount示例 注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
+0.19版WordCount示例 0.23.9版WordCount示例 区别新API老API包新API位于org.apache.hadoop.mapreduce包内老API位于org.apache.hadoop.mapred.包内Mapper和Reducer类型新API使用Mapper和Reducer抽象类
+抽象类更容易扩展，Hadoop实现可以轻松向其抽象类中添加方法(用默认的实现)而不会对已有Hadoop应用造成影响老API使用Mapper和Reduceer接口使用对象新API使用Configuration和一些Helper类完成作业配置；
+新API使用Job完成作业控制；
+新API使用Context完成用户代码与MapReduce系统的通信。老API使用JobConf
+完成作业配置，它是Configuration子类；
+![[Hadoop]?mapred和mapreduce包的区别](/images/2013/7/0026uWfMzy78EeY1A9Ge0.png)
+老API使用JobClient完成作业控制；
+老API使用OutputCollector和Reporter完成用户代码与MapReduce系统的通信。
+方法map() reduce() clearup() setup() run()；
+所有方法可抛IOException或InterruptedException；
+Reduce()输入值为java.lang.Iterable；键值对输出通过Context对象的write方法实现；
+map() reduce()；
+所有方法可抛IOException；
+Reduce()输入值为java.lang.Iterator；
+键值对输出通过OutputCollector对象的collect方法实现；输出文件part-m-nnnnn和part-r-nnnnn
+(nnnnn为从0开始的整数)part-nnnnn 注意事项 尽量使用新API。在mapred和mapreduce两个包下存在FileInputFormat、FileOutputFormat等名字一样的类，如果引入错误的话，程序会无法通过编译。
 参考 Upgrading To The New Map Reduce API
 Difference between Hadoop OLD API and NEW API</description></item></channel></rss>

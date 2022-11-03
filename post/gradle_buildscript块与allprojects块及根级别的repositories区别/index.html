@@ -17,7 +17,27 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>20 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>一直对为什么buildScript块里定义了repositories而allprojects段或根还定义repositories没有思考过，偶然有了念头想要探究一下。</p><p><strong>build.gradle</strong>：</p><p>buildScript块主要是为了Gradle脚本自身的执行，获取脚本依赖插件。我在写的一篇博客<a href=/post/%E5%B0%9D%E8%AF%95artifactory>《尝试Artifactory》</a>中Gradle脚本需要com.jfrog.artifactory插件才能执行成功，而这个插件是从URL为https://plugins.gradle.org/m2/的Maven仓库获得。
+<span class=leancloud-visitors-count>49 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>一直对为什么buildScript块里定义了repositories而allprojects段或根还定义repositories没有思考过，偶然有了念头想要探究一下。</p><p><strong>build.gradle</strong>：</p><table><tbody><tr><td valian=top><pre>buildscript {  
+     repositories {
+         ...
+     }
+     dependencies {
+         ...
+     }
+}
+</pre></td><td valian=top><pre>allprojects { 
+     repositories {
+         ...
+     }
+     dependencies {
+         ...
+     }
+}</pre></td><td valian=top><pre>repositories {
+     ...
+}
+dependencies {
+     ...
+}</pre></td></tr></tbody></table><p>buildScript块主要是为了Gradle脚本自身的执行，获取脚本依赖插件。我在写的一篇博客<a href=/post/%E5%B0%9D%E8%AF%95artifactory>《尝试Artifactory》</a>中Gradle脚本需要com.jfrog.artifactory插件才能执行成功，而这个插件是从URL为https://plugins.gradle.org/m2/的Maven仓库获得。
 根级别的repositories主要是为了当前项目提供所需依赖包，比如log4j、spring-core等依赖包可从mavenCentral仓库获得。
 allprojects块的repositories用于多项目构建，为所有项目提供共同所需依赖包。而子项目可以配置自己的repositories以获取自己独需的依赖包。</p><h3 id=参考>参考</h3><p><a href=http://stackoverflow.com/questions/30158971/whats-the-difference-between-buildscript-and-allprojects-in-build-gradle>What&rsquo;s the difference between buildscript and allprojects in build.gradle?</a><br><a href=http://stackoverflow.com/questions/13923766/gradle-buildscript-dependencies>Gradle buildscript dependencies</a><br><a href=https://docs.gradle.org/current/dsl/org.gradle.api.Project.html>Gradle: Project</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[Gradle] buildScript块与allprojects块及根级别的repositories区别<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/gradle rel=tag title=gradle>#gradle#</a>
 <a href=/tags/buildscript rel=tag title=buildscript>#buildscript#</a>

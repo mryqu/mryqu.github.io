@@ -5,15 +5,57 @@
 mryqu@mryqu MINGW64 /c/quTools $ node -v v6.9.5 mryqu@mryqu MINGW64 /c/quTools $ npm -v 3.10.10 安装Hexo：
 mryqu@mryqu MINGW64 /c/quTools $ mkdir hexo mryqu@mryqu MINGW64 /c/quTools $ cd hexo mryqu@mryqu MINGW64 /c/quTools/hexo npm install -g hexo-cli mryqu@mryqu MINGW64 /c/quTools/hexo npm install hexo --save 创建博客 mryqu@mryqu MINGW64 /c/users/mryqu $ hexo init blog mryqu@mryqu MINGW64 /c/users/mryqu $ cd blog mryqu@mryqu MINGW64 /c/users/mryqu/blog $ git clone https://github.com/iissnan/hexo-theme-next themes/next mryqu@mryqu MINGW64 /c/users/mryqu/blog $ cd themes/next mryqu@mryqu MINGW64 /c/users/mryqu/blog/themes/next $ git tag -l mryqu@mryqu MINGW64 /c/users/mryqu/blog/themes/next $ git checkout tags/v5.</description></item><item><title>尝试Travis CI</title><link>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95travis_ci/</link><pubDate>Sat, 05 Nov 2016 06:00:40 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95travis_ci/</guid><description>从GitHub上下载的很多项目都包含一个.travis.yml文件，一开始不知道是什么鬼，后来才知道是Travis CI配置文件。 Travis CI是基于云的持续集成项目，供GitHub上的开源项目使用。对于GitHub上的项目来说，Travis CI无需自己部署服务器，仅需添加一个.travis.yml文件就可进行持续集成，入侵性很小，所以很多项目都纷纷采用了。
 Travis CI与Jenkins的比较 对于企业开发来收，目前主流还是Jenkins/Hudson，下面可以看一下二者的功能比较。
-我的尝试 最终选择我的C++项目mryqu/twitcurl采用Travis CI进行持续集成，测试一下整个编译是否能过。 参考 网站：travis-ci.org（免费）travis-ci.com（企业版）
-GitHub: travis-ci/travis-ci
-WIKI: Travis CI
-WIKI: Comparison of continuous integration software
-为什么国内做持续集成大家都选择 Jenkins ,用 travis-ci 的人那么少呢？
-用TravisCI来做持续集成
-Travis CI会替代Jenkins吗？
-Travis CI，翩翩而至的CI云
-免费的持续集成测试服务</description></item><item><title>如何链接并执行GitHub上的JavaScript文件</title><link>https://mryqu.github.io/post/%E5%A6%82%E4%BD%95%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%89%A7%E8%A1%8Cgithub%E4%B8%8A%E7%9A%84javascript%E6%96%87%E4%BB%B6/</link><pubDate>Fri, 10 Jul 2015 00:28:30 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%A6%82%E4%BD%95%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%89%A7%E8%A1%8Cgithub%E4%B8%8A%E7%9A%84javascript%E6%96%87%E4%BB%B6/</guid><description>想要玩一下jquery-mockjax，其原始文件为https://raw.githubusercontent.com/jakerella/jquery-mockjax/master/dist/jquery.mockjax.js ，加入我的html文件进行测试。结果却遇到下列问题：
+名称平台许可构建器：Windows构建器：Java构建器：其他通知集成 IDE集成 其他Jenkins-HudsonWeb容器Creative Commons和 MITMSBuild
+NAntAnt
+Maven&amp;nbsp;2
+KundoCmake
+Gant
+Gradle
+Grails, Phing
+Rake
+Ruby
+SCons
+Python
+shell script
+command-lineAndroid
+Email
+Google Calendar
+IRC
+XMPP
+RSS
+Twitter
+Slack
+Catlight
+CCMenu
+CCTrayEclipse
+IntelliJ IDEA
+NetBeansBugzilla
+Google Code
+Jira
+Bitbucket
+Redmine
+FindBugs
+Checkstyle
+PMD&amp;nbsp;and&amp;nbsp;Mantis
+Trac
+HP ALMTravis CI已在云上部署MIT无Ant
+Maven
+GradleC
+C++
+Clojure
+Elixir
+Erlang
+Go
+Groovy
+Haskell
+Java
+Node.js
+Perl
+PHP
+Python
+Ruby
+Rust
+Scala</description></item><item><title>如何链接并执行GitHub上的JavaScript文件</title><link>https://mryqu.github.io/post/%E5%A6%82%E4%BD%95%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%89%A7%E8%A1%8Cgithub%E4%B8%8A%E7%9A%84javascript%E6%96%87%E4%BB%B6/</link><pubDate>Fri, 10 Jul 2015 00:28:30 +0000</pubDate><guid>https://mryqu.github.io/post/%E5%A6%82%E4%BD%95%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%89%A7%E8%A1%8Cgithub%E4%B8%8A%E7%9A%84javascript%E6%96%87%E4%BB%B6/</guid><description>想要玩一下jquery-mockjax，其原始文件为https://raw.githubusercontent.com/jakerella/jquery-mockjax/master/dist/jquery.mockjax.js ，加入我的html文件进行测试。结果却遇到下列问题：
 Refused to execute script from ... because its MIME type (text/plain) is not executable, and strict MIME type checking is enabled. 查到了StackOverflow上的一个帖子Link and execute external JavaScript file hosted on GitHub ，原来GitHub开始使用X-Content-Type-Options:nosniff以令更多的现代浏览器执行严格MIME类型检查，之后返回原始文件的MIME类型故意让浏览器不能使用。帖子中提到的临时解决方法是将raw.githubusercontent.com替换为rawgit.com。我将上一链接替换成https://rawgit.com/jakerella/jquery-mockjax/master/dist/jquery.mockjax.js ，解决问题！</description></item><item><title>了解用于Gerrit代码审查的GitHub插件</title><link>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/</link><pubDate>Sat, 16 May 2015 07:28:57 +0000</pubDate><guid>https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E7%94%A8%E4%BA%8Egerrit%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%9A%84github%E6%8F%92%E4%BB%B6/</guid><description>在网上看到了GitHub plugin for Gerrit，学习一下。
 对比GitHub与Gerrit的代码审查机制 GitHub一派的代码审查机制主要通过fork一个远程分支，进行本地修改并提交到远程分支，然后通过PULL REQUEST来请求代码审查及合并回原上游远程分支。 Gerrit一派的代码审查机制主要通过checkout一个分支(refs/for/master)。从Gerrit克隆获得本地分支，进行修改并提交到Gerrit的refs/for/master分支，中间还可以通过Amend commit修改之前的提交，经过评审人批准后，代码会提交到&amp;quot;权威&amp;quot;仓库。 GitHub BitBucket GitLab Gitorious阵营 这一派的PULL REQUEST基于两个分支的合并，注释可能会乱一点，有点惹人烦。不考虑将所有原子/相关修改作为一个提交。除了写注释无法知道审查打分情况。 Gerrit GitBlit阵营 这一派的每个提交有其审查结果，可以清晰查看以往历史。Gerrit审查可以强制成仅接受快进（fast-worward）或可rebase的提交。 用于Gerrit代码审查的GitHub插件 https://gerrit-review.googlesource.com/#/admin/projects/plugins/github 优点：
 引入Pull Requests -&amp;gt;Gerrit改动/主题 使用Gerrit认证规则重用GitHub账户 复制: 代码继续存在于http://github.com 仓库 防止不可管理的fork激增 避免GitHub垃圾邮件 -&amp;gt;每个改动一封电邮 第一步：为Gerrit在GitHub上注册新的OAUTH应用 第二步：获取Client ID和Client Secret 第三步：下载并安装Gerrit 下载地址：https://gerrit-releases.storage.googleapis.com/index.html 为了确保安装成功，首先使用DEVELOPMENT_BECOME_ANY_ACCOUNT作为认证方式确保能登录进Gerrit。 使用Git Bash启动Gerrit。 登陆后，可以查看到当前安装的插件。 第四步：构建GitHub插件 git clone https://gerrit.googlesource.com/plugins/github &amp;amp;&amp;amp; cd github mvn install 第五步：安装OAUTH过滤器和GitHub插件 第六步：重新配置Gerrit 第七步：完成GitHub认证 参考 GitHub plugin for Gerrit Gerrit vs Github: for code review and codebase management GerritHub Gerrit Code Review or Github’s fork and pull ?</description></item><item><title>GitHub fork操作</title><link>https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/</link><pubDate>Mon, 17 Mar 2014 22:37:40 +0000</pubDate><guid>https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/</guid><description>Fork（分支）操作不是Git实现的一部分，仅是GitHub独有的一个在服务器端克隆代码库的操作。假定我作为GitHub用户usr2，对用户usr1的github.com/usr1/demo代码库有兴趣。我可以通过clone命令将该代码库克隆到本机，并且可以通过pull命令获得该代码库的更新。但是除非用户usr1将我（用户usr2）设为该代码库的贡献者，否则我无法将我提交的修改通过push命令推送到该代码库。但是通过fork操作，我就可以将github.com/usr1/demo代码库完整复制到我的GitHub帐号下（包括代码库中的文件、提交历史、问题等等），例如下图的github.com/usr2/demo。我可通过clone命令将自己的github.com/usr2/demo代码库克隆到本机，我完全有权限将本机提交的修改通过push命令推送到上述自己的代码库。如果我希望我的修改被usr1采纳，我可以发送一个pullrequest通知usr1。至于usr1是否接收我的修改，决定权在usr1。克隆代码库的时候，所使用的远程代码库地址自动被Git命名为origin。其效果类似于：

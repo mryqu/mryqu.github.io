@@ -15,7 +15,7 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>466 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。
+<span class=leancloud-visitors-count>900 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。
 <strong>Java代码如下：</strong></p><pre tabindex=0><code>package com.yqu.mongodb;
 
 import java.net.UnknownHostException;
@@ -192,7 +192,66 @@ public class HelloMongoDB {
     }
   }
 }
-</code></pre><p><strong>输出：</strong></p><h3 id=参考>参考</h3><p><a href=http://docs.mongodb.org/ecosystem/tutorial/getting-started-with-java-driver/>Getting Started with Java Driver</a><br><a href=http://docs.mongodb.org/ecosystem/drivers/>MongoDB Drivers</a><br><a href=http://docs.mongodb.org/ecosystem/drivers/syntax-table/>MongoDB Driver Syntax Table</a><br><a href=http://api.mongodb.org/java/index.html>MongoDB Java Driver API Document</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Hello MongoDB Java Driver<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/mongodb rel=tag title=mongodb>#mongodb#</a>
+</code></pre><p><strong>输出：</strong></p><pre>
+Current databases:
+  local
+  admin
+  test
+
+get database 'hellodb'.
+
+Current databases:
+  local
+  admin
+  test
+
+Current collections under hellodb:
+
+
+get collection 'helloCollection'.
+
+Current collections under hellodb:
+
+
+Some document are inserted.
+
+Current documents under helloCollection:
+  { "_id" : { "$oid" : "5336644eb767266396077ff8"} , "name" : "MongoDB" , "type" : "database" , "count" : 1 , "info" : { "x" : 123 , "y" : 321}}
+  { "_id" : { "$oid" : "5336644eb767266396077ff9"} , "name" : "Java" , "type" : "language" , "count" : 3 , "info" : { "x" : 76 , "y" : 265}}
+  { "_id" : { "$oid" : "5336644eb767266396077ffa"} , "name" : "Python" , "type" : "language" , "count" : 5 , "info" : { "x" : 2 , "y" : 2014}}
+
+Query { "name" : "MongoDB"} for helloCollection:
+  { "_id" : { "$oid" : "5336644eb767266396077ff8"} , "name" : "MongoDB" , "type" : "database" , "count" : 1 , "info" : { "x" : 123 , "y" : 321}}
+
+Query { "count" : { "$lt" : 4}} for helloCollection:
+  { "_id" : { "$oid" : "5336644eb767266396077ff8"} , "name" : "MongoDB" , "type" : "database" , "count" : 1 , "info" : { "x" : 123 , "y" : 321}}
+  { "_id" : { "$oid" : "5336644eb767266396077ff9"} , "name" : "Java" , "type" : "language" , "count" : 3 , "info" : { "x" : 76 , "y" : 265}}
+
+Query { "info.x" : { "$lt" : 100}} for helloCollection:
+  { "_id" : { "$oid" : "5336644eb767266396077ff9"} , "name" : "Java" , "type" : "language" , "count" : 3 , "info" : { "x" : 76 , "y" : 265}}
+  { "_id" : { "$oid" : "5336644eb767266396077ffa"} , "name" : "Python" , "type" : "language" , "count" : 5 , "info" : { "x" : 2 , "y" : 2014}}
+
+update document which name is 'Java'
+
+Current documents under helloCollection:
+  { "_id" : { "$oid" : "5336644eb767266396077ff8"} , "name" : "MongoDB" , "type" : "database" , "count" : 1 , "info" : { "x" : 123 , "y" : 321}}
+  { "_id" : { "$oid" : "5336644eb767266396077ff9"} , "name" : "R" , "type" : "language" , "count" : 3 , "info" : { "x" : 76 , "y" : 265}}
+  { "_id" : { "$oid" : "5336644eb767266396077ffa"} , "name" : "Python" , "type" : "language" , "count" : 5 , "info" : { "x" : 2 , "y" : 2014}}
+
+Current index info under helloCollection:
+{ "_id" : 1}
+{ "_fts" : "text" , "_ftsx" : 1}
+{ "count" : 1}
+
+Current collections under hellodb:
+  helloCollection
+  system.indexes
+drop database 'hellodb'.
+
+Current databases:
+  local
+  admin
+  test</pre><h3 id=参考>参考</h3><p><a href=http://docs.mongodb.org/ecosystem/tutorial/getting-started-with-java-driver/>Getting Started with Java Driver</a><br><a href=http://docs.mongodb.org/ecosystem/drivers/>MongoDB Drivers</a><br><a href=http://docs.mongodb.org/ecosystem/drivers/syntax-table/>MongoDB Driver Syntax Table</a><br><a href=http://api.mongodb.org/java/index.html>MongoDB Java Driver API Document</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Hello MongoDB Java Driver<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/mongodb rel=tag title=mongodb>#mongodb#</a>
 <a href=/tags/java rel=tag title=java>#java#</a>
 <a href=/tags/driver rel=tag title=driver>#driver#</a>
 <a href=/tags/nosql rel=tag title=nosql>#nosql#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/ rel=next title=使用YCSB测试MongoDB><i class="fa fa-chevron-left"></i> 使用YCSB测试MongoDB</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/windows%E4%B8%8Bmongodb%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/ rel=prev title=Windows下MongoDB安装与配置>Windows下MongoDB安装与配置 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/hello_mongodb_java_driver/",this.page.identifier="https://mryqu.github.io/post/hello_mongodb_java_driver/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>

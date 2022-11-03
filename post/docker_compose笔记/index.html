@@ -17,7 +17,12 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>100 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><h3 id=docker-compose概述>Docker Compose概述</h3><p><code>docker-compose.yml</code>大概是这个样子的:</p><pre tabindex=0><code>web:
+<span class=leancloud-visitors-count>113 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><h3 id=docker-compose概述>Docker Compose概述</h3><table style="border:none!important;background:0 0!important;background-color:transparent!important;margin:0!important;padding:0!important"><tr><td style="border:none!important;background:0 0!important;background-color:transparent!important;margin:0!important;padding:0!important;text-align:center">**DockerCompose**<br><img src=/content/images/2015/6/0026uWfMgy6VRybrJv290.png style=border:none!important;height:66px!important></td><td style="border:none!important;background:0 0!important;background-color:transparent!important;margin:0!important;padding:0!important;text-align:center">**前身 Fig**<br><img src=/content/images/2015/6/0026uWfMgy6VRyadtqe86.png style=border:none!important;height:66px!important></td></table>Compose是用于在Docker内定义和运行多容器应用程序的工具。使用Compose，可以在一个文件内定义多容器应用程序，然后使用一个命令运行应用。
+Compose对开发环境、交付准备服务器（stagingservers）和持续集成（CI）很有帮助，不建议用于生产环境。
+使用Compose基本上是三步流程：
+- 通过一个`Dockerfile`定义应用环境，以便在其他地方复制；
+- 在`docker-compose.yml`中定义组成应用的服务，因此他们可以在一个隔离的环境一起运行；
+- 最后，运行`docker-compose up`，Compose将启动并运行整个应用。<p><code>docker-compose.yml</code>大概是这个样子的:</p><pre tabindex=0><code>web:
   build: .
   ports:
    - &#34;5000:5000&#34;

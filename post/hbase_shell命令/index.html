@@ -15,7 +15,7 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>998 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。</p><h3 id=1-通用hbase命令>1) 通用HBase命令</h3><h4 id=status>status</h4><p>显示集群状态。可以为‘summary’、‘simple’或‘detailed’。默认为‘summary’。
+<span class=leancloud-visitors-count>1019 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。</p><h3 id=1-通用hbase命令>1) 通用HBase命令</h3><h4 id=status>status</h4><p>显示集群状态。可以为‘summary’、‘simple’或‘detailed’。默认为‘summary’。
 用法:</p><pre tabindex=0><code>hbase&gt; status
 hbase&gt; status ‘simple’
 hbase&gt; status ‘summary’
@@ -169,7 +169,18 @@ hbase&gt; add_peer ‘2’, “zk1,zk2,zk3:2182:/hbase-prod”
 示例:</p><pre tabindex=0><code>hbase&gt; stop_replication
 </code></pre><h3 id=6-安全命令>6) 安全命令</h3><p>赋予用户特定权限。
 语法：所赋予的权限可以是“RWXCA”中零或多个字母。READ(‘R’), WRITE(‘W’), EXEC(‘X’), CREATE(‘C’), ADMIN(‘A’)</p><pre tabindex=0><code>hbase&gt; grant ‘bobsmith’, ‘RW’, ‘t1’, ‘f1’, ‘col1’
-</code></pre><p>英文原文：<a href=https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/>HBase shell commands</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[HBase] Shell命令<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/hbase rel=tag title=hbase>#hbase#</a>
+</code></pre></tr>#### revoke
+取消一个用户访问权限。
+语法：revoke
+```
+hbase> revoke ‘bobsmith’, ‘t1’, ‘f1’, ‘col1’
+```
+#### user_permission
+显示特定用户的所有权限。
+语法：user_permission
+```
+hbase> user_permission ‘table1’
+```<p>英文原文：<a href=https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/>HBase shell commands</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：[HBase] Shell命令<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/hbase rel=tag title=hbase>#hbase#</a>
 <a href=/tags/shell rel=tag title=shell>#shell#</a>
 <a href=/tags/command rel=tag title=command>#command#</a>
 <a href=/tags/usage rel=tag title=usage>#usage#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/%E9%9D%9E%E6%A6%82%E7%8E%87%E6%8A%BD%E6%A0%B7/ rel=next title=非概率抽样><i class="fa fa-chevron-left"></i> 非概率抽样</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/%E5%AE%89%E8%A3%85python%E7%9A%84simplejson%E5%BA%93/ rel=prev title=安装Python的simplejson库>安装Python的simplejson库 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/",this.page.identifier="https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>

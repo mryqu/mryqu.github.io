@@ -48,7 +48,7 @@ throws IOException {
     }
   }
 }
-</code></pre><p>Java序列化会写入类描述符，在序列化后的字节数据占一定比例。GemFire支持Java序列化的同时有自己的序列化实现，GemFire自己的序列化实现更高效，而像Hadoop这样的项目则根本不使用Java的序列化，只支持自己的序列化实现。
+</code></pre><p>Java序列化会写入类描述符，在序列化后的字节数据占一定比例。GemFire支持Java序列化的同时有自己的序列化实现，GemFire自己的序列化实现更高效，而像Hadoop这样的项目则根本不使用Java的序列化，只支持自己的序列化实现。</font>
 为了让父类不可序列化的子类序列化，需要父类有public或protected无参构造器，子类需要负责存储和恢复父类的public、protected和（如可访问的）package字段。当父类没有无参构造器，会在运行态序列化子类时返回错误。
 下面是Java序列化规范和两个博客连接（这两篇写的都非常细致，后一个一篇都3到5万字，很值得学习）。
 <a href=http://docs.oracle.com/javase/6/docs/platform/serialization/spec/serialTOC.html>Java Object Serialization Specification</a> 

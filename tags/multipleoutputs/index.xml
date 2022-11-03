@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>multipleoutputs on Mryqu's Notes</title><link>https://mryqu.github.io/tags/multipleoutputs/</link><description>Recent content in multipleoutputs on Mryqu's Notes</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Sep 2014 18:39:27 +0000</lastBuildDate><atom:link href="https://mryqu.github.io/tags/multipleoutputs/index.xml" rel="self" type="application/rss+xml"/><item><title>[Hadoop] 通过MultipleOutputs生成多输出文件</title><link>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</link><pubDate>Mon, 29 Sep 2014 18:39:27 +0000</pubDate><guid>https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleoutputs%E7%94%9F%E6%88%90%E5%A4%9A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6/</guid><description>即前一博文[Hadoop] 通过MultipleInputs处理多输入文件展示如何处理MapReduce多输入问题，本文将展示一下如何处理MapReduce多输出的方法。
 MultipleOutputs示例 MultipleOutputsDemo.java源码 Scores.txt Tomas,100 Edward,81 Henry,59 Gordon,60 James,97 Percy,93 Toby,77 Emily,87 Duke,68 Donald,47 Douglas,35 执行 hadoop jar YquMapreduceDemo.jar MultipleOutputsDemo /user/hadoop/mos_input/scores.txt /user/hadoop/mos_output 测试结果 MultipleOutputs分析 普通Driver |API|Job属性 |&amp;mdash;&amp;ndash; |Job.setOutputFormatClass|mapreduce.job.outputformat.class示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat |Job.setOutputKeyClass|mapreduce.job.output.key.class示例：org.apache.hadoop.io.Text |Job.setOutputValueClass|mapreduce.job.output.value.class示例：org.apache.hadoop.io.IntWritable
-使用MultipleOutputs的Driver |API|Job属性 |&amp;mdash;&amp;ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs示例：pass failmapreduce.multipleoutputs.namedOutput.pass.format示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormatmapreduce.multipleoutputs.namedOutput.pass.key示例：org.apache.hadoop.io.NullWritablemapreduce.multipleoutputs.namedOutput.pass.value示例：org.apache.hadoop.io.Textmapreduce.multipleoutputs.namedOutput.fail.format示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormatmapreduce.multipleoutputs.namedOutput.fail.key示例：org.apache.hadoop.io.NullWritablemapreduce.multipleoutputs.namedOutput.fail.value示例：org.apache.hadoop.io.Text
+使用MultipleOutputs的Driver |API|Job属性 |&amp;mdash;&amp;ndash; |MultipleOutputs.addNamedOutput|mapreduce.multipleoutputs
+示例：pass fail
+mapreduce.multipleoutputs.namedOutput.pass.format
+示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+mapreduce.multipleoutputs.namedOutput.pass.key
+示例：org.apache.hadoop.io.NullWritable
+mapreduce.multipleoutputs.namedOutput.pass.value
+示例：org.apache.hadoop.io.Text
+mapreduce.multipleoutputs.namedOutput.fail.format
+示例：org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+mapreduce.multipleoutputs.namedOutput.fail.key
+示例：org.apache.hadoop.io.NullWritable
+mapreduce.multipleoutputs.namedOutput.fail.value
+示例：org.apache.hadoop.io.Text
 通过调用org.apache.hadoop.mapreduce.lib.output.MultipleOutputs.write方法，根据相应NamedOutput相应的OutputFormat、OutputKeyClass和OutputValueClass创建NamedOutput自己的RecordWriter，完成相应的输出。</description></item></channel></rss>

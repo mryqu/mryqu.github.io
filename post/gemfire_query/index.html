@@ -15,7 +15,7 @@
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1706 字 ~9分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。
+<span class=leancloud-visitors-count>1782 字 ~9分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。
 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。</p><h2 id=region存储示例>Region存储示例</h2><p>本文的查询示例基于类Porfolio和Positon的对象。</p><h3 id=portfoliojava>Portfolio.java</h3><pre tabindex=0><code>package query;
 
 import java.io.DataInput;
@@ -466,7 +466,83 @@ a comment */ /exampleRegion  WHERE status=&#39;active&#39;
 </code></pre><p>通配符仅能用于句尾。如果在其他位置发现通配符将抛出异常。可以将转义的通配符放在字符串的任何位置。like断言会使用存在的索引。</p><h3 id=in表达式>IN表达式</h3><p>IN表达式是boolean类型表达式，指示一个表达式是否包含于兼容类型表达式集合中。
 如果e1和e2是表达式，e2是一个集合且e1是与e2同类型或其子类的对象或字面值，则e1 INe2是一个boolean类型的表达式。其返回值为：</p><ul><li>TRUE 若e1不是UNDEFINED且包含于集合e2</li><li>FALSE 若e1不是UNDEFINED且不包含于集合e2</li><li>UNDEFINED 若e1为UNDEFINED
 例如2 IN SET(1, 2, 3)为TRUE。另一个例子是所查询的集合由子查询定义。</li></ul><pre tabindex=0><code>SELECT DISTINCT * FROM/exampleRegion p WHERE p.ID IN (SELECT p2.ID FROM /exampleRegion2p2 WHERE p2.status = &#39;active&#39;)
-</code></pre><p>内部SELECT语句返回 /exampleRegion2中所有status为active的条目id集合。外部SELECT迭代/exampleRegion，将每个条目的id同集合比较。对于每个条目，如果IN表达式返回TRUE，相关联的名称和地值加入外部SELECT集合。</p><h3 id=类型转换>类型转换</h3><p>GemFire查询处理器在某些情况下为了执行包含不同类型的表达式会采取隐含类型转换和提升。查询处理器执行双目数值提升,方法调用转换和临时类型转换。</p><h4 id=双目数值提升binary-numericpromotion>双目数值提升（Binary numericpromotion）</h4><p>查询处理器遇到比较操作符（&lt;、 &lt;=、>、>=、=和&lt;>）时对操作数执行双目数值提升，按照下面的规则次序将操作数提升为操作数中宽度最大类型。</p><ul><li>如果有操作数为double类型，则其他操作数转换为double类型</li><li>如果有操作数为float类型，则其他操作数转换为float类型</li><li>如果有操作数为long类型，则其他操作数转换为long类型</li><li>操作数转换为int char类型</li></ul><h4 id=方法调用转换>方法调用转换</h4><p>查询语言中方法调用转换遵从Java方法调用转换，除了查询语言使用运行时类型而不是编译时类型，并且处理null参数时与Java不同。因为使用运行时类型，值为null的参数没有任何类型信息，因此可以与任何类型的参数匹配。当使用了值为null的参数且查询处理器无法判断适用的方法，将抛出异常AmbiguousNameException。</p><h4 id=临时类型转换>临时类型转换</h4><p>查询语言支持的临时类型包括java.util.Date、java.sql.Date、java.sql.Time和java.sql.Timestamp，这些类型被当作相同类型处理，能够互相按照纳秒数进行比较并用于索引。 </p><h2 id=查询语言预留字>查询语言预留字</h2><h3 id=预留字>预留字</h3><p>下列单词为查询语言预留不能用作标识符。标注星号的单词目前没有被GemFire使用，但预留用于未来实现。</p><p>访问任何用查询预留字相同的方法、属性或命名对象，使用双括号将名称括起来。例如：<code>SELECT DISTINCT "type" FROM /root/portfolios WHERE status ='active'****SELECT DISTINCT * FROM /region1 WHERE emps."select"() &lt;100000</code></p><h3 id=语言注记>语言注记</h3><ul><li>查询语言关键字例如SELECT、NULL和DATE是大小写不敏感的。标识符例如属性名、方法名和路径表达式是大小写敏感的。</li><li>注释行以 &ndash; (双破折号)起始。</li><li>注释块以/<em>起始，以</em>/结尾。</li><li>字符串字面值用单引号分隔，内嵌单引号使用两个表示。例如：<pre tabindex=0><code>&#39;Hello&#39; value = Hello 
+</code></pre><p>内部SELECT语句返回 /exampleRegion2中所有status为active的条目id集合。外部SELECT迭代/exampleRegion，将每个条目的id同集合比较。对于每个条目，如果IN表达式返回TRUE，相关联的名称和地值加入外部SELECT集合。</p><h3 id=类型转换>类型转换</h3><p>GemFire查询处理器在某些情况下为了执行包含不同类型的表达式会采取隐含类型转换和提升。查询处理器执行双目数值提升,方法调用转换和临时类型转换。</p><h4 id=双目数值提升binary-numericpromotion>双目数值提升（Binary numericpromotion）</h4><p>查询处理器遇到比较操作符（&lt;、 &lt;=、>、>=、=和&lt;>）时对操作数执行双目数值提升，按照下面的规则次序将操作数提升为操作数中宽度最大类型。</p><ul><li>如果有操作数为double类型，则其他操作数转换为double类型</li><li>如果有操作数为float类型，则其他操作数转换为float类型</li><li>如果有操作数为long类型，则其他操作数转换为long类型</li><li>操作数转换为int char类型</li></ul><h4 id=方法调用转换>方法调用转换</h4><p>查询语言中方法调用转换遵从Java方法调用转换，除了查询语言使用运行时类型而不是编译时类型，并且处理null参数时与Java不同。因为使用运行时类型，值为null的参数没有任何类型信息，因此可以与任何类型的参数匹配。当使用了值为null的参数且查询处理器无法判断适用的方法，将抛出异常AmbiguousNameException。</p><h4 id=临时类型转换>临时类型转换</h4><p>查询语言支持的临时类型包括java.util.Date、java.sql.Date、java.sql.Time和java.sql.Timestamp，这些类型被当作相同类型处理，能够互相按照纳秒数进行比较并用于索引。 </p><h2 id=查询语言预留字>查询语言预留字</h2><h3 id=预留字>预留字</h3><p>下列单词为查询语言预留不能用作标识符。标注星号的单词目前没有被GemFire使用，但预留用于未来实现。</p><table border=1 cellpadding=4 cellspacing=0 frame=border rules=all summary style=font-family:Arial,Verdana,sans-serif;border-collapse:collapse;border-width:1px;margin-top:7pt><tbody><tr><td><pre style="box-sizing:border-box;overflow:auto;padding:1em;margin:1em 0;line-height:1.55em;word-break:break-all;word-wrap:break-word;border-radius:4px;border:1px dashed #2f6fab;background-color:#f9f9f9"><code style=box-sizing:border-box;font-family:inconsolata,monaco,courier,monospace;font-size:inherit;padding:0;color:inherit;border-radius:0;white-space:pre-wrap;background-color:transparent>abs\*
+all\*
+and
+andthen\*
+any\*
+array
+as
+asc\*
+avg\*
+bag\*
+boolean
+by\*
+byte
+char
+collection
+count\*
+date
+declare\*
+define\*
+desc\*</code></pre></td><td><pre style="box-sizing:border-box;overflow:auto;padding:1em;margin:1em 0;line-height:1.55em;word-break:break-all;word-wrap:break-word;border-radius:4px;border:1px dashed #2f6fab;background-color:#f9f9f9"><code style=box-sizing:border-box;font-family:inconsolata,monaco,courier,monospace;font-size:inherit;padding:0;color:inherit;border-radius:0;white-space:pre-wrap;background-color:transparent>dictionary
+distinct
+double
+element
+enum\*
+except\*
+exists\*
+false
+first\*
+flatten\*
+float
+for\*
+from\*
+group\*
+having\*
+import
+in
+int
+intersect\*
+interval\*</code></pre></td><td><pre style="box-sizing:border-box;overflow:auto;padding:1em;margin:1em 0;line-height:1.55em;word-break:break-all;word-wrap:break-word;border-radius:4px;border:1px dashed #2f6fab;background-color:#f9f9f9"><code style=box-sizing:border-box;font-family:inconsolata,monaco,courier,monospace;font-size:inherit;padding:0;color:inherit;border-radius:0;white-space:pre-wrap;background-color:transparent>is_defined
+is_undefined
+last\*
+like
+limit
+list\*
+listtoset\*
+long
+map
+max\*
+min\*
+mod\*
+nil
+not
+null
+nvl
+octet
+or
+order\*
+<br></code></pre></td><td><pre style="box-sizing:border-box;overflow:auto;padding:1em;margin:1em 0;line-height:1.55em;word-break:break-all;word-wrap:break-word;border-radius:4px;border:1px dashed #2f6fab;background-color:#f9f9f9"><code style=box-sizing:border-box;font-family:inconsolata,monaco,courier,monospace;font-size:inherit;padding:0;color:inherit;border-radius:0;white-space:pre-wrap;background-color:transparent>orelse\*
+query\*
+select
+set
+short
+some\*
+string
+struct\*
+sum\*
+time
+timestamp
+to_date
+true
+type
+undefine\*
+undefined
+union\*
+unique\*
+where
+<br></code></pre></td></tr></tbody></table><p>访问任何用查询预留字相同的方法、属性或命名对象，使用双括号将名称括起来。例如：<code>SELECT DISTINCT "type" FROM /root/portfolios WHERE status ='active'****SELECT DISTINCT * FROM /region1 WHERE emps."select"() &lt;100000</code></p><h3 id=语言注记>语言注记</h3><ul><li>查询语言关键字例如SELECT、NULL和DATE是大小写不敏感的。标识符例如属性名、方法名和路径表达式是大小写敏感的。</li><li>注释行以 &ndash; (双破折号)起始。</li><li>注释块以/<em>起始，以</em>/结尾。</li><li>字符串字面值用单引号分隔，内嵌单引号使用两个表示。例如：<pre tabindex=0><code>&#39;Hello&#39; value = Hello 
 </code></pre><pre tabindex=0><code>&#39;He said, &#39;&#39;Hello&#39;&#39;&#39; value = He said, &#39;Hello&#39;
 </code></pre></li><li>字符字面值使用CHAR关键字加上使用单引号括起来的字符表示。单引号字符本省表示为&rsquo;&rsquo;&rsquo;&rsquo; (使用了四个单引号)。</li><li>TIMESTAMP字符值小数部分最大长度为9位数字。</li></ul></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：GemFire查询<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/gemfire rel=tag title=gemfire>#gemfire#</a>
 <a href=/tags/%e6%9f%a5%e8%af%a2 rel=tag title=查询>#查询#</a>

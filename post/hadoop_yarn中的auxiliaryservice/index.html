@@ -17,7 +17,7 @@
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>76 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>一个附属服务（AuxiliaryService）是由YARN中节点管理器（NM）启动的通用服务。该服务由YARN配置<a href=http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-common/yarn-default.xml>&ldquo;yarn.nodemanager.aux-services&rdquo;</a>定义。默认值为mapreduce_shuffle，即MRv2中的ShuffleHandler。
 <img src=/images/2015/2/0026uWfMzy732UdbbSLe7.jpg alt=[Hadoop] YARN中的AuxiliaryService></p><p>AuxiliaryService是节点管理器内的服务，接收应用/容器初始化和停止事件并作相应处理。
-<img src=/images/2015/2/0026uWfMzy73aAUC3lF1b.png alt=[Hadoop] YARN中的AuxiliaryService></p><p>MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类)。
+<img src=/images/2015/2/0026uWfMzy73aAUC3lF1b.png alt=[Hadoop] YARN中的AuxiliaryService></p><p>MRv2提供了一个叫做org.apache.hadoop.mapred.ShuffleHandler的内建AuxiliaryService，用于将节点内map输出文件提供给reducer(<font color=#8E8188>上图中除ShuffleHandler之外的其他AuxiliaryService子类均为测试类</font>)。
 节点管理器可能有多个AuxiliaryService，类AuxServices用于处理此类服务集合。
 <img src=/images/2015/2/0026uWfMzy73c3qEEpT65.png alt=[Hadoop] YARN中的AuxiliaryService></p><p>当AuxServices对象启动，它从YarnConfiguration.NM_AUX_SERVICES（即"yarn.nodemanager.aux-services"）获得附属服务名，从YarnConfiguration.NM_AUX_SERVICE_FMT（即"yarn.nodemanager.aux-services.%s.class"）获得对应的服务类名。例如"yarn.nodemanager.aux-services.mapreduce_shuffle.class"对应ShuffleHandler类。之后它将服务置入serviceMap并调用init()方法对服务进行初始化。
 Hadoop实现是一个事件驱动系统。AuxServices既是ServiceStateChangeListener也是EventHandler，用于处理AuxServicesEventType事件。</p><pre tabindex=0><code>public enum AuxServicesEventType {
