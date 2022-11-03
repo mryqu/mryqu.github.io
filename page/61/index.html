@@ -3,97 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/ itemprop=url>Servlet URL映射模式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-13">2013-10-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>17 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Servlet 2.5规范中的映射规则: 完全匹配URL 匹配通配符路径 匹配扩展名 匹配默认servlet 特殊URL模式: url-pattern:/* servlet上的/* 会压制所有其他servlet。无论什么请求都会被该servlet处理。这是一种不好的URL模式。通常，仅将/* 用于过滤器。它能通过调用FilterChain#doFilter()让请求继续由监听另外一个特定URL模式的任何servlet处理。
-url-pattern:/ / 不会压制其他servlet。它仅会替换servlet容器内建的默认servlet，用于无法匹配任何已注册servlet的所有请求。一般仅调用在静态资源(CSS/JS/image/etc)和列举目录上。servlet容器内建默认servlet也能处理HTTP缓存请求、媒体（音视频）流和文件重新下载。由于必须负责默认servlet的所有任务，工作量不小，通常不会想要替换默认servlet。这也是一种不好的URL模式。关于为什么JSP页面不会调用这个servlet，是因为servlet容器的内建JSPservlet默认映射到*.jsp并被调用。
-url-pattern: 这也有一个空字符串URL模式 。当上下文根被请求时会被调用。这不同于welcome-file方法，因为它对任何子目录请求不会被调用，而welcome-file方法对任何局部有效但没有匹配上servlet的请求都会被调用。这更像需要“主页servlet”所要用到的URL模式。.</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/ itemprop=url>tc Server与Atomikos集成</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-13">2013-10-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>258 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>tc Server是基于Apache的Tomcat的，Atomikos有篇文档介绍Tomcat与Atomikos集成，同样适用于tcServer。
-Atomikos安装配置 复制JAR文件 复制下列JAR文件到TCS_HOME/lib目录：
-atomikos-util.jar transactions.jar transactions-api.jar transactions-jdbc.jar transactions-jdbc-deprecated.jar transactions-jms.jar transactions-jms-deprecated.jar transactions-jta.jar transactions-osgi.jar geronimo-jms_1.1_spec.jar geronimo-jta_1.0.1B_spec.jar JDBC驱动 如果使用Hibernate：transactions-hibernate3.jar和/或transactions-hibernate2.jar 复制Atomikos配置文件 将jta.properties复制到TCS_HOME/lib目录并做适当修改。
-com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory com.atomikos.icatch.console_file_limit=10240000 com.atomikos.icatch.output_dir=${catalina.base}/logs com.atomikos.icatch.log_base_dir=${catalina.base}/logs com.atomikos.icatch.max_actives=-1 com.atomikos.icatch.default_jta_timeout=3600000 com.atomikos.icatch.max_timeout=3600000 com.atomikos.icatch.tm_unique_name=tm com.atomikos.icatch.console_log_level=WARN com.atomikos.icatch.force_shutdown_on_vm_exit=false 复制类文件 创建AtomikosLifecycleListener和BeanFactory两个类并放置在TCS_HOME/lib目录： 创建用于Atomikos的tc Server生命期监视器：当tcServer实例启动时，创建UserTransactionManager并初始化；当tcServer关闭时，关闭UserTransactionManager。
-package com.atomikos.tomcat; import org.apache.catalina.Lifecycle; import org.apache.catalina.LifecycleEvent; import org.apache.catalina.LifecycleListener; import com.atomikos.icatch.jta.UserTransactionManager; public class AtomikosLifecycleListener implements LifecycleListener { private UserTransactionManager utm; public void lifecycleEvent(LifecycleEvent event) { try { if (Lifecycle.START_EVENT.equals(event.getType())) { if (utm == null) { utm = new UserTransactionManager(); } utm.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/tc_server%E4%B8%8Eatomikos%E9%9B%86%E6%88%90/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/dig%E7%AC%94%E8%AE%B0/ itemprop=url>dig笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-12">2013-10-12</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/network itemprop=url rel=index><span itemprop=name>NetWork</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>650 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>dig是域信息搜索器（domain informationgroper）。dig和nslookup作用有些类似，都是DNS查询工具。它与nslookup的区别在于：dig使用操作系统的解析库而nslookup使用自己的一套。Bind开发组已经宣布废弃nslookup，但Unix和Linux系统一般都安装了这两个工具。一些专业的DNS管理员在追查DNS问题时，都乐于使用dig命令，是看中了dig设置灵活、输出清晰、功能强大的特点。
-如果Ubuntu下没有dig命令，可通过如下命令安装：
-sudo apt-get install dnsutils dig使用说明 dig选项 dig提供查询选项，它影响搜索方式和结果显示。一些在查询请求报头设置或复位标志位，一部分决定显示哪些回复信息，其它的确定超时和重试战略。每个查询选项被带前缀（+）的关键字标识。一些关键字设置或复位一个选项。通常前缀是求反关键字含义的字符串no。其他关键字分配各选项的值，比如超时时间间隔。它们的格式形如+keyword=value。查询选项是：
-全局查询参数（global-d-opt）和（在主机名之前的）服务器影响所有查询。局部查询参数和（在主机名之后的）服务器仅影响当前查询。
-dig使用 mryqu> dig ; &lt;&lt;>> DiG 9.6.-ESV-R3 &lt;&lt;>> ;; global options: +cmd ;; Got answer: ;; ->>HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 13319 ;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 13 ;; QUESTION SECTION: ;. IN NS ;; ANSWER SECTION: . 391557 IN NS l.root-servers.net. . 391557 IN NS i.root-servers.net. . 391557 IN NS f.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/dig%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/ itemprop=url>Ubuntu下安装部署MySQL数据库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-11">2013-10-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>175 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>安装MySQL mysql-server是MySQL数据库服务器，必选安装。mysql-client是MySQL数据库客户端，提供对MySQL服务器的查询工具及备份/恢复数据工具；libmysqlclient-dev是MySQL的C语言开发接口，libmysql-java是MySQL的JDBC驱动，按需安装。
-sudo apt-get update sudo apt-get install mysql-server sudo apt-get isntall mysql-client sudo apt-get install libmysqlclient-dev sudo apt-get install libmysql-java 查看是否安装成功:
-sudo netstat -tap | grep mysql 查看上述软件包所提供的文件:
-dpkg -L mysql-server dpkg -L mysql-client dpkg -L libmysqlclient-dev 通过上述命令检查之后，如果看到有MySQL的socket处于LISTEN状态则表示安装成功。
-MySQL服务操作 查看状态
-使用service查看状态：sudo service mysql status 使用mysql脚本查看状态：/etc/inint.d/mysql status 使用mysqladmin查看状态：mysqladmin -u root -p status 启动
-使用service启动：sudo service mysql start 使用mysql脚本启动：/etc/inint.d/mysql start 使用mysqld_safe启动：mysqld_safe& 停止
-使用service停止：sudo service mysql stop 使用mysql脚本停止：/etc/inint.d/mysql stop 使用mysqladmin停止：mysqladmin -u root -p shutdown 重启</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2mysql%E6%95%B0%E6%8D%AE%E5%BA%93/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%A3%8E%E6%A0%BC%E4%B8%8E%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/ itemprop=url>正则表达式风格与语法对比</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-11">2013-10-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>6 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>现在很多编程语言都支持正则表达式，一般都会提到是Perl风格（PCRE，Perl兼容正则表达式）还是POSIX风格（IEEE制定的POSIXExtended 1003.2标准）。解析POSIX与Perl标准的正则表达式区别详细介绍了这两种风格正则表达式的区别。我对正则表达式的使用主要是Java语言中，其次在R、Python和Javascript中有不同程度的涉猎。不同软件的正则表达式语法汇总介绍了不同语言/软件之间的区别。
-参考 https://developer.mozilla.org/en/docs/web/javascript/guide/regular_expressions https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html https://docs.python.org/2/library/re.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/ itemprop=url>Shell中的source和.命令</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-10">2013-10-10</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>159 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>source是csh(C Shell)的内置命令: 标识读入并执行文件中的命令。 这与执行shell脚本是不一样的./script.sh会启动一个新的shell并执行script.sh中的命令。
-source [-h] filename [arguments] The shell reads and executes commands from name. The commands are not placed on the history list. If any args are given, they are placed in argv. (+) source commands may be nested; if they are nested too deeply the shell may run out of file descriptors. An error in a source at any level terminates all nested source commands. With -h, commands are placed on the history list instead of being executed, much like `history -L'.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/shell%E4%B8%AD%E7%9A%84source%E5%92%8C.%E5%91%BD%E4%BB%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/ itemprop=url>获取Tomcat版本的简单办法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E8%8E%B7%E5%8F%96tomcat%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%80%E5%8D%95%E5%8A%9E%E6%B3%95/ itemprop=url>获取Tomcat版本的简单办法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-29">2013-09-29</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -165,7 +76,87 @@ hbase> alter ‘t1’, NAME => ‘f1’, METHOD => ‘delete’ hbase> alter ‘
 <span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Ubuntu下运行一个Python程序，遇到如下问题：ImportError: No module named simplejson。
 首先查看一下Python和pip的版本：
 python -V pip -V 竟然没有装pip，解决方案如下：
-sudo apt-get install python-pip pip2 install simplejson</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/60/><i class="fa fa-angle-left"></i></a>
+sudo apt-get install python-pip pip2 install simplejson</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/ itemprop=url>[Git] 预览远程仓库与本地仓库的差异</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-23">2013-09-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先使用git fetch更新远程分支的本地副本，这不会对任何本地分支造成影响。
+使用git log HEAD..origin可以显示本地分支与origin远程分支之间的提交日志。
+使用git log -p HEAD..origin除了显示上述提交日志外，还会显示每个提交的补丁。
+使用git diff HEAD...origin显示整个补丁。此外如果有本地未提交的修改，可以使用git diff origin/master显示整个补丁。
+如果不想使用git pull来合并所有远程提交，可以使用git cherry-pick接受所需要的指定远程提交。最后当准备好接受所有远程提交再使用git pull合并剩余远程提交。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ itemprop=url>尝试Protocol Buffers支持的各种数据类型</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-22">2013-09-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>168 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Protocol Buffers(即protobuf)是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。它很适合做数据存储或RPC的数据交换格式，常用作通信协议、数据存储等领域。 相比于常见的XML格式，ProtocolBuffers官方网站这样描述它的优点：
+平台无关、语言无关； 高性能； 体积小； 使用简单； 兼容性好。 现在尝试一下Protocol Buffers支持的各种数据类型。
+test.proto package com.yqu.proto; option java_package = "com.yqu.proto"; option java_outer_classname="TestProtos"; message Test { required double doubleVar = 1; required float floatVar = 2; required int32 int32Var = 3; required int64 int64Var = 4; required uint32 uint32Var = 5; required uint64 uint64Var = 6; required sint32 sint32Var = 7; required sint64 sint64Var = 8; required fixed32 fixed32Var = 9; required fixed64 fixed64Var = 10; required sfixed32 sfixed32Var = 11; required sfixed64 sfixed64Var = 12; required bool booleanVar = 13; required string stringVar = 14; required bytes bytesVar = 15; enum Suit { SPADES = 0; HEARTS = 1; DIAMONDS = 2; CLUBS = 3; } required Suit enumVar = 16 [default = HEARTS]; repeated int32 int32ArrayVar = 17; repeated uint32 uint32ArrayVar = 18 [packed=true]; repeated string stringArrayVar = 19; message MsgVar { required string url = 1; optional string title = 2; } repeated MsgVar msgVar = 20; } 使用Google提供的Protocol Buffers编译器生成Java语言：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E9%97%B4%E6%89%80%E6%9C%89%E5%8F%98%E6%9B%B4%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8/ itemprop=url>[Git] 获取两个版本间所有变更的文件列表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-22">2013-09-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>33 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>git diff commit-SHA1 commit-SHA2 &ndash;name-status返回变更的文件列表，每个文件前带有变更状态：
+&rsquo; &rsquo; = unmodified M = modified A = added D = deleted R = renamed C = copied U = updated but unmergedgit diff commit-SHA1 commit-SHA2 &ndash;stat返回变更的文件列表，每个文件后面带有变更统计信息。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85protobuf/ itemprop=url>[Hadoop] 安装protobuf</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-21">2013-09-21</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>21 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Protocol Buffers (即protobuf)是Google的语言无关、平台无关、结构数据序列化的可扩展机制。 在Window平台编译Hadoop需要protobuf，下载所需的protoc-2.5.0-win32.zip，将protoc.exe复制到某目录，加入PATH变量即可。
+参考 Hadoop WIKI: How to Contribute to Hadoop Hadoop WIKI: ProtocolBuffers protobuf releases GitHub: google/protobuf protobuf documents</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/python%E5%AE%89%E8%A3%85oauth2%E5%BA%93/ itemprop=url>Python安装oauth2库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-21">2013-09-21</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>4 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>玩一下用python和twitterAPI访问Twitter数据，首先需要安装oauth2库以获得身份验证。pip是PythonPackaging Authority(PyPA)推荐用于安装Python包的工具。首先下载get-pip.py，然后通过下面的命令安装python get-pip.py pip.exe会被安装到\script\目录下。之后就可以用pip安装oauth2包了.</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/ssh_keys_for_git_system/ itemprop=url>SSH keys for Git System</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-18">2013-09-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>375 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>SSH keys An SSH key allows you to establish a secure connection betweenyour computer and Git system such as GitHub, GitLab. Before generating an SSH key, check if your system already hasone by running cat ~/.ssh/id_rsa.pub . If you see a long string startingwith ssh-rsa or ssh-dsa ,you can skip the ssh-keygen step. To generate a new SSH key, just open your terminal and use codebelow. The ssh-keygen command prompts you for a location andfilename to store the key pair and for a password.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/ssh_keys_for_git_system/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/60/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/57/>57</a>
 <a class=page-number href=/page/58/>58</a>
 <a class=page-number href=/page/59/>59</a>
@@ -177,9 +168,9 @@ sudo apt-get install python-pip pip2 install simplejson</div><footer class=post-
 <a class=page-number href=/page/65/>65</a>
 <a class="extend next" rel=next href=/page/62/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

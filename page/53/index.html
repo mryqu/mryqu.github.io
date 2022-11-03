@@ -3,48 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/ itemprop=url>[Git] 裸代码仓库和镜像代码仓库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-15">2014-02-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>124 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>注：本文中操作都没有设置$GIT_DIR环境变量。
-Git init和clone命令对bare和mirror参数的支持 ||&ndash;bare参数|&ndash;mirror参数 |&mdash;&ndash; |git init命令|支持|/ |git clone命令|支持|支持
-裸代码仓库与普通代码仓库的区别 从技术的角度上讲，理论上无论Git代码仓库是否为裸代码仓库都可以接受push。可Git的策略是仅向裸代码仓库发送push。在Mercurial中，任何普通代码仓库都可以用于远程代码仓库，接受push。这是因为push所含的变化仅影响Mercurial代码仓库的版本控制，而不会影响其工作树。在Git中，如果向普通代码仓库push的话，Git会将推送的内容与工作文件进行比较，它会认为工作文件发生改变，从而影响工作树。而裸代码仓库由于没有工作树，所以push所含的变化仅影响裸代码仓库的版本控制。Git FAQ提到：A quick rule ofthumb is to never push into a repository that has a work treeattached to it, until you know what you are doing.
-镜像代码仓库 git clone&ndash;mirror命令会创建一个后缀为".git"的目录，直接包含hooks、info、objects和refs子目录和config、description和HEAD文件，不包含远程Git代码仓库的工作树。config文件内容如下：
-[core] repositoryformatversion = 0 filemode = false bare = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly [remote "origin"] url = https://github.com/usr1/demo.git fetch = +refs/*:refs/* mirror = true 镜像代码仓库也是裸代码仓库，它与裸代码仓库的区别在于：它不仅将源代码仓库的本地分支映射到目标代码仓库的本地分支，而且将所有引用（包括远程跟踪分支、备注等）都进行映射并建立refspec配置以使目标代码仓库的所有引用可被gitremote update命令覆盖。裸代码仓库在克隆命令结束后，所有源代码仓库的本地分支映射到目标代码仓库的本地分支，但是不包含远程分支。它就被完全独立地建立，不再期望后继fetch操作，所有远程分支及其他引用会被忽略掉。镜像代码仓库类似源代码仓库被完整复制，当执行git remote update命令时类似源代码仓库再次被完整复制。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/virtualbox%E9%95%9C%E5%83%8F%E8%B5%84%E6%BA%90/ itemprop=url>VirtualBox镜像资源</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-05">2014-02-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>2 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>VirtualBox镜像资源: http://virtualboxes.org/images/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mingw%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/ itemprop=url>MinGW安装和使用</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-04">2014-02-04</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>30 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>MinGW简介 MinGW全称Minimalist GNU For Windows，，是将GCC编译器和GNUBinutils移植到Win32平台下的产物，包括一系列头文件（Win32API）、库和可执行文件。MinGW是从Cygwin1.3基础上发展而来，相比Cygwin而言体积更小、使用更方便。MinGW分两个分支，MinGW（即MinGW32）和MinGW-w64。 MinGW包括：
-GNU编译器套件，包括C/C++、ADA语言和Fortran语言编译器 用于生成Windows二进制文件的GNU工具（编译器、链接器和档案管理器） 用于Windows平台安装和部署MinGW和MSYS的命令行安装器（mingw-get） 用于命令行安装器的GUI打包器（mingw-get-inst） MinGW安装和使用 我只想使用C/C++，所以仅安装mingw32-base、mingw32-gcc-g++。msys-base其实也是可以不用安装的，因为我可以使用已有的GitBash。 我选择了默认的安装路径c:\MinGW，可以将c:\MinGW\bin加入环境变量以便使用。 参考 MinGW 官方网站 SourceForge.net：MinGW - Minimalist GNU for Windows SourceForge.net：MinGW-w64 - for 32 and 64 bit Windows</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/ itemprop=url>处理注解@RequestParam的"Required String parameter is not present"</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/ itemprop=url>处理注解@RequestParam的"Required String parameter is not present"</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-04">2014-02-04</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -139,7 +99,48 @@ grid_width=2 grid_height=2 def modify_grid(cells, row, col, val): cells[row][col
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>14 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>卸载JDK和JRE时失败，报错“Error 1723:java dll missing”。 网上的很多攻略都不管用，最后还是从微软网站找到fix程序。 Fix problems that programs cannot be installed or uninstalled</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/52/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>14 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>卸载JDK和JRE时失败，报错“Error 1723:java dll missing”。 网上的很多攻略都不管用，最后还是从微软网站找到fix程序。 Fix problems that programs cannot be installed or uninstalled</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8js%E5%A4%84%E7%90%86%E7%B2%98%E8%B4%B4%E8%80%8C%E6%9D%A5%E7%9A%84html%E8%A1%A8%E5%8D%95/ itemprop=url>用JS处理粘贴而来的HTML表单</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-01-12">2014-01-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天用Javascript处理粘贴而来的HTML表单，代码如下：某日又写了一小段，代码如下：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_o0%E7%9A%84exch%E5%87%BD%E6%95%B0/ itemprop=url>[算法] O(0)的exch函数</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-01-10">2014-01-10</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/algorithm.datastruct itemprop=url rel=index><span itemprop=name>Algorithm.DataStruct</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>64 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>常用的exch函数：
+public static void exch(int[] nums, int i, int j) { int tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp; } 不使用辅助空间的exch函数：
+public static void exch(int[] nums, int i, int j) { nums[i] ^= nums[j]; nums[j] ^= nums[i]; nums[i] ^= nums[j]; } 控制流及nums[i]和nums[j]状态如下：
+|nums[i]|nums[j] |&mdash; |= nums[i] ^ nums[j]|/ |/|= nums[j] ^ (nums[i] ^ nums[j])= nums[i] |= (nums[i] ^ nums[j]) ^ nums[i]= nums[j]|/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/clustershell%E5%AE%9E%E8%B7%B5/ itemprop=url>ClusterShell实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-01-07">2014-01-07</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>ClusterShell介绍 ClusterShell提供了一个轻量级、统一和健壮的命令执行Python框架，非常适于减轻Linux集群日常管理任务负担。ClusterShell的好处如下：
+提供高效、并行和高可扩展的Python命令执行引擎。 提供统一节点组语法和对外部组的访问 当使用clush和nodeset等工具可有效提升集群创建和日常管理任务的效率 ClusterShell实践 安装 首先在集群内节点配置无密钥ssh访问。然后在主/工作节点上安装ClusterShell。
+apt-get install clustershell 配置和实践 ClusterShell工具 ClusterShell包含如下工具：
+clush帮助文档 clubak帮助文档 nodesetcluset帮助文档 ClusterShell在线文档为http://clustershell.readthedocs.io/。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/52/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/49/>49</a>
 <a class=page-number href=/page/50/>50</a>
 <a class=page-number href=/page/51/>51</a>
@@ -151,9 +152,9 @@ grid_width=2 grid_height=2 def modify_grid(cells, row, col, val): cells[row][col
 <a class=page-number href=/page/57/>57</a>
 <a class="extend next" rel=next href=/page/54/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

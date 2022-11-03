@@ -3,37 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95artifactory/ itemprop=url>尝试Artifactory</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-30">2015-06-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>247 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Artifactory简介 首先，JFrogArtifactory是统一构件仓库管理器，全面支持任何语言或技术创建的软件包。Artifactory是一个适合企业的仓库管理器，支持安全、集群和高可用的Docker注册。与所有主流CI/CD和DevOps工具进行集成，Artifactory提供了端到端的自动化的解决方案用以追踪从开发阶段到生产环境阶段中的构件。 安装Artifactory 在https://www.jfrog.com/open-source/下载开源版的jFrogArtifactory，按照JFrog Artifactory用户指南即可轻松安装和使用。 发布构件 使用Gradle构建脚本生成器 gradle.properties artifactory_contextUrl=http://localhost:8081/artifactory artifactory_user=admin artifactory_password=password group = com.yqu version = 0.1.0-SNAPSHOT description = Hello artifactory build.gradle buildscript { repositories { maven { url "https://plugins.gradle.org/m2/" } } dependencies { //Check for the latest version here: // http://plugins.gradle.org/plugin/com.jfrog.artifactory classpath "org.jfrog.buildinfo:build-info-extractor-gradle:+" } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: 'maven-publish' apply plugin: "com.jfrog.artifactory" jar { baseName = 'HelloArtifactory' } artifacts { archives jar } publishing { publications { maven { from components.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95artifactory/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_buildscript%E5%9D%97%E4%B8%8Eallprojects%E5%9D%97%E5%8F%8A%E6%A0%B9%E7%BA%A7%E5%88%AB%E7%9A%84repositories%E5%8C%BA%E5%88%AB/ itemprop=url>[Gradle] buildScript块与allprojects块及根级别的repositories区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-29">2015-06-29</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>20 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一直对为什么buildScript块里定义了repositories而allprojects段或根还定义repositories没有思考过，偶然有了念头想要探究一下。
-build.gradle：
-buildScript块主要是为了Gradle脚本自身的执行，获取脚本依赖插件。我在写的一篇博客《尝试Artifactory》中Gradle脚本需要com.jfrog.artifactory插件才能执行成功，而这个插件是从URL为https://plugins.gradle.org/m2/的Maven仓库获得。 根级别的repositories主要是为了当前项目提供所需依赖包，比如log4j、spring-core等依赖包可从mavenCentral仓库获得。 allprojects块的repositories用于多项目构建，为所有项目提供共同所需依赖包。而子项目可以配置自己的repositories以获取自己独需的依赖包。
-参考 What&rsquo;s the difference between buildscript and allprojects in build.gradle?
-Gradle buildscript dependencies
-Gradle: Project</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/ itemprop=url>[Spring Data] 调试H2数据库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring_data_%E8%B0%83%E8%AF%95h2%E6%95%B0%E6%8D%AE%E5%BA%93/ itemprop=url>[Spring Data] 调试H2数据库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-28">2015-06-28</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -164,7 +135,33 @@ $>consul agent -server -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldat
 sap.ui.core.Core 首先我们看一下sap.ui.core.Core的源代码：
 Core._I_INTERVAL = 200; ResizeHandler.prototype.I_INTERVAL = Core._I_INTERVAL; Core.prototype.attachIntervalTimer = function(fnFunction, oListener) { if (!this.oTimedTrigger) { var IntervalTrigger = sap.ui.requireSync("sap/ui/core/IntervalTrigger"); this.oTimedTrigger = new IntervalTrigger(Core._I_INTERVAL); } this.oTimedTrigger.addListener(fnFunction, oListener); }; sap.ui.core.Core里面会起一个定时器，以200毫秒间隔周期触发。
 sap.ui.core.ResizeHandler 接下来我们看一下sap.ui.core.ResizeHandler的源代码：
-function initListener(){ if (!this.bRegistered && this.aResizeListeners.length > 0) { this.bRegistered = true; sap.ui.getCore().attachIntervalTimer(this.checkSizes, this); } } ResizeHandler.prototype.checkSizes = function() { var bDebug = log.isLoggable(); if ( bDebug ) { log.debug("checkSizes:"); } jQuery.each(this.aResizeListeners, function(index, oResizeListener){ if (oResizeListener) { var bCtrl = !</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/30/><i class="fa fa-angle-left"></i></a>
+function initListener(){ if (!this.bRegistered && this.aResizeListeners.length > 0) { this.bRegistered = true; sap.ui.getCore().attachIntervalTimer(this.checkSizes, this); } } ResizeHandler.prototype.checkSizes = function() { var bDebug = log.isLoggable(); if ( bDebug ) { log.debug("checkSizes:"); } jQuery.each(this.aResizeListeners, function(index, oResizeListener){ if (oResizeListener) { var bCtrl = !</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/ itemprop=url>[OpenUI5] 通过sap.ui.core.Core的registerElement和deregisterElement函数监控View和控件的构造和析构</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-13">2015-06-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>123 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在sap.ui.core.Core中有registerElement和deregisterElement函数，它们可用于在调试中监控Element（包括View和控件）的构造和析构。
+registerElement：在控件构造时被调用 deregisterElement：在控件析构时被调用 通过下面的代码可知，Core类的mElements存储着元素Id和元素的散列表：
+Core.prototype.registerElement = function(oElement) { var sId = oElement.getId(), oldElement = this.mElements[sId]; if ( oldElement && oldElement !== oElement ) { if ( oldElement._sapui_candidateForDestroy ) { jQuery.sap.log.debug("destroying dangling template " + oldElement + " when creating new object with same ID"); oldElement.destroy(); } else { // duplicate ID detected => fail or at least log a warning if (this.oConfiguration.getNoDuplicateIds()) { jQuery.sap.log.error("adding element with duplicate id '" + sId + "'"); throw new Error("Error: adding element with duplicate id '" + sId + "'"); } else { jQuery.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant%E5%88%9B%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/ itemprop=url>使用Vagrant创建开发环境</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-12">2015-06-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/vagrant itemprop=url rel=index><span itemprop=name>Vagrant</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>用思维导图写了一篇[Packt Publishing] Creating Development Environments with Vagrant读书笔记。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/30/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/27/>27</a>
 <a class=page-number href=/page/28/>28</a>
 <a class=page-number href=/page/29/>29</a>
@@ -176,9 +173,9 @@ function initListener(){ if (!this.bRegistered && this.aResizeListeners.length >
 <a class=page-number href=/page/35/>35</a>
 <a class="extend next" rel=next href=/page/32/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

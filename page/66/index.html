@@ -3,94 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%8F%91%E7%8E%B0hibernate_3.2.6%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%B8%80%E4%B8%AAbug/ itemprop=url>发现Hibernate 3.2.6统计中一个bug</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-18">2013-06-18</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>45 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天使用Hibernate的统计类，分析一下结果。结果发现了一个bug，不能获得查询缓存中的查询语句。 这个bug倒在3.6.8已经修改了，不过还是影响我的工作。
-Statistics stat = sessionFactory.getStatistics(); logger.info("isStatisticsEnabled:"+stat.isStatisticsEnabled()); logger.info("stat="+stat.toString()); logger.info("queries="+Arrays.toString(stat.getQueries())); org.hibernate.stat.StatisticsImpl.java
-public String[] getQueries() { return ArrayHelper.toStringArray( queryStatistics.keySet()); } org.hibernate.util.ArrayHelper.java (Hibernate 3.2.6)
-public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray(EMPTY_STRING_ARRAY); } org.hibernate.util.ArrayHelper.java (Hibernate3.6.8)
-public static String[] toStringArray(Collection coll) { return (String[]) coll.toArray( new String[coll.size()]); }</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/ itemprop=url>模型评估笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-16">2013-06-16</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>230 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>模型评估简介 模型评估是模型开发过程的不可或缺的一部分。它有助于发现表达数据的最佳模型和所选模型将来工作的性能如何。在数据挖掘中，使用训练集中的数据评估模型性能是不可接受的，因为这易于生成过于乐观和过拟合的模型。数据挖掘中有两种方法评估模型，验证（Hold-Out）和交叉验证（Cross-Validation）。为了避免过拟合，这两种方法都使用（模型没有遇到过的）测试集来评估模型性能。
-验证（Hold-Out） 使用这种方法时，通常大的数据集会被_随机_分成三个子集：
-训练集：用于构建预测模型。 验证集：用于评估训练阶段所得模型的性能。它为模型参数优化和选择最优模型提供了测试平台。不是所有模型算法都需要验证机。 测试集或之前未遇到的样本用于评估模型未来可能的性能。如果模型与训练集拟合的好于测试集，有可能是过拟合所致。 交叉验证（Cross-Validation） 当仅有有限数量的数据时，为了对模型性能进行无偏估计，我们可以使用_k_折交叉验证（k-foldcross-validation）。使用这种方法时，数据被分成_k_份数目相等的子集。我们构建_k_次模型，每次留一个子集做测试集，其他用作训练集。如果_k_等于样本大小，这也被称之为留一验证（leave-one-out）。
-分类模型评估 混淆矩阵（Confusion Matrix） 混淆矩阵显示了分类模型相对数据的真实输出（目标值）的正确预测和不正确预测数目。矩阵为_N_x_N_，其中_N_为目标值（类）数目。这类模型的性能通常使用矩阵中的数据评估。下表为两个类别（阳性和阴性）的2x2混淆矩阵。
-术语：
-阳性 (P, positive) 阴性 (N, Negative) 真阳性 (TP, true positive)：正确的肯定。又称：命中 (hit) 真阴性 (TN, true negative)：正确的否定。又称：正确拒绝 (correctrejection) 伪阳性 (FP, false positive)：错误的肯定，又称：假警报 (falsealarm)、第二型错误 伪阴性 (FN, false negative)：错误的否定，又称：未命中(miss)、第一型错误 灵敏度(sensitivity)或真阳性率(TPR, true positive rate)：又称：召回率（recall）、命中率 (hit rate)在阳性值中实际被预测正确所占的比例。TPR = TP / P = TP / (TP+FN) 伪阳性率(FPR, false positive rate)：又称：错误命中率，假警报率 (false alarm rate)FPR = FP / N = FP / (FP + TN) = 1-SPC 特异度 (SPC, Specificity)或真阴性率(TNR, true negativerate)：在阴性值中实现被预测正确所占的比例。SPC = TN / N = TN / (FP+TN) = 1-FPR 假发现率 (FDR, false discovery rate)：FDR = FP / (FP + TP) = 1-TPR 准确度 (ACC, accuracy）：预测正确的数占样本数的比例。ACC = (TP + TN) / (P + N) 阳性预测值 (PPV, positive predictive value)或精度(precision)：阳性预测值被预测正确的比例。PPV = TP / (TP + FP) 阴性预测值 (NPV, negative predictive value)：阴性预测值被预测正确的比例。NPV = TN / (TN + FN) F1评分：精度和灵敏度的调和平均数。F1 = 2 precision * recall / (precision+recall) =2TP/(2TP+FP+FN) Matthews相关系数 (MCC)，即 Phi相关系数：(TPTN - FPFN)/ sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)} 示例:</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql_jdbc_setfetchsize/ itemprop=url>PostgreSQL JDBC setFetchSize</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-14">2013-06-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>6 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看到我们的Hiberante配置没有设hibernate.jdbc.fetch_size。 Fetch Size是设定JDBC的Statement读取数据的时候每次从数据库中取出的记录条数。例如一次查询1万条记录，对于Oracle的JDBC驱动来说，是不会1次性把1万条取出来的，而只会取出FetchSize条数，当纪录集遍历完了这些记录以后，再去数据库取Fetch Size条数据。因此大大节省了无谓的内存消耗。当然FetchSize设的越大，读数据库的次数越少，速度越快；FetchSize越小，读数据库的次数越多，速度越慢。这有点像平时我们写程序写硬盘文件一样，设立一个缓冲，每次写入缓冲，等缓冲满了以后，一次写入硬盘，道理相同。 看了一下Postgres，它的JDBC驱动却是一次将查询的所有结果都返回。相反使用游标、设置fetchsize倒是麻烦不少。 http://jdbc.postgresql.org/documentation/head/query.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/ itemprop=url>Hibernate3 HQL: ClassCastException解决办法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-11">2013-06-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>312 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>下面的示例代码跑在Hibernate 3.6.8，会抛出异常java.lang.ClassCastException:[Ljava.lang.Object 无法转换成实体对象。通过调试可知返回的仍然是标量字段对象数组，而不是实体对象。
-public class DemoEntity { public static final String DEMO_ENTITY_ID = "demoEntityID"; public static final String USER_ID = "userID"; public static final String OFFICE_ID = "officeID"; private Integer demoEntityID; private String userID; private Integer officeID; private String subjectTxt; public List findDemoEntitys(int startID, int limit, boolean includeStartIdInResults) { try { StringBuilder querySb = new StringBuilder(); querySb.append("select demo.").append(DemoEntity.DEMO_ENTITY_ID); querySb.append(", demo.").append(DemoEntity.USER_ID); querySb.append(", demo.").append(DemoEntity.OFFICE_ID); querySb.append(" from DemoEntity demo where demo.").append(DemoEntity.DEMO_ENTITY_ID); if (includeStartIdInResults) { querySb.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate3_hql_classcastexception%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/ itemprop=url>Hibernate3.X升级到4.X实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-07">2013-06-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>87 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Jar调查 |jar文件|Hibernate 4.2.2|当前的Hibernate|操作 |&mdash; |antlr.jar|required, 2.7.7|3.2.0|无需改变。 |dom4j.jar|required, 1.6.1|1.6.1|无需改变。 |hibernate-commons-annotations.jar|required, 4.0.2|3.3.1|替换。 |hibernate-corel.jar|required, 4.2.2|3.2.6|替换。 |hibernate-jpa-2.0-api.jar|required, 1.0.1||增加。 |javassist.jar|required, 3.15.0|3.15.0|无需改变。 |jboss-logging.jar|required, 3.1.0||增加。 |jboss-transaction-api_1.1_specl.jar|required, 1.0.1||一开始增加，后来去掉了。 |hibernate-annotations.jar|null|3.3.1|去掉。从Hibernate3.6.0开始hibernate-annotations被合并到hibernate-core。 |hibernate-entitymanager.jar|jpa, 4.2.2|3.2.2|替换。
-修改HibernateUtil 将AnnotationConfiguration替换成Configuration； 在使用ServiceRegistry;
-Configuration config = new Configuration().configure(); ServiceRegistry serviceRegistry = newServiceRegistryBuilder() .applySettings(config.getProperties()).buildServiceRegistry(); sessionFactory = config.buildSessionFactory(serviceRegistry); Hibernate4不支持Ant HibernateToolTask。 使用Hibernate3和HibernateToolTask创建hibernate.cfg.xml 使用Hibernate4编译。 https://community.jboss.org/thread/177200
-修改Web容器下的jar文件 替换hibernate3.jar为hibernate-core.jar 替换hibernate-commons-annotations.jar 删除ejb3-persistence.jar 删除hibernate-annotations.jar 复制hibernate-entitymanager.jar 复制hibernate-jpa-2.0-api.jar 复制jboss-logging.jar 复制jboss-transaction-api_1.1_spec.jar （最终没有复制） 通过删除jboss-transaction-api_1.1_spec.jar解决TransactionManager冲突 org.springframework.jndi.TypeMismatchNamingException: Objectof type [class com.atomikos.icatch.jta.J2eeTransactionManager]available at JNDI location [java:comp/env/TransactionManager] isnot assignable to [javax.transaction.TransactionManager] 通过删除ejb3-persistence.jar解决javax.persistence冲突 java.lang.NoSuchMethodError:javax.persistence.OneToMany.orphanRemoval() ejb3-persistence.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate3.x%E5%8D%87%E7%BA%A7%E5%88%B04.x%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/ itemprop=url>多维数据遍历</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-31">2013-05-31</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>363 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>在联机分析处理（OLAP）系统中，需要对存储在数据库或数据仓库中的数据提供分析。由于数据维数不定，无法采用多重for循环进行数据遍历。我在开发过程中一般使用扁平化下标对多维数据进行遍历，今天尝试了一下递归方式，效率更高一些，但是对栈的消耗也更多一些。下面的代码示例使用两种不同的方式对多维数据进行遍历：
-递归 采用扁平化下标 示例代码 package com.yqu.collection; import java.util.ArrayList; import java.util.List; public class MultipleDimensionTraveling &lt;T>{ private List&lt;List&lt;T>> mdList; public MultipleDimensionTraveling(){ mdList = new ArrayList&lt;List&lt;T>>(); } public MultipleDimensionTraveling(List&lt;List&lt;T>> mdList){ this.mdList = mdList; } public void addDimension(List&lt;T> dim){ mdList.add(dim); } public void travelByRecursion(){ if(!mdList.isEmpty()) travelByRecursion(0, new ArrayList&lt;T>(mdList.size())); } private void travelByRecursion(int dimIdx, List&lt;T> crossing){ for(int i=0;i&lt;mdList.get(dimIdx).size();i++){ if(crossing.size()&lt;mdList.size()) crossing.add(dimIdx, mdList.get(dimIdx).get(i)); else crossing.set(dimIdx, mdList.get(dimIdx).get(i)); if(dimIdx==mdList.size()-1){ System.out.println(crossing.toString()); } else { travelByRecursion(dimIdx+1, crossing); } } } public void travelByFlatIndice(){ if(!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/servlet/ itemprop=url>Servlet</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/servlet/ itemprop=url>Servlet</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-29">2013-05-29</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -150,7 +64,91 @@ public class Person { private Person parent; private Set&lt;Person> children; pu
 MyBatis的Cache配置及实现 设置MyBatis的Cache全局使用开关：默认是true，如果它配成false，其余各个MapperXML文件配成支持cache也没用。
 &lt;settings> &lt;setting name="cacheEnabled" value="true"/> &lt;/settings> 各个Mapper XML文件，默认是不采用cache。在配置文件加一行就可以支持cache：
 &lt;cache /> 实现GemfireCache
-package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.AttributesFactory; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.Region; import java.util.concurrent.locks.ReadWriteLock; import java.util.concurrent.locks.ReentrantReadWriteLock; import org.apache.ibatis.cache.Cache; import org.apache.ibatis.cache.CacheException; public final class GemfireCache implements Cache { private static Region&lt;object> mybatis_region = null; private Region&lt;object> region = null; private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); private String id; public void setId(String id) { this.id = id; } public void setRegion(Region&lt;object> region) { this.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_as-l2-cache-of-mybatis-and-hibernate/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/65/><i class="fa fa-angle-left"></i></a>
+package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.AttributesFactory; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.Region; import java.util.concurrent.locks.ReadWriteLock; import java.util.concurrent.locks.ReentrantReadWriteLock; import org.apache.ibatis.cache.Cache; import org.apache.ibatis.cache.CacheException; public final class GemfireCache implements Cache { private static Region&lt;object> mybatis_region = null; private Region&lt;object> region = null; private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(); private String id; public void setId(String id) { this.id = id; } public void setRegion(Region&lt;object> region) { this.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_as-l2-cache-of-mybatis-and-hibernate/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/ itemprop=url>Java缓存规范JCache API(JSR107)</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-22">2013-05-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一下Java缓存规范JCacheAPI（JSR107），它对Java对象缓存进行标准化，方便高效开发，让程序员摆脱实现缓存有效期、互斥、假脱机（spooling）和缓存一致性等负担。该规范提供了API、RI（参考实现）和TCK（技术兼容性套件）。 从设计的角度看，基本组成部分有一个CacheManager，用来持有、控制缓存集合。缓存里存放键值对条目。 整个规范包括了如下内容：
+支持原子操作的缓存读写 缓存事件监听器 统计 事务 注解 JSR107从2001年开始，中间搁置了一段时间，后来Terracotta（产品：EhCache）和Oracle（产品：Coherence）在2010年加强了对JSR-107的投入，原本有望放入JAVAEE7(JSR342)中，可惜在期限内完不成，直到2012年底才推出了草案。 我更关注数据网格（JSR347），那个是JSR107的超集，关注缓存的逐出、复制和分布化，以及事务。可惜连草案也还没影呢。 http://jcp.org/en/jsr/detail?id=107
+http://jcp.org/en/jsr/detail?id=347</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_data-eviction-and-persistence/ itemprop=url>GemFire 数据逐出和持久化</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-17">2013-05-17</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>212 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
+数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。
+条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。 对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作：
+Region.containsKey Region.containsValue Region.getEntry 当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
+分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行:
+对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。 动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
+数据无持久化 数据持久化 EvictionAction.NONE 条目将在内存中一直保存。 条目将在内存和磁盘中一直保存。 EvictionAction.LOCAL_DESTROY 条目（键和值两部分）将从内存中释放。仅当被逐出数据可从外部数据源加载时可用。 EvictionAction.OVERFLOW_TO_DISK 条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。 条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。 磁盘存储文件名和扩展名 磁盘存储文件包括存储管理、访问控制文件和操作日志（oplog，记录了删除和其他所有操作）。下面的表描述了文件名和扩展名及示例。
+文件名 文件名包括三部分:
+第一部分: 使用标识 值 用途 示例 OVERFLOW 仅为溢出region和队列的操作日志数据。 OVERFLOWoverflowDS1_1.crf BACKUP 持久化、持久化+溢出rgion和队列操作日志数据。 BACKUPoverflowDS1.if, BACKUPDEFAULT.if DRLK_IF 访问控制 - 对磁盘存储上锁。 DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk 第二部分: 磁盘存储名 值 用途 示例 &lt;磁盘存储名> 非默认磁盘存储。 name=&ldquo;overflowDS1&rdquo; DRLK_IFoverflowDS1.lk,name=&ldquo;persistDS1&rdquo; BACKUPpersistDS1_1.crf DEFAULT 默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。 DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf 第三部分: 操作日志序列号 值 用途 示例 序列号格式为_n 仅用于操作日志。编码从1开始。 OVERFLOWoverflowDS1_1.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_data-eviction-and-persistence/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_query/ itemprop=url>GemFire查询</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-15">2013-05-15</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1706 字 ~9分钟</span></span></div></header><div class=post-body itemprop=articleBody>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。
+Region存储示例 本文的查询示例基于类Porfolio和Positon的对象。
+Portfolio.java package query; import java.io.DataInput; import java.io.DataOutput; import java.io.IOException; import java.io.Serializable; import java.util.HashMap; import java.util.Iterator; import java.util.Map; import com.gemstone.gemfire.DataSerializable; import com.gemstone.gemfire.DataSerializer; public class Portfolio implements Serializable, DataSerializable { private int ID; public String pkid; public Position position1; public Position position2; public String description; public HashMap positions = new HashMap(); String type; public String status; public String [] names={"aaa","bbb","ccc","ddd"}; public int getID() { return ID; } public String getPk() { return pkid; } public HashMap getPositions() { return positions; } public Position getP1() { return position1; } public Position getP2() { return position2; } public boolean isActive() { return status.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_query/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_region-type/ itemprop=url>GemFire Region分类</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-15">2013-05-15</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>154 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>GemFire开发指南6.5的第4.2节仅列举了分区、复制（分布式）、分布式（非复制）和本地四种Region类型，但RegionShortcut类却定义了23个快捷预定义属性Region。Region的主要行为取决于数据策略、关注策略、范围、本地最大内存和冗余拷贝数（仅用于分区Region）、逐出算法和动作。
+Region快捷预定义属性 数据策略 范围 本地最大内存注1 冗余拷贝数注1 逐出算法 逐出动作 LOCAL NORMAL LOCAL LOCAL_HEAP_LRU NORMAL LOCAL LRU_HEAP LOCAL_DESTROY LOCAL_OVERFLOW NORMAL LOCAL LRU_HEAP OVERFLOW_TO_DISK LOCAL_PERSISTENT PERSISTENT_REPLICATE LOCAL LOCAL_PERSISTENT_OVERFLOW PERSISTENT_REPLICATE LOCAL LRU_HEAP OVERFLOW_TO_DISK PARTITION PARTITION PARTITION_HEAP_LRU PARTITION LRU_HEAP LOCAL_DESTROY PARTITION_OVERFLOW PARTITION LRU_HEAP OVERFLOW_TO_DISK PARTITION_PERSISTENT PERSISTENT_PARTITION PARTITION_PERSISTENT_OVERFLOW PERSISTENT_PARTITION LRU_HEAP OVERFLOW_TO_DISK PARTITION_PROXY PARTITION 0 PARTITION_PROXY_REDUNDANT PARTITION 0 1 PARTITION_REDUNDANT PARTITION 1 PARTITION_REDUNDANT_HEAP_LRU PARTITION 1 LRU_HEAP LOCAL_DESTROY PARTITION_REDUNDANT_OVERFLOW PARTITION 1 LRU_HEAP OVERFLOW_TO_DISK PARTITION_REDUNDANT_PERSISTENT PERSISTENT_PARTITION 1 PARTITION_REDUNDANT_PERSISTENT_OVERFLOW PERSISTENT_PARTITION 1 LRU_HEAP OVERFLOW_TO_DISK REPLICATE REPLICATE DISTRIBUTED_ACK REPLICATE_HEAP_LRU PRELOAD DISTRIBUTED_ACK LRU_HEAP LOCAL_DESTROY REPLICATE_OVERFLOW REPLICATE DISTRIBUTED_ACK LRU_HEAP OVERFLOW_TO_DISK REPLICATE_PERSISTENT PERSISTENT_REPLICATE DISTRIBUTED_ACK REPLICATE_PERSISTENT_OVERFLOW PERSISTENT_REPLICATE DISTRIBUTED_ACK LRU_HEAP OVERFLOW_TO_DISK REPLICATE_PROXY EMPTY DISTRIBUTED_ACK 注1：仅用于分区region</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_region-type/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%B8%BAunix%E7%BB%88%E7%AB%AF%E6%88%96windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AEutf-8%E7%BC%96%E7%A0%81/ itemprop=url>为Unix终端或Windows命令行设置UTF-8编码</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-14">2013-05-14</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1112 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>Unix终端## 使用“locale –a” 命令检查支持的编码 servermt> locale -a C POSIX ……… en_US.ISO8859-1 en_US.ISO8859-15 en_US.US-ASCII en_US.UTF-8 ……… 设置环境变量 LANG=en_US.UTF-8 Windows命令行 通过chcp命令设置 Displays or sets the active code page number: CHCP [nnn] C:\>chcp Active code page: 437 C:\>chcp 65001 Active code page: 65001 通过mode con命令设置 Select code page: MODE CON[:] CP SELECT=yyy Code page status: MODE CON[:] CP [/STATUS] C:\>mode con cp /status Status for device CON: ---------------------- Code page: 437 C:\>mode con cp select=65001 Status for device CON: ---------------------- Lines: 300 Columns: 160 Keyboard rate: 31 Keyboard delay: 1 Code page: 65001 代码页代号 Identifier .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%B8%BAunix%E7%BB%88%E7%AB%AF%E6%88%96windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AEutf-8%E7%BC%96%E7%A0%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/windows%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E6%9F%A5%E8%AF%A2%E5%8F%8A%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C/ itemprop=url>Windows服务的创建、查询及删除操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-14">2013-05-14</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>14 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>SC是与Windows服务管理器和服务通信的命令行程序。
+查询SC帮助 创建Windows服务 示例：sc create akxService binPath= C:\Test\akxService.exe
+查询Windows服务 删除Windows服务 示例：sc delete akxService 如果服务名含有空格，可在服务名上加双引号。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/65/><i class="fa fa-angle-left"></i></a>
+<a class=page-number href=/page/61/>61</a>
 <a class=page-number href=/page/62/>62</a>
 <a class=page-number href=/page/63/>63</a>
 <a class=page-number href=/page/64/>64</a>
@@ -159,12 +157,11 @@ package com.yqu.mybatis.caches.gemfire; import com.gemstone.gemfire.cache.Attrib
 <a class=page-number href=/page/67/>67</a>
 <a class=page-number href=/page/68/>68</a>
 <a class=page-number href=/page/69/>69</a>
-<a class=page-number href=/page/70/>70</a>
 <a class="extend next" rel=next href=/page/67/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

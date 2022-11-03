@@ -3,62 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ itemprop=url>[C] GCC对UTF8 BOM的支持</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>112 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩些特俗字符，结果对yqutest.cpp源码文件编译时先碰到error:converting to execution character set: Illegal bytesequence错误。GCC的源码字符集与执行字符集默认是UTF-8编码，为了避免源码文件乱码，最好也是采用UTF-8编码来存储源码文件。将源码编码转成UTF-8，问题得以解决。 但是否需要UTF-8 BOM(byte-order mark)呢？ 我一时兴起添加了BOM，十六进制为EF BB BF，即对应八进制的357 273 277，编译结果如下：
-mryqu> g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in program yqutest.cpp:1: error: stray '\273' in program yqutest.cpp:1: error: stray '\277' in program yqutest.cpp:1: error: stray '#' in program yqutest.cpp:1: error: expected constructor, destructor, or type conversion before '&lt;' token mryqu> g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with: FreeBSD/amd64 system compiler Thread model: posix gcc version 4.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/ itemprop=url>*nux下导出文件16进制内容的命令xxd</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>16 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page 5 Unix Commands I Wish I’d Discovered Years Earlier</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/ itemprop=url>[C++] 从静态库获取GCC版本和编译平台</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>68 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>获取GCC版本：strings -a {library} | grep &ldquo;GCC: (&rdquo;
-mryqu> strings -a libcurl.a | grep "GCC: (" GCC: (GNU) 4.4.5 20110214 (Red Hat 4.4.5-6) 获取编译平台信息：ar -x {library}file *.o
-mryqu> ar -x libcurl.a mryqu>file libcurl_la-url.o libcurl_la-url.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 参考 How to retrieve the GCC version used to compile a given ELF executable? How to see the compilation platform of a static library file</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8find%E5%92%8Cgrep%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E5%85%B3%E9%94%AE%E5%AD%97/ itemprop=url>用find和grep搜索特定目录下特定文件中的特定关键字</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-23">2013-10-23</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>10 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>下例为递归搜索当前目录下所有以yqu为后缀的文件中的关键字123：
-find . -name "*.yqu" | xargs grep -H "123"</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>cut命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>cut命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-22">2013-10-22</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -137,7 +83,75 @@ Connection-SSH-X11-Enable X11 forwarding Xming操作笔记如下：
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>137 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>很久没用g++了，结果编个小程序还出错。
 mryqu:~/ctest$ g++ -g -c wvc.cpp -o wvc mryqu:~/ctest$ chmod a+x wvc mryqu:~/ctest$ ./wvc -bash: ./wvc: cannot execute binary file: Exec format error mryqu:~/ctest$ file wvc wvc: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 查了查gcc的帮助，才发现用了-c选项后其实是只编译不链接的：
--c Compile or assemble the source files, but do not link. The linking stage simply is not done. The ultimate output is in the form of an object file for each source file.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_exec_format_error/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/57/><i class="fa fa-angle-left"></i></a>
+-c Compile or assemble the source files, but do not link. The linking stage simply is not done. The ultimate output is in the form of an object file for each source file.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_exec_format_error/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/ itemprop=url>批处理：搜索Jar包中的类文件</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>网上转载的很多，原文出处不详。
+批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
+@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in ('dir /A:-D /S /B *.jar') do 7z l %%i | findstr %WHICH_CLASS% && echo %WHICH_CLASS% found in: "%%i" echo "Finished class finding..." echo "======================================" ENDLOCAL 命令运行格式：
+findclass com\\yqu\\kxmt\\TestFindClass.class</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ itemprop=url>[C] #和##宏操作符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>106 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在看# and ## in macros之前觉得对#和##宏操作符挺明白的，看了之后才感觉需要重新学习一下。
+#define f(a,b) a##b #define g(a) #a #define h(a) g(a) int main() { printf("%s\n",h(f(1,2))); printf("%s\n",g(f(1,2))); return 0; } 如果你能确保自己能写出正确答案的话，那么你可以略过这篇帖子。 C/C++语言中对宏的处理属于编译器预处理的范畴，属于编译期概念而非运行期概念。其中#操作符用于对指定的宏参数进行字符串化，而##操作符用来将两个符号连接为一个符号。
+struct command { char *name; void (*function) (void); }; struct command commands[] = { COMMAND (quit), COMMAND (help), … };
+&lt;/td>&lt;td>等同&lt;/td>&lt;td> struct command commands[] = { { &ldquo;quit&rdquo;, quit_command }, { &ldquo;help&rdquo;, help_command }, … };
+&lt;/td>&lt;/tr>&lt;/table> 但是这里还有一个参数预扫描问题。即如果参数不被字符串化或者用于符号连接的情况下，才会在宏定义体内被替换之前进行展开。 #define xstr(s) str(s) #define str(s) #s #define foo 4 str (foo) → &ldquo;foo&rdquo; //由于str中对s参数进行字符串化，所以foo不会展开 xstr (foo) → xstr (4) //由于xstr中对foo施加#和##操作符，因此foo先展开为4 → str (4) → &ldquo;4&rdquo;</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/ itemprop=url>在Vi中搜索多字节unicode字符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
+\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678) 为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/chrome-notes/ itemprop=url>Chrome使用笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>83 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>清除Chrome中特定网站的所有历史记录 （2013-10-19） 想要Chrome中特定网站的所有历史记录，可是搜出特定网站的所有历史记录后必须对每一项进行选择，然后才能删除。终于在网上搜出一个妙招来：
+进入Chrome历史记录页面； 搜索想要删除的URL； 为了删除所搜结果的所有记录，将第一个待删项的checkbox勾选上，接着滚动页面到最后一个待删项，按住SHIFT键将最后一个待删项的checkbox勾选上，这样所有待删项都会被勾选上； 点击"Remove selected items"按钮即可。 Chrome浏览器离线安装包下载地址 （2013-12-12） http://www.google.com/chrome/eula.html?standalone=1&hl=zh-CN
+一键保存当前打开的所有标签页 （2014-01-22） 经常是用Chrome打开一堆网页，但是由于某种原因必须重启机器，不想将这些页面存入书签，但是又想保存下来开机后继续浏览。
+在网上搜了一下，下列Chrome插件可以满足这个需求：
+OneTab Session Buddy PanicButton Stash Read Later VIEW LATER Save For Later 其中OneTab 和Session Buddy 都是五星插件，并且用户众多，最终我选择了 OneTab 。
+在chrome控制台中加载Javascript文件 （2014-02-02） Include javascript file in chrome console 里面介绍了几种在Chrome控制台加载Javascript文件的方法，对我来说使用JQuery是最方便的做法。
+$.getScript('script.js'); 手工修改Chrome配置文件 （2014-03-02） 当初装Chrome，g.cn上死活下载不了，随便装了一个澳洲版的。结果访问taobao、weibo被认成了澳洲用户，都被推到了海外入口。
+一开始折腾Chrome的配置菜单，没找到。后来直接修改C:\Users\AppData\Local\Google\Chrome\UserData\Default\Preferences搞定了。
+原始值：
+"last_known_google_url": "https://www.google.com.au/", "last_prompted_google_url": "https://www.google.com.au/", 修改后：
+"last_known_google_url": "https://www.google.com.hk/", "last_prompted_google_url": "https://www.google.com.hk/", Chrome Extension记录 （2019-01-23） 重装机器后发现Chrome扩展工具需要重装，现搜了事。为了便于以后重装，特此记录。
+LinkedIn Extension
+OneTab
+网页截图 - Screenshot Extension
+Postman</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/chrome-notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/57/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/54/>54</a>
 <a class=page-number href=/page/55/>55</a>
 <a class=page-number href=/page/56/>56</a>
@@ -149,9 +163,9 @@ mryqu:~/ctest$ g++ -g -c wvc.cpp -o wvc mryqu:~/ctest$ chmod a+x wvc mryqu:~/cte
 <a class=page-number href=/page/62/>62</a>
 <a class="extend next" rel=next href=/page/59/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -1,0 +1,243 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>网络工具笔记 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="网络工具笔记"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="网络工具笔记 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/network-tool-notes/ itemprop=url>网络工具笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1229 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody><h2 id=nslookup>nslookup</h2><p>nslookup命令是用来查询因特网域名服务器的。该命令在Unix、Linux和Windows平台都有提供。如果在Linux平台上找不到nslookup命令，检查是否安装bind-utils。</p><h3 id=nslookup的使用模式>nslookup的使用模式</h3><p>nslookup有两种模式：交互式和非交互式。</p><ul><li>交互式模式允许向域名服务器查询各种主机、域名或打印域内主机列表。</li><li>非交互式模式用于查询一个主机或域的信息。</li></ul><pre tabindex=0><code>C:\&gt;nslookup /?
+Usage:
+   nslookup [-opt ...]             # interactive mode using default server
+   nslookup [-opt ...] - server    # interactive mode using &#39;server&#39;
+   nslookup [-opt ...] host        # just look up &#39;host&#39; using default server
+   nslookup [-opt ...] host server # just look up &#39;host&#39; using &#39;server&#39;
+</code></pre><p>制定了查询对象就进入非交互式模式，否则进入交互模式。示例如下：<img src=/images/2013/6/0026uWfMgy6VwLbBzkLbb.png alt=nslookup笔记> 这两次查询百度的命令区别在于：第一次使用了默认DNS，第二次指定了Google的DNS。返回结果是非权威答案，即从上连DNS服务器的本地缓存中读取出的值，而非实际去查询到的值。</p><h3 id=nslookup选项>nslookup选项</h3><p><img src=/images/2013/6/0026uWfMgy6VwMiZ5cdc1.jpg alt=nslookup笔记></p><ul><li><strong>set all</strong>：列出nslookup工具的常用选项的当前设置值。</li><li><strong>set class=[value]</strong>：可以更改查询类<pre tabindex=0><code>IN：Internet类（默认）
+CH：Chaos类
+HS：Hesiod类
+ANY：通配
+</code></pre>Chaos和Hesiod现在几乎无人使用。</li><li><strong>set [no]debug</strong>：可以用来设置是否进入调试模式。如果setdebug，则会进入到调试模式，查询过程中会显示完整的响应包以及其中的交互包。</li><li><strong>set[no]d2</strong>：开启了高级调试模式，会输出很多nslookup内部工作的信息，包括了许多函数调用信息。</li><li><strong>set domain=[name]</strong>：用于设置默认的域。</li><li><strong>set [no]search</strong>：使用域搜索列表。</li><li><strong>setport=[value]</strong>：众所周知，DNS默认的服务端口是53。当某些特殊情况，此端口改变时，可以通过本命令来设置。</li><li><strong>set type=[value]</strong>：也可以写成setquerytype=[value]，用于更改信息查询类型。默认情况下，nslookup是查询域名所对应的A记录，而如果你想查询其对应的MX记录等信息时，就需要专门设置type值了。目前常用的type值如下：<pre tabindex=0><code>A：查看主机的IPv4地址
+AAAA：查看主机的IPv6地址
+ANY：查看关于主机域的所有信息
+CNAME：查找与别名对应的正式名字
+ISDN：域名对应的ISDN号码
+
+HINFO：查找主机的CPU与操作系统类型
+MB：存放指定邮箱的服务器
+
+MG：邮件组记录 
+MINFO：查找邮箱信息
+MR：改名的邮箱记录
+MX：查找邮件交换信息
+NS：查找主机域的域名服务器
+PTR：查找与给定IP地址匹配的主机名
+RP：查找域负责人记录
+RT：路由穿透记录
+
+SOA：查找域内的SOA地址
+SRV：TCP服务器信息记录
+
+TXT：域名对应的文本信息
+
+UINFO：查找用户信息
+
+X25：域名对应的X.25地址记录
+</code></pre></li><li><strong>retry=[number]</strong>：可以用来设置查询重试的次数。</li><li><strong>timeout=[number]</strong>：可以用来设置每次查询的超时时限。示例如下：<pre tabindex=0><code>nslookup -type=MX -debug www.baidu.com 8.8.8.8
+</code></pre></li></ul><h3 id=dns知识>DNS知识</h3><h4 id=什么叫dns>什么叫DNS？</h4><p>域名管理系统DNS（Domain Name System）是域名解析服务器的意思.它在互联网的作用是：把域名转换成网络可以识别的ip地址，在通过IP地址访问主机。比如：我们上网时输入的www.baidu.com会自动转换成为220.181.112.244。</p><h4 id=什么是a记录>什么是A记录？</h4><p>A记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可以设置您域名的二级域名。</p><h4 id=什么是ns记录>什么是NS记录？</h4><p>NS（Name Server）记录是域名服务器记录，用来指定该域名由哪个DNS服务器来进行解析。</p><h4 id=什么是别名记录cname>什么是别名记录(CNAME)？</h4><p>也被称为规范名字。这种记录允许您将多个名字映射到同一台计算机。通常用于同时提供WWW和MAIL服务的计算机。例如，有一台计算机名为“host.domain.com”（A记录）。它同时提供WWW和MAIL服务，为了便于用户访问服务。可以为该计算机设置两个别名（CNAME）：WWW和MAIL。这两个别名的全称就是“www.domain.com”和“mail.domain.com”。实际上他们都指向“host.domain.com”。</p><h4 id=什么是泛域名解析>什么是泛域名解析？</h4><p>泛域名解析定义为：用户的域名aaa.com，之下所设的*.aaa.com全部解析到同一个IP地址上去。比如客户设mail.aaa.com就会自已自动解析到与aaa.com同一个IP地址上去。</p><h4 id=dns查询的大致步骤>DNS查询的大致步骤</h4><ul><li>首先，客户端提出域名解析请求（无论以何种形式或方法），并将该请求发或转发给本地的DNS服务器。</li><li>接着，本地DNS服务器收到请求后就去查询自己的缓存，如果有该条记录，则会将查询的结果返回给客户端。（也就是我们看到的““非权威性”的应答”）。请注意，下面就开始递归查询了：反之，如果DNS服务器本地没有搜索到相应的记录，则会把请求转发到根DNS（13台根DNS服务器的IP信息默认均存储在DNS服务器中，当需要时就会去有选择性的连接）。</li><li>然后，根DNS服务器收到请求后会判断这个域名是谁来授权管理，并会返回一个负责该域名子域的DNS服务器地址。比如，查询news.baidu.com的IP，根DNS服务器就会在负责.com顶级域名的DNS服务器中选一个（并非随机，而是根据空间、地址、管辖区域等条件进行筛选），返回给本地DNS服务器。可以说根域对顶级域名有绝对管理权，自然也知道他们的全部信息，因为在DNS系统中，上一级对下一级有管理权限，毫无疑问，根DNS是最高一级了。</li><li>本地DNS服务器收到这个地址后，就开始联系对方并将此请求发给他。负责.com域名的某台服务器收到此请求后，如果自己无法解析，就会返回一个管理.com的下一级的DNS服务器地址给本地DNS服务器，也就是负责管理baidu.com的DNS。</li><li>当本地DNS服务器收到这个地址后，就会重复上面的动作，继续往下联系。</li><li>不断重复这样的轮回过程，直到有一台DNS服务器可以顺利解析出这个地址为止。在这个过程中，客户端一直处理等待状态，他不需要做任何事，也做不了什么。</li><li>直到本地DNS服务器获得IP时，才会把这个IP返回给客户端，到此在本地的DNS服务器取得IP地址后，递归查询就算完成了。本地DNS服务器同时会将这条记录写入自己的缓存，以备后用。到此，整个解析过程完成。客户端拿到这个地址后，就可以顺利往下进行了。但假设客户端请求的域名根本不存在，解析自然不成功，DNS服务器会返回此域名不可达，在客户端的体现就是网页无法浏览或网络程序无法连接等等。</li></ul><h2 id=dig>dig</h2><p>dig是域信息搜索器（domain informationgroper）。dig和nslookup作用有些类似，都是DNS查询工具。它与nslookup的区别在于：dig使用操作系统的解析库而nslookup使用自己的一套。Bind开发组已经宣布废弃nslookup，但Unix和Linux系统一般都安装了这两个工具。一些专业的DNS管理员在追查DNS问题时，都乐于使用dig命令，是看中了dig设置灵活、输出清晰、功能强大的特点。</p><p>如果Ubuntu下没有dig命令，可通过如下命令安装：</p><pre tabindex=0><code>sudo apt-get install dnsutils
+</code></pre><h3 id=dig使用说明>dig使用说明</h3><p><img src=/images/2013/10/0026uWfMgy6Vxm8Isbq54.png alt=dig笔记></p><h4 id=dig选项>dig选项</h4><p>dig提供查询选项，它影响搜索方式和结果显示。一些在查询请求报头设置或复位标志位，一部分决定显示哪些回复信息，其它的确定超时和重试战略。每个查询选项被带前缀（+）的关键字标识。一些关键字设置或复位一个选项。通常前缀是求反关键字含义的字符串no。其他关键字分配各选项的值，比如超时时间间隔。它们的格式形如+keyword=value。查询选项是：</p><p>全局查询参数（global-d-opt）和（在主机名之前的）服务器影响所有查询。局部查询参数和（在主机名之后的）服务器仅影响当前查询。</p><h3 id=dig使用>dig使用</h3><pre tabindex=0><code>mryqu&gt; dig
+
+; &lt;&lt;&gt;&gt; DiG 9.6.-ESV-R3 &lt;&lt;&gt;&gt;
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 13319
+;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 13
+
+;; QUESTION SECTION:
+;.                              IN      NS
+
+;; ANSWER SECTION:
+.                       391557  IN      NS      l.root-servers.net.
+.                       391557  IN      NS      i.root-servers.net.
+.                       391557  IN      NS      f.root-servers.net.
+.                       391557  IN      NS      m.root-servers.net.
+.                       391557  IN      NS      j.root-servers.net.
+.                       391557  IN      NS      b.root-servers.net.
+.                       391557  IN      NS      e.root-servers.net.
+.                       391557  IN      NS      h.root-servers.net.
+.                       391557  IN      NS      d.root-servers.net.
+.                       391557  IN      NS      g.root-servers.net.
+.                       391557  IN      NS      a.root-servers.net.
+.                       391557  IN      NS      c.root-servers.net.
+.                       391557  IN      NS      k.root-servers.net.
+
+;; ADDITIONAL SECTION:
+a.root-servers.net.     477957  IN      A       198.41.0.4
+a.root-servers.net.     477957  IN      AAAA    2001:503:ba3e::2:30
+b.root-servers.net.     477957  IN      A       192.228.79.201
+b.root-servers.net.     477957  IN      AAAA    2001:500:84::b
+c.root-servers.net.     477957  IN      A       192.33.4.12
+c.root-servers.net.     477957  IN      AAAA    2001:500:2::c
+d.root-servers.net.     477957  IN      A       199.7.91.13
+d.root-servers.net.     477957  IN      AAAA    2001:500:2d::d
+e.root-servers.net.     477957  IN      A       192.203.230.10
+f.root-servers.net.     477957  IN      A       192.5.5.241
+f.root-servers.net.     477957  IN      AAAA    2001:500:2f::f
+g.root-servers.net.     477957  IN      A       192.112.36.4
+h.root-servers.net.     477957  IN      A       128.63.2.53
+
+;; Query time: 60 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Sat Oct 12 05:02:23 2013
+;; MSG SIZE  rcvd: 496
+</code></pre><p>当未指定任何命令行参数或选项时，dig 将对“.”（根）执行 NS 查询。输出为：</p><ul><li>dig程序版本信息</li><li>Got answer显示运行结果信息汇总，包括操作类型、查询及回复统计等等。</li><li>QUESTION SECTION：显示查询请求的内容。</li><li>ANSWER ECTION：查询目标信息。这里是13台根名称服务器的NS记录，对应Gotanswer中的ANSWER:13。后面的数值是相应的TTL值（秒）。</li><li>ADDITIONAL SECTION：附加信息，这里是13台根名称服务器的NS记录对应的A和AAAA记录。</li><li>最后显示此次查询的操作信息，比如本次查询所用时间、查询服务器地址、当前系统时间、所接收消息的大小。</li></ul><pre tabindex=0><code>mryqu&gt; dig www.baidu.com
+
+; &lt;&lt;&gt;&gt; DiG 9.6.-ESV-R3 &lt;&lt;&gt;&gt; www.baidu.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 15452
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 5, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;www.baidu.com.                 IN      A
+
+;; ANSWER SECTION:
+www.baidu.com.          1200    IN      CNAME   www.a.shifen.com.
+www.a.shifen.com.       300     IN      A       103.235.46.39
+
+;; AUTHORITY SECTION:
+a.shifen.com.           1200    IN      NS      ns4.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns3.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns1.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns5.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns2.a.shifen.com.
+
+;; Query time: 777 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Sat Oct 12 05:50:10 2013
+;; MSG SIZE  rcvd: 164
+</code></pre><p>查询百度</p><pre tabindex=0><code>mryqu&gt; dig @8.8.8.8 www.baidu.com
+
+; &lt;&lt;&gt;&gt; DiG 9.6.-ESV-R3 &lt;&lt;&gt;&gt; @8.8.8.8 www.baidu.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 31371
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;www.baidu.com.                 IN      A
+
+;; ANSWER SECTION:
+www.baidu.com.          886     IN      CNAME   www.a.shifen.com.
+www.a.shifen.com.       264     IN      A       103.235.46.39
+
+;; Query time: 18 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Sat Oct 12 05:52:38 2013
+;; MSG SIZE  rcvd: 74
+</code></pre><p>通过Google的DNS查询百度</p><pre tabindex=0><code>mryqu&gt; dig www.baidu.com +trace
+
+; &lt;&lt;&gt;&gt; DiG 9.6.-ESV-R3 &lt;&lt;&gt;&gt; www.baidu.com +trace
+;; global options: +cmd
+.                       44153   IN      NS      c.root-servers.net.
+.                       44153   IN      NS      e.root-servers.net.
+.                       44153   IN      NS      a.root-servers.net.
+.                       44153   IN      NS      l.root-servers.net.
+.                       44153   IN      NS      k.root-servers.net.
+.                       44153   IN      NS      b.root-servers.net.
+.                       44153   IN      NS      d.root-servers.net.
+.                       44153   IN      NS      i.root-servers.net.
+.                       44153   IN      NS      f.root-servers.net.
+.                       44153   IN      NS      m.root-servers.net.
+.                       44153   IN      NS      h.root-servers.net.
+.                       44153   IN      NS      g.root-servers.net.
+.                       44153   IN      NS      j.root-servers.net.
+;; Received 496 bytes from 127.0.0.1#53(127.0.0.1) in 20 ms
+
+com.                    172800  IN      NS      l.gtld-servers.net.
+com.                    172800  IN      NS      m.gtld-servers.net.
+com.                    172800  IN      NS      b.gtld-servers.net.
+com.                    172800  IN      NS      c.gtld-servers.net.
+com.                    172800  IN      NS      f.gtld-servers.net.
+com.                    172800  IN      NS      i.gtld-servers.net.
+com.                    172800  IN      NS      k.gtld-servers.net.
+com.                    172800  IN      NS      d.gtld-servers.net.
+com.                    172800  IN      NS      j.gtld-servers.net.
+com.                    172800  IN      NS      e.gtld-servers.net.
+com.                    172800  IN      NS      a.gtld-servers.net.
+com.                    172800  IN      NS      g.gtld-servers.net.
+com.                    172800  IN      NS      h.gtld-servers.net.
+;; Received 503 bytes from 192.5.5.241#53(f.root-servers.net) in 76 ms
+
+baidu.com.              172800  IN      NS      dns.baidu.com.
+baidu.com.              172800  IN      NS      ns2.baidu.com.
+baidu.com.              172800  IN      NS      ns3.baidu.com.
+baidu.com.              172800  IN      NS      ns4.baidu.com.
+baidu.com.              172800  IN      NS      ns7.baidu.com.
+;; Received 201 bytes from 192.33.14.30#53(b.gtld-servers.net) in 106 ms
+
+www.baidu.com.          1200    IN      CNAME   www.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns3.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns2.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns5.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns4.a.shifen.com.
+a.shifen.com.           1200    IN      NS      ns1.a.shifen.com.
+;; Received 228 bytes from 220.181.38.10#53(ns4.baidu.com) in 327 ms
+</code></pre><p>从根名称服务器开始的代理路径跟踪百度域名。</p><h3 id=参考>参考</h3><p><a href=http://www.opensource.apple.com/source/bind9/bind9-31/bind9/bin/dig/dig.c>dig.c</a></p><h2 id=host>host</h2><p>host命令是常用的分析域名查询工具，可以用来测试域名系统工作是否正常。</p><h3 id=host参数>host参数</h3><p><img src=/images/2013/10/0026uWfMgy6VBqssppsee.png alt=host笔记></p><h3 id=host使用>host使用</h3><p><img src=/images/2013/10/0026uWfMgy6VBqswP1Q7e.png alt=host笔记></p><h2 id=wget>Wget</h2><p>GNU Wget是一个命令行的下载工具，支持HTTP、HTTPS、FTP协议，支持断点续传。在宽带状态不佳的情况下，Wget能表现出很强的稳定性。</p><h3 id=常用命令速查表>常用命令速查表</h3><table><thead><tr><th>操作</th><th>命令</th></tr></thead><tbody><tr><td>下载文件</td><td>wget URL</td></tr><tr><td>恢复下载</td><td>wget -c URL</td></tr><tr><td>递归下载</td><td>以最大深度10级递归下载某链接：wget -r -l 10 URL</td></tr><tr><td>下载整个网站</td><td>wget -m URL-m等同于-r -N -l inf &ndash;no-remove-listing</td></tr><tr><td>下载某个页面特定类型文件</td><td>仅下载pdf和mp3文件：wget -A &ldquo;<em>.pdf,</em>.mp3&rdquo; -r -l 1 -nd –np URL</td></tr><tr><td>下载某个页面特定类型之外的其他文件</td><td>下载pdf以外的文件：wget -R.pdf -r -l 1 -nd –np URL</td></tr><tr><td>忽略 robots.txt</td><td>wget -e robots=off URL</td></tr><tr><td>限制下载速率</td><td>wget –-limit-rate=20 URL</td></tr><tr><td>模拟firefox下载</td><td>wget -U Mozilla URL</td></tr><tr><td>不下载仅检查链接是否存在</td><td>wget &ndash;spider &ndash;force-html -i bookmarks.html</td></tr><tr><td>将输出写入文件</td><td>wget -O filepath URL</td></tr><tr><td>下载FTP文件</td><td>wget &ndash;ftp-­use­r=yqu&ndash;ftp-­pas­swo­rd=yqu URL</td></tr><tr><td>下载多个连接</td><td>wget URL1 URL2 URL3</td></tr><tr><td>配置接收数据的限额大小</td><td>对单文件下载无效，对递归下载或从输入文件获取连接下载有效wget -Q2m -i URL当下载量超过限额后下载中断</td></tr></tbody></table><h3 id=启动选项>启动选项：</h3><p><code>-V, --version</code> 显示 Wget 的版本并且退出。<br><code>-h, --help</code> 打印此帮助。<br><code>-b, -background</code> 启动后进入后台操作。<br><code>-e, -execute=COMMAND</code> 运行‘.wgetrc’形式的命令。</p><h3 id=日志记录及输入文件选项>日志记录及输入文件选项：</h3><p><code>-o, --output-file=文件</code> 将日志消息写入到指定文件中。<br><code>-a, --append-output=文件</code> 将日志消息追加到指定文件的末端。<br><code>-d, --debug</code> 打印调试输出。<br><code>-q, --quiet</code> 安静模式(不输出信息)。<br><code>-v, --verbose</code> 详细输出模式(默认)。<br><code>-nv, --non-verbose</code> 关闭详细输出模式，但不进入安静模式。<br><code>-i, --input-file=文件</code> 下载从指定文件中找到的 URL。<br><code>-F, --force-html</code> 以HTML方式处理输入文件。<br><code>-B, --base=URL</code> 使用 -F -i 文件选项时，在相对链接前添加指定的 URL 。</p><h3 id=下载选项>下载选项：</h3><p><code>-t, --tries=次数</code> 配置重试次数（0 表示无限）。<br><code>--retry-connrefused</code> 即使拒绝连接也重试。<br><code>-O --output-document=文件</code> 将数据写入此文件中。<br><code>-nc, --no-clobber</code> 不更改已经存在的文件，也不使用在文件名后添加 .#（# 为数字）的方法写入新的文件。<br><code>-c, --continue</code> 继续接收已下载了一部分的文件。<br><code>--progress=方式</code> 选择下载进度的表示方式。<br><code>-N, --timestamping</code> 除非远程文件较新，否则不再取回。<br><code>-S, --server-response</code> 显示服务器回应消息。<br><code>--spider</code> 不下载任何数据。<br><code>-T, --timeout=秒数</code> 配置读取数据的超时时间 (秒数)。<br><code>-w, --wait=秒数</code> 接收不同文件之间等待的秒数。<br><code>--waitretry=秒数</code> 在每次重试之间稍等一段时间 (由 1 秒至指定的 秒数 不等)。<br><code>--random-wait</code> 接收不同文件之间稍等一段时间(由 0 秒至 2*WAIT 秒不等)。<br><code>-Y, --proxy=on/off</code> 打开或关闭代理服务器。<br><code>-Q, --quota=大小</code> 配置接收数据的限额大小。<br><code>--bind-address=地址</code> 使用本机的指定地址 (主机名称或 IP) 进行连接。<br><code>--limit-rate=速率</code> 限制下载的速率。<br><code>--dns-cache=off</code> 禁止查找存于高速缓存中的 DNS。<br><code>--restrict-file-names=OS</code> 限制文件名中的字符为指定的 OS (操作系统) 所允许 的字符。</p><h3 id=目录选项>目录选项：</h3><p><code>-nd --no-directories</code> 不创建目录。<br><code>-x, --force-directories</code> 强制创建目录。<br><code>-nH, --no-host-directories</code> 不创建含有远程主机名称的目录。<br><code>-P, --directory-prefix=名称</code> 保存文件前先创建指定名称的目录。<br><code>--cut-dirs=数目</code> 忽略远程目录中指定数目的目录层。</p><h3 id=http-选项>HTTP 选项：</h3><p><code>--http-user=用户</code> 配置 http 用户名。<br><code>--http-passwd=密码</code> 配置 http 用户密码。<br><code>-C, --cache=on/off</code> (不)使用服务器中的高速缓存中的数据 (默认是使用的)。<br><code>-E, --html-extension</code> 将所有 MIME 类型为 text/html 的文件都加上 .html 扩 展文件名。<br><code>--ignore-length</code> 忽略“Content-Length”文件头字段。<br><code>--header=字符串</code> 在文件头中添加指定字符串。<br><code>--proxy-user=用户</code> 配置代理服务器用户名。<br><code>--proxy-passwd=密码</code> 配置代理服务器用户密码。<br><code>--referer=URL</code> 在 HTTP 请求中包含“Referer：URL”头。<br><code>-s, --save-headers</code> 将 HTTP 头存入文件。<br><code>-U, --user-agent=AGENT</code> 标志为 AGENT 而不是 Wget/VERSION。<br><code>--no-http-keep-alive</code> 禁用 HTTP keep-alive（持久性连接）。<br><code>--cookies=off</code> 禁用 cookie。<br><code>--load-cookies=文件</code> 会话开始前由指定文件载入 cookie。<br><code>--save-cookies=文件</code> 会话结束后将 cookie 保存至指定文件。<br><code>--post-data=字符串</code> 使用 POST 方法，发送指定字符串。<br><code>--post-file=文件</code> 使用 POST 方法，发送指定文件中的内容。</p><h3 id=https-ssl-选项>HTTPS (SSL) 选项：</h3><p><code>--sslcertfile=文件</code> 可选的客户段端证书。<br><code>--sslcertkey=密钥文件</code> 对此证书可选的“密钥文件”。<br><code>--egd-file=文件</code> EGD socket 文件名。<br><code>--sslcadir=目录</code> CA 散列表所在的目录。<br><code>--sslcafile=文件</code> 包含 CA 的文件。<br><code>--sslcerttype=0/1</code> Client-Cert 类型 0=PEM (默认) / 1=ASN1 (DER)<br><code>--sslcheckcert=0/1</code> 根据提供的 CA 检查服务器的证书<br><code>--sslprotocol=0-3</code> 选择 SSL 协议；0=自动选择，1=SSLv2， 2=SSLv3， 3=TLSv1</p><h3 id=ftp-选项>FTP 选项：</h3><p><code>-nr, --dont-remove-listing</code> 不删除“.listing”文件。<br><code>-g, --glob=on/off</code> 设置是否展开有通配符的文件名。<br><code>--passive-ftp</code> 使用“被动”传输模式。<br><code>--retr-symlinks</code> 在递归模式中，下载链接所指示的文件(连至目录则例外）。</p><h3 id=递归下载选项>递归下载选项：</h3><p><code>-r, --recursive</code> 递归下载。<br><code>-l, --level=数字</code> 最大递归深度(inf 或 0 表示无限)。<br><code>--delete-after</code> 删除下载后的文件。<br><code>-k, --convert-links</code> 将绝对链接转换为相对链接。<br><code>-K, --backup-converted</code> 转换文件 X 前先将其备份为 X.orig。<br><code>-m, --mirror</code> 等效于 -r -N -l inf -nr 的选项。<br><code>-p, --page-requisites</code> 下载所有显示完整网页所需的文件，例如图像。<br><code>--strict-comments</code> 打开对 HTML 备注的严格(SGML)处理选项。</p><h3 id=递归下载时有关接受拒绝的选项>递归下载时有关接受/拒绝的选项：</h3><p><code>-A, --accept=列表</code> 接受的文件样式列表，以逗号分隔。<br><code>-R, --reject=列表</code> 排除的文件样式列表，以逗号分隔。<br><code>-D, --domains=列表</code> 接受的域列表，以逗号分隔。<br><code>--exclude-domains=列表</code> 排除的域列表，以逗号分隔。<br><code>--follow-ftp</code> 跟随 HTML 文件中的 FTP 链接。<br><code>--follow-tags=列表</code> 要跟随的 HTML 标记，以逗号分隔。<br><code>-G, --ignore-tags=列表</code> 要忽略的 HTML 标记，以逗号分隔。<br><code>-H, --span-hosts</code> 递归时可进入其它主机。<br><code>-L, --relative</code> 只跟随相对链接。<br><code>-I, --include-directories=列表</code> 要下载的目录列表。<br><code>-X, --exclude-directories=列表</code> 要排除的目录列表。<br><code>-np, --no-parent</code> 不搜索上层目录。</p><h3 id=参考-1>参考</h3><p><a href=http://www.gnu.org/software/wget/manual/wget.html>Wget Manual</a></p><h2 id=curl>cURL</h2><p><strong>cURL</strong>是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。<br>cURL支持的通訊协议有FTP、FTPS、HTTP、HTTPS、TFTP、SFTP、Gopher、SCP、Telnet、DICT、FILE、LDAP、LDAPS、IMAP、POP3、SMTP和RTSP。</p><h3 id=参考-2>参考</h3><p><a href=http://curl.haxx.se/docs/manpage.html>cURL Man Page</a><br><a href=http://www.cheatography.com/ankushagarwal11/cheat-sheets/curl-cheat-sheet/>curl cheat-sheet</a><br><a href=https://github.com/tedyoung/curl-api-cheat-sheet/blob/master/cheat-sheet.md></a><br><a href=http://www.lornajane.net/posts/2008/curl-cheat-sheet></a><br><a href=http://blog.engelke.com/2009/10/20/curl-cheat-sheet/></a><br><a href=http://www.niclas-meier.de/2011/12/the-curl-cheat-sheet-to-myself/></a><br><a href=http://www.cantoni.org/2012/01/10/curl-cheat-sheet></a><br><a href=http://g33kinfo.com/info/archives/4872></a><br><a href=http://wenku.baidu.com/view/e02c69f4f61fb7360b4c65e9.html></a></p><h2 id=postman>Postman</h2><p>以前用过cURL和rest-shell进行RESTAPI测试，最近偶然看到了Postman。Postman是一款Chrome插件，强大、便利，可以在浏览器里直接测试RESTAPI。</p><h3 id=安装>安装</h3><p>在Chrome浏览器里进入<a href=https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm>Postman插件安装地址</a> 即可安装Postman。
+<img src=/images/2015/9/0026uWfMgy6Vs7MGFN1d3.jpg alt=Postman使用笔记></p><h3 id=使用>使用</h3><p>Postman可以模拟各种Http请求，并且可以额外设置特殊的URL参数、Http头以及Basic Auth、DigestAuth、OAuth 1.0等认证信息。在展现Http响应上，Postman支持完美打印，JSON、XML或是HTML都会整理成人类阅读的格式，有助于我们更清楚地查看响应内容。<img src=/images/2015/9/0026uWfMgy6VtgqXkfXb5.jpg alt=Postman使用笔记><img src=/images/2015/9/0026uWfMgy6Vti0NGNTb5.jpg alt=Postman使用笔记></p><h3 id=特色功能>特色功能</h3><ul><li><strong>更多的Http方法</strong>：Postman除了支持GET、POST、PUT、PATCH、DELETE、HEAD、OPTIONS这些常用Http方法，还支持COPY、LINK、UNLINK、PURGE。</li><li><strong>集合（Collection）功能</strong>：Postman可以管理Http请求的集合，在做完单个测试时，可以将该请求存入特定集合内。这样在后继的重复测试，无需重新输入Http请求，就可以快速测试并获得结果。集合支持输入或导出，便于团队共享。</li><li><strong>设置环境变量（Environment）</strong>：Postman可以管理环境变量。一般我们有可能有多种环境：development、staging或local，每种环境下的请求URL有可能各不相同。通过环境变量，在切换环境测试时无需重写Http请求。</li></ul><h3 id=参考-3>参考</h3><p><a href=https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm>Postman插件安装地址</a><br><a href=https://github.com/postmanlabs/>Github：postmanlabs</a><br><a href=http://blog.getpostman.com/>Postman官方博客</a><br><a href=http://tools.ietf.org/id/draft-snell-link-method-01.html>HTTP Link and Unlink Methods</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：网络工具笔记<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/nslookup rel=tag title=nslookup>#nslookup#</a>
+<a href=/tags/dig rel=tag title=dig>#dig#</a>
+<a href=/tags/host rel=tag title=host>#host#</a>
+<a href=/tags/dns rel=tag title=dns>#dns#</a>
+<a href=/tags/wget rel=tag title=wget>#wget#</a>
+<a href=/tags/curl rel=tag title=curl>#curl#</a>
+<a href=/tags/postman rel=tag title=postman>#postman#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/gemfire_nesting-dynamic-region/ rel=next title=嵌套的动态GemFire region研究><i class="fa fa-chevron-left"></i> 嵌套的动态GemFire region研究</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/%E5%B8%B8%E7%94%A8html%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6/ rel=prev title=常用HTML转义字符>常用HTML转义字符 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/network-tool-notes/",this.page.identifier="https://mryqu.github.io/post/network-tool-notes/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#nslookup>nslookup</a><ul><li><a href=#nslookup的使用模式>nslookup的使用模式</a></li><li><a href=#nslookup选项>nslookup选项</a></li><li><a href=#dns知识>DNS知识</a></li></ul></li><li><a href=#dig>dig</a><ul><li><a href=#dig使用说明>dig使用说明</a></li><li><a href=#dig使用>dig使用</a></li><li><a href=#参考>参考</a></li></ul></li><li><a href=#host>host</a><ul><li><a href=#host参数>host参数</a></li><li><a href=#host使用>host使用</a></li></ul></li><li><a href=#wget>Wget</a><ul><li><a href=#常用命令速查表>常用命令速查表</a></li><li><a href=#启动选项>启动选项：</a></li><li><a href=#日志记录及输入文件选项>日志记录及输入文件选项：</a></li><li><a href=#下载选项>下载选项：</a></li><li><a href=#目录选项>目录选项：</a></li><li><a href=#http-选项>HTTP 选项：</a></li><li><a href=#https-ssl-选项>HTTPS (SSL) 选项：</a></li><li><a href=#ftp-选项>FTP 选项：</a></li><li><a href=#递归下载选项>递归下载选项：</a></li><li><a href=#递归下载时有关接受拒绝的选项>递归下载时有关接受/拒绝的选项：</a></li><li><a href=#参考-1>参考</a></li></ul></li><li><a href=#curl>cURL</a><ul><li><a href=#参考-2>参考</a></li></ul></li><li><a href=#postman>Postman</a><ul><li><a href=#安装>安装</a></li><li><a href=#使用>使用</a></li><li><a href=#特色功能>特色功能</a></li><li><a href=#参考-3>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

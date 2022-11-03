@@ -3,90 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/ itemprop=url>批处理：搜索Jar包中的类文件</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>网上转载的很多，原文出处不详。
-批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
-@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in ('dir /A:-D /S /B *.jar') do 7z l %%i | findstr %WHICH_CLASS% && echo %WHICH_CLASS% found in: "%%i" echo "Finished class finding..." echo "======================================" ENDLOCAL 命令运行格式：
-findclass com\\yqu\\kxmt\\TestFindClass.class</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ itemprop=url>[C] #和##宏操作符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>106 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在看# and ## in macros之前觉得对#和##宏操作符挺明白的，看了之后才感觉需要重新学习一下。
-#define f(a,b) a##b #define g(a) #a #define h(a) g(a) int main() { printf("%s\n",h(f(1,2))); printf("%s\n",g(f(1,2))); return 0; } 如果你能确保自己能写出正确答案的话，那么你可以略过这篇帖子。 C/C++语言中对宏的处理属于编译器预处理的范畴，属于编译期概念而非运行期概念。其中#操作符用于对指定的宏参数进行字符串化，而##操作符用来将两个符号连接为一个符号。
-struct command { char *name; void (*function) (void); }; struct command commands[] = { COMMAND (quit), COMMAND (help), … };
-&lt;/td>&lt;td>等同&lt;/td>&lt;td> struct command commands[] = { { &ldquo;quit&rdquo;, quit_command }, { &ldquo;help&rdquo;, help_command }, … };
-&lt;/td>&lt;/tr>&lt;/table> 但是这里还有一个参数预扫描问题。即如果参数不被字符串化或者用于符号连接的情况下，才会在宏定义体内被替换之前进行展开。 #define xstr(s) str(s) #define str(s) #s #define foo 4 str (foo) → &ldquo;foo&rdquo; //由于str中对s参数进行字符串化，所以foo不会展开 xstr (foo) → xstr (4) //由于xstr中对foo施加#和##操作符，因此foo先展开为4 → str (4) → &ldquo;4&rdquo;</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/ itemprop=url>在Vi中搜索多字节unicode字符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
-\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678) 为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/host%E7%AC%94%E8%AE%B0/ itemprop=url>host笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/network itemprop=url rel=index><span itemprop=name>NetWork</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>host命令是常用的分析域名查询工具，可以用来测试域名系统工作是否正常。
-host参数 host使用</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/chrome-notes/ itemprop=url>Chrome使用笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>83 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>清除Chrome中特定网站的所有历史记录 （2013-10-19） 想要Chrome中特定网站的所有历史记录，可是搜出特定网站的所有历史记录后必须对每一项进行选择，然后才能删除。终于在网上搜出一个妙招来：
-进入Chrome历史记录页面； 搜索想要删除的URL； 为了删除所搜结果的所有记录，将第一个待删项的checkbox勾选上，接着滚动页面到最后一个待删项，按住SHIFT键将最后一个待删项的checkbox勾选上，这样所有待删项都会被勾选上； 点击"Remove selected items"按钮即可。 Chrome浏览器离线安装包下载地址 （2013-12-12） http://www.google.com/chrome/eula.html?standalone=1&hl=zh-CN
-一键保存当前打开的所有标签页 （2014-01-22） 经常是用Chrome打开一堆网页，但是由于某种原因必须重启机器，不想将这些页面存入书签，但是又想保存下来开机后继续浏览。
-在网上搜了一下，下列Chrome插件可以满足这个需求：
-OneTab Session Buddy PanicButton Stash Read Later VIEW LATER Save For Later 其中OneTab 和Session Buddy 都是五星插件，并且用户众多，最终我选择了 OneTab 。
-在chrome控制台中加载Javascript文件 （2014-02-02） Include javascript file in chrome console 里面介绍了几种在Chrome控制台加载Javascript文件的方法，对我来说使用JQuery是最方便的做法。
-$.getScript('script.js'); 手工修改Chrome配置文件 （2014-03-02） 当初装Chrome，g.cn上死活下载不了，随便装了一个澳洲版的。结果访问taobao、weibo被认成了澳洲用户，都被推到了海外入口。
-一开始折腾Chrome的配置菜单，没找到。后来直接修改C:\Users\AppData\Local\Google\Chrome\UserData\Default\Preferences搞定了。
-原始值：
-"last_known_google_url": "https://www.google.com.au/", "last_prompted_google_url": "https://www.google.com.au/", 修改后：
-"last_known_google_url": "https://www.google.com.hk/", "last_prompted_google_url": "https://www.google.com.hk/", Chrome Extension记录 （2019-01-23） 重装机器后发现Chrome扩展工具需要重装，现搜了事。为了便于以后重装，特此记录。
-LinkedIn Extension
-OneTab
-网页截图 - Screenshot Extension
-Postman</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/chrome-notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cscope%E7%AC%94%E8%AE%B0/ itemprop=url>Cscope笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cscope%E7%AC%94%E8%AE%B0/ itemprop=url>Cscope笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -167,7 +85,74 @@ HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>82 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>JDK 在Oracle网站下载jdk-6u45-linux-i586.bin到/opt目录 进入/opt目录安装JDK: chmod +x jdk-6u45-linux-i586.bin sudo ./jdk-6u45-linux-i586.bin 进入/etc目录配置profile文件: sudo vi profile 在文件末尾添加： JAVA_HOME=/opt/jdk1.6.0_45 export JRE_HOME=$JAVA_HOME/jre export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH 运行source /etc/profile 使其生效。 运行java -version 检验: java version "1.6.0_45" Eclipse 在Eclipse网站下载eclipse-jee-juno-SR2-linux-gtk.tar.gz到/opt目录 进入/opt目录解压缩Eclipse: $ sudo tar -zxvf eclipse-jee-juno-SR2-linux-gtk.tar.gz$ sudo rm ./eclipse-jee-juno-SR2-linux-gtk.tar.gz 创建Eclipse启动快捷方式： $ sudo gedit /usr/share/applications/eclipse.desktop [Desktop Entry] Type=Application Name=Eclipse Comment=Eclipse IDE Icon=/opt/eclipse/icon.xpm Exec=/opt/eclipse/eclipse Terminal=false StartupNotify=true Type=Application Categories=Development;IDE;Java; Exec=env UBUNTU_MENUPROXY= /opt/eclipse/eclipse m2eclipse 通过下列update site安装:http://download.eclipse.org/technology/m2e/releases Mahout 在Mahout网站下载mahout-distribution-0.8-src.tar.gz到自己的Eclipseworkspace中 进入worksapce解压缩mahout: $ tar -zxvf mahout-distribution-0.8-src.tar.gz $ rm .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/58/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>82 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>JDK 在Oracle网站下载jdk-6u45-linux-i586.bin到/opt目录 进入/opt目录安装JDK: chmod +x jdk-6u45-linux-i586.bin sudo ./jdk-6u45-linux-i586.bin 进入/etc目录配置profile文件: sudo vi profile 在文件末尾添加： JAVA_HOME=/opt/jdk1.6.0_45 export JRE_HOME=$JAVA_HOME/jre export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH 运行source /etc/profile 使其生效。 运行java -version 检验: java version "1.6.0_45" Eclipse 在Eclipse网站下载eclipse-jee-juno-SR2-linux-gtk.tar.gz到/opt目录 进入/opt目录解压缩Eclipse: $ sudo tar -zxvf eclipse-jee-juno-SR2-linux-gtk.tar.gz$ sudo rm ./eclipse-jee-juno-SR2-linux-gtk.tar.gz 创建Eclipse启动快捷方式： $ sudo gedit /usr/share/applications/eclipse.desktop [Desktop Entry] Type=Application Name=Eclipse Comment=Eclipse IDE Icon=/opt/eclipse/icon.xpm Exec=/opt/eclipse/eclipse Terminal=false StartupNotify=true Type=Application Categories=Development;IDE;Java; Exec=env UBUNTU_MENUPROXY= /opt/eclipse/eclipse m2eclipse 通过下列update site安装:http://download.eclipse.org/technology/m2e/releases Mahout 在Mahout网站下载mahout-distribution-0.8-src.tar.gz到自己的Eclipseworkspace中 进入worksapce解压缩mahout: $ tar -zxvf mahout-distribution-0.8-src.tar.gz $ rm .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_ubuntu_13.10%E4%B8%8B%E6%9E%84%E5%BB%BAmahout%E9%A1%B9%E7%9B%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/ itemprop=url>Linux包管理速查表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-18">2013-10-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>118 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>管理软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&mdash;&ndash; |通过仓库安装软件包|apt-get install {pkg}|yum install {pkg}|zypper install {pkg} |更新软件包|apt-get install {pkg}|yum update {pkg}|zypper update -t package {pkg} |移除软件包|apt-get remove {pkg}|yum erase {pkg}|zypper remove {pkg} |通过文件安装软件包|dpkg -i {pkg}|yum localinstall {pkg}|zypper install {pkg}
+搜索软件包 |任务|apt (deb)|yum (rpm)|zypper (rpm) |&mdash;&ndash; |通过包名搜索|apt-cache search {pkg}|yum list {pkg}|zypper search {pkg} |通过模式搜索|apt-cache search pattern|yum search pattern|zypper search -t pattern pattern |通过文件名搜索|apt-file search path|yum provides file|zypper wp file |列举已安装软件包|dpkg -l|rpm -qa|zypper search -is |显示软件包信息|apt-cache show pgk-name|yum info {pkg}|zypper info {pkg}</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/linux%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/ itemprop=url>Debian软件包管理速查表：dpkg、apt-get、apt-cache</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-18">2013-10-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>117 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>dpkg是Debian系统底层包管理器，apt-get是高层包管理工具，apt-cache是高层包查询工具。
+dpkg速查表 dpkg是Debian Linux用于安装/管理单个软件包的命令行工具：
+apt-get速查表 apt-get是Debian Linux用于管理软件包的命令行工具：
+安装/管理单个软件包 升级软件包 打安全补丁 使Debian系统更新到最新状态 下载源.deb文件 FrontEnd有很多GUI和应用 |语法|描述|示例 |&mdash; |apt-get install {package}|安装新的软件包。如果软件包已安装则尝试更新到最新版本|apt-get install zipapt-get install lsof samba mysql-client |apt-get remove {package}|移除一个已安装的软件包，保留配置文件|apt-get remove zip |apt-get &ndash;purge remove {package}|移除一个已安装的软件包及配置|apt-get &ndash;purge remove mysql-server |apt-get updateapt-get upgrade|重新同步包索引文件并升级Debian Linux系统及安全更新 (需要访问因特网)|apt-get updateapt-get upgrade |apt-get updateapt-get dist-upgrade|经常用于升级Debian分发。例如Woody升级到Sarge，&lsquo;dist-upgrade&rsquo;除了执行升级功能，也只能处理包新版本改变了的依赖关系；apt-get具有"智能"冲突解决系统，在必要时会试图以重要性较小的包为代价升级最重要的包。|apt-get updateapt-get dist-upgrade
+apt-cache速查表 |语法|描述|示例 |&mdash; |apt-cache pkgnames|列举所有有效包| |apt-cache depends {package}|检查包的依赖|apt-cache depends lsofapt-cache depends mysql-server |apt-cache search {progname}|通过关键字搜索包列表|apt-cache search mysqlapt-cache search &ldquo;Network Security&rdquo; |apt-cache show {package}|显示包的信息|apt-cache show screen</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E9%80%9F%E6%9F%A5%E8%A1%A8dpkgapt-getapt-cache/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/ itemprop=url>FilenameFilter和FileFilter介绍</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-18">2013-10-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>236 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>FilenameFilter和FileFilter说明 java.io.File类提供了四个方法用于列举某个路径下的文件和目录，但不会递归列举子目录下的内容。其中两个是列举路径下的所有文件和目录。
+String[] list() File[] listFiles()另外两个是列举路径满足指定过滤器的文件和目录。 String[] list(FilenameFilter filter) File[] listFiles(FileFilter filter) 示例 要求：返回当前目录下所有以yqu开头且以.tmp结尾的文件和目录。
+代码 package com.yqu.file; import java.io.File; import java.io.FileFilter; import java.io.FilenameFilter; public class HelloFileListing { public static void main(String[] args) { File f = new File("c:/test"); System.out.println("\n====Method listFiles() example===="); File[] files = f.listFiles(); for (File fl : files) { String type = fl.isFile() ? "File: " : "Directory: "; try { System.out.println(type + fl.getCanonicalPath()); } catch (Exception e) { e.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/filenamefilter%E5%92%8Cfilefilter%E4%BB%8B%E7%BB%8D/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8ul%E5%92%8C%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8ol/ itemprop=url>玩玩无序列表ul和有序列表ol</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-18">2013-10-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>234 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>写博客有时候用到列表，这里好好玩一玩。
+CSS list-style-type 属性 属性介绍 |值|描述 |&mdash;&ndash; |none|无标记。 |disc|默认。标记是实心圆。 |circle|标记是空心圆。 |square|标记是实心方块。 |decimal|标记是数字。 |decimal-leading-zero|0开头的数字标记。(01, 02, 03, 等。) |lower-roman|小写罗马数字(i, ii, iii, iv, v, 等。) |upper-roman|大写罗马数字(I, II, III, IV, V, 等。) |lower-alpha|小写英文字母The marker is lower-alpha (a, b, c, d, e, 等。) |upper-alpha|大写英文字母The marker is upper-alpha (A, B, C, D, E, 等。) |lower-greek|小写希腊字母(alpha, beta, gamma, 等。) |lower-latin|小写拉丁字母(a, b, c, d, e, 等。) |upper-latin|大写拉丁字母(A, B, C, D, E, 等。) |hebrew|传统的希伯来编号方式 |armenian|传统的亚美尼亚编号方式 |georgian|传统的乔治亚编号方式(an, ban, gan, 等。) |cjk-ideographic|简单的表意数字 |hiragana|标记是：a, i, u, e, o, ka, ki, 等。（日文片假名） |katakana|标记是：A, I, U, E, O, KA, KI, 等。（日文片假名） |hiragana-iroha|标记是：i, ro, ha, ni, ho, he, to, 等。（日文片假名） |katakana-iroha|标记是：I, RO, HA, NI, HO, HE, TO, 等。（日文片假名） |inherit|规定应该从父元素继承 list-style-type 属性的值。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8ul%E5%92%8C%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8ol/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%9Exa%E9%A9%B1%E5%8A%A8%E5%92%8Cxa%E9%A9%B1%E5%8A%A8%E5%88%97%E8%A1%A8/ itemprop=url>数据库非XA驱动和XA驱动列表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-17">2013-10-17</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>0 字 ~0分钟</span></span></div></header><div class=post-body itemprop=articleBody></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/58/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/55/>55</a>
 <a class=page-number href=/page/56/>56</a>
 <a class=page-number href=/page/57/>57</a>
@@ -179,9 +164,9 @@ HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和
 <a class=page-number href=/page/63/>63</a>
 <a class="extend next" rel=next href=/page/60/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

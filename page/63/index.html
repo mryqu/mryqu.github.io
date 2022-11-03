@@ -3,94 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/ itemprop=url>JDK7中的队列实现</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-07">2013-08-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>24 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>JDK7之前已有的队列实现 JDK7之前已有的队列实现分为两类：用于一般用途的实现和用于并发的实现。
-用于一般用途的队列实现 LinkedList实现了Queue接口，为offer、poll等方法提供了先入先出队列操作。 PriorityQueue类是基于堆（数据结构）的优先队列。如果PriorityQueue在构造时指定比较器Comparator，则用比较器对元素排序，否则使用元素的自然排序（通过其java.util.Comparable实现）。队列的取操作（poll、remove、peek和element）访问队列头部的元素。队列头部是顺序上最小的元素或具有相同最小值的元素之一。PriorityQueue的iterator方法提供的爹抬起不保证按特定顺序遍历PriorityQueue中的元素。
-并发队列实现 java.util.concurrent包下包含一系列同步的Queue接口和类。 ConcurrentLinkedQueue基于链接节点的、线程安全的队列。并发访问不需要同步。因为它在队列的尾部添加元素并从头部删除它们，所以只要不需要知道队列的大小。ConcurrentLinkedQueue对公共集合的共享访问就可以工作得很好。收集关于队列大小的信息会很慢，需要遍历队列。 http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html JDK5加入了BlockingQueue接口和五个阻塞队列类。阻塞队列BlockingQueue扩展了Queue的操作，元素添加操作会在没有空间可用时阻塞，而元素获取操作会在队列中没有任何东西时阻塞。 五个队列所提供的各有不同：
-ArrayBlockingQueue：一个基于数组实现的有界（大小有限）队列。 LinkedBlockingQueue：一个基于链接节点实现的可选有界队列。如果LinkedBlockingQueue在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。 PriorityBlockingQueue：一个基于堆实现的无界优先级队列。 DelayQueue：一个基于堆实现的、基于时间的调度队列。 SynchronousQueue：一个利用BlockingQueue接口的会合（rendezvous）机制。它没有内部容量。它就像线程之间的手递手机制，类似于生活中一手交钱一手交货这种情况。在队列中加入一个元素的生产者会等待另一个线程的消费者。当这个消费者出现时，这个元素就直接在消费者和生产者之间传递，永远不会加入到阻塞队列中。公平模式下等待线程按照FIFO顺序访问队列，非公平模式下等待线程访问顺序不定。 JDK7的TransferQueue JDK7加入了继承自BlockingQueue的TransferQueue接口和及其实现LinkedTransferQueue：一个基于链接节点实现的无界TransferQueue。 TransferQueue可以让使用者决定使用正常的BlockingQueue语义还是有保障的手递手机制，因而比SynchronousQueue更通用和有效。当队列内已经存在元素时，调用transfer会确保所有已有元素在此传递元素之前被处理。DougLea称之为容量智能化，LinkedTransferQueue实际上是ConcurrentLinkedQueue,(在公平模式下)SynchronousQueue, 无界的LinkedBlockingQueues等的超集。 TransferQueue混合了若干高级特性的同时，也提供了更高的性能。LinkedTransferQueue相比不公平模式SynchronousQueue，性能超过3倍；相比公平模式SynchronousQueue，性能超过14倍。SynchronousQueueJDK5实现是使用两个队列（用于等待生产者和等待消费者）,用一个锁保护这两个队列。而LinkedTransferQueue实现使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈。 获得TransferQueue队列大小会很慢，需要遍历队列。 http://tech.puredanger.com/2009/02/28/java-7-transferqueue/
-http://www.blogjava.net/yongboy/archive/2012/02/04/369575.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdk7%E7%9A%84forkjoin%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/ itemprop=url>JDK7的Fork/Join并发框架</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-06">2013-08-06</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>24 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>硬件的发展趋势非常清晰；Moore定律表明不会出现更高的时钟频率，但是每个芯片上会集成更多的内核。很容易想象让十几个处理器繁忙地处理一个粗粒度的任务边界（比如一个用户请求），但是这项技术不会扩大到数千个处理器——在这种环境下短时间内流量可能会呈指数级增长，但最终硬件趋势将会占上风。当跨入多内核时代时，我们需要找到更细粒度的并行性，否则将面临即便有许多工作需要去做而处理器却仍处于空闲的风险。如果希望跟上技术发展的脚步，软件平台也必须配合主流硬件平台的转变。最终，Java7包含的一种框架，用于表示某种更细粒度级别的并行算法：Fork/Join框架。 Fork/Join融合了分而治之（divide-and-conquer）编程技术；获取问题后，递归地将它分成多个子问题，直到每个子问题都足够小，以至于可以高效地串行地解决它们。递归的过程将会把问题分成两个或者多个子问题，然后把这些问题放入队列中等待处理（fork步骤），接下来等待所有子问题的结果（join步骤），把多个结果合并到一起。 假如充分分解任务的大小，那么创建一个线程的开销有可能超出执行该任务的开销。因此，fork/join框架使用与可用核数相匹配的适当大小的线程池，以减少这种频繁交换的开销。为避免线程空闲，框架包含了一个工作窃取方法，该方法可以使空闲线程从一个执行较慢的线程中窃取等待其处理的工作。 Java教程 - Fork/Join
-分解和合并：Java 也擅长轻松的并行编程！
-JDK 7 中的 Fork/Join 模式
-Doug Lea： &ldquo;A Java Fork/Join Framework"：了解 Fork/Join 模式的实现机制和执行性能。 InfoQ: Doug Lea谈Fork/Join框架</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java_nan%E5%B0%8F%E7%BB%93/ itemprop=url>Java NaN小结</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-05">2013-08-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>47 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Double.NAN介绍 Double类有个NaN常量，是Not a Number的缩写，其值等于Double.longBitsToDouble(0x7ff8000000000000L) ，用于表示非数值。NaN必须使用isNaN(double)方法来判断，NaN与任何double数值进行加减乘除等数学运算后的结果仍然是NaN，且NaN使用==运算符与自身进行判断返回结果为false。测试代码如下： 测试结果如下：
-Double.NaN==Double.NaN :false Double.isNaN(Double.NaN*0) :true Double.NaN*0==0 :false Double.isNaN(Double.NaN/0) :true Double.NaN/0==0 :false Double.isNaN(0/Double.NaN) :true 0/Double.NaN==0 :false Double.isNaN(Double.NaN+0) :true Double.NaN+0==0 :false Double.isNaN(Double.NaN-0) :true Double.NaN-0==0 :false Double.isNaN(Double.NaN*Double.NaN) :true Double.NaN*Double.NaN==0 :false 自定义NAN介绍 Double.NaN可以用来表示计算结果发生异常，但是无法获知异常原因。我们可以通过自定义NAN来解决这一问题。使用Double类的isNaN(double)方法判断自定义NAN，其返回结果为true，我们可以通过自己的方法判决到底是那种NaN。测试代码如下： 测试结果如下：
-Double.isNaN(Double.NaN) :true MyNaN.isMyNaN(Double.NaN) :false Double.isNaN(MyNaN.INVALID_PARAMETER_NAN) :true MyNaN.isMyNaN(MyNaN.INVALID_PARAMETER_NAN) :true Double.isNaN(Double.longBitsToDouble(0xffff000000000123L)) :true MyNaN.isMyNaN(Double.longBitsToDouble(0xffff000000000123L)) :false</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/ubuntu-notes/ itemprop=url>Ubuntu操作笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-05">2013-08-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>206 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Ubuntu上修改主机名 (2013-08-05) 显示主机名 hostname -s 更多细节见hostname帮助文档。
-修改主机名 sudo hostname your-new-name # Ubuntu专有 hostnamectl set-hostname new-hostname 更多细节见hostnamectl帮助文档。 上述命令重启服务器后失效。
-修改主机名配置 sudo -H vi /etc/hostname sudo -H vi /etc/hosts Ubuntu下显示本机IP (2013-10-20) 命令为：ip addr show 感觉比ifconfig eth0更通用些！
-在Ubuntu Linux上安装netstat (2014-01-01) 在UbuntuLinux上安装netstat，apt-get其实是找不到netstat包的，需要用apt-get安装net-tools 。net-tools 是Linux平台NET-3网络分发包，包括arp、hostname、ifconfig、netstat、rarp、route、plipconfig、slattach、mii-tool、iptunnel和ipmaddr工具。
-apt-get install net-tools 在Ubuntu中禁掉IPv6 (2015-03-20) 为了禁止掉IPv6，需要在/etc/sysctl.conf做如下修改：
-net.ipv6.conf.all.disable_ipv6 = 1 net.ipv6.conf.default.disable_ipv6 = 1 net.ipv6.conf.lo.disable_ipv6 = 1 如果IPv6仍没有禁掉，是由于sysctl.conf没有激活造成的。为了解决上述问题，执行下面的命令：
-sudo sysctl -p 之后，运行:
-$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6 它将返回1，这表示IPv6被成功禁止掉。 在Ubuntu中强制Apt-get使用IPv4或IPv6 (2015-05-18) 快速命令行选项 如果只想一次使apt-get使用IPv4或IPv6，使用下列步骤。该功能尽在apt-get的0.9.7.9~exp1版本后可用。首先，通过如下命令确认apt-get版本高于0.9.7.9~exp1：
-apt-get --version 结果近似于:</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/ubuntu-notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/ itemprop=url>Java线程是否会被垃圾回收？</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-30">2013-07-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>222 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>如果将线程启动后，然后线程变量置空，线程会怎么样？
-import java.lang.ref.WeakReference; public class TestThread { public static void testUnreferencedThread() { // anonymous class extends Thread Thread t = new Thread() { public void run() { // infinite loop while (true) { try { Thread.sleep(1000); } catch (InterruptedException e) {} // as long as this line printed out, you know it is alive. System.out.println("thread is running..."); } } }; t.start(); WeakReference&lt;Thread> wr = new WeakReference&lt;Thread>(t); t = null; // no more references for Thread t // another infinite loop while (true) { try { Thread.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/java%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%90%A6%E4%BC%9A%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/ itemprop=url>显示jar文件中某个类的公开方法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-26">2013-07-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>144 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用jar命令显示jar文件的内容 C:\>jar tvf log4j.jar 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/ 262 Sat Aug 25 00:29:44GMT+08:00 2007 META-INF/MANIFEST.MF 0 SatAug 25 00:10:04 GMT+08:00 2007 org/ 0 SatAug 25 00:10:04 GMT+08:00 2007 org/apache/ 0 SatAug 25 00:10:06 GMT+08:00 2007 org/apache/log4j/ ................. 676 Sat Aug 25 00:10:04GMT+08:00 2007 org/apache/log4j/Appender.class 2567 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Logger.class 1038 Sat Aug 25 00:10:04 GMT+08:00 2007org/apache/log4j/Layout.class ................. 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/ 0 SatAug 25 00:29:46 GMT+08:00 2007 META-INF/maven/log4j/log4j/ 17780 Sat Aug 25 00:09:44 GMT+08:00 2007META-INF/maven/log4j/log4j/pom.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E6%98%BE%E7%A4%BAjar%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%85%AC%E5%BC%80%E6%96%B9%E6%B3%95/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java_rmi_%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E8%B0%83callback/ itemprop=url>Java RMI 客户端回调（callback）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java_rmi_%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%9E%E8%B0%83callback/ itemprop=url>Java RMI 客户端回调（callback）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-26">2013-07-26</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -148,7 +62,113 @@ export JAVA_HOME=/usr/lib/jvm/java-openjdk/ export HADOOP_OPTS=-Djava.</div><d
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>287 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>ActiveMQ Introduction ActiveMQ is an open source (Apache 2.0 licensed) message brokerwhich fully implements the Java Message Service 1.1. It providesadvanced features like clustering, multiple message stores, andability to use file systems, and databases as a JMS persistenceprovider.
-ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages on a queue across consumers. If a consumer dies, anyunacknowledged messages are redelivered to other consumers on thequeue. If one consumer is faster than the others it gets moremessages etc.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/62/><i class="fa fa-angle-left"></i></a>
+ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages on a queue across consumers. If a consumer dies, anyunacknowledged messages are redelivered to other consumers on thequeue. If one consumer is faster than the others it gets moremessages etc.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/activemq%E9%9B%86%E7%BE%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/ itemprop=url>PostgreSQL数据库分区的update操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-19">2013-07-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>176 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>CREATE TABLE measurement ( city_id int not null, unitsales int ); CREATE TABLE measurement_1 ( CHECK (unitsales &lt; 100 ) ) INHERITS (measurement); CREATE TABLE measurement_2 ( CHECK (unitsales >= 100 ) ) INHERITS (measurement); CREATE OR REPLACE FUNCTIONmeasurement_insert_trigger() RETURNS TRIGGER AS $$ BEGIN IF (NEW.unitsales &lt; 100) THEN INSERT INTO measurement_1 VALUES (NEW.*); ELSE INSERT INTO measurement_2 VALUES (NEW.*); END IF; RETURNNULL; END; $$ LANGUAGE plpgsql; CREATE TRIGGER insert_measurement_trigger BEFOREINSERT ON measurement FOR EACH ROWEXECUTE PROCEDURE measurement_insert_trigger(); INSERT INTO measurement VALUES (1, 1); INSERT INTO measurement VALUES (2, 2); INSERT INTO measurement VALUES (3, 300); INSERT INTO measurement VALUES (4, 400); mysdm=# select * from measurement_1; city_id | unitsales ---------+----------- 1| 1 2| 2 (2 rows) mysdm=# select * from measurement_2; city_id | unitsales ---------+----------- 3| 300 4| 400 (2 rows) Postgres没有智能到在update时根据记录的新值变动分区，而是报错！</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/ itemprop=url>Hibernate shards数据库分片</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-19">2013-07-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>471 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
+Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
+标准Hibernate编程模型 灵活的分片策略 支持虚拟分片 免费/开源 实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
+|Hibernate Core接口|Hibernate Shards实现 |&mdash;&ndash; |org.hibernate.Session|org.hibernate.shards.session.ShardedSession |org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory |org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria |org.hibernate.Query|org.hibernate.shards.query.ShardedQuery
+唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。 首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。
+气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM('AFRICA', 'ANTARCTICA', 'ASIA', 'AUSTRALIA', 'EUROPE', 'NORTH AMERICA', 'SOUTH AMERICA'), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP ); 气象报告对象模型 @Entity @Table(name="WEATHER_REPORT") public class WeatherReport { @Id @GeneratedValue(generator="WeatherReportIdGenerator") @GenericGenerator(name="WeatherReportIdGenerator", strategy="org.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/ itemprop=url>PostgreSQL与MySQL数据库分区</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-16">2013-07-16</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1246 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
+分类 分区主要有两种形式：
+水平分区 水平分区是将不同的行放入不同的表中。比如将邮编小于50000的客户放入“东部客户”表中，将邮编等于或大于50000的客户放入“西部客户”表中。该例中有两个分区表“东部客户”和“西部客户”，其合集视图就是所有客户的完整视图。 通过这样的方式不同分区里面的物理列分割的数据集得以组合，从而进行个体分割（单分区）或集体分割（1个或多个分区）。所有在表中定义的列在每个数据集中都能找到，所以表的特性依然得以保持。
+垂直分区 垂直分区创建含有（主键加上）较少列的表并使用额外的表存储（主键加上）剩余的列，每个分区表中都含有其中列所对应的行。范式化是内在包含垂直分区的过程。 垂直分区被称为“行分割”，通常用于分割表中（查找很慢的）动态数据和（查找很快的、使用较动态数据更频繁的）静态数据。这样在保证数据相关性的同时，在诸如统计分析之类的查询中访问静态数据还能提高性能。 不同的物理存储也可以用于垂直分区，例如不频繁使用的列或者宽列被存入不同的设备。 其缺点是需要管理冗余列，查询所有数据需要join操作。
+分区标准 当前高端关系数据库管理系统提供分割数据库的不同标准。这些标准使用分区键基于一定标准分配分区。常用的标准为：
+基于范围的分区 通过判断分区键是否在一定范围内选择分区。例如所有邮编列在70000和79999之间的行可以是一个分区。
+基于列表的分区 一个分区分配给一列数值。如果分区键为这些值之一，该分区被选中。例如所有国家列为冰岛、挪威、瑞典、芬兰或丹麦的行可以是一个北欧国家分区。
+基于哈希的分区 哈希函数的返回值决定分区归属。假设有四个分区，哈希函数返回值为0到3。 组合分区允许上述分区方案的一定组合。例如先使用基于范围的分区，然后使用基于哈希的分区。
+PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以PostgreSQL 9.1为例介绍一下PostgreSQL数据库分区。
+优点 分区具有下列优点：
+在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 很少使用的数据可被移往更便宜更慢的存储媒体。 这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
+表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
+CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities); 父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
+SELECT name, altitude FROM cities WHERE altitude > 500; SELECT name, altitude FROM ONLY cities WHERE altitude > 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/ itemprop=url>R语言字符处理</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>430 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>$qu [1] &ldquo;qw&rdquo; &ldquo;rty&rdquo;
+[[3]] [1] &ldquo;70&rdquo;
+[[4]] [1] &ldquo;y&rdquo; &ldquo;s&rdquo;
+strsplit(&ldquo;Hello world!&rdquo;, NULL) [[1]] [1] &ldquo;H&rdquo; &ldquo;e&rdquo; &ldquo;l&rdquo; &ldquo;l&rdquo; &ldquo;o&rdquo; " " &ldquo;w&rdquo; &ldquo;o&rdquo; &ldquo;r&rdquo; &ldquo;l&rdquo; &ldquo;d&rdquo; &ldquo;!&rdquo;
+Note that &lsquo;split&rsquo; is a regexp! unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;.&rdquo;)) [1] "" "" "" "" ""
+If you really want to split on &lsquo;.&rsquo;, use unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;[.]&rdquo;)) [1] &ldquo;a&rdquo; &ldquo;b&rdquo; &ldquo;c&rdquo; unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;.&rdquo;, TRUE)) [1] &ldquo;a&rdquo; &ldquo;b&rdquo; &ldquo;c&rdquo;字符转换和大小写转换chartr(old, new, x)将x中的字符old变换为字符new> x &lt;- &ldquo;MiXeD cAsE 123&rdquo; chartr(&ldquo;iXs&rdquo;, &ldquo;why&rdquo;, x) [1] &ldquo;MwheD cAyE 123&rdquo; chartr(&ldquo;a-cX&rdquo;, &ldquo;D-Fw&rdquo;, x) [1] &ldquo;MiweD FAsE 123&rdquo;tolower(x)toupper(x)casefold(x, upper = FALSE)casefold是为了兼容S-PLUS而实现的tolower和toupper函数封装器。> x &lt;- &ldquo;MiXeD cAsE 123&rdquo; tolower(x) [1] &ldquo;mixed case 123&rdquo; toupper(x) [1] &ldquo;MIXED CASE 123&rdquo;格式化输出sprintf(fmt, &mldr;) 系统C库函数sprintf封装器> sprintf("%s is %f feet tall\n", &ldquo;Sven&rdquo;, 7.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ itemprop=url>R语言数值计算</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>R中数值计算的对象一般是向量或列表，不同长度的对象进行计算时，短的对象元素将被循环使用。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/ itemprop=url>git资料</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>74 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>综合 Pro Git 英文版 中文版
+Git Community Book 英文版 中文版
+GotGitHub
+Git使用详解
+项目主页 Creating Project Pages manually
+Setup GitHub Pages &ldquo;gh-pages&rdquo; branch and &ldquo;master&rdquo; branch as subfolders of a parent project folder (&ldquo;grandmaster&rdquo;).
+Setup GitHub Pages &ldquo;gh-pages&rdquo; branch as a subfolder within the &ldquo;master&rdquo; project on your local checkout - a step-by-step guide.
+其他 Collaborative Github Workflow
+如何理解git reset 取消提交的操作？
+Git Document
+Atlassian Git Tutorial
+版本管理svn,git,cvs比较
+learnGitBranching
+a successful git branching model</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/62/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/59/>59</a>
 <a class=page-number href=/page/60/>60</a>
 <a class=page-number href=/page/61/>61</a>
@@ -160,9 +180,9 @@ ActiveMQ HA ActiveMQ support reliable high performance load balancing ofmessages
 <a class=page-number href=/page/67/>67</a>
 <a class="extend next" rel=next href=/page/64/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -3,91 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java%E7%BC%93%E5%AD%98%E8%A7%84%E8%8C%83jcache_apijsr107/ itemprop=url>Java缓存规范JCache API(JSR107)</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-22">2013-05-22</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一下Java缓存规范JCacheAPI（JSR107），它对Java对象缓存进行标准化，方便高效开发，让程序员摆脱实现缓存有效期、互斥、假脱机（spooling）和缓存一致性等负担。该规范提供了API、RI（参考实现）和TCK（技术兼容性套件）。 从设计的角度看，基本组成部分有一个CacheManager，用来持有、控制缓存集合。缓存里存放键值对条目。 整个规范包括了如下内容：
-支持原子操作的缓存读写 缓存事件监听器 统计 事务 注解 JSR107从2001年开始，中间搁置了一段时间，后来Terracotta（产品：EhCache）和Oracle（产品：Coherence）在2010年加强了对JSR-107的投入，原本有望放入JAVAEE7(JSR342)中，可惜在期限内完不成，直到2012年底才推出了草案。 我更关注数据网格（JSR347），那个是JSR107的超集，关注缓存的逐出、复制和分布化，以及事务。可惜连草案也还没影呢。 http://jcp.org/en/jsr/detail?id=107
-http://jcp.org/en/jsr/detail?id=347</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_data-eviction-and-persistence/ itemprop=url>GemFire 数据逐出和持久化</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-17">2013-05-17</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>212 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>为什么逐出数据? 如果有多于JVM内存的数据想放入Region，数据逐出是可能使用的一种解决方案。 一种备选方案是对数据进行分区。然而分区Region也可能无法将所有数据放入内存，所以有可能需要对分区Region采用数据逐出。 另一种备选方案是让数据过一定期限后从内存删除，这是基于时间而不是空间的一种方案。
-数据逐出如何工作？ 当使用数据逐出时需要决定所采用的算法和动作。 算法规定了需要检查的所耗费资源的最大值，可为基于条目数量、内存消耗字节数和可用堆消耗百分比的LRU（最近最少使用）算法。
-条目数量和绝对内存消耗量完全由GemFire逐出控制器基于Region级别进行管理。EntryLRU是最简单的算法，适用于每个条目消耗相同大小的内存。Memory LRU则适用于每个条目消耗不同大小的内存。 Heap消耗百分比由GemFire逐出控制器基于缓存级别进行管理。最大值设置在管理器配置的缓存下配置。当管理器断定需要进行数据逐出时，它命令逐出控制器对所有逐出算法设为lru-heap-percentage的region采取数据逐出，直到管理器停止这一命令。注意的是，当其他非LRU资源甚至非GemFire缓存消耗内存时，这一算法也会导致HeapLRUregion的数据逐出。 对于一个region，数据逐出操作会逐出最近最少使用到的条目。几乎所有操作（包括读写）都认为是对条目的使用，除了以下的操作：
-Region.containsKey Region.containsValue Region.getEntry 当使用MemoryLRU或HeapLRU算法时需要实现ObjectSizer接口。这让GemFire可以调用自己的代码来计算条目的字节大小。让条目大小估算精确很重要，但同时需要注意的是复杂ObjectSize实现会花费较长时间并导致性能下降。如果条目的所有值都是String或byte[]类型，GemFire会自动计算内存大小，无须实现ObjectSizer。
-分区Region在数据逐出的不同之处 对于分区region，基于条目数量和内存消耗量的逐出行为当节点数据超过本地缓存主副本和冗余副本组合的限制后发生。对于基于堆消耗百分比的逐出行为由管理器驱动。 因为维护整个分区region或者同一节点所有桶（bucket）的LRU条目信息代价太大，GemFire是基于桶来维护LRU条目信息的。此外，对分区region的所有桶施行数据组出会导致数据分布失衡。 因此，对分区region进行的数据逐出可能会保留相对本地节点其他桶或其他分布系统节点相对更老的条目。它可能在主副本中保留条目而在第二副本中逐出条目，或者相反。 LRU逐出对每个桶单独进行:
-对基于内存和条目数的数据逐出，LRU逐出在操作新条目时有可能执行，直到Region的桶组合整体内存下降到门限下结束。对于内存逐出，分区region最大内存门限会忽略lru-memory-size设置，始终是local-max-memory。 对于基于堆的数据逐出，每个分区region桶被当作单独region来处理，每个逐出动作仅考虑桶内的LRU，而不是整体分区region。 动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。
-数据无持久化 数据持久化 EvictionAction.NONE 条目将在内存中一直保存。 条目将在内存和磁盘中一直保存。 EvictionAction.LOCAL_DESTROY 条目（键和值两部分）将从内存中释放。仅当被逐出数据可从外部数据源加载时可用。 EvictionAction.OVERFLOW_TO_DISK 条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。 条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。 磁盘存储文件名和扩展名 磁盘存储文件包括存储管理、访问控制文件和操作日志（oplog，记录了删除和其他所有操作）。下面的表描述了文件名和扩展名及示例。
-文件名 文件名包括三部分:
-第一部分: 使用标识 值 用途 示例 OVERFLOW 仅为溢出region和队列的操作日志数据。 OVERFLOWoverflowDS1_1.crf BACKUP 持久化、持久化+溢出rgion和队列操作日志数据。 BACKUPoverflowDS1.if, BACKUPDEFAULT.if DRLK_IF 访问控制 - 对磁盘存储上锁。 DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk 第二部分: 磁盘存储名 值 用途 示例 &lt;磁盘存储名> 非默认磁盘存储。 name=&ldquo;overflowDS1&rdquo; DRLK_IFoverflowDS1.lk,name=&ldquo;persistDS1&rdquo; BACKUPpersistDS1_1.crf DEFAULT 默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。 DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf 第三部分: 操作日志序列号 值 用途 示例 序列号格式为_n 仅用于操作日志。编码从1开始。 OVERFLOWoverflowDS1_1.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_data-eviction-and-persistence/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_query/ itemprop=url>GemFire查询</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-15">2013-05-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1706 字 ~9分钟</span></span></div></header><div class=post-body itemprop=articleBody>GemFire在region中存储的数据为键值对，其中值可以为任何对象，例如简单的字节数组或者复杂的嵌套对象。GemFire提供了一种查询机制可以获得满足特定条件的键、值或条目集合。GemFire支持的查询语义和语法是OQL（对象查询语言）的一个子集。OQL是由对象数据管理组制定的ODMG3.0对象模型的重要组件之一，与SQL很相似，可以查询复杂对象、对象属性和方法，支持完整的ASCII和Unicode字符集。 为了提高查询执行效率，GemFire像数据库一样支持索引。在查询执行时，查询引擎使用数据存储上的索引可以减少查询处理时间。查询是GemFire很强大的功能，但它也需要大量性能优化和容量规划也确保不拖垮系统。
-Region存储示例 本文的查询示例基于类Porfolio和Positon的对象。
-Portfolio.java package query; import java.io.DataInput; import java.io.DataOutput; import java.io.IOException; import java.io.Serializable; import java.util.HashMap; import java.util.Iterator; import java.util.Map; import com.gemstone.gemfire.DataSerializable; import com.gemstone.gemfire.DataSerializer; public class Portfolio implements Serializable, DataSerializable { private int ID; public String pkid; public Position position1; public Position position2; public String description; public HashMap positions = new HashMap(); String type; public String status; public String [] names={"aaa","bbb","ccc","ddd"}; public int getID() { return ID; } public String getPk() { return pkid; } public HashMap getPositions() { return positions; } public Position getP1() { return position1; } public Position getP2() { return position2; } public boolean isActive() { return status.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_query/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_region-type/ itemprop=url>GemFire Region分类</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-15">2013-05-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>154 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>GemFire开发指南6.5的第4.2节仅列举了分区、复制（分布式）、分布式（非复制）和本地四种Region类型，但RegionShortcut类却定义了23个快捷预定义属性Region。Region的主要行为取决于数据策略、关注策略、范围、本地最大内存和冗余拷贝数（仅用于分区Region）、逐出算法和动作。
-Region快捷预定义属性 数据策略 范围 本地最大内存注1 冗余拷贝数注1 逐出算法 逐出动作 LOCAL NORMAL LOCAL LOCAL_HEAP_LRU NORMAL LOCAL LRU_HEAP LOCAL_DESTROY LOCAL_OVERFLOW NORMAL LOCAL LRU_HEAP OVERFLOW_TO_DISK LOCAL_PERSISTENT PERSISTENT_REPLICATE LOCAL LOCAL_PERSISTENT_OVERFLOW PERSISTENT_REPLICATE LOCAL LRU_HEAP OVERFLOW_TO_DISK PARTITION PARTITION PARTITION_HEAP_LRU PARTITION LRU_HEAP LOCAL_DESTROY PARTITION_OVERFLOW PARTITION LRU_HEAP OVERFLOW_TO_DISK PARTITION_PERSISTENT PERSISTENT_PARTITION PARTITION_PERSISTENT_OVERFLOW PERSISTENT_PARTITION LRU_HEAP OVERFLOW_TO_DISK PARTITION_PROXY PARTITION 0 PARTITION_PROXY_REDUNDANT PARTITION 0 1 PARTITION_REDUNDANT PARTITION 1 PARTITION_REDUNDANT_HEAP_LRU PARTITION 1 LRU_HEAP LOCAL_DESTROY PARTITION_REDUNDANT_OVERFLOW PARTITION 1 LRU_HEAP OVERFLOW_TO_DISK PARTITION_REDUNDANT_PERSISTENT PERSISTENT_PARTITION 1 PARTITION_REDUNDANT_PERSISTENT_OVERFLOW PERSISTENT_PARTITION 1 LRU_HEAP OVERFLOW_TO_DISK REPLICATE REPLICATE DISTRIBUTED_ACK REPLICATE_HEAP_LRU PRELOAD DISTRIBUTED_ACK LRU_HEAP LOCAL_DESTROY REPLICATE_OVERFLOW REPLICATE DISTRIBUTED_ACK LRU_HEAP OVERFLOW_TO_DISK REPLICATE_PERSISTENT PERSISTENT_REPLICATE DISTRIBUTED_ACK REPLICATE_PERSISTENT_OVERFLOW PERSISTENT_REPLICATE DISTRIBUTED_ACK LRU_HEAP OVERFLOW_TO_DISK REPLICATE_PROXY EMPTY DISTRIBUTED_ACK 注1：仅用于分区region</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_region-type/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%B8%BAunix%E7%BB%88%E7%AB%AF%E6%88%96windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AEutf-8%E7%BC%96%E7%A0%81/ itemprop=url>为Unix终端或Windows命令行设置UTF-8编码</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-14">2013-05-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1112 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>Unix终端## 使用“locale –a” 命令检查支持的编码 servermt> locale -a C POSIX ……… en_US.ISO8859-1 en_US.ISO8859-15 en_US.US-ASCII en_US.UTF-8 ……… 设置环境变量 LANG=en_US.UTF-8 Windows命令行 通过chcp命令设置 Displays or sets the active code page number: CHCP [nnn] C:\>chcp Active code page: 437 C:\>chcp 65001 Active code page: 65001 通过mode con命令设置 Select code page: MODE CON[:] CP SELECT=yyy Code page status: MODE CON[:] CP [/STATUS] C:\>mode con cp /status Status for device CON: ---------------------- Code page: 437 C:\>mode con cp select=65001 Status for device CON: ---------------------- Lines: 300 Columns: 160 Keyboard rate: 31 Keyboard delay: 1 Code page: 65001 代码页代号 Identifier .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%B8%BAunix%E7%BB%88%E7%AB%AF%E6%88%96windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AEutf-8%E7%BC%96%E7%A0%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/windows%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E6%9F%A5%E8%AF%A2%E5%8F%8A%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C/ itemprop=url>Windows服务的创建、查询及删除操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-05-14">2013-05-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>14 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>SC是与Windows服务管理器和服务通信的命令行程序。
-查询SC帮助 创建Windows服务 示例：sc create akxService binPath= C:\Test\akxService.exe
-查询Windows服务 删除Windows服务 示例：sc delete akxService 如果服务名含有空格，可在服务名上加双引号。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%8A%80%E6%9C%AF%E5%8D%9A%E6%96%87%E9%93%BE%E6%8E%A5/ itemprop=url>技术博文链接</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%8A%80%E6%9C%AF%E5%8D%9A%E6%96%87%E9%93%BE%E6%8E%A5/ itemprop=url>技术博文链接</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-03-06">2013-03-06</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -158,7 +75,82 @@ Jacob使用入门及问题解析</div><footer class=post-footer><div class=post-
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一直对student分布的名字莫名其妙，搜了一下，原来t分布是由统计学家哥威廉·戈塞在都柏林的A.吉尼斯父子酿酒厂对小样本中平均数比例对其标准误差的分布所做的研究，由于吉尼斯酿酒厂的规定禁止戈塞发表关于酿酒过程变化性的研究成果，因此戈塞不得不于1908年，首次以“学生”(Student)为笔名，发表自己的研究成果。因此t分布又称为学生分布。 http://baike.baidu.com/view/1419652.htm
-http://baike.baidu.com/view/1332600.htm</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/66/><i class="fa fa-angle-left"></i></a>
+http://baike.baidu.com/view/1332600.htm</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AD%A6%E4%BC%9A%E4%BA%86%E7%94%A8excel%E5%88%B6%E4%BD%9C%E7%94%98%E7%89%B9%E5%9B%BE/ itemprop=url>学会了用excel制作甘特图</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2012-09-23">2012-09-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>参考文档 http://dreamtails.pixnet.net/blog/post/22059710-用excel畫甘特圖! http://www.excel123.cn/Article/tuxinghetubiao/201201/917.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/flex_explicitly_mapping_actionscript_and_java_objects/ itemprop=url>[Flex] Explicitly mapping ActionScript and Java objects</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2012-09-16">2012-09-16</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>2 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Flex和Java对象的映射 http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=serialize_data_3.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/eclipse%E4%B8%AD%E8%A7%A3%E5%86%B3%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E8%B6%85%E6%97%B6%E7%9A%84%E8%AE%BE%E7%BD%AE/ itemprop=url>Eclipse中解决远程调试超时的设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2012-09-07">2012-09-07</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/eclipse itemprop=url rel=index><span itemprop=name>Eclipse</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>35 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>主要是加大调试器超时和启动超时设置 Tomcat设置 catalina.bat中添加如下：
+:doStart shift if "%TITLE%" == "" set TITLE=Tomcat set _EXECJAVA=start "%TITLE%" %_RUNJAVA% set CATALINA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=5558,server=y,suspend=n if not ""%1"" == ""-security"" goto execCmd shift echo Using Security Manager set "SECURITY_POLICY_FILE=%CTALINA_BASE%\conf\catalina.policy" goto execCmd Eclipse设置</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/flex_%E6%98%BE%E5%BC%8F%E4%BD%BF%E7%94%A8public_namespace/ itemprop=url>[Flex] 显式使用public namespace</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2012-09-01">2012-09-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>147 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看代码时，发现public namespace的使用，搜了一下flex4 in action，貌似没有。 放狗搜了一下，学习学习。 myspace.as
+package { public namespace myspace ="http://myspace"; } TestClass.as
+package { import myspace; public class TestClass { public function foo():void { trace("Public foo is called"); } myspace function foo():void { trace("MySpace foo is called"); } private function fooPrivate():void { trace("Called private function"); } protected function fooProtected():void { trace("Called protected function"); } public function callFoo(t:TestClass):void { // call the private/protected members on the object. t.fooPrivate(); t.fooProtected(); } } } testApp.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/flex_%E6%98%BE%E5%BC%8F%E4%BD%BF%E7%94%A8public_namespace/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E8%A1%A8%E9%A9%B1%E5%8A%A8%E6%B3%95/ itemprop=url>表驱动法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2012-08-24">2012-08-24</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>表提供了一种复杂逻辑和继承结构的替换方案。如果发现自己对某个应用程序的逻辑或者继承树关系感到困惑，可以问问自己它是否可以通过一个查询表来加以简化。 使用表的一项关键决策是决定如何访问表。可以通过直接访问、索引访问或者阶梯访问。 使用表的另一项关键决策是决定应该把什么内容放入表中。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/tomcat_jndi_%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE/ itemprop=url>Tomcat JNDI 数据源配置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2012-08-22">2012-08-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/web-application-server itemprop=url rel=index><span itemprop=name>Web Application Server</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学写一下Tomcat:JNDI Datasource HOW-TO，JNDI数据源可以配置到两个位置。Tomcat详细介绍了第二种方式，我目前的项目使用的是第一种方式。第一种方式的好处是，多个Web应用程序可以共享Tomcat全局命名空间里的资源。
+Tomcat全局命名空间 $CATALINA_HOME$/conf/server.xml $CATALINA_HOME$/conf/localhost/javatest.xml Web应用程序环境(Context)</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/66/><i class="fa fa-angle-left"></i></a>
+<a class=page-number href=/page/61/>61</a>
 <a class=page-number href=/page/62/>62</a>
 <a class=page-number href=/page/63/>63</a>
 <a class=page-number href=/page/64/>64</a>
@@ -167,12 +159,11 @@ http://baike.baidu.com/view/1332600.htm</div><footer class=post-footer><div clas
 <span class="page-number current">67</span>
 <a class=page-number href=/page/68/>68</a>
 <a class=page-number href=/page/69/>69</a>
-<a class=page-number href=/page/70/>70</a>
 <a class="extend next" rel=next href=/page/68/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -3,114 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/ itemprop=url>PostgreSQL数据库分区的update操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-19">2013-07-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>176 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>CREATE TABLE measurement ( city_id int not null, unitsales int ); CREATE TABLE measurement_1 ( CHECK (unitsales &lt; 100 ) ) INHERITS (measurement); CREATE TABLE measurement_2 ( CHECK (unitsales >= 100 ) ) INHERITS (measurement); CREATE OR REPLACE FUNCTIONmeasurement_insert_trigger() RETURNS TRIGGER AS $$ BEGIN IF (NEW.unitsales &lt; 100) THEN INSERT INTO measurement_1 VALUES (NEW.*); ELSE INSERT INTO measurement_2 VALUES (NEW.*); END IF; RETURNNULL; END; $$ LANGUAGE plpgsql; CREATE TRIGGER insert_measurement_trigger BEFOREINSERT ON measurement FOR EACH ROWEXECUTE PROCEDURE measurement_insert_trigger(); INSERT INTO measurement VALUES (1, 1); INSERT INTO measurement VALUES (2, 2); INSERT INTO measurement VALUES (3, 300); INSERT INTO measurement VALUES (4, 400); mysdm=# select * from measurement_1; city_id | unitsales ---------+----------- 1| 1 2| 2 (2 rows) mysdm=# select * from measurement_2; city_id | unitsales ---------+----------- 3| 300 4| 400 (2 rows) Postgres没有智能到在update时根据记录的新值变动分区，而是报错！</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E7%9A%84update%E6%93%8D%E4%BD%9C/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/ itemprop=url>Hibernate shards数据库分片</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-19">2013-07-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>471 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>简介 Hibernate Shards是Hibernate的一个子项目，由Google工程师Max Ross创建并捐献给Hibernate社区。 http://www.hibernate.org/subprojects/shards.html https://github.com/hibernate/hibernate-shards
-Hibernate Shards是对Hibernate Core提供水平分区支持的一个框架。
-标准Hibernate编程模型 灵活的分片策略 支持虚拟分片 免费/开源 实现Hibernate Shards Hibernate Shards几乎可以与现有Hibernate项目无缝结合使用。 Hibernate Shards的首要目标是让程序员使用标准Hibernate Core API查询和处理已分片的数据库,因此Hibernate Shards主要由大家已经熟知的Hibernate Core接口的实现（分片感知）组成，大多数Hibernate应用程序使用Hibernate Core提供的接口，因此无需对已有代码做过多重构。
-|Hibernate Core接口|Hibernate Shards实现 |&mdash;&ndash; |org.hibernate.Session|org.hibernate.shards.session.ShardedSession |org.hibernate.SessionFactory|org.hibernate.shards.ShardedSessionFactory |org.hibernate.Criteria|org.hibernate.shards.criteria.ShardedCriteria |org.hibernate.Query|org.hibernate.shards.query.ShardedQuery
-唯一问题是 Hibernate Shards 需要一些特定信息和行为。比如，需要一个分片访问策略、一个分片选择策略和一个分片解析策略。这些是您必须实现的接口，虽然部分情况下，您可以使用默认策略。我们将在后面的部分逐个了解各个接口。 首先让我们看一下《HibernateShard 参考指南》中所用的数据库模式、对象模型及映射。
-气象报告数据库模式 CREATE TABLE WEATHER_REPORT ( REPORT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, CONTINENT ENUM('AFRICA', 'ANTARCTICA', 'ASIA', 'AUSTRALIA', 'EUROPE', 'NORTH AMERICA', 'SOUTH AMERICA'), LATITUDE FLOAT, LONGITUDE FLOAT, TEMPERATURE INT, REPORT_TIME TIMESTAMP ); 气象报告对象模型 @Entity @Table(name="WEATHER_REPORT") public class WeatherReport { @Id @GeneratedValue(generator="WeatherReportIdGenerator") @GenericGenerator(name="WeatherReportIdGenerator", strategy="org.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate_shards%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/ itemprop=url>PostgreSQL与MySQL数据库分区</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-16">2013-07-16</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1246 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>数据库分区是逻辑数据库的分割。分区可以通过创建独立的较小数据库（每个有自己的表、索引和事物日志）或分割所选的元素（例如一个表）来实现。数据库分区通常是为了易管理性、性能和数据有效性。
-分类 分区主要有两种形式：
-水平分区 水平分区是将不同的行放入不同的表中。比如将邮编小于50000的客户放入“东部客户”表中，将邮编等于或大于50000的客户放入“西部客户”表中。该例中有两个分区表“东部客户”和“西部客户”，其合集视图就是所有客户的完整视图。 通过这样的方式不同分区里面的物理列分割的数据集得以组合，从而进行个体分割（单分区）或集体分割（1个或多个分区）。所有在表中定义的列在每个数据集中都能找到，所以表的特性依然得以保持。
-垂直分区 垂直分区创建含有（主键加上）较少列的表并使用额外的表存储（主键加上）剩余的列，每个分区表中都含有其中列所对应的行。范式化是内在包含垂直分区的过程。 垂直分区被称为“行分割”，通常用于分割表中（查找很慢的）动态数据和（查找很快的、使用较动态数据更频繁的）静态数据。这样在保证数据相关性的同时，在诸如统计分析之类的查询中访问静态数据还能提高性能。 不同的物理存储也可以用于垂直分区，例如不频繁使用的列或者宽列被存入不同的设备。 其缺点是需要管理冗余列，查询所有数据需要join操作。
-分区标准 当前高端关系数据库管理系统提供分割数据库的不同标准。这些标准使用分区键基于一定标准分配分区。常用的标准为：
-基于范围的分区 通过判断分区键是否在一定范围内选择分区。例如所有邮编列在70000和79999之间的行可以是一个分区。
-基于列表的分区 一个分区分配给一列数值。如果分区键为这些值之一，该分区被选中。例如所有国家列为冰岛、挪威、瑞典、芬兰或丹麦的行可以是一个北欧国家分区。
-基于哈希的分区 哈希函数的返回值决定分区归属。假设有四个分区，哈希函数返回值为0到3。 组合分区允许上述分区方案的一定组合。例如先使用基于范围的分区，然后使用基于哈希的分区。
-PostgreSQL数据库分区 PostgreSQL支持基本的数据库分区，本文以PostgreSQL 9.1为例介绍一下PostgreSQL数据库分区。
-优点 分区具有下列优点：
-在某些情况下查询性能能显著提升，特别是表中频繁访问的行在一个单独分区或者少数量分区中。分区替代索引起始列会减少索引大小，使频繁使用的索引更有可能放入内存。 当查询或更新访问单个分区的大部分记录时，通过对分区的顺序扫描取代对全表的索引读或随机读，也会提升性能。 如果批量加载和删除需求付诸于分区设计，这些需求可以通过添加或删除分区来完成。ALTER TABLE NOINHERIT和DROP TABLE都比批量操作更快，而且完全可以避免批量删除导致的VACUUM负担。 很少使用的数据可被移往更便宜更慢的存储媒体。 这些优点仅在表非常大时是真正有价值的。对表采用分区的收益取决于应用程序，一般经验法则是表超过了数据库服务器的物理内存时使用分区。
-表继承 PostgreSQL通过表继承支持分区，每个分区作为单个父表的子表创建。父表本身通常为空，仅用于代表整个数据集。
-CREATE TABLE cities ( name text, population float, altitude int -- in feet ); CREATE TABLE capitals ( state char(2) ) INHERITS (cities); 父表的所有check约束和not-null约束自动被子表继承，其他类型的约束（unique、主键和外键约束）不会被继承。
-SELECT name, altitude FROM cities WHERE altitude > 500; SELECT name, altitude FROM ONLY cities WHERE altitude > 500; -- 通过ONLY关键词，第二个查询仅作用于表cities而不会用于cities的子表。 支持的分区标准 PostgreSQL数据库支持基于范围的分区和基于列表的分区。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/postgresql%E4%B8%8Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/ itemprop=url>R语言字符处理</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>430 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>$qu [1] &ldquo;qw&rdquo; &ldquo;rty&rdquo;
-[[3]] [1] &ldquo;70&rdquo;
-[[4]] [1] &ldquo;y&rdquo; &ldquo;s&rdquo;
-strsplit(&ldquo;Hello world!&rdquo;, NULL) [[1]] [1] &ldquo;H&rdquo; &ldquo;e&rdquo; &ldquo;l&rdquo; &ldquo;l&rdquo; &ldquo;o&rdquo; " " &ldquo;w&rdquo; &ldquo;o&rdquo; &ldquo;r&rdquo; &ldquo;l&rdquo; &ldquo;d&rdquo; &ldquo;!&rdquo;
-Note that &lsquo;split&rsquo; is a regexp! unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;.&rdquo;)) [1] "" "" "" "" ""
-If you really want to split on &lsquo;.&rsquo;, use unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;[.]&rdquo;)) [1] &ldquo;a&rdquo; &ldquo;b&rdquo; &ldquo;c&rdquo; unlist(strsplit(&ldquo;a.b.c&rdquo;, &ldquo;.&rdquo;, TRUE)) [1] &ldquo;a&rdquo; &ldquo;b&rdquo; &ldquo;c&rdquo;字符转换和大小写转换chartr(old, new, x)将x中的字符old变换为字符new> x &lt;- &ldquo;MiXeD cAsE 123&rdquo; chartr(&ldquo;iXs&rdquo;, &ldquo;why&rdquo;, x) [1] &ldquo;MwheD cAyE 123&rdquo; chartr(&ldquo;a-cX&rdquo;, &ldquo;D-Fw&rdquo;, x) [1] &ldquo;MiweD FAsE 123&rdquo;tolower(x)toupper(x)casefold(x, upper = FALSE)casefold是为了兼容S-PLUS而实现的tolower和toupper函数封装器。> x &lt;- &ldquo;MiXeD cAsE 123&rdquo; tolower(x) [1] &ldquo;mixed case 123&rdquo; toupper(x) [1] &ldquo;MIXED CASE 123&rdquo;格式化输出sprintf(fmt, &mldr;) 系统C库函数sprintf封装器> sprintf("%s is %f feet tall\n", &ldquo;Sven&rdquo;, 7.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/r%E8%AF%AD%E8%A8%80%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ itemprop=url>R语言数值计算</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>R中数值计算的对象一般是向量或列表，不同长度的对象进行计算时，短的对象元素将被循环使用。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/ itemprop=url>git资料</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-13">2013-07-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>74 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>综合 Pro Git 英文版 中文版
-Git Community Book 英文版 中文版
-GotGitHub
-Git使用详解
-项目主页 Creating Project Pages manually
-Setup GitHub Pages &ldquo;gh-pages&rdquo; branch and &ldquo;master&rdquo; branch as subfolders of a parent project folder (&ldquo;grandmaster&rdquo;).
-Setup GitHub Pages &ldquo;gh-pages&rdquo; branch as a subfolder within the &ldquo;master&rdquo; project on your local checkout - a step-by-step guide.
-其他 Collaborative Github Workflow
-如何理解git reset 取消提交的操作？
-Git Document
-Atlassian Git Tutorial
-版本管理svn,git,cvs比较
-learnGitBranching
-a successful git branching model</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/git%E8%B5%84%E6%96%99/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/ itemprop=url>[Hadoop] mapred和mapreduce包的区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_mapred%E5%92%8Cmapreduce%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB/ itemprop=url>[Hadoop] mapred和mapreduce包的区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-12">2013-07-12</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -175,7 +69,90 @@ Transaction Transaction允许对有效的事务进行操作。一个事务对象
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>101 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>折腾GemFire，免不了要折腾序列化和发序列化。GemFire支持Java的序列化，同时也有自己的DataSerializable接口实现自己的序列化，此外还有Delta接口支持数据同步时仅传送上一次数据同步后的更新。 今天测试的实现先用Java的序列化，一开始玩java.io.Serializable接口，后来玩writeObject()和readObject()方法。顺便看看有writeObject方法后ObjectOutputStream调用堆栈与原有分支的不同。
-private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push("custom writeObject data (class \"" + slotDesc.getName() + "\")"); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/63/><i class="fa fa-angle-left"></i></a>
+private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOException { ObjectStreamClass.ClassDataSlot[] slots = desc.getClassDataLayout(); for (int i = 0; i &lt; slots.length; i++) { ObjectStreamClass slotDesc = slots[i].desc; if (slotDesc.hasWriteObjectMethod()) { PutFieldImpl oldPut = curPut; curPut = null; if (extendedDebugInfo) { debugInfoStack.push("custom writeObject data (class \"" + slotDesc.getName() + "\")"); } SerialCallbackContext oldContext = curContext; try { curContext = new SerialCallbackContext(obj, slotDesc); bout.setBlockDataMode(true); slotDesc.invokeWriteObject(obj, this); bout.setBlockDataMode(false); bout.writeByte(TC_ENDBLOCKDATA); } finally { curContext.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%B0%8F%E7%8E%A9java%E5%BA%8F%E5%88%97%E5%8C%96/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_usage-limit-of-dynamci-region/ itemprop=url>动态GemFire Region使用局限</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-05">2013-07-05</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>56 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>介绍 当前项目原有设计使用了嵌套的Map作为缓存。我在使用GemFire产品时使用普通region替代外层map，使用动态region替代内层map。
+对于"/outer_region/Dimension"region中的条目，键是维ID（例如5），值是动态region"/inter_region/Dimension/5". &ldquo;/outer_region/Dimension&rdquo; region的容量是256个条目，动态region"/inter_region/Dimension/5"的容量是10个条目。 当维#5被删除，"/outer_region/Dimension"相应条目应该删除，而动态region"/inter/Dimension/5"应该被销毁。
+测试发现，当GemFire节点通过API创建了动态region后，它会将动态region列表发送给其他节点，此后的GemFire节点在创建Cache会失败。通过异常日志可知动态region会在Cache创建过程中被创建，但后继GemFire节点无法找到父region (在该节点创建Cache之前根本没机会创建****region!),这是导致失败的原因。
+如果对cache使用cache-xml-file， GemFire会先创建普通region之后创建动态region。这需要将一个cache下所有region定义都放到cache-xml-file里，上述问题可能会被避免。但是一个cache被多个项目共享，所有项目的region定义放在一起的话，配置耦合度很高，对于产品的灵活性和扩展性很不利。
+日志 Caused by: com.gemstone.gemfire.cache.RegionDestroyedException: Error -- Could not find a region named: '/inter_region/Dimension' at com.gemstone.gemfire.cache.DynamicRegionFactory.createDynamicRegionImpl(DynamicRegionFactory.java) at com.gemstone.gemfire.cache.DynamicRegionFactory.createDefinedDynamicRegions(DynamicRegionFactory.java) at com.gemstone.gemfire.cache.DynamicRegionFactory._internalInit(DynamicRegionFactory.java) at com.gemstone.gemfire.internal.cache.DynamicRegionFactoryImpl.internalInit(DynamicRegionFactoryImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.readyDynamicRegionFactory(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.initializeDeclarativeCache(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.init(GemFireCacheImpl.java) at com.gemstone.gemfire.internal.cache.GemFireCacheImpl.create(GemFireCacheImpl.java) at com.gemstone.gemfire.cache.CacheFactory.create(CacheFactory.java) at com.gemstone.gemfire.cache.CacheFactory.create(CacheFactory.java) at org.springframework.data.gemfire.CacheFactoryBean.createCache(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.init(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.getObject(CacheFactoryBean.java) at org.springframework.data.gemfire.CacheFactoryBean.getObject(CacheFactoryBean.java) at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.doGetObjectFromFactoryBean(FactoryBeanRegistrySupport.java) ... 34 more</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/ itemprop=url>初探ANTLR</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-03">2013-07-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>96 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>当前的项目是基于多维数据集市的RTOLAP财务系统，其中的公式使用ANTLR 3进行语法解析和编译。 此外看Hibernate源码的时候也接触到ANTLR，Hibernate使用ANTLR产生查询分析器。
+ANTLR简介 ANTLR的全称是ANother Tool for LanguageRecognition，其前身是PCCTS，和YACC、LEX、JavaCC、Coco/R等工具一样，都是编译器的编译程序。 ANTLR对语法树构造、遍历和转换、错误修复和报告提供出色的支持，它为包括Java，C++，C#和Python在内的语言提供了一个通过语法描述来自动构造自定义语言的识别器、解析器、编译器和转换器的框架。 ANTLR可以通过断言（Predicate）解决识别冲突；支持动作（Action）和返回值（ReturnValue）来；更棒的是，它可以根据输入自动生成语法树并可视化的显示出来。由此，计算机语言的翻译变成了一项普通的任务。 ANTLR是由旧金山大学的Terence Parr博士领导下完成的，最新版本为4.1。
+编译器工作主要分有词法分析，语法分析，代码生成三个步骤。ANTLR分别提供了三个东西:
+词法分析器（Lexer） 词法分析器又称为Scanner，Lexicalanalyser和Tokenizer。程序设计语言通常由关键字和严格定义的语法结构组成。编译的最终目的是将程序设计语言的高层指令翻译成物理机器或虚拟机可以执行的指令。词法分析器的工作是分析量化那些本来毫无意义的字符流，将他们翻译成离散的字符组（也就是一个一个的Token），包括关键字、标识符、符号和操作符供语法分析器使用。 语法分析器（Parser） 编译器又称为Syntacticalanalyser。在分析字符流的时候，Lexer不关心所生成的单个Token的语法意义及其与上下文之间的关系，而这就是Parser的工作。语法分析器将收到的Tokens组织起来，并转换成为目标语言语法定义所允许的序列。 无论是Lexer还是Parser都是一种识别器，Lexer是字符序列识别器而Parser是Token序列识别器。他们在本质上是类似的东西，而只是在分工上有所不同而已。 抽象语法树遍历器 (Tree walker) 树分析器可以用于对语法分析生成的抽象语法树进行遍历，并能执行一些相关的操作，可以进行语义匹配生成代码。 ANTLR 3的Eclipse插件 ANTLR IDE用于ANTLR3的一个Eclipse插件。
+支持ANTLR 3.0、3.1、3.2、3.3和3.4。 ANTLR启动器和调试器(仅限Java) ANTLR内建解析器。 代码格式化工具(Ctrl+Shift+F) 语法图（铁路图） 定制目标 自动生成资源 对语法文件中错误和告警自动标注 高级文本编辑器、代码选择(F3)和代码补全(Ctrl+Space) 对（Java、C#、Python和C等）目标语言自动语法高亮 标注生成的资源 高级字符串模板(StringTemplate)编辑器(*.st and *.stg) 高级语法单元测试(gUnit)编辑器(*.gunit and *.testsuite) 使用ANTLR生成代码的ANT设置 &lt;property name="lib.dir" value="lib" /> &lt;property name="gensrc.dir" value="gen-source/Java" /> &lt;property name="parser.dir" value="/com/sas/yourgramarpackage"/> &lt;target name="gen-source"> &lt;mkdir dir="${gensrc.dir}/${parser.dir}" /> &lt;antlr:antlr3 xmlns:antlr="antlib:org/apache/tools/ant/antlr" target="${src.dir}/${parser.dir}/YourGrammar.g" outputdirectory="${gensrc.dir}/${parser.dir}"> &lt;classpath> &lt;fileset dir="${lib.dir}"> &lt;include name="*.jar" /> &lt;/fileset> &lt;/classpath> &lt;/antlr:antlr3> &lt;/target> 使用ANTLR生成代码的Maven设置 &lt;build> &lt;plugins> &lt;plugin> &lt;groupId>org.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%88%9D%E6%8E%A2antlr/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%90%9C%E7%B4%A2%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/ itemprop=url>博客链接（搜索、统计、数据挖掘）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-07-03">2013-07-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>25 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>统计（侧重R） |Name|Blog|Weibo |&mdash;- |R-bloggers|http://www.r-bloggers.com/| |statMethods blog|http://statmethods.wordpress.com/| |谢益辉|http://yihui.name/|Weibo：@谢益辉 |刘思喆|http://www.bjt.name/|Weibo：@刘思喆 |邓一硕|http://yishuo.org/|Weibo：@邓一硕 |陈堰平|http://yanping.me/|Weibo：@平沙落雁 |邱怡轩|http://yixuan.cos.name/|Weibo：@解名缰 |魏太云|http://blog.cos.name/taiyun/|Weibo：@cloud_wei |陈丽云|http://www.loyhome.com/|Weibo：@cloudly |肖楠|http://www.road2stat.com/|Weibo：@road2stat |肖凯|http://xccds.github.io/|Weibo：@xccds |高涛|http://joegaotao.github.io/cn|Weibo： @三水成海 |陈刚|http://gossipcoder.com/| |李舰|http://jliblog.com/|Weibo：@lijian001 |熊熹|http://blog.cos.name/tracy/|Weibo：@熊熹91 |范建|http://blog.cos.name/fan/|Weibo：@thinkfan
+搜索 百度搜索研发部官方博客
+淘宝搜索技术
+量子恒道官方博客</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/ itemprop=url>[Hadoop] 分布式缓存</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>135 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一直在看分布式缓存，最近涉猎到Hadoop的分布式缓存，做个汇总以备后用。
+adoop分布式缓存是Map-Reduce框架提供的用于缓存应用程序所需文件（文本文件、存档文件、Jar文件等）的工具。 应用程序通过URL（hdfs://或http://）指定通过JobConf进行缓存的文件。分布式缓存假定URL所指定的文件已经存在于Hadoop分布式文件系统或本地文件系统中并可被集群中所有机器访问到。Hadoop框架会在任何作业在节点执行之前将必须的缓存文件复制到任务节点以供使用。为了节省网络带宽，这些文件只会为每个作业复制一次，且归档类型的缓存文件会在任务节点中解压缩。分布式缓存能用于分发简单只读数据或文本文件及复杂文件（存档文件、Jar文件等）。归档文件（zip、tar和tgz/tar.gz文件）在任务节点中解压缩。Jar文件可选择加入任务的类路径，这是基本的软件分发机制。 分布式缓存跟踪缓存文件的修改时戳。很明显当作业执行时这些缓存文件不应被应用程序或外部修改。
+下面的示例介绍了如何使用DistributedCache：
+将所需文件复制到FileSystem: $ bin/hadoop fs -copyFromLocal lookup.dat /myapp/lookup.dat $ bin/hadoop fs -copyFromLocal map.zip /myapp/map.zip $ bin/hadoop fs -copyFromLocal mylib.jar /myapp/mylib.jar $ bin/hadoop fs -copyFromLocal mytar.tar /myapp/mytar.tar $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz 设置应用程序的JobConf: JobConf job = new JobConf(); DistributedCache.addCacheFile(new URI("/myapp/lookup.dat"), job); DistributedCache.addCacheArchive(new URI("/myapp/map.zip", job); DistributedCache.addFileToClassPath(new Path("/myapp/mylib.jar"), job); DistributedCache.addCacheArchive(new URI("/myapp/mytar.tar", job); DistributedCache.addCacheArchive(new URI("/myapp/mytgz.tgz", job); DistributedCache.addCacheArchive(new URI("/myapp/mytargz.tar.gz", job); 在Mapper或Reducer中使用缓存的文件: public static class MapClass extends MapReduceBase implements Mapper{ private Path[] localArchives; private Path[] localFiles; public void configure(JobConf job) { // Get the cached archives/files File f = new File(".</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gemfire_nesting-dynamic-region/ itemprop=url>嵌套的动态GemFire region研究</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/cache itemprop=url rel=index><span itemprop=name>Cache</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>154 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>研究目的和结论 研究多级动态region是否可行，结论可行 研究嵌套region(一个region是另一个region的值)是否可行，结论可行 Java代码 import java.util.Set; import com.gemstone.gemfire.cache.Cache; import com.gemstone.gemfire.cache.CacheFactory; import com.gemstone.gemfire.cache.DynamicRegionFactory; import com.gemstone.gemfire.cache.Region; public class EmbededDynamicRegion { public static void main(String[] args) { System.out.println("\nConnecting to the distributed system and creating the cache."); Cache cache = null; try { // Create the cache which causes the cache-xml-file to be parsed cache = new CacheFactory().set("name", "yqu_test_cache") .set("cache-xml-file", "xml/YquTest.xml").create(); // Get the exampleRegion Region yquRegion = cache.getRegion("yqu_region"); printRegionFullPath(yquRegion); DynamicRegionFactory dynRegFactory = DynamicRegionFactory.get(); for(int i=0;i&lt;3;i++) { Region keyRegion = dynRegFactory.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gemfire_nesting-dynamic-region/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/network-tool-notes/ itemprop=url>网络工具笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-06-28">2013-06-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1229 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>nslookup nslookup命令是用来查询因特网域名服务器的。该命令在Unix、Linux和Windows平台都有提供。如果在Linux平台上找不到nslookup命令，检查是否安装bind-utils。
+nslookup的使用模式 nslookup有两种模式：交互式和非交互式。
+交互式模式允许向域名服务器查询各种主机、域名或打印域内主机列表。 非交互式模式用于查询一个主机或域的信息。 C:\>nslookup /? Usage: nslookup [-opt ...] # interactive mode using default server nslookup [-opt ...] - server # interactive mode using 'server' nslookup [-opt ...] host # just look up 'host' using default server nslookup [-opt ...] host server # just look up 'host' using 'server' 制定了查询对象就进入非交互式模式，否则进入交互模式。示例如下： 这两次查询百度的命令区别在于：第一次使用了默认DNS，第二次指定了Google的DNS。返回结果是非权威答案，即从上连DNS服务器的本地缓存中读取出的值，而非实际去查询到的值。
+nslookup选项 set all：列出nslookup工具的常用选项的当前设置值。 set class=[value]：可以更改查询类 IN：Internet类（默认） CH：Chaos类 HS：Hesiod类 ANY：通配 Chaos和Hesiod现在几乎无人使用。 set [no]debug：可以用来设置是否进入调试模式。如果setdebug，则会进入到调试模式，查询过程中会显示完整的响应包以及其中的交互包。 set[no]d2：开启了高级调试模式，会输出很多nslookup内部工作的信息，包括了许多函数调用信息。 set domain=[name]：用于设置默认的域。 set [no]search：使用域搜索列表。 setport=[value]：众所周知，DNS默认的服务端口是53。当某些特殊情况，此端口改变时，可以通过本命令来设置。 set type=[value]：也可以写成setquerytype=[value]，用于更改信息查询类型。默认情况下，nslookup是查询域名所对应的A记录，而如果你想查询其对应的MX记录等信息时，就需要专门设置type值了。目前常用的type值如下： A：查看主机的IPv4地址 AAAA：查看主机的IPv6地址 ANY：查看关于主机域的所有信息 CNAME：查找与别名对应的正式名字 ISDN：域名对应的ISDN号码 HINFO：查找主机的CPU与操作系统类型 MB：存放指定邮箱的服务器 MG：邮件组记录 MINFO：查找邮箱信息 MR：改名的邮箱记录 MX：查找邮件交换信息 NS：查找主机域的域名服务器 PTR：查找与给定IP地址匹配的主机名 RP：查找域负责人记录 RT：路由穿透记录 SOA：查找域内的SOA地址 SRV：TCP服务器信息记录 TXT：域名对应的文本信息 UINFO：查找用户信息 X25：域名对应的X.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/network-tool-notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/63/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/60/>60</a>
 <a class=page-number href=/page/61/>61</a>
 <a class=page-number href=/page/62/>62</a>
@@ -187,9 +164,9 @@ private void writeSerialData(Object obj, ObjectStreamClass desc) throws IOExcept
 <a class=page-number href=/page/68/>68</a>
 <a class="extend next" rel=next href=/page/65/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

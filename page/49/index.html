@@ -3,54 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mysql_workbench%E7%9A%84%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E6%A8%A1%E5%BC%8F/ itemprop=url>MySQL Workbench的安全更新模式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-07-16">2014-07-16</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>65 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近在MySQLWorkbench上使用"DELETE FROM TABLE_E;&ldquo;清空一个表时返回错误： Error Code: 1175. You are using safe update mode and you triedto update a table without a WHERE that uses a KEY column To disablesafe mode, toggle the option in Preferences -> SQL Queries andreconnect.
-结果在MySQL命令行上却一切正常。
-这是由于MySQL Workbench打开了安全更新模式，其有助于初学者使用DELETE FROM tbl_name 语句但是忘记了WHERE子句造成不必要的麻烦。解决方法就是关闭安全更新模式。
-解决方法1：
-SET SQL_SAFE_UPDATES = 0; DELETE FROM TABLE_E; SET SQL_SAFE_UPDATES = 1; 解决方法2：
-参考： mysql delete under safe mode
-mysql Tips</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3cas%E9%9B%86%E4%B8%AD%E5%BC%8F%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1/ itemprop=url>了解CAS（集中式认证服务）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-07-11">2014-07-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>27 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>集中式认证服务（Central AuthenticationService，缩写CAS）是一种针对万维网的单点登录协议。它的目的是允许一个用户访问多个应用程序，而只需提供一次凭证（如用户名和密码）。它还允许web应用程序在没有获得用户的安全凭据（如密码）的情况下对用户进行身份验证。“CAS”也指实现了该协议的软件包。 CAS协议涉及到至少三个方面：客户端Web浏览器、Web应用请求的身份验证和CAS服务器。它还可能涉及一个后台服务（例如数据库服务器），它并没有自己的HTTP接口，但与一个Web应用程序进行通信。 当客户端访问访问应用程序，请求身份验证时，应用程序重定向到CAS。CAS验证客户端是否被授权，通常通过在数据库对用户名和密码进行检查（例如Kerberos、LDAP或ActiveDirectory）。 如果身份验证成功，CAS令客户端返回到应用程序，并传递身份验证票（Securityticket）。然后，应用程序通过安全连接连接CAS，并提供自己的服务标识和验证票。之后CAS给出了关于特定用户是否已成功通过身份验证的应用程序授信信息。 CAS允许通过代理服务器进行多层身份验证。后端服务（如数据库或邮件服务器）可以组成CAS，通过从Web应用程序接收到的信息验证用户是否被授权。因此，网页邮件客户端和邮件服务器都可以实现CAS。 历史 CAS是由耶鲁大学的Shawn Bayern创始的，后来由耶鲁大学的Drew Mazurek维护。CAS1.0实现了单点登录。CAS2.0引入了多级代理认证（Multi-tier proxyauthentication）。CAS其他几个版本已经有了新的功能。 2004年12月，CAS成为Jasig（Java in Administration Special InterestGroup）的一个项目，2008年该组织负责CAS的维护和发展。CAS原名“Yale CAS”，现在则被称为“JasigCAS”。
-参考 Wiki：Central Authentication Service
-Jasig CAS主页
-GitHub：Jasig/java-cas-client
-GitHub：Jasig/cas
-CAS协议规范 3.0</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/ itemprop=url>玩一下SQLite3命令</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-07-10">2014-07-10</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>248 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>SQLite介绍 SQLite是实现自包含、无需服务器、零配置和事务SQL数据库引擎的软件库。它占用资源非常低，既可以用于Windows/Linux/Unix等主流的操作系统，也广泛用于嵌入式产品中。它能够跟很多程序语言相结合，比如Tcl、C#、PHP、Java等，还有ODBC接口。 不像常见的客户-服务器范例，SQLite引擎不是个程序与之通信的独立进程，而是连接到程序中成为它的一个主要部分。所以主要的通信协议是在编程语言内的直接API调用。这在消耗总量、延迟时间和整体简单性上有积极的作用。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。它的简单的设计是通过在开始一个事务的时候锁定整个数据文件而完成的。
-SQLITE常用命令使用 SQLite命令行解释器除了支持SQL语句（大小写不敏感），还支持以.开头、大小写敏感的专有命令。SQLite网站有个帖子Command Line Shell For SQLite介绍了支持的所有命令，这里挑一些常用的玩一下。
-.help命令：给出所有命令的帮助介绍 sqlite> .help .prompt：更换提示符 sqlite> .prompt >> >> >>.prompt sqlite> sqlite> .show：显示当前设置 sqlite>.show echo: off eqp: off explain: off headers: off mode: list nullvalue: "" output: stdout separator: "|" stats: off width: .database：显示数据库信息 sqlite>.database seq name file --- --------------- ---------------------------------------------------------- 0 main E:\gitws\datasci_course_materials\assignment2\reuters.db 1 temp .tables：显示表信息 sqlite>.tables Frequency .schema：显示表的创建语句 sqlite>.schema CREATE TABLE Frequency ( docid VARCHAR(255), term VARCHAR(255), count int, PRIMARY KEY(docid, term)); .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bsqlite3%E5%91%BD%E4%BB%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/sql%E4%B8%AD%E7%9A%84%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/ itemprop=url>SQL中的（稀疏）矩阵运算</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/sql%E4%B8%AD%E7%9A%84%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/ itemprop=url>SQL中的（稀疏）矩阵运算</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-07-07">2014-07-07</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -137,7 +91,43 @@ SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>转发网上的两个图片，时时对照学习。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/48/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>转发网上的两个图片，时时对照学习。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/slidify/ itemprop=url>slidify</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-03">2014-06-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Slidify是使用RMarkdown创建、定制和发布（用于可重复性研究的）HTML幻灯片的工具包。 Slidify支持多种生成框架和主题：
+|幻灯片生成框架|主题 |&mdash;&ndash; |io2012| |html5slides|default, uulm |html5rocks| |deck.js|web2.0, swiss, neon |dzslides| |landslide|default, tango, clean |shower|ribbon |slidy| |slideous| |beamer| |showoff| 生成的幻灯片可以发布到Github、Dropbox和Rpubs上。命令集成了一些底层操作，所以很简单。见http://slidify.org/publish.html 前一段发布一个幻灯片碰到些麻烦，只好采用git命令行这种老方式。操作步骤参考如下链接： https://github.com/ramnathv/slidify/wiki/Publishing</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/shiny%E7%BB%83%E4%B9%A0/ itemprop=url>shiny练习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-02">2014-06-02</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Shiny是RStudio公司开发的新包，有了它，无需web开发就可以用R语言轻松开发交互式web应用。
+我参加数据科学专业课学习，使用shiny完成一个作业，虽然初学乍练，也能感觉到开发起来很快速。 参考 shiny tutorialshiny examples Linear Regressions and Linear Models using the Iris Data</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_jquery_ajax%E5%9C%A8http%E5%93%8D%E5%BA%94200ok%E6%97%B6%E5%8D%B4%E8%B0%83%E7%94%A8%E4%BA%86errorcallback/ itemprop=url>[JavaScript] JQuery AJAX在HTTP响应200OK时却调用了errorcallback</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-25">2014-05-25</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>173 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>运行如下代码时，从结果看操作成功，但是总是调用错误处理回调。
+myTest = function(server, lib, table, reqParam, reqInfo, successCallback, errorCallback) { var url = "http://localhost/mytest/" + encodeURIComponent(server) + "/libs/" + encodeURIComponent(lib) + "/tables/" + encodeURIComponent(table); if (reqParam!=undefined && reqParam) { url += "?reqParam=" + encodeURIComponent(reqParam); } $.ajax({ cache: false, url: url, type: "PUT", data: JSON.stringify(reqInfo), contentType: "application/json", success: function (data) { if (successCallback!==undefined && successCallback) { successCallback(data); } else { console.log("success:"+JSON.stringify(data)); } }, error: function (xhr, status, error) { if (errorCallback!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/javascript_jquery_ajax%E5%9C%A8http%E5%93%8D%E5%BA%94200ok%E6%97%B6%E5%8D%B4%E8%B0%83%E7%94%A8%E4%BA%86errorcallback/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/48/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/45/>45</a>
 <a class=page-number href=/page/46/>46</a>
 <a class=page-number href=/page/47/>47</a>
@@ -149,9 +139,9 @@ SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试
 <a class=page-number href=/page/53/>53</a>
 <a class="extend next" rel=next href=/page/50/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

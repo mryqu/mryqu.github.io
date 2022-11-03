@@ -3,65 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/ itemprop=url>[Hadoop] 安装Hadoop 2.7.x 集群</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-28">2015-04-28</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>281 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>集群规划 |节点|角色 |&mdash;&ndash; |node50064|NameNode RessourceManager |node50069|Datanode SecondNameNode |node51054|Datanade
-准备工作 （在全部机器上）创建hadoop用户 $ sudo useradd -m hadoop -s /bin/bash $ sudo passwd hadoop $ sudo adduser hadoop sudo （在全部机器上）配置/etc/hosts 10.120.12.135 node50064.mryqu.com node50064 10.120.11.201 node50069.mryqu.com node50069 10.120.14.226 node51054.mryqu.com node51054 （在全部机器上）禁止掉IPv6 参见之前的博文在Ubuntu中禁掉IPv6。
-（在全部机器上）关闭防火墙 ufw disable //关闭 sudo apt-get remove ufw //卸载 sudo ufw status //查看 （在全部机器上）安装并配置Java JDK 安装Java JDK：
-$ sudo apt-get update $ sudo apt-get install openjdk-7-jre openjdk-7-jdk 通过下列命令确定JDK安装路径为/usr/lib/jvm/java-7-openjdk-amd64： 通过sudovi /etc/profile添加如下内容：
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 export CLASSPATH=.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E5%AE%89%E8%A3%85hadoop_2.7.x_%E9%9B%86%E7%BE%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservice_design_patterns/ itemprop=url>阅读《Microservice Design Patterns》</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-28">2015-04-28</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>22 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Java Code Geeks有一篇文章Microservice Design Patterns，提供了六种微服务架构的设计模式，用于组合微服务。
-聚合器微服务设计模式
-这是一种最常用也最简单的设计模式，如下图所示：
-聚合器调用多个服务实现应用程序所需的功能。它可以是一个简单的Web页面，将检索到的数据进行处理展示。它也可以是一个更高层次的组合微服务，对检索到的数据增加业务逻辑后进一步发布成一个新的微服务，这符合DRY原则。另外，每个服务都有自己的缓存和数据库。如果聚合器是一个组合服务，那么它也有自己的缓存和数据库。聚合器可以沿X轴和Z轴独立扩展。
-代理微服务设计模式
-这是聚合器模式的一个变种，如下图所示：
-在这种情况下，客户端并不聚合数据，但会根据业务需求的差别调用不同的微服务。代理可以仅仅委派请求，也可以进行数据转换工作。一个很好的实例就是针对不同设备的表现层可以封装在代理微服务内。
-链式微服务设计模式
-这种模式在接收到请求后会产生一个经过合并的响应，如下图所示：
-在这种情况下，服务A接收到请求后会与服务B进行通信，类似地，服务B会同服务C进行通信。所有服务都使用同步消息传递。在整个链式调用完成之前，客户端会一直阻塞。因此，服务调用链不宜过长，以免客户端长时间等待。
-分支微服务设计模式
-这种模式是聚合器模式的扩展，允许同时调用两个微服务链，如下图所示：
-数据共享微服务设计模式
-自治是微服务的设计原则之一，就是说微服务是全栈式服务。但在重构现有的“单体应用（monolithicapplication）”时，SQL数据库反规范化可能会导致数据重复和不一致。因此，在单体应用到微服务架构的过渡阶段，可以使用这种设计模式，如下图所示：
-在这种情况下，部分微服务可能会共享缓存和数据库存储。不过，这只有在两个服务之间存在强耦合关系时才可以。对于基于微服务的新建应用程序而言，这是一种反模式。
-异步消息传递微服务设计模式
-虽然REST设计模式非常流行，但它是同步的，会造成阻塞。因此部分基于微服务的架构可能会选择使用消息队列代替REST请求/响应，如下图所示：
-感兴趣的读者可以参考《微服务中的耦合与自治》一文为自己的微服务选择合适的消息传递模式。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96polyglot_persistence/ itemprop=url>了解混合持久化（Polyglot Persistence）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-27">2015-04-27</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>开发web程序的最早期时间，最被广泛使用的企业程序架构是将程序的服务器端组件打包为单个单元。很多企业Java应用程序由单个WAR或EAR文件组成。其它语言（比如Ruby，甚至C++）编写的应用程序也大抵如此。这种单体架构模式(monolithicapplication architecturepattern)往往通过一个数据访问层与单一类型的数据库相连接，所有不同用途的数据存储都存储在该数据库内。 数据库环境在过去的十多年里增长巨大。每个新出现的数据库相较于其它数据库，都在某些方面有着优势，但同时它们也做了各种各样的折衷。事实上，根据CAP定理不可能拥有完美的数据库，我们需要根据应用程序来选择哪种折衷是可接受的。带有这些约束的工作场景符合Martin Fowler推广的混合持久化思路。混合持久化的思路是指，你应该根据工作的不同需求选择相应合适的数据库，这样我们就能两者兼得了。 混合持久化的优点显而易见：一个复杂的企业应用程序会使用很多类型的数据，对每种数据采用最适合的存储技术，可以带来性能的提升。随着微服务架构模式（Microservicearchitecturepattern）越来越受欢迎，复杂的企业应用程序将会被分解成很多的微服务，每个微服务内将对所操作的数据采用最适合的存储技术。
-混合持久化的缺点也同样鲜明：以增加复杂性为代价。每种数据存储机制都有其学习成本，选择正确的数据存储也有决策成本。需要了解每种数据存储的性能瓶颈并不断迎接挑战。
-Martin Fowler建议对战略性的项目采用混合持久化，这样才能通过新技术获得足够收益。
-参考 Polyglot Persistence The featuer is: Polyglot Persistence NoSQL精粹 第13章混合持久化</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git+gerrit+gradle+jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/ itemprop=url>Git+Gerrit+Gradle+Jenkins持续集成</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git+gerrit+gradle+jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/ itemprop=url>Git+Gerrit+Gradle+Jenkins持续集成</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-26">2015-04-26</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -158,7 +101,47 @@ Build timed out (after 10 minutes). Marking the build as aborted. Build was abor
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>94 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>启动DFS或者执行hadoop fs命令总是得到告警util.NativeCodeLoader: Unable to load native-hadooplibrary for your platform&mldr; using builtin-java classes whereapplicable：
-hadoop@node50064:~$ start-dfs.sh 15/04/18 01:55:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable Starting namenodes on [node50064.mryqu.com] node50064.mryqu.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-namenode-node50064.out node50069.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node50069.out node51054.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node51054.out Starting secondary namenodes [node50069.mryqu.com] node50069.mryqu.com: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-secondarynamenode-node50069.out 15/04/18 01:55:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/35/><i class="fa fa-angle-left"></i></a>
+hadoop@node50064:~$ start-dfs.sh 15/04/18 01:55:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable Starting namenodes on [node50064.mryqu.com] node50064.mryqu.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-namenode-node50064.out node50069.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node50069.out node51054.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node51054.out Starting secondary namenodes [node50069.mryqu.com] node50069.mryqu.com: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-secondarynamenode-node50069.out 15/04/18 01:55:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jpa_%E9%87%8D%E6%B8%A9cascadetype/ itemprop=url>[JPA] 重温CascadeType</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-18">2015-04-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>11 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一篇帖子A beginner’s guide to JPA and Hibernate Cascade Types，对JPA/Hibernate中OneToOne、OneToMany、Many-To-Many关系下CascadeType的使用讲的很详尽，有代码示例也有SQL输出。作者VladMihalcea，著有High-Performance Java Persistence一书，应该淘一本学习学习。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/ itemprop=url>[Gradle] 输出依赖包</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-16">2015-04-16</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>76 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>下面我以https://spring.io/guides/gs/spring-boot/中的gs-spring-boot项目为例，使用Gradle输出依赖包。
+首先对build.gradle做如下修改：
+buildscript { repositories { mavenCentral() } dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE") } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: 'spring-boot' jar { baseName = 'gs-spring-boot' version = '0.1.0' } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 task copyToLib(type: Copy) { print configurations into "$buildDir/dep-libs" from configurations.runtime } build.dependsOn(copyToLib) dependencies { compile("org.springframework.boot:spring-boot-starter-web") // tag::actuator[] compile("org.springframework.boot:spring-boot-starter-actuator") // end::actuator[] // tag::tests[] testCompile("org.springframework.boot:spring-boot-starter-test") // end::tests[] } 首先可以在命令行中看到：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/ itemprop=url>[Gradle] 执行Java类</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-15">2015-04-15</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>132 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>需求 我想用Gradle脚本执行下列Java类Hello123.java：
+import java.util.Arrays; public class Hello123 { public static void main(String[] args) { System.out.println("args:"+ Arrays.toString(args)); } } 测试一：创建execute任务 build.gralde apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' task execute(type: { main = System.getProperty("exec.mainClass") classpath = sourceSets.main.runtimeClasspath systemProperties System.getProperties() if(System.getProperty("exec.args")) args System.getProperty("exec.args").split() } sourceCompatibility = 1.8 targetCompatibility = 1.8 测试结果 测试二：重写run任务 build.gralde apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: "application" mainClassName = "NonExistentClass" task run (type: { main = System.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/35/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/32/>32</a>
 <a class=page-number href=/page/33/>33</a>
 <a class=page-number href=/page/34/>34</a>
@@ -170,9 +153,9 @@ hadoop@node50064:~$ start-dfs.sh 15/04/18 01:55:33 WARN util.NativeCodeLoader: U
 <a class=page-number href=/page/40/>40</a>
 <a class="extend next" rel=next href=/page/37/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

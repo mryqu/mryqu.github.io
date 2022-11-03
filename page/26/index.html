@@ -3,37 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/ itemprop=url>Gradle代理配置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-31">2015-08-31</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>HTTP代理配置 gradlew -Dhttp.proxyHost=[myServer] -Dhttp.proxyPort=[myPort] -Dhttp.proxyUser=[myUser] -Dhttp.proxyPassword=[myPassword] HTTPS代理配置 gradlew -Dhttps.proxyHost=[myServer] -Dhttps.proxyPort=[myPort] -Dhttps.proxyUser=[myUser] -Dhttps.proxyPassword=[myPassword]</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%94%9F%E6%88%90jpa_entity%E7%B1%BB/ itemprop=url>[Hibernate Tools] 通过数据库表生成JPA Entity类</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-30">2015-08-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/hibernate itemprop=url rel=index><span itemprop=name>Hibernate</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>304 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>本文与前一博文[Hibernate Tools] 通过JPA Entity类生成数据库表 正好相反，实践一下如何通过数据库表生成JPA Entity类。
-在Eclipse中安装JBoss Tools中的Hibernate Tools插件 创建JPA项目PetStoreDemo 使用向导创建JPA项目 项目基本设置 设置JPA Facet 此处选用了Generatic 2.1平台，用户库HIBERNATE_JPA包含如下jar文件：
-hibernate-commons-annotations.jar hibernate-core.jar hibernate-jpa-2.1-api.jar 通过数据库表生成JPA Entity类 执行“Generate Entities from Tables” 选择库表 设置库表关联关系 定制生成Entity的默认行为 设置单个Entity 生成结果 下面以Item为例，展示生成结果。
-package com.yqu.jpetstore; import java.io.Serializable; import javax.persistence.*; import java.math.BigDecimal; @Entity @Table(name="item") @NamedQuery(name="Item.findAll", query="SELECT i FROM Item i") public class Item implements Serializable { private static final long serialVersionUID = 1L; private String itemid; private String attr1; private String attr2; private String attr3; private String attr4; private String attr5; private BigDecimal listprice; private String status; private BigDecimal unitcost; private Product product; private Supplier supplierBean; public Item() { } @Id @GeneratedValue(strategy=GenerationType.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%94%9F%E6%88%90jpa_entity%E7%B1%BB/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87jpa_entity%E7%B1%BB%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8/ itemprop=url>[Hibernate Tools] 通过JPA Entity类生成数据库表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hibernate_tools_%E9%80%9A%E8%BF%87jpa_entity%E7%B1%BB%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8/ itemprop=url>[Hibernate Tools] 通过JPA Entity类生成数据库表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-29">2015-08-29</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -159,7 +130,34 @@ UDTF Hive支持的内建UDTF有explode()、json_tuple()和inline()等函数。
 查看UDTF介绍 选个好理解的explode函数吧。
 hive> describe function explode; OK explode(a) - separates the elements of array a into multiple rows, or the elements of a map into multiple rows and columns Time taken: 0.009 seconds, Fetched: 1 row(s) 测试内建UDTF 像inline函数需要根元素为ARRAY，第二层元素为STRUCT，搭建环境有点麻烦。所以还是接着擼explode函数吧。 上述命令将三行的列a中数组元素拆成7行字符串。那执行"select explode(a), b fromcomplex_datatypes_example;&ldquo;会返回什么呢？结果是7行还是3行？ 谜底就是错误提示"Only a single exp.ression in the SELECT clause issupported with UDTF&rsquo;s."！
 UDTF实现 一个定制UDTF要继承GenericUDTF抽象类并实现initialize、process及close方法。Hive调用initialize方法以将参数类型通知给UDTF。UDTF必须返回UDTF之后产生的行对象相应的对象观察器。一旦initialize()被调用后，Hive将使用process()方法将行传递给UDTF。在process()方法中，UDTF生成行并调用forward()方法将行转给其他运算符。当所有的行都传递给UDTF后，Hive将最终调用close()方法。 通过FunctionRegistry类可知explode函数的实现类为GenericUDTFExplode。下面通过GenericUDTFExplode对照参考四Hive Developer Guide - UDTF学习一下UDTF实现。
-GenericUDTFExplode继承了抽象父类GenericUDTF 在initialize方法中，GenericUDTFExplode检查输入列是否为ARRAY或MAP类型，不是的话抛出异常。如果输入列为ARRAY类型，则输出列名为col，类型为输入列数组中元素类型；如果输入列为MAP类型，则输出列名为key和value，类型分别为输入列MAP的键与值相应的类型； 在process方法中，针对输入列ARRAY或MAP的每一个元素调用forward()方法将所生成的行转给其他运算符； 在close()方法中，实现为空。 UDAF Hive支持的内建UDAF有sum()、count()、min()和histogram_numeric()等函数。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/25/><i class="fa fa-angle-left"></i></a>
+GenericUDTFExplode继承了抽象父类GenericUDTF 在initialize方法中，GenericUDTFExplode检查输入列是否为ARRAY或MAP类型，不是的话抛出异常。如果输入列为ARRAY类型，则输出列名为col，类型为输入列数组中元素类型；如果输入列为MAP类型，则输出列名为key和value，类型分别为输入列MAP的键与值相应的类型； 在process方法中，针对输入列ARRAY或MAP的每一个元素调用forward()方法将所生成的行转给其他运算符； 在close()方法中，实现为空。 UDAF Hive支持的内建UDAF有sum()、count()、min()和histogram_numeric()等函数。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hive_hive_%E8%A1%A8udtf%E5%92%8C%E6%B1%87%E8%81%9Audaf%E5%AD%A6%E4%B9%A0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AE%89%E8%A3%85gerrit%E7%9A%84commit-msg%E9%92%A9%E5%AD%90/ itemprop=url>安装Gerrit的commit-msg钩子</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-19">2015-08-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>对Gerrit进行首次提交前需要安装commit-msg钩子，每次总忘，每次都总是搜邮件，还是记博客里方便些。
+gitdir=$(git rev-parse --git-dir); scp -p -P 29418 [your username]@[your Gerrit review server]:hooks/commit-msg {gitdir}/hooks/ 参考
+Gerrit：commit-msg Hook
+Gerrit工作流</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/ itemprop=url>[Hive] Hive Macro和UDF实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-08-18">2015-08-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>608 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>测试数据库 hive> describe empinfo; OK firstname string lastname string id int age int city string state string Time taken: 0.047 seconds, Fetched: 6 row(s) hive> select * from empinfo; OK John Jones 99980 45 Payson Arizona Mary Jones 99982 25 Payson Arizona Eric Edwards 88232 32 San Diego California Mary Ann Edwards 88233 32 Phoenix Arizona Ginger Howell 98002 42 Cottonwood Arizona Sebastian Smith 92001 23 Gila Bend Arizona Gus Gray 22322 35 Bagdad Arizona Mary Ann May 32326 52 Tucson Arizona Erica Williams 32327 60 Show Low Arizona Leroy Brown 32380 22 Pinetop Arizona Elroy Cleaver 32382 22 Globe Arizona Time taken: 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hive_hive_macro%E5%92%8Cudf%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/25/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/22/>22</a>
 <a class=page-number href=/page/23/>23</a>
 <a class=page-number href=/page/24/>24</a>
@@ -171,9 +169,9 @@ GenericUDTFExplode继承了抽象父类GenericUDTF 在initialize方法中，Gene
 <a class=page-number href=/page/30/>30</a>
 <a class="extend next" rel=next href=/page/27/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>693</span>
-<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>30</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1503</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
