@@ -2,9 +2,7 @@
 title: '嵌套的动态GemFire region研究'
 date: 2013-06-28 16:16:14
 categories: 
-- Service+JavaEE
 - Cache
-- GemFire
 tags: 
 - gemfire
 - dynamic
@@ -74,6 +72,5 @@ public class EmbededDynamicRegion {
 }
 ```
 
-### XML配置文件
 
 

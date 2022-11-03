@@ -3,7 +3,6 @@ title: '使用了Widnows包管理器Chocolatey'
 date: 2019-01-14 18:07:31
 categories: 
 - Tool
-- Chocolatey
 tags: 
 - package
 - windows

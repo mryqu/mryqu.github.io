@@ -2,9 +2,7 @@
 title: 'GemFire 数据逐出和持久化'
 date: 2013-05-17 15:48:33
 categories: 
-- Service+JavaEE
 - Cache
-- GemFire
 tags: 
 - gemfire
 - 数据逐出
@@ -42,11 +40,11 @@ LRU逐出对每个桶单独进行:
 
 **动作为本地删除条目的数据逐出无法用于复制region，因为不允许对复制分区进行本地写操作，这会违反所有数据在复制分区都可见的契约。如果需要使用本地删除条目的数据逐出，可以考虑使用预加载数据策略，其行为在初始化时与复制分区相同并允许动作为本地删除条目的数据逐出。**
 
-| |数据无持久化|数据持久化
-|-----
-|**EvictionAction.NONE**|条目将在内存中一直保存。|条目将在内存和磁盘中一直保存。
+| |数据无持久化|数据持久化|
+|-----|-----|-----|
+|**EvictionAction.NONE**|条目将在内存中一直保存。|条目将在内存和磁盘中一直保存。|
 |**EvictionAction.LOCAL_DESTROY**|条目（键和值两部分）将从内存中释放。**仅当被逐出数据可从外部数据源加载时可用。**| 
-|**EvictionAction.OVERFLOW_TO_DISK**|条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。|条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。
+|**EvictionAction.OVERFLOW_TO_DISK**|条目将被逐出到磁盘但是不会持久化 (当缓存关闭时磁盘文件将被删除)，条目的键部分始终在内存中保存。|条目(键和值两部分)一直在磁盘中保存。条目的值部分将被逐出，键部分始终在内存中保存。|
 
 # 磁盘存储文件名和扩展名
 
@@ -58,35 +56,35 @@ LRU逐出对每个桶单独进行:
 
 ### 第一部分: 使用标识
 
-|值|用途|示例
-|-----
-|OVERFLOW|仅为溢出region和队列的操作日志数据。|OVERFLOWoverflowDS1_1.crf
-|BACKUP|持久化、持久化+溢出rgion和队列操作日志数据。|BACKUPoverflowDS1.if, BACKUPDEFAULT.if
-|DRLK_IF|访问控制 - 对磁盘存储上锁。|DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk
+|值|用途|示例|
+|-----|-----|-----|
+|OVERFLOW|仅为溢出region和队列的操作日志数据。|OVERFLOWoverflowDS1_1.crf|
+|BACKUP|持久化、持久化+溢出rgion和队列操作日志数据。|BACKUPoverflowDS1.if, BACKUPDEFAULT.if|
+|DRLK_IF|访问控制 - 对磁盘存储上锁。|DRLK_IFoverflowDS1.lk, DRLK_IFDEFAULT.lk|
 
 ### 第二部分: 磁盘存储名
 
-|值|用途|示例
-|-----
-|<磁盘存储名>|非默认磁盘存储。|name="overflowDS1" DRLK_IFoverflowDS1.lk,<br>name="persistDS1" BACKUPpersistDS1_1.crf
-|DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf
+|值|用途|示例|
+|-----|-----|-----|
+|<磁盘存储名>|非默认磁盘存储。|name="overflowDS1" DRLK_IFoverflowDS1.lk,<br>name="persistDS1" BACKUPpersistDS1_1.crf|
+|DEFAULT|默认磁盘存储名，当对region或队列指定持久化或溢出但没有命名磁盘存储时使用。|DRLK_IFDEFAULT.lk, BACKUPDEFAULT_1.crf|
 
 ### 第三部分: 操作日志序列号
 
-|值|用途|示例
-|-----
-|序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf
+|值|用途|示例|
+|-----|-----|-----|
+|序列号格式为_n|仅用于操作日志。编码从1开始。|OVERFLOWoverflowDS1_1.crf, BACKUPpersistDS1_2.crf, BACKUPpersistDS1_3.crf|
 
 
 ## 文件扩展名
 
-|文件扩展名|用途|注释
-|-----
-|if|数据存储元数据|存放在存储所列的第一个目录。文件很小可以忽略不计-在文件大小控制中不考虑。
-|lk|磁盘存储访问控制|存放在存储所列的第一个目录。文件很小可以忽略不计-在文件大小控制中不考虑。
-|crf|Oplog: 创建、更新和“使无效”操作|在创建时其文件大小预分配为max-oplog-size的90%。
-|drf|Oplog: 删除操作|在创建时其文件大小预分配为max-oplog-size的90%。
-|krf|Oplog: 键和crf偏移量信息|当操作日志文件大小达到max-oplog-size后创建。用于增强启动时的性能。
+|文件扩展名|用途|注释|
+|-----|-----|-----|
+|if|数据存储元数据|存放在存储所列的第一个目录。文件很小可以忽略不计-在文件大小控制中不考虑。|
+|lk|磁盘存储访问控制|存放在存储所列的第一个目录。文件很小可以忽略不计-在文件大小控制中不考虑。|
+|crf|Oplog: 创建、更新和“使无效”操作|在创建时其文件大小预分配为max-oplog-size的90%。|
+|drf|Oplog: 删除操作|在创建时其文件大小预分配为max-oplog-size的90%。|
+|krf|Oplog: 键和crf偏移量信息|当操作日志文件大小达到max-oplog-size后创建。用于增强启动时的性能。|
 
 # 数据持久化
 
@@ -123,15 +121,15 @@ forceRoll方法会强制创建新的oplog文件。这让引用有机会强制Gem
 
 当任何在持久化region上的写操作完成后，数据会写入磁盘。下边描述了region写操作：
 
-|写操作|写入的数据|方法
-|-----
-|条目创建|一个包含键、值和条目id的oplog记录|create, put, putAll, get due toload, region creation due to initialization frompeer
-|条目更新|一个包含新值和条目id的oplog记录|<tt>put(), <tt>putAll(), <tt>invalidate(), <tt>localInvalidate(),<tt>Entry.setValue()
-|条目删除|一个条目id的oplog记录|<tt>remove(), <tt>destroy(), <tt>localDestroy()
-|region关闭|关闭所有文件但是保留在磁盘|<tt>close(), <tt>Cache.close()
-|region删除|关闭并从磁盘删除所有文件|<tt>destroyRegion(), <tt>localDestroyRegion()
-|region清空|从磁盘删除所有文件并创建新的空文件|<tt>clear(), <tt>localClear()
-|region使无效|对每个条目付为null的新值|<tt>invalidateRegion(), <tt>localInvalidateRegion()
+|写操作|写入的数据|方法|
+|-----|-----|-----|
+|条目创建|一个包含键、值和条目id的oplog记录|create, put, putAll, get due toload, region creation due to initialization frompeer|
+|条目更新|一个包含新值和条目id的oplog记录|put(), putAll(), invalidate(), localInvalidate(),Entry.setValue()|
+|条目删除|一个条目id的oplog记录|remove(), destroy(), localDestroy()|
+|region关闭|关闭所有文件但是保留在磁盘|close(), Cache.close()|
+|region删除|关闭并从磁盘删除所有文件|destroyRegion(), localDestroyRegion()|
+|region清空|从磁盘删除所有文件并创建新的空文件|clear(), localClear()|
+|region使无效|对每个条目付为null的新值|invalidateRegion(), localInvalidateRegion()|
 
 即使配置了同步磁盘写，GemFire仅同步写入文件系统缓冲区，而不是磁盘本身。这意味着在文件系统缓冲区的数据有可能在机器崩溃时无法写入磁盘。但这能让持久化region所在的JVM崩溃时数据得以保护。
 
