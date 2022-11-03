@@ -1,9 +1,8 @@
 ---
-title: 'go get github.comjessevdkgo-assets解决记录'
+title: '[GoLang] go get github.com/jessevdk/go-assets解决记录'
 date: 2021-03-19 12:31:23
 categories: 
-- Tool
-- Linux
+- Golang
 tags: 
 - GoLang
 - Git

@@ -186,5 +186,4 @@ m.root-servers.net.     395644  IN      AAAA    2001:dc3::35
 
 [Consul DNS Interface](https://www.consul.io/docs/agent/dns.html)  
 [Consul Configuration](https://www.consul.io/docs/agent/options.html)  
-[dig笔记](/post/dig笔记)  
 [【Consul】Consul实践指导-DNS接口](https://blog.csdn.net/younger_china/article/details/52264525)  

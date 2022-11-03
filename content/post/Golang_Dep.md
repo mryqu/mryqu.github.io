@@ -11,7 +11,7 @@ tags:
 - management
 ---
 
-之前的博文[[Golang]Win10下Glide的安装和使用](/post/golang_win10下glide的安装和使用)记录了对Glide的学习，本博将记录对Golang包管理工具dep的学习使用。
+之前的博文[[Golang]Glide的安装和使用](/post/Golang_Glide)记录了对Glide的学习，本博将记录对Golang包管理工具dep的学习使用。
 
 ## dep介绍
 
@@ -94,7 +94,7 @@ Flags:
 
 ### main.go
 
-仍然使用博文[[Golang]Win10下Glide的安装和使用](/post/golang_win10下glide的安装和使用)中的源码示例：
+仍然使用博文[[Golang]Glide的安装和使用](/post/Golang_Glide)中的源码示例：
 ```
 package main
 
@@ -232,6 +232,24 @@ dep ensure命令的一些选项如下：
 
 dep会在$GOPATH/pkg/dep/sources下留了一块“自留地”，用于缓存所有从network上下载的依赖包。
 对dep init命令使用-gopath选项会优选从$GOPATH查找依赖包。
+
+## 使用代理
+
+玩一下[goquery](https://github.com/PuerkitoBio/goquery) ，dep总是报错，无法解析[golang.org/x/net](https://godoc.org/golang.org/x/net) 和[cascadia](https://github.com/andybalholm/cascadia) ，添加代理后搞定。
+
+### Windows
+
+```
+set https_proxy=http://username:password@[proxy_host]:[proxy_port]
+set http_proxy=http://username:password@[proxy_host]:[proxy_port]
+dep init -v
+```
+
+### Linux
+
+```
+$https_proxy=http://username:password@[proxy_host]:[proxy_port] http_proxy=http://username:password@[proxy_host]:[proxy_port] dep init -v
+```
 
 ## 参考
 
