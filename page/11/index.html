@@ -4,44 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E5%B0%86json%E8%BD%AC%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/ itemprop=url>[C++] 将JSON转成字符串</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-12-26">2016-12-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>5 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>需要将如下JSON字符串作为GoogleSheets API POST请求的消息体。打算使用JsonCpp实现。
-{"majorDimension":"ROWS","values":[["Name","Sex","Age","Height","Weight"],["阿尔弗雷德","男","14","69","112.5"],["爱丽丝","女","13","56.5","84"],["芭芭拉","女","13","65.3","98"],["凯露","女","14","62.8","102.5"],["亨利","男","14","63.5","102.5"],["詹姆斯","男","12","57.3","83"],["简","女","12","59.8","84.5"],["雅妮特","女","15","62.5","112.5"],["杰弗瑞","男","13","62.5","84"],["约翰","男","12","59","99.5"],["乔伊斯","女","11","51.3","50.5"],["茱迪","女","14","64.3","90"],["罗伊斯","女","12","56.3","77"],["玛丽","女","15","66.5","112"],["菲利普","男","16","72","150"],["罗伯特","男","12","64.8","128"],["罗纳德","男","15","67","133"],["托马斯","男","11","57.5","85"],["威廉","男","15","66.5","112"]]} 最终代码：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E8%B0%83%E8%AF%95libcurl%E7%A8%8B%E5%BA%8F/ itemprop=url>[C++] 调试libcurl程序</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-12-25">2016-12-25</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>30 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近在调试通过libcurl发送GoogleSheets API POST请求时，增加了一点经验，特此总结。
-GoogleSheets API 请求 POST /v4/spreadsheets?access_token={YOUR_ACCESSTOKEN}&fields=spreadsheetId HTTP/1.1 Host: sheets.googleapis.com Content-Type: application/json;charset=UTF-8 Accept: application/json Cache-Control: no-cache {"properties":{"title":"newhaha"},"sheets":[{"properties":{"title":"Sheet1"}}]} libcurl调试 当GoogleSheets API 请求失败时，仅能获得返回的状态码和消息。感觉没有更多信息可以研究！后来通过CURLOPT_VERBOSE和CURLOPT_DEBUGFUNCTION获得了更多调试信息。
-使用CURLOPT_VERBOSE curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1L); 这样就可以看到请求报头、响应报头和消息体了。
-使用CURLOPT_DEBUGFUNCTION 使用libcurl API指南中CURLOPT_DEBUGFUNCTION示例代码即可。这样就可以看到完整的请求和响应内容了。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_jquery.sap.formatmessage%E7%9A%84%E4%B8%80%E7%82%B9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/ itemprop=url>[OpenUI5] jQuery.sap.formatMessage的一点注意事项</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-12-19">2016-12-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>5 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天偶然发现I18N properties文件中有字符串包含替换符，可是没起作用，还是明晃晃输出了{0}。 仔细研究一下，才发现原因在于字符串中包含单个&rsquo;，OpenUI5使用jQuery.sap.formatMessage替换I18N字符串，如果仅含有一个&rsquo;字符的话，其/('')|'([^']+(?:''[^']*)*)(?:'|$)|\{([0-9]+(?:\s*,[^{}]*)?)\}|[{}]/g 就只触发第二组替换了。如果想显示单个字符&rsquo;，需要用两个字符&rsquo;转义。 不过问题来了，负责翻译I18N的同事是否清楚jQuery.sap.formatMessage关于字符&rsquo;的限制呢？</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%81%A2%E5%A4%8D%E8%AF%AF%E5%88%A0%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/ itemprop=url>恢复误删文件内容</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%81%A2%E5%A4%8D%E8%AF%AF%E5%88%A0%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/ itemprop=url>恢复误删文件内容</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-12-02">2016-12-02</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -190,7 +153,55 @@ Status code: 429 (Too Many Requests)和509 (Bandwidth LimitExceeded) The code pr
 <span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在进行Microsoft OneDrive认证和登录实验的过程中，曾经用下列命令过去访问令牌：
 POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&redirect_uri=https://login.live.com/oauth20_desktop.srf&client_secret={client_secret} &code={code}&grant_type=authorization_code 结果返回：
 {"error":"invalid_request","error_description":"Public clients can't send a client secret."} 一个"public client"指的是移动或桌面应用(web服务则是"confidentialclient")。由于跳转URI是https://login.live.com/oauth20_desktop.srf，因而MSA返回该错误响应。这种情况下，不应该提供client_secret，使用下列请求即可。
-POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&redirect_uri=https://login.live.com/oauth20_desktop.srf&code={code}&grant_type=authorization_code</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/10/><i class="fa fa-angle-left"></i></a>
+POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id={client_id}&redirect_uri=https://login.live.com/oauth20_desktop.srf&code={code}&grant_type=authorization_code</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/ itemprop=url>Microsoft OneDrive认证和登录</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-13">2016-10-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>94 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
+OneDrive认证 OneDrive authentication and sign-in有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从https://dev.onedrive.com/auth/get-token.js中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为https://dev.onedrive.com/auth/callback.htm。而 OneDrive authentication and sign-in 中提到对于移动应用和桌面应用，跳转URI应设为https://login.live.com/oauth20_desktop.srf （注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。
+Token Flow测试 HTTP GET请求如下：
+https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&scope=onedrive.readonly+wl.signin&response_type=code&redirect_uri=https://login.live.com/oauth20_desktop.srf 响应如下，认证失败：
+https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&error_description=The+provided+value+for+the+input+parameter+'response_type'+is+not+allowed+for+this+client.+Expected+value+is+'code'. 找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！
+Code Flow测试 用于用户登录的HTTP GET请求如下： https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&scope=onedrive.readonly+wl.signin&response_type=token&redirect_uri=https://login.live.com/oauth20_desktop.srf 请求用户授权：此时浏览器上地址变为： https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&scope=onedrive.readonly+wl.signin&response_type=code&redirect_uri=https://login.live.com/oauth20_desktop.srf&uaid=78...e6&pid=...16&mkt=EN-US&scft=DSA...hfC&contextid=7F...D6&mkt=EN-US&uiflavor=host&id=27...69&uaid=78...e6&client_id=00...42&rd=none&scope=&cscope=onedrive.readonly+wl.signin 最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数： POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&redirect_uri=https://login.live.com/oauth20_desktop.srf&code=M9...5e-b...a-e...5-6685-d...06&grant_type=authorization_code 在OneDrive API中使用获得的访问令牌： 参考 Getting started with OneDrive API SDKs for OneDrive integration Registering your app for OneDrive API OneDrive authentication and sign-in Sign-in Microsoft Account & Azure AD users in a single app Develop with the OneDrive API getting #error=unsupported_response_type&error_description=AADSTS70005: with token request</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_microsoft_onedrive_api/ itemprop=url>Hello Microsoft OneDrive API</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-12">2016-10-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>25 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
+测试源 为了省事，就用我自己私人的OneDrive做测试吧。 获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。
+测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含"050709大同"子目录，该子目录的id为"712B21FCE8E08C92!112"。从整个响应内容可知，根目录包含"文档"子目录，其id为"712B21FCE8E08C92!442"。
+查看Drive &ldquo;文档"目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
+获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
+参考 Develop with the OneDrive API</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/ itemprop=url>比较OneDrive、OneDriveforBusiness和Office365</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-11">2016-10-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>71 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>OneDrive与OneDrive for Business的区别 OneDrive与OneDrive for Business名字接近，如果认为是个人版和商业版的区别，OneDrive forBusiness在OneDrive基础上增加一些商业高级功能，那就没有正确理解二者的区别。
+OneDrive（以前称之为SkyDrive）是微软提供的云端私人存储，通过Microsoft账户或Outlook.com获得。使用OneDrive在云上存储文档、图片和其他文件，可以共享给好友，甚至内容协作。可以随意决定你自己的使用方式。 OneDrive forBusiness是用于商业目的的在线存储，它既可以在微软云上也可以在组织/企业的SharePoint服务器上。OneDrive forBusiness是Office365或SharePoint服务器的主要组成部分，提供存储、共享和同步团队或项目工作文档的地方。你的OneDrive forBusiness由你的工作组织/企业管理，以便进行工作文档协作。你的工作组织/企业的网站集管理员控制你对文档库的权限。 功能桌面同步- Windows PC- Mac OS(Soon)移动应用- Windows Tablet- Android- iOS- Windows Phone- XBox在浏览器内创建/编辑Office文档与桌面版Office 集成实时协同编辑Office文档文档版本和历史信息- 简单自动创建版本和版本恢复- 版本管理(主次版本或仅主版本，手动创建版本需要checkout选项和其他高级版本选项)多重身份认证支持审计与报告
+用于细颗粒度控制的高级管理功能
+审批工作流使用SharePoint Designer创建定制工作流对文档创建列添加自己的元数据高级安全管理对内容创建视图(可保存视图、过滤器等等)创建列表进行数据管理(通告、任务、联系人等等)保留策略(取决于SharePoint计划)文档模板eDiscoverySharePoint提供的功能SSO/ADFS/Directory同步支持内建标准一致性存储容量5GB/15GB1TB/5TB Office 365 Office 365是一套用于个人、教育或商业活动的云服务。商业和企业计划可提供一套提高生产效率的产品。使用Office365，可以获得的Office应用(Word、Excel、PowerPoint、OneNote、Outlook和Publisher)，以及50GB邮箱容量、用于企业即时消息、音视频电话和web会议的Skypefor Business、作为企业社交网络的Yammer、用于文件管理的SharePoint及1TB的OneDrive存储。
+参考 OneDrive for Business vs OneDrive – Know the difference OneDrive, OneDrive for Business, and Office 365: What’s Best? What is OneDrive for Business?
+Ultimate Guide in choosing between OneDrive, OneDrive for Business and Office 365</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/10/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/7/>7</a>
 <a class=page-number href=/page/8/>8</a>
 <a class=page-number href=/page/9/>9</a>
@@ -202,9 +213,9 @@ POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-fo
 <a class=page-number href=/page/15/>15</a>
 <a class="extend next" rel=next href=/page/12/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

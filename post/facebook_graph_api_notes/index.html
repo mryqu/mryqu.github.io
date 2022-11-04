@@ -1,0 +1,191 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Facebook Graph API合集 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="Facebook Graph API合集"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="Facebook Graph API合集 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/facebook_graph_api_notes/ itemprop=url>Facebook Graph API合集</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-01-04">2016-01-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>411 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody><h3 id=常用url笔记>常用URL笔记</h3><h4 id=获取facebook主页id>获取Facebook主页Id</h4><p><a href="https://graph.facebook.com/v2.5/SasSoftware?access_token=%7BaccessToken%7D&format=json">https://graph.facebook.com/v2.5/SasSoftware?access_token={accessToken}&format=json</a>
+<img src=/images/2016/1/0026uWfMgy71y27IyKe8a.png alt=常用URL笔记>上面示例是通过主页名SasSoftware获取其主页Id。</p><p>获取Facebook主页帖子</p><ul><li><a href="https://graph.facebook.com/v2.5/%7BpageId%7D/feed?limit=100&format=json&include_hidden=true&access_token=%7BaccessToken%7D&since=2015-01-01&util=2015-12-31">https://graph.facebook.com/v2.5/{pageId}/feed?limit=100&format=json&include_hidden=true&access_token={accessToken}&since=2015-01-01&util=2015-12-31</a></li><li><a href="https://graph.facebook.com/%7BpageId%7D/feed?limit=100&format=json&include_hidden=true&access_token=%7BaccessToken%7D&since=1420041660&util=1422634320">https://graph.facebook.com/{pageId}/feed?limit=100&format=json&include_hidden=true&access_token={accessToken}&since=1420041660&util=1422634320</a></li><li><a href="https://graph.facebook.com/v2.0/%7BpageId%7D/feed?limit=100&format=json&include_hidden=true&access_token=%7BaccessToken%7D&since=1420041660&util=1422634320">https://graph.facebook.com/v2.0/{pageId}/feed?limit=100&format=json&include_hidden=true&access_token={accessToken}&since=1420041660&util=1422634320</a></li></ul><p>通过Facebook Graph API 2.5或不带版本的API仅能获取帖子的Id、创建时间和帖子内容，而FacebookGraph API 2.0则可以获得更多内容。</p><p>获取Facebook帖子的评论信息
+<a href="https://graph.facebook.com/%7BpostId%7D/comments?limit=100&format=json&include_hidden=true&access_token=%7BaccessToken%7D">https://graph.facebook.com/{postId}/comments?limit=100&format=json&include_hidden=true&access_token={accessToken}</a></p><p>获取Facebook帖子的点赞信息
+<a href="https://graph.facebook.com/%7BpostId%7D/likes?limit=100&format=json&include_hidden=true&summary=true&access_token=%7BaccessToken%7D">https://graph.facebook.com/{postId}/likes?limit=100&format=json&include_hidden=true&summary=true&access_token={accessToken}</a></p><h3 id=获取帖子订阅信息之limit参数>获取帖子订阅信息之limit参数</h3><p>不同版本Facebook Graph API对<a href=https://developers.facebook.com/docs/graph-api/reference/page/feed#read>获取帖子订阅信息</a> 中limit参数要求不同：</p><ul><li>v2.0及以下版本没有说明</li><li>v2.1、v2.2和v2.3版本上限为250</li><li>v2.4和v2.5版本上限为100<img src=/images/2016/1/0026uWfMgy70usFb7C28a.jpg alt=Facebook Graph API获取帖子订阅信息之limit参数></li></ul><h3 id=处理facebookapi访问速率超限错误>处理Facebook API访问速率超限错误</h3><p>对于下列Facebook通用错误，我个人觉的#2、#4、#9、#17、#18和#32错误都可以向客户端报告FacebookAPI访问速率超限，至于#5不确定。</p><table><thead><tr><th>Error number</th><th>PHP Constant name</th><th>Error description</th><th>Generated by methods</th></tr></thead><tbody><tr><td>2</td><td>API_EC_SERVICE</td><td>Service temporarily unavailable</td><td>(all)</td></tr><tr><td>4</td><td>API_EC_TOO_MANY_CALLS</td><td>Application request limit reached</td><td>(all)</td></tr><tr><td>5</td><td>API_EC_BAD_IP</td><td>Unauthorized source IP address</td><td>(all)</td></tr><tr><td>9</td><td>API_EC_RATE</td><td>User is performing too many actions</td><td></td></tr><tr><td>17</td><td>API_EC_USER_TOO_MANY_CALLS</td><td>User request limit reached</td><td></td></tr><tr><td>18</td><td>API_EC_REQUEST_RESOURCES_EXCEEDED</td><td>This API call could not be completed due to resourcelimits</td><td></td></tr><tr><td>32</td><td></td><td>Page request limit reached</td><td></td></tr></tbody></table><p>参考</p><ul><li><a href=https://developers.facebook.com/docs/graph-api/advanced/rate-limiting>Rate Limiting on the Facebook Graph API</a></li><li><a href=https://github.com/phwd/fbec>Facebook API Error Codes for Developers</a></li></ul><h3 id=fields参数>fields参数</h3><p>使用Facebook Graph API进行查询，v2.3和v2.4版返回结果截然不同。使用v2.3之前的FacebookGraph API获得的响应信息很详细，而使用v2.4及之后的Facebook Graph API获得的响应基本没什么信息！
+<img src=/images/2016/1/0026uWfMzy73gPqG1BJ97.jpg alt=使用Facebook Graph API中的fields参数>
+<img src=/images/2016/1/0026uWfMzy73gPr00iA50.jpg alt=使用Facebook Graph API中的fields参数>
+这可是相同的AccessToken呀。卖萌的话，可以说句“吓死宝宝了”。</p><p><a href=https://developers.facebook.com/docs/graph-api/using-graph-api>Using the Graph API</a> 提到可以使用fields参数选择所需字段，照着v2.3的加上了id、name、about、awards&mldr;&mldr;
+<img src=/images/2016/1/0026uWfMzy73gPrlmbr45.jpg alt=使用Facebook Graph API中的fields参数>
+失而复得，虚惊一场！！！</p><p><a href=https://developers.facebook.com/docs/graph-api/using-graph-api>Using the Graph API</a> 里不仅提到了选择参数，还提到可以使用字段表达式进行嵌套查询。
+<img src=/images/2016/1/0026uWfMzy73gPrzveub6.jpg alt=使用Facebook Graph API中的fields参数>
+likes字段使用limit(1)限定其仅返回一个点赞数据，反正我还要使用GraphAPI对帖子点赞数据进行请求，返回一个点赞知道需不需要请求就好了。</p><p>comments字段还制定了二级字段attachment、id和from。这样comments字段既不会漏了我需要的子字段，也不会多出来我不需要的字段。在上图GraphAPI Explorer中，左侧comments字段下面的”Search for afield“链接可以提示那些子字段可选，很方便。</p><h3 id=message_tags>message_tags</h3><p>message_tag是Facebook帖子和评论中消息标记的设置档，包括标记ID、文本、类型、偏移和长度。
+今天才注意到Facebook帖子（<a href=https://developers.facebook.com/docs/graph-api/reference/v2.5/post>Post</a> ）中message_tag是一个JSON对象，而评论（<a href=https://developers.facebook.com/docs/graph-api/reference/v2.5/object/comments>Comment</a> ）中message_tag是一个JSON数组。</p><p>帖子中的message_tag是这个样子的：</p><pre tabindex=0><code>&#34;message_tags&#34;: {
+  &#34;88&#34;: [
+    {
+      &#34;id&#34;: &#34;168597536563870&#34;,
+      &#34;name&#34;: &#34;IBM&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 88,
+      &#34;length&#34;: 3
+    }
+  ],
+  &#34;93&#34;: [
+    {
+      &#34;id&#34;: &#34;241760048297&#34;,
+      &#34;name&#34;: &#34;Fidelity Investments&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 93,
+      &#34;length&#34;: 20
+    }
+  ],
+  &#34;115&#34;: [
+    {
+      &#34;id&#34;: &#34;145619362306025&#34;,
+      &#34;name&#34;: &#34;ABB&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 115,
+      &#34;length&#34;: 3
+    }
+  ],
+  &#34;120&#34;: [
+    {
+      &#34;id&#34;: &#34;252467906271&#34;,
+      &#34;name&#34;: &#34;Quintiles&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 120,
+      &#34;length&#34;: 9
+    }
+  ],
+  &#34;131&#34;: [
+    {
+      &#34;id&#34;: &#34;193453547355388&#34;,
+      &#34;name&#34;: &#34;SAS Software&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 131,
+      &#34;length&#34;: 12
+    }
+  ],
+  &#34;161&#34;: [
+    {
+      &#34;id&#34;: &#34;702317053131576&#34;,
+      &#34;name&#34;: &#34;Duke Energy&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 161,
+      &#34;length&#34;: 11
+    }
+  ],
+  &#34;174&#34;: [
+    {
+      &#34;id&#34;: &#34;313176732094295&#34;,
+      &#34;name&#34;: &#34;Toshiba Global Commerce Solutions&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 174,
+      &#34;length&#34;: 33
+    }
+  ],
+  &#34;209&#34;: [
+    {
+      &#34;id&#34;: &#34;20531316728&#34;,
+      &#34;name&#34;: &#34;Facebook&#34;,
+      &#34;type&#34;: &#34;page&#34;,
+      &#34;offset&#34;: 209,
+      &#34;length&#34;: 8
+    }
+  ]
+}
+</code></pre><p>评论中的message_tag是这个样子的：</p><pre tabindex=0><code>&#34;message_tags&#34;: [
+  {
+    &#34;id&#34;: &#34;10101999889432459&#34;,
+    &#34;length&#34;: 16,
+    &#34;name&#34;: &#34;Crystal Sullivan&#34;,
+    &#34;offset&#34;: 10,
+    &#34;type&#34;: &#34;user&#34;
+  },
+  {
+    &#34;id&#34;: &#34;10152592598848593&#34;,
+    &#34;length&#34;: 16,
+    &#34;name&#34;: &#34;Chris Hemedinger&#34;,
+    &#34;offset&#34;: 27,
+    &#34;type&#34;: &#34;user&#34;
+  }
+]
+</code></pre><h3 id=主页名>主页名</h3><p>今天Alisa同学说搜中国湖南卫视的主页报错，我一直都只是用SASsoftware和我的YquTest做的开发测试。赶紧赶过去看了一眼，实验证明搜hntvchina好使，搜中国湖南卫视就会出错。
+<img src=/images/2016/5/0026uWfMgy71y8WAQPWe4.jpg alt=Facebook Graph API之主页名>
+感觉中国湖南卫视就像是hntvchina的显示名，而SASsoftware的显示名其实是SAS software。
+又和小伙伴一起创建了一个主页玩玩，让我们输入的名字最后成了显示名，而真正生成的名字将空格用"-&ldquo;代替然后又加了一串数字，感觉像防止主键冲突。</p><h3 id=嵌套请求>嵌套请求</h3><p>今天又玩了一把Facebook Graph API。当我们抓取Page上的帖子后，之后会发起API请求获取帖子的评论及回复。</p><p>获取Page SASsoftware（ID为193453547355388）下的帖子</p><pre tabindex=0><code>https://graph.facebook.com/193453547355388/feed?fields=id,XXXX,likes.limit(0).summary(1),comments,XXXX,with_tags&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;since=XXXX&amp;until=XXXX&amp;access_token={YOUR_TOKEN}
+</code></pre><p><img src=/images/2017/04/FB_SASSoftware_feed.png alt="FB:SASSoftware feed"></p><p>获取帖子193453547355388_951786161522119的评论</p><pre tabindex=0><code>https://graph.facebook.com/193453547355388_951786161522119/comments?fields=id,from,message,created_time,like_count&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;access_token={YOUR_TOKEN}
+</code></pre><p><img src=/images/2017/04/FB_SASSoftware_pageItemComment.png alt="FB:SASSoftware pageItemComment"></p><p>获取评论951786161522119_951787458188656的回复</p><pre tabindex=0><code>https://graph.facebook.com/951786161522119_951787458188656/comments?fields=id,from,message,created_time,like_count&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;access_token={YOUR_TOKEN}
+</code></pre><p><img src=/images/2017/04/FB_SASSoftware_pageItemCommentReply.png alt="FB:SASSoftware pageItemCommentReply"></p><p>试用嵌套请求</p><pre tabindex=0><code>https://graph.facebook.com/193453547355388/feed?fields=id,XXXX,likes.limit(0).summary(1),comments{id,from,message,type,created_time,like_count,comments{id,from,message,type,created_time,like_count}},XXXX,with_tags&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;since=XXXX&amp;until=XXXX&amp;access_token={YOUR_TOKEN}
+</code></pre><p>这里的请求使用了两级嵌套请求，第一级获取帖子的评论，第二季获取评论的回复，那结果如何？
+<img src=/images/2017/04/FB_SASSoftware_restedRequest.png alt="FB:SASSoftware restedRequest">
+一个API请求就能够获得了帖子、评论及回复的信息。<strong>但是</strong>，考虑到一个帖子的评论或一个评论的回复都可能很多，返回结果是第一个分页结果，还是需要通过<a href=https://developers.facebook.com/docs/graph-api/reference/v2.8/object/comments>/{object-id}/comments</a> API 请求获取，考虑到设计复杂性和性价比，决定放弃这种方案。</p><h3 id=获取评论数量>获取评论数量</h3><h4 id=通过fields参数获取评论回复个数>通过fields参数获取评论/回复个数</h4><p>通过预判评论/回复个数，以决定是否发起<a href=https://developers.facebook.com/docs/graph-api/reference/v2.6/object/comments>/{object-id}/comments</a> API请求，可以显著减少API请求个数。</p><p>获取帖子的评论数</p><pre tabindex=0><code>https://graph.facebook.com/{YOUR_PAGE_ID}/feed?fields=id,XXXX,likes.limit(0).summary(1),comments.limit(0).summary(1),XXXX,with_tags&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;since=XXXX&amp;until=XXXX&amp;include_hidden=true&amp;access_token={YOUR_ACCESS_TOKEN}
+</code></pre><p><img src=/images/2016/5/0026uWfMzy7ai012ULXfd.jpg alt=Get comments count using Facebook Graph API></p><p>获取评论的回复数</p><pre tabindex=0><code>https://graph.facebook.com/{YOUR_POST_ID}/comments?fields=id,from,message,created_time,like_count,comments.limit(0).summary(1)&amp;format=json&amp;include_hidden=true&amp;limit=100&amp;since=XXXX&amp;until=XXXX&amp;include_hidden=true&amp;access_token={YOUR_ACCESS_TOKEN}
+</code></pre><p><img src=/images/2016/5/0026uWfMzy7ai0su4Pxdb.jpg alt=Get comments count using Facebook Graph API></p><h4 id=commentssummarytotal_count解读>comments.summary.total_count解读</h4><p>在Facebook Graph指南中<a href=https://developers.facebook.com/docs/graph-api/reference/v2.6/object/comments>/{object-id}/comments</a> 提到了total_count数值是随filter变动的。</p><ul><li>filter为stream，total_count为该节点下所有评论及其回复的总数；</li><li>filter为toplevel，total_count为该节点下顶层评论/回复的总数。</li></ul><p>由于在我的使用场景中为设置filter，而其默认值为toplevel，则total_count为该节点下顶层评论/回复的总数。</p><h3 id=通过fields参数获取点赞数量>通过fields参数获取点赞数量</h3><p>原来获得Facebook帖子/评论的点赞数，需要额外单独发送一次API请求：
+<img src=/images/2016/5/0026uWfMzy7agEMpj5qd4.jpg alt=Get likes count using fields parameters in Facebook Graph API>
+<img src=/images/2016/5/0026uWfMzy7agEQ2GPT69.jpg alt=Get likes count using fields parameters in Facebook Graph API></p><p>通过对Facebook GraphAPI中fields参数添加likes.limit(0).summary(1)，仅需一次API请求就可获得帖子/评论的所有信息：
+<img src=/images/2016/5/0026uWfMzy7agETUMjf19.jpg alt=Get likes count using fields parameters in Facebook Graph API></p><h3 id=点赞数>点赞数</h3><p>现在Facebook帖子上有一个心情计数，下面这个湖南卫视的帖子可以看到总共有293个。
+<img src=/images/2016/5/0026uWfMgy71E5oepBS80.jpg alt=Facebook Graph API之点赞数> 通过Facebook Graph API获得的点赞数为275个。
+<img src=/images/2016/5/0026uWfMgy71E6jEoJr11.png alt=Facebook Graph API之点赞数> 示例里的帖子心情计数293包括点赞数275、大爱数13、笑趴数4、【未知表情计数】1。
+<img src=/images/2016/5/0026uWfMgy71E5em1bWf8.png alt=Facebook Graph API之点赞数> 这里可以看到点赞可以细分为点赞、大爱、笑趴、哇、心碎和怒这六种表情。
+<img src=/images/2016/5/0026uWfMgy71E6OYNSZ15.png alt=Facebook Graph API之点赞数></p><h3 id=分享数>分享数</h3><p>现在Facebook帖子上有一个分享计数，下面这个湖南卫视的帖子可以看到总共有3个。
+<img src=/images/2016/5/0026uWfMgy71EQCkRZf69.png alt=Facebook Graph API之分享数> 点进去可以查看这3个分享的具体情况：
+<img src=/images/2016/5/0026uWfMgy71EQQuPLBa3.png alt=Facebook Graph API之分享数> 使用Facebook Graph Explorer却可以得到分享数为7：
+<img src=/images/2016/5/0026uWfMgy71ERpDmtfa5.jpg alt=Facebook Graph API之分享数> <strong><font color=#FF0000>差4个分享，有点醉！</font></strong>
+其实我刚才刚刚用消息给朋友共享了这个帖子，由于是不是公开的，所以Facebook网页显示上是不计入的，但是API却是统计的。
+<img src=/images/2016/5/0026uWfMgy71EQYmgCCaa.jpg alt=Facebook Graph API之分享数></p><h3 id=获取表情>获取表情</h3><p>Facebook Enhances Everyone&rsquo;s Like With Love, Haha, Wow, Sad, Angry Buttons. <img src=/images/2017/01/FbReaction.png alt="Fb Reaction">
+For example, there are two reactions in the post 778979332230227: <img src=/images/2017/01/FbReactionPostSample.png alt="Fb Reaction Post Sample">
+Your can use <a href=https://developers.facebook.com/docs/graph-api/reference/post/reactions#Reading>Facebook Graph API - Reading Reactions</a> to get the reactions data. Note: The API version must be 2.6 or higher.
+<img src=/images/2017/01/FbApi25_Reaction.png alt="FbApi25 on Reaction"> <img src=/images/2017/01/FbApi26_Reaction.png alt="FbApi26 on Reaction">
+You also can <a href=http://stackoverflow.com/questions/36906590/getting-facebook-post-all-reactions-count-in-single-graph-api-request>get all reactions count of one post in single Graph API request</a>:
+<img src=/images/2017/01/FbApi_getReactionCount.png alt="FbApi getReactionCount"></p><h3 id=facebook根据请求api版本返回不同内容>Facebook根据请求API版本返回不同内容？</h3><p>今天跟测试组同事研究Facebook返回内容时，发现一个奇怪现象：抓取湖南卫视的Page，当API版本为2.3至2.8时，返回结果内容为空；而API版本为2.9时，返回有内容的响应。
+<img src=/images/2017/04/FB27Response.png alt="FB API 2.7 Response"> <img src=/images/2017/04/FB29Response.png alt="FB API 2.9 Response"></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Facebook Graph API合集<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/facebook rel=tag title=facebook>#facebook#</a>
+<a href=/tags/graph rel=tag title=graph>#graph#</a>
+<a href=/tags/api rel=tag title=api>#api#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/%E4%B8%BAcurl%E5%BA%93%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/ rel=next title=为cURL库设置HTTP代理的代码片段><i class="fa fa-chevron-left"></i> 为cURL库设置HTTP代理的代码片段</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/c++_%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A3%80%E6%9F%A5%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8Fyyyy-mm-dd/ rel=prev title=[C++]用正则表达式检查日期格式yyyy-MM-dd>[C++]用正则表达式检查日期格式yyyy-MM-dd <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/facebook_graph_api_notes/",this.page.identifier="https://mryqu.github.io/post/facebook_graph_api_notes/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#常用url笔记>常用URL笔记</a></li><li><a href=#获取帖子订阅信息之limit参数>获取帖子订阅信息之limit参数</a></li><li><a href=#处理facebookapi访问速率超限错误>处理Facebook API访问速率超限错误</a></li><li><a href=#fields参数>fields参数</a></li><li><a href=#message_tags>message_tags</a></li><li><a href=#主页名>主页名</a></li><li><a href=#嵌套请求>嵌套请求</a></li><li><a href=#获取评论数量>获取评论数量</a></li><li><a href=#通过fields参数获取点赞数量>通过fields参数获取点赞数量</a></li><li><a href=#点赞数>点赞数</a></li><li><a href=#分享数>分享数</a></li><li><a href=#获取表情>获取表情</a></li><li><a href=#facebook根据请求api版本返回不同内容>Facebook根据请求API版本返回不同内容？</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

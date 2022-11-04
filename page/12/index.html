@@ -4,55 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/microsoft_onedrive%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%BD%95/ itemprop=url>Microsoft OneDrive认证和登录</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-13">2016-10-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>94 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>为OneDrive注册自己的应用 Registering your app for OneDrive API里面有提到，平台支持web和移动应用两种，而默认情况下是web应用，需要一或多个跳转URI。对于原生应用，可以选择移动应用。选择移动应用后跳转URI则变成urn:ietf:wg:oauth:2.0:oob（带外认证）了，正是我想要的结果！
-OneDrive认证 OneDrive authentication and sign-in有个按钮可以获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。从https://dev.onedrive.com/auth/get-token.js中我们可以看到其所用的http请求为TokenFlow，其跳转URI设为https://dev.onedrive.com/auth/callback.htm。而 OneDrive authentication and sign-in 中提到对于移动应用和桌面应用，跳转URI应设为https://login.live.com/oauth20_desktop.srf （注：使用urn:ietf:wg:oauth:2.0:oob的话，MSA连响应都没有）。
-Token Flow测试 HTTP GET请求如下：
-https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&scope=onedrive.readonly+wl.signin&response_type=code&redirect_uri=https://login.live.com/oauth20_desktop.srf 响应如下，认证失败：
-https://login.live.com/oauth20_desktop.srf?lc=1033#error=unsupported_response_type&error_description=The+provided+value+for+the+input+parameter+'response_type'+is+not+allowed+for+this+client.+Expected+value+is+'code'. 找了很久微软的帖子，也没说为什么Token Flow不要使，一直纠结是微软不支持还是我配置有问题。后来，看了RFC6749 The OAuth 2.0 Authorization Framework，才明白Token Flow就是规范里的Implicit GrantFlow。如果我的应用配置为web应用，是可以看到Allow ImplicitFlow选择框的。好吧，当选择移动应用时微软不支持Token Flow，我的配置没问题！！！
-Code Flow测试 用于用户登录的HTTP GET请求如下： https://login.live.com/oauth20_authorize.srf?client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&scope=onedrive.readonly+wl.signin&response_type=token&redirect_uri=https://login.live.com/oauth20_desktop.srf 请求用户授权：此时浏览器上地址变为： https://account.live.com/Consent/Update?ru=https://login.live.com/oauth20_authorize.srf?lc=1033&client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&scope=onedrive.readonly+wl.signin&response_type=code&redirect_uri=https://login.live.com/oauth20_desktop.srf&uaid=78...e6&pid=...16&mkt=EN-US&scft=DSA...hfC&contextid=7F...D6&mkt=EN-US&uiflavor=host&id=27...69&uaid=78...e6&client_id=00...42&rd=none&scope=&cscope=onedrive.readonly+wl.signin 最终跳转的地址包含了code参数： 获取访问令牌的HTTP POST请求包含上面获得的code参数： POST https://login.live.com/oauth20_token.srf Content-Type: application/x-www-form-urlencoded client_id=b9aaf3be-6892-42a5-8a04-4a87bc28ce7b&redirect_uri=https://login.live.com/oauth20_desktop.srf&code=M9...5e-b...a-e...5-6685-d...06&grant_type=authorization_code 在OneDrive API中使用获得的访问令牌： 参考 Getting started with OneDrive API SDKs for OneDrive integration Registering your app for OneDrive API OneDrive authentication and sign-in Sign-in Microsoft Account & Azure AD users in a single app Develop with the OneDrive API getting #error=unsupported_response_type&error_description=AADSTS70005: with token request</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_microsoft_onedrive_api/ itemprop=url>Hello Microsoft OneDrive API</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-12">2016-10-12</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>25 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>OneDriveAPI提供了一套HTTP服务用以将应用连接到OneDrive个人版、OneDrive商业版及SharePoint在线文档库上的文件和目录。OneDriveAPI使应用连接Office 365上文档及访问OneDrive和SharePoint上文件高级功能变得容易。
-测试源 为了省事，就用我自己私人的OneDrive做测试吧。 获取Token 最省事的方法是在OneDrive authentication and sign-in里面获得测试Token，无需注册新的应用就可以请求到与登录账户绑定的、一个有效期1小时的开发者Token。
-测试API 获取默认Drive 查看Drive 根目录内容 从上图可知，根目录包含一个包含"050709大同"子目录，该子目录的id为"712B21FCE8E08C92!112"。从整个响应内容可知，根目录包含"文档"子目录，其id为"712B21FCE8E08C92!442"。
-查看Drive &ldquo;文档"目录 该目录下有一个CN_EN_JP_KO.xlsx文件，其@content.downloadUrl属性值为下载链接。
-获取CN_EN_JP_KO.xlsx文件 如果将链接直接放入浏览器，下载后将文件名变更成xlsx后缀，即可用Excel打开。
-参考 Develop with the OneDrive API</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%AF%94%E8%BE%83onedriveonedriveforbusiness%E5%92%8Coffice365/ itemprop=url>比较OneDrive、OneDriveforBusiness和Office365</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-11">2016-10-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>71 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>OneDrive与OneDrive for Business的区别 OneDrive与OneDrive for Business名字接近，如果认为是个人版和商业版的区别，OneDrive forBusiness在OneDrive基础上增加一些商业高级功能，那就没有正确理解二者的区别。
-OneDrive（以前称之为SkyDrive）是微软提供的云端私人存储，通过Microsoft账户或Outlook.com获得。使用OneDrive在云上存储文档、图片和其他文件，可以共享给好友，甚至内容协作。可以随意决定你自己的使用方式。 OneDrive forBusiness是用于商业目的的在线存储，它既可以在微软云上也可以在组织/企业的SharePoint服务器上。OneDrive forBusiness是Office365或SharePoint服务器的主要组成部分，提供存储、共享和同步团队或项目工作文档的地方。你的OneDrive forBusiness由你的工作组织/企业管理，以便进行工作文档协作。你的工作组织/企业的网站集管理员控制你对文档库的权限。 功能桌面同步- Windows PC- Mac OS(Soon)移动应用- Windows Tablet- Android- iOS- Windows Phone- XBox在浏览器内创建/编辑Office文档与桌面版Office 集成实时协同编辑Office文档文档版本和历史信息- 简单自动创建版本和版本恢复- 版本管理(主次版本或仅主版本，手动创建版本需要checkout选项和其他高级版本选项)多重身份认证支持审计与报告
-用于细颗粒度控制的高级管理功能
-审批工作流使用SharePoint Designer创建定制工作流对文档创建列添加自己的元数据高级安全管理对内容创建视图(可保存视图、过滤器等等)创建列表进行数据管理(通告、任务、联系人等等)保留策略(取决于SharePoint计划)文档模板eDiscoverySharePoint提供的功能SSO/ADFS/Directory同步支持内建标准一致性存储容量5GB/15GB1TB/5TB Office 365 Office 365是一套用于个人、教育或商业活动的云服务。商业和企业计划可提供一套提高生产效率的产品。使用Office365，可以获得的Office应用(Word、Excel、PowerPoint、OneNote、Outlook和Publisher)，以及50GB邮箱容量、用于企业即时消息、音视频电话和web会议的Skypefor Business、作为企业社交网络的Yammer、用于文件管理的SharePoint及1TB的OneDrive存储。
-参考 OneDrive for Business vs OneDrive – Know the difference OneDrive, OneDrive for Business, and Office 365: What’s Best? What is OneDrive for Business?
-Ultimate Guide in choosing between OneDrive, OneDrive for Business and Office 365</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%AD%98%E5%82%A8_apisdk/ itemprop=url>在线文档/存储 API/SDK</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%AD%98%E5%82%A8_apisdk/ itemprop=url>在线文档/存储 API/SDK</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-10-10">2016-10-10</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -166,7 +118,44 @@ Dropbox OAuth Guide Dropbox authorize API Dropbox token API</div><footer class=p
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>尝试一下用Tableau导入Google Sheets，操作过程中没看到配置项，比较简洁。
-用Google账户授权Tableau 显示所有电子表格 选择一个电子表格 导入一个电子表格 参考 Connect Directly to Google Sheets in Tableau 10 Tableau connector examples</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/11/><i class="fa fa-angle-left"></i></a>
+用Google账户授权Tableau 显示所有电子表格 选择一个电子表格 导入一个电子表格 参考 Connect Directly to Google Sheets in Tableau 10 Tableau connector examples</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8google_api%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/ itemprop=url>在Google API中使用访问令牌的三种方式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-09-29">2016-09-29</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>28 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Google Developers OAuth 2.0 playground 中设置OAuth2.0配置时，可以发现有一个访问令牌位置的选择框，其值为：
+Authorization header w/ OAuth prefix Authorization header w/ Bearer prefix Access_token URL parameter 按照前面博文《Google Sheets API认证和鉴权 》中的方法生成一个访问令牌。下面我就用这个访问令牌对这三种使用方式进行一下尝试。
+认证头使用OAuth前缀 认证头使用Bearer前缀 使用access_token URL参数 结论：这三种访问令牌位置的使用都工作正常，API结果相同！</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_google_sheets_api/ itemprop=url>Hello Google Sheets API</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-09-28">2016-09-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>33 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>准备环境 首先在Google Sheets创建了SpreadSheetTest1和To-do list两个电子表格，以备使用。 API测试 方法spreadsheets.get测试 方法spreadsheets.get可以获得一个电子表格中所有表单的内容和元数据。 下面是用Postman进行同样操作： 方法spreadsheets.values.get测试 方法spreadsheets.values.get可以获得一个电子表格中所有表单的内容。 方法spreadsheets.create测试 方法spreadsheets.create可以创建一个新的电子表格。 查看GoogleSheets，也可以看到新创建的电子表格SpreadSheetCreate1。由于我的请求里没有数据，因此下图中数据区也是空空。 方法spreadsheets.values.append测试 方法spreadsheets.values.append可以向电子表格中添加内容。 查看Google Sheets，也可以看到刚才创建的电子表格SpreadSheetCreate1有了九个单元格新数据。 学习结论 Google Sheets API可以创建、读取和修改电子表格，但是没有找到删除电子表格的方法。 Google SheetsAPI可以创建、读取、修改和删除一个电子表格内容，例如方法spreadsheets.batchUpdate中deleteSheet就可以删除一个表单，而deleteDimension就可以删除一个表单中的行/列。
+参考 Google Sheets Google Sheets API Google API Explorer: Sheets</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/google_sheets_api%E8%AE%A4%E8%AF%81%E5%92%8C%E9%89%B4%E6%9D%83/ itemprop=url>Google Sheets API认证和鉴权</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-09-27">2016-09-27</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>58 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>玩一把用于Google Sheets API的OAuth2认证，以获得用于Sheets API的访问令牌。
+注册Google Sheets应用 首先在Google API Console注册一个应用： Google Sheets API鉴权 用于用户登录的HTTPGET请求如下（scope选择了profile、对文件元数据和内容只读访问、对表单和属性只读访问）： GET https://accounts.google.com/o/oauth2/v2/auth? scope=https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive.readonly profile& redirect_uri=urn:ietf:wg:oauth:2.0:oob& response_type=code& client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com 首先要求用户登录：要求登录后用户的授权：返回页面包含授权码： 获取访问令牌的HTTPPOST请求包含上面获得的授权码（在创建Google应用时获得的client_id和client_secret）： POST https://www.googleapis.com/oauth2/v4/token Content-Type: application/x-www-form-urlencoded code=4/-qpp...qA& client_id=826380598768-5935tlo90sccvr691ofmp4nrvpthrnn6.apps.googleusercontent.com& client_secret=5...r& redirect_uri=urn:ietf:wg:oauth:2.0:oob& grant_type=authorization_code 参考 Google Sheets Google Sheets API Authorize Google Sheets API Requests Using OAuth 2.0 for Mobile and Desktop Applications Using OAuth 2.0 for Web Server Applications</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/11/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/8/>8</a>
 <a class=page-number href=/page/9/>9</a>
 <a class=page-number href=/page/10/>10</a>
@@ -178,9 +167,9 @@ Dropbox OAuth Guide Dropbox authorize API Dropbox token API</div><footer class=p
 <a class=page-number href=/page/16/>16</a>
 <a class="extend next" rel=next href=/page/13/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

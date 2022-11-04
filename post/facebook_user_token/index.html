@@ -1,0 +1,68 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>获取Facebook User Token - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="获取Facebook User Token"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="获取Facebook User Token - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/facebook_user_token/ itemprop=url>获取Facebook User Token</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-08-09">2016-08-09</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>94 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody><p>使用Facebook Graph API搜索主页数据，可以用App Token也可以用User Token。
+<a href=/post/%E8%8E%B7%E5%8F%96facebook_app_token>获取Facebook App Token</a>一贴中已经介绍了如何获取Facebook App Token，这里就介绍一下如何获取UserToken。</p><p>参考3 <a href=https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow>Facebook Login - Advance - Manually Build a Login Flow</a>给出了如何构建一个signURL，RestFB的getLoginDialogUrl方法就实现了这样的功能。redirectUri一开始直接想用带外认证urn:ietf:wg:oauth:2.0:oob，可是Facebook不认呀。
+<img src=/images/2016/8/0026uWfMzy73WsVvBVv99.jpg alt=获取Facebook User Token><a href=https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow>Facebook Login - Advance - Manually Build a Login Flow</a>已经提到了：对于桌面应用，redirectUri必须是https://www.facebook.com/connect/login_success.html 。</p><h3 id=获取facebook-user-token步骤>获取Facebook User Token步骤</h3><h4 id=生成signurl>生成signURL</h4><p>生成signURL并进行Get请求：</p><pre tabindex=0><code>curl &#34;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;redirect_uri=https://www.facebook.com/connect/login_success.html&amp;response_type=token&amp;scope=public_profile&#34;
+</code></pre><p>可以从返回的页面中获取登录表单：<img src=/images/2016/8/0026uWfMzy73XyEhrcD73.jpg alt=获取Facebook User Token></p><h4 id=认证>认证</h4><p>使用自己的Facebook账户和密码填充上一表单，使用Post请求进行认证：</p><pre tabindex=0><code>curl -X POST &#34;{form-action}&#34; -H &#34;Content-Type: application/x-www-form-urlencoded&#34; --data &#34;lsd={lsd_value}&amp;api_key={api_key_value}&amp;cancel_url={cancel_rul_value}&amp;isprivate={isprivate=_value}&amp;legacy_return={legacy_return_value}&amp;profile_selector_ids={profile_selector_ids_value}&amp;return_session={return_session_value}&amp;skip_api_login={skip_api_login_value}&amp;signed_next={skip_api_login_value}&amp;trynum={trynum_value}&amp;timezone={timezone_value}&amp;lgndim={lgndim_value}&amp;lgnrnd={lgnrnd_value}&amp;lgnjs={lgnjs_value}&amp;email={your_facebook_account}&amp;pass={your_facebook_password}&amp;login={login_value}&amp;persistent={persistent_value}&amp;default_persistent={default_persistent_value}&#34;
+</code></pre><h4 id=获取user-token>获取User Token</h4><p>Facebook通过认证后返回302响应，其Location头是下面这个样子的，很好获取（也可以参考一下RestFB的fromQueryString函数实现）。</p><pre tabindex=0><code>https://www.facebook.com/connect/login_success.html#access_token={userToken}&amp;expires_in={expire}
+</code></pre><h3 id=参考>参考</h3><p><a href=https://developers.facebook.com/docs/facebook-login/access-tokens>Facebook Login - Access Tokens</a><br><a href=https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens>Facebook Login - Access Tokens - App Access Tokens</a><br><a href=https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow>Facebook Login - Advance - Manually Build a Login Flow</a><br><a href=http://restfb.com/documentation/#access-token-dialog>RestFB： GET LOGIN DIALOG URL</a><br><a href=http://restfb.com/documentation/#access-token-extend>RestFB： EXTENDING AN ACCESS TOKEN</a><br><a href=http://hayageek.com/facebook-dialog-oauth/>Facebook Dialog OAuth Tutorial</a></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：获取Facebook User Token<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/facebook rel=tag title=facebook>#facebook#</a>
+<a href=/tags/user rel=tag title=user>#user#</a>
+<a href=/tags/token rel=tag title=token>#token#</a>
+<a href=/tags/curl rel=tag title=curl>#curl#</a>
+<a href=/tags/%e5%88%86%e6%9e%90 rel=tag title=分析>#分析#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/rabbitmq_%E5%BC%BA%E5%88%B6%E6%9D%80%E6%AD%BBrabbitmq%E8%BF%9B%E7%A8%8B/ rel=next title=[RabbitMQ] 强制杀死RabbitMQ进程><i class="fa fa-chevron-left"></i> [RabbitMQ] 强制杀死RabbitMQ进程</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/rabbitmq_hello_rabbitmq_clustering/ rel=prev title=[RabbitMQ] Hello RabbitMQ Clustering>[RabbitMQ] Hello RabbitMQ Clustering <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/facebook_user_token/",this.page.identifier="https://mryqu.github.io/post/facebook_user_token/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#获取facebook-user-token步骤>获取Facebook User Token步骤</a></li><li><a href=#参考>参考</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

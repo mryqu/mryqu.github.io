@@ -4,68 +4,33 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/ itemprop=url>[C++] 重温函数隐藏和重写</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/xterm_display%E5%8F%98%E9%87%8F/ itemprop=url>Xterm DISPLAY变量</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>758 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先回顾一下C++的重载、隐藏和重写概念：
-在相同作用域中，同名不同参的函数称为重载，这是c++多态的一种表现。对相同名字的成员函数，编译器可以根据传递的参数类型调用相应的成员函数。同名不同参的全局函数和类成员函数由于作用域不同，不是重载。不能通过函数返回值进行重载。像int和float这样不同的参数类型，可能会由于隐式转换隐患而无法通过编译。 当派生类中的成员函数/变量和基类中的成员函数/变量同名时，会隐藏基类的成员函数/变量，也就是指在派生类调用这个同名的成员函数/变量，调用的是派生类的成员函数/变量，而不是基类的那个成员函数/变量。可以通过类名::成员函数/变量去访问基类中同名的成员函数/变量。 派生类中的成员函数与基类的成员函数同名同参，就称为重写。当直接访问成员函数调用的是在派生类中重写的函数而不是从基类继承下来的成员函数，如果要访问从基类继承下来的成员函数也是通过类名::成员函数这种方式去调用基类的成员函数。 下面的小示例testOverride.cpp用于测试添加virtual与否对重写的影响：
-class BaseClass { public: BaseClass() { cout &lt;&lt; "BaseClass() on " &lt;&lt; this &lt;&lt; endl; } BaseClass(const BaseClass&) { cout &lt;&lt; "BaseClass(BaseClass) on " &lt;&lt; this &lt;&lt; endl; } virtual void vfun1() { cout &lt;&lt; "BaseClass:vfun1() on " &lt;&lt; this &lt;&lt; endl; } virtual void vfun2() { cout &lt;&lt; "BaseClass:vfun2() on " &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; "BaseClass:fun1() on " &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; "BaseClass:fun2() on " &lt;&lt; this &lt;&lt; endl; } virtual ~BaseClass() { cout &lt;&lt; "~BaseClass() on " &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string("NULL")) { cout &lt;&lt; "DerivedClass() on " &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string& n):name(new string(n)) { cout &lt;&lt; "DerivedClass(string) on " &lt;&lt; this &lt;&lt; endl; } void vfun1() { cout &lt;&lt; "DerivedClass:vfun1() on " &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; "DerivedClass:fun1() on " &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; "~DerivedClass(): name has been deleted on " &lt;&lt; this &lt;&lt; endl; } private: void vfun2() { cout &lt;&lt; "DerivedClass:vfun2() on " &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; "DerivedClass:fun2() on " &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; "=== test bo1 ===" &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); bo1->vfun1(); bo1->vfun2(); bo1->fun1(); bo1->fun2(); delete bo1; cout &lt;&lt; "=== test do1 ===" &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); do1->vfun1(); // error: 'virtual void DerivedClass::vfun2()' is private // within this context // do1->vfun2(); do1->fun1(); // error: 'void DerivedClass::fun2()' is private // within this context // do1->fun2(); delete do1; cout &lt;&lt; "=== test bo2 ===" &lt;&lt; endl; BaseClass* bo2 = new DerivedClass("123"); bo2->vfun1(); bo2->vfun2(); bo2->fun1(); bo2->fun2(); delete bo2; return 0; } vfun2和fun2在BaseClass类中是public访问权限，而在DerivedClass类中是private访问权限。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/eclipse_find_the_override_method_implementation_in_subclasses/ itemprop=url>[Eclipse] Find the override method implementation in subclasses</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-21">2013-10-21</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
 <span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/eclipse itemprop=url rel=index><span itemprop=name>Eclipse</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>34 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>已知当前对象为org.apache.hadoop.hdfs.client.HdfsDataInputStream实例，调用其祖宗抽象类java.io.InputStream的publicint read(byte b[], int off, int len) throwsIOException方法，究竟最后使用的是那个类的实现呢？ 由如上类继承图可知，应该从对象类往上依次查找方法实现：HdfsDataInputStream、FSDataInputStream、&mldr;&mldr;。工作很繁琐，挑战眼力！
-一个快捷的方式就是进入java.io.InputStream类，选中read(byte b[], int off, intlen) 方法，按住CTRL键后点击鼠标左键，这样会出现一个菜单： 选择OpenImplementation菜单，输入HdfsDataInputStream、FSDataInputStream、&mldr;&mldr;，可以更轻松的找到重写该方法的子类。 最终可知使用的是java.io.DataInputStream类中的实现：
-public final int read(byte b[], int off, int len) throws IOException { return in.read(b, off, len); }</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/ itemprop=url>学习十二要素应用宣言</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>4 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>DISPLAY变量的格式为[host]:&lt;display>[.screen] host 指网络主机名，空缺则指本机。 每个主机可以有多个显示，每个显示可以有多个屏幕。因此，DISPLAY=:0通常指本机内的所有GPU，DISPLAY=:0.0指本机内的第一个配置屏幕/GPU，DISPLAY=:0.1指本机内的第二个配置屏幕/GPU。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/xming%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/ itemprop=url>Xming使用笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-21">2013-10-21</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>275 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Heroku是业内知名的云应用平台，从对外提供服务以来，他们已经有上百万应用的托管和运营经验。大概在去年，创始人Adam Wiggins根据这些经验，发布了一个“十二要素应用宣言（The Twelve-Factor App）”。 简介 如今，软件通常会作为一种服务来交付，它们被称为网络应用程序，或软件即服务（SaaS）。12-Factor为构建如下的SaaS应用提供了方法论：
-使用标准化流程自动配置，从而使新的开发者花费最少的学习成本加入这个项目。 和操作系统之间尽可能的划清界限，在各个系统中提供最大的可移植性。 适合部署在现代的云计算平台，从而在服务器和系统管理方面节省资源。 将开发环境和生产环境的差异降至最低，并使用持续交付实施敏捷开发。 可以在工具、架构和开发流程不发生明显变化的前提下实现扩展。 这套理论适用于任意语言和后端服务（数据库、消息队列、缓存等）开发的应用程序。
-背景 本文的贡献者者参与过数以百计的应用程序的开发和部署，并通过Heroku平台间接见证了数十万应用程序的开发，运作以及扩展的过程。 本文综合了我们关于 SaaS应用几乎所有的经验和智慧，是开发此类应用的理想实践标准，并特别关注于应用程序如何保持良性成长，开发者之间如何进行有效的代码协作，以及如何避免软件污染。 我们的初衷是分享在现代软件开发过程中发现的一些系统性问题，并加深对这些问题的认识。我们提供了讨论这些问题时所需的共享词汇，同时使用相关术语给出一套针对这些问题的广义解决方案。本文格式的灵感来自于Martin Fowler 的书籍：Patterns of Enterprise Application Architecture，Refactoring。
-读者应该是哪些人？ 任何SaaS应用的开发人员。部署和管理此类应用的运维工程师。
-12-Factors I. 基准代码 一份基准代码，多份部署 12-Factor应用通常会使用版本控制系统加以管理，如Git、Mercurial、Subversion。一份用来跟踪代码所有修订版本的数据库被称作_代码库_（coderepository, code repo, repo）。 在类似 SVN这样的集中式版本控制系统中，_基准代码_就是指控制系统中的这一份代码库；而在Git那样的分布式版本控制系统中，_基准代码_则是指最上游的那份代码库。 基准代码和应用之间总是保持一一对应的关系：
-一旦有多个基准代码，就不能称为一个应用，而是一个分布式系统。分布式系统中的每一个组件都是一个应用，每一个应用可以分别使用12-Factor进行开发。 多个应用共享一份基准代码是有悖于12-Factor原则的。解决方案是将共享的代码拆分为独立的类库，然后使用依赖管理策略去加载它们。 尽管每个应用只对应一份基准代码，但可以同时存在多份部署。每份_部署_相当于运行了一个应用的实例。通常会有一个生产环境，一个或多个预发布环境。此外，每个开发人员都会在自己本地环境运行一个应用实例，这些都相当于一份部署。 所有部署的基准代码相同，但每份部署可以使用其不同的版本。比如，开发人员可能有一些提交还没有同步至预发布环境；预发布环境也有一些提交没有同步至生产环境。但它们都共享一份基准代码，我们就认为它们只是相同应用的不同部署而已。
-II. 依赖 显式声明依赖关系 大多数编程语言都会提供一个打包系统，用来为各个类库提供打包服务，就像Perl的CPAN或是Ruby的Rubygems。通过打包系统安装的类库可以是系统级的（称之为 &ldquo;sitepackages&rdquo;），或仅供某个应用程序使用，部署在相应的目录中（称之为 &ldquo;vendoring&rdquo; 或 &ldquo;bunding&rdquo;）。 **12-Factor规则下的应用程序不会隐式依赖系统级的类库。**它一定通过_依赖清单_，确切地声明所有依赖项。此外，在运行过程中通过_依赖隔离_工具来确保程序不会调用系统中存在但清单中未声明的依赖项。这一做法会统一应用到生产和开发环境。 例如，Ruby的Gem Bundler使用Gemfile 作为依赖项声明清单，使用bundle exec 来进行依赖隔离。Python中则可分别使用两种工具 &ndash; Pip用作依赖声明，Virtualenv用作依赖隔离。甚至C语言也有类似工具，Autoconf用作依赖声明，静态链接库用作依赖隔离。无论用什么工具，依赖声明和依赖隔离必须一起使用，否则无法满足12-Factor规范。 显式声明依赖的优点之一是为新进开发者简化了环境配置流程。新进开发者可以检出应用程序的基准代码，安装编程语言环境和它对应的依赖管理工具，只需通过一个_构建命令_来安装所有的依赖项，即可开始工作。例如，Ruby/Bundler下使用bundle install ，而Clojure/Leiningen则是lein deps。 12-Factor应用同样不会隐式依赖某些系统工具，如ImageMagick或是curl 。即使这些工具存在于几乎所有系统，但终究无法保证所有未来的系统都能支持应用顺利运行，或是能够和应用兼容。如果应用必须使用到某些系统工具，那么这些工具应该被包含在应用之中。
-III. 配置 在环境中存储配置 通常，应用的_配置_在不同部署(预发布、生产环境、开发环境等等)间会有很大差异。这其中包括：
-数据库，Memcached，以及其他后端服务的配置 第三方服务的证书，如 Amazon S3、Twitter等 每份部署特有的配置，如域名等 有些应用在代码中使用常量保存配置，这与12-Factor所要求的代码和配置严格分离显然大相径庭。配置文件在各部署间存在大幅差异，代码却完全一致。 判断一个应用是否正确地将配置排除在代码之外，一个简单的方法是看该应用的基准代码是否可以立刻开源，而不用担心会暴露任何敏感的信息。 需要指出的是，这里定义的"配置"并不包括应用的内部配置，比如Rails的config/routes.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/ itemprop=url>[C++] 重温析构函数</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>XWindow系统里有一个统一的Server来负责各个程序与显示器、键盘和鼠标等输入输出设备的交互，每个有GUI的应用程序都通过网络协议与Server进行交互。所以对于任何一个应用程序，本地运行和远程运行的差别仅仅是XServer的地址不同，别的没有差别。所以在Windows运行一个XServer，就可以很方便的远程运行有GUI的Linux应用了。 Xming是一个在Microsoft Windows操作系统上运行XWindow系统的服务器。它非常简单易用，搭配强大。一般搭配putty的下列配置，就可以在Windows平台上远程运行有GUI的Linux应用了：
+Connection-SSH-X11-Enable X11 forwarding Xming操作笔记如下：
+选择单词：双击鼠标左键 选择一行：三击鼠标左键 选择特定文本：鼠标左键点击文本起点，然后按住鼠标右键选择。 复制文本：Alt + Shift + C</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/ itemprop=url>[Hadoop] hadoop job -list已废弃</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>466 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>创建一个C++对象时，一般先调用父类构造函数，再调用自己的构造函数；而在销毁一个C++对象时，一般先调用自己的析构函数，再调用父类的析构函数。我用如下testDestructor.cpp进行测试。
-class BaseClass { public: BaseClass() { cout &lt;&lt; "BaseClass() on " &lt;&lt; this &lt;&lt; endl; } ~BaseClass() { cout &lt;&lt; "~BaseClass() on " &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string("NULL")) { cout &lt;&lt; "DerivedClass() on " &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string& n):name(new string(n)) { cout &lt;&lt; "DerivedClass(string) on " &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; "~DerivedClass(): name has been deleted on " &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; "=== test bo1 ===" &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); delete bo1; cout &lt;&lt; "=== test do1 ===" &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); delete do1; cout &lt;&lt; "=== test bo2 ===" &lt;&lt; endl; BaseClass* bo2 = new DerivedClass("123"); delete bo2; cout &lt;&lt; "=== test bo3 ===" &lt;&lt; endl; BaseClass bo3 = DerivedClass("321"); return 0; } 输出结果如下：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/ itemprop=url>[HBase] HBase Shell交互实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -74,10 +39,11 @@ class BaseClass { public: BaseClass() { cout &lt;&lt; "BaseClass() on " &lt;&lt;
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1560 字 ~8分钟</span></span></div></header><div class=post-body itemprop=articleBody>HBase Shell是对HBase的脚本接口，是一个JRuby REPL(Read-Eval-PrintLoop，“读取-求值-输出”循环)，可以通过脚本访问所有HBase客户端API。
-单列族练习 创建表friends $ hbase shell hbase(main):001:0> list TABLE customer 1 row(s) in 0.2050 seconds => ["customer", "student"] hbase(main):002:0> create 'friends', 'd' 0 row(s) in 1.3350 seconds => Hbase::Table - friends hbase(main):003:0> list TABLE customer friends 2 row(s) in 0.0060 seconds => ["customer", "friends", "student"] 获得表friends的描述说明 hbase(main):004:0> describe 'friends' Table friends is ENABLED friends COLUMN FAMILIES DESCRIPTION {NAME => 'd', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'ROW', REPLICATION_SCO PE => '0', VERSIONS => '1', COMPRESSION => 'NONE', MIN_VERSIONS => '0', TTL => 'FO REVER', KEEP_DELETED_CELLS => 'FALSE', BLOCKSIZE => '65536', IN_MEMORY => 'false', BLOCKCACHE => 'true'} 1 row(s) in 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ itemprop=url>[Linux] 判断可执行文件或动态库是否包含符号表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>176 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>执行hadoop job -list，显示该命令已废弃，不过还能执行成功。
+~$ hadoop job -list DEPRECATED: Use of this script to execute mapred command is deprecated. Instead use the mapred command for it. 看一下Hadoop 2.2.0的代码hadoop-common-project/hadoop-common/src/main/bin/hadoop：
+#hdfs commands namenode|secondarynamenode|datanode|dfs|dfsadmin|fsck|balancer|fetchdt|oiv|dfsgroups|portmap|nfs3) echo "DEPRECATED: Use of this script to execute hdfs command is deprecated." 1>&2 echo "Instead use the hdfs command for it." 1>&2 echo "" 1>&2 #try to locate hdfs and if present, delegate to it. shift if [ -f "${HADOOP_HDFS_HOME}"/bin/hdfs ]; then exec "${HADOOP_HDFS_HOME}"/bin/hdfs ${COMMAND/dfsgroups/groups} "$@" elif [ -f "${HADOOP_PREFIX}"/bin/hdfs ]; then exec "${HADOOP_PREFIX}"/bin/hdfs ${COMMAND/dfsgroups/groups} "$@" else echo "HADOOP_HDFS_HOME not found!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_exec_format_error/ itemprop=url>[C] Exec format error</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -88,26 +54,39 @@ class BaseClass { public: BaseClass() { cout &lt;&lt; "BaseClass() on " &lt;&lt;
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>111 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的"-g"选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
-srv01> file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01> file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped 显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
-如果文件包含调试符号表，可以通过objdump -t命令及选项打印文件的符号表：
-srv01> objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ itemprop=url>[C] GCC对UTF8 BOM的支持</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>137 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>很久没用g++了，结果编个小程序还出错。
+mryqu:~/ctest$ g++ -g -c wvc.cpp -o wvc mryqu:~/ctest$ chmod a+x wvc mryqu:~/ctest$ ./wvc -bash: ./wvc: cannot execute binary file: Exec format error mryqu:~/ctest$ file wvc wvc: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 查了查gcc的帮助，才发现用了-c选项后其实是只编译不链接的：
+-c Compile or assemble the source files, but do not link. The linking stage simply is not done. The ultimate output is in the form of an object file for each source file.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_exec_format_error/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/ itemprop=url>批处理：搜索Jar包中的类文件</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>网上转载的很多，原文出处不详。
+批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
+@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in ('dir /A:-D /S /B *.jar') do 7z l %%i | findstr %WHICH_CLASS% && echo %WHICH_CLASS% found in: "%%i" echo "Finished class finding..." echo "======================================" ENDLOCAL 命令运行格式：
+findclass com\\yqu\\kxmt\\TestFindClass.class</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ itemprop=url>[C] #和##宏操作符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
 <span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>112 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩些特俗字符，结果对yqutest.cpp源码文件编译时先碰到error:converting to execution character set: Illegal bytesequence错误。GCC的源码字符集与执行字符集默认是UTF-8编码，为了避免源码文件乱码，最好也是采用UTF-8编码来存储源码文件。将源码编码转成UTF-8，问题得以解决。 但是否需要UTF-8 BOM(byte-order mark)呢？ 我一时兴起添加了BOM，十六进制为EF BB BF，即对应八进制的357 273 277，编译结果如下：
-mryqu> g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in program yqutest.cpp:1: error: stray '\273' in program yqutest.cpp:1: error: stray '\277' in program yqutest.cpp:1: error: stray '#' in program yqutest.cpp:1: error: expected constructor, destructor, or type conversion before '&lt;' token mryqu> g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with: FreeBSD/amd64 system compiler Thread model: posix gcc version 4.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/ itemprop=url>*nux下导出文件16进制内容的命令xxd</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>116 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在看# and ## in macros之前觉得对#和##宏操作符挺明白的，看了之后才感觉需要重新学习一下。
+#define f(a,b) a##b #define g(a) #a #define h(a) g(a) int main() { printf("%s\n",h(f(1,2))); printf("%s\n",g(f(1,2))); return 0; } 如果你能确保自己能写出正确答案的话，那么你可以略过这篇帖子。 C/C++语言中对宏的处理属于编译器预处理的范畴，属于编译期概念而非运行期概念。其中#操作符用于对指定的宏参数进行字符串化，而##操作符用来将两个符号连接为一个符号。
+struct command { char *name; void (*function) (void); }; ``` #define COMMAND(NAME) \ { #NAME, NAME ## _command } struct command commands[] = { COMMAND (quit), COMMAND (help), … };
+&lt;/td>&lt;td>等同&lt;/td>&lt;td> struct command commands[] = { { &ldquo;quit&rdquo;, quit_command }, { &ldquo;help&rdquo;, help_command }, … };</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/ itemprop=url>在Vi中搜索多字节unicode字符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -118,9 +97,35 @@ mryqu> g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in progra
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>16 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page 5 Unix Commands I Wish I’d Discovered Years Earlier</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/ itemprop=url>[C++] 从静态库获取GCC版本和编译平台</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
+\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678) 为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/chrome-notes/ itemprop=url>Chrome使用笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>83 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>清除Chrome中特定网站的所有历史记录 （2013-10-19） 想要Chrome中特定网站的所有历史记录，可是搜出特定网站的所有历史记录后必须对每一项进行选择，然后才能删除。终于在网上搜出一个妙招来：
+进入Chrome历史记录页面； 搜索想要删除的URL； 为了删除所搜结果的所有记录，将第一个待删项的checkbox勾选上，接着滚动页面到最后一个待删项，按住SHIFT键将最后一个待删项的checkbox勾选上，这样所有待删项都会被勾选上； 点击"Remove selected items"按钮即可。 Chrome浏览器离线安装包下载地址 （2013-12-12） http://www.google.com/chrome/eula.html?standalone=1&hl=zh-CN
+一键保存当前打开的所有标签页 （2014-01-22） 经常是用Chrome打开一堆网页，但是由于某种原因必须重启机器，不想将这些页面存入书签，但是又想保存下来开机后继续浏览。
+在网上搜了一下，下列Chrome插件可以满足这个需求：
+OneTab Session Buddy PanicButton Stash Read Later VIEW LATER Save For Later 其中OneTab 和Session Buddy 都是五星插件，并且用户众多，最终我选择了 OneTab 。
+在chrome控制台中加载Javascript文件 （2014-02-02） Include javascript file in chrome console 里面介绍了几种在Chrome控制台加载Javascript文件的方法，对我来说使用JQuery是最方便的做法。
+$.getScript('script.js'); 手工修改Chrome配置文件 （2014-03-02） 当初装Chrome，g.cn上死活下载不了，随便装了一个澳洲版的。结果访问taobao、weibo被认成了澳洲用户，都被推到了海外入口。
+一开始折腾Chrome的配置菜单，没找到。后来直接修改C:\Users\AppData\Local\Google\Chrome\UserData\Default\Preferences搞定了。
+原始值：
+"last_known_google_url": "https://www.google.com.au/", "last_prompted_google_url": "https://www.google.com.au/", 修改后：
+"last_known_google_url": "https://www.google.com.hk/", "last_prompted_google_url": "https://www.google.com.hk/", Chrome Extension记录 （2019-01-23） 重装机器后发现Chrome扩展工具需要重装，现搜了事。为了便于以后重装，特此记录。
+LinkedIn Extension
+OneTab
+网页截图 - Screenshot Extension
+Postman</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/chrome-notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cscope%E7%AC%94%E8%AE%B0/ itemprop=url>Cscope笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -131,21 +136,43 @@ mryqu> g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in progra
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>68 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>获取GCC版本：strings -a {library} | grep &ldquo;GCC: (&rdquo;
-mryqu> strings -a libcurl.a | grep "GCC: (" GCC: (GNU) 4.4.5 20110214 (Red Hat 4.4.5-6) 获取编译平台信息：ar -x {library}file *.o
-mryqu> ar -x libcurl.a mryqu>file libcurl_la-url.o libcurl_la-url.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 参考 How to retrieve the GCC version used to compile a given ELF executable? How to see the compilation platform of a static library file</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8find%E5%92%8Cgrep%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E5%85%B3%E9%94%AE%E5%AD%97/ itemprop=url>用find和grep搜索特定目录下特定文件中的特定关键字</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>82 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Cscope简介 Cscope是一个类似Ctags的工具，但功能比ctags强大很多。Cscope是一款自带一个基于文本的用户界面的源代码浏览工具，尽管它最初是为C代码的搜索（包括lex、yacc文件）设计的，但是也可以用于对C++和Java代码的搜索。用Cscope你可以轻易地搜索到你的标识符是在哪里被定义和使用的，它可以轻而易举地解决以下问题：
+这个变量在哪里被使用？ 这个预处理符号的值是什么？ 这个函数都在哪些源代码文件中出现过？ 都有哪些函数调用了这个函数？ &ldquo;out of space"的消息是从哪里来的？ 这个源文件在在目录结构中的位置？ 都有哪些源文件包含了这个头文件？ Cscope是由Santa Cruz Operation, Inc发布的，它遵循BSD开源协议。
+安装 Cscope项目仅提供源代码，不提供二进制文件。cscope-win32项目提供了使用MinGW、MSYS和Cygwin编译Windows平台Cscope的方法，此外也提供编译好好的csope.exe文件。下载cscope-15.8a-win64rev1-static.zip，将其中的cscope.exe解压缩到系统环境变量path包含的路径即可。 使用 创建符号数据库 Cscope在第一次被使用在指定的源文件时会建立一个符号的数据库。接下来调用时，Cscope仅仅重建那些被改动或者和新文件相关的数据库。那些没有被改动的文件相关的数据库会被直接复制使用。这使得重建数据库要比第一次运行快许多。 Cscope命令的参数如下：
+-R: 在生成索引文件时，搜索子目录树中的代码 -b: 只生成索引文件，不进入cscope的界面 -q:生成cscope.in.out和cscope.po.out文件，加快cscope的索引速度 -k: 在生成索引文件时，不搜索/usr/include目录 -i:如果保存文件列表的文件名不是cscope.files时，需要加此选项告诉cscope到哪儿去找源文件列表。可以使用”-“，表示由标准输入获得文件列表。 -Idir:在**-I**选项指出的目录中查找头文件 -u: 扫描所有文件，重新生成交叉索引文件 -C: 在搜索时忽略大小写 -Ppath:在以相对路径表示的文件前加上的path，这样，你不用切换到你数据库文件所在的目录也可以使用它了。 我针对curl项目执行cscope -Rkq ，这样会启动Cscope的文本用户界面，之后我搜索set_binmode函数： 搜索符号 在Cscope的文本界面里可以在命令模式执行:cs find或:cs f命令搜索符号，其参数为：
+s: 查找C语言符号，即查找函数名、宏、枚举值等出现的地方 g: 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能 d: 查找本函数调用的函数 c: 查找调用本函数的函数 t: 查找指定的字符串 e: 查找egrep模式，相当于egrep功能，但查找速度快多了 f: 查找并打开文件，类似vim的find功能 i: 查找包含本文件的文件 下面示例为用
+:cs f c set_binmode 命令搜索set_binmode函数的调用者：
+E567: no cscope connections错误处理 有个帖子vim cannot connect to cscope database讲过解决方案，但是在我的Windows平台cscope文本界面不起作用。通过:cs add {prj path}/cscope.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/cscope%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/exuberant_ctags%E7%AC%94%E8%AE%B0/ itemprop=url>Exuberant Ctags笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-23">2013-10-23</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
 <span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>10 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>下例为递归搜索当前目录下所有以yqu为后缀的文件中的关键字123：
-find . -name "*.yqu" | xargs grep -H "123"</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/56/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>172 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Ctags简介 Ctags（Generate tag files for sourcecode）产生标记(/索引)文件以帮助在源文件中定位对象。Ctags最初支持C语言，现在已经支持C/C++/Java/JS/Python等41种语言。Vim/Emacs/SublimeText/UltraEdit等编辑器或工具都支持Ctags生成的标记文件。 对于C/C++语言来说，其生成的标记文件tags中包括这些对象的列表：
+用#define定义的宏 枚举型变量的值 函数的定义、原型和声明 名字空间（namespace） 类型定义（typedefs） 变量（包括定义和声明） 类（class）、结构（struct）、枚举类型（enum）和联合（union） 类、结构和联合中成员变量或函数 安装 下载ctags58.zip，将其中的ctags.exe解压缩到系统环境变量path包含的路径即可。 使用选项 如果没有指定−−language−force选项，每个源文件的语言基于文件名和语言的映射进行自动选择。该映射可用−−list−maps选项显示，它可能会被−−langmap选项改变。对于操作系统所支持的文件，如果文件名无法映射到某种语言且该文件可被执行，则会对文件第一行检查是为"#!&ldquo;公认的语言脚本。默认情况下，所有其他文件名都会被忽略。由于仅文件名可匹配某种语言的文件会被扫描，这使得在单个目录对所有文件(例如"ctags*")或对目录树的所有文件(例如"ctags −R&rdquo;)执行ctags成为可能。.h扩展名即用于C++也用于C，所以Ctags将.h映射为C++，这样做不会有不良后果。
+-R：等同于&ndash;recurse，递归子目录遍历 -L：从文件读取Ctags待处理文件列表并对其执行ctags find . -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.bld" -o -name "*.blt" > prj.files ctags -L prj.files --list−maps：显示文件名和语言的映射 --list−languanges：显示所有支持的语言 --langmap：设置文件名和语言的映射 如果程序中有的.c文件其实是C++程序，这该怎么办？答案是使用ctags &ndash;langmap=c++:+.c。 −−language−force：强制使用特定语言，而不是通过文件名和语言的映射进行自动选择 像C++标准库stl中文件名没有后缀，怎么办？ 使用ctags−−language−force=C++这样就把所有文件当成C++来处理了。 −−fields：指定标记文件中条目的可用扩展字段（没有指明的默认关闭） a
+类成员的访问属性
+f
+文件限制范围 [enabled]
+i
+继承信息
+k
+单字符形式的标记类型 [enabled]
+K
+全名称形式的标记类型
+l
+包含该标记的源文件语言
+m
+实现信息
+n
+标记定义行号</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/exuberant_ctags%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/56/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/53/>53</a>
 <a class=page-number href=/page/54/>54</a>
 <a class=page-number href=/page/55/>55</a>
@@ -157,9 +184,9 @@ find . -name "*.yqu" | xargs grep -H "123"</div><footer class=post-footer><div c
 <a class=page-number href=/page/61/>61</a>
 <a class="extend next" rel=next href=/page/58/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -4,94 +4,102 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git+gerrit+gradle+jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/ itemprop=url>Git+Gerrit+Gradle+Jenkins持续集成</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0gradle/ itemprop=url>学习Gradle</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-26">2015-04-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>17 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>随着软件开发复杂度的不断提高，团队开发成员间如何更好地协同工作以确保软件开发的质量已经慢慢成为开发过程中不可回避的问题。尤其是近些年来，敏捷（Agile）在软件工程领域越来越红火，如何能再不断变化的需求中快速适应和保证软件的质量也显得尤其的重要。持续集成正是针对这一类问题的一种软件开发实践。它倡导团队开发成员必须经常集成他们的工作，甚至每天都可能发生多次集成。而每次的集成都是通过自动化的构建来验证，包括自动编译、发布和测试，从而尽快地发现集成错误，让团队能够更快的开发内聚的软件。
-Gerrit Gerrit是基于GWT web应用的开源代码审查系统，为使用Git版本控制系统的项目提供在线代码审查。安卓开源项目（AOSP）用其来管理多代码库的庞大项目。Gerrit通过在自身代码库跟踪提交的Git变更集来提供代码审查的。它并排显示新旧文件，让审查者更容易对变更进行审查，并允许审查者添加内嵌注释。 提交的变更既可以被Jenkins这样的自动系统进行审查，也可以由同事进行审查。每个审查者检查代码变更、添加注释，然后将变更标记为“在我看来代码不错”(“没有打分”或“我期望你不要提交代码”)。验证者(例如Jenkins或其他人)通过构建和测试代码来验证变更。如果他们认为代码可行，则设置“在我看来代码不错”标记，Gerrit将尝试将变更合并到公开的“权威”代码库。文章Life of a Patch描述了这一工作流: Gradle 在Java构建工具的世界里，先有了Ant，然后有了Maven。Maven的CoC（约定优于配置）、依赖管理以及项目构建规则重用性等特点，让Maven几乎成为Java构建工具的事实标准。然而，冗余的依赖管理配置、复杂并且难以扩展的构建生命周期，都成为使用Maven的困扰。Gradle作为新的构建工具，是基于Groovy语言的构建工具，既保持了Maven的优点，又通过使用Groovy定义的DSL克服了Maven中使用XML繁冗以及不灵活等缺点，支持依赖管理和多项目，而且它有非常完善的说明文档。目前，SpringSource、Hibernate等都采用Gradle来构建。
-Jenkins Jenkins，之前叫做Hudson，是一个开源项目，提供了一种易于使用的持续集成系统，使开发者从繁杂的集成中解脱出来，专注于更为重要的业务逻辑实现上。同时Jenkins能实施监控集成中存在的错误，提供详细的日志文件和提醒功能，还能用图表的形式形象地展示项目构建的趋势和稳定性。Jenkins通过Gerrit触发器插件可在新的Gerrit补丁集创建时开始使用Gerrit代码库中的代码进行构建项目，通过Gradle插件调用Gradle构建脚本，以帮助变更验证。
-参考 Git权威指南-第5篇-第32章 Gerrit 代码审核服务器 Git+Gerrit+Gradle+Jenkins持续集成设置</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/the_art_of_scalability%E4%B8%AD%E7%9A%84%E4%B8%89%E7%BB%B4%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%A8%A1%E5%9E%8B/ itemprop=url>《The Art of Scalability》中的三维伸缩性模型</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-25">2015-04-25</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近又搜集到Martin L. Abbott和Michael T. Fisher的两本好书：
-The Art of Scalability Scalability Rules：50 Principles for Scaling Web Sites 第一本书将近六百页，最近没时间看，就先粗略学习一下其中的三维伸缩性模型： 在该模型中，将应用程序水平复制，通过负载均衡运行应用程序的多个完全一样的副本的方式来实现应用程序伸缩性，这种方式称为X轴伸缩性。这是一种很好的方式来提高应用程序的容量和可用度。 当使用Z轴伸缩性，每个服务器运行代码的一个完全相同的副本。在该方面，它与X轴伸缩性很相似。最大的不同是每个服务器只负责数据的一个子集。该系统的一些组件负责将每个请求路由给适当的服务器。一个常见的路由规则是把请求的一个属性作为被访问的实体的主键，比如分区。另一个常见的路由规则是客户类型。例如，应用程序可以向付费用户提供比免费用户更高的SLA，实现方式是将付费用户的请求路由到具有更高容量的一组服务器上。 Z轴伸缩性与X轴伸缩性类似，提高了应用程序的容量和可用度。然而，没有任何一个方式能够解决不断增加的开发工作和程序复杂度的问题。解决这些问题需要Y轴伸缩性。 伸缩性的第三个维度是针对功能性分解的Y轴伸缩性。Y轴伸缩性与Z轴伸缩性分解事情的方式相似但有不同。在应用程序层级，Y轴伸缩性将单体应用程序拆分成一组服务。每个服务实现了一组相关的功能特性，例如订单管理，客户管理等。 决定如何将系统分割为一组服务更像是一门艺术，但是可借助于一些策略。一种方式是通过动词或使用情况拆分服务。另一个拆分方式是通过名词或资源分割系统。这种服务负责处理给定的实体/资源的所有操作。 Unix提供了大量的工具，比如grep，cat和find。每个工具只做一件事，效果往往非常好，并且可以使用shell脚本组合多个工具以执行复杂的任务。服务分割也应采用类似的策略。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservices_monoliths_and_noops/ itemprop=url>阅读《Microservices, Monoliths, and NoOps》</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-25">2015-04-25</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>108 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Java Code Geeks有一篇文章Microservices, Monoliths, and NoOps，分析了单体应用与微服务的优缺点，并建议使用微服务重构现有的应用程序。
-单体应用 通俗地讲，“单体应用（monolithapplication）”就是将应用程序的所有功能都打包成一个独立的单元，可以是JAR、WAR、EAR或其它归档格式。
-单体应用优点 单体应用有如下优点：
-为人所熟知：现有的大部分工具、应用服务器、框架和脚本都是这种应用程序； IDE 友好：像NetBeans、Eclipse、IntelliJ这些开发环境都是针对开发、部署、调试这样的单个应用而设计的； 便于共享：单个归档文件包含所有功能，便于在团队之间以及不同的部署阶段之间共享； 易于测试：单体应用一旦部署，所有的服务或特性就都可以使用了，这简化了测试过程，因为没有额外的依赖，每项测试都可以在部署完成后立刻开始； 容易部署：只需将单个归档文件复制到单个目录下。 单体应用缺点 目前为止，单体应用已经很好地服务了我们，未来无疑还会继续发挥重要作用。但是，不管如何模块化，单体应用最终都会因为团队壮大、成员变动、应用范围扩展等出现问题。下面是单体应用的一些不足：
-不够灵活：对应用程序做任何细微的修改都需要将整个应用程序重新构建、重新部署。开发人员需要等到整个应用程序部署完成后才能看到变化。如果多个开发人员共同开发一个应用程序，那么还要等待其他开发人员完成了各自的开发。这降低了团队的灵活性和功能交付频率； 妨碍持续交付：单体应用可能会比较大，构建和部署时间也相应地比较长，不利于频繁部署，阻碍持续交付。在移动应用开发中，这个问题会显得尤为严重； 受技术栈限制：对于这类应用，技术是在开发之前经过慎重评估后选定的，每个团队成员都必须使用相同的开发语言、持久化存储及消息系统，而且要使用类似的工具，无法根据具体的场景做出其它选择； 技术债务：“不坏不修（Not broken，don’tfix）”，这在软件开发中非常常见，单体应用尤其如此。系统设计或写好的代码难以修改，因为应用程序的其它部分可能会以意料之外的方式使用它。随着时间推移、人员更迭，这必然会增加应用程序的技术债务。 什么是微服务？ 而随着业务需求的快速发展变化，敏捷性、灵活性和可扩展性需求不断增长，迫切需要一种更加快速高效的软件交付方式。微服务就是一种可以满足这种需求的软件架构风格。单体应用被分解成多个更小的服务，每个服务有自己的归档文件，单独部署，然后共同组成一个应用程序。这里的“微”不是针对代码行数而言，而是说服务的范围限定到单个功能。
-微服务的特征 微服务有如下特征：
-领域驱动设计：应用程序功能分解可以通过Eric Evans在《领域驱动设计》中明确定义的规则实现，领域驱动设计不是分解应用程序的唯一方法，但肯定是很常用的一种；每个团队负责与一个领域或业务功能相关的全部开发；团队遵循全栈开发方法拥有全系列的开发人员，具备用户界面、业务逻辑和持久化存储等方面的开发技能； 单一职责原则：每个服务应该负责该功能的一个单独的部分，这是SOLID原则之一，Unix工具程序很好地证明这一原则的重要性； 明确发布接口：每个服务都会发布一个定义明确的接口，而且保持不变；服务消费者只关心接口，而对于被消费的服务没有任何运行依赖；服务之间就业务模型、API、负载或其他契约达成一致并使用符合契约的方式进行通信。接口可能会产生新版本，但接口的老版本可以继续使用，且新服务保持后续兼容。不可以通过改变契约破坏兼容性。 独立部署、升级、扩展和替换：每个服务都可以单独部署及重新部署而不影响整个系统。这使得服务很容易升级，例如增加更多的功能点。每个服务都可以沿着《Art of Scalability》一书定义的X轴（水平复制）和Z轴（面向查询的分割，数据分区）进行独立扩展；由于其他服务仅依赖发布的接口，只要发布相同的契约，服务实现甚至是底层技术栈都可以修改； 可以异构/采用多种语言：每个服务的实现细节都与其它服务无关，这使得服务之间能够解耦，团队可以针对每个服务选择最合适的开发语言、持久化存储、工具和方法；一个需要在关系型数据库存储数据的服务可以选择MySQL，另一个需要存储文档的服务可以选择MongoDB。不同的团队可以根据自己的需求选择JavaEE、NodeJS、Python、Vert.x或其他对本团队最有效的技术； 轻量级通信：服务通信使用轻量级的通信协议，例如在HTTP上承载的REST。由于REST本质是同步的，可能会有某些潜在的瓶颈。另一个可选机制是使用支持异步消息的发布/订阅机制。任何符合需求的消息协议，例如AMQP、STOMP、MQTT或WebSocket，都可以使用。简单消息实现，例如ActiveMQ，提供了可靠的异步组构尤其适用于这种用途。每个开发团队可以根据服务的具体需求对同步还是异步消息做适宜的选择，当然也可以混用。 Netflix是微服务的一个典型代表，这里有几篇文章介绍他们对微服务的应用。
-Netflix&rsquo;s Viewing Data: How We Know Where You Are in House of Cards A Microscope on Microservices Scalable Microservices at Netflix. Challenges and Tools of the Trade Adopting Microservices at Netflix: Lessons for Architectural Design 很多增强Netflix微服务架构的工具可在netflix.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E9%98%85%E8%AF%BBmicroservices_monoliths_and_noops/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3osm%E5%92%8Cesri/ itemprop=url>了解OSM和Esri</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-22">2015-04-22</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>33 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学习SAS Visual Analytics Explorer时看到了地图提供程序模式竟然没有GoogleMap，而是OpenStreetMap和Esri。对没接触过的东东还比较好奇，搜了一下。
-OpenStreetMap 开放街道地图（OpenStreetMap，简称OSM）是一个由地图制作爱好者组成的社区。这些爱好者提供并维护世界各地关于道路、小道、咖啡馆、铁路车站等各种各样的数据，目标是创造一个内容自由且能让所有人编辑的世界地图，并且让一般便宜的移动设备有方便的导航方案。OSM项目由英国人SteveCoast创立，概念启发自维基百科网站，以及英国以及其他地区私有地图数据占尽优势。一如维基百科等网站，OSM网站地图页有“编辑”按钮，亦有纪录修订历史。经注册的用户可上传GPS路径，及可编辑地图的矢量数据，包括使用OSM网站的编辑器或其他自由地理信息系统软件，如JOSM。OSM的地图由用户根据手持GPS设备、航空摄影照片、卫星视频、其他自由内容以至单靠用户由于对有关区域的熟悉而具有的本地知识绘制。地图的矢量数据以开放数据库授权方式授权。OSM网站由英国非营利组织OpenStreetMap基金会赞助维运。
-既然有Google和Nokia这样的公司提供很好的地图商业产品，那为什么还需要一个像OpenStreetMap项目了？答案是简单的，作为一个社会，不应当有一家或几家公司在地理信息上进行垄断。地理信息是分享资源，当你将所有的这些权力给予一个单独的实体，你给予他们的权力就不止是告诉他们你的地理位置，更是在塑造它，从自己商业利益的角度显示地图上的内容。而在地图内容方面，OpenStreetMap即是中立的又是透明的。
-Esri 美国环境系统研究所公司（Environmental Systems Research Institute,Inc.，简称Esri），是目前世界最大的地理信息系统技术供应商，其地理信息系统软件目前的全球市场占有率最高，公司最知名产品为ArcGIS。ArcGISOnline是一个面向全球用户的公有云GIS平台，是一种全新的GIS软件应用模式。ArcGISOnline包含了全球范围内的底图、地图数据、应用程序，以及可配置的应用模板和开发人员使用的 GIS 工具和 API，可用于创建Web 地图、发布GIS服务、共享地图、数据和应用程序等，以及管理组织的内容和多个用户。
-SAS Visual Analysis Explorer里面在Esri模式下还需要选择ArcGISOnline的数据源（例如World Cities、World Street Map）。
-参考 OpenStreetMap网站 Esri公司 Wiki: 开放街图 为什么世界需要 OpenStreetMap 开源道路地图 Wiki: 美国环境系统研究所公司</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jenkins%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE/ itemprop=url>Jenkins超时设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-21">2015-04-21</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Jenkins在构建部署镜像时发生超时：
-Build timed out (after 10 minutes). Marking the build as aborted. Build was aborted Finished: ABORTED 解决方法是在Jenkins当前项目下点击Configure菜单后，在BuildEnvironment配置项里修改超时策略。我把超时绝对值改大点就好了。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant_box/ itemprop=url>使用Vagrant Box</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-20">2015-04-20</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-12">2015-04-12</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
 <span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
 &nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/vagrant itemprop=url rel=index><span itemprop=name>Vagrant</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>22 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>//Download a box to local disk $ vagrant box add my-box /path/to/the/new.box ... $ vagrant init my-box ... $ vagrant up ...</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/ itemprop=url>[Hadoop] 消除WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>27 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>当前参与的SAS Workflow2.0原型开发项目，美国那边的项目组经营将代码编译脚本从Ant切换成Gradle了。此外我司已经在去年就将Gradle列入了技术雷达的正式采用象限，感觉有必要学习一下Gradle，扩充自己的开发能力。 Gradle官网上提供的图书信息链接中有两本免费O&rsquo;Reilly出版社图书：
+Building and Testing With Gradle Gradle Beyond the Basics一般软件官网文档质量不错的情况下，我优先阅读最新的官网文档，所以我先看了《Gradle入门》和《Gradle用户指南》。 参考 Gradle官网 Gradle文档 Spring提供的Gradle入门 Gradle用户指南 Groovy官网 Groovy++ Java Build Tools: Ant vs Maven vs Gradle</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95bootply%E5%92%8Ccodeply/ itemprop=url>尝试Bootply和Codeply</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-19">2015-04-19</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-11">2015-04-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>74 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Bootply Bootply被称为是Bootstrap的活动平台。它不但是一个Bootstrap的编辑器和生成器，同时也拥有非常广泛的代码库。Bootply编辑器可以让你拖拽Bootstrap组件并可以编辑你自己的代码。 Bootply同时整合了其他流行的Bootstrap插件、微型代码库和框架。你也可以借助其他工具的使用像FontAwesome, jQuery + jQuery UI, Bootstrap Select, FuelUX, AngularJS,Google Maps 等等。 Codeply Codeply是
+一个HTML/CSS/JavaScript编辑器 一个响应式设计活动平台和开发工具 一个Web设计者和前段开发者的社区 一个代码片段和示例的代码仓库 Codeply编辑器也可以让你拖拽Bootstrap组件并可以编辑你自己的代码。 Codeply也整合了很多响应式框架和代码库。 响应式框架 Bootstrap3 Foundation Kube MaterializeCSS NoFramework PureCSS SemanticUI Skeleton Unsemantic 可用的JS和CSS库 Angular AngularAnimate AngularAria AngularMaterial AngularUI AngularUI Bootstrap AnimateCSS Backbone BootstrapDatepicker BootstrapSelect DropZone Ember Ember.js FastClick FontAwesome FullCalendar GoogleMaps API Hammer.js Handlebars.js Ionic Isotope Jasny jQueryUI Knockout Masonry Minicolors PrototypeJs Raphael RequireJs UnderscoreJs 此外，Codeply还能针对不同大小的屏幕进行测试。 参考 Bootply网站
+Codeply网站
+15 Best Bootstrap Tools for Designers</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gojs%E5%9B%BD%E9%99%85%E5%8C%96%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%8C%96%E6%94%AF%E6%8C%81/ itemprop=url>GoJS国际化和本地化支持</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-10">2015-04-10</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>13 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>查了一下GoJS国际化支持文档，藏的还挺深，放在GoJS 部署里了。
+GoJS应用可以显示非拉丁语文本。示例可见Japanese Family Tree. GoJS不操作货币值、日期值或地址，因此对这些数据类型没有本地化问题；GoJS不包含任何自己的图标（图像）或光标。 GoJS不显示任何内建文本字符串，因此无需转换工作。用于往控制台输出的错误和告警消息仅用于程序员调试，而不会面向最终用户。当读写JSON、几何路径字符串或CSS颜色时，其中的数值读写仅用于内部使用且为非本地化格式。 所有用户可见文本都完全在程序员的控制之下。为了本地化，可以很方便地使用Binding中的转换函数。TextEditingTool使用HTMLTextArea元素实现原地文本输入和编辑，从而利用浏览器对输入法编辑器的支持。
+GoJS不像OpenUI5那样根据Locale相应从I18Nproperties文件获取本地化文本，而是通过下列方式提供国际化和本地化支持：
+提供显示非拉丁语文本的能力 将自身摘出来，确保自身实现没有国际化和本地化的要求 将一切国际化的工作推出去，程序员可以直接设置国际化显示文本，也可以实现Binding(targetprop,sourceprop, conv)中的转换工具方法在客户端进行本地化。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gojs%E4%B8%AD%E7%9A%84%E7%B1%BB/ itemprop=url>GoJS中的类</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-09">2015-04-09</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>11 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>GoJS中的类 GoJS API文档介绍了GoJS中的类，不过在调试GoJS时发现有3个类不是通过go对象访问的。此外有14个类有介绍，但没有显示在左侧导航栏里。GoJS的很多类、方法和属性名都是经过混淆的，不过起码这一层还是很好对上号的。 Diagram ClassesAdornmentAdornmentAnimationManager&nbsp;CommandHandlerCommandHandlerDiagramDiagramDiagramEventDiagramEventGraphObjectGraphObjectGroupGroupInputEventInputEventLayerLayerLinkLinkNodeNodeOverviewOverviewPalettePalettePanelPanelPartPartPicturePicturePlaceholderPlaceholderRowColumnDefinitionRowColumnDefinitionShapeShapeTextBlockTextBlockGeometry ClassesBrushBrushGeometryGeometryMarginMarginPathFigurePathFigurePathSegmentPathSegmentPointPointRectRectSizeSizeSpotSpotModel ClassesBindingBindingChangedEventChangedEventGraphLinksModelGraphLinksModelModelModelTransactionTransactionTreeModelTreeModelUndoManagerUndoManagerLayout ClassesCircularLayoutCircularLayoutCircularNetworkCircularVertexCircularEdgeForceDirectedLayoutForceDirectedLayoutForceDirectedNetworkForceDirectedVertexForceDirectedEdgeGridLayoutGridLayoutLayeredDigraphLayoutLayeredDigraphLayoutLayeredDigraphNetworkLayeredDigraphVertexLayeredDigraphEdgeLayoutLayoutLayoutNetworkLayoutNetworkLayoutVertexLayoutEdgeTreeLayoutTreeLayoutTreeNetworkTreeVertexTreeEdgeTool ClassesActionToolActionToolClickCreatingToolClickCreatingToolClickSelectingToolClickSelectingToolContextMenuToolContextMenuToolDraggingToolDraggingToolDragSelectingToolDragSelectingToolLinkingBaseToolLinkingBaseToolLinkingToolLinkingToolLinkReshapingToolLinkReshapingToolPanningToolPanningToolRelinkingToolRelinkingToolResizingToolResizingToolRotatingToolRotatingToolTextEditingToolTextEditingToolToolToolToolManagerToolManagerCollection ClassesIterableIteratorListListMapMapSetSet GoJS类图</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9B%BE%E8%A1%A8%E5%B7%A5%E5%85%B7js%E5%BA%93/ itemprop=url>图表工具JS库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-08">2015-04-08</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>31 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>由于目前工作用到GoJS，所有也关注一下图表工具JS库。 10 JavaScript libraries to draw your own diagrams一文给出了10个JS库的功能分析和比较图表。
+|库|许可|语言 / 基础架构|高/低级|内建编辑器|Github (04/02/2015) |&mdash;&ndash; |JointJS|MPL|HTMLJavascriptSVG|高|无|1388星265分支（fork） |Rappid|商业1 500,00 €|HTMLJavascriptSVG|高|有| |Mxgraph|商业4300.00 €|HTMLJavascriptSVG|高|有| |GoJS|商业$1,350.00|HTMLCanvasJavascript|高|有| |Raphael|MIT|HTMLJavascriptSVG|低|无|7105星1078分支（fork） |Draw2D|GPL2商业|HTMLJavascriptSVG|中|无| |D3|BSD|HTMLJavascriptSVG|低|无|36218星9142分支（fork） |FabricJS|MIT|HTMLCanvasjavasript|低|无|4127星705分支（fork） |paperJS|MIT|HTMLCanvasjavascript|低|无|4887星496分支（fork） |JsPlumb|MIT/GPL2|HTMLJavascript|中|无|2161星563分支（fork）
+这里面D3在数据科学领域成绩比计突出，是数据可视化的一个重要工具。此外我在接触过的开源项目有几个用到了Raphael（包括Activiti）。其他库还没有接触过。 我为什么选择 D3.js一文中将D3和Raphael进行了对比。Raphael是一个矢量图的API，专注于对矢量图形的操作。D3是一个数据可视化展示的API，通过数据与图形进行绑定。 图表工具JS库除了上面帖子提及的外，还有很多。如果有机会的话，我会在GoJS之外更多关注D3和Raphael。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/ itemprop=url>[Gradle] 设置项目属性的三种方式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-07">2015-04-07</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>命令行 gradle bootRun -PyquPropKey=yquPropValue build.properties yquPropKey=yquPropValue gradle.properties 添加ext块：
+ext { yquPropKey=yquPropValue }</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/python_installing_pymongo_with_anaconda/ itemprop=url>Python: installing pymongo with Anaconda</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-04">2015-04-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>590 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Anaconda发行版Python上通过conda install pymongo安装MongoDBpython驱动，结果失败了，最终通过conda install -c https://conda.binstar.org/anaconda pymongo安装成功。
+BinstarBinstar和Anaconda都是同一家的产品，是Continuum Analytics推出的一个包管理服务，托管公开的pip和conda。 安装记录如下：
+C:\tools\Anaconda>conda list # packages in environment at C:\tools\Anaconda: # _license 1.1 py27_0 anaconda 2.0.1 np18py27_0 argcomplete 0.6.7 py27_0 astropy 0.3.2 np18py27_0 atom 0.3.7 py27_0 backports.ssl-match-hostname 3.4.0.2 beautiful-soup 4.3.1 py27_0 beautifulsoup4 4.3.1 binstar 0.5.3 py27_0 bitarray 0.8.1 py27_1 blaze 0.5.0 np18py27_1 blz 0.6.2 np18py27_0 bokeh 0.4.4 np18py27_1 boto 2.28.0 py27_0 casuarius 1.1 py27_0 cdecimal 2.3 py27_1 chaco 4.4.1 np18py27_0 colorama 0.2.7 py27_0 conda 3.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/python_installing_pymongo_with_anaconda/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91hadoop2.6.0%E7%AC%94%E8%AE%B0/ itemprop=url>[Hadoop] Windows平台编译Hadoop2.6.0笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-02">2015-04-02</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -100,48 +108,33 @@ Build timed out (after 10 minutes). Marking the build as aborted. Build was abor
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>94 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>启动DFS或者执行hadoop fs命令总是得到告警util.NativeCodeLoader: Unable to load native-hadooplibrary for your platform&mldr; using builtin-java classes whereapplicable：
-hadoop@node50064:~$ start-dfs.sh 15/04/18 01:55:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable Starting namenodes on [node50064.mryqu.com] node50064.mryqu.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-namenode-node50064.out node50069.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node50069.out node51054.mryqu.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-hadoop-datanode-node51054.out Starting secondary namenodes [node50069.mryqu.com] node50069.mryqu.com: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-hadoop-secondarynamenode-node50069.out 15/04/18 01:55:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E6%B6%88%E9%99%A4warn_util.nativecodeloader_unable_to_load_native-hadoop_library_for_your_platform/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jpa_%E9%87%8D%E6%B8%A9cascadetype/ itemprop=url>[JPA] 重温CascadeType</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>155 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>环境 64位虚拟机及64位 Windows Server 2008 R2
+所需工具 JDK7 Maven .NET Framework 4 Microsoft Windows SDK 7.1 安装前一定要先卸载比Microsoft Visual C++ 2010 x86Redistributable - 10.0.30319 更高的版本。 Microsoft Visual C++ 2010 Service Pack 1 Compiler Update for the Windows SDK 7.1 Cygwin (x64) Protocol Buffers 2.5.0 CMake 3.2.1 安装时选择添加CMake到所有用户的PATH环境变量。 hadoop-2.6.0源文件压缩包 解压至c:\hadoop-2.6.0-src 编译Hadoop2.6.0 进入Windows SDK 7.1 Command Prompt 在c:\执行buildHadoop.bat，其内容如下： setlocal set Platform=x64 set CYGWIN_ROOT=C:\cygwin64 set JAVA_HOME=C:\tools\Java\jdk7 set M2_HOME=C:\tools\apache-maven set MS_BUILD_PATH=C:\Windows\Microsoft.NET\Framework64\v4.0.30319 set MS_SDK=C:\Program Files\Microsoft SDKs\Windows\v7.1 set CMAKE_PATH=C:\tools\CMake set PROTOBUF_PATH=C:\tools\protoc-2.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91hadoop2.6.0%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%B2%97%E8%A7%88%E5%9F%BA%E4%BA%8Eeclipse_rcp%E6%9E%B6%E6%9E%84%E7%9A%84activiti_designer%E5%AE%9E%E7%8E%B0%E5%9B%BE%E6%96%87%E7%89%88/ itemprop=url>粗览基于Eclipse RCP架构的Activiti Designer实现(图文版)</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-18">2015-04-18</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-03-31">2015-03-31</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/workflow itemprop=url rel=index><span itemprop=name>workflow</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>11 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一篇帖子A beginner’s guide to JPA and Hibernate Cascade Types，对JPA/Hibernate中OneToOne、OneToMany、Many-To-Many关系下CascadeType的使用讲的很详尽，有代码示例也有SQL输出。作者VladMihalcea，著有High-Performance Java Persistence一书，应该淘一本学习学习。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/ itemprop=url>[Gradle] 输出依赖包</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>1194 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>org.activiti.designer.feature contains an Eclipse feature definition, which groups the variousprojects into the installable Activiti Designer feature.
+org.activiti.designer.eclipse plug-in contains the main extensions of Eclipse extension points and a lotof shared code for working with the model, saving resources andutilities.
+org.activiti.designer.eclipse.extension.ExportMarshallerextension-point Activiti Designer Export Marshaller: Use this extension point toprovide custom output marshallers when Activiti diagrams areexported.
+org.activiti.designer.eclipse.extension.ProcessValidatorextension-point Activiti Designer Process Validator: Use this extension point toprovide validation when Activiti diagrams are validated.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%B2%97%E8%A7%88%E5%9F%BA%E4%BA%8Eeclipse_rcp%E6%9E%B6%E6%9E%84%E7%9A%84activiti_designer%E5%AE%9E%E7%8E%B0%E5%9B%BE%E6%96%87%E7%89%88/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%B2%97%E8%A7%88%E5%9F%BA%E4%BA%8Eeclipse_rcp%E6%9E%B6%E6%9E%84%E7%9A%84activiti_designer%E5%AE%9E%E7%8E%B0%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%89%88/ itemprop=url>粗览基于Eclipse RCP架构的Activiti Designer实现（思维导图版）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-16">2015-04-16</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-03-30">2015-03-30</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/workflow itemprop=url rel=index><span itemprop=name>workflow</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>89 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>下面我以https://spring.io/guides/gs/spring-boot/中的gs-spring-boot项目为例，使用Gradle输出依赖包。
-首先对build.gradle做如下修改：
-buildscript { repositories { mavenCentral() } dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE") } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: 'spring-boot' jar { baseName = 'gs-spring-boot' version = '0.1.0' } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 task copyToLib(type: Copy) { print configurations into "$buildDir/dep-libs" from configurations.runtime } build.dependsOn(copyToLib) dependencies { compile("org.springframework.boot:spring-boot-starter-web") // tag::actuator[] compile("org.springframework.boot:spring-boot-starter-actuator") // end::actuator[] // tag::tests[] testCompile("org.springframework.boot:spring-boot-starter-test") // end::tests[] } 首先可以在命令行中看到：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gradle_%E8%BE%93%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8C%85/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/ itemprop=url>[Gradle] 执行Java类</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-04-15">2015-04-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>132 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>需求 我想用Gradle脚本执行下列Java类Hello123.java：
-import java.util.Arrays; public class Hello123 { public static void main(String[] args) { System.out.println("args:"+ Arrays.toString(args)); } } 测试一：创建execute任务 build.gralde apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' task execute(type: { main = System.getProperty("exec.mainClass") classpath = sourceSets.main.runtimeClasspath systemProperties System.getProperties() if(System.getProperty("exec.args")) args System.getProperty("exec.args").split() } sourceCompatibility = 1.8 targetCompatibility = 1.8 测试结果 测试二：重写run任务 build.gralde apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' apply plugin: "application" mainClassName = "NonExistentClass" task run (type: { main = System.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/gradle_%E6%89%A7%E8%A1%8Cjava%E7%B1%BB/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/35/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>0 字 ~0分钟</span></span></div></header><div class=post-body itemprop=articleBody></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/35/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/32/>32</a>
 <a class=page-number href=/page/33/>33</a>
 <a class=page-number href=/page/34/>34</a>
@@ -153,9 +146,9 @@ import java.util.Arrays; public class Hello123 { public static void main(String[
 <a class=page-number href=/page/40/>40</a>
 <a class="extend next" rel=next href=/page/37/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

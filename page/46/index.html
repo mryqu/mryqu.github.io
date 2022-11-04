@@ -4,128 +4,9 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/ itemprop=url>[OpenUI5] JSView的createContent和Controller的onInit孰先孰后？</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E9%80%9A%E8%BF%87multipleinputs%E5%A4%84%E7%90%86%E5%A4%9A%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6/ itemprop=url>[Hadoop] 通过MultipleInputs处理多输入文件</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-14">2014-11-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>259 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先在这个两个函数设置断点，很容易知道JSView的createContent先于Controller的onInit被调用。 通过sap.ui.core.mvc.View源码片段可知，View的_initCompositeSupport函数中首先调用createAndConnectController函数创建Controller,之后调用的onControllerConnected函数会调用createContent函数，最后调用的fireAfterInit函数会触发Controller的onInit函数回调。
-View.prototype._initCompositeSupport = function(mSettings) { // init View with constructor settings // (e.g. parse XML or identify default controller) // make user specific data available during view instantiation this.oViewData = mSettings.viewData; // remember the name of this View this.sViewName = mSettings.viewName; // remember the preprocessors this.mPreprocessors = mSettings.preprocessors || {}; //check if there are custom properties configured for this view, //and only if there are, create a settings preprocessor applying these if (sap.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_jsview%E7%9A%84createcontent%E5%92%8Ccontroller%E7%9A%84oninit%E5%AD%B0%E5%85%88%E5%AD%B0%E5%90%8E/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/ itemprop=url>[OpenUI5] 十分钟了解sap.ui.table.Table</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-12">2014-11-12</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1115 字 ~6分钟</span></span></div></header><div class=post-body itemprop=articleBody>转发一篇SAP community network的好帖子：http://scn.sap.com/docs/DOC-54075
-Introduction sap.ui.table.Table is commonly used inOpenUI5 desktop application. Many questions (related to thiscontrol) that are posted in this group, it is evident thatdocumentation for this control is lacking and we (developers) haveto dive deep into debugging its source code to figure things out.It is fortunate that Javascript source code is always available;modern browsers provide debugging capability and personally, I amfortunate to have the opportunity to work with someone in SAPUI5team while using this control.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_%E5%8D%81%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3sap.ui.table.table/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/web%E5%AE%89%E5%85%A8/ itemprop=url>Web安全</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-11">2014-11-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>78 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学习OpenUI5程序员指南里关于Web安全的章节，在网上也搜了一下资料，下面是这次的学习笔记。
-浏览器安全 跨站脚本攻击（Cross-Site Scripting， XSS） XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意用户的特殊目的。例如，如果某些无需登录即可访问的公共页面区域有提交表单，攻击者可以在提交内容里面注入恶意javascript脚本（原理类似与SQL注入攻击），提交后的页面内容可能就含有这样的可执行恶意脚本。当其他登录用户访问这个页面后，就有可能泄漏自己的会话cookie信息。一般的防御手段是使用HTMLSanitization工具对用户输入信息做检查，过滤其提交内容；或者cookie记录登录ip，仅允许该ip使用此cookie。
-点击劫持（clickjacking） 点击劫持指的是通过欺骗用户点击看似正常的恶意网页来获得机密信息或远程控制其电脑。例如，攻击者想要攻击某网页，可以发布一个网址与原网址及其近似的恶意网页，恶意网页通过iframe嵌入原网页。当用户被欺骗到恶意网页，界面和操作都与原网页一模一样，但操作实际上是与恶意网页交互。另外一个例子是攻击者发布一个恶意flash游戏，当用户玩游戏时，点击会被引导到恶意链接上，进而控制用户的摄像头和麦克风，用户的个人隐私遭到泄漏。一般的防御手段是Framebusting：正常网页中添加X-FRAME-OPTIONS=DENY(拒绝任何域加载)的http头，以及通过javascript脚本判别顶级frame是否被修改并将覆盖在自身上面的"恶意"frame重新定向会self.location。
-HTML5 localStorage 所有浏览器都提供本地存储API，可用于存储有限数量的数据。仅运行在与存储数据相同域上的JavaScript代码可被执行进行数据访问。浏览器的本地存储不是安全存储，所以仅能用于存储静态数据，不应该存储应用数据。
-WEBGL 越来越多的浏览器默认支持WEBG，WEBG允许访问计算机的底层图形API，这可能导致底层漏洞。
-WebSockets WebSockets为web应用的客户端/服务器通信提供了新的方式，但很多浏览器厂商的第一版WebSockets实现就暴露了很多安全问题。RGC6455中的WebSockets标准化已经稳定，并且Chrome16、Firefox 11和IE10都实现了WebSockets。即使浏览器自身的WebSockets实现被证明是安全的，使用WebSockets时客户端仍需要额外的安全措施。
-Postmessage/Onmessage postMessage允许浏览器窗口之间的跨域通信，这可能会导致安全问题。应用程序应该检查消息的发送域并仅处理来自受信域的消息。
-会话安全 HTTP通信是无状态的和非加密的，客户端和服务器之间的数据传输是不安全的，因此有必要使用SSL进行加密，并使用cookie或URL地址重写进行会话处理。即使使用SSL对数据传输进行加密，仍有可能发生会话劫持。跨域请求伪造和会话固定攻击就是这类攻击中突出的两个例子。
-WEB认证基础知识 用户访问需要认证的网站。 用户提供一个用户名和口令进行验证。 网站验证用户口令，如果通过，则准许用户登录进入，并将一个cookie提供给用户的浏览器。此cookie用于唯一的标识会话。 用户继续访问网站。在用户请求一个新网页时，浏览器都会发送cookie和用户请求，提醒Web服务器：该请求是前面的认证连接的一部分。在多数情况下，Web开发人员和网站管理员都会使用HTTPS加密来保护这个过程的第二步，他们都知道如果其它人员能够访问其他用户的用户名和口令，就可以轻易地获得访问权。在许多情况下，他们会转而使用一个不加密的HTTP连接，以便于实现Web通信的其余部分，其中也包括cookie的交换。 火羊（Firesheep） Firesheep是一个火狐（Firefox）插件，它在不安全的无线网络中自动操作会话劫持攻击。这个插件（plug-in）本质上是一个数据包嗅探器，它监测并分析Wi-Fi上终端用户之间的流量，并获取正在交换的cookie。西雅图的软件开发工程师EricButler研发了Firesheep并在2010年10月的ToorCon黑客会议上宣布了它的发行。Firesheep非常容易使用，下载插件，登陆公用的WIFI点，按一下按钮就可以获取网络中各种人的用户名和图像（例如：Facebook、Twitter、Flickr、bit.ly、Google和Amazon），双击图像攻击者就可以用受害人的身份登陆了。一般的防御手段是仅允许通过SSL来发送cookie；要限制能够利用cookie的应用程序；限制cookies仅能使用HTTPS。
-跨域请求伪造(Cross-site request forgery, CSRF或XSRF) 跨域请求伪造指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，在用户毫不知情的情况下以用户名义伪造请求发送给受攻击站点，从而在并未授权的情况下执行在权限保护之下的操作。例如，恶意网页中有转账请求的恶意链接，当有用户被骗访问网站并点击了带有恶意链接的图片或广告，该请求会附带用户浏览器的cookie一起发往银行。大多数情况下，该请求会失败，因为它要求用户的认证信息。但是如果用户当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的会话尚未过期，浏览器的cookie之中含有用户的认证信息。这时，转账请求就被处理。一般的防御手段是验证HTTP的Referer字段；在所有页面加入同步令牌模式(Synchronizer tokenpattern)并要求在请求地址中添加令牌并验证；在强调安全的操作前重复用户认证。
-会话固定攻击(session fixation) 会话固定攻击是利用服务器的session不变机制，借他人之手获得认证和授权，然后冒充他人。例如，攻击者访问http://vulnerable.example.com/ ，并从服务器响应(Set-Cookie:SID=0D6441FEA4496C2)获得会话ID，他发送给受害者一个链接http://vulnerable.example.com/?SID=0D6441FEA4496C2。受害者登录的话，会使用这个固定会话标识符SID=0D6441FEA4496C2。攻击者这时访问http://vulnerable.example.com/?SID=0D6441FEA4496C2就可以不受限地访问受害者的账户了。一般的防御手段是用户登录后更改会话ID；仅接受服务器生成的会话ID；超时或退出登录后删除会话；强调安全的操作使用SSL会话ID；每次请求更新会话ID。
-参考 Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites 使用 HTML5 WebSocket 构建实时 Web 应用 应用 HTML5 的 WebSocket 实现 BiDirection 数据交换 HTML5 postMessage 和 onmessage API 详细应用 urlrewrite使用小结 怎样应对会话劫持：以Firesheep为例 CSRF 攻击的应对之道 Spring Security如何防止会话固定攻击(session fixation attack) 黑客攻防技术宝典: Web实战篇</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%BC%80%E7%8E%A9openui5/ itemprop=url>开玩OpenUI5</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-09">2014-11-09</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>OpenUI5是SAP推出的开源HTML5Javascript用户界面库，网址为http://sap.github.io/openui5/index.html 前不久SAP宣布我司成了签署OpenUI5企业贡献者许可协议的第一个组织(BjornGoerkee的Tweet)，从此我司产品中的Flex就要纷纷下岗，让位HTML5了。 据说SAP在UI框架上的选择纠结了十多年了，甚至投奔过微软的silverlight，后来才成为HTML5的拥拓。 我司的富客户端技术用过Swing，中间打算换成Eclipse RCP，再后来决定全面采用Flex技术，兜了一圈又一圈，花了时间费了钱，最后决定采用HTML5。 虽然各浏览器厂商还在HTML5上进行利益博弈，W3C与WHATWG分道扬镳，Facebook和Linkedin抛弃HTML5转投原生App应用，但是为了将我司的产品转向云应用，HTML5对于我们这种企业级应用来说还算是很靠谱的了。 今天下载了openui5-sdk-1.24.3.zip，直接解压到Tomcat的webapps目录下，开始学文档做demo。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript%E4%B8%AD%E7%9A%84%E7%82%B9%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%96%B9%E6%8B%AC%E5%8F%B7%E7%AC%A6%E5%8F%B7/ itemprop=url>JavaScript中的点符号和方括号符号</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-08">2014-11-08</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>30 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>JavaScript中对象可以通过点符号(dot notation)或方括号符号(square bracketnotation)访问属性。
-a = {}; b = function() { alert("Thanks!"); }; c = function() { alert("Bye!"); }; a["Hello"] = b; a.bye = c; a.hello(); a.bye(); 两者相同之处: 当属性不存在时返回undefined。两者的区别是:
-点符号访问方式更快，代码阅读起来更清晰。 方括号符号访问方式可以访问包含特殊字符的属性，属性选择可以使用变量。JSLint会对方括号符号访问进行告警。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%8F%88%E8%A2%ABmining_massive_datasets%E7%9A%84%E8%80%81%E5%B8%88%E4%BC%A4%E4%BA%86/ itemprop=url>又被Mining Massive Datasets的老师伤了！</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-11-07">2014-11-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>381 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Mining Massive Datasets这周的课讲聚类和计算广告学：二分图匹配。课后的作业好几个都是一眼看不出来，只好写程序算。
-其中有一道题是这个样子： We wish to cluster the following set of points: into 10 clusters. We initially choose each of the green points(25,125), (44,105), (29,97), (35,63), (55,63), (42,57), (23,40),(64,37), (33,22), and (55,20) as a centroid. Assign each of thegold points to their nearest centroid. (Note: the scales of thehorizontal and vertical axes differ, so you really need to applythe formula for distance of points; you can&rsquo;t just &ldquo;eyeball&rdquo; it.)Then, recompute the centroids of each of the clusters.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%8F%88%E8%A2%ABmining_massive_datasets%E7%9A%84%E8%80%81%E5%B8%88%E4%BC%A4%E4%BA%86/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/igraph%E5%8C%85%E7%9A%84cliques%E5%87%BD%E6%95%B0%E6%80%BB%E4%B9%9F%E4%B8%8D%E8%BF%94%E5%9B%9E/ itemprop=url>igraph包的cliques函数总也不返回</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-10-29">2014-10-29</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>40 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>做社交网络分析课的作业时碰到一个小麻烦，igraph包的cliques函数总也不返回，最后只能强行终止但是数据量也不大，而且largest.cliques和clique.number都是立刻返回，不解呀！
-> library(igraph) > g = read.graph("wikipedia.gml",format="gml") > cliques(as.undirected(g)) > largest.cliques(as.undirected(g)) [[1]] [1] 26526 247 370 2119 6625 7826 8277 10019 11773 11801 13289 15758 [13] 16845 16885 16937 18925 22144 22644 23318 24585 24654 25487 > clique.number(as.undirected(g)) [1] 22</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/a_short_tutorial_on_graph_laplacians_laplacian_embedding_and_spectral_clustering/ itemprop=url>A Short Tutorial on Graph Laplacians, Laplacian Embedding, and Spectral Clustering</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-10-24">2014-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>http://csustan.csustan.edu/~tom/Lecture-Notes/Clustering/GraphLaplacian-tutorial.pdf</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%9B%E5%BB%BAmysql%E8%A1%A8%E5%A4%B1%E8%B4%A5show_tables%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E8%A1%A8%E5%AD%98%E5%9C%A8%E5%8D%B4%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4/ itemprop=url>创建MySQL表失败，“show tables”命令显示表存在却无法删除</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-10-19">2014-10-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>95 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在MySQL表中创建一个表table_c失败了，返回错误ERROR 1146(42S02)；结果发现MySQL显示有这个表，却无法查询和删除。```
-mysql> create table table_c (&mldr;&mldr;&mldr;); ERROR 1146 (42S02): Table &lsquo;yqutesting.table_c&rsquo; doesn&rsquo;t exist mysql> show tables; +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+ | Tables_in_yqutesting | +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+ | table_a | | table_b | | table_c | +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+ 3 rows in set (0.00 sec)
-mysql> select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.table_c&rsquo; doesn&rsquo;t exist mysql> drop table table_c; ERROR 1051 (42S02): Unknown table &rsquo;table_c&rsquo;
-结果还是drop掉yqutesting数据库，修正了table_c的定义重新创建数据库和所有表完事。 参考：[ MySQL Create Table Error - Table Doesn't Exist](http://stackoverflow.com/questions/18034485/mysql-create-table-error-table-doesnt-exist)[ MySQL > Table doesn't exist.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%88%9B%E5%BB%BAmysql%E8%A1%A8%E5%A4%B1%E8%B4%A5show_tables%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E8%A1%A8%E5%AD%98%E5%9C%A8%E5%8D%B4%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_map_reduce_slot/ itemprop=url>[Hadoop] Map Reduce Slot</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-10-17">2014-10-17</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-09-29">2014-09-29</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -134,8 +15,150 @@ mysql> select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.table_
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>MR1 在MR1中，每个节点可以启动的并发map和reduce任务数(即slot数)由管理员通过mapred-site.xml中mapred.tasktracker.map.tasks.maximum (MR2中为mapreduce.tasktracker.map.tasks.maximum )和mapred.tasktracker.reduce.tasks.maximum (MR2中为mapreduce.tasktracker.reduce.tasks.maximum )配置指定。(下面的参考帖子提到过作业级参数mapred.map.tasks.maximum和mapred.reduce.tasks.maximum，但是在HADOOP-4295并没有通过。)
-此外，管理员通过mapred.child.配置设置mapper或reducer默认的内存分配量。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/45/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>53 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一般MapReduce程序仅处理一个输入文件，但当我们必须处理多个输入文件时，普通MapReduce方法就无能为力了，这时候可以使用org.apache.hadoop.mapreduce.lib.input.MultipleInputs类搞定这一问题。
+MultipleInputs示例 MultipleInputsDemo.java源码 people.txt 1,Tomas,1 2,Edward,2 3,Henry,3 4,Gordon,4 5,James,4 6,Percy,3 7,Toby,2 8,Emily,1 9,Duke,3 10,Donald,3 11,Douglas,3 locations.txt 1,China 2,USA 3,Canada 4,New Zealand 执行 hadoop jar YquMapreduceDemo.jar MultipleInputsDemo /user/hadoop/mijoin/people.txt /user/hadoop/mijoin/locations.txt /user/hadoop/mijoin_output 测试结果 MultipleInputs分析 与普通Driver的区别 普通Driver |API|Job属性 |&mdash; |FileInputFormat.addInputPath|mapreduce.input.fileinputformat.inputdir
+示例：/user/hadoop/wordcount/book.txt |Job.setMapperClass|mapreduce.job.map.class
+示例：WordCount.TokenizerMapper |Job.setInputFormatClass|mapreduce.job.inputformat.class
+示例：org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+使用MultipleInputs的Driver APIJob属性MultipleInputs.addInputPathmapreduce.input.multipleinputs.dir.formats
+示例：/user/hadoop/mijoin/people.txt:o.a.h.m.l.i.TextInputFormat,
+/user/hadoop/mijoin/locations.txt:o.a.h.m.l.i.TextInputFormatmapreduce.input.multipleinputs.dir.mappers
+示例：/user/hadoop/mijoin/people.txt:MultipleInputsDemo.PersonMapper,
+/user/hadoop/mijoin/locations.txt:MultipleInputsDemo.LocationMappermapreduce.job.inputformat.class
+示例：org.apache.hadoop.mapreduce.lib.input.DelegatingInputFormatmapreduce.job.map.class
+示例：org.apache.hadoop.mapreduce.lib.input.DelegatingMapper 由上可见，MultipleInputs方法不设置mapreduce.input.fileinputformat.inputdir属性，将mapreduce.job.inputformat.class和mapreduce.job.map.class属性设为多输入的委托类，增加了两个专用的属性mapreduce.input.multipleinputs.dir.formats和mapreduce.input.multipleinputs.dir.mappers已用于映射每一输入文件的格式和mapper类。
+调用每个输入文件的FileFormat 调用每个输入文件的Mapper 示例流程</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8%E5%BE%AE%E8%BD%AF%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%91azure_ml%E8%BF%9B%E8%A1%8C%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90/ itemprop=url>使用微软的机器学习云Azure ML进行预测分析</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-09-23">2014-09-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>8 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一个帖子Predictive Analytics with Microsoft Azure Machine Learning。尽管机器学习已经是一项历史悠久而且应用广泛的技术，微软以云服务形式推出希望获得一些市场。AzureML通过拖拽操作在界面上组织数据清理、训练模型、模型打分和评估，最后可以生成C#、R或Python代码。 对云数据进行数据分析，除了用Hadoop/Spark等技术自己搭积木开发实现外，这种通用分析产品还不够丰富。期望早日看到各厂家纷纷推出成熟的旗舰产品那一天，我司（SAS）加油！：）</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%86ultraedit%E9%9B%86%E6%88%90%E5%88%B0windows%E6%96%87%E4%BB%B6%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8/ itemprop=url>将Ultraedit集成到Windows文件资源管理器</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-09-10">2014-09-10</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近自己的公司电脑换新的了，IT同事给装好了Ultraedit，可是安装时没有在Windows文件资源管理器的菜单加入Ultraedit项，使用起来不便。在配置里设一下，搞定！</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BB%8Etortoisegit%E5%88%87%E6%8D%A2%E5%88%B0git_extensions/ itemprop=url>从TortoiseGit切换到Git Extensions</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-09-07">2014-09-07</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>26 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一开始使用GitHub的服务，除了安装了msysGit&rsquo;s Git for Windows，GUI客户端就是GitHub的Web界面。后来使用bitbucket的服务时，想要安装一个好使又通用的GUI客户端。由于使用TortoiseCVS和TortoiseSVN，自然就选择了TortoiseGit。由于三者界面风格一致，使用无障碍上手。最近开始使用公司的git仓库，公司指定的是Git Extensions。好吧，Bye， TortoiseGit。 好奇了一下，上网搜了两者的对比。貌似相当一部分人使用TortoiseGit的理由跟我一样，不过有一些人更推荐Git Extensions。此外还有一个商业产品SmartGit，但貌似使用的人更少。搜索结果：What is the Best Git GUI (Client) for Windows? TortoiseGit vs Git ExtensionsAsk HN: Best Git GUI For Windows?</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_mapreduce%E5%AE%9A%E5%88%B6counter%E5%AE%9E%E8%B7%B5/ itemprop=url>[Hadoop] MapReduce定制Counter实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-09-04">2014-09-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>4 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>MapReduce除了有内建的Counter，还支持应用程序自身定制的Counter。实践如下：
+CustomCounterDemo.java 执行 JobHistory显示</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/data-analysis-and-statistical-inference/ itemprop=url>[数据分析与统计推断] 学习笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-09-02">2014-09-02</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>574 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>本文为Data Analysis and Statistical Inference学习笔记，课程地址为https://www.coursera.org/course/statistics。
+介绍数据 数据基础 观察值、变量、数据矩阵数据类型:
+数字变量：分为连续的和离散的 分类变量：分为有序（ordinal）的和普通无序的变量关系: 关联Assocaited （Dependent）：分为正的和负的 独立Independent 研究方法 观察性研究Observational Study：直接取现实中的数据，探究变量间的相关性 retrospective：依赖以前的数据 prospective：在研究中收集新的数据 实验性研究Experiment: 随机分配对象到实验组；建立因果性连接观察性研究和实验性研究主要区别在于是否人为地施加了干预措施 观察性研究和抽样策略 为什么抽样？
+某些个体很难定位和测量； 统计总体很少保持不变抽样偏差源 便利样本Convenience sample：更易于被访问到的用户更可能被包含到采样中 无响应样本Non-response：仅部分被随机采样的被访者填写了调查问卷，这样的采样无法代表统计总体 自发性响应样本Voluntary response：对调查问卷中的问题更感兴趣的人积极主动填写调查问卷抽样方法 简单随机抽样Simple random sample (SRS)：不做控制随机地取样 分层抽样Stratified sample：对人群做分析，按相似性分成若干的阶层，在各阶层内取样 整群抽样cluster sample：随机将统计总体分成若干群，随机取一些群，再在这些群内取样混杂变量 Confounding/lurkvariable：对解释变量和响应变量都有影响的额外变量，使解释变量和响应变量看起来有关系 实验性研究 设计原则 control：比较实验组与对照组 randomize：保证对象在两个组分配的随机性 replicate：足够大的实验量或整个实验可复制 block：消除已知或可疑变量对输出的影响。例子:设计实验研究是否能量胶囊有助于奔跑更快： 实验组treatment：能量胶囊 对照组control:无能量胶囊能量胶囊可能对专业运动员和业余运动员影响不同消除专业状态： 将样本拆分为专业运动员和业余运动员 将专业运动员和业余运动员随机平均分配到实验组和对照组消除变量和解释变量的区别： 解释变量(factors)：施加于实验个体的条件 消除变量：我们需要控制的实验个体自带特征消除与分层很相似，区别在于： 在随机分配过程中消除，用于取得因果性 在随机抽样过程中分层，用于概化generalizability 术语 安慰剂：假处理，经常在药物研究中用作对照组 安慰剂效应：展示使用安慰剂的变化 盲 ：实验个体不知道其所在组 双盲：实验个体和研究者都不知道其所在组在需要从人的主观感受中剥离客观结论的社会性研究（比如药物实验）中，如果被试的主观感受会影响数据结果，就需要给予对照组无实质作用的安慰剂，并且对其隐藏其属于实验组还是对照组的信息，以区分实验组的变化和安慰剂效应，这就叫blindexperiment；更进一步，如果研究者的主观感受也会影响实验结果，则对研究者也隐藏实验与对照的分组信息，这就是通常说的双盲实验 随机抽样和随机分配 数值型数据的可视化 散点图scatterplot 可以从中归纳两个变量的相关性。相关性有几个性质：正/负相关、形状（线性、非线性）、强/弱相关，异常值
+直方图histogram 可以给出一个数据密度的视图，并且可以观察：
+偏度：描述了数据密度的左右分布，左偏/右偏/对称 形态（modality）：正态分布/均匀分布/双峰分布/多峰分布等等 区间划分不能过宽或过窄 点阵图dotplot 当研究个体值时有用，样本量太大时不太适
+箱形图boxplot 在强调异常点、中位数、四分位距(Interquartile range，IQR，即Q3-Q1)时有用。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/data-analysis-and-statistical-inference/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E7%BB%A7%E6%89%BF/ itemprop=url>[JavaScript] 继承</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-08-27">2014-08-27</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>64 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>示例：
+function BaseClass() {}; BaseClass.prototype.method1 = function() { console.log("BaseClass#method1") }; BaseClass.prototype.method2 = function() { console.log("BaseClass#method2") }; BaseClass.prototype.method3 = function() { return "BaseClass#method3"; }; ChildClass.prototype = new BaseClass(); function ChildClass() { //BaseClass.call(this); }; ChildClass.prototype.method2 = function() { console.log("ChildClass#method2") }; ChildClass.prototype.method3 = function() { console.log(BaseClass.prototype.method3.call(this)+" by ChildClass!"); }; ChildClass.prototype.method4 = function() { console.log("ChildClass#method4") }; var myobj = new ChildClass(); myobj.method1(); myobj.method2(); myobj.method3(); myobj.method4(); 测试： 注解：
+Javascript的继承要在原型链上进行，没有super()可以调用父类，覆盖父类函数时只能通过父类原型以call或apply函数的形式调用父类的方法。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ejson%E6%95%B0%E6%8D%AE%E4%BA%92%E8%BD%AC/ itemprop=url>[JavaScript] 字符串与JSON数据互转</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-08-26">2014-08-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>63 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>字符串->JSON 转换方法有3种:
+使用浏览器内置window.JSON.parse方法 原生方法，速度最快，首选方案。老版本浏览器不支持。
+|浏览器|支持版本 |&mdash; |Chrome|(Yes) |Firefox (Gecko)|3.5 (1.9.1) |Internet Explorer|8.0 |Opera|10.5 |Safari|4.0 |Android|(Yes) |Chrome for Android|(Yes) |Firefox Mobile (Gecko)|1.0 (1.0) |IE Mobile|(Yes) ||Opera Mobile|(Yes) |Safari Mobile|(Yes)
+使用Funtion()构造函数 较eval_r()快
+使用 eval_r() 函数 功能强大，能解析任何JS代码,但是执行效率和安全性都不好示例代码：
+var jsonStr = '{"name":"kxeg","data":[{"key":"Alpha","color":"lightblue"},{"key":"Beta","color":"orange"}]}'; //JSON.parse() if (window && window.JSON && window.JSON.parse) jsonObj1 = window.JSON.parse(jsonStr); //Function 创建一个闭包,返回一个json数据对象 jsonObj2 = (new Function('return'+jsonStr))(); //eval_r() jsonObj3 = eval_r('('+jsonStr+')'); JSON->字符串 使用浏览器内置window.JSON.stringify方法
+参考 js中字符串数据转为json对象的方法
+MDN：JSON</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84prototype%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/ itemprop=url>[JavaScript] 函数的prototype对象属性</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-08-22">2014-08-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>48 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>原型（prototype） JavaScript 不包含传统的类继承模型，而是使用原型模型。继承方面，JavaScript中的每个对象都有一个内部私有的链接指向另一个对象，这个对象就是该对象的原型。这个原型对象也有自己的原型，直到对象的原型为 null为止（也就是没有原型）。这种一级一级的链结构就称为原型链。
+Function.prototype.toString() toString()方法返回表示函数源代码的字符串。
+Function.prototype.bind() 对于给定函数，bind()方法创建具有与原始函数相同主体的绑定函数。 在绑定函数中，this对象将解析为传入的对象。绑定函数具有指定的初始参数。
+fun.bind(thisArg[, arg1[, arg2[, ...]]]) JavaScript bind 方法具有几种用法。 通常，它用于为在其他上下文中执行的函数保留执行上下文。
+Function.prototype.call()和Function.prototype.apply() call()和apply()方法都是调用一个对象的方法，用另一个对象上下文替换当前对象上下文。两者仅在定义参数方式有所区别：call传递的是参数列表，apply传递的是数组或arguments对象。
+fun.call(thisArg[, arg1[, arg2[, ...]]]) 应用call和apply还有一个技巧，就是call和apply应用另外一个函数以后，当前函数就具备了另外一个函数的方法和属性，这也可以称之为“继承”。通过上例可知，extend调用call方法后就继承到了base的方法和属性。
+参考 JavaScript函数的Arguments对象属性 Javascript继承机制的设计思想 深入理解JavaScript系列（5）：强大的原型和原型链 Function.prototype.apply() Function.prototype.call() Function.prototype.bind() Function.prototype.toString() Functional JavaScript, Part 3: .apply(), .call(), and the arguments object Bind, Call and Apply in JavaScript</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E5%87%BD%E6%95%B0%E7%9A%84arguments%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/ itemprop=url>[JavaScript] 函数的Arguments对象属性</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-08-21">2014-08-21</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>24 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>arguments对象 每个函数表达式在其作用域内都可以访问一个特殊的本地变量：arguments，它是跟数组很类似的对象，同样可以通过下标访问，例如arguments[0]和arguments[1]&mldr;。
+arguments.length 传递给函数的参数个数。
+arguments.callee 返回当前正在调用的函数。callee属性是arguments对象的一个成员，它表示对函数对象自身的引用，有利于匿名函数的递归或者保证函数的封装性，上例中的sumV2仅调用局部变量arguments的callee属性，较sumV1需要调用全局变量sumV1，封装性更好。值得注意的是，callee也拥有一个length属性。通过上例可知arguments.length反映的是函数的实参长度，arguments.callee.length反映的是函数的形参长度。
+arguments.caller (已废弃) arguments.caller并属于标准，且已被废弃。可以使用同样不属于标准但被大多数主流浏览器支持的Function.caller获得调用当前函数的函数。
+参考 Arguments object
+arguments.callee
+arguments.caller
+Why was the arguments.callee.caller property deprecated in JavaScript?
+Function caller</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/45/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/42/>42</a>
 <a class=page-number href=/page/43/>43</a>
 <a class=page-number href=/page/44/>44</a>
@@ -147,9 +170,9 @@ mysql> select * from table_c; ERROR 1146 (42S02): Table &lsquo;yqutesting.table_
 <a class=page-number href=/page/50/>50</a>
 <a class="extend next" rel=next href=/page/47/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

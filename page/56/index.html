@@ -4,62 +4,28 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/tomcat%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96/ itemprop=url>Tomcat的会话持久化</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/ itemprop=url>学习十二要素应用宣言</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-08">2013-11-08</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/web-application-server itemprop=url rel=index><span itemprop=name>Web Application Server</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>14 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>《玩玩HTTP servlet和session资源监控器》提到我hello的一个web项目，刚开始我只是用监视器清除了Tomcat容器外部的文件资源，以为会话失效后Tomcat会自己清除会话属性，但后来发现想的太简单了。不但会话失效，并且重启Tomcat服务器，服务器端原来的会话及其属性都在,如果客户端浏览器的会话没有丢的话，刷新页面仍然可以获得以前的信息。原来Tomcat（起码5.x之后的版本）在默认的情况下提供了会话持久化这项功能，见$TOMCAT_HOME$/conf/context.xml：Tomcat的默认会话管理器是标准会话管理器(StandardManager)，用于非集群环境中对单个处于运行状态的Tomcat实例会话进行管理。当Tomcat关闭时，这些会话相关的数据会被写入磁盘上的一个名叫SESSION.ser的文件，并在Tomcat下次启动时读取此文件。
-默认只有在Tomcat正常关闭时才会保存完整的用户会话信息 默认保存于$CATALINA_HOME$/work/Catalina/[host]/[webapp]/下的SESSIONS.ser文件中 若是自定义的虚拟主机则保存在$CATALINA_HOME/work/Catalina/[host]/_/下的SESSIONS.ser文件中 如果不想再获得失效会话属性的话，解决办法为：
-关闭Tomcat会话持久化功能。去掉context.xml中那句注释即可。 HttpSessionListener实现类的sessionDestroyed方法删除该会话所有属性。 参考 Apache Tomcat 5.5 Configuration ReferenceTomcat会话管理</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/ itemprop=url>[JavaScript] === 与 == 操作符的区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>275 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Heroku是业内知名的云应用平台，从对外提供服务以来，他们已经有上百万应用的托管和运营经验。大概在去年，创始人Adam Wiggins根据这些经验，发布了一个“十二要素应用宣言（The Twelve-Factor App）”。 简介 如今，软件通常会作为一种服务来交付，它们被称为网络应用程序，或软件即服务（SaaS）。12-Factor为构建如下的SaaS应用提供了方法论：
+使用标准化流程自动配置，从而使新的开发者花费最少的学习成本加入这个项目。 和操作系统之间尽可能的划清界限，在各个系统中提供最大的可移植性。 适合部署在现代的云计算平台，从而在服务器和系统管理方面节省资源。 将开发环境和生产环境的差异降至最低，并使用持续交付实施敏捷开发。 可以在工具、架构和开发流程不发生明显变化的前提下实现扩展。 这套理论适用于任意语言和后端服务（数据库、消息队列、缓存等）开发的应用程序。
+背景 本文的贡献者者参与过数以百计的应用程序的开发和部署，并通过Heroku平台间接见证了数十万应用程序的开发，运作以及扩展的过程。 本文综合了我们关于 SaaS应用几乎所有的经验和智慧，是开发此类应用的理想实践标准，并特别关注于应用程序如何保持良性成长，开发者之间如何进行有效的代码协作，以及如何避免软件污染。 我们的初衷是分享在现代软件开发过程中发现的一些系统性问题，并加深对这些问题的认识。我们提供了讨论这些问题时所需的共享词汇，同时使用相关术语给出一套针对这些问题的广义解决方案。本文格式的灵感来自于Martin Fowler 的书籍：Patterns of Enterprise Application Architecture，Refactoring。
+读者应该是哪些人？ 任何SaaS应用的开发人员。部署和管理此类应用的运维工程师。
+12-Factors I. 基准代码 一份基准代码，多份部署 12-Factor应用通常会使用版本控制系统加以管理，如Git、Mercurial、Subversion。一份用来跟踪代码所有修订版本的数据库被称作_代码库_（coderepository, code repo, repo）。 在类似 SVN这样的集中式版本控制系统中，_基准代码_就是指控制系统中的这一份代码库；而在Git那样的分布式版本控制系统中，_基准代码_则是指最上游的那份代码库。 基准代码和应用之间总是保持一一对应的关系：
+一旦有多个基准代码，就不能称为一个应用，而是一个分布式系统。分布式系统中的每一个组件都是一个应用，每一个应用可以分别使用12-Factor进行开发。 多个应用共享一份基准代码是有悖于12-Factor原则的。解决方案是将共享的代码拆分为独立的类库，然后使用依赖管理策略去加载它们。 尽管每个应用只对应一份基准代码，但可以同时存在多份部署。每份_部署_相当于运行了一个应用的实例。通常会有一个生产环境，一个或多个预发布环境。此外，每个开发人员都会在自己本地环境运行一个应用实例，这些都相当于一份部署。 所有部署的基准代码相同，但每份部署可以使用其不同的版本。比如，开发人员可能有一些提交还没有同步至预发布环境；预发布环境也有一些提交没有同步至生产环境。但它们都共享一份基准代码，我们就认为它们只是相同应用的不同部署而已。
+II. 依赖 显式声明依赖关系 大多数编程语言都会提供一个打包系统，用来为各个类库提供打包服务，就像Perl的CPAN或是Ruby的Rubygems。通过打包系统安装的类库可以是系统级的（称之为 &ldquo;sitepackages&rdquo;），或仅供某个应用程序使用，部署在相应的目录中（称之为 &ldquo;vendoring&rdquo; 或 &ldquo;bunding&rdquo;）。 **12-Factor规则下的应用程序不会隐式依赖系统级的类库。**它一定通过_依赖清单_，确切地声明所有依赖项。此外，在运行过程中通过_依赖隔离_工具来确保程序不会调用系统中存在但清单中未声明的依赖项。这一做法会统一应用到生产和开发环境。 例如，Ruby的Gem Bundler使用Gemfile 作为依赖项声明清单，使用bundle exec 来进行依赖隔离。Python中则可分别使用两种工具 &ndash; Pip用作依赖声明，Virtualenv用作依赖隔离。甚至C语言也有类似工具，Autoconf用作依赖声明，静态链接库用作依赖隔离。无论用什么工具，依赖声明和依赖隔离必须一起使用，否则无法满足12-Factor规范。 显式声明依赖的优点之一是为新进开发者简化了环境配置流程。新进开发者可以检出应用程序的基准代码，安装编程语言环境和它对应的依赖管理工具，只需通过一个_构建命令_来安装所有的依赖项，即可开始工作。例如，Ruby/Bundler下使用bundle install ，而Clojure/Leiningen则是lein deps。 12-Factor应用同样不会隐式依赖某些系统工具，如ImageMagick或是curl 。即使这些工具存在于几乎所有系统，但终究无法保证所有未来的系统都能支持应用顺利运行，或是能够和应用兼容。如果应用必须使用到某些系统工具，那么这些工具应该被包含在应用之中。
+III. 配置 在环境中存储配置 通常，应用的_配置_在不同部署(预发布、生产环境、开发环境等等)间会有很大差异。这其中包括：
+数据库，Memcached，以及其他后端服务的配置 第三方服务的证书，如 Amazon S3、Twitter等 每份部署特有的配置，如域名等 有些应用在代码中使用常量保存配置，这与12-Factor所要求的代码和配置严格分离显然大相径庭。配置文件在各部署间存在大幅差异，代码却完全一致。 判断一个应用是否正确地将配置排除在代码之外，一个简单的方法是看该应用的基准代码是否可以立刻开源，而不用担心会暴露任何敏感的信息。 需要指出的是，这里定义的"配置"并不包括应用的内部配置，比如Rails的config/routes.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%AD%A6%E4%B9%A0%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8%E5%AE%A3%E8%A8%80/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/ itemprop=url>[C++] 重温析构函数</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-08">2013-11-08</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>27 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>JavaScript中有两个等值比较操作符：严格相等===和宽松相等==。很多JavaScript指南都建议避免使用宽松相等，而是使用严格相等。
-===：只有在两个操作数的数据类型和值都相等的情况下才为true ==：用于比较两个操作数是否相等，这两个操作数的数据类型不一定要相等，只要进行数据类型转换后相等即为true 严格相等=== （严格不相等!==） 规则如下：
-如果类型不同，就[不相等] 如果两个都是数值原始类型，并且是同一个值，那么[相等]；(！例外)的是，如果其中至少一个是NaN，那么[不相等]。（判断一个值是否是NaN，只能用isNaN()来判断） 如果两个都是字符串原始类型，每个位置的字符都一样，那么[相等]；否则[不相等]。 如果两个都是布尔原始类型，两个值值都是true，或者都是false，那么[相等]。 如果两个原始类型值都是null，或者都是undefined，那么[相等]。 如果两个值都引用同一个对象（含数组和函数），那么[相等]；否则[不相等]。示例： 宽松相等== （宽松不相等!=） 规则如下：
-如果两个值类型相同，进行 === 比较。 如果两个值类型不同，他们可能相等。根据下面规则进行类型转换再比较： null与undefined是[相等]的。 如果字符串原始类型和数值原始类型进行比较，把字符串转换成数值再进行比较。 如果Boolean对象与其他类型进行比较，Boolean对象会转换成数值(true:1,false:0)再进行比较。 如果一个是对象，另一个是数值或字符串原始类型，把对象转换成原始类型的值再比较。对象利用它的toString或者valueOf方法转换成原始类型。JavaScript内置核心对象(例如Array、Boolean、Function、Math、Number、RegExp和String)，会尝试valueOf先于toString；例外的是Date，Date利用的是toString转换。如果类型转换失败，则会产生一个runtime错误。 对象和原始类型比较，对象才会转换成原始类型。两个对象比较，如果两个值都引用同一个对象（含数组和函数），那么[相等]；否则[不相等]。示例： 参考 MDN：Comparison Operators</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9http_servlet%E5%92%8Csession%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E5%99%A8/ itemprop=url>玩玩HTTP servlet和session资源监控器</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-07">2013-11-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>313 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>WebListener是Servlet的监视器，它可以监听Http请求、会话生命周期事件等。其中包含如下接口：
-ServletContextListener:监视servlet上下文的初始化(启动Web应用的初始化过程)、销毁（关闭Web应用）。 ServletContextAttributeListener:监视servlet上下文属性的添加、删除和替换。 ServletRequestListener:监视Http请求的初始化（进入第一个servlet或过滤器）、Web应用对请求处理结束（离开最后一个servlet或过滤器）。 ServletRequestAttributeListener:监视Http请求属性的添加、删除和替换。 HttpSessionListener:监视Http会话创建和失效操作。 HttpSessionAttributeListener:监视Http会话属性的添加、删除和替换。最近hello一个Web项目，其中有个向导上传文件进行处理，文件被保存在tomcat的临时目录，处理后再删除。过段时间发现临时目录里有一些未删除的临时文件，应该是上传文件后，在处理结束前有一段时间未进行操作，会话失效，临时文件没有被删除。后来添加了一个MyResourceMonitorListener完成这些未处理临时文件的删除操作，解决了这个问题。代码如下： MyResourceMonitorListener package com.yqu.http.session; import javax.servlet.ServletContextEvent; import javax.servlet.ServletContextListener; import javax.servlet.http.HttpSession; import javax.servlet.http.HttpSessionEvent; import javax.servlet.http.HttpSessionListener; public class MyResourceMonitorListener implements ServletContextListener, HttpSessionListener { @Override public void sessionCreated(HttpSessionEvent event) { trace("sessionCreated!"); } @Override public void sessionDestroyed(HttpSessionEvent event) { HttpSession session = event.getSession(); if (session != null) { String sessionId = session.getId(); trace("sessionDestroyed with sessionId=" + sessionId + "!"); MyUtil.cleanSessionResources(session); } } @Override public void contextDestroyed(ServletContextEvent event) { MyUtil.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9http_servlet%E5%92%8Csession%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E5%99%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8python%E5%88%86%E6%9E%90fm%E4%BB%A3%E7%A0%81%E5%92%8C%E6%97%A5%E5%BF%97/ itemprop=url>用python分析FM代码和日志</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-07">2013-11-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>187 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学python有一段时间了，学完不用，结果就是很快遗忘。这周分析一些FM代码和日志，终于弃Java转python，自己乐一下！
-filterDV t6Found=False with open('SASFinancialManagement5.4f.log', 'w') as fdst: with open('SASFinancialManagement5.4.log', 'r') as fsrc: for line in fsrc: if t6Found: if "DataValidation" in line: fdst.write(line) else: if "formSetId=436,formId=,tableCode=NewTable6" in line: t6Found=True if not fsrc.closed: fsrc.close() if not fdst.closed: fdst.close() calcDVDuration import re totalTime=0 with open('SASFinancialManagement5.4f.log', 'r') as fsrc: for line in fsrc: if "begin data validation at formSubScope for" in line: m = re.search('formSetId=.* ]', line) target = m.group(0) m = re.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%94%A8python%E5%88%86%E6%9E%90fm%E4%BB%A3%E7%A0%81%E5%92%8C%E6%97%A5%E5%BF%97/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E4%B8%8B%E6%98%BE%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E8%A1%A8/ itemprop=url>Linux/Unix下显示二进制目标文件的符号表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-31">2013-10-31</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -68,59 +34,52 @@ filterDV t6Found=False with open('SASFinancialManagement5.4f.log', 'w') as fdst:
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>53 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>nm 查看二进制目标文件符号表的标准工具是nm，可以执行下列命令查看二进制目标文件（.o）/静态库（.a）/动态库（.so）的符号表：
-nm -g yourObj.o nm -g yourLib.a nm -g yourLib.so C/C++语言在C++编译器编译以后，函数的名字会被编译器修改，改成编译器内部的名字，这个名字会在链接的时候用到。例如std::string::size()经过修饰后是_ZNKSs4sizeEv。通过添加"-C"选项，可以对底层符号表译成用户级名称（demangle），具有更好的可读性。
-以test.cpp为例： 将其编译后，通过nm查看符号表，带"-C"选项与否的结果如下：
-readelf 如果你的二进制目标文件（.o）/静态库（.a）/动态库（.so）是ELF（Executableand linkingformat）格式，则可以使用readelf命令提取符号表信息。
-readelf -Ws usr/lib/yourLib.so 如果仅想输出函数名，可以通过awk命令进行解析：
-readelf -Ws test.o | awk '$4=="FUNC" {print $8}'; 以上面的test.o为例：
-显示test.o的elf文件头信息： 显示test.o的符号表：
-参考 How do I list the symbols in a .so file nm - Linux man page readelf - Linux man page</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/ itemprop=url>事务管理器同步机制应用</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>466 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>创建一个C++对象时，一般先调用父类构造函数，再调用自己的构造函数；而在销毁一个C++对象时，一般先调用自己的析构函数，再调用父类的析构函数。我用如下testDestructor.cpp进行测试。
+class BaseClass { public: BaseClass() { cout &lt;&lt; "BaseClass() on " &lt;&lt; this &lt;&lt; endl; } ~BaseClass() { cout &lt;&lt; "~BaseClass() on " &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string("NULL")) { cout &lt;&lt; "DerivedClass() on " &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string& n):name(new string(n)) { cout &lt;&lt; "DerivedClass(string) on " &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; "~DerivedClass(): name has been deleted on " &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; "=== test bo1 ===" &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); delete bo1; cout &lt;&lt; "=== test do1 ===" &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); delete do1; cout &lt;&lt; "=== test bo2 ===" &lt;&lt; endl; BaseClass* bo2 = new DerivedClass("123"); delete bo2; cout &lt;&lt; "=== test bo3 ===" &lt;&lt; endl; BaseClass bo3 = DerivedClass("321"); return 0; } 输出结果如下：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/ itemprop=url>[HBase] HBase Shell交互实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-27">2013-10-27</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-25">2013-10-25</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>395 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>在我目前的项目中，缓存管理器需要根据事务提交状态对应用缓存进行管理。这里对其机制应用做一个小总结。
-事务管理器 javax.transaction.TransactionManager接口定义一些方法以便应用服务器管理事务边界，比如获取与当前线程绑定的事务、对事务执行resume和suspend方法。
-事务 javax.transaction.Transaction接口允许对目标事务对象执行相关的事务操作。在每个全局事务创建时，Transaction对象也对应的创建出来。 事务对象可以被用来做资源获取(resource enlistment)、同步器注册(synchronizationregistration)、事务结束(transaction completion)和状态查询(statusquery)操作。
-事务同步机制 事务管理器通过javax.transaction.Synchronization接口支持一种同步机制。通过对当前事务的目标Transaction对象调用registerSynchronization方法，应用服务器为该事务注册一个Synchronization对象。 事务管理器在启动2PC事务提交过程时,回调Synchronization对象的beforeCompletion方法通知有关部分事务将要被提交；事务管理器在事务已经提交或回滚后,回调Synchronization对象的afterCompletion方法通知有关部分事务的结束状态。 应用一般很少使用beforeCompletion方法，afterCompletion方法使用比较多。在我目前的项目中，就是使用afterCompletion方法来通知缓存管理器对缓存进行更新操作。
-实例代码 package com.yqu.transaction; import java.lang.reflect.Method; import javax.naming.InitialContext; import javax.transaction.RollbackException; import javax.transaction.Synchronization; import javax.transaction.SystemException; import javax.transaction.Transaction; import javax.transaction.TransactionManager; public class SynchronizationSample implements Synchronization { private static int wepsphereVer; private static final String WEBSPHERE_TM_FACTORY51 = "com.ibm.ws.Transaction.TransactionManagerFactory"; private static final String WEBSPHERE_TM_FACTORY50 = "com.ibm.ejs.jts.jta.TransactionManagerFactory"; private static final String WEBSPHERE_TM_FACTORY4 = "com.ibm.ejs.jts.jta.JTSXA"; private static final String WEBLOGIC_TM_OBJNAME = "javax.transaction.TransactionManager"; private static final String JBOSS_TM_OBJNAME = "java:/TransactionManager"; private static final String TOMCAT_TM_OBJNAME = "java:comp/env/TransactionManager"; private static final String WEBSPHERE_RECOG_CLASS = "com.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/eclipse_%E7%A1%AE%E8%AE%A4eclipse%E6%98%AF32%E6%88%9664bit%E7%9A%84%E6%96%B9%E6%B3%95/ itemprop=url>[Eclipse] 确认Eclipse是32/64bit的方法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>1560 字 ~8分钟</span></span></div></header><div class=post-body itemprop=articleBody>HBase Shell是对HBase的脚本接口，是一个JRuby REPL(Read-Eval-PrintLoop，“读取-求值-输出”循环)，可以通过脚本访问所有HBase客户端API。
+单列族练习 创建表friends $ hbase shell hbase(main):001:0> list TABLE customer 1 row(s) in 0.2050 seconds => ["customer", "student"] hbase(main):002:0> create 'friends', 'd' 0 row(s) in 1.3350 seconds => Hbase::Table - friends hbase(main):003:0> list TABLE customer friends 2 row(s) in 0.0060 seconds => ["customer", "friends", "student"] 获得表friends的描述说明 hbase(main):004:0> describe 'friends' Table friends is ENABLED friends COLUMN FAMILIES DESCRIPTION {NAME => 'd', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'ROW', REPLICATION_SCO PE => '0', VERSIONS => '1', COMPRESSION => 'NONE', MIN_VERSIONS => '0', TTL => 'FO REVER', KEEP_DELETED_CELLS => 'FALSE', BLOCKSIZE => '65536', IN_MEMORY => 'false', BLOCKCACHE => 'true'} 1 row(s) in 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hbase_hbase_shell%E4%BA%A4%E4%BA%92%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ itemprop=url>[Linux] 判断可执行文件或动态库是否包含符号表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
 <span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
 &nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/eclipse itemprop=url rel=index><span itemprop=name>Eclipse</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>11 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>两种方法：
-打开Eclipse界面：Help -> About Eclipse -> Installation Details -> Configuration，若看到x86字样说明Eclipse是32bit的，若看到x86_64或x64字样则说明Eclipse是64bit的。 查看Eclipse安装目录下的eclipse.ini文件，如果launcher.library设置的值中写的是X86就说明Eclipse是32bit的，如果写的是x86_64或x64则说明Eclipse是64bit的。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jpa_cascadetype.remove%E4%B8%8Eorphanremoval%E7%9A%84%E5%8C%BA%E5%88%AB/ itemprop=url>[JPA] CascadeType.REMOVE与orphanRemoval的区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>111 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的"-g"选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
+srv01> file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01> file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped 显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
+如果文件包含调试符号表，可以通过objdump -t命令及选项打印文件的符号表：
+srv01> objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ itemprop=url>[C] GCC对UTF8 BOM的支持</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>44 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Cascading Remove 将引用字段标注为CascadeType.REMOVE（或包含REMOVE的CascadeType.ALL）表明删除操作将应该自动级联到由该字段引用的实体对象（多个实体对象可以由集合字段引用）:
-@Entity class Employee { : @OneToOne(cascade=CascadeType.REMOVE) private Address address; : } Orphan Removal JPA2额外支持一种更积极的删除级联模式，可以通过@OneToOne和@OneToMany注释的orphanRemoval元素设置:
-@Entity class Employee { : @OneToOne(orphanRemoval=true) private Address address; : } 区别 两个设置的区别在于关系断开的响应。 例如，将地址字段设置为null或另一个Address对象时，不同设置的结果是不同。
-如果指定了 orphanRemoval = true，则断开关系的的Address实例将被自动删除。这对于清除没有所有者对象（例如Employee）引用的、不该存在的依赖对象（例如Address）很有用。 如果仅指定 cascade = CascadeType.REMOVE，则不会执行上述自动删除操作，因为断开关系不是删除操作。 参考 Deleting JPA Entity Objects</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>nohup命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>112 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩些特俗字符，结果对yqutest.cpp源码文件编译时先碰到error:converting to execution character set: Illegal bytesequence错误。GCC的源码字符集与执行字符集默认是UTF-8编码，为了避免源码文件乱码，最好也是采用UTF-8编码来存储源码文件。将源码编码转成UTF-8，问题得以解决。 但是否需要UTF-8 BOM(byte-order mark)呢？ 我一时兴起添加了BOM，十六进制为EF BB BF，即对应八进制的357 273 277，编译结果如下：
+mryqu> g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in program yqutest.cpp:1: error: stray '\273' in program yqutest.cpp:1: error: stray '\277' in program yqutest.cpp:1: error: stray '#' in program yqutest.cpp:1: error: expected constructor, destructor, or type conversion before '&lt;' token mryqu> g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with: FreeBSD/amd64 system compiler Thread model: posix gcc version 4.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/ itemprop=url>*nux下导出文件16进制内容的命令xxd</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -131,30 +90,61 @@ readelf -Ws test.o | awk '$4=="FUNC" {print $8}'; 以上面的test.o为例：
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>44 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
-/usr/local/mysql/bin/mysqld_safe --user=mysql & 但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
-nohup COMMAND [ARG]... nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&到命令的尾部。
-如果不将 nohup 命令的输出重定向，输出将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
-nohup command > myout.file 2>&1 该命令返回下列出口值：
-126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%87%E8%AE%B0java%E4%B8%ADlong%E5%AD%97%E9%9D%A2%E9%87%8F%E4%BB%A5l%E7%BB%93%E5%B0%BE/ itemprop=url>切记：Java中long字面量以L结尾</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>16 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page 5 Unix Commands I Wish I’d Discovered Years Earlier</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/ itemprop=url>[C++] 从静态库获取GCC版本和编译平台</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>25 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近碰到一个问题，输入是int，要求按无符号整数使用。为了实现要求，升级成long然后与上0xffffffff，结果不正常。问了几个基友，都有点茫然。 问题出在0xffffffff上了，现在就操练一下。
-将0xffffffff赋给一个long变量，它的值是多少？
-long n = 0xffffffff; System.out.println(Long.toHexString(n)); 结果是0xffffffffffffffff呦！
-ffffffffffffffff 将0x000000008fffffff赋给一个long变量，它的值是多少？
-long = 0x000000008fffffff; System.out.println(Long.toHexString(n)); 结果是0xffffffff8fffffff呦！！！
-ffffffff8fffffff int转换成long的规则是，一个负的int数，会自动扩展符号位，升级成负的long数的。 正确的用法是0xffffffffL，字面量表明是long类型，所以头32位才会全是0。
-long = 0xffffffffL; System.out.println(Long.toHexString(n)); 输出结果：
-ffffffff</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/55/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>68 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>获取GCC版本：strings -a {library} | grep &ldquo;GCC: (&rdquo;
+mryqu> strings -a libcurl.a | grep "GCC: (" GCC: (GNU) 4.4.5 20110214 (Red Hat 4.4.5-6) 获取编译平台信息：ar -x {library}file *.o
+mryqu> ar -x libcurl.a mryqu>file libcurl_la-url.o libcurl_la-url.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 参考 How to retrieve the GCC version used to compile a given ELF executable? How to see the compilation platform of a static library file</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8find%E5%92%8Cgrep%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E5%85%B3%E9%94%AE%E5%AD%97/ itemprop=url>用find和grep搜索特定目录下特定文件中的特定关键字</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-23">2013-10-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>10 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>下例为递归搜索当前目录下所有以yqu为后缀的文件中的关键字123：
+find . -name "*.yqu" | xargs grep -H "123"</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>cut命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-22">2013-10-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>77 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
+命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号('-')，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（'-'）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成''name:shell''对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38 个人体会 cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&ndash;output-delimiter=STRING选项控制输出字符分隔符。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>grep命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-22">2013-10-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>149 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用grep时一直没有使用什么命令选项，这里过一遍grep帮助，试一遍不明白的选项。
+grep简介 grep是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
+grep命令帮助 示例: grep -i 'hello world' menu.h main.c 正则选择和解释: -E, --extended-regexp PATTERN为扩展正则表达式（ERE） -F, --fixed-strings PATTERN是一套新行分割字符串 -G, --basic-regexp PATTERN为基本正则表达式（BRE） -P, --perl-regexp PATTERN为Perl正则表达式 -e, --regexp=PATTERN 使用PATTERN作为正则表达式 -f, --file=FILE 从文件中获得PATTERN -i, --ignore-case 忽略大小写 -w, --word-regexp 强制PATTERN仅匹配整个单词 -x, --line-regexp 强制PATTERN仅匹配整行 -z, --null-data 数据行以0字节而不是新行截至（打印整个文件了） 杂项: -s, --no-messages 抑制错误消息 -v, --invert-match 选择非匹配行 -V, --version 显示版本信息并退出 --help 显示该帮助并退出 -J, --bz2decompress 在进行搜索前解压缩bzip压缩输入 -Z, --decompress 在进行搜索前解压缩输入(HAVE_LIBZ=1) --mmap 如可能使用内存映射输入 输出控制: -m, --max-count=NUM 在NUM个匹配后停止工作 -b, --byte-offset 在输出行显示字节偏移 -n, --line-number 显示行号 --line-buffered 对每行都清除缓存强制输出 -H, --with-filename 对每个匹配结果显示文件名 -h, --no-filename 抑制输出中前缀的文件名 --label=LABEL 将LABEL作为标准输入的文件名显示（输入为管道有用） -o, --only-matching 仅显示行匹配PATTERN部分 -q, --quiet, --silent 抑制所有正常输出。通常用于脚本条件语句中，判断匹配结果是1还是0 --binary-files=TYPE 将二进制文件假定为类型，分别为'binary'、'text'或 'without-match'。默认为'binary'，对二进制文件进行搜索 而不显示；'text'，一概视为文本文件，搜索并显示； 'without-match'，对二进制文件直接忽略，不搜索不显示。 -a, --text 等同于--binary-files=text -I 等同于--binary-files=without-match -d, --directories=ACTION 如何处理目录的操作项，分别为'read'、'recurse'或'skip'。 -D, --devices=ACTION 如何处理设备、FIFO和socket的操作项，分别为'read'或'skip'。 -R, -r, --recursive 等同于--directories=recurse --include=PATTERN 匹配PATTERN的文件将被检查 --exclude=PATTERN 匹配PATTERN的文件将被忽略 --exclude-from=FILE 匹配模式文件中PATTERN的文件将被忽略 -L, --files-without-match 仅显示不包含匹配的文件名 -l, --files-with-matches 仅显示包含匹配的文件名 -c, --count 仅显示每个文件匹配行数 --null 在文件名后显示0字节（跟不带这个选项就少一个冒号？） 上下文控制: -B, --before-context=NUM 输出匹配结果及其前NUM行 -A, --after-context=NUM 输出匹配结果及其后NUM行 -C, --context=NUM 输出匹配结果及其前后各NUM行 -NUM 等同--context=NUM --color[=WHEN], --colour[=WHEN] 使用标记突显匹配字符串，WHEN可为'always'、'never'或'auto' 默认项为'never'，'always'总是使用标记，而'auto'仅输出 在没有被管道到其他命令或重定向到文件时才使用标记。 -U, --binary 在行结尾EOL不除去回车换行CR字符(MSDOS) -u, --unix-byte-offsets 如果没有回车换行则报告字节偏移(MSDOS)</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/55/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/52/>52</a>
 <a class=page-number href=/page/53/>53</a>
 <a class=page-number href=/page/54/>54</a>
@@ -166,9 +156,9 @@ ffffffff</div><footer class=post-footer><div class=post-eof></div></footer></art
 <a class=page-number href=/page/60/>60</a>
 <a class="extend next" rel=next href=/page/57/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

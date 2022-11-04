@@ -4,118 +4,9 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/ itemprop=url>MongoDB副本集实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/ itemprop=url>[算法] Mergesort练习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-05">2014-04-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>416 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>副本集（ReplicaSet）就是有自动故障恢复功能的主从集群。副本集和主从集群最为明显的区别就是副本集没有固定的“主节点”：整个集群会选取出一个“主节点”，当其不能工作时则变更到其他节点。然而，两者看上去非常相似：副本集总会有一个活跃节点（primary）和一个或多个备份节点（secondary）。 副本集中可以有以下类型的节点：
-常规节点（standard）：存储一份完整的数据副本，参与选举投票，有可能成为活跃节点。 被动节点（passive）：存储完整的数据副本，参与投票，不能成为活跃节点。 仲裁节点（arbiter）：仅参与投票，不接受复制的数据，也不能成为活跃节点。 副本集对数据库管理员和开发者都是非常友好的。副本集的管理是自动化的，无需数据库管理员频繁监控和干预，可以自动提升备份节点成为活跃节点，以确保运转正常。对于开发者而言，仅需为副本集指定一下服务器，驱动程序就会自动找到副本集的节点集群。 每个参与节点（非仲裁节点）都有一个权重，权重值取值范围0-1000，默认值为1。权重为0的节点不能成为活跃节点。活跃节点选举根据高优先级优先、优先级相同时数据较新优先的原则进行比较。应用仅能向活跃节点进行写操作。默认情况下，应用会向活跃节点进行读操作也获取最新数据。如果无需获得最新数据时，可以为了提高读操作吞吐量或减少应用延迟而向备份节点进行读操作。读操作偏好模式如下：
-primary primaryPreferred secondary secondaryPreferred nearestMongoDB命令行提供了下列关于副本集的指令： > rs.help() rs.status() { replSetGetStatus : 1 } checks repl set status rs.initiate() { replSetInitiate : null } initiates set with default settings rs.initiate(cfg) { replSetInitiate : cfg } initiates set with configuration cfg rs.conf() get the current configuration object from local.system.replset rs.reconfig(cfg) updates the configuration of a running replica set with cfg (disconnects) rs.add(hostportstr) add a new member to the set with default attributes (disconnects) rs.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ itemprop=url>MongoDB主从复制实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-03">2014-04-03</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>221 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>MongoDB主从复制（Master-slave replication）跟副本集（ReplicaSet）相比可以对主MongoDB节点设置多个从节点，并且可以将复制操作限制到特定数据库。但是MongoDB主从复制提供的冗余度更低而且无法自动故障切换，因此一般新的部署都倾向使用副本集而不是主从复制。
-实验环境 两个节点中，MongoDB都安装在c:\mongodb目录下且MongoDB配置文件（c:\mongodb\etc\mongo.conf）均为：
-systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: false net: http: enabled: true RESTInterfaceEnabled: true 启动MongoDB 主节点启动命令：
-c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --master --oplogSize=2048 从节点启动命令：
-c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10.120.8.231 --slavedelay 10 --autoresync 主从复制测试 检查主节点 > show dbs; admin (empty) local 8.074GB test 0.078GB > db.isMaster() { "ismaster" : true, "maxBsonObjectSize" : 16777216, "maxMessageSizeBytes" : 48000000, "maxWriteBatchSize" : 1000, "localTime" : ISODate("2014-04-03T01:47:49.780Z"), "maxWireVersion" : 2, "minWireVersion" : 0, "ok" : 1 } 检查从节点 > show dbs; admin (empty) local 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/ itemprop=url>差一点搞混了Transactional注解</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-01">2014-04-01</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>13 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天给我的Srping业务层加如下Service和Transactional注解：
-@Service @Scope(BeanDefinition.SCOPE_SINGLETON) @Transactional(propagation=Propagation.REQUIRED, timeout=600, rollbackFor=Exception.class) 结果总是不认propagation、timeout和rollbackFor，后来才发现我引入类定义错了，本来应该用Spring的org.springframework.transaction.annotation.Transactional，可是引入了JavaEE用于CDI(Contextsand Dependency Injection for the Java EEplatform，上下文和依赖注入)bean的javax.transaction.Transactional,不注意还真容易混淆。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/ itemprop=url>使用YCSB测试MongoDB</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-31">2014-03-31</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>602 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>YCSB介绍 YCSB（Yahoo! Cloud Serving Benchmark）是雅虎开源的一款用于测试各类云服务/NoSQL/键值对存储的性能基准测试工具。覆盖的测试对象有：
-PNUTS BigTable HBase Hypertable Azure Cassandra CouchDB Voldemort MongoDB OrientDB Infinispan Dynomite Redis GemFire GigaSpaces XAP DynamoDB YCSB项目的目标是提供一个标准的工具用来衡量不同键值对存储或云服务存储的性能。YCSB做了很多优化来提高客户端性能，例如在数据类型上用了最原始的比特数组以减少数据对象本身创建转换所需的时间等。YCSB的几大特性：
-支持常见的数据存储读写操作，如插入，修改，删除及读取 多线程支持。YCSB用Java实现，有很好的多线程支持。 灵活定义场景文件。可以通过参数灵活的指定测试场景，如100%插入， 50%读50%写等等 数据请求分布方式：支持随机，zipfian(只有小部分的数据得到大部分的访问请求）以及最新数据几种请求分布方式 可扩展性：可以通过扩展Workload的方式来修改或者扩展YCSB的功能 使用YCSB测试MongoDB 初试YCSB 下载https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz 并解压缩。执行如下命令查看帮助：接下来开始使用YCSB测试MongoDB2.6，不过这其中遇到一些问题。期望YCSB的下一版本能够解决这些问题。
-解决java.lang.ClassNotFoundException:com.yahoo.ycsb.Client问题 执行测试失败：
-C:\ycsb-0.1.4\>python bin/ycsb load mongodb -s -P workloads/workloada java -cp C:\ycsb-0.1.4\core\lib\core-0.1.4.jar:C:\ycsb-0.1.4\gemfire-binding\conf:C:\ycsb-0.1.4\hbase-binding\conf:C:\ycsb-0.1.4\infinispan-binding\conf:C:\ycsb-0.1.4\jdbc-binding\conf:C:\ycsb-0.1.4\mongodb-binding\lib\mongodb-binding-0.1.4.jar:C:\ycsb-0.1.4\nosqldb-binding\conf:C:\ycsb-0.1.4\voldemort-binding\conf com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.MongoDbClient -s -P workloads/workloada -load Exception in thread "main" java.lang.NoClassDefFoundError: com/yahoo/ycsb/Client Caused by: java.lang.ClassNotFoundException: com.yahoo.ycsb.Client at java.net.URLClassLoader$1.run(URLClassLoader.java:202) at java.security.AccessController.doPrivileged(Native Method) at java.net.URLClassLoader.findClass(URLClassLoader.java:190) at java.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_mongodb_java_driver/ itemprop=url>Hello MongoDB Java Driver</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-30">2014-03-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>900 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。 Java代码如下：
-package com.yqu.mongodb; import java.net.UnknownHostException; import java.util.List; import java.util.Set; import com.mongodb.BasicDBObject; import com.mongodb.DB; import com.mongodb.DBCollection; import com.mongodb.DBCursor; import com.mongodb.DBObject; import com.mongodb.MongoClient; import com.mongodb.MongoClientURI; import com.mongodb.MongoException; public class HelloMongoDB { public static void main(String[] args) { MongoClient mongoClient = null; try { // Since 2.10.0, uses MongoClient // mongoClient = new MongoClient("localhost", 27017); String host = "mongodb://localhost:27017"; mongoClient = new MongoClient(new MongoClientURI(host)); showdbs(mongoClient); // MongoDB will create it if database doesn't exists DB db = mongoClient.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hello_mongodb_java_driver/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/windows%E4%B8%8Bmongodb%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/ itemprop=url>Windows下MongoDB安装与配置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-30">2014-03-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>66 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>到官网http://www.mongodb.org/downloads下载MongoDB并安装在c:\mongodb目录下，安装后需要进行配置才能启动MongoDB。首先创建如下目录：
-md c:\mongodb\data md c:\mongodb\db md c:\mongodb\log md c:\mongodb\etc 接着创建MongoDB配置文件：c:\mongodb\etc\mongo.conf systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: true net: http: enabled: true RESTInterfaceEnabled: true 通过如下命令启动MongoDB：
-C:\mongodb\bin\mongod.exe --config C:\mongodb\etc\mongo.conf 可以通过以下三种方式验证MongoDB是否安装成功：
-访问MongoDB监听端口 http://localhost:27017/ ，确认出现类似信息。 通过C:\mongodb\bin\mongo.exe登录Javascript shell并使用 访问HTTP接口 http://localhost:28017/ 并查看MongoDB服务器信息 在启动MongoDB的窗口通过Ctrl+ C停止MongoDB的运行。 最后通过如下命令将MongoDB配置成Windows服务：
-C:\mongodb\bin\mongod.exe --config C:\mongodb\etc\mongo.conf--install 当然也可以通过如下命令手工配置Windows服务：
-sc create MongoDB binPath= "C:\mongodb\bin\mongod.exe--config=C:\mongodb\etc\mongo.conf--service" start= demand DisplayName= "MongoDB" 参考 Install MongoDB on Windows MongoDB Configuration Options</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%87%8D%E6%B8%A9mvc%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A5%BD%E7%9A%84mvc%E5%9B%BE/ itemprop=url>重温MVC:一个很好的MVC图</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-26">2014-03-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一个帖子A terrific Model View Controller (MVC) diagram，感觉文中说的很对：一个技术如果能简洁地表达出来，才容易被人记住并记的牢。该文中的Model/View/ControllerUML图共有两个，第一个图非常简单，仅展示作者用于控制器、视图和模型的符号。第二个图展示了MVC模式允许的操作和禁止的操作。
-用户与视图对象交互。 视图对象和控制器对象可以相互访问调用。 不同的控制器对象之间可以相互访问调用。 控制器对象可以访问调用模型对象。 除了上面这四种访问方式，禁止对象之间的其他通信方法。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/ itemprop=url>玩一下LineNumberReader</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-26">2014-03-26</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>99 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>找资料的副产品就是发现了LineNumberReader这个类，跟它的父类BufferedReader相比多了计算文件行数的功能。记不得以前是否用过了，这里记录一下备用。
-import java.io.BufferedReader; import java.io.FileReader; import java.io.IOException; import java.io.LineNumberReader; public class TestFileLineNum { public static int countLinesV1(String flName) throws IOException { BufferedReader reader = new BufferedReader(new FileReader(flName)); int cnt = 0; while (reader.readLine() != null) { cnt++ ; } reader.close(); return cnt; } public static int countLinesV2(String flName) throws IOException { LineNumberReader reader = new LineNumberReader(new FileReader(flName)); while (reader.readLine() != null) { } int cnt = reader.getLineNumber(); reader.close(); return cnt; } public static void main(String[] args) throws IOException { for(int i=0;i&lt;4;i ) { String flName = "test" + i + ".</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Blinenumberreader/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/ itemprop=url>[算法] 学习无向图</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-21">2014-03-21</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-20">2014-02-20</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -124,15 +15,69 @@ import java.io.BufferedReader; import java.io.FileReader; import java.io.IOEx
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>246 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>本文是学习http://algs4.cs.princeton.edu/41graph/的吐槽和体会。
-一点吐槽 一开始对GraphClient.java中numberOfSelfLoops函数进行count/2不解，翻回Graph.java，看看addEdge函数才明白，合着对自循环连接，adj里面加两次。这么干有什么好处么？！！
-再后来看Cycle.java，对hasParallelEdges函数又不解，仔细想想Graph.java不但接受addEdge(1,23)和addEdge(23, 1)，对执行多次addEdge(1,23)也不拒绝。一个无向图这么弄，对么？算不算检查不严格呀？！！
-理解Cycle.java 示例代码：
-public static void main(String[] args) { Graph G = new Graph(4); G.addEdge(0, 1); G.addEdge(1, 2); G.addEdge(1, 3); G.addEdge(2, 3); Cycle finder = new Cycle(G); if (finder.hasCycle()) { for (int v : finder.cycle()) { StdOut.print(v + " "); } StdOut.println(); } else { StdOut.println("Graph is acyclic"); } } dfs搜索：
-|上一节点u|当前节点v|下一节点w|注解 |&mdash;&ndash; |-1|0|1|节点1没有标注，嵌套dfs |0|1|3|节点3没有标注，嵌套dfs |1|3|2|节点2没有标注，嵌套dfs |3|2|1|节点1已标注，发现cycle，创建栈，依次：
-(在for循环中)push 2 (在for循环中)push 3 push 1 push 2说白了就是当发现下一节点w已经标注，那就返回去找w到v的路径，然后凑上w和v，就是一个环路。 理解Bipartite.java 二分图又称作二部图、两偶图，是图论中的一种特殊模型。设G=(V,E）是一个无向图，如果顶点V可分割为两个互不相交的子集(A,B），并且图中的每条边（i，j）所关联的两个顶点i和j分别属于这两个不同的顶点集（iin A,j in B），则称图G为一个二分图。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E5%AD%A6%E4%B9%A0%E6%97%A0%E5%90%91%E5%9B%BE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/github_fork%E6%93%8D%E4%BD%9C/ itemprop=url>GitHub fork操作</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>650 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>本作业帖用于练习http://algs4.cs.princeton.edu/22mergesort/里面的作业。
+Merge with atmost log N compares per item. Design a mergingalgorithm such that each item is compared at most a logarithmicnumber of times. (In the standard merging algorithm, an item can becompared N/2 times when merging two subarrays of size N/2.) reference Lower boundfor sorting a Youngtableaux. A Youngtableaux is an N-by-N matrix such that theentries are sorted both column wise and row wise. Prove thatTheta(N^2 log N) compares are necessary to sort the N^2 entries(where you can access the data only through the pairwisecomparisons).</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_mergesort%E7%BB%83%E4%B9%A0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E5%80%92%E7%BD%AE%E4%B8%AA%E6%95%B0/ itemprop=url>[算法] 求数组中倒置个数</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-17">2014-03-17</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-19">2014-02-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/algorithm.datastruct itemprop=url rel=index><span itemprop=name>Algorithm.DataStruct</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>43 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>http://algs4.cs.princeton.edu/22mergesort/中有一道题是求数组中倒置个数的，原题如下：
+Inversions. Develop and implement alinearithmic algorithm Inversions.java forcomputing the number of inversions in a given array (the number ofexchanges that would be performed by insertion sort for thatarray). This quantity is related tothe Kendall tau distance; 解决思路： Inversions.java在做MergeSort的过程中顺便求出了数组中倒置个数。假设上图中已经获得左右两个子部分中的倒置个数并进行了MergeSort。现在学习一下做整个数组的Merge时如何顺便计算这一层的倒置个数。
+当aux[0]和aux[5]进行比较时，A小于E，则可知A比左半部分都小（少比较了4次），倒置+5 当aux[0]和aux[6]进行比较时，C小于E，则可知C比左半部分都小（少比较了4次），倒置+5 当aux[2]和aux[7]进行比较时，E小于G，则可知E比左半部分中G及其之后的数都小（少比较了2次），倒置=+(4-2+1)=+3 整个数组的倒置数为左边部分内部倒置数+右边部分内部倒置数+13。算法时间复杂度为NlogN。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/markdown%E4%BB%8B%E7%BB%8D/ itemprop=url>Markdown介绍</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-19">2014-02-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>341 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Markdown是一种用于普通文本的便于读写的轻量级标记语言，可以转换成HTML、LaTeX或Docbook文档。很多网站都支持Markdown，如GitHub、Wikipedia和博客平台WordPress。RMarkdown将R代码和markdown进行有效集成以用于文学编程（LiterateProgramming），R代码会在RMarkdown转化markdown处理过程中被执行，并将R代码结果一同插入markdown文档。下面的示例是基于knitr工具完成RMarkDown转换的。
+Markdown 文字样式：斜体和粗体、删除线 *斜体表述1* 和 _斜体表述2_ 示例。 **粗体表述1** 和 __粗体表述2__ 示例。 ___斜粗体表述1___ 和 ***斜粗体表述2*** 示例。 ~~删除线表述~~ 示例。 斜体表述1 和 斜体表述2 示例。粗体表述1 和 粗体表述2 示例。斜粗体表述1 和 **斜粗体表述2**示例。删除线表述 示例。
+段落和换行 一个空行（两个回车）会被转换成分段，在行末加两个或多个空格会被转换成换行。
+标题 在行首用一到六个井号 (#) 开始该行为标题行 # H1示例 ## H2示例 ### H3示例 #### H4示例 ##### H5示例 ###### H6示例 H1示例 H2示例 H3示例 H4示例 H5示例 H6示例 另一种方式用下一行的一到多个等号表示一级标题，一到多个短划线表示二级标题。
+H1示例 ========= H2示例 --------- H1示例 H2示例 水平分割线 通过单行输入3个或3个以上中短划线、星号或下划线进行输入水平分隔线, 短划线、星号或下划线之间可以包含空格：
+--- *** ___ - - - * * * _ _ _ 列表 HTML 列表分无序列表 (unordered list, ul) 和有序列表 (ordered list, ol) 两种。在Markdown 中用星号、加号、减号开始一行表示无序列表，用数字开始一行表示有序列表。例如：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/markdown%E4%BB%8B%E7%BB%8D/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/ itemprop=url>[算法] Elementary Sorts练习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-17">2014-02-17</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/algorithm.datastruct itemprop=url rel=index><span itemprop=name>Algorithm.DataStruct</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>450 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>本作业帖用于练习http://algs4.cs.princeton.edu/21elementary/里面的作业。
+Stoogesort. Analyze the running time andcorrectness of the following recursive sorting algorithm: if theleftmost item is larger than the rightmost item, swap them. Ifthere are 2 or more items in the current subarray, (i) sort theinitial two-thirds of the array recursively, (ii) sort the finaltwo-thirds of the array, (iii) sort the initial two-thirds of thearray again. StoogeSort时间复杂度为O(_n_log3 / log 1.5 )= O(_n_2.7095&mldr;)，比合并排序慢，甚至比冒泡排序慢，仅用于低效简单排序示范。
+Guess-sort. Pick two indices i and j atrandom; if a[i] > a[j], then swap them.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_elementary_sorts%E7%BB%83%E4%B9%A0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/ itemprop=url>[算法] UNION-FIND练习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-15">2014-02-15</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/algorithm.datastruct itemprop=url rel=index><span itemprop=name>Algorithm.DataStruct</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>544 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>本作业帖用于练习http://algs4.cs.princeton.edu/15uf/里面的作业。
+True or false. Inthe quick union implementation, suppose weset id[p] to id[root(q)] insteadof setting id[root(p)] Would the resultingalgorithm be correct? 答案： 否。使用id[root(p)]可以将p所在连接全部合并到q所在连接，而使用id[p]仅会将p及其子连接合并到q所在连接。
+Which of thefollowing arrays could not possibly occur during the execution ofweighted quick union with path compression:
+0 1 2 3 4 5 67 8 9
+7 3 8 3 4 5 68 8 1
+6 3 8 0 4 5 69 8 1
+0 0 0 0 0 0 00 0 0</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_union-find%E7%BB%83%E4%B9%A0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/ itemprop=url>[Git] 裸代码仓库和镜像代码仓库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-15">2014-02-15</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -143,10 +88,65 @@ public static void main(String[] args) { Graph G = new Graph(4); G.addEdge(0, 1)
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>57 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Fork（分支）操作不是Git实现的一部分，仅是GitHub独有的一个在服务器端克隆代码库的操作。假定我作为GitHub用户usr2，对用户usr1的github.com/usr1/demo代码库有兴趣。我可以通过clone命令将该代码库克隆到本机，并且可以通过pull命令获得该代码库的更新。但是除非用户usr1将我（用户usr2）设为该代码库的贡献者，否则我无法将我提交的修改通过push命令推送到该代码库。但是通过fork操作，我就可以将github.com/usr1/demo代码库完整复制到我的GitHub帐号下（包括代码库中的文件、提交历史、问题等等），例如下图的github.com/usr2/demo。我可通过clone命令将自己的github.com/usr2/demo代码库克隆到本机，我完全有权限将本机提交的修改通过push命令推送到上述自己的代码库。如果我希望我的修改被usr1采纳，我可以发送一个pullrequest通知usr1。至于usr1是否接收我的修改，决定权在usr1。克隆代码库的时候，所使用的远程代码库地址自动被Git命名为origin。其效果类似于：
-git remote add origin git://github.com/usr2/demo.git github.com/usr2/demo代码库在fork操作之后就不再获得github.com/usr1/demo的后继更新了。可以手工添加github.com/usr1/demo为上游代码库地址：
-git remote add upstream git://github.com/usr1/demo.git 我可通过fetch命令获取上游代码库的更新，在本机合并后，通过push命令推送到自己的远程代码库。
-参考 GitHub help: Fork A Repo GitHub help: Syncing a fork GitHub help: Adding collaborators to a personal repository Simple guide to forks in GitHub and Git stackOverflow: Git fork is git clone? stackOverflow: What is the difference between origin and upstream in github</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/50/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>243 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>注：本文中操作都没有设置$GIT_DIR环境变量。
+Git init和clone命令对bare和mirror参数的支持 ||&ndash;bare参数|&ndash;mirror参数 |&mdash;&ndash; |git init命令|支持|/ |git clone命令|支持|支持
+裸代码仓库与普通代码仓库的区别 普通代码仓库裸代码仓库git init命令git init命令会创建一个空的Git代码仓库，一个在当前目录下包含hooks、info、objects和refs子目录和config、description和HEAD文件的.git目录。当前目录下可以创建工作树（工作文件和目录）。
+config文件内容如下：
+[core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true hideDotFiles = dotGitOnlygit init --bare命令会创建一个空的裸Git代码仓库，当前目录下直接创建hooks、info、objects和refs子目录和config、description和HEAD文件。裸Git代码仓库只包含版本控制信息而不包含工作树。
+config文件内容如下：
+[core] repositoryformatversion = 0 filemode = false bare = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly git clone命令git clone命令会创建的一个包含.git子目录的目录，其中.git目录包含branches、hooks、info、logs、objects和refs子目录和config、description、HEAD、index和packed-refs文件。git clone命令所创建的目录中包含克隆的工作树（工作文件和目录）。
+config文件内容如下：
+[core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true hideDotFiles = dotGitOnly [remote "</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/git_%E8%A3%B8%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E5%92%8C%E9%95%9C%E5%83%8F%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/virtualbox%E9%95%9C%E5%83%8F%E8%B5%84%E6%BA%90/ itemprop=url>VirtualBox镜像资源</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-05">2014-02-05</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>2 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>VirtualBox镜像资源: http://virtualboxes.org/images/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mingw%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/ itemprop=url>MinGW安装和使用</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-04">2014-02-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>30 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>MinGW简介 MinGW全称Minimalist GNU For Windows，，是将GCC编译器和GNUBinutils移植到Win32平台下的产物，包括一系列头文件（Win32API）、库和可执行文件。MinGW是从Cygwin1.3基础上发展而来，相比Cygwin而言体积更小、使用更方便。MinGW分两个分支，MinGW（即MinGW32）和MinGW-w64。 MinGW包括：
+GNU编译器套件，包括C/C++、ADA语言和Fortran语言编译器 用于生成Windows二进制文件的GNU工具（编译器、链接器和档案管理器） 用于Windows平台安装和部署MinGW和MSYS的命令行安装器（mingw-get） 用于命令行安装器的GUI打包器（mingw-get-inst） MinGW安装和使用 我只想使用C/C++，所以仅安装mingw32-base、mingw32-gcc-g++。msys-base其实也是可以不用安装的，因为我可以使用已有的GitBash。 我选择了默认的安装路径c:\MinGW，可以将c:\MinGW\bin加入环境变量以便使用。 参考 MinGW 官方网站 SourceForge.net：MinGW - Minimalist GNU for Windows SourceForge.net：MinGW-w64 - for 32 and 64 bit Windows</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/ itemprop=url>处理注解@RequestParam的"Required String parameter is not present"</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-04">2014-02-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>100 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩一下SpringMVC，代码如下：
+@Controller @RequestMapping("/test.do") public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam("fid") String fid, @RequestParam("sid") String sid) throws Exception { if(fid==null || sid==null) { m.addAttribute("file", new FileMetaDAO()); return new ModelAndView(ViewProvider.UPLOAD); } else { m.addAttribute("sync", new SyncDAO()); return new ModelAndView(ViewProvider.HR_SYNC); } } } 访问http://localhost:8080/hellorest/test.do 时发生如下问题： 查了一下Annotation Type RequestParam的javadoc，加上可选参数required解决战斗。
+@Controller @RequestMapping("/test.do") public class TestController { @RequestMapping(method = RequestMethod.GET) public ModelAndView sync(Model m, @RequestParam(value="fid", required = false) String fid, @RequestParam(value="sid", required = false) String sid) throws Exception { if(fid==null || sid==null) { m.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3requestparam%E7%9A%84required_string_parameter_is_not_present/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%85%8D%E8%B4%B9%E7%A7%81%E6%9C%89%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/ itemprop=url>免费私有代码托管平台</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-02-01">2014-02-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>16 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>SourceForge、GitHub免费版、Gitorious免费版和GoogleCode等源代码仓库都要求项目必须开源。这里做一下免费私有代码托管平台资料汇总。
+GitLab:支持Git库。首页说可以创建无限个私有或公开的库。使用时提示可以创建100000个级别为私有、GitLab内访问或公开的项目。 Atlassian公司的Bitbucket:支持Git库。公有和私有仓库都可以无限制创建，支持在线协作。免费版限制为5个用户。 Assembla:支持SVN/Git/Perforce库，支持在线协作。免费版限制为2个用户，一个私有库和500M存储。 beanstalk：支持SVN/Git库，支持在线协作。免费版限制为1个用户，一个私有库和100M存储。 unfuddle：有帖子说有免费帐户，但是没有找到。 开源中国的Git@OSC：支持Git库。最多可以创建 1000个项目，不限私有或者公开。 CSDN的CODE：支持Git库，支持在线协作。支持私有库和公开库。 京东的京东代码库：支持Git库。支持私有库和公开库。 参考 免费的Git私有代码托管服务 如何在“Google Code 代码托管”上建立私有代码版本库 Tortoisegit+BitBucket创造私有代码托管仓库</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/50/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/47/>47</a>
 <a class=page-number href=/page/48/>48</a>
 <a class=page-number href=/page/49/>49</a>
@@ -158,9 +158,9 @@ git remote add upstream git://github.com/usr1/demo.git 我可通过fetch命令�
 <a class=page-number href=/page/55/>55</a>
 <a class="extend next" rel=next href=/page/52/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

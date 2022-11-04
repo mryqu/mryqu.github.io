@@ -4,120 +4,33 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/ itemprop=url>[JavaScript] 调试及console.log</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9http_servlet%E5%92%8Csession%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E5%99%A8/ itemprop=url>玩玩HTTP servlet和session资源监控器</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-21">2013-12-21</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-07">2013-11-07</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>110 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩一下javascipt，在回调里碰到一个问题，需要调试。加入了console.log函数打印日志，在我的chrome浏览器按Ctrl+Shift+J快捷键调出DevTool并显示控制台来查找问题。 结合Wireshark，最后才发现对Json数据解析错误。
-下面介绍一下console.log的使用。javascript的代码示例如下：
-$(function () { $('#fileupload').fileupload({ url: url, dataType: 'json', done: function (e, data) { $.each(data.result.files, function (index, file) { $('').text(file.name).appendTo('#files'); }); }, progressall: function (e, data) { var progress = parseInt(data.loaded / data.total * 100, 10); console.log("complete:"+progress); $('#progress .progress-bar').css( 'width', progress + '%' ); } }).prop('disabled', !$.support.fileInput) .parent().addClass($.support.fileInput ? undefined : 'disabled'); }); 浏览器控制台使用 Firefox http://getfirebug.com/ (可以使用Firefox内建的开发工具Ctrl+Shift+J (Tools > Web Developer >Error Console)，但是Firebug更出色；建议使用Firebug)
-Safari和Chrome 使用方法基本相同。 https://developer.chrome.com/devtools/index https://developer.apple.com/technologies/safari/developer-tools.html
-Internet Explorer 不要忘了在IE9或IE10中调试IE7和IE8时使用兼容模式。 http://msdn.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/javascript_%E8%B0%83%E8%AF%95%E5%8F%8Aconsole.log/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jquery%E8%B5%84%E6%96%99%E5%B8%96/ itemprop=url>jQuery资料帖</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>313 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>WebListener是Servlet的监视器，它可以监听Http请求、会话生命周期事件等。其中包含如下接口：
+ServletContextListener:监视servlet上下文的初始化(启动Web应用的初始化过程)、销毁（关闭Web应用）。 ServletContextAttributeListener:监视servlet上下文属性的添加、删除和替换。 ServletRequestListener:监视Http请求的初始化（进入第一个servlet或过滤器）、Web应用对请求处理结束（离开最后一个servlet或过滤器）。 ServletRequestAttributeListener:监视Http请求属性的添加、删除和替换。 HttpSessionListener:监视Http会话创建和失效操作。 HttpSessionAttributeListener:监视Http会话属性的添加、删除和替换。最近hello一个Web项目，其中有个向导上传文件进行处理，文件被保存在tomcat的临时目录，处理后再删除。过段时间发现临时目录里有一些未删除的临时文件，应该是上传文件后，在处理结束前有一段时间未进行操作，会话失效，临时文件没有被删除。后来添加了一个MyResourceMonitorListener完成这些未处理临时文件的删除操作，解决了这个问题。代码如下： MyResourceMonitorListener package com.yqu.http.session; import javax.servlet.ServletContextEvent; import javax.servlet.ServletContextListener; import javax.servlet.http.HttpSession; import javax.servlet.http.HttpSessionEvent; import javax.servlet.http.HttpSessionListener; public class MyResourceMonitorListener implements ServletContextListener, HttpSessionListener { @Override public void sessionCreated(HttpSessionEvent event) { trace("sessionCreated!"); } @Override public void sessionDestroyed(HttpSessionEvent event) { HttpSession session = event.getSession(); if (session != null) { String sessionId = session.getId(); trace("sessionDestroyed with sessionId=" + sessionId + "!"); MyUtil.cleanSessionResources(session); } } @Override public void contextDestroyed(ServletContextEvent event) { MyUtil.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%8E%A9%E7%8E%A9http_servlet%E5%92%8Csession%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E5%99%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8python%E5%88%86%E6%9E%90fm%E4%BB%A3%E7%A0%81%E5%92%8C%E6%97%A5%E5%BF%97/ itemprop=url>用python分析FM代码和日志</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-20">2013-12-20</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-07">2013-11-07</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学习网站 http://jqfundamentals.com/
-http://try.jquery.com/
-http://www./tracks/jquery
-http://www.w3school.com.cn/jquery/
-图书 jQuery基础教程：官方培训教材 jQuery实战：书不错，就是内容有点 老锋利的jQuery
-代码组织 http://learn.jquery.com/code-organization/
-其他 jQuery设计思想：http://www.ruanyifeng.com/blog/2011/07/jquery_fundamentals.html
-jQuery最佳实践：http://www.ruanyifeng.com/blog/2011/08/jquery_best_practices.html
-jQuery源码分析：http://www.cnblogs.com/chyingp/archive/2013/06/03/jquery-souce-code-study.html</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E7%89%B9%E6%AE%8A%E8%A1%8C%E4%B8%BA/ itemprop=url>[JavaScript] 逻辑操作符的特殊行为</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>187 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>学python有一段时间了，学完不用，结果就是很快遗忘。这周分析一些FM代码和日志，终于弃Java转python，自己乐一下！
+filterDV t6Found=False with open('SASFinancialManagement5.4f.log', 'w') as fdst: with open('SASFinancialManagement5.4.log', 'r') as fsrc: for line in fsrc: if t6Found: if "DataValidation" in line: fdst.write(line) else: if "formSetId=436,formId=,tableCode=NewTable6" in line: t6Found=True if not fsrc.closed: fsrc.close() if not fdst.closed: fdst.close() calcDVDuration import re totalTime=0 with open('SASFinancialManagement5.4f.log', 'r') as fsrc: for line in fsrc: if "begin data validation at formSubScope for" in line: m = re.search('formSetId=.* ]', line) target = m.group(0) m = re.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%94%A8python%E5%88%86%E6%9E%90fm%E4%BB%A3%E7%A0%81%E5%92%8C%E6%97%A5%E5%BF%97/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E4%B8%8B%E6%98%BE%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%AC%A6%E5%8F%B7%E8%A1%A8/ itemprop=url>Linux/Unix下显示二进制目标文件的符号表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-07">2013-12-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>4 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Javascript中并不要求逻辑运算的两个操作数为布尔类型，并且返回值也不一定为布尔类型。&&操作符，如果第一个操作表达式能被转换成false，返回第一个操作表达式；否则返回第二个操作表达式。当用于两个布尔类型值时，两个值都为true时返回ture，否则返回false。||操作符，如果第一个操作表达式能被转换成true，返回第一个操作表达式；否则返回第二个操作表达式。当用于两个布尔类型值时，任一个值为true时返回ture，否则返回false。示例：
-参考 MDN：Logical operators</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ itemprop=url>[JavaScript] 原始数据类型</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-07">2013-12-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>25 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>原始数据类型 JavaScript共有5种原始数据类型：
-|原始数据类型|包装对象|介绍 |&mdash;&ndash; |string|String|字符串遇到加号之外的计算操作符，会转换成数值。内容为不为数值的字符串转换成NaN。当用比较操作符比较两个字符串时，比较的是第一个字母的unicode。 |number|Number|十进制数：123八进制数：0123十六进制数：0x123指数：1e1、1E+1、2E-3无穷：Infinity、-Infinity非数字：NaN |Boolean|Boolean| |null||与undefined的区别在于，已定义但没有值 |undefined||
-typeof操作符 typeof的返回值有六种可能：number、string、boolean、object、function、undefined。
-条件判断或3元条件运算符(?:)判断 |值|Boolean结果 |&mdash;&ndash; |undefined|false |null|false |number|0和NaN为false，其他为true |string|空字符串"&ldquo;为false，其他为true |对象|不为null的对象始终为true
-参考 MDN：Primitive data type MDN：typeof operator</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_git%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/ itemprop=url>[Git] Git代理配置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-01">2013-12-01</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>33 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>设置Git的http和https代理 git config --global http.proxy http://proxyUser:proxyPwd@proxyServer:proxyPort git config --global https.proxy https://proxyUser:proxyPwd@proxyServer:proxyPort 查询Git的http和https代理 git config --global --get http.proxy git config --global --get https.proxy 移除Git的http和https代理 git config --global --unset http.proxy git config --global --unset https.proxy</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/ itemprop=url>Joda-Time笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-12-01">2013-12-01</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>222 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Joda简介 Joda项目致力于为Java平台提供替代API的一些质量保证的基础库。包括如下子项目：
-Joda-Time -日期和时间库 Joda-Money -货币库 Joda-Beans -下一代JavaBeans Joda-Convert -字符串与对象转换库 Joda-Collect - 提供JDK或Google Guava没有的集合数据类型 Joda-Primitives -提供原始数据类型集合 Joda-Time简介 其中Joda-Time由于JDK自身时间日期API的不给力而被广泛使用，已经成为事实上的标准时间日期库。Joda-Time在JavaSE8将融入JDK API内，使用者可以使用java.time (JSR-310)内的API了。Joda-Time在时区、时间差和时间解析等方面支持多种历法系统，但仍然提供很简单的API。默认的历法是ISO8601标准，此外也支持Gregorian(现行公历、格里历)、Julian(儒略历)、Buddhist(佛历)、Coptic(科普特历)、Ethiopic(埃塞俄比亚历)和Islamic(伊斯兰历)历法系统。 为什么要使用Joda-Time（以下简称Joda）？考虑创建一个用时间表示的某个随意的时刻，例如2000年1月1日0时0分。如何创建一个用时间表示这个瞬间的JDK对象？使用java.util.Date？事实上这是行不通的，因为自JDK1.1 之后的每个 Java 版本的 Javadoc 都声明应当使用java.util.Calendar。Date中Date(intyear, int month, int date) 、Date(int year, int month, int date, inthrs, int min)、Date(int year, int month, int date, int hrs, int min,int sec)已经废弃、不建议使用，严重限制了您创建此类对象的途径。然而，Date确实有一个构造函数Date(long date)，您可以用来创建用时间表示某个瞬间的对象（除“当前时间”以外）。该方法使用距离1970年1月1日子时格林威治标准时间（也称为_epoch_）以来的毫秒数作为一个参数，对时区进行校正。 那么Calendar又如何呢？可以使用下面的方式创建必需的实例：
-Calendar calendar = Calendar.getInstance(); calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0); 使用Joda，代码应该类似如下所示：
-DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0); 这一行简单代码没有太大的区别。但是如果使问题稍微复杂化，假设希望在这个日期上加上90天并输出结果。使用JDK，需要如下代码：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/joda-time%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mysql%E6%B8%85%E7%A9%BA%E5%85%B7%E6%9C%89%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E7%9A%84%E8%A1%A8/ itemprop=url>MySQL:清空具有外键约束的表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-20">2013-11-20</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>43 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近在MySQL Workbench上使用"TRUNCATE TABLE TABLE_E;&ldquo;清空一个表时返回错误：Error Code: 1701. Cannot truncate a table referenced in a foreignkey constraint (yqutesting.table_f, CONSTRAINT table_f_ibfk_4FOREIGN KEY (old_id) REFERENCES yqutesting.table_e(ID))解决方法1:
-删除约束 清空表 手工删除引用该表的记录 创建约束解决方法2: SET FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE TABLE_E; SET FOREIGN_KEY_CHECKS = 1; 参考: truncate foreign key constrained table</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%E8%A1%8C/ itemprop=url>以管理员权限执行命令行</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-19">2013-11-19</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>以管理员权限执行命令行，只需点击出Command Prompt的右键菜单，选择"Run asadministrator"即可。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E4%B8%8D%E9%94%99%E7%9A%84c++%E5%BC%95%E7%94%A8%E5%8F%82%E6%95%B0%E5%88%86%E6%9E%90/ itemprop=url>[C++]不错的C++引用参数分析</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-09">2013-11-09</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-31">2013-10-31</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -126,23 +39,121 @@ DateTime dateTime = new DateTime(2000, 1, 1, 0, 0, 0, 0); 这一行简单代码�
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>19 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>阅读了一篇不错的C++ 引用参数 深入分析，摘要如下：
-把参数声明成引用，实际上改变了缺省的按值传递参数的传递机制，在按值传递时，函数操纵的是实参的本地拷贝。
-一、引用参数的三种常见用法： 需要改变实参的值，比如swap()。参数是引用时，函数接收的是实参的左值而不是值的拷贝。这意味着函数知道实参在内存中的位置，因而能够改变它的值或取它的地址。 向主调函数返回额外的结果。 向函数传递大型的类对象。 二、如果引用参数不希望在被调用的函数内部被修改，那么把参数声明为 const 型的引用是个不错的办法。 三、 我们可以声明任意内置数据类型的引用参数 四、引用参数还是指针参数 这两种参数都能够改变实参的值，也可以有效的传递大型类对象，怎么样决定参数该声明成哪种呢？ 根本区别是：引用必须被初始化为指向一个对象，一旦初始化了，它就不能再指向其他对象；指针可以指向一系列不同的对象也可以什么都不指向。因为指针可能指向一个对象或没有任何对象，所以函数在确定指针实际指向一个有效的对象之前不能安全地解引用（dereference）一个指针。另一方面，对于引用参数，函数不需要保证它指向一个对象。引用必须指向一个对象，甚至在我们不希望这样时也是如此。 如果一个参数可能在函数中指向不同的对象，或者这个参数可能不指向任何对象，则必须使用指针参数 。 引用参数的一个重要用法是：它允许我们在有效地实现重载操作符的同时，还能保证用法的直观性。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E6%9F%A5%E7%9C%8B%E6%9F%90%E6%96%87%E4%BB%B6%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/ itemprop=url>[Git] 查看某文件历史记录</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>53 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>nm 查看二进制目标文件符号表的标准工具是nm，可以执行下列命令查看二进制目标文件（.o）/静态库（.a）/动态库（.so）的符号表：
+nm -g yourObj.o nm -g yourLib.a nm -g yourLib.so C/C++语言在C++编译器编译以后，函数的名字会被编译器修改，改成编译器内部的名字，这个名字会在链接的时候用到。例如std::string::size()经过修饰后是_ZNKSs4sizeEv。通过添加"-C"选项，可以对底层符号表译成用户级名称（demangle），具有更好的可读性。
+以test.cpp为例： 将其编译后，通过nm查看符号表，带"-C"选项与否的结果如下：
+readelf 如果你的二进制目标文件（.o）/静态库（.a）/动态库（.so）是ELF（Executableand linkingformat）格式，则可以使用readelf命令提取符号表信息。
+readelf -Ws usr/lib/yourLib.so 如果仅想输出函数名，可以通过awk命令进行解析：
+readelf -Ws test.o | awk '$4=="FUNC" {print $8}'; 以上面的test.o为例：
+显示test.o的elf文件头信息： 显示test.o的符号表：
+参考 How do I list the symbols in a .so file nm - Linux man page readelf - Linux man page</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/ itemprop=url>事务管理器同步机制应用</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-11-09">2013-11-09</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-27">2013-10-27</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>395 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>在我目前的项目中，缓存管理器需要根据事务提交状态对应用缓存进行管理。这里对其机制应用做一个小总结。
+事务管理器 javax.transaction.TransactionManager接口定义一些方法以便应用服务器管理事务边界，比如获取与当前线程绑定的事务、对事务执行resume和suspend方法。
+事务 javax.transaction.Transaction接口允许对目标事务对象执行相关的事务操作。在每个全局事务创建时，Transaction对象也对应的创建出来。 事务对象可以被用来做资源获取(resource enlistment)、同步器注册(synchronizationregistration)、事务结束(transaction completion)和状态查询(statusquery)操作。
+事务同步机制 事务管理器通过javax.transaction.Synchronization接口支持一种同步机制。通过对当前事务的目标Transaction对象调用registerSynchronization方法，应用服务器为该事务注册一个Synchronization对象。 事务管理器在启动2PC事务提交过程时,回调Synchronization对象的beforeCompletion方法通知有关部分事务将要被提交；事务管理器在事务已经提交或回滚后,回调Synchronization对象的afterCompletion方法通知有关部分事务的结束状态。 应用一般很少使用beforeCompletion方法，afterCompletion方法使用比较多。在我目前的项目中，就是使用afterCompletion方法来通知缓存管理器对缓存进行更新操作。
+实例代码 package com.yqu.transaction; import java.lang.reflect.Method; import javax.naming.InitialContext; import javax.transaction.RollbackException; import javax.transaction.Synchronization; import javax.transaction.SystemException; import javax.transaction.Transaction; import javax.transaction.TransactionManager; public class SynchronizationSample implements Synchronization { private static int wepsphereVer; private static final String WEBSPHERE_TM_FACTORY51 = "com.ibm.ws.Transaction.TransactionManagerFactory"; private static final String WEBSPHERE_TM_FACTORY50 = "com.ibm.ejs.jts.jta.TransactionManagerFactory"; private static final String WEBSPHERE_TM_FACTORY4 = "com.ibm.ejs.jts.jta.JTSXA"; private static final String WEBLOGIC_TM_OBJNAME = "javax.transaction.TransactionManager"; private static final String JBOSS_TM_OBJNAME = "java:/TransactionManager"; private static final String TOMCAT_TM_OBJNAME = "java:comp/env/TransactionManager"; private static final String WEBSPHERE_RECOG_CLASS = "com.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%BA%94%E7%94%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/eclipse_%E7%A1%AE%E8%AE%A4eclipse%E6%98%AF32%E6%88%9664bit%E7%9A%84%E6%96%B9%E6%B3%95/ itemprop=url>[Eclipse] 确认Eclipse是32/64bit的方法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
 <span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
 &nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/eclipse itemprop=url rel=index><span itemprop=name>Eclipse</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>10 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Git中查看某个文件历史记录，方式如下：
-git log [filename]：显示对该文件的提交记录 git log -p [filename]：显示对该文件的提交记录及每次提交增量内容 gitk [filename]：图形显示对该文件的提交记录及每次提交增量内容</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/54/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>11 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>两种方法：
+打开Eclipse界面：Help -> About Eclipse -> Installation Details -> Configuration，若看到x86字样说明Eclipse是32bit的，若看到x86_64或x64字样则说明Eclipse是64bit的。 查看Eclipse安装目录下的eclipse.ini文件，如果launcher.library设置的值中写的是X86就说明Eclipse是32bit的，如果写的是x86_64或x64则说明Eclipse是64bit的。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jpa_cascadetype.remove%E4%B8%8Eorphanremoval%E7%9A%84%E5%8C%BA%E5%88%AB/ itemprop=url>[JPA] CascadeType.REMOVE与orphanRemoval的区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>44 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Cascading Remove 将引用字段标注为CascadeType.REMOVE（或包含REMOVE的CascadeType.ALL）表明删除操作将应该自动级联到由该字段引用的实体对象（多个实体对象可以由集合字段引用）:
+@Entity class Employee { : @OneToOne(cascade=CascadeType.REMOVE) private Address address; : } Orphan Removal JPA2额外支持一种更积极的删除级联模式，可以通过@OneToOne和@OneToMany注释的orphanRemoval元素设置:
+@Entity class Employee { : @OneToOne(orphanRemoval=true) private Address address; : } 区别 两个设置的区别在于关系断开的响应。 例如，将地址字段设置为null或另一个Address对象时，不同设置的结果是不同。
+如果指定了 orphanRemoval = true，则断开关系的的Address实例将被自动删除。这对于清除没有所有者对象（例如Employee）引用的、不该存在的依赖对象（例如Address）很有用。 如果仅指定 cascade = CascadeType.REMOVE，则不会执行上述自动删除操作，因为断开关系不是删除操作。 参考 Deleting JPA Entity Objects</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/nohup%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>nohup命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>44 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Unix/Linux下一般比如想让某个程序在后台运行，很多都是使用 &在程序结尾来让程序自动运行。比如我们要运行mysql在后台：
+/usr/local/mysql/bin/mysqld_safe --user=mysql & 但是很多程序并不象mysqld一样做成守护进程，一般普通程序使用 &结尾在后台运行，如果终端关闭了，普通程序还是会被关闭。如果想要在退出帐户/关闭终端之后继续运行相应的普通进程。我们就可以使用nohup这个命令，nohup就是不挂起的意思(nohang up)。
+nohup COMMAND [ARG]... nohup 命令运行由 Command参数和任何相关的 Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加&到命令的尾部。
+如果不将 nohup 命令的输出重定向，输出将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
+nohup command > myout.file 2>&1 该命令返回下列出口值：
+126：可以查找但不能调用 Command 参数指定的命令。 127：nohup 命令发生错误或不能查找由 Command 参数指定的命令。 其他：Command 参数指定命令的退出状态。 使用jobs查看任务。使用fg %n关闭。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%87%E8%AE%B0java%E4%B8%ADlong%E5%AD%97%E9%9D%A2%E9%87%8F%E4%BB%A5l%E7%BB%93%E5%B0%BE/ itemprop=url>切记：Java中long字面量以L结尾</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>25 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近碰到一个问题，输入是int，要求按无符号整数使用。为了实现要求，升级成long然后与上0xffffffff，结果不正常。问了几个基友，都有点茫然。 问题出在0xffffffff上了，现在就操练一下。
+将0xffffffff赋给一个long变量，它的值是多少？
+long n = 0xffffffff; System.out.println(Long.toHexString(n)); 结果是0xffffffffffffffff呦！
+ffffffffffffffff 将0x000000008fffffff赋给一个long变量，它的值是多少？
+long = 0x000000008fffffff; System.out.println(Long.toHexString(n)); 结果是0xffffffff8fffffff呦！！！
+ffffffff8fffffff int转换成long的规则是，一个负的int数，会自动扩展符号位，升级成负的long数的。 正确的用法是0xffffffffL，字面量表明是long类型，所以头32位才会全是0。
+long = 0xffffffffL; System.out.println(Long.toHexString(n)); 输出结果：
+ffffffff</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/ itemprop=url>[C++] 重温函数隐藏和重写</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>758 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先回顾一下C++的重载、隐藏和重写概念：
+在相同作用域中，同名不同参的函数称为重载，这是c++多态的一种表现。对相同名字的成员函数，编译器可以根据传递的参数类型调用相应的成员函数。同名不同参的全局函数和类成员函数由于作用域不同，不是重载。不能通过函数返回值进行重载。像int和float这样不同的参数类型，可能会由于隐式转换隐患而无法通过编译。 当派生类中的成员函数/变量和基类中的成员函数/变量同名时，会隐藏基类的成员函数/变量，也就是指在派生类调用这个同名的成员函数/变量，调用的是派生类的成员函数/变量，而不是基类的那个成员函数/变量。可以通过类名::成员函数/变量去访问基类中同名的成员函数/变量。 派生类中的成员函数与基类的成员函数同名同参，就称为重写。当直接访问成员函数调用的是在派生类中重写的函数而不是从基类继承下来的成员函数，如果要访问从基类继承下来的成员函数也是通过类名::成员函数这种方式去调用基类的成员函数。 下面的小示例testOverride.cpp用于测试添加virtual与否对重写的影响：
+class BaseClass { public: BaseClass() { cout &lt;&lt; "BaseClass() on " &lt;&lt; this &lt;&lt; endl; } BaseClass(const BaseClass&) { cout &lt;&lt; "BaseClass(BaseClass) on " &lt;&lt; this &lt;&lt; endl; } virtual void vfun1() { cout &lt;&lt; "BaseClass:vfun1() on " &lt;&lt; this &lt;&lt; endl; } virtual void vfun2() { cout &lt;&lt; "BaseClass:vfun2() on " &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; "BaseClass:fun1() on " &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; "BaseClass:fun2() on " &lt;&lt; this &lt;&lt; endl; } virtual ~BaseClass() { cout &lt;&lt; "~BaseClass() on " &lt;&lt; this &lt;&lt; endl; } }; class DerivedClass : public BaseClass { public: DerivedClass():name(new string("NULL")) { cout &lt;&lt; "DerivedClass() on " &lt;&lt; this &lt;&lt; endl; } DerivedClass(const string& n):name(new string(n)) { cout &lt;&lt; "DerivedClass(string) on " &lt;&lt; this &lt;&lt; endl; } void vfun1() { cout &lt;&lt; "DerivedClass:vfun1() on " &lt;&lt; this &lt;&lt; endl; } void fun1() { cout &lt;&lt; "DerivedClass:fun1() on " &lt;&lt; this &lt;&lt; endl; } ~DerivedClass() { delete name; cout &lt;&lt; "~DerivedClass(): name has been deleted on " &lt;&lt; this &lt;&lt; endl; } private: void vfun2() { cout &lt;&lt; "DerivedClass:vfun2() on " &lt;&lt; this &lt;&lt; endl; } void fun2() { cout &lt;&lt; "DerivedClass:fun2() on " &lt;&lt; this &lt;&lt; endl; } private: string* name; }; int main() { cout &lt;&lt; "=== test bo1 ===" &lt;&lt; endl; BaseClass* bo1 = new BaseClass(); bo1->vfun1(); bo1->vfun2(); bo1->fun1(); bo1->fun2(); delete bo1; cout &lt;&lt; "=== test do1 ===" &lt;&lt; endl; DerivedClass* do1 = new DerivedClass(); do1->vfun1(); // error: 'virtual void DerivedClass::vfun2()' is private // within this context // do1->vfun2(); do1->fun1(); // error: 'void DerivedClass::fun2()' is private // within this context // do1->fun2(); delete do1; cout &lt;&lt; "=== test bo2 ===" &lt;&lt; endl; BaseClass* bo2 = new DerivedClass("123"); bo2->vfun1(); bo2->vfun2(); bo2->fun1(); bo2->fun2(); delete bo2; return 0; } vfun2和fun2在BaseClass类中是public访问权限，而在DerivedClass类中是private访问权限。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c++_%E9%87%8D%E6%B8%A9%E5%87%BD%E6%95%B0%E9%9A%90%E8%97%8F%E5%92%8C%E9%87%8D%E5%86%99/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/eclipse_find_the_override_method_implementation_in_subclasses/ itemprop=url>[Eclipse] Find the override method implementation in subclasses</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-26">2013-10-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/eclipse itemprop=url rel=index><span itemprop=name>Eclipse</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>34 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>已知当前对象为org.apache.hadoop.hdfs.client.HdfsDataInputStream实例，调用其祖宗抽象类java.io.InputStream的publicint read(byte b[], int off, int len) throwsIOException方法，究竟最后使用的是那个类的实现呢？ 由如上类继承图可知，应该从对象类往上依次查找方法实现：HdfsDataInputStream、FSDataInputStream、&mldr;&mldr;。工作很繁琐，挑战眼力！
+一个快捷的方式就是进入java.io.InputStream类，选中read(byte b[], int off, intlen) 方法，按住CTRL键后点击鼠标左键，这样会出现一个菜单： 选择OpenImplementation菜单，输入HdfsDataInputStream、FSDataInputStream、&mldr;&mldr;，可以更轻松的找到重写该方法的子类。 最终可知使用的是java.io.DataInputStream类中的实现：
+public final int read(byte b[], int off, int len) throws IOException { return in.read(b, off, len); }</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/54/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/51/>51</a>
 <a class=page-number href=/page/52/>52</a>
 <a class=page-number href=/page/53/>53</a>
@@ -154,9 +165,9 @@ git log [filename]：显示对该文件的提交记录 git log -p [filename]：�
 <a class=page-number href=/page/59/>59</a>
 <a class="extend next" rel=next href=/page/56/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

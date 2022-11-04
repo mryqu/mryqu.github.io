@@ -4,72 +4,59 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/sql%E4%B8%AD%E7%9A%84%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97/ itemprop=url>SQL中的（稀疏）矩阵运算</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/ itemprop=url>JDBC连接池的testQuery/validationQuery设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-07-07">2014-07-07</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-07">2014-05-07</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>13 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>前两天在一门课上看到SQL中（稀疏）矩阵的乘法，找到两篇相关帖子，介绍了SQL中的（稀疏）矩阵运算，包含矩阵相等判别、加法、乘法、转置。
-Matrix Math in SQL MAD skills: new analysis practices for big data</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/ itemprop=url>通过Java反射操作注解</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>105 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在《Tomcat中使用Connector/J连接MySQL的超时问题》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？ 原来这跟连接池的实现有关：
+|连接池实现|该功能属性名 |&mdash;&ndash; |The Tomcat JDBC Connection Pool|validationQuery |The Apache Commons DBCP Connection Pool|validationQuery |c3p0 - JDBC3 Connection and Statement Pooling|preferredTestQuery | Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration
+分析Atomikos数据连接池源码，弄清testQuery|testQuery
+此外，测试/验证连接池连接的SQL语句也因数据库而异： Efficient SQL test query or validation query that will work across all (or most) databases DBCP - validationQuery for different Databases
+综合上述两个帖子，汇总结果如下：
+|数据库|测试/验证查询 |&mdash;&ndash; |MySQL|SELECT 1 |PostgreSQL|SELECT 1 |Microsoft SQL Server|SELECT 1 |SQLite|SELECT 1 |H2|SELECT 1 |Ingres|SELECT 1 |Oracle|select 1 from dual |DB2|select 1 from sysibm.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/ itemprop=url>Tomcat中使用Connector/J连接MySQL的超时问题</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-29">2014-06-29</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-05">2014-05-05</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/web-application-server itemprop=url rel=index><span itemprop=name>Web Application Server</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>456 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>注解是Java5加入的特性，它是可以插入Java代码的注释或元数据，可被预编译工具在编译时进行处理，或在运行态通过Java反射进行操作。开发者可以通过元编程（Metaprogramming）等技术提高生产率，注解在其中扮演了核心角色。其思想是通过注解够告诉工具如何生成新代码、转换代码或者决定运行期的行为。
-MyAnnotation.java package com.yqu.reflection.annotation; import java.lang.annotation.ElementType; import java.lang.annotation.Retention; import java.lang.annotation.RetentionPolicy; import java.lang.annotation.Target; @Retention(RetentionPolicy.RUNTIME) //@Target(ElementType.TYPE) public @interface MyAnnotation { public String name() default "[unknown name]"; public String value() default "[unassigned value]"; } 定义注解类有点类似于定义Java接口类interface，但和一般的接口类比起来，interface前面多了一个@，这样就声明了注解是一个Annotation类。另外，Stringname()和Stringvalue()这个写法是@interface中一个比较独特的地方。它实际上定义的不并是注解类的方法，而是注解类的属性。 @Target指定此注解的作用域：
-TYPE：用于类、接口、注解类和枚举 CONSTRUCTOR：用于构造方法 LOCAL_VARIABLE：用于本地变量 FIELD：用于类的属性(包括枚举常量) METHOD：用于方法 PACKAGE：用于包 PARAMETER：用于方法的参数 ANNOTATION_TYPE：用于注解类 TYPE_PARAMETER：使用类型参数，表示注解可以用在Type的声明式前 TYPE_USE： 使用类型注解。表示注解所有使用Type的地方（如泛型、类型转换等）@Retention指定此注解的生命周期： SOURCE：代表此注解仅在代码编译前存活。比如@Deprecated，仅在编译前提供一些提示信息。在编译时，这些注解并不会编译到class文件中。 CLASS：与SOURCE不同，这类标记会编译到class文件中，但不会成为程序的一部分，也不可以通过代码在运行时调用到。 RUNTIME： 这类标记将成为代码的一部分，并会在实际运行时起到作用。 TheClass.java package com.yqu.reflection.annotation; import java.lang.annotation.Annotation; import java.lang.reflect.Field; import java.lang.reflect.Method; @MyAnnotation(name = "classAnnotation", value = "Hello Class") // I18NOK:CLS public class TheClass { @MyAnnotation(name = "fieldAnnotation", value = "Hello Field") public String theField = null; public TheClass() { } @MyAnnotation(name = "methodAnnotation", value = "Hello Method") public void doSomething() { System.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E9%80%9A%E8%BF%87java%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/lxml.md.soupparser%E5%BC%95%E5%85%A5beautifulsoup_4%E7%9A%84work-around/ itemprop=url>lxml.html.soupparser引入BeautifulSoup 4的work-around</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>238 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩的一个Web项目，上一个晚上做一些操作，第二天超时需要再登陆，却总是报密码不正确。需要重启tomcat才能解决。异常如下：
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 442,814,107 milliseconds ago. The last packet sent successfully to the server was 442,814,107 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Co nnector/J connection property 'autoReconnect=true' to avoid this problem.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E4%B8%BB%E5%8A%9B%E4%B9%A6%E7%B1%8D/ itemprop=url>网络资源(主力书籍)</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-22">2014-06-22</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-04">2014-05-04</time></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>19 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>外文书籍 Library Genesis BookZZ 爱挖盘 manybooks 14个值得收藏可免费搜索/下载PDF电子图书（文档）的搜索引擎 图书馆 全球免费开放的电子图书馆 古籍 书格 专利 史上最完整的专利信息数据库网址大全 杂志 http://pdfmagazines.org/ http://www.gqzzw.com/ http://www.pdfzj.com/ http://pdf-giant.com/ http://www.magazine6.com/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/ itemprop=url>[Gradle] 在build.gradle中添加本地包依赖</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-16">2014-04-16</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>39 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>想用一下python的xpath功能分析一个html文件，lxml是比较不错的xml/html解析库，lxml功能强大，性能也不错，此外也包含了ElementTree，html5lib ，beautfulsoup 等库。 可惜我的html文件格式不是很严谨，lxml的ElementTree处理不了，就转而想用lxml的beautfulsoup来处理。 结果lxml找不到BeautifulSoup库。
-查了一下Anaconda装的库里面明明有Beautiful Soup 4.3.1，感觉很奇怪！! lxml.html.soupparser引入BeautifulSoup 4的work-around 原来Beautiful Soup 3目前已经停止开发，Beautiful Soup 4移植到了BS4。
-下面的语句就可以引入Beautiful Soup 4了，可是lxml还是无法引入beautfulsoup。
-from bs4 import BeautifulSoup stackoverflow有一个帖子import error due to bs4 vs BeautifulSoup讲了一个work-around，可以欺骗lxml从而引入beautfulsoup。测试一下，果然工作正常了。
-import sys, bs4 sys.modules['BeautifulSoup'] = bs4 import lxml.html.soupparser as soupparser</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/pythonxy%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/ itemprop=url>Python(x,y)功能实现思维导图</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>49 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一直在Gradle中用的依赖包都是来自仓库，头一次添加本地包依赖。
+buildscript { repositories { mavenCentral() } } apply plugin: 'java' apply plugin: 'eclipse' apply plugin: 'idea' jar { baseName = 'HelloAlgs' version = '0.1.0' } repositories { mavenCentral() } sourceCompatibility = 1.8 targetCompatibility = 1.8 dependencies { runtime files('libs/algs4.jar') } task wrapper(type: Wrapper) { gradleVersion = '2.3' }</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_failed_to_exec_compile-ms-winutils_on_project_hadoop-common/ itemprop=url>[Hadoop] Failed to exec (compile-ms-winutils) on project hadoop-common</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-21">2014-06-21</time></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天浏览Python(x,y)时，发现一个介绍其功能实现的思维导图。对Python(x,y)所实现的功能一目了然，感觉很棒。思维导图在整理自己思绪、知识图谱时用了一些，还没用到项目策划上，以后会督促自己多用多思考。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%80%89%E6%8B%A9python%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%8F%91%E8%A1%8C%E7%89%88/ itemprop=url>选择Python科学计算发行版</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-21">2014-06-21</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>50 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近重装Python，看了一下Python科学计算发行版，打算多玩一下数据处理和数值计算。
-Python用于科学计算的一些常用工具和库 IPython-增强的交互环境：支持变量自动补全，自动缩进，支持 bash shell命令，内置了许多很有用的功能和函数 Spyder、Wing IDE或Eclipse/Pydev：集成开发环境 NumPy-数学计算基础库：N维数组、线性代数计算、傅立叶变换、随机数等。 SciPy-数值计算库：线性代数、拟合与优化、插值、数值积分、稀疏矩阵、图像处理、统计等。 SymPy-符号运算 Pandas-数据分析库：数据导入、整理、处理、分析等。 matplotlib-会图库：绘制二维图形和图表 Chaco-交互式图表 OpenCV-计算机视觉库 TVTK-数据的三维可视化 Cython-Python转C的编译器：编写高效运算扩展库的首选工具 BioPython-生物科学 Python科学计算发行版 Python(x,y)当前最新版本:2.7.6.1 (05/30/2014)，支持Windows和Python2.7.6。其库索引列出了所支持的170+Python27库。 WinPython当前最新版本:2.7.6.4和3.3.5.0 (04/2014)，支持Windows和Python2.7.6、3.3.5。其库索引列出了所支持的60+Python27库。其库索引列出了所支持的60+Python33库。 Enthought Canopy（Enthought Python Distribution）当前最新版本:1.4.1 (06/11/2014)，支持Linux, Windows,Mac平台和Python2.7.6。其库索引列出了所支持的150+测试过的Python库。 Anaconda当前最新版本:2.0.1 (06/12/2014)，支持Linux, Windows, Mac平台和Python2.6、2.7、3.3、3.4。其库索引列出了所支持的195+流行Python库。 Sage不是Python发行版，而是一个由Python和Cython实现的开源数学软件系统，将很多已有的（C、C++、Fortran和Python编写的）数学软件包集成到一个通用接口（记事本文档接口和IPython命令行界面），用户只需了解Python，就可以通过接口或包装器(wrapper)使用NumPy、SciPy、matplotlib、Sympy、Maxima、GAP、FLINT、R和其他已有软件包（具体信息见组件列表），完成代数、组合数学、计算数学和微积分等计算。其最初的目标是创造一个“Magma、Maple、Mathematica和MATLAB的开源替代品”。当前最新版本:6.3(08/10/2014)，支持Linux, Windows, Mac平台和Python2.x。
-我的选择和推荐 Python(x,y)和WinPython都是开源项目，其项目负责人都是PierreRaybaut。按Pierre自己的说法是“WinPython不是试图取替Python(x,y)，而是出于不同动机和理念：更灵活、易于维护、可移动、对操作系统侵略性更小，但是用户友好性更差、包更少、没有同Windows资源管理器集成。”。参考1里面说Python(x,y)不是很稳定，此外看它目前的更新不是很频繁，确实有可能Pierre后来的工作重心放在WinPython上了。 Canopy和Anaconda是公司推的，带免费版和商业版/插件。这两款发行版也牵扯到一个人，那就是Travis Oliphant。Travis是SciPy的原始作者，同时也是NumPy的贡献者。Travis在2008年以副总裁身份加入Enthought，2012年以总裁的身份离开，创立了一个新公司continuum.io，并推出了Python的科学计算平台Anaconda。Anaconda相对Canopy支持Python的版本更多，对Python新版本支持跟的很紧（Sage不支持Python3.x的理由是因为其依赖的SciPy还不支持Python3，而Anaconda却实现了支持Python3.3和3.4，这就说明问题了），此外其在Linux平台下（通过conda管理）安装更方便。 不言而喻，我最后选择了安装科学计算发行版Anaconda:)
-参考 目前比较流行的Python科学计算发行版
-《Python科学计算》 清华大学出版社
-Re-packaged Python
-Scientific computing with Python</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8mrunit%E8%BF%9B%E8%A1%8Cmapreduce%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/ itemprop=url>[Hadoop] 使用MRUnit进行MapReduce单元测试</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-15">2014-06-15</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-15">2014-04-15</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -78,11 +65,12 @@ Scientific computing with Python</div><footer class=post-footer><div class=post-
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>16 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>MRUnit介绍 MRUnit是一个用于帮助开发者进行HadoopMapReduce作业单元测试的Java库。它是JUnit架构扩展，无需将代码运行在集群上即可在开发环境测试Mapper和Reducer类的功能。MRUnit由Cloudera开发，并在2012年成为Apache基金会顶级项目。 MRUnit使用LocalJobRunner使用样本数据集模拟一次Mapper/Reducer执行过程。通过定义一或多个输入记录，使用LocalJobRunner运行测试代码，判定是否与期望输出相符。如相符，则安静退出；否则，默认抛出异常。
-测试代码 本测试代码基于MRUnit指南中示例代码修改而成，使用junit:junit:4.11和org.apache.mrunit:mrunit:1.1.0:hadoop2两个Java库进行编译和测试。
-SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试演示 为了演示测试失败情况，我将testReducer方法中期望值改为错误值123。 参考 Apache MRUnit MRUnit Tutorial</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84%E5%92%8C%E5%9B%BE%E4%B9%A6/ itemprop=url>数据科学：学习路径和图书</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Windows平台编译Hadoop时遇到了compile-ms-winutils执行失败的问题。Hadoop默认需要用VS2010编译，但是我的环境只有VS2013。
+问题及解决方案如下：
+Cannot run program &ldquo;msbuild&rdquo; 将C:\Windows\Microsoft.NET\Framework\v4.0.30319放入PATH环境变量 Command execution failed. Process exited with an error: 1(Exitvalue: 1) -> [Help 1] 打开hadoop-common\hadoop-hdfs-project\hadoop-hdfs\pom.xml，将&rsquo;VisualStudio 10 Win64&rsquo;改成&rsquo;Visual Studio 12 Win64&rsquo;。 将如下两个Visual Studio项目用VS2013打开，手动编译。 hadoop-common\hadoop-common-project\hadoop-common\src\main\winutils\winutils.sln hadoop-common\hadoop-common-project\hadoop-common\src\main\native\winutils.sln 重新执行：
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat mvn install -DskipTests 上述问题不再出现。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/ itemprop=url>在R作图系统中自定义坐标轴</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-06">2014-06-06</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-15">2014-04-15</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
@@ -91,43 +79,58 @@ SMSCDR.java SMSCDRMapperReducerTest 执行测试 成功测试演示 失败测试
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>转发网上的两个图片，时时对照学习。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/slidify/ itemprop=url>slidify</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>238 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>在R作图系统中自定义坐标轴 R作图系统中坐标中的标签默认是等间隔，下列尝试是为了将少量数据的坐标显示在坐标轴上。
+加载库并定义数据 library(lattice) library(ggplot2) library(grid) library(gridExtra) x &lt;- c(1, 2, 3, 7, 8, 9) y &lt;- c(1, 23, 12, 77, 14, 2) data &lt;- data.frame(x = x, y = y) data ## x y ## 1 1 1 ## 2 2 23 ## 3 3 12 ## 4 7 77 ## 5 8 14 ## 6 9 2 Base作图系统 opar &lt;- par(mfrow = c(1, 2), mar = c(4, 6, 4, 2)) with(data, plot(x, y, type = "b", main = "Default Axis")) par(las = 1) with(data, plot(x, y, type = "b", main = "customised Axis", xaxt = "n", yaxt = "n")) axis(1, data$x) axis(2, data$y) par(opar) Lattice作图系统 plot1 &lt;- xyplot(y ~ x, data, type = "b", main = "Default Axis") plot2 &lt;- xyplot(y ~ x, data, type = "b", main = "customised Axis", scales = list(x = list(at = unlist(data$x)), y = list(at = unlist(data$y))), las = 1) grid.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%9C%A8r%E4%BD%9C%E5%9B%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%90%E6%A0%87%E8%BD%B4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E8%B0%B7%E6%AD%8C%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95-%E7%AC%94%E5%88%92%E7%BB%84%E4%BB%B6%E8%BE%93%E5%85%A5/ itemprop=url>谷歌拼音输入法-笔划/组件输入</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-03">2014-06-03</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-10">2014-04-10</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Slidify是使用RMarkdown创建、定制和发布（用于可重复性研究的）HTML幻灯片的工具包。 Slidify支持多种生成框架和主题：
-|幻灯片生成框架|主题 |&mdash;&ndash; |io2012| |html5slides|default, uulm |html5rocks| |deck.js|web2.0, swiss, neon |dzslides| |landslide|default, tango, clean |shower|ribbon |slidy| |slideous| |beamer| |showoff| 生成的幻灯片可以发布到Github、Dropbox和Rpubs上。命令集成了一些底层操作，所以很简单。见http://slidify.org/publish.html 前一段发布一个幻灯片碰到些麻烦，只好采用git命令行这种老方式。操作步骤参考如下链接： https://github.com/ramnathv/slidify/wiki/Publishing</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/shiny%E7%BB%83%E4%B9%A0/ itemprop=url>shiny练习</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>有些工具用法总不使就记不住了，到处搜还不如搜自己的博客。 对于某些生僻字，您有可能并不清楚它的拼音。这时，您可以尝试使用谷歌拼音提供的笔划/组件输入功能。例如：先按"u"进入笔划输入模式，然后用使用代码h(横),s(竖),p(撇),n(捺),z(折),d(点)依次输入该字的各个笔划。其中，n和d是相同的。例如，您希望输入"谷"，则可以依次按下"upnpnszh"。 除了笔划以外，你也可以用拼音直接输入组成该汉字的可读部件，例如，输入"ucaowei"可以输入"莅"，输入"ujinxing"可以输入"鍟"。输入部件时，直接使用该部件的读音，或近似汉字的读音即可，例如，提手旁可以用"shou"来输入。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/outlook2013%E4%B8%AD%E6%97%A5%E5%8E%86%E7%9A%84%E5%A4%A9%E6%B0%94%E8%AE%BE%E7%BD%AE/ itemprop=url>Outlook2013中日历的天气设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-06-02">2014-06-02</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-09">2014-04-09</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/datascience itemprop=url rel=index><span itemprop=name>DataScience</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Shiny是RStudio公司开发的新包，有了它，无需web开发就可以用R语言轻松开发交互式web应用。
-我参加数据科学专业课学习，使用shiny完成一个作业，虽然初学乍练，也能感觉到开发起来很快速。 参考 shiny tutorialshiny examples Linear Regressions and Linear Models using the Iris Data</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/javascript_jquery_ajax%E5%9C%A8http%E5%93%8D%E5%BA%94200ok%E6%97%B6%E5%8D%B4%E8%B0%83%E7%94%A8%E4%BA%86errorcallback/ itemprop=url>[JavaScript] JQuery AJAX在HTTP响应200OK时却调用了errorcallback</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=leancloud-visitors-count>0 字 ~0分钟</span></span></div></header><div class=post-body itemprop=articleBody></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/ itemprop=url>MongoDB副本集实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-25">2014-05-25</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-05">2014-04-05</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>173 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>运行如下代码时，从结果看操作成功，但是总是调用错误处理回调。
-myTest = function(server, lib, table, reqParam, reqInfo, successCallback, errorCallback) { var url = "http://localhost/mytest/" + encodeURIComponent(server) + "/libs/" + encodeURIComponent(lib) + "/tables/" + encodeURIComponent(table); if (reqParam!=undefined && reqParam) { url += "?reqParam=" + encodeURIComponent(reqParam); } $.ajax({ cache: false, url: url, type: "PUT", data: JSON.stringify(reqInfo), contentType: "application/json", success: function (data) { if (successCallback!==undefined && successCallback) { successCallback(data); } else { console.log("success:"+JSON.stringify(data)); } }, error: function (xhr, status, error) { if (errorCallback!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/javascript_jquery_ajax%E5%9C%A8http%E5%93%8D%E5%BA%94200ok%E6%97%B6%E5%8D%B4%E8%B0%83%E7%94%A8%E4%BA%86errorcallback/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/48/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>416 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>副本集（ReplicaSet）就是有自动故障恢复功能的主从集群。副本集和主从集群最为明显的区别就是副本集没有固定的“主节点”：整个集群会选取出一个“主节点”，当其不能工作时则变更到其他节点。然而，两者看上去非常相似：副本集总会有一个活跃节点（primary）和一个或多个备份节点（secondary）。 副本集中可以有以下类型的节点：
+常规节点（standard）：存储一份完整的数据副本，参与选举投票，有可能成为活跃节点。 被动节点（passive）：存储完整的数据副本，参与投票，不能成为活跃节点。 仲裁节点（arbiter）：仅参与投票，不接受复制的数据，也不能成为活跃节点。 副本集对数据库管理员和开发者都是非常友好的。副本集的管理是自动化的，无需数据库管理员频繁监控和干预，可以自动提升备份节点成为活跃节点，以确保运转正常。对于开发者而言，仅需为副本集指定一下服务器，驱动程序就会自动找到副本集的节点集群。 每个参与节点（非仲裁节点）都有一个权重，权重值取值范围0-1000，默认值为1。权重为0的节点不能成为活跃节点。活跃节点选举根据高优先级优先、优先级相同时数据较新优先的原则进行比较。应用仅能向活跃节点进行写操作。默认情况下，应用会向活跃节点进行读操作也获取最新数据。如果无需获得最新数据时，可以为了提高读操作吞吐量或减少应用延迟而向备份节点进行读操作。读操作偏好模式如下：
+primary primaryPreferred secondary secondaryPreferred nearestMongoDB命令行提供了下列关于副本集的指令： > rs.help() rs.status() { replSetGetStatus : 1 } checks repl set status rs.initiate() { replSetInitiate : null } initiates set with default settings rs.initiate(cfg) { replSetInitiate : cfg } initiates set with configuration cfg rs.conf() get the current configuration object from local.system.replset rs.reconfig(cfg) updates the configuration of a running replica set with cfg (disconnects) rs.add(hostportstr) add a new member to the set with default attributes (disconnects) rs.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ itemprop=url>MongoDB主从复制实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-03">2014-04-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>221 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>MongoDB主从复制（Master-slave replication）跟副本集（ReplicaSet）相比可以对主MongoDB节点设置多个从节点，并且可以将复制操作限制到特定数据库。但是MongoDB主从复制提供的冗余度更低而且无法自动故障切换，因此一般新的部署都倾向使用副本集而不是主从复制。
+实验环境 两个节点中，MongoDB都安装在c:\mongodb目录下且MongoDB配置文件（c:\mongodb\etc\mongo.conf）均为：
+systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: false net: http: enabled: true RESTInterfaceEnabled: true 启动MongoDB 主节点启动命令：
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --master --oplogSize=2048 从节点启动命令：
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10.120.8.231 --slavedelay 10 --autoresync 主从复制测试 检查主节点 > show dbs; admin (empty) local 8.074GB test 0.078GB > db.isMaster() { "ismaster" : true, "maxBsonObjectSize" : 16777216, "maxMessageSizeBytes" : 48000000, "maxWriteBatchSize" : 1000, "localTime" : ISODate("2014-04-03T01:47:49.780Z"), "maxWireVersion" : 2, "minWireVersion" : 0, "ok" : 1 } 检查从节点 > show dbs; admin (empty) local 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/48/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/45/>45</a>
 <a class=page-number href=/page/46/>46</a>
 <a class=page-number href=/page/47/>47</a>
@@ -139,9 +142,9 @@ myTest = function(server, lib, table, reqParam, reqInfo, successCallback, errorC
 <a class=page-number href=/page/53/>53</a>
 <a class="extend next" rel=next href=/page/50/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

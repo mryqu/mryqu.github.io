@@ -4,47 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hive%E4%B8%8Espark%E7%9A%84%E7%89%88%E6%9C%AC%E6%90%AD%E9%85%8D/ itemprop=url>Hive与Spark的版本搭配</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-08-02">2016-08-02</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Hive on Spark: Getting Started里面介绍了如果Hive的查询引擎选择Spark的话，Hive所需相关配置。如果用一个不兼容的Hive和Spark版本，有潜在风险，例如Spark2就没有spark-assembly-*.jar可供低版本Hive使用。 问题来了，么查找已测试的Hive和Spark版本对呢？ 网上有人说看Hive代码根路径下的pom.xml。例如Hive branch-1.2中pom.xml包含spark.version为1.3.1，这说明官方在进行Hive1.2.0测试时用的Spark 1.3.1。 此外，也可借鉴C家、H家和MapR技术栈的版本搭配：
-CDH 5 Packaging and Tarball Information中列出了CHD5中技术栈的版本情况。 在Hortonworks Data Platform列出了HDP所用的技术栈的版本情况。 MapR Ecosystem Support Matrix中列出了MapR中技术栈的版本情况。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spark_set_spark.yarn.archive/ itemprop=url>[Spark] Set spark.yarn.archive</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-08-01">2016-08-01</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>55 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>提交Spark作业时，遇到没有设置spark.yarn.jars和spark.yarn.archive的告警：
-16/08/01 05:01:19 INFO yarn.Client: Preparing resources for our AM container 16/08/01 05:01:20 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME. 16/08/01 05:01:23 INFO yarn.Client: Uploading resource file:/tmp/spark-AA-BB-CC-DD-EE/__spark_libs__XXX.zip -> hdfs://node50064.mryqu.com:9000/user/hadoop/.sparkStaging/application_1469998883123_0001/__spark_libs__XXX.zip 解决方案：
-cd $SPARK_HOME zip spark-archive.zip jars/* hadoop fs -copyFromLocal spark-archive.zip echo "spark.yarn.archive=hdfs:///node50064.mryqu.com:9000/user/hadoop/spark-archive.zip" >> conf/spark-defaults.conf 如系统没有安装zip，可执行sudoapt-get install zip进行安装。 这样就不用每次上传Spark的jar文件到HDFS，YARN会找到Spark的库以用于运行作业。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%9F%AD%E7%BD%91%E5%9D%80%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B5%8B%E8%AF%95/ itemprop=url>短网址服务学习和测试</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-07-30">2016-07-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>48 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>短网址服务 短网址（Short URL） ，顾名思义就是在形式上比较短的网址。通常用的是asp或者php转向，在Web2.0的今天，不得不说，这是一个潮流。目前已经有许多类似服务，借助短网址您可以用简短的网址替代原来冗长的网址，让使用者可以更容易的分享链接。 网上的短网址服务一堆堆的，例如谷歌家的goo.gl，bit.ly为推特家提供了bit.ly及为亚马逊家提供了amzn.to，推特家自己的t.co，新浪家的t.cn，百度家的dwz.cn，简直数不过来。 SearchEngineLand曾对国外市面上的URL缩短服务进行了分析总结，列出了推荐使用的和应尽力避免使用的服务。该评测从是否为301转向（永久转向，相对302为暂时转向）、是否支持Tracking（追踪链接的来源）、是否支持主流的Twitter客户端、缩短后的URL字数、是否支持自定义URL、是否支持分享等多个方面进行评价。具体结果见此表。 短网址算法 算法一 将长网址md5生成32位签名串,分为4段, 每段4个字节（即32位）; 对这四段循环处理, 取4个字节（32位）, 将他看成16进制串与0x3fffffff(30位1)与操作,即超过30位的忽略处理; 这30位分成6段, 每5位的数字作为字母表的索引取得特定字符, 依次进行获得6位字符串; 总的md5串可以获得4个6位串; 取里面的任意一个就可作为这个长url的短url地址; 算法二 把数字和字符组合做一定的映射,就可以产生唯一的字符串,如第62个组合就是aaaaa9,第63个组合就是aaaaba,再利用洗牌算法，把原字符串打乱后保存，那么对应位置的组合字符串就会是无序的组合。 把长网址存入数据库,取返回的id,找出对应的字符串,例如返回ID为1，那么对应上面的字符串组合就是bbb,同理ID为2时，字符串组合为bba,依次类推,直至到达62种组合后才会出现重复的可能，所以如果用上面的62个字符，任意取6个字符组合成字符串的话，你的数据存量达到500多亿后才会出现重复的可能。
-短网址服务测试(基于新浪短地址服务) 短地址服务是否验证长URL？ 对于不存在的长地址http://www.mryqu.com/test/test.html，新浪短地址服务没有验证，直接转成了短地址http://t.cn/RtXngGQ 。
-如果长url其实是该短地址服务产生的短地址，如何处理？ 对于长地址http://t.cn/RtXngGQ ，新浪短地址服务做了检查识别出短地址,并直接按照http://www.mryqu.com/test/test.html返回短地址http://t.cn/RtXngGQ 。
-如果长url其实是其他短地址服务产生的短地址，如何处理？ 我用长地址http://blog.sina.com.cn/yandongqu 在百度短地址服务获得了短地址http://dwz.cn/3TE3bq ，将其作为新浪短地址服务的输入，新浪短地址服务识别出短地址，获得原始长地址http://blog.sina.com.cn/yandongqu ，并返回相应短地址短地址http://t.cn/RLoGZKa 。
-参考 短网址 短网址服务，我们该怎么选？ URL Shorteners: Which Shortening Service Should You Use? 短链接URL系统是怎么设计的？ tinyURL的设计方案与实现【一】</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/ itemprop=url>[Spark]Spark2集群安装实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spark_spark2%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/ itemprop=url>[Spark]Spark2集群安装实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-07-28">2016-07-28</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -127,18 +87,69 @@ build.gradle buildscript { repositories { mavenCentral() } dependencies { classp
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>171 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>昨天看到有同事添加了几个Controller的回调，对其中的onBeforeExit、beforeExit没一点印象。
 sap.ui.controller("kx123.foo", { onInit: function () { console.info("foo onInit called"); }, onBeforeExit: function(){ console.info("foo onBeforeExit called") ; } , beforeExit: function() { console.info("foo beforeExit called") ; }, onBeforeRendering: function() { console.info("foo onBeforeRendering called"); }, onExit: function() { console.info("foo onExit called"); } }); 查了一下如下OpenUI5开发指南 MVC中关于Controllers的介绍。
-SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event handlers or other functions tothe controller and the controller can fire events, for which othercontrollers or entities can register.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/facebook_graph_api%E4%B9%8B%E5%88%86%E4%BA%AB%E6%95%B0/ itemprop=url>Facebook Graph API之分享数</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event handlers or other functions tothe controller and the controller can fire events, for which othercontrollers or entities can register.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_%E5%A4%8D%E4%B9%A0controller_lifecycle/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/ itemprop=url>使用SpringFox自动生成Swagger文档</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-05-13">2016-05-13</time></span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-04-28">2016-04-28</time></span>
 <span class=post-category>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
 <span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/swagger itemprop=url rel=index><span itemprop=name>Swagger</span></a>
 &nbsp;</span></span>
 <span>&nbsp; | &nbsp;
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>现在Facebook帖子上有一个分享计数，下面这个湖南卫视的帖子可以看到总共有3个。 点进去可以查看这3个分享的具体情况： 使用Facebook Graph Explorer却可以得到分享数为7： 差4个分享，有点醉！ 其实我刚才刚刚用消息给朋友共享了这个帖子，由于是不是公开的，所以Facebook网页显示上是不计入的，但是API却是统计的。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/14/><i class="fa fa-angle-left"></i></a>
+<span class=leancloud-visitors-count>312 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>前面的博文Swagger实践和总结总体上探索了一下Swagger，这里着重研究Springfox。 Springfox Java库源自MartyPitt创建的swagger-springmvc项目。Swagger是一系列对RESTful接口进行规范描述和页面展示的工具，而通过Springfox将Swagger与Spring-MVC整合,可以将代码中的注解转换为符合Swagger开放API声明(OpenAPI Specification，OAS)的swagger.json文件,springfox-swagger-ui提供了将swagger.json转换为html页面的服务。
+HelloSpringfox示例 尽管springfox-demos中的boot-swagger很全面了。但是对于一个写程序的人来说，不亲自写一遍，总觉得可能会有陷阱和漏洞，缺乏那么一点点自信。 我的示例是以Building a Hypermedia-Driven RESTful Web Service为基础修改的，懒人总是要找个肩膀。
+build.gradle jar { baseName = 'hello-springfox' version = '0.1.0' } dependencies { compile("org.springframework.boot:spring-boot-starter-actuator") compile("org.springframework.boot:spring-boot-starter-web") compile("org.springframework.boot:spring-boot-starter-hateoas") compile("io.springfox:springfox-swagger2:${springfoxVersion}") compile("io.springfox:springfox-swagger1:${springfoxVersion}") compile("io.springfox:springfox-swagger-ui:${springfoxVersion}") testCompile("com.jayway.jsonpath:json-path") testCompile("org.springframework.boot:spring-boot-starter-test") } Application.java package com.yqu.hellospringfox; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } } Greeting.java package com.yqu.hellospringfox; import org.springframework.hateoas.ResourceSupport; import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.JsonProperty; public class Greeting extends ResourceSupport { private final String content; @JsonCreator public Greeting(@JsonProperty("content") String content) { this.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8springfox%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90swagger%E6%96%87%E6%A1%A3/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3phantomjs/ itemprop=url>了解PhantomJS</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-04-13">2016-04-13</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>39 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看到我们的项目依赖PhantomJS，就稍作了解。
+PhantomJS 是什么? 官方介绍如下：
+PhantomJS is a headless WebKit scriptable with a JavaScript API. It has fast and native support for various web standards: DOM handling, CSS selector, JSON, Canvas, and SVG.
+PhantomJS是无需浏览器基于WebKit的全Web栈，支持JS解析引擎、渲染引擎、请求处理等，但是不包括显示和用户交互页面。
+PhantomJS的使用场景 无浏览器网站测试：支持使用Jasmine、QUnit、Mocha、Capybara、WebDriver等框架进行功能测试。 页面截屏：抓取页面内容，包括SVG和Canvas。 页面自动化：使用标准DOMAPI或jQuery等通用库访问和操作网页。 网页监控：监控网页加载和导出成标准HAR文件。让使用YSlow和Jenkins的性能分析自动化。 大概可以估计出PhantomJS的作用了，应该是用于单元测试吧。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/ itemprop=url>[OpenUI5] sap.ui.model.SimpleType及其子类中的约束</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-04-12">2016-04-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>165 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>对OpenUI5模型中的数据项如何设置类型，如何设置最大最小值等约束呢？这一切可以通过研究sap.ui.model.SimpleType及其子类获得答案。
+sap.ui.model.SimpleType类图 SimpleType子类Integer约束测试 下面的示例中有两个sap.m.Input控件，第一个为文本类型输入没有约束，第二个整数类型输入有约束：
+that.oNameInput = new Input({ id: sFormId+"-name", type: sap.m.InputType.Text, value: "{/name}", layoutData: new GridData({span: "L3 M5 S6"}) }); that.oCountInput = new Input({ id: sFormId+"-count", type: sap.m.InputType.Number, value: { path:'/count', type: 'sap.ui.model.type.Integer', constraints: { minimum : 1, maximum : 50 } }, placeholder: "(1-50)", layoutData: new GridData({span: "L3 M5 S6"}) }); 完整示例代码： 二者调试信息的差异： 一个仅指定了映射路径；另一个除了指定映射路径外，明确指定了模型数据项类型及约束。
+测试结果 that.oCountInput施加了范围1到50的约束。如果输入值在范围内，则界面和模型中的count值都会改变；如果输入值不再范围内，则模型中的count值保留上一有效值，而界面发生改变且无告警。 调试堆栈如下：
+PropertyBinding.setExternalValue (sap-ui-core-dbg.js:57174) ManagedObject.updateModelProperty (sap-ui-core-dbg.js:34286) ManagedObject.setProperty (sap-ui-core-dbg.js:32531) InputBase.setProperty (InputBase-dbg.js:690) InputBase.setValue (InputBase-dbg.js:1007) Input.setValue (Input-dbg.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_sap.ui.model.simpletype%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%BA%A6%E6%9D%9F/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E4%BD%BF%E7%94%A8daterangeselection/ itemprop=url>[OpenUI5] 使用DateRangeSelection</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2016-04-11">2016-04-11</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天使用了DateRangeSelection来选择日期范围。 DateRangeSelection范例
+sap.m.DateRangeSelection jsDoc
+DateRangeSelection源代码
+sap.ui.core.format.DateFormat jsDoc
+Working with Dates in Sapui5
+sap.ui.core.format.DateFormat
+通过阅读上述资料，DateRangeSelection内存储的起始、结束时间为Date类。可以通过设置displayFormat和delimiter来改变界面上日期的表现形式；不支持valueFormat，因此只能通过getDateValue()、getSecondDateValue()获取Date对象，然后通过DateFormat获得相应格式化的日期字符串。 DateRangeSelection最新版代码提供了setMinDate()和setMaxDate()函数，但是jsDoc还没有体现，我司目前所用的OpenUI5版本还不支持。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/14/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/11/>11</a>
 <a class=page-number href=/page/12/>12</a>
 <a class=page-number href=/page/13/>13</a>
@@ -150,9 +161,9 @@ SAPUI5 provides predefined lifecycle hooks forimplementation. You can add event 
 <a class=page-number href=/page/19/>19</a>
 <a class="extend next" rel=next href=/page/16/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>687</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1499</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
