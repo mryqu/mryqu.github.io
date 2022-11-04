@@ -3,44 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/ itemprop=url>JDBC连接池的testQuery/validationQuery设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-07">2014-05-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>105 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在《Tomcat中使用Connector/J连接MySQL的超时问题》帖子中想要增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效的问题，Mysql文档中提到Tomcat文档中的例子中用的是validationQuery，但是网上还有很多帖子写的是testQuery，到底用哪一个呢？ 原来这跟连接池的实现有关：
-|连接池实现|该功能属性名 |&mdash;&ndash; |The Tomcat JDBC Connection Pool|validationQuery |The Apache Commons DBCP Connection Pool|validationQuery |c3p0 - JDBC3 Connection and Statement Pooling|preferredTestQuery | Atomikos：Tomcat Spring ActiveMQ MySQL JMX Integration
-分析Atomikos数据连接池源码，弄清testQuery|testQuery
-此外，测试/验证连接池连接的SQL语句也因数据库而异： Efficient SQL test query or validation query that will work across all (or most) databases DBCP - validationQuery for different Databases
-综合上述两个帖子，汇总结果如下：
-|数据库|测试/验证查询 |&mdash;&ndash; |MySQL|SELECT 1 |PostgreSQL|SELECT 1 |Microsoft SQL Server|SELECT 1 |SQLite|SELECT 1 |H2|SELECT 1 |Ingres|SELECT 1 |Oracle|select 1 from dual |DB2|select 1 from sysibm.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/jdbc%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84testquery%E5%92%8Cvalidationquery%E8%AE%BE%E7%BD%AE/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/ itemprop=url>Tomcat中使用Connector/J连接MySQL的超时问题</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-05">2014-05-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/web-application-server itemprop=url rel=index><span itemprop=name>Web Application Server</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>238 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩的一个Web项目，上一个晚上做一些操作，第二天超时需要再登陆，却总是报密码不正确。需要重启tomcat才能解决。异常如下：
-Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 442,814,107 milliseconds ago. The last packet sent successfully to the server was 442,814,107 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Co nnector/J connection property 'autoReconnect=true' to avoid this problem.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/tomcat%E4%B8%AD%E4%BD%BF%E7%94%A8connectorj%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E4%B8%BB%E5%8A%9B%E4%B9%A6%E7%B1%8D/ itemprop=url>网络资源(主力书籍)</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-05-04">2014-05-04</time></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>19 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>外文书籍 Library Genesis BookZZ 爱挖盘 manybooks 14个值得收藏可免费搜索/下载PDF电子图书（文档）的搜索引擎 图书馆 全球免费开放的电子图书馆 古籍 书格 专利 史上最完整的专利信息数据库网址大全 杂志 http://pdfmagazines.org/ http://www.gqzzw.com/ http://www.pdfzj.com/ http://pdf-giant.com/ http://www.magazine6.com/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/ itemprop=url>[Gradle] 在build.gradle中添加本地包依赖</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/gradle_%E5%9C%A8build.gradle%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%8C%85%E4%BE%9D%E8%B5%96/ itemprop=url>[Gradle] 在build.gradle中添加本地包依赖</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-16">2014-04-16</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -130,7 +94,48 @@ primary primaryPreferred secondary secondaryPreferred nearestMongoDB命令行提
 实验环境 两个节点中，MongoDB都安装在c:\mongodb目录下且MongoDB配置文件（c:\mongodb\etc\mongo.conf）均为：
 systemLog: destination: file path: C:/mongodb/log/mongo.log logAppend: true storage: dbPath: C:/mongodb/data/db journal: enabled: false net: http: enabled: true RESTInterfaceEnabled: true 启动MongoDB 主节点启动命令：
 c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --master --oplogSize=2048 从节点启动命令：
-c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10.120.8.231 --slavedelay 10 --autoresync 主从复制测试 检查主节点 > show dbs; admin (empty) local 8.074GB test 0.078GB > db.isMaster() { "ismaster" : true, "maxBsonObjectSize" : 16777216, "maxMessageSizeBytes" : 48000000, "maxWriteBatchSize" : 1000, "localTime" : ISODate("2014-04-03T01:47:49.780Z"), "maxWireVersion" : 2, "minWireVersion" : 0, "ok" : 1 } 检查从节点 > show dbs; admin (empty) local 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/48/><i class="fa fa-angle-left"></i></a>
+c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10.120.8.231 --slavedelay 10 --autoresync 主从复制测试 检查主节点 > show dbs; admin (empty) local 8.074GB test 0.078GB > db.isMaster() { "ismaster" : true, "maxBsonObjectSize" : 16777216, "maxMessageSizeBytes" : 48000000, "maxWriteBatchSize" : 1000, "localTime" : ISODate("2014-04-03T01:47:49.780Z"), "maxWireVersion" : 2, "minWireVersion" : 0, "ok" : 1 } 检查从节点 > show dbs; admin (empty) local 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/mongodb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B7%AE%E4%B8%80%E7%82%B9%E6%90%9E%E6%B7%B7%E4%BA%86transactional%E6%B3%A8%E8%A7%A3/ itemprop=url>差一点搞混了Transactional注解</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-04-01">2014-04-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>13 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天给我的Srping业务层加如下Service和Transactional注解：
+@Service @Scope(BeanDefinition.SCOPE_SINGLETON) @Transactional(propagation=Propagation.REQUIRED, timeout=600, rollbackFor=Exception.class) 结果总是不认propagation、timeout和rollbackFor，后来才发现我引入类定义错了，本来应该用Spring的org.springframework.transaction.annotation.Transactional，可是引入了JavaEE用于CDI(Contextsand Dependency Injection for the Java EEplatform，上下文和依赖注入)bean的javax.transaction.Transactional,不注意还真容易混淆。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/ itemprop=url>使用YCSB测试MongoDB</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-31">2014-03-31</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>602 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>YCSB介绍 YCSB（Yahoo! Cloud Serving Benchmark）是雅虎开源的一款用于测试各类云服务/NoSQL/键值对存储的性能基准测试工具。覆盖的测试对象有：
+PNUTS BigTable HBase Hypertable Azure Cassandra CouchDB Voldemort MongoDB OrientDB Infinispan Dynomite Redis GemFire GigaSpaces XAP DynamoDB YCSB项目的目标是提供一个标准的工具用来衡量不同键值对存储或云服务存储的性能。YCSB做了很多优化来提高客户端性能，例如在数据类型上用了最原始的比特数组以减少数据对象本身创建转换所需的时间等。YCSB的几大特性：
+支持常见的数据存储读写操作，如插入，修改，删除及读取 多线程支持。YCSB用Java实现，有很好的多线程支持。 灵活定义场景文件。可以通过参数灵活的指定测试场景，如100%插入， 50%读50%写等等 数据请求分布方式：支持随机，zipfian(只有小部分的数据得到大部分的访问请求）以及最新数据几种请求分布方式 可扩展性：可以通过扩展Workload的方式来修改或者扩展YCSB的功能 使用YCSB测试MongoDB 初试YCSB 下载https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz 并解压缩。执行如下命令查看帮助：接下来开始使用YCSB测试MongoDB2.6，不过这其中遇到一些问题。期望YCSB的下一版本能够解决这些问题。
+解决java.lang.ClassNotFoundException:com.yahoo.ycsb.Client问题 执行测试失败：
+C:\ycsb-0.1.4\>python bin/ycsb load mongodb -s -P workloads/workloada java -cp C:\ycsb-0.1.4\core\lib\core-0.1.4.jar:C:\ycsb-0.1.4\gemfire-binding\conf:C:\ycsb-0.1.4\hbase-binding\conf:C:\ycsb-0.1.4\infinispan-binding\conf:C:\ycsb-0.1.4\jdbc-binding\conf:C:\ycsb-0.1.4\mongodb-binding\lib\mongodb-binding-0.1.4.jar:C:\ycsb-0.1.4\nosqldb-binding\conf:C:\ycsb-0.1.4\voldemort-binding\conf com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.MongoDbClient -s -P workloads/workloada -load Exception in thread "main" java.lang.NoClassDefFoundError: com/yahoo/ycsb/Client Caused by: java.lang.ClassNotFoundException: com.yahoo.ycsb.Client at java.net.URLClassLoader$1.run(URLClassLoader.java:202) at java.security.AccessController.doPrivileged(Native Method) at java.net.URLClassLoader.findClass(URLClassLoader.java:190) at java.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8ycsb%E6%B5%8B%E8%AF%95mongodb/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_mongodb_java_driver/ itemprop=url>Hello MongoDB Java Driver</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2014-03-30">2014-03-30</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/db+nosql itemprop=url rel=index><span itemprop=name>db+nosql</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>900 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先需要下载MongoDB JavaDriver，我一开始以为mongo-java-driver-2.9.3.jar是最新版，后来才发现MongoDB JavaDriver下载页面版本排序是按照文件名而不是按照日期排序，其实mongo-java-driver-2.12.0.jar是最新版。因为从版本2.10.0开始提供新的类MongoClient而不是Mongo来连接数据库，所以需要注意所使用的MongoDB Java Driver版本。 Java代码如下：
+package com.yqu.mongodb; import java.net.UnknownHostException; import java.util.List; import java.util.Set; import com.mongodb.BasicDBObject; import com.mongodb.DB; import com.mongodb.DBCollection; import com.mongodb.DBCursor; import com.mongodb.DBObject; import com.mongodb.MongoClient; import com.mongodb.MongoClientURI; import com.mongodb.MongoException; public class HelloMongoDB { public static void main(String[] args) { MongoClient mongoClient = null; try { // Since 2.10.0, uses MongoClient // mongoClient = new MongoClient("localhost", 27017); String host = "mongodb://localhost:27017"; mongoClient = new MongoClient(new MongoClientURI(host)); showdbs(mongoClient); // MongoDB will create it if database doesn't exists DB db = mongoClient.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hello_mongodb_java_driver/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/48/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/45/>45</a>
 <a class=page-number href=/page/46/>46</a>
 <a class=page-number href=/page/47/>47</a>
@@ -142,9 +147,9 @@ c:\mongodb\bin\mongod.exe --config c:\mongodb\etc\mongo.conf --slave --source 10
 <a class=page-number href=/page/53/>53</a>
 <a class="extend next" rel=next href=/page/50/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -3,58 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/docker%E7%9A%84%E9%95%9C%E5%83%8F%E5%AD%98%E5%82%A8%E5%9C%A8%E5%93%AA%E9%87%8C%E5%92%8C%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/ itemprop=url>Docker的镜像存储在哪里和长什么样子</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-07-05">2015-07-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>49 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>接触docker后，我就有个疑问：我们用docker pull镜像后，该镜像是存储在哪里的？是以一个特俗的二进制类型存储的么？后来阅读了Docker的镜像存储在哪里这篇博文，得以解惑，并进行了验证。 Docker的镜像存储在/var/lib/docker目录下，存储方式有点像Git那样有reference和实际的objects，并且是实际内容是diff那样的增量存放。 Docker的镜像存储在哪里 有个疑问就是我们用docker pull镜像后，该镜像是存储在哪里的？ 当你仅仅是使用docker启动一个实例的时候，是超级简单的，但是当你制作自己的Dockerfile时，可能会有一些迷惑，那就是我的docker镜像存储在哪里了。这个听起来让我感觉有点一筹莫展，对于dockerimage的存储我还是一无所知。最后你只能把镜像发布到公共DockerIndex上面，但是，在过去一段时间内你是无法删除它的，但是现在你可以通过官方的WEB界面来删除它了。
-Image VS Dockerfile 这个看起来有点混淆，但是它们是有差别的，docke使用images运行你的代码，而不是Dockerfile。Dockerfile是你用dockerbuild命令来构建image的。如果你在浏览器中浏览DockerIndex，你会发现有很多images显示在上面，但是你不能看见构建它们的Dockerfile。当你使用dockerpush命令发布image时，它不会发布你的源代码，它只会发布从你源代码构建出来的镜像。
-Registry VS Index 下一个混淆的是Registry和Index，它们是怎么样区分的？index是管理公共web接口上的accounts、permission、search、tagging和所有精细的方面的。而registry是存储和提供实际image的，它委托index进行身份验证。当你运行dockersearch命令的时候，它搜索的是index，而不是registry。实际上，它可能搜索的是index知道的多个registry。当你运行dockerpush或者dockerpull命令时，index决定你是否有权限访问和修改images，当index同意你操作后，registry是提供images存储的地方，index会计算出哪个registry有你需要的镜像，并把请求转发过去。当你在本地运行dockerimages命令时，你可能是同时和index和registry进行交互。
-Repository docker&rsquo;s使用镜像就像使用GitHub一样容易，但是有三个混淆的地方：
-repository和registry之间的区别 repository和image之间的区别 repository和index username之间的区别 其实repository并不是其中任何一个组件，而是指所有的组件。当你运行dockerimages命令时，你会看到如下： images列表看起来像repositories列表？实际上images是GUIDs，但这并不是如何和他们交互。当你执行dockerbuild或者dockercommit命令时，你可以指定image的名称，这个名称的格式是username/image_name，但这并不一定，它可以是任何形式的，他甚至可以是你已经知道的发布的镜像名称。当你执行dockerpush的时候，index会查看镜像名称，检查该镜像是否在repository中，如果在，接着检查你是否有权限访问该repository，如果有权限，则允许你push新版本的image到该repository上。因此，一个registry保留了它收集到的repository的名称，它本身跟踪收集到的images的GUIDs。thisis also where tags comein，你可以tag一个image，并且存储多个版本使用不同的GUIDs在同一个repository中，访问不同的标记的版本image，可以使用username/image_name:tag。 从上图中你可以看到我们有三个不同版本的image叫ubuntu12，每个的tag都是不同的，repository使用ubuntu12的名称来保存这些，因此，当我们看到ubuntu12的时候，它像一个image名称，但是实际上它使repository名称，repository名称有特殊的设计架构，index可以从第一部分解析出username，并且找出他在哪里。因此，当出现一个guol/ubuntu时会产生混淆，官方的repository名称是类似username/image_name这样的，我们想当然的认为repository名称是image_name，但是根据docker的文档发现repository的名称有时指的是全部的名称，有时指的是image_name。比如就像ubuntu，它就没有username，是不是有点乱了&mldr;&mldr;&mldr;
-Local Storage on the Docker Host 我们已经了解完如何和远程存储进行交互了，但是当你运行dockerimages的时候，仅仅给你看到的是你的机器上有哪些image。这些镜像在哪里呢？第一个要查看的地方是/var/lib/docker/。 查看repositories-aufs文件的内容，它的内容是在你本机上的repositories。 看看，它完全匹配了docker images的输出内容。 现在我们来看看/var/lib/docker/graph/的内容。 我倒，显示的非常不友好啊，看看docker是怎样跟踪这些镜像的，是基于repositories-aufs文件，构建了一个映射到repository名称和tag的关系表。我们看看ubuntu12的仓库，它有三个镜像，标记分别是12.04、precise、latest。采用的是IDd431f556799d35dfae1278a1ee41a393db70058dedb9a7fc554b0506b5b241cb，我们看看这个目录里面有什么。 只有两个文件：
-json：保存image的metadata layersize：只是一个数字，表明layer的大小 主要镜像的差异在/var/lib/docker/aufs/diff/目录下，每次都会把镜像改变的部分存储在该目录下的相关ID目录里面。 参考：Where are Docker images stored?</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%96%AD%E8%B7%AF%E5%99%A8circuitbreaker%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/ itemprop=url>断路器（CircuitBreaker）设计模式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-07-04">2015-07-04</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>断路器是电器时代的一个重要组成部分，后面总是有保险丝熔断或跳闸的断路器是安全的重要保障。 微服务最近几年成为软件架构的热门话题，其益处多多。但需要知道的是，一旦开始将单块系统进行分解，就上了分布式系统的山头。 在云或分布式系统环境中，任何对一致性或可靠性的表述就是谎言。我们必须假设微服务的行为或其服务器位置会经常变动，其结果就是组件有时会提供低质量服务甚至可能彻底无法提供服务。这些微服务的故障如果没有处理好，将导致整个系统的故障。 微服务的故障可能是瞬时故障：如慢的网络连接、超时，资源过度使用而暂时不可用；也可能是不容易预见的突发事件的情况下需要更长时间来纠正的故障。 分布式服务的容错是一个不得不考虑的问题，通常的做法有两种：
-重试机制：对于预期的短暂故障问题，通过重试模式是可以解决的。 断路器（CircuitBreaker）模式：将受保护的服务封装在一个可以监控故障的断路器对象中，当故障达到一定门限，断路器将跳闸（trip），所有后继调用将不会发往受保护的服务而由断路器对象之间返回错误。对于需要更长时间解决的故障问题，不断重试就没有太大意义了，可以使用断路器模式。 断路器模式设计状态机 注意事项 在决定如何实现这个模式时，您应考虑以下几点：
-**异常处理。**通过断路器调用操作的应用程序必须能够处理在操作不可用时可能被抛出的异常，该类异常的处理方式都是应用程序特有的。例如，应用程序会暂时降级其功能，调用备选操作尝试相同的任务或获取相同的数据，或者将异常通知给用户让其稍后重试。 **异常类型。**一个请求可能由于各种原因失败，其中有一些可能表明故障严重类型高于其他故障。例如，一个请求可能由于需要几分钟才能恢复的远程服务崩溃而失败，也可能由于服务暂时超载造成的超时而失败。断路器有可能可以检查发生的异常类型，并根据这些异常本质调整策略。例如，促使切换到开状态（跳闸）的服务超时异常个数要远多于服务完全不可用导致的故障个数。 **日志记录。**一个断路器应记录所有失败的请求（如果可能的话记录所有请求），以使管理员能够监视它封装下受保护操作的运行状态。 **可恢复性。**应该配置断路器成与受保护操作最匹配的恢复模式。例如，如果断路器设定出入开状态的时间很长，即使底层操作故障已经解决它还会返回错误。如果开状态到半开状态切换过快，底层操作故障还没解决它就会再次调用受保护操作。 **测试失败的操作。**在开状态下，断路器可能不用计时器来确定何时切换到半开状态，而是通过周期性地查验远程服务或资源以确定它是否已经再次可用。这个检查可能采用上次失败的操作的形式，也可以使用由远程服务提供的专门用于测试服务健康状况的特殊操作。 **手动复位。**在一个系统中，如果一个失败的操作的恢复时间差异很大，提供一个手动复位选项以使管理员能够强行关闭断路器（和复位故障计数器）可能是有益的。同样，如果受保护操作暂时不可用，管理员可以强制断路器进入放状态（并重新启动超时定时器）。 **并发。**同一断路器可以被应用程序的大量并发实例访问。断路器实现不应阻塞并发请求或对每一请求增加额外开销。 **资源分化。**当断路器使用某类可能有多个底层独立数据提供者的资源时需要特别小心。例如，一个数据存储包含多个分区(shard)，部分分区出现暂时的问题，其他分区可能完全工作正常。如果该场景中的错误响应是合并响应，应用程序在部分故障分区很可能会阻塞整个请求时仍会试图访问某些工作正常的分区。 **加速断路。**有时失败响应对于断路器实现来说包含足够的信息用于判定应当立即跳闸并保持最小时间量的跳闸状态。例如，从过载共享资源的错误响应可能指示不推荐立即重试，且应用程序应当隔几分钟时间之后重试。如果一个请求的服务对于特定Web服务器不可用，可以返回HTTP协议定义的“HTTP 503 ServiceUnavailable”响应。该响应可以包含额外的信息，例如预期延迟持续时间。 **重试失败请求。**在开状态下，断路器可以不是快速地简单返回失败，而是将每个请求的详细信息记录日志并在远程资源或服务重新可用时安排重试。 **对外部服务的不恰当超时。**当对外部服务配置的超时很大时，断路器可能无法保护其故障操作，断路器内的线程在指示操作失败之前仍将阻塞到外部服务上，同时很多其他应用实例仍会视图通过断路器调用服务。 断路器模式业界Java实现 GitHub：jrugged：CircuitBreaker类源代码
-GitHub：Netflix/hystrix
-参考 Martin Fowler：CircuitBreaker
-MSDN：Circuit Breaker Pattern
-Protect your software with the Circuit Breaker design pattern</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E8%81%8A%E8%81%8Amavencenter%E5%92%8Cjcenter/ itemprop=url>聊聊mavenCenter和JCenter</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-07-03">2015-07-03</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>5 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Gradle支持从maven中央仓库和JCenter上获取构件，那这两者有什么区别呢？
-maven中央仓库（http://repo1.maven.org/maven2/）是由Sonatype公司提供的服务，它是ApacheMaven、SBT和其他构建系统的默认仓库，并能很容易被ApacheAnt/Ivy、Gradle和其他工具所使用。开源组织例如Apache软件基金会、Eclipse基金会、JBoss和很多个人开源项目都将构件发布到中央仓库。maven中央仓库已经将内容浏览功能禁掉了，可在http://search.maven.org/查询构件。
-https://jcenter.bintray.com）是由JFrog公司提供的Bintray中的Java仓库。它是当前世界上最大的Java和Android开源软件构件仓库。所有内容都通过内容分发网络（CDN）使用加密https连接获取。JCenter是Goovy Grape内的默认仓库，Gradle内建支持（jcenter()仓库），非常易于在（可能除了Maven之外的）其他构建工具内进行配置。
-JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件仅存在mavenCenter中。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/icu4j%E4%BB%8B%E7%BB%8D/ itemprop=url>ICU4J介绍</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/icu4j%E4%BB%8B%E7%BB%8D/ itemprop=url>ICU4J介绍</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-07-02">2015-07-02</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -154,7 +104,62 @@ H2 Console</div><footer class=post-footer><div class=post-eof></div></footer></a
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Java8文档 在线版Java8文档: http://docs.oracle.com/javase/8/docs/ 下载版Java文档链接：http://www.oracle.com/technetwork/java/javase/downloads/index.html#docs
 JavaSE6文档下载链接: http://www.oracle.com/technetwork/java/javase/downloads/jdk-6u25-doc-download-355137.html JavaSE7文档下载链接: http://www.oracle.com/technetwork/java/javase/documentation/java-se-7-doc-download-435117.html JavaSE8文档下载链接: http://www.oracle.com/technetwork/java/javase/documentation/jdk8-doc-downloads-2133158.html 工具 Github：subchen/javadoc.chm
-制作过程 将javadoc.chm-master.zip的javadoc.chm-2.1.0.jar和lib目录解压缩到当前目录 将jdk-8u45-docs-all.zip的docs目录解压缩到当前目录 java -Xms256m -Xmx512m -cp javadoc.chm-2.1.0.jar;lib/commons-lang-2.6.jar;lib/commons-io-2.4.jar;lib/commons-collections-3.2.1.jar;lib/commons-logging-1.1.1.jar;lib/log4j-1.2.17.jar;lib/velocity-1.7.jar jerbrick.tools.chm.Application docs/api 执行docs/api/build.bat生成chm文件</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/28/><i class="fa fa-angle-left"></i></a>
+制作过程 将javadoc.chm-master.zip的javadoc.chm-2.1.0.jar和lib目录解压缩到当前目录 将jdk-8u45-docs-all.zip的docs目录解压缩到当前目录 java -Xms256m -Xmx512m -cp javadoc.chm-2.1.0.jar;lib/commons-lang-2.6.jar;lib/commons-io-2.4.jar;lib/commons-collections-3.2.1.jar;lib/commons-logging-1.1.1.jar;lib/log4j-1.2.17.jar;lib/velocity-1.7.jar jerbrick.tools.chm.Application docs/api 执行docs/api/build.bat生成chm文件</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3registrator/ itemprop=url>了解Registrator</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-18">2015-06-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>70 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>支持 DNS和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。在使用Docker的场景里，有了Registrator的帮助，只需要很小的工作量就可以自动化地向Consul注册Docker容器，使得管理基于容器技术的配置更加容易。 Registrator通过检查Docker容器是否上线，自动为Docker容器注册/注销服务。Registrator支持可插拔服务注册中心，当前包括Consul、etcd和SkyDNS 2。
+用法 运行Consul容器 $ docker run -d --name=consul --net=host consul-server -bootstrap 运行Registrator容器 Registrator被设计为在每个主机运行一次。也可以在每个集群仅运行一个Registrator，但是通过确保Registrator运行在每个主机上可以获得更好的伸缩性和更简化的配置。假定使用某种程度的自动化，在所有地方都运行反而讽刺性地比某个地方运行更简单。 $ docker run -d \ --name=registrator \ --net=host \ --volume=/var/run/docker.sock:/tmp/docker.sock \ gliderlabs/registrator:latest \ consul://localhost:8500 &ndash;volume=/var/run/docker.sock:/tmp/docker.sock可以让Registrator访问DockerAPI； &ndash;net=host有助于Registrator获得主机级IP和主机名； consul://localhost:8500是服务注册中心URI。 运行其他服务的容器 $ docker run -d -P --name=redis redis Registrator通过Docker API可以监听Docker容器的启动/关闭，并自动注册/注销服务: $ curl $(boot2docker ip):8500/v1/catalog/services {"consul":[],"redis":[]} $ curl $(boot2docker ip):8500/v1/catalog/service/redis [{"Node":"boot2docker","Address":"10.0.2.15","ServiceID":"boot2docker:redis:6379","ServiceName":"redis","ServiceTags":null,"ServiceAddress":"","ServicePort":32768}] 参考 Github：gliderlabs/registrator
+Registrator Quickstart
+Docker Hub：gliderlabs/registrator
+Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BA%86%E8%A7%A3consul_template/ itemprop=url>了解Consul template</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-17">2015-06-17</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/consul itemprop=url rel=index><span itemprop=name>Consul</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>21 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>支持 DNS 和基于HTTP发现机制的服务发现工具Consul让我们印象深刻。它提供了定制化的注册服务健康检查并标记不健康实例的功能远胜于其他类似的工具。更多时兴的工具与Consul的集成使其功能更加强大。ConsulTemplate守护进程提供了一个便捷方式直接使用Consul的信息来填充配置文件。 consul-template 查询一个Consul实例并对文件系统任意数量模板进行更新。此外，consul-template 在更新过程结束后可选地执行任意多个命令。 consul-template 项目提供了一些例子，通过Consul信息生成负载均衡器HAProxy、缓存引擎Varnish和web服务器Apachehttpd的配置文件。
+参考 Github：hashicorp/consul-template Scalable Architecture DR CoN: Docker, Registrator, Consul, Consul Template and Nginx</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/ itemprop=url>使用Consul的十二要素应用（Twelve-Factor App）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-16">2015-06-16</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/consul itemprop=url rel=index><span itemprop=name>Consul</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>102 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>十二要素应用（The Twelve-Factor App）主张web应用应该从环境变量里获取其配置。这一实践很快被现代PaaS服务采用以用于允许简单的配置变更。 使用Consul，很容易将这一实践用于你自己的数据中心。如果你基础架构的某些方面部分使用PaaS，Consul是配置数据中心化的一个很好的方式。 在这篇文章中，我们将展示Consul和envconsul如何在不修改应用程序的情况下被用于设置配置值和在配置变更时触发自动重启。
+为什么使用环境变量? 根据十二要素应用，web应用配置应该使用环境变量。跟配置文件或Java系统属性这样的机制比，环境变量有很多优点：
+环境变量是一个与开发语言和操作系统无关的标准。 环境变量更难被意外提交到代码库。 环境变量跟易于在development、staging、QA这样不同的环境之间改变。 无论如何部署，环境变量易于设置和更新。 例如Heroku这样的完整PaaS解决方案公开一些有用的API以用于为应用自动设置/读取环境变量。 当手动部署应用时，以往这样的事会更复杂一些。而使用Consul，程序员就可以很容易地设置和读取配置，运营工程师就可以很容易地提供支持和维护。
+Consul键值对和Envconsul Consul能够存储键值对数据。对于设置和获取键值对数据，Consul拥有简单的API和美丽且直观的web界面。对于存储配置数据来说，它是完美的。 很容易看到如何设置和读取配置数据，但是对于配置数据如何变成应用的环境变量还不是很清楚。envconsul是一个解决该类问题的轻量级解决方案。 使用envconsul，环境变量存储在ConsulKV中并具有某些（以"/&ldquo;分割的）前缀。例如，为了配置服务"foo&rdquo;，我们可能存储如下配置：
+$ curl -X PUT -d 'false' http://localhost:8500/v1/kv/foo/enabled true 这会在键foo/enabled中存储值false。 之后，使用envconsul, 我们可以将这些键转换为环境变量：
+$ envconsul foo env ENABLED=false envconsul是一个对UNIX非常友好的应用。他有两个必需的参数：一个用于查找数据的KV前缀和一个应用及其可选参数。在上例中，我们告诉envconsul配置位于前缀foo下，且我们想运行应用env，该应用仅仅是输出环境变量。 在示例结果中，我们可以清楚地看到ENABLED如我们在ConsulKV中所设置的false。
+如果将env改成你自己的应用，那么环境变量将暴露给你的应用。例如，为了运行一个Rails服务器你可能做如下操作。注意在真实生产场景中，你可能不直接运行Rails内建服务器，但是它不失为一个好案例：
+$ envconsul foo bin/rails server ... 自动重载 使用PaaS，当你修改任何配置时你的应用将自动重启。我们可以以最小的代价通过Consul和Envconsul实现相同效果。 通过对envconsul添加-reload标志，一旦配置键发生增删改，envconsul将中断(SIGTERM)并重启你的应用：
+$ envconsul -reload foo bin/rails server ... 注：该功能已经在0.4.0版本移除。 Consul HTTP API支持对给定前缀KV中的变更进行长轮询。一旦KV中发生变更，Envconsul通过这种方式可以高效地进行检测。
+改良流程 对应用配置使用Consul和envconsul可以将PaaS化应用配置易用性带入你自己的原生环境。 对于开发者而言，他们可以无需跟运营工程师沟通或重新部署应用就可以设置配置。 对于运营来说，Consul对整个基础架构的服务发现和配置提供了统一的解决方案。Consul自动复制数据并存储在磁盘上以方便备份，运营工程师也可以高枕无忧了。
+我的实践 Envconsul获取的环境变量既可以直接给启动服务器的命令使用（例如上面启动Rails内建服务器的bin/rails命令）；也可以通过python之类的脚本存成Java系统属性文件，通过chpst这样可以加载环境变量/系统属性文件的命令间接给Java命令使用。
+envconsul \ -once \ -log-level info \ -consul localhost:8500 \ -upcase=false \ -prefix config/foo/jvm \ foo env /usr/local/tomcat/bin/catalina.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8consul%E7%9A%84%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8twelve-factor_app/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/28/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/25/>25</a>
 <a class=page-number href=/page/26/>26</a>
 <a class=page-number href=/page/27/>27</a>
@@ -166,9 +171,9 @@ JavaSE6文档下载链接: http://www.oracle.com/technetwork/java/javase/downlo
 <a class=page-number href=/page/33/>33</a>
 <a class="extend next" rel=next href=/page/30/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

@@ -3,66 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/vfabric_web_server%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4/ itemprop=url>vFabric Web Server控制台命令</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-16">2013-10-16</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/web-application-server itemprop=url rel=index><span itemprop=name>Web Application Server</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>90 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>检查并设置PowerShell 在Windows中，vFabric WebServer控制台命令需要在PowerShell下执行。默认状态下，PowerShell的脚本处理是被禁止的。 通过如下命令检查当前的PowerShell设置:
-PS prompt> Get-ExecutionPolicy 如果命令返回Restricted,这意味着PowerShell还没有使能。通过执行如下命令使它允许最低限度执行本地脚本：
-PS prompt> Set-ExecutionPolicy RemoteSigned 按照需要设置不同的执行策略并使用组和用户策略使能PowerShell。通常，仅有管理员使用vFabric WebServer脚本，因此RemoteSigned执行策略在大多情况下是足够的。
-通过执行如下命令设置编码为UTF-8，以便更好地显示httpctl输出、更容易检查日志文件。
-PS prompt> chcp 65001 使用vFabric Web Server控制台 可以使用httpdctl 脚本控制vFabric Web Server实例，其命令如下:
-|命令|描述 |&mdash;&ndash; |start|启动vFabric Web Server实例。如果实例已启动，该命令返回错误。 |stop|强制停止vFabric Web Server实例。当前所有打开的连接将中断。 |gracefulstop|优雅停止vFabric Web Server实例，脚本会等到所有打开的连接关闭后才停止vFabric Web Server实例。 |restart|重启实例。如果实例之前没有启动，脚本会启动实例，此外也会在启动实例前运行configtest。 |graceful|优雅重启实例。与restart命令的区别在于当前打开的连接不会中断，副作用就是老的日志文件不会立即关闭。 |status|显示实例状态信息，例如是否运行中、运行中的进程标识符 (PID)。 |install|安装实例成Windows或UNIX服务。服务可以用Windows服务控制台、sc命令手动启动或停止，或随Windows自动启动或停止。
-install命令可用参数：
-服务名: vFabrichttpd_实例名_ 例子: vFabrichttpdmyserver显示名: vFabric httpd 实例名
-例子: vFabric httpd myserverUnix下，实例安装成/etc/init.d目录下名为vFabric-httpd-&lt;实例名>的脚本文件。服务随Unix自动启动或停止。 |uninstall|卸载作为Windows或UNIX服务的实例。Windows下，实例会从服务注册表中删除。Unix下，命令会删除/etc/init.d/vFabric-httpd-_instance-name_脚本文件。 |configtest|对例如conf/httpd.conf之类的配置文件运行语法检查。脚本解析配置文件，如果语法正确返回OK，否则返回特定语法错误的详细信息。
-示例如下：
-PS C:\sas\Config\Lev1\Web\WebServer\bin> .\httpdctl.ps1 status httpdctl.ps1 - manage the SAS [Config-Lev1] httpd - WebServer server instance Copyright c 2012 VMware, Inc.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/vfabric_web_server%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%BC%80%E6%BA%90%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E5%88%97%E8%A1%A8/ itemprop=url>开源事务管理器列表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-15">2013-10-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>52 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>WebLogic、WebSphere和JBoss这些Web应用服务器都自带事务管理器，而Tomcat和tcServer需要额外使用第三方事务管理器。公司选择了AtomikosTransactionEssentials作为JTA/XA提供者，这里列一下当前使用较多的开源事务管理器。
-|事务管理器|开源许可证|当前版本|介绍 |&mdash;&ndash; |JOTM|BSD样式|2.1.9 (2010-1-14)|JOTM(Java Open TransactionManager)是由ObjectWeb协会开发的功能完整的且资源开放的独立的事务管理器。 它提供了JAVA 应用程序的事务支持，而且与JTA（JAVA事务API）兼容。
-JOTM内嵌了一些开源项目。例如CAROL用于事务上下文传播；XAPool是一个XA兼容的JDBC连接池；HOWL是用于事务恢复的日志。 |Bitronix JTA Transaction Manager|LGPL|2.1.4 (2013-9-15)|Bitronix Transaction Manager (BTM)是JTA 1.1 API的一个简单但完整的实现。 |SimpleJTA|Apache 2.0|2.02 (2007-4-10)|SimpleJTA实现了一个单独的JTA兼容事务处理器，仅支持Oracle 9i和ApacheDerby数据库，不支持JTS。 |Atomikos TransactionsEssentials|Apache 2.0|3.9.0.M1 (2013-6-8)|Atomikos分两个：一个是开源的TransactionEssentials，一个是商业的ExtremeTransactions。（功能对比）
-Atomikos TransactionsEssentials是对JDBC/XA池,JMS/XA池和JTA/XA提供基本支持的开源事务处理系统。 |Narayana(JBossTS)|LGPL v2.1|5.0.0.M6 (2013-10-11)|Narayana（JBossTS）前身是最初纽卡斯尔大学在1986到1995开发的Arjuna系统，后由JBoss从Arjuna和HP手中收购并开源的。
-它支持下列事务处理协议标准:JTA、JTS、Web服务事务、REST事务、STM、XATMI/TX
-Stack Overflow有一篇文章对上面的一些事务管理器进行了对比：
-JOTM 用户抱怨的比较多 GeronimoTM/Jencks(Jencks是Apache Geronimo中使用的JCA容器，并使用ApacheGeronimo的事务管理器) 缺乏文档。 SimpleJTA 没有实现JTS (Java Transaction Service)而且不是活跃的。 Bitronix 有不错的文档但是不提供技术支持。 Atomikos 是一个另人钦佩的产品。有丰富的文档，而且提供技术支持。 JBossTS 从收购通告可见肯定是一个成熟的产品，而且提供技术支持。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90mapred.mapper.new-api%E5%92%8Cmapred.reducer.new-api%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%8C%BA%E5%88%AB/ itemprop=url>[Hadoop] 源码分析mapred.mapper.new-api/mapred.reducer.new-api设置与区别</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-14">2013-10-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>即mapred和mapreduce包的区别后，本文再次从源码角度分析新老API（mapred.mapper.new-api/ mapred.reducer.new-api）的设置与区别。 mapred.mapper.new-api /mapred.reducer.new-api这两个参数很少显式去设置，默认为false，即使用mapred包下的老API。 不过MapReduce框架也会去自动识别应该使用老API还是新API。作业提交有两种方式，异步方式用submit，同步方式用waitForCompletion。不过org.apache.hadoop.mapreduce.Job.waitForCompletion(boolean)里调用了org.apache.hadoop.mapreduce.Job.submit()方法，submit方法又调用了org.apache.hadoop.mapreduce.Job.setUseNewAPI()方法。setUseNewAPI方法里面对新老API做了判断：
-是否设置了mapred.mapper.class属性，则mapred.mapper.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setMapperClass(Class)还是org.apache.hadoop.mapred.JobConf.setMapperClass(Class)设置的Mapper，前者设置的是mapreduce.job.map.class属性，后者设置的是mapred.mapper.class属性。 如果mapreduce.job.reduces属性值不为0，则看是否设置了mapred.reducer.class属性，则mapred.reducer.new-api为true，否则为false。说白了就是用org.apache.hadoop.mapreduce.Job.setReducerClass(Class)还是org.apache.hadoop.mapred.JobConf.setReducerClass(Class)设置的Mapper，前者设置的是mapreduce.job.reducer.class属性，后者设置的是mapred.reducer.class属性。 new-api相关区别 使用new-api不使用new-api不允许设置下列属性：
-mapred.input.format.classmapred.mapper.classmapred.partitioner.classmapred.reducer.classmapred.output.format.class不允许设置下列属性：
-mapreduce.job.inputformat.classmapreduce.job.map.classmapreduce.job.partitioner.classmapreduce.job.reducer.classmapreduce.job.outputformat.class使用下列类或接口的实现：
-o.a.h.conf.Configurationo.a.h.mapreduce.Mapper抽象类o.a.h.mapreduce.Reducer抽象类o.a.h.mapreduce.OutputFormat抽象类o.a.h.mapreduce.OutputCommitter抽象类o.a.h.mapreduce.TaskIDo.a.h.mapreduce.TaskAttemptIDo.a.h.mapreduce.TaskAttemptContext接口o.a.h.mapreduce.InputFormat抽象类o.a.h.mapreduce.InputSplit抽象类使用下列类或接口的实现：
-o.a.h.mapred.JobConfo.a.h.mapred.Mapper接口o.a.h.mapred.Reducer接口o.a.h.mapred.OutputFormat接口o.a.h.mapred.OutputCommitter抽象类o.a.h.mapred.TaskIDo.a.h.mapred.TaskAttemptIDo.a.h.mapred.TaskAttemptContext接口o.a.h.mapred.InputFormat接口o.a.h.mapred.InputSplit接口使用方法：
-o.a.h.mapred.MapTask.runNewMappero.a.h.mapreduce.JobSubmitter.writeNewSplitso.a.h.mapred.ReduceTask.runNewReducer使用方法：
-o.a.h.mapred.MapTask.runOldMappero.a.h.mapreduce.JobSubmitter.writeOldSplitso.a.h.mapred.ReduceTask.runOldReducer</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/ itemprop=url>Servlet URL映射模式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/servlet_url%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F/ itemprop=url>Servlet URL映射模式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-13">2013-10-13</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -173,7 +115,57 @@ C:\tomcat6\bin>version.bat Using CATALINA_BASE: "C:\tomcat6" Using CATALINA_HOME
 雪球抽样 雪球抽样是指选择并调查几个具有研究目的所需要的特征的人，再依靠他们选择合乎研究需要的人，后者又可选择更多合乎研究需要的人，以此类推下去，样本就像滚雪球一样越来越大。
 定额抽样 定额抽样是先将要研究的人群按某种特征划分成几个组别，然后，按照一定的比例，从每组人群中任意选择一定量的样本作为研究对象。由于抽样前先进行了分层处理，抽得的样本代表性比单纯的方便抽样要好。
 优点 简单易行、成本低、省时间,在统计上也比概率抽样简单。但由于无法排除抽样者的主观性，无法控制和客观地测量样本代表性，因此样本不具有推论总体的性质。非概率抽样多用于探索性研究和预备性研究，以及总体边界不清难于实施概率抽样的研究。在实际应用中，非概率抽样往往与概率抽样结合使用。
-方法 PPS抽样调查法;Q分类法;SEM模型;不重复抽样;专项调查;主观概率法;二手资料调研;二路焦点小组;产品留置测试;任意抽样;会议调查;典型调查法;分层抽样;分层最佳抽样;分层比例抽样;判断抽样;双重抽样;可行性研究;因果性调研;垃圾调研法;多维尺度法;多阶段抽样;威廉·戈塞;定性研究方法;定量研究方法;实地调研;家庭日记法;市场实验调查法;市场容量测定法;平衡量表法;投射研究;投影技法;抽样;抽样调查;抽签法;拐点调研;探索性调研;推销人员估计法;描述性调研;数值分配量表;整群抽样;文案调查法;文献调查法;无准备访问;案例研究法;案头调研;概率抽样;深层访谈法;滚雪球抽样;焦点访谈法;独立控制配额抽样;电话调查;留置调查;盲测;相互控制配额抽样;等比量表;等距抽样;等距量表;简单随机抽样;类别量表;经销商访谈;经验判断法;网上间接调查;网络调研;联合分析法;营销学术语英汉对照表;行踪分析;观察法;评价量表;询问法;辅助变量;辛迪加调研;逐户寻找法;邮寄调查;配对比较量表;配额抽样;重点调查;重置抽样;问卷调查法;随机号码表法;面谈访问法;顺序量表;&mldr;</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/58/><i class="fa fa-angle-left"></i></a>
+方法 PPS抽样调查法;Q分类法;SEM模型;不重复抽样;专项调查;主观概率法;二手资料调研;二路焦点小组;产品留置测试;任意抽样;会议调查;典型调查法;分层抽样;分层最佳抽样;分层比例抽样;判断抽样;双重抽样;可行性研究;因果性调研;垃圾调研法;多维尺度法;多阶段抽样;威廉·戈塞;定性研究方法;定量研究方法;实地调研;家庭日记法;市场实验调查法;市场容量测定法;平衡量表法;投射研究;投影技法;抽样;抽样调查;抽签法;拐点调研;探索性调研;推销人员估计法;描述性调研;数值分配量表;整群抽样;文案调查法;文献调查法;无准备访问;案例研究法;案头调研;概率抽样;深层访谈法;滚雪球抽样;焦点访谈法;独立控制配额抽样;电话调查;留置调查;盲测;相互控制配额抽样;等比量表;等距抽样;等距量表;简单随机抽样;类别量表;经销商访谈;经验判断法;网上间接调查;网络调研;联合分析法;营销学术语英汉对照表;行踪分析;观察法;评价量表;询问法;辅助变量;辛迪加调研;逐户寻找法;邮寄调查;配对比较量表;配额抽样;重点调查;重置抽样;问卷调查法;随机号码表法;面谈访问法;顺序量表;&mldr;</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/ itemprop=url>[HBase] Shell命令</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-27">2013-09-27</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>1019 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。
+1) 通用HBase命令 status 显示集群状态。可以为‘summary’、‘simple’或‘detailed’。默认为‘summary’。 用法:
+hbase> status hbase> status ‘simple’ hbase> status ‘summary’ hbase> status ‘detailed’ version 输出HBase版本 用法:
+hbase> version whoami 显示当前HBase用户。 用法:
+hbase> whoami 2) 表管理命令 alter 修改列族schema；提供表名和指定新列族schema的字典。字典必须包含所要修改的列族名。例如，
+对表‘t1’修改或添加列族‘f1’从当前值到最大版本5：
+hbase> alter ‘t1’, NAME => ‘f1’, VERSIONS => 5 对多个列族进行操作:
+hbase> alter ‘t1’, ‘f1’, {NAME => ‘f2’, IN_MEMORY => true}, {NAME => ‘f3’, VERSIONS => 5} 删除表‘t1’中的列族‘f1’，使用下列方法之一：
+hbase> alter ‘t1’, NAME => ‘f1’, METHOD => ‘delete’ hbase> alter ‘t1’, ‘delete’ => ‘f1’ 也可以修改诸如MAX_FILESIZE、READONLY、MEMSTORE_FLUSHSIZE、DEFERRED_LOG_FLUSH等表属性，例如将region最大容量设为128MB：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AE%89%E8%A3%85python%E7%9A%84simplejson%E5%BA%93/ itemprop=url>安装Python的simplejson库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-24">2013-09-24</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Ubuntu下运行一个Python程序，遇到如下问题：ImportError: No module named simplejson。
+首先查看一下Python和pip的版本：
+python -V pip -V 竟然没有装pip，解决方案如下：
+sudo apt-get install python-pip pip2 install simplejson</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/ itemprop=url>[Git] 预览远程仓库与本地仓库的差异</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-23">2013-09-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先使用git fetch更新远程分支的本地副本，这不会对任何本地分支造成影响。
+使用git log HEAD..origin可以显示本地分支与origin远程分支之间的提交日志。
+使用git log -p HEAD..origin除了显示上述提交日志外，还会显示每个提交的补丁。
+使用git diff HEAD...origin显示整个补丁。此外如果有本地未提交的修改，可以使用git diff origin/master显示整个补丁。
+如果不想使用git pull来合并所有远程提交，可以使用git cherry-pick接受所需要的指定远程提交。最后当准备好接受所有远程提交再使用git pull合并剩余远程提交。</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/58/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/55/>55</a>
 <a class=page-number href=/page/56/>56</a>
 <a class=page-number href=/page/57/>57</a>
@@ -185,9 +177,9 @@ C:\tomcat6\bin>version.bat Using CATALINA_BASE: "C:\tomcat6" Using CATALINA_HOME
 <a class=page-number href=/page/63/>63</a>
 <a class="extend next" rel=next href=/page/60/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

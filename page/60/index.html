@@ -3,58 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/ itemprop=url>[HBase] Shell命令</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-27">2013-09-27</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>1019 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody>HBase提供可扩展的基于jruby(JIRB)命令行已用于执行一些命令。HBase命令行主要归为六类。
-1) 通用HBase命令 status 显示集群状态。可以为‘summary’、‘simple’或‘detailed’。默认为‘summary’。 用法:
-hbase> status hbase> status ‘simple’ hbase> status ‘summary’ hbase> status ‘detailed’ version 输出HBase版本 用法:
-hbase> version whoami 显示当前HBase用户。 用法:
-hbase> whoami 2) 表管理命令 alter 修改列族schema；提供表名和指定新列族schema的字典。字典必须包含所要修改的列族名。例如，
-对表‘t1’修改或添加列族‘f1’从当前值到最大版本5：
-hbase> alter ‘t1’, NAME => ‘f1’, VERSIONS => 5 对多个列族进行操作:
-hbase> alter ‘t1’, ‘f1’, {NAME => ‘f2’, IN_MEMORY => true}, {NAME => ‘f3’, VERSIONS => 5} 删除表‘t1’中的列族‘f1’，使用下列方法之一：
-hbase> alter ‘t1’, NAME => ‘f1’, METHOD => ‘delete’ hbase> alter ‘t1’, ‘delete’ => ‘f1’ 也可以修改诸如MAX_FILESIZE、READONLY、MEMSTORE_FLUSHSIZE、DEFERRED_LOG_FLUSH等表属性，例如将region最大容量设为128MB：</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hbase_shell%E5%91%BD%E4%BB%A4/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%AE%89%E8%A3%85python%E7%9A%84simplejson%E5%BA%93/ itemprop=url>安装Python的simplejson库</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-24">2013-09-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/python itemprop=url rel=index><span itemprop=name>Python</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Ubuntu下运行一个Python程序，遇到如下问题：ImportError: No module named simplejson。
-首先查看一下Python和pip的版本：
-python -V pip -V 竟然没有装pip，解决方案如下：
-sudo apt-get install python-pip pip2 install simplejson</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/git_%E9%A2%84%E8%A7%88%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%AE%E5%BC%82/ itemprop=url>[Git] 预览远程仓库与本地仓库的差异</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-23">2013-09-23</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/git itemprop=url rel=index><span itemprop=name>Git</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>18 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>首先使用git fetch更新远程分支的本地副本，这不会对任何本地分支造成影响。
-使用git log HEAD..origin可以显示本地分支与origin远程分支之间的提交日志。
-使用git log -p HEAD..origin除了显示上述提交日志外，还会显示每个提交的补丁。
-使用git diff HEAD...origin显示整个补丁。此外如果有本地未提交的修改，可以使用git diff origin/master显示整个补丁。
-如果不想使用git pull来合并所有远程提交，可以使用git cherry-pick接受所需要的指定远程提交。最后当准备好接受所有远程提交再使用git pull合并剩余远程提交。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ itemprop=url>尝试Protocol Buffers支持的各种数据类型</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%B0%9D%E8%AF%95protocol_buffers%E6%94%AF%E6%8C%81%E7%9A%84%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ itemprop=url>尝试Protocol Buffers支持的各种数据类型</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-09-22">2013-09-22</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -145,7 +95,59 @@ test.avsc {"namespace": "com.yqu.avro", "type": "record", "name": "Test", "field
 性质 根节点不包含字符，除根节点外每一个节点都只包含一个字符； 从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串； 每个节点的所有子节点包含的字符都不相同。 应用 替代其他数据结构 trie较二叉查找树有很多优点，trie可用于替代哈希表，优点如下：
 trie数据查找与不完美哈希表（链表实现，完美哈希表为数组实现）在最差情况下更快：对于trie，最差情况为O(m)，m为查找字符串的长度；对于不完美哈希表，会有键冲突（不同键哈希相同），最差情况为O(N)，N为全部字符产集合个数。典型情况下是O(m)用于哈希计算、O(1)用于数据查找。 trie中不同键没有冲突 trie的桶与哈希表用于存储键冲突的桶类似，仅在单个键与多个值关联时需要 当更多的键加入trie，无需提供哈希方法或改变哈希方法 tire通过键为条目提供了字母顺序Trie也有一些缺点： trie数据查找在某些情况下（尤其当数据直接从磁盘或随机访问时间远远高于主内存的辅助存储设备时）比哈希表慢 当键为某些类型时（例如浮点数）之类的键，前缀链很长且前缀不是特别有意义。然而bitwisetrie能够处理标注IEEE单精度和双精度浮点数。 一些trie会比哈希表消耗更多空间：对于trie，每个字符串的每个字符都可能需要分配内存；对于大多数哈希表，为整个条目分配一块内存。 字典表示 典型应用是预测文本排序（常被搜索引擎系统用于文本词频统计）、字典自动完成、字符串近似匹配（拼写检查、断字）。
 实现 trie基本操作有：查找、插入和删除。 trie数据查找的方法为
-从根结点开始一次搜索； 取得要查找关键词的第一个字母，并根据该字母选择对应的子树并转到该子树继续进行检索； 在相应的子树上，取得要查找关键词的第二个字母,并进一步选择对应的子树进行检索。 迭代过程…… 在某个结点处，关键词的所有字母已被取出，则读取附在该结点上的信息，即完成查找。 public class Trie { private Node root = new Node(""); public Trie() {} public Trie(List argInitialWords) { for (String word:argInitialWords) { addWord(word); } } public void addWord(String argWord) { char argChars[] = argWord.toCharArray(); Node currentNode = root; for (int i = 0; i &lt; argChars.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/59/><i class="fa fa-angle-left"></i></a>
+从根结点开始一次搜索； 取得要查找关键词的第一个字母，并根据该字母选择对应的子树并转到该子树继续进行检索； 在相应的子树上，取得要查找关键词的第二个字母,并进一步选择对应的子树进行检索。 迭代过程…… 在某个结点处，关键词的所有字母已被取出，则读取附在该结点上的信息，即完成查找。 public class Trie { private Node root = new Node(""); public Trie() {} public Trie(List argInitialWords) { for (String word:argInitialWords) { addWord(word); } } public void addWord(String argWord) { char argChars[] = argWord.toCharArray(); Node currentNode = root; for (int i = 0; i &lt; argChars.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%AE%97%E6%B3%95_trie%E6%95%B0%E5%AD%97%E6%A0%91%E5%AD%97%E5%85%B8%E6%A0%91%E5%89%8D%E7%BC%80%E6%A0%91/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/ itemprop=url>JDK7中的双端队列Deque实现</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-08">2013-08-08</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>121 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>双端队列Deque（全名double-endedqueue）是一种数据结构，可在双端队列的两端插入、获取或删除元素。队列和栈可以认为是双端队列的特列。 Deque常用的方法：
+First Element (Head)Last Element (Tail)Throws exceptionSpecial valueThrows exceptionSpecial valueInsertaddFirst(e)offerFirst(e)addLast(e)offerLast(e)RemoveremoveFirst()pollFirst()removeLast()pollLast()ExaminegetFirst()peekFirst()getLast()peekLast() Deque扩展了Queue接口，当Deque用作FIFO队列时，元素从双端队列队尾加入，从队首移出。从Queue接口继承的方法等同于Deque如下方法：
+Queue&nbsp;MethodEquivalent&nbsp;Deque&nbsp;Methodadd(e)addLast(e)offer(e)offerLast(e)remove()removeFirst()poll()pollFirst()element()getFirst()peek()peekFirst() Deques也可作为LIFO栈。该接口应该优先于遗留的Stack类使用。当双端队列用作栈时，元素从队首入栈和出栈。Stack方法等同与Deque如下方法：
+Stack MethodEquivalent&nbsp;Deque&nbsp;Methodpush(e)addFirst(e)pop()removeFirst()peek()peekFirst() 注意：当deque用作队列或堆栈时，peek方法也可正常工作，都从deque起始位置移除元素。 JDK6加入的Deque实现 LinkedList: 一个基于链接节点实现的无界双端队列。允许null元素。 ArrayDeque: 一个基于可变长度数组实现的无界双端队列。不允许null元素。
+就效率而言，ArrayDeque在两端添加或删除元素时比LinkedList更高效。ArrayDeque用作栈时比Stack更快，用作队列时比LinkedList更快。 LinkedList实现比ArrayDeque实现更复杂，耗费更多的内存。当遍历双端列表时删除当前元素，LinkedList比ArrayDeque更高效。 继承BlockingQueue的BlockingDeque接口及其实现LinkedBlockingDeque：一个基于链接节点实现的可选有界双端队列。如果LinkedBlockingDeque在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。 LinkedBlockingDeque实现采用一个独占锁，所有对队列的操作都进行了锁保护，因而很好的支持双向阻塞的特性。缺点是由于独占锁，所以不能同时进行两个操作，这样性能上就大打折扣。 LinkedBlockingDeque实现具有显对低的开销及相对低的可扩展性。如果仅需要FIFO队列功能，最好使用LinkedBlockingQueue，LinkedBlockingQueue具有相同的开销但是有更好的伸缩性(例如很多线程竞争时保持更好的性能)。 深入浅出 Java Concurrency (24): 并发容器 part 9 双向队列集合 Deque
+深入浅出 Java Concurrency (25): 并发容器 part 10 双向并发阻塞队列 BlockingDeque
+JDK7加入的Deque实现 ConcurrentLinkedDeque：一个基于链接节点实现的无界无阻塞双端队列。收集关于队列大小的信息会很慢，需要遍历队列。 ConcurrentLinkedDeque具有跟LinkedBlockingDeque相反的表现：相对高的开销及很好的可伸缩性（使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈）。 [concurrency-interest] BlockingDeque and revised Deque
+Deque应用：回文（Palindrome）检查 Deque的应用不是很多，很容易使用双端队列解决的一个有趣问题是经典的回文问题。回文是正着读和倒着读都一样的字符串，例如radar、toot和madam。 回文检查方案是采用Deque存储字符串的字符，将字符串中的字符从左到右插入Deque尾部，则deque头部将持有字符串的首字符，deque尾部将持有字符串的末字符。然后从Deque两端移出字符进行比较，直到Deque内字符数为0或1为止。 public class PalindromeChecker { public static boolean palchecker(String str) { if(str==null || str.isEmpty()) return false; ArrayDeque aDeque = new ArrayDeque (str.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque%E5%AE%9E%E7%8E%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/ itemprop=url>序列化压缩实现及对比测试</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-08">2013-08-08</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>869 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody>网上介绍序列化压缩的用gzip比较多。写个测试代码，测试一下四种序列化方式：
+无压缩 zlib压缩 gzip压缩 zip压缩 测例结果显示压缩效果：gzip压缩 > zlib压缩 > zip压缩> 无压缩 测例结果显示压缩速度：zlib压缩> gzip压缩> zip压缩 = 无压缩 确实用gzip性价比比较高！
+### zlib介绍
+zlib是一个开源库，提供了在内存中压缩和解压的函数。zlib它的设计目标是处理单纯的数据（而不管数据的来源是什么）。
+### gzip介绍
+gzip是UNIX下的一种数据格式(.tar.gz)。gzip是在zlib之上，包了一层，在头和尾添加了一些额外的信息。 gzip是一种文件压缩工具（或该压缩工具产生的压缩文件格式），它的设计目标是处理单个的文件。gzip在压缩文件中的数据时使用的就是zlib。为了保存与文件属性有关的信息，gzip需要在压缩文件（.gz）中保存更多的头信息内容，而zlib不用考虑这一点。但gzip只适用于单个文件，所以我们在UNIX/Linux上经常看到的压缩包后缀都是.tar.gz或*.tgz，也就是先用tar把多个文件打包成单个文件，再用gzip压缩的结果。
+### zip介绍
+zip只是一种数据结构，跟rar同级别的。zip是适用于压缩多个文件的格式（相应的工具有PkZip和WinZip等），因此，zip文件还要进一步包含文件目录结构的信息，比gzip的头信息更多。但需要注意，zip格式可采用多种压缩算法，我们常见的zip文件大多不是用zlib的算法压缩的，其压缩数据的格式与gzip大不一样。 Java SDK提供了对上述三种压缩技术的支持：Inflater类和Deflater类直接用zlib库对数据压缩/解压缩，GZIPInputStream类和GZIPOutputStream类提供了对gzip格式的支持，ZipFile、ZipInputStream、ZipOutputStream则用于处理zip格式的文件。 所以，你应当根据你的具体需求，选择不同的压缩技术：如果只需要压缩/解压缩数据，你可以直接用zlib实现，如果需要生成gzip格式的文件或解压其他工具的压缩结果，你就必须用gzip或zip等相关的类来处理了。
+测试代码 import java.io.ByteArrayInputStream; import java.io.ByteArrayOutputStream; import java.io.File; import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.IOException; import java.io.ObjectInputStream; import java.io.ObjectOutputStream; import java.io.Serializable; import java.util.Arrays; import java.util.zip.DataFormatException; import java.util.zip.Deflater; import java.util.zip.GZIPInputStream; import java.util.zip.GZIPOutputStream; import java.util.zip.Inflater; import java.util.zip.ZipEntry; import java.util.zip.ZipInputStream; import java.util.zip.ZipOutputStream; public class TestCompressedSerializaion { public static BigObject createBigObject() { final int SIZE = 1 &lt;&lt; 12; int[] bigArray = new int[SIZE]; for (int i = 0; i &lt; SIZE; ++i) { bigArray[i] = (int) (Math.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%8B%E7%BC%A9%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%AF%B9%E6%AF%94%E6%B5%8B%E8%AF%95/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/jdk7%E4%B8%AD%E7%9A%84%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/ itemprop=url>JDK7中的队列实现</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-08-07">2013-08-07</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>24 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>JDK7之前已有的队列实现 JDK7之前已有的队列实现分为两类：用于一般用途的实现和用于并发的实现。
+用于一般用途的队列实现 LinkedList实现了Queue接口，为offer、poll等方法提供了先入先出队列操作。 PriorityQueue类是基于堆（数据结构）的优先队列。如果PriorityQueue在构造时指定比较器Comparator，则用比较器对元素排序，否则使用元素的自然排序（通过其java.util.Comparable实现）。队列的取操作（poll、remove、peek和element）访问队列头部的元素。队列头部是顺序上最小的元素或具有相同最小值的元素之一。PriorityQueue的iterator方法提供的爹抬起不保证按特定顺序遍历PriorityQueue中的元素。
+并发队列实现 java.util.concurrent包下包含一系列同步的Queue接口和类。 ConcurrentLinkedQueue基于链接节点的、线程安全的队列。并发访问不需要同步。因为它在队列的尾部添加元素并从头部删除它们，所以只要不需要知道队列的大小。ConcurrentLinkedQueue对公共集合的共享访问就可以工作得很好。收集关于队列大小的信息会很慢，需要遍历队列。 http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html JDK5加入了BlockingQueue接口和五个阻塞队列类。阻塞队列BlockingQueue扩展了Queue的操作，元素添加操作会在没有空间可用时阻塞，而元素获取操作会在队列中没有任何东西时阻塞。 五个队列所提供的各有不同：
+ArrayBlockingQueue：一个基于数组实现的有界（大小有限）队列。 LinkedBlockingQueue：一个基于链接节点实现的可选有界队列。如果LinkedBlockingQueue在构造时没有设定容量大小，添加元素永远不会有阻塞队列的等待（至少在其中有Integer.MAX_VALUE元素之前不会）。 PriorityBlockingQueue：一个基于堆实现的无界优先级队列。 DelayQueue：一个基于堆实现的、基于时间的调度队列。 SynchronousQueue：一个利用BlockingQueue接口的会合（rendezvous）机制。它没有内部容量。它就像线程之间的手递手机制，类似于生活中一手交钱一手交货这种情况。在队列中加入一个元素的生产者会等待另一个线程的消费者。当这个消费者出现时，这个元素就直接在消费者和生产者之间传递，永远不会加入到阻塞队列中。公平模式下等待线程按照FIFO顺序访问队列，非公平模式下等待线程访问顺序不定。 JDK7的TransferQueue JDK7加入了继承自BlockingQueue的TransferQueue接口和及其实现LinkedTransferQueue：一个基于链接节点实现的无界TransferQueue。 TransferQueue可以让使用者决定使用正常的BlockingQueue语义还是有保障的手递手机制，因而比SynchronousQueue更通用和有效。当队列内已经存在元素时，调用transfer会确保所有已有元素在此传递元素之前被处理。DougLea称之为容量智能化，LinkedTransferQueue实际上是ConcurrentLinkedQueue,(在公平模式下)SynchronousQueue, 无界的LinkedBlockingQueues等的超集。 TransferQueue混合了若干高级特性的同时，也提供了更高的性能。LinkedTransferQueue相比不公平模式SynchronousQueue，性能超过3倍；相比公平模式SynchronousQueue，性能超过14倍。SynchronousQueueJDK5实现是使用两个队列（用于等待生产者和等待消费者）,用一个锁保护这两个队列。而LinkedTransferQueue实现使用CAS操作进行非堵塞操作，减少了锁的开销，避免序列化瓶颈。 获得TransferQueue队列大小会很慢，需要遍历队列。 http://tech.puredanger.com/2009/02/28/java-7-transferqueue/
+http://www.blogjava.net/yongboy/archive/2012/02/04/369575.html</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/59/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/56/>56</a>
 <a class=page-number href=/page/57/>57</a>
 <a class=page-number href=/page/58/>58</a>
@@ -157,9 +159,9 @@ trie数据查找与不完美哈希表（链表实现，完美哈希表为数组�
 <a class=page-number href=/page/64/>64</a>
 <a class="extend next" rel=next href=/page/61/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

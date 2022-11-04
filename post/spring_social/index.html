@@ -1,0 +1,382 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Spring Social合集 - Mryqu's Notes</title><meta name=keywords content="mryqu,yandongqu,博客,程序员,架构师,笔记,技术,分享"><meta property="og:title" content="Spring Social合集"><meta property="og:site_name" content="Mryqu's Notes"><meta property="og:image" content="/img/author.jpg"><meta name=title content="Spring Social合集 - Mryqu's Notes"><meta name=description content="mryqu | yandongqu | 博客 | 软件 | 架构 | 技术"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.6.2" rel=stylesheet type=text/css><link href="/js/vendor/fancybox/jquery.fancybox.css?v=2.1.5" rel=stylesheet type=text/css><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><script type=text/javascript id=hexo.configuration>var NexT=window.NexT||{},CONFIG={scheme:"Pisces",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0}</script></head><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class="site-meta custom-logo"><div class=custom-logo-site-title><a href=https://mryqu.github.io/ class=brand rel=start><span class=logo-line-before><i></i></span>
+<span class=site-title>Mryqu's Notes</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span>
+<span class=btn-bar></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring_social/ itemprop=url>Spring Social合集</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-11-01">2015-11-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>956 字 ~5分钟</span></span></div></header><div class=post-body itemprop=articleBody><h3 id=hello-spring-social-twitter>Hello Spring Social Twitter</h3><p>学习了<a href=http://spring.io/guides/gs/accessing-twitter/>Spring Accessing Twitter Data Guide</a> ，稍作修改，练习一下用Spring Social Twitter搜索推文。</p><h4 id=代码>代码</h4><p>src/main/java/com/yqu/springtwitter/Application.java</p><pre tabindex=0><code>package com.yqu.springtwitter;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
+
+} 
+</code></pre><p>src/main/java/com/yqu/springtwitter/HelloController.java</p><pre tabindex=0><code>package com.yqu.springtwitter;
+
+import javax.inject.Inject;
+
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.twitter.api.SearchResults;
+import org.springframework.social.twitter.api.Twitter;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+@RequestMapping(&#34;/&#34;)
+public class HelloController {
+
+  private Twitter twitter;
+
+  private ConnectionRepository connectionRepository;
+
+  @Inject
+  public HelloController(Twitter twitter, 
+      ConnectionRepository connectionRepository) {
+    this.twitter = twitter;
+    this.connectionRepository = connectionRepository;
+  }
+
+  @RequestMapping(method=RequestMethod.GET)
+  public String helloTwitter(Model model, 
+      @RequestParam(
+          value = &#34;searchTerm&#34;, 
+          defaultValue = &#34;mryqu&#34;, 
+          required = false) String searchTerm,
+      @RequestParam(
+          value = &#34;limit&#34;, 
+          defaultValue = &#34;20&#34;, 
+          required = false) int limit) {
+    if (connectionRepository.findPrimaryConnection(
+        Twitter.class) == null) {
+      return &#34;redirect:/connect/twitter&#34;;
+    }
+
+    //OAuth1Connection conn = (OAuth1Connection) 
+    //    connectionRepository.findPrimaryConnection(Twitter.class);
+    //System.out.println(conn);
+
+    model.addAttribute(twitter.userOperations().getUserProfile());
+    SearchResults res = twitter.searchOperations().search(searchTerm, limit);
+    model.addAttribute(&#34;tweets&#34;, res.getTweets());
+    return &#34;hello&#34;;
+  }
+}
+</code></pre><p>src/main/resources/templates/connect/twitterConnect.html<br><img src=/images/2015/11/0026uWfMgy6XfJASEnP95.jpg alt=twitterConnect.html></p><p>src/main/resources/templates/connect/twitterConnected.html<br><img src=/images/2015/11/0026uWfMgy6XfJDaz598b.png alt=twitterConnected.html></p><p>src/main/resources/templates/hello.html<br><img src=/images/2015/11/0026uWfMgy6XfJETpsXcf.png alt=hello.html></p><p>src/main/resources/application.properties</p><pre tabindex=0><code>spring.social.twitter.appId={{put app ID here}}
+spring.social.twitter.appSecret={{put app secret here}}
+</code></pre><p>build.gradle</p><pre tabindex=0><code>buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(&#34;org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE&#34;)
+    }
+}
+
+apply plugin: &#39;java&#39;
+apply plugin: &#39;eclipse&#39;
+apply plugin: &#39;idea&#39;
+apply plugin: &#39;spring-boot&#39;
+
+jar {
+    baseName = &#39;hello-spring-twitter&#39;
+    version =  &#39;0.1.0&#39;
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile(&#34;org.springframework.boot:spring-boot-starter-thymeleaf&#34;)
+    compile(&#34;org.springframework.social:spring-social-twitter&#34;)
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &#39;2.3&#39;
+}
+</code></pre><h4 id=测试>测试</h4><p><img src=/images/2015/11/0026uWfMgy6XfIQgc3973.jpg alt=Hello Spring Social Twitter><img src=/images/2015/11/0026uWfMgy6XfJ1cQzAbe.jpg alt=Hello Spring Social Twitter></p><h4 id=参考>参考</h4><p><a href=http://projects.spring.io/spring-social-twitter/>Spring Social Twitter Project</a><br><a href=http://docs.spring.io/spring-social-twitter/docs/current/reference/htmlsingle/>Spring Social Twitter Reference</a><br><a href=http://projects.spring.io/spring-social/>Spring Social Project</a><br><a href=http://spring.io/guides/gs/register-twitter-app/>Spring Guide: Registering an Application with Twitter</a><br><a href=http://spring.io/guides/gs/accessing-twitter/>Spring Guide: Accessing Twitter Data</a><br><a href=http://spring.io/guides/gs/spring-xd/>Spring Guide: Creating a stream of live twitter data using Spring XD</a></p><h3 id=hellospringsociallinkedin>Hello Spring Social LinkedIn</h3><p>本想玩玩Spring SocialLinkedIn，看看能从LinkedIn哪里获得什么有价值的数据。可是LinkedIn现在放开的只有r_basicprofile、r_emailaddress、rw_company_admin、w_share权限，如<a href=https://developer.linkedin.com/support/developer-program-transition>LinkedIn developer program transition</a> 所说的不要在认证中请求r_fullprofile、r_network、r_contactinfo、rw_nus、rw_groups和w_messages权限了。
+<img src=/images/2015/11/0026uWfMgy6XhM9H4GX6f.jpg alt=Hello Spring Social LinkedIn>
+在<a href=https://apigee.com/console/linkedin>LinkedIn API Console</a> 中可试最多的是CompaniesAPI，可是我在LinkedIn上没有公司主页可以创建。所以浅尝则止，没什么太多可分享的。</p><h4 id=参考-1>参考</h4><p><a href=http://projects.spring.io/spring-social-linkedin/>Spring Social LinkedIn Project</a><br><a href=http://projects.spring.io/spring-social/>Spring Social Project</a><br><a href=https://github.com/spring-projects/spring-social-samples>GitHub: spring-projects/spring-social-samples</a><br><a href=https://developer.linkedin.com/>LinkedIn Developer</a><br><a href=https://apigee.com/console/linkedin>LinkedIn API Console</a><br><a href=https://developer.linkedin.com/support/developer-program-transition>LinkedIn developer program transition</a></p><h3 id=springaccessingtwitterdataguide调试笔记>Spring Accessing Twitter Data Guide调试笔记</h3><p>尝试<a href=http://spring.io/guides/gs/accessing-twitter/>Spring Accessing Twitter Data Guide</a> 时碰到几个问题，这里记录一下。</p><h3 id=连接超时问题>连接超时问题</h3><p>遇到I/O error on POST request for"https://api.twitter.com/oauth/request_token"错误:</p><pre tabindex=0><code>org.springframework.web.client.ResourceAccessException: I/O error on POST request for &#34;https://api.twitter.com/oauth/request_token&#34;:Connection timed out: connect; nested exception is java.net.ConnectException: Connection timed out: connect
+        at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:582)
+        at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:547)
+        at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:468)
+        at org.springframework.social.oauth1.OAuth1Template.exchangeForToken(OAuth1Template.java:187)
+        at org.springframework.social.oauth1.OAuth1Template.fetchRequestToken(OAuth1Template.java:115)
+        at org.springframework.social.connect.web.ConnectSupport.fetchRequestToken(ConnectSupport.java:212)
+        at org.springframework.social.connect.web.ConnectSupport.buildOAuth1Url(ConnectSupport.java:199)
+        at org.springframework.social.connect.web.ConnectSupport.buildOAuthUrl(ConnectSupport.java:126)
+        at org.springframework.social.connect.web.ConnectController.connect(ConnectController.java:226)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:497)
+        at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+        at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+        at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:775)
+        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+        at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+        at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+        at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+        at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:967)
+        at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:869)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
+        at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:843)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:217)
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+        at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+        at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+        at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:673)
+        at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1500)
+        at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1456)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection timed out: connect
+        at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+        at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+        at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+        at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+        at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+        at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+        at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+        at java.net.Socket.connect(Socket.java:589)
+        at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:668)
+        at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+        at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+        at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
+        at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
+        at sun.net.www.protocol.https.HttpsClient.(HttpsClient.java:275)
+        at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:371)
+        at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+        at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1104)
+        at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:998)
+        at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+        at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+        at org.springframework.http.client.SimpleBufferingClientHttpRequest.executeInternal(SimpleBufferingClientHttpRequest.java:81)
+        at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
+        at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:53)
+        at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:571)
+        ... 53 more
+</code></pre><p>由于我是在国内连接Twitter，所以需要代理。<a href=https://jira.spring.io/browse/SOCIAL-146>Spring Social:SOCIAL-146: Enable use of Spring Social behind proxy</a> 任务对<a href=https://github.com/spring-projects/spring-social/blob/master/spring-social-core/src/main/java/org/springframework/social/support/ClientHttpRequestFactorySelector.java>org.springframework.social.support.ClientHttpRequestFactorySelector</a> 类做了修改，现在可以通过设置系统变量http.proxyHost和http.proxyPort来解决连接超时失败这个问题。
+<img src=/images/2015/11/0026uWfMgy6WYc50DOLb7.jpg alt=Spring Accessing Twitter Data Guide调试笔记></p><h4 id=401-authorization-required问题>401 (Authorization Required)问题</h4><p>遇到POST request for &ldquo;<a href=https://api.twitter.com/oauth/request_token%22resulted>https://api.twitter.com/oauth/request_token"resulted</a> in 401 (Authorization Required); invoking errorhandler错误，根据<a href=http://stackoverflow.com/questions/27642773/keep-getting-401-authorization-required-with-spring-social-twitter>stackoverflow的一个帖子</a> ，将我的Twitter应用的CallbackURL随便设一个就解决了。Callback URL为空时，我用Twitter4J也没问题。帖子说Sping SocialFacebook/LinkedIn没这问题，应该是Sping Social Twitter处理有缺陷。
+<img src=/images/2015/11/0026uWfMgy6WYekJUDw8a.jpg alt=Spring Accessing Twitter Data Guide调试笔记></p><h3 id=springaccessingfacebookdataguide调试笔记>Spring Accessing Facebook Data Guide调试笔记</h3><p>尝试<a href=http://spring.io/guides/gs/accessing-facebook/>Spring Accessing Facebook Data Guide</a> 时，除了要像Spring Accessing Twitter Data Guide调试笔记中那样设置代理，还碰到几个其他问题，这里记录一下。</p><h4 id=null-pointer-exception>Null Pointer Exception</h4><p>描述</p><pre tabindex=0><code>java.lang.NullPointerException: null
+   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51]
+   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51]
+   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51]
+   at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51]
+   at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:208) ~[spring-aop-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at com.sun.proxy.$Proxy49.isAuthorized(Unknown Source) ~[na:na]
+   at hello.HelloController.helloFacebook(HelloController.java:26) ~[bin/:na]
+   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51]
+   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51]
+   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51]
+   at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51]
+   at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:222) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:814) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:737) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at javax.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) ~[spring-webmvc-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at javax.servlet.http.HttpServlet.service(HttpServlet.java:729) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) ~[tomcat-embed-websocket-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:87) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:121) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.2.3.RELEASE.jar:4.2.3.RELEASE]
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:217) ~[tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:673) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1500) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1456) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_51]
+   at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_51]
+   at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.0.28.jar:8.0.28]
+   at java.lang.Thread.run(Thread.java:745) [na:1.8.0_51]
+</code></pre><p>解决方案：将classpath(&ldquo;org.springframework.boot:spring-boot-gradle-plugin:1.3.0.RELEASE&rdquo;)替换成classpath(&ldquo;org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE&rdquo;)</p><h4 id=redirect_uri-is-not-allowed>redirect_uri is not allowed</h4><p>**描述：**Given URL is not allowed by the Applicationconfiguration: One or more of the given URLs is not allowed by theApp&rsquo;s settings. It must match the Website URL or Canvas URL, or thedomain must be a subdomain of one of the App&rsquo;s domains.</p><p>解决方案：</p><ul><li>Basci setting - Add platform - Website -http://localhost:8080/connect/facebook
+<img src=/images/2015/11/0026uWfMgy6XgcCDiK99d.jpg alt=Spring Accessing Facebook Data Guide调试笔记></li><li>Advanced setting - Embedded browser OAuth Login
+<img src=/images/2015/11/0026uWfMgy6XgcCQDZi34.jpg alt=Spring Accessing Facebook Data Guide调试笔记></li></ul><h4 id=invalid-scopes-read_stream>Invalid Scopes: read_stream</h4><p>描述：read_stream在Facebook SDK2.4还是有效的，在SDK2.5时废弃了。
+<img src=/images/2015/11/0026uWfMgy6Xgdk4PBYfe.png alt=Spring Accessing Facebook Data Guide调试笔记><img src=/images/2015/11/0026uWfMgy6XgdkwUWL3b.jpg alt=Spring Accessing Facebook Data Guide调试笔记><img src=/images/2015/11/0026uWfMgy6Xgdl2S0w18.jpg alt=Spring Accessing Facebook Data Guide调试笔记>
+解决方案：将facebookConnect.html中表单scope字段的内容由"read_stream"改成"email,public_profile&rdquo;。
+<img src=/images/2015/11/0026uWfMgy6XgdlkTFM8a.jpg alt=Spring Accessing Facebook Data Guide调试笔记></p><h4 id=facebook-error-api-calls-from-the-server-require-anappsecret_proof-argument>Facebook error: API calls from the server require anappsecret_proof argument</h4><p>**描述：**org.springframework.social.UncategorizedApiException:API calls from the server require an appsecret_proof argument.</p><p>解决方案：禁止掉Require App Secret
+<img src=/images/2015/11/0026uWfMgy6XgUIhYmq16.png alt=Spring Accessing Facebook Data Guide调试笔记></p><h4 id=the-operation-requires-read_stream-permission>The operation requires &lsquo;read_stream&rsquo; permission.</h4><p>facebook.feedOperations().getHomeFeed()操作就是要read_stream权限，看来是绕不开了。</p><pre tabindex=0><code>org.springframework.social.InsufficientPermissionException: The operation requires &#39;read_stream&#39; permission.
+   at org.springframework.social.facebook.api.impl.FacebookErrorHandler.handleFacebookError(FacebookErrorHandler.java:116)
+   at org.springframework.social.facebook.api.impl.FacebookErrorHandler.handleError(FacebookErrorHandler.java:65)
+   at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:614)
+   at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:570)
+   at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:545)
+   at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:253)
+   at org.springframework.social.facebook.api.impl.FeedTemplate.fetchConnectionList(FeedTemplate.java:367)
+   at org.springframework.social.facebook.api.impl.FeedTemplate.getHomeFeed(FeedTemplate.java:106)
+   at org.springframework.social.facebook.api.impl.FeedTemplate.getHomeFeed(FeedTemplate.java:95)
+   at hello.HelloController.helloFacebook(HelloController.java:31)
+   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   at java.lang.reflect.Method.invoke(Method.java:497)
+   at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+   at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+   at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+   at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+   at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+   at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+   at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+   at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+   at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+   at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)
+   at javax.servlet.http.HttpServlet.service(HttpServlet.java:618)
+   at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+   at javax.servlet.http.HttpServlet.service(HttpServlet.java:725)
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+   at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+   at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+   at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+   at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+   at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+   at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+   at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+   at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+   at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+   at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:501)
+   at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+   at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+   at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+   at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:516)
+   at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1086)
+   at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:659)
+   at org.apache.coyote.http11.Http11NioProtocol$Http11ConnectionHandler.process(Http11NioProtocol.java:223)
+   at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1558)
+   at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1515)
+   at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+   at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+   at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+   at java.lang.Thread.run(Thread.java:745)
+</code></pre><p>解决方案：要想玩<a href=http://spring.io/guides/gs/accessing-facebook/>Spring Accessing Facebook Data Guide</a> ，必须为应用申请read_stream权限。
+<img src=/images/2015/11/0026uWfMgy6Xh5u2mx64c.jpg alt=Spring Accessing Facebook Data Guide调试笔记></p></div><footer class=post-footer><div class=post-nav><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>标题：Spring Social合集<br>作者：<a target=_blank href=/>mryqu</a><br>声明： 本博客所有文章除特别声明外，均采用 <a href=http://creativecommons.org/licenses/by-nc-sa/3.0/cn/>CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！</p></div></div><div class=clear></div></div><div class=post-tags><a href=/tags/spring rel=tag title=spring>#spring#</a>
+<a href=/tags/social rel=tag title=social>#social#</a>
+<a href=/tags/facebook rel=tag title=facebook>#facebook#</a>
+<a href=/tags/twitter rel=tag title=twitter>#twitter#</a>
+<a href=/tags/linkedin rel=tag title=linkedin>#linkedin#</a>
+<a href=/tags/crawler rel=tag title=crawler>#crawler#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://mryqu.github.io/post/spring_boot_hello_methodinvokingfactorybean_and_methodinvokingbean/ rel=next title=[Spring Boot] Hello MethodInvokingFactoryBean and MethodInvokingBean><i class="fa fa-chevron-left"></i> [Spring Boot] Hello MethodInvokingFactoryBean and MethodInvokingBean</a></div><div class="post-nav-prev post-nav-item"><a href=https://mryqu.github.io/post/cisco_anyconnect_secure_mobility_client%E7%9A%84vpn_profile%E4%BD%8D%E7%BD%AE/ rel=prev title=Cisco AnyConnect Secure Mobility Client的VPN profile位置>Cisco AnyConnect Secure Mobility Client的VPN profile位置 <i class="fa fa-chevron-right"></i></a></div></div><div class=comments id=comments><div id=disqus_thread></div><script>var disqus_config=function(){this.page.url="https://mryqu.github.io/post/spring_social/",this.page.identifier="https://mryqu.github.io/post/spring_social/"};(function(){var e=document,t=e.createElement("script");t.src="//mryqu.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
+GitHub</a></span>
+<span class=links-of-author-item><a href=https://twitter.com/yandongqu target=_blank title=Twitter><i class="fa fa-fw fa-twitter"></i>
+Twitter</a></span>
+<span class=links-of-author-item><a href=https://www.facebook.com/yandongqu target=_blank title="FB Page"><i class="fa fa-fw fa-facebook"></i>
+FB Page</a></span></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/8.js?i=01h16xrlw6m&m=0&s=220&c=ff0000&cr1=ffffff&f=arial&l=33&bv=35" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#hello-spring-social-twitter>Hello Spring Social Twitter</a></li><li><a href=#hellospringsociallinkedin>Hello Spring Social LinkedIn</a></li><li><a href=#springaccessingtwitterdataguide调试笔记>Spring Accessing Twitter Data Guide调试笔记</a></li><li><a href=#连接超时问题>连接超时问题</a></li><li><a href=#springaccessingfacebookdataguide调试笔记>Spring Accessing Facebook Data Guide调试笔记</a></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy;
+2009 - 2022</span>
+<span class=with-love><i class="fa fa-heart"></i></span>
+<span class=author itemprop=copyrightHolder>Mryqu's Notes</span></div><div class=powered-by>Powered by - <a class=theme-link href=http://gohugo.io target=_blank title=hugo>Hugo v0.105.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=https://github.com/xtfly/hugo-theme-next target=_blank>NexT</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i>
+<span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript>Object.prototype.toString.call(window.Promise)!=="[object Function]"&&(window.Promise=null)</script><script type=text/javascript src="/js/vendor/jquery/index.js?v=2.1.3"></script>
+<script type=text/javascript src="/js/vendor/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+<script type=text/javascript src="/js/vendor/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.min.js?v=1.2.1"></script>
+<script type=text/javascript src="/js/vendor/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/vendor/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+<script src="/js/vendor/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type=text/javascript src=/js/utils.js></script>
+<script type=text/javascript src=/js/motion.js></script>
+<script type=text/javascript src=/js/affix.js></script>
+<script type=text/javascript src=/js/schemes/pisces.js></script>
+<script type=text/javascript src=/js/scrollspy.js></script>
+<script type=text/javascript src=/js/post-details.js></script>
+<script type=text/javascript src=/js/toc.js></script>
+<script type=text/javascript src=/js/bootstrap.js></script>
+<script type=text/javascript src=/js/search.js></script>
+<script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

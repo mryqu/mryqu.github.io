@@ -3,47 +3,8 @@
 <span class=logo-line-after><i></i></span></a></div><p class=site-subtitle></p></div><div class=site-nav-toggle><button>
 <span class=btn-bar></span>
 <span class=btn-bar></span>
-<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/ itemprop=url>Spring3 REST can't solve list of object generated by Javascript</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-16">2015-01-16</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>160 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近遭遇Spring3REST无法解析对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
-客户端代码 var meatadata='[{"varName":"id","varTitle":"The Id","varIndex":1},{"varName":"name","varTitle":"The Name","varIndex":2},{"varName":"age","varTitle":"The Age","varIndex":3}]'; $.ajax({ url: "configure", type: "POST", data: metadata, dataType: "json", contentType: "application/json", success: function (res) { $('#cfgContent').text(JSON.stringify(res)); $('#cfgError').text(""); }, error: function (res) { $('#cfgContent').text(""); $('#cfgError').text(res.responseText); } }); 中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = "/", method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println("home"); return new ModelAndView("index"); } @RequestMapping(value = "/configure", method = RequestMethod.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/spring3_rest_cant_solve_list_of_object_generated_by_javascript/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/ itemprop=url>Spring REST can't solve nested object array generated by JavaScript</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-15">2015-01-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>506 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近遭遇SpringREST无法解析嵌套对象数组这么一个问题。为了排除客户端Javascript代码嫌疑，我通过GET操作从Spring RestfulWeb服务获取一个复杂对象，然后通过POST操作将其原封不动返给Spring Restful Web服务，问题依旧重现。
-所操作的复杂对象 客户端POST响应 中间层代码 package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; import java.util.ArrayList; import java.util.List; @RestController public class ConfigurationController { @RequestMapping(value = "/", method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println("home"); return new ModelAndView("index"); } @RequestMapping(value = "/configure", method = RequestMethod.GET) public @ResponseBody SheetVO getConfiguration() { List columns = new ArrayList(); columns.add(new ColumnVO("id","The Id",1)); columns.add(new ColumnVO("name","The Name",2)); columns.add(new ColumnVO("age","The Age",3)); SheetVO metadata = new SheetVO(SheetVO.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/spring_rest_cant_solve_nested_object_array_generated_by_javascript/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E7%A4%BA%E4%BE%8B_open_dialog_which_content_is_a_form_defined_in_another_view/ itemprop=url>[OpenUI5] 示例: open dialog which content is a form defined in another view</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-11">2015-01-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>5 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用OpenUI5做了一个例子，在一个JSVIEW中定义的dialog的内容是另外一个JSVIEW中定义的form。 示例位置: http://jsbin.com/fotepu/1/edit?html,output 此外，通过学习http://stackoverflow.com/questions/25510090/sapui5-attach-chart-to-dialog ，了解到dialog内容为图表时有可能需要使用invalidate()函数。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E8%8E%B7%E5%BE%97%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E8%AF%AD%E8%A8%80/ itemprop=url>[OpenUI5] 获得当前页面语言</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E8%8E%B7%E5%BE%97%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E8%AF%AD%E8%A8%80/ itemprop=url>[OpenUI5] 获得当前页面语言</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-10">2015-01-10</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -133,7 +94,50 @@ http://jsbin.com/ http://jsfiddle.net/ 这两个线上工具使用方便简单�
 <span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>20 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在使用OpenUI5时，有时两个元素间距不合预期，我大体可用两种方式进行改进：
-一种方式是添加自己定制的CSS类，然后通过addStyleClass方法对控件设置自己定制的CSS类 ​另一种方法土点，就是对需要调整间距的两个元素上增加一个HBox/VBox控件，然后在两个之间加一个定宽/高的控件调节间距。``` //在oControl1和oControl2之间增加15px的间距 new VBox({ items: [ oControl1, new HBox({ height: &ldquo;15px&rdquo;, fitContainer: true }), oControl2 ] }) ​</div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/40/><i class="fa fa-angle-left"></i></a>
+一种方式是添加自己定制的CSS类，然后通过addStyleClass方法对控件设置自己定制的CSS类 ​另一种方法土点，就是对需要调整间距的两个元素上增加一个HBox/VBox控件，然后在两个之间加一个定宽/高的控件调节间距。``` //在oControl1和oControl2之间增加15px的间距 new VBox({ items: [ oControl1, new HBox({ height: &ldquo;15px&rdquo;, fitContainer: true }), oControl2 ] }) ​</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/html_busy_indicator/ itemprop=url>HTML Busy Indicator</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-04">2015-01-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>51 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>看了一下OpenUI5的LocalBusyIndicator效果，感觉跟自己想的转圈圈的那种spinner不一样:https://sapui5.hana.ondemand.com/sdk/test-resources/sap/ui/core/demokit/LocalBusyIndicator.html 想看看bootstrap的busy indicator，竟然没有，不过找到了开发组的讨论：https://github.com/twbs/bootstrap/issues/12598 不止一次有人建议开发busy indicator，不过Mark Otto（Bootstrap是Mark Otto和JacobThornton共同开发的）没同意。因为满足不了下列条件：
+It needs to be retina-ready Needs to work in IE8+ Needs to work on light backgrounds and dark—alphatransparencywould be bomb Would be cool if it was a font, but PNG or GIF is fine,too Available in multiple sizes 开发一款满意的控件容易吗！！！还好我就用用而已 下面是我找到的一些Busy Indicator资源： http://fgnass.github.io/spin.js/
+http://semantic-ui.com/elements/loader.html
+http://w3lessons.info/2014/01/26/showing-busy-loading-indicator-during-an-ajax-request-using-jquery/</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/ycsb%E7%9B%B8%E5%85%B3%E5%8D%9A%E6%96%87/ itemprop=url>YCSB相关博文</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-03">2015-01-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tech itemprop=url rel=index><span itemprop=name>Tech</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>11 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用YCSB测试MongoDB的微分片性能
+使用YCSB测试Mongodb性能的方法简介
+NoSQL数据库压力测试工具YCSB使用
+使用YCSB对HBase进行测试
+性能测试：SequoiaDB vs. MongoDB vs. Cassandra vs. HBase</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/ itemprop=url>Java的Base64编解码</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-01-01">2015-01-01</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>210 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Base64编码是网络上最常见的用于传输8Bit字节代码的编码方式之一，用基于64个可打印字符[大小写字母52个字符、数字10个字符、+和/2个字符(对于URL为-和_)，补全用=]来表示二进制数据的一种表示方法。相关协议可见：
+RFC4648 The Base16, Base32, and Base64 Data Encodings RFC2045 MIME Part One: Format of Internet Message Bodies RFC2046 MIME Part Two: Media Types RFC2047 MIME Part Three: Message Header Extensions for Non-ASCII Text RFC2048 MIME Part Four: Registration Procedures RFC2049 MIME Part Five: Conformance Criteria and Examples 因为有些网络传送渠道不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。通过Base64编码可以把不可打印的字符也能用可打印字符来表示。
+Java6之前 在Java6之前，JDK核心类一直没有Base64的实现类。除了使用Sun内部实现sun.misc.BASE64Encoder、sun.misc.BASE64Decoder或com.sun.org.apache.xerces.internal.impl.dv.util.Base64外，就需要使用第三方类库了。 Java6 Java6中添加了Base64的实现：javax.xml.bind.DatatypeConverter两个静态方法parseBase64Binary和 printBase64Binary。
+import javax.xml.bind.DatatypeConverter; public class HelloBase64 { public static void main(String[] args) { String me = "blog.sina.com.cn/yandongqu"; byte[] plainContent; String base64Str = DatatypeConverter.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/java%E7%9A%84base64%E7%BC%96%E8%A7%A3%E7%A0%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/40/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/37/>37</a>
 <a class=page-number href=/page/38/>38</a>
 <a class=page-number href=/page/39/>39</a>
@@ -145,9 +149,9 @@ http://jsbin.com/ http://jsfiddle.net/ 这两个线上工具使用方便简单�
 <a class=page-number href=/page/45/>45</a>
 <a class="extend next" rel=next href=/page/42/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>675</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1484</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
