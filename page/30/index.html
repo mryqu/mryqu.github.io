@@ -4,137 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/ itemprop=url>Vagrant运行Docker的几种方法</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-15">2015-06-15</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/vagrant itemprop=url rel=index><span itemprop=name>Vagrant</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>206 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Vagrant的docker provisioner能够自动安装Docker、下载Docker容器、随着vagrant up命令自动运行容器。 Vagrantfile Vagrant.configure("2") do |config| config.vm.provision "docker" do |d| d.pull_images "consul" d.run "consul" d.pull_images "rabbitmq" d.run "rabbitmq" end end 仅使用Vagrant的docker provisioner安装Docker，使用脚本下载并运行Docker容器 Vagrantfile # Install Docker config.vm.provision "docker" # Download Docker images, create and start containers config.vm.provision :shell, :path => "runMyDockers.sh" runMyDockers.sh #!/bin/bash docker rm -f consul 2>/dev/null docker create --hostname consul --name consul -v /data/consul1:/data --dns 127.0.0.1 --restart always -p 8500:8500 --env CONSUL_OPTIONS=-bootstrap consul:dev docker start consul docker rm -f rabbitmq 2>/dev/null docker create --name rabbitmq --hostname rabbitmq -p 5672:5672 -v /data/rabbitmq:/data --dns 127.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/vagrant%E8%BF%90%E8%A1%8Cdocker%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/ itemprop=url>Consul实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-14">2015-06-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/consul itemprop=url rel=index><span itemprop=name>Consul</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>131 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Consul简介 最近除了在用Hashicorp公司的Vagrant，也使用了Consul。Consul是一款以跨数据中心、高可用的方式提供服务注册、发现、配置和编排的工具。Consul可以用来回答一个企业的基础设施中，诸如下列这些问题：
-“服务X在哪里” “服务Y的实例是否健康” “当前正在运行的服务是什么” “服务Z的配置是怎样的” “在我的平台上是否还有其他人在执行操作A？” Consul通过DNS或HTTP API提供服务发现功能，同时支持跨数据中心的内部服务或外部服务的发现。使用shell脚本实现了健康检查，并允许创建自定义的服务验证协议。Consul还提供了高可用的键值对存储，由此可以暴露一致的存储值，用于配置参数的调优，而不必非要执行配置管理工具。可调优的操动实例包括指定服务的位置、指明系统处于维护模式，或者设置服务的QoS参数。Consul还提供了一套编排原语、通过UDP协议跨数据中心广播异步“事件”、通过TCP协议让指定的计算机同步执行“exec”指令，以及通过实现长轮询、react、事件机制或者其他操作实现定制化的监控。
-安装Consul echo Installing dependencies... sudo apt-get install -y unzip curl echo Fetching Consul... cd /tmp/ wget https://dl.bintray.com/mitchellh/consul/0.5.2_linux_amd64.zip -O consul.zip echo Installing Consul... unzip consul.zip sudo chmod +x consul sudo mv consul /usr/mryqu/consul echo Fetching Consul UI... cd /tmp/ wget https://dl.bintray.com/mitchellh/consul/0.5.2_web_ui.zip -O dist.zip echo Installing Consul UI... unzip dist.zip sudo chmod +x dist sudo mv dist /usr/mryqu/consul/dist 引导一个数据中心 首先以服务器模式运行第一个Consul代理。Consul需要使用-bootstrap-expect指定集群节点个数，使用-data-dirparameter指定一个数据目录名，使用-ui-dir参数指定Consul UI目录:
-$>consul agent -server -bootstrap-expect 1 -data-dir /usr/mryqu/consul/consuldata -ui-dir /usr/mryqu/consul/dist UI默认地址是http://localhost:8500/ui 如果UI没有启动，需要添加额外的-client 0.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/consul%E5%AE%9E%E8%B7%B5/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/ itemprop=url>[OpenUI5] sap.ui.core.ResizeHandler</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-14">2015-06-14</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>282 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>OpenUI5里窗口大小放生变化，各个控件如何收到通知跟着相应变化的呢？
-sap.ui.core.Core 首先我们看一下sap.ui.core.Core的源代码：
-Core._I_INTERVAL = 200; ResizeHandler.prototype.I_INTERVAL = Core._I_INTERVAL; Core.prototype.attachIntervalTimer = function(fnFunction, oListener) { if (!this.oTimedTrigger) { var IntervalTrigger = sap.ui.requireSync("sap/ui/core/IntervalTrigger"); this.oTimedTrigger = new IntervalTrigger(Core._I_INTERVAL); } this.oTimedTrigger.addListener(fnFunction, oListener); }; sap.ui.core.Core里面会起一个定时器，以200毫秒间隔周期触发。
-sap.ui.core.ResizeHandler 接下来我们看一下sap.ui.core.ResizeHandler的源代码：
-function initListener(){ if (!this.bRegistered && this.aResizeListeners.length > 0) { this.bRegistered = true; sap.ui.getCore().attachIntervalTimer(this.checkSizes, this); } } ResizeHandler.prototype.checkSizes = function() { var bDebug = log.isLoggable(); if ( bDebug ) { log.debug("checkSizes:"); } jQuery.each(this.aResizeListeners, function(index, oResizeListener){ if (oResizeListener) { var bCtrl = !</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_sap.ui.core.resizehandler/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/ itemprop=url>[OpenUI5] 通过sap.ui.core.Core的registerElement和deregisterElement函数监控View和控件的构造和析构</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-13">2015-06-13</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>123 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在sap.ui.core.Core中有registerElement和deregisterElement函数，它们可用于在调试中监控Element（包括View和控件）的构造和析构。
-registerElement：在控件构造时被调用 deregisterElement：在控件析构时被调用 通过下面的代码可知，Core类的mElements存储着元素Id和元素的散列表：
-Core.prototype.registerElement = function(oElement) { var sId = oElement.getId(), oldElement = this.mElements[sId]; if ( oldElement && oldElement !== oElement ) { if ( oldElement._sapui_candidateForDestroy ) { jQuery.sap.log.debug("destroying dangling template " + oldElement + " when creating new object with same ID"); oldElement.destroy(); } else { // duplicate ID detected => fail or at least log a warning if (this.oConfiguration.getNoDuplicateIds()) { jQuery.sap.log.error("adding element with duplicate id '" + sId + "'"); throw new Error("Error: adding element with duplicate id '" + sId + "'"); } else { jQuery.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_%E9%80%9A%E8%BF%87sap.ui.core.core%E7%9A%84registerelement%E5%92%8Cderegisterelement%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7view%E5%92%8C%E6%8E%A7%E4%BB%B6%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8vagrant%E5%88%9B%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/ itemprop=url>使用Vagrant创建开发环境</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-12">2015-06-12</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/vagrant itemprop=url rel=index><span itemprop=name>Vagrant</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>用思维导图写了一篇[Packt Publishing] Creating Development Environments with Vagrant读书笔记。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%80%9A%E8%BF%87%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BF%AE%E6%94%B9vagrant_box%E5%8F%82%E6%95%B0/ itemprop=url>通过环境变量修改VAGRANT BOX参数</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-12">2015-06-12</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/vagrant itemprop=url rel=index><span itemprop=name>Vagrant</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>34 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在如下示例Vagrantfile文件片段，VAGRANTBOX的内存和CPU核数首先查询环境变量，如果没有设相关环境变量的话则使用默认值。
-config.vm.provider "virtualbox" do |v| v.memory = ENV.has_key?('VAGRANTBOX_MEM') ? ENV['VAGRANTBOX_MEM'].to_i : 1024 v.cpus = ENV.has_key?('VAGRANTBOX_CPUS') ? ENV['VAGRANTBOX_CPUS'].to_i : 2 v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"] v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"] end 参考 Vagrant VirtualBox Configuration</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cadvisor%E5%AE%9E%E8%B7%B5/ itemprop=url>cAdvisor实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-11">2015-06-11</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>9 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>cAdvisor (Container Advisor)为运行容器的用户提供出色的资源使用和性能特征。这是一个运行守护进程，能够搜集、集料、处理和导出运行中的容器的信息。特别需要指出，每个容器都有资源隔离参数、历史资源使用、以及完整历史数据的柱状图。 cAdvisor目前支持Docker容器和lmctfy容器。
-运行cAdvisor容器 配置boot2docker与宿主机之间的端口转移 查看cAdvisor 参考 GitHub：cAdvisor</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/dockerui%E5%AE%9E%E8%B7%B5/ itemprop=url>DockerUI实践</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-10">2015-06-10</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>21 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>DockerUI是Docker远程API的Web接口,它是由下列技术栈构成的纯客户端，因此很容易连接和管理Docker。
-Angular.js Bootstrap Gritter Spin.js Golang Vis.js 运行DockerUI容器 配置boot2docker与宿主机之间的端口转移 另一种方式是在启动容器之前执行：
-boot2docker ssh -L 9000:localhost:9000 查看DockerUI 直接使用Docker远程API 参考 GitHub：crosbymichael/dockerui
-Docker Remote API</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/ itemprop=url>Spring FileUpload限制调整笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-08">2015-06-08</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>291 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>Tomcat配置 HTTP Connector - maxPostSize配置 maxPostSize: 在POST请求中容器FORMURL参数解析所能处理的最大字节数。该参数可以通过设置为小于零的负值禁掉该限制。如果没有设置，该属性为2097152(2M字节)。 该配置可在$CATALINA_BASE/conf/server.xml内修改: Tomcat 7.0.63之前maxPostSzie=&ldquo;0"视为禁掉该限制。
-multipart-config配置 max-file-size: 单个上传文件允许的最大字节数。默认-1，无限制。 max-request-size: 真个请求允许的最大字节数。默认-1，无限制。
-这两个配置可在web.xml内修改： 如果上传文件超过限制，则会抛出Exception。示例：
-org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (61198097) exceeds the configured maximum (20971520) at org.apache.tomcat.util.http.fileupload.FileUploadBase$FileItemIteratorImpl.(FileUploadBase.java:811) at org.apache.tomcat.util.http.fileupload.FileUploadBase.getItemIterator(FileUploadBase.java:256) at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:280) at org.apache.catalina.connector.Request.parseParts(Request.java:2730) at org.apache.catalina.connector.Request.parseParameters(Request.java:3064) at org.apache.catalina.connector.Request.getParameter(Request.java:1093) at org.apache.catalina.connector.RequestFacade.getParameter(RequestFacade.java:380) at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:70) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.springframework.boot.actuate.autoconfigure.MetricsFilter.doFilterInternal(MetricsFilter.java:68) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/spring_fileupload%E9%99%90%E5%88%B6%E8%B0%83%E6%95%B4%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/ itemprop=url>Docker Compose笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/ itemprop=url>Docker Compose笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-06">2015-06-06</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -151,7 +21,143 @@ org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException
 **前身 Fig**
 Compose是用于在Docker内定义和运行多容器应用程序的工具。使用Compose，可以在一个文件内定义多容器应用程序，然后使用一个命令运行应用。 Compose对开发环境、交付准备服务器（stagingservers）和持续集成（CI）很有帮助，不建议用于生产环境。 使用Compose基本上是三步流程： - 通过一个`Dockerfile`定义应用环境，以便在其他地方复制； - 在`docker-compose.yml`中定义组成应用的服务，因此他们可以在一个隔离的环境一起运行； - 最后，运行`docker-compose up`，Compose将启动并运行整个应用。 docker-compose.yml大概是这个样子的:
 web: build: . ports: - "5000:5000" volumes: - .:/code links: - redis redis: image: redis Compose包含管理应用整个生命周期的命令:
-启动、停止和重建服务 查看运行的服务状态 对运行的服务的日志输出生成数据流 对一个服务运行一次性命令 Docker Compose安装 curl -L https://github.com/docker/compose/releases/download/VERSION_NUM/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose $ chmod +x /usr/local/bin/docker-compose Docker Compose命令 更新整个应用 mryqu$ docker-compose stop # stop the containers mryqu$ docker-compose pull # download updated images mryqu# docker-compose up -d # creates new containers and starts them 更新单个服务 mryqu$ docker-compose stop foo # stop the foo service mryqu$ docker-compose pull foo # download foo service mryqu$ docker-compose up -d foo # start the new foo service 参考 Overview of Docker Compose</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/29/><i class="fa fa-angle-left"></i></a>
+启动、停止和重建服务 查看运行的服务状态 对运行的服务的日志输出生成数据流 对一个服务运行一次性命令 Docker Compose安装 curl -L https://github.com/docker/compose/releases/download/VERSION_NUM/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose $ chmod +x /usr/local/bin/docker-compose Docker Compose命令 更新整个应用 mryqu$ docker-compose stop # stop the containers mryqu$ docker-compose pull # download updated images mryqu# docker-compose up -d # creates new containers and starts them 更新单个服务 mryqu$ docker-compose stop foo # stop the foo service mryqu$ docker-compose pull foo # download foo service mryqu$ docker-compose up -d foo # start the new foo service 参考 Overview of Docker Compose</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/docker_compose%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/ itemprop=url>[OpenUI5] 自定义控件示例</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-05">2015-06-05</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>284 字 ~2分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近在写一个OpenUI5自定义控件，参考了如下文章，搞定。
+需要注意的是，控件内的property在init函数内不会获得构造函数的属性值。通过源码可知，EventProvider.extend.constructor内先回调用init函数，然后再调用applySettings将构造函数内的属性设置进去。
+constructor : function(sId, mSettings, oScope) { EventProvider.call(this); // no use to pass our arguments if (typeof (sId) != "string" && arguments.length > 0) { // shift arguments in case sId was missing, but mSettings was given oScope = mSettings; mSettings = sId; if (mSettings && mSettings.id) { sId = mSettings["id"]; } else { sId = null; } } if (!sId) { sId = this.getMetadata().uid() || jQuery.sap.uid(); } else { var preprocessor = ManagedObject.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/openui5_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E7%A4%BA%E4%BE%8B/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E4%BD%BF%E7%94%A8docker%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8D%81%E4%BA%8C%E8%A6%81%E7%B4%A0%E5%BA%94%E7%94%A8/ itemprop=url>使用Docker的现代十二要素应用</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-04">2015-06-04</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>43 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>【编者的话】“十二要素应用”为开发SaaS应用提供了方法上的指导，而Docker能够提供打包依赖，解耦后端服务等特性，使得两者非常吻合。这篇文章介绍了Docker特性怎样满足了开发“十二要素应用”的对应要点。Docker非常适合开发“十二要素应用”。
+“十二要素应用”为构建SaaS应用提供了方法论，是由知名PaaS云计算平台Heroku的创始人AdamWiggins提出的。请参考这篇[文章](http://www.infoq.com/cn/news/2012/09/12-factor-app)。 Dockerfile与docker-compose.yml正在成为用代码定义服务的标准，通过它们可以定义服务的所有内容：依赖、环境、端口、各种进程以及后端服务。Docker镜像和容器为操作系统提供了保证，使得开发环境和生产环境可以有效地保持一致。这篇文章简单地介绍了Docker是怎样满足“十二要素应用”的核心要点的。它解释了用Docker开发一个典型的“Rails/Postgres/Redis/web/worker”所应用的技术。后续文章将通过代码深入介绍如何应用这些技术。
+II. 依赖—显示地声明和隔离依赖关系 Docker镜像基于显示的Dockerfile构建，而Docker容器作为独立的运行环境。Dockerfile提供了显示声明基础操作系统的方法（FROM）,而且通过运行命令来安装附加的系统包以及应用的依赖包（RUN）。通过这些方法，你可以声明你需要ubuntu 14.04、Ruby 2.2.2、Node 0.11，然后一次性安装。
+III. 配置—在环境中储存配置 Docker容器非常依赖Linux的环境变量进行配置。docker-compose.yml有一个环境变量的哈希表，你可以通过它显示的定义容器的环境变量。这些默认的或者未定义的值将在运行时从主机中继承。另外，还有Dokckerfile的ENV命令以及『docker run –env=[]』和『docker run–env-file=[]』运行选项可以设置环境变量。通过这些方法，你可以声明你的应用需要环境变量GITHUB_AUTH_TOKEN。 VII. 端口绑定—通过端口绑定来提供服务 Docker非常依赖端口绑定。docker-compose.yml有一个端口阵列，可以通过它显示的定义“主机:容器”的端口绑定。『docker run –pHOST:CONTAINER』让你可以在运行时定义端口绑定。通过这些方法，你可以声明你的应用的网络服务器将监听端口5000，而且你可以通过主机的端口5000获取服务。
+IV. 后端服务—把后端服务当作附加资源 Docker容器与其它容器几乎完全隔离，所以需要通过网络与后端服务进行通信。docker-compse.yml有一个链接哈希表，你可以通过它指定你的应用所需要依赖的其他容器服务。‘docker-composeup’命令将首先开启这些后端服务，然后配置应用容器中网络连接信息的环境变量。通过这些方法，你可以声明你的应用需要Postgres 9.4和Redis3.0服务，让你的应用通过主机名和端口号与他们建立连接。
+VI. 进程—以一个或者多个无状态进程运行应用 默认情况下，Docker容器是不带储存的进程。docker-compose.yml定义了一系列服务，每一个服务都有自己的镜像或者构建文件(Dockerfile)以及命令。通过这些方法，你可以声明你的应用同时有一个网络进程和工作进程。
+XII. 管理进程—后台管理任务当做一次性进程运行 Docker镜像可以很容易地运行一次性进程。‘docker run myapp CMD’可以在与你的网络进程一致的环境中运行任意命令。通过这些方法，你可以基于你的Postgres数据库运行交互式的bash或者运行一次性的’rakedb:migrate’进程。
+现有技术 若没有Docker，OS X的开发工具链是这样的：Homebrew作为系统依赖包， Postgres和Redis作为开发服务,Ruby的Bundler作为跨平台开发依赖，一系列的Shell脚本和foreman让所有工具在本地同时运行起来，以及一个独立的基于Linux的构建服务负责将应用打包到生产环境。这样的工作流并没有错误，但是Docker提供一个更简洁的方式。有了Dockerfile和docker-compose.yml文件，我们将不再需要任何OSX系统依赖，服务包或者跨平台的语言依赖。一个简单的“dicker-composeup”命令可以提供一个完整的Linux开发环境，并且能够轻易地将“十二要素应用”移植到生产机器。
+原英文链接：Modern Twelve-Factor Apps With Docker
+原译文链接：现代“十二要素应用”与Docker</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E8%AF%BB%E5%85%AB%E7%A7%8Ddocker%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F/ itemprop=url>读八种Docker开发模式</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-03">2015-06-03</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>7 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Eight Docker Development Patterns（原文）
+八种Docker开发模式（译文）
+八种Docker开发模式（介绍）
+目前，我对可重用的基础容器和支持共享文件夹的开发容器这两种模式接触的多一些。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/docker%E9%80%9F%E6%9F%A5%E7%AC%94%E8%AE%B0/ itemprop=url>Docker速查笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-02">2015-06-02</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>46 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>常用命令 登入运行的docker容器内 docker exec -it $dockerContainerName /bin/bash 查看docker日志 docker logs --tail="5" -f $dockerContainerName 清除容器及镜像 docker stop $(docker ps -a -q) #停止所有容器 docker rm $(docker ps -a -q) #删除所有容器 docker rmi $(docker images -q) #删除所有镜像 参考 Docker Cheat Sheet Docker Command Line Dockerfile reference The Docker Book</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/ itemprop=url>Spring Boot Example：Rest Exception Handling</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-06-02">2015-06-02</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/spring itemprop=url rel=index><span itemprop=name>Spring</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>467 字 ~3分钟</span></span></div></header><div class=post-body itemprop=articleBody>要给同事做个Rest异常处理的演示，顺便用用Spring Boot和Gradle构建。 首先新建一个项目：rest-exception-handling。
+rest-exception-handling/src/main/java/com/yqu/rest目录 Application.java package com.yqu.rest; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class Application { public static void main(String[] args) { SpringApplication.run(Application.class, args); } } GreetingController.java package com.yqu.rest; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.http.HttpStatus; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.*; import org.springframework.web.servlet.ModelAndView; @RestController public class GreetingController { @Autowired private GreetingService service; @RequestMapping(value = "/", method = RequestMethod.GET) public ModelAndView home(Model m){ System.out.println("home"); return new ModelAndView("index"); } @RequestMapping(value = "/greeting", method = RequestMethod.GET) public @ResponseBody GreetingVO greeting(@RequestParam(value="name") String name) throws GreetingException { System.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/spring_boot_examplerest_exception_handling/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/vagrant_base_box%E5%88%97%E8%A1%A8/ itemprop=url>Vagrant base box列表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-05-28">2015-05-28</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/vagrant itemprop=url rel=index><span itemprop=name>Vagrant</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>101 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Vagrant的basebox都是打包了最小安装版操作系统(仅有一些跟Vagrant通讯必需的工具)的虚拟机镜像。vagrantbox.es列出了很多Vagrant的basebox，其中既有官方的box也有很多非官方的box。 有的box名是lucid32.box、lucid64.box、precise32.box、precise64.box，一开始不明白怎么回事，后来知道用的是Ubuntu的英文代码。
+Ubuntu各种版本的英文代码 |版本|英文代号|中译 |&mdash;&ndash; |Ubuntu 4.10|Warty Warthog|多疣的疣猪 |Ubuntu 5.04|Hoary Hedgehog|白发的刺猬 |Ubuntu 5.10|Breezy Badger|活泼的獾 |Ubuntu 6.06|Dapper Drake|整洁的公鸭 |Ubuntu 6.10|Edgy Eft|尖利的小蜥蜴 |Ubuntu 7.04|Feisty Fawn|烦躁不安的鹿 |Ubuntu 7.10|Gutsy Gibbon|胆大的长臂猿 |Ubuntu 8.04|Hardy Heron|坚强的鹭 |Ubuntu 8.10|Intrepid Ibex|无畏的羱羊 |Ubuntu 9.04|Jaunty Jackalope|活泼的鹿角兔 |Ubuntu 9.10|Karmic Koala|幸运的树袋熊 |Ubuntu 10.04|Lucid Lynx|清醒的猞猁 |Ubuntu 10.10|Maverick Meerkat|标新立异的的狐獴 |Ubuntu 11.04|Natty Narwhal|敏捷的独角鲸 |Ubuntu 11.10|Oneiric Ocelot|有梦的虎猫 |Ubuntu 12.04|Precise Pangolin|精准的穿山甲 |Ubuntu 12.10|Quantal Quetzal|量子的格查尔鸟 |Ubuntu 13.04|Raring Ringtail|铆足了劲的环尾猫熊 |Ubuntu 13.10|Saucy Salamander|活泼的蝾螈 |Ubuntu 14.04|Trusty Tahr|可靠的塔尔羊 |Ubuntu 14.10|Utopic Unicorn|乌托邦的独角兽 |Ubuntu 15.04|Vivid Vervet|活泼的长尾黑颚猴 |Ubuntu 15.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/vagrant_base_box%E5%88%97%E8%A1%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%8E%A9%E4%B8%80%E4%B8%8Bgradle-jvmsrc-plugin/ itemprop=url>玩一下gradle-jvmsrc-plugin</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-05-27">2015-05-27</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/gradle itemprop=url rel=index><span itemprop=name>Gradle</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>32 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>玩了一下gradle-jvmsrc-plugin插件，使用这个插件后执行gradlecreateJvmSrcDirs可以根据Gradle项目的JVM语言插件（(java、groovy、scala、android等），自动创建默认的源代码、测试和资源包目录。例如：
+src/main/resources src/main/java/ src/main/groovy/ src/test/java/ src/test/groovy/ src/test/resources 刚上手总是报错，看了一下CreateJvmSourceDirs.groovy，定位到packageToDirectoryPath方法：
+* What went wrong: Execution failed for task ':HelloJvmsrc:createJvmSrcDirs'. > character to be escaped is missing 按照如下gradle-jvmsrc-plugin的说明，要配置基础包名。可是真按它介绍的带有.分割的包名就会出错，简单改成"com"这种没有.分割的包名就可以避免错误。
+jvmsrc { packageName "com.mycompany.myproject.mymodule" } 此外，gradle-jvmsrc-plugin对空目录默认生成.gitkeep文件。 总体来说，用处不是很大，可以偷点懒！</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/openui5_sap.m.input%E7%9A%84change%E5%9B%9E%E8%B0%83/ itemprop=url>[OpenUI5] sap.m.Input的change回调</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-05-26">2015-05-26</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/frontend itemprop=url rel=index><span itemprop=name>FrontEnd</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>2 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>用sap.m.Input的change回调，当值在输入界面被修改后就会调用。今天试了一下，如果通过Model设置改变值的话，其change回调不会被调用。
+这种特性正好用于判断是否为界面手工修改。在我的用例中，有一个表名和一个表表述。如果改动表名，表描述跟着相应更新；但是一旦用户手工输入表描述后，上述规则不再生效。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/ itemprop=url>[Hadoop] 使用TeraSort测试集群性能</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-05-25">2015-05-25</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/bigdata itemprop=url rel=index><span itemprop=name>BigData</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>111 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Terasort是Hadoop自带的用于集群性能基准测试的工具，其源码位于https://github.com/apache/hadoop/tree/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/src/main/java/org/apache/hadoop/examples/terasort下。
+TeraSort用法 该性能基准测试工具针对Hadoop集群的HDFS和MapReduce层进行综合测试。完整的测试步骤为：
+使用TeraGen程序生成官方GraySort输入数据集。(注：SortBenchmark是JimGray自98年建立的一项排序竞技活动，其对排序的输入数据制定了详细规则，要求使用其提供的gensort工具生成输入数据。而Hadoop的TeraGen数据生成工具的算法与gensort一致。） 在输入数据上运行真正的TeraSort性能基准测试工具 通过TeraValidate程序验证排序后的输出数据 TeraGen程序生成数据的格式为（详见TeraSort.generateRecord方法实现）：
+10字节键：一个16字节随机数的高10字节 2字节常量：0x0011 32字节rowid 4字节常量：0x8899AABB 48字节填充：由一个16字节随机数的低48比特生成 4字节常量:0xCCDDEEFF 也就是说TeraGen程序生成的一行数据有100字节。TeraGen程序参数需要指定行数，可指定单位：
+t：1000,000,000,000 b：1000,000,000 m：1000,000 k：1000 TeraSort测试 依次运行teragen、terasort和teravalidate：
+hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.x.jar teragen 5m /user/hadoop/teragen-data hadoop@node50064:~$ yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.X.jar terasort /user/hadoop/teragen-data /user/hadoop/terasort-data 15/05/24 08:29:03 INFO terasort.TeraSort: starting 15/05/24 08:29:04 INFO input.FileInputFormat: Total input paths to process : 2 Spent 123ms computing base-splits. Spent 2ms computing TeraScheduler splits. Computing input splits took 127ms Sampling 4 splits of 4 Making 1 from 100000 sampled records Computing parititions took 558ms Spent 686ms computing partitions.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_%E4%BD%BF%E7%94%A8terasort%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E6%80%A7%E8%83%BD/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/29/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/26/>26</a>
 <a class=page-number href=/page/27/>27</a>
 <a class=page-number href=/page/28/>28</a>
@@ -163,9 +169,9 @@ web: build: . ports: - "5000:5000" volumes: - .:/code links: - redis redis: imag
 <a class=page-number href=/page/34/>34</a>
 <a class="extend next" rel=next href=/page/31/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>663</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1472</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

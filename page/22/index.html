@@ -4,129 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/use_proxy_on_google_analytics_api/ itemprop=url>Use proxy on Google Analytics API</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-10-09">2015-10-09</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>22 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用Google API创建HTTP传输层是这样子的，没有可以传入代理的地方。
-HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport(); 仔细研究一下com.google.api.client.googleapis.javanet.GoogleNetHttpTransport，发现其实现是使用com.google.api.client.http.javanet.NetHttpTransport.Builder生成一个com.google.api.client.http.javanet.NetHttpTransport对象。
-com.google.api.client.http.javanet.NetHttpTransport.Builder和com.google.api.client.http.javanet.NetHttpTransport是都支持代理的。不用GoogleNetHttpTransport这个封装，直接对com.google.api.client.http.javanet.NetHttpTransport.Builder设置代理即可生成使用代理的HttpTransport对象。
-Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("XXXX", 80)); HttpTransport httpTransport = new NetHttpTransport.Builder().setProxy(proxy). trustCertificates(GoogleUtils.getCertificateTrustStore()).build();</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/facebook_app_token/ itemprop=url>获取Facebook App Token</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-10-08">2015-10-08</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>34 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天看了一下如何用Facebook的App Id和App Secret获取App Token。
-可以使用RestFB，一行搞定：
-FacebookClient.AccessToken ac = new DefaultFacebookClient(Version.LATEST) .obtainAppAccessToken(appId, appSecret); curl命令也超简单：
-curl "https://graph.facebook.com/v2.5/oauth/access_token?client_id={appId}&client_secret={appSecret}&grant_type=client_credentials" 我的一个Facebook应用YquTest如下： 通过其App Id和App Secret进行实验，获得结果可以用上一篇博文Facebook开发调试工具提到的访问口令工具验证，完全一致！
-参考 Facebook Login - Access Tokens
-Facebook Login - Access Tokens - App Access Tokens</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/facebook%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/ itemprop=url>Facebook开发调试工具</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-10-07">2015-10-07</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>8 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Facebook开发调试工具大体位于https://developers.facebook.com/tools-and-support/下。
-访问口令工具:这里所提供的用户口令便于测试应用，会过期。应用口令不会过期，应该秘密存储。 图谱API探索工具:测试图谱API或FQL查询。 JS JDK控制台: 可以加载FacebookJS库，执行HTML代码 URL调试器:可以让Facebook的爬虫抓取你的网站，看看你的网站在Facebook被共享时的模样。 这里面我用的最多的是图谱API探索工具，其次就是看图谱API参考文档了。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/remote_debugging_on_microservice_at_docker_container_inside_vagrant_box/ itemprop=url>Remote debugging on microservice at docker container inside vagrant box</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-10-05">2015-10-05</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>44 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Docker compose configuration foo-service: image: foo-service:latest hostname: foo-service dns: 127.0.0.1 restart: always Vagrant configuration config.vm.network "forwarded_port", guest: 8787, host: 8787, auto_correct: true Consul configuration curl -X PUT -H 'application/json' -d 'java_option_server_port:java_option_xms:java_option_xmx:java_option_debug' http://localhost:8500/v1/kv/config/foo-service/jvm/java_options curl -X PUT -H 'application/json' -d '-Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n' http://localhost:8500/v1/kv/config/foo-service/jvm/java_option_debug IntelliJ IDEA configuration</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%BB%A7%E7%BB%AD%E4%BD%BF%E7%94%A8win10%E7%9A%84windows_defender/ itemprop=url>继续使用Win10的Windows defender</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-10-04">2015-10-04</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>12 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>从Win7升级到了Win10，有一天忽然发现Microsoft SecurityEssentials不见了。上网一查，才知道被Win10内置了，改叫Windows defender。可是Windowsdefender也没见运行呀？
-提示说“此应用已经关闭，不会监视你的计算机”。
-开始追查！！！
-通过“Windows键+X”进入控制面板 在安全中心，发现是腾讯的电脑管家导致Windows defender被禁用。 关闭电脑管家的实时系统防护。 收到安全性提示，选择启用Windows defender。 又见到小城墙了</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/node.js_npm%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/ itemprop=url>Node.js npm代理设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-30">2015-09-30</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>用Gradle编译当前一个项目，总是报告Node.js的包管理工具npm安装node包失败。美国那边没有问题，不知道是否跟防火墙有关。
-npm的代理设置为：
-npm config set proxy http://proxyServer:proxyPort npm config set https-proxy http://proxyServer:proxyPort 操作显示能解决我的部分问题！
-参考 NPM小结</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%81%AD%E9%81%87https_endpoint_unresponsive_and_insecure_mode_isnt_enabled./ itemprop=url>遭遇"HTTPS endpoint unresponsive and insecure mode isn't enabled."</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-29">2015-09-29</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>103 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>今天使用docker-compose去获取最新的镜像，遭遇"HTTPS endpoint unresponsive andinsecure mode isn&rsquo;t enabled.&ldquo;错误。
-mryqu$ docker-compose pull Pulling cadvisor (docker.mryqu.com/google/cadvisor:latest)... Traceback (most recent call last): File "&lt;string>", line 3, in &lt;module> File "/code/build/docker-compose/out00-PYZ.pyz/compose.cli.main", line 32, in main File "/code/build/docker-compose/out00-PYZ.pyz/compose.cli.docopt_command", line 21, in sys_dispatch File "/code/build/docker-compose/out00-PYZ.pyz/compose.cli.command", line 34, in dispatch File "/code/build/docker-compose/out00-PYZ.pyz/compose.cli.docopt_command", line 24, in dispatch File "/code/build/docker-compose/out00-PYZ.pyz/compose.cli.command", line 66, in perform_command File "/code/build/docker-compose/out00-PYZ.pyz/compose.cli.main", line 235, in pull File "/code/build/docker-compose/out00-PYZ.pyz/compose.project", line 285, in pull File "/code/build/docker-compose/out00-PYZ.pyz/compose.service", line 713, in pull File "/code/build/docker-compose/out00-PYZ.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E9%81%AD%E9%81%87https_endpoint_unresponsive_and_insecure_mode_isnt_enabled./ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hello_google_analytics/ itemprop=url>Hello Google Analytics</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-28">2015-09-28</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>750 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>Google Credential设置见我之前的博文Google Analytics API Error 403: &ldquo;User does not have any Google Analytics Account&rdquo;。
-示例代码：
-package com.yqu.ga; import java.io.File; import java.io.IOException; import java.io.InputStream; import java.util.List; import com.google.api.client.googleapis.auth.oauth2.GoogleCredential; import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport; import com.google.api.client.http.HttpRequest; import com.google.api.client.http.HttpRequestInitializer; import com.google.api.client.http.HttpTransport; import com.google.api.client.json.JsonFactory; import com.google.api.client.json.gson.GsonFactory; import com.google.api.services.analytics.Analytics; import com.google.api.services.analytics.AnalyticsScopes; import com.google.api.services.analytics.model.Accounts; import com.google.api.services.analytics.model.GaData; import com.google.api.services.analytics.model.GaData.ColumnHeaders; import com.google.api.services.analytics.model.GaData.Query; import com.google.api.services.analytics.model.Profiles; import com.google.api.services.analytics.model.Webproperties; public class HelloAnalytics { // I18NOK:CLS private static enum AuthType { SERVICE_ACCOUNT, SERVICE_ACCOUNT_P12, OAUTH }; protected static final String APPLICATION_NAME = "Hello Analytics"; protected static final JsonFactory JSON_FACTORY = GsonFactory .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hello_google_analytics/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/twitter%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/ itemprop=url>Twitter开发调试工具</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-27">2015-09-27</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>9 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Twitter开发调试工具主要位于https://dev.twitter.com/下。
-API status: 显示Twitter API可用性和性能 API参考文档 API控制台工具：测试TwitterAPI 管理自己的应用：对自己的应用进行配置 我用的最多的是API参考文档，其次是API控制台工具。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/socialmedia_api_policy_and_terms/ itemprop=url>SocialMedia API Policy and Terms</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/socialmedia_api_policy_and_terms/ itemprop=url>SocialMedia API Policy and Terms</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-26">2015-09-26</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -141,7 +19,141 @@ API status: 显示Twitter API可用性和性能 API参考文档 API控制台工�
 Twitter Twitter Terms of Service: https://twitter.com/tos?lang=en Twitter Privacy Policy: https://twitter.com/privacy?lang=en Twitter Developer Agreement: https://dev.twitter.com/overview/terms/agreement Twitter Developer Policy: https://dev.twitter.com/overview/terms/policy
 Google (Google Analytics & YouTube Analytics) Google APIs Terms of Service: https://developers.google.com/terms/ Google Privacy Policy: https://www.google.com/intl/en/policies/privacy/
 LinkedIn User Agreement: https://www.linkedin.com/legal/user-agreement Privacy Policy: https://www.linkedin.com/legal/privacy-policy API Terms of Use: https://developer.linkedin.com/legal/api-terms-of-use Cookies on the LinkedIn site: https://www.linkedin.com/legal/cookie_policy
-微博 开发者协议: http://open.weibo.com/wiki/开发者协议 应用运营管理规范: http://open.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/socialmedia_api_policy_and_terms/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/21/><i class="fa fa-angle-left"></i></a>
+微博 开发者协议: http://open.weibo.com/wiki/开发者协议 应用运营管理规范: http://open.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/socialmedia_api_policy_and_terms/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api_sdk/ itemprop=url>社交媒体API/SDK</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-25">2015-09-25</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>87 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>社交媒体API编程平台/语言Facebook API:应用广告：提升应用安装量和使用率。Analytics for Apps：制定基于数据的客户和广告决策。匿名登录：用户无需分享自己的信息即可注册使用您的应用。应用邀请：方便用户直接与好友分享他们喜欢的应用。应用链接：应用间链接的开放式跨平台标准。应用盈利：Facebook 和 LiveRail 广告助您实现应用盈利。 移动应用受众网络：Facebook 广告助您实现应用盈利。游戏：实现游戏跨平台，覆盖数百万Facebook玩家。Facebook 登录：方便用户跨设备注册您的应用。Messenger：扩大展示，帮助用户发现您的应用。Parse：更快速地构建强大的移动应用。分享：借助 Facebook，提升网站和应用内容的知名度。社交插件：让您的网站和应用更具社交性和吸引力的最简单方式。ThreatExchange：分享威胁信息，保障用户安全。官方:iOSAndroidUnityJavascriptPHP
+第三方: Cocos2d-x C Flash HTML5 Java JavaScript Lua Node.js Objective-C Qt Ruby Unity V-Play WinJSTwitter API：TweetsUsersEntitiesPlaces官方:iOSAndroidOSXWebJava第三方:iOSAndroidJavaASPC++ClojureColdFusion.NETGoJavascript/node.jsLua/Corona SDKObjective-CPerlPHPPythonRubyGoogle Analytics Configuration APIs：自动执行帐户和用户配置。Management API：访问和管理帐户、媒体资源、数据视图等Google Analytics（分析）实体。 Provision API：创建新的Google Analytics（分析）帐户。Google Analytics Reporting APIs：借助报告API，您可以自动化复杂的报告任务，进而节省时间。您还可以使用相应API将Google Analytics（分析）数据与您自己的业务数据整合在一起，从而获得更深入的分析数据。 Core Reporting API：通过查询维度和指标来创建自定义报告。Multi-channel Funnels Reporting API：查看您用户的归因和转化路径数据。 Real-time Reporting API：查看您的媒体资源上当前发生的活动。 Embed API：几分钟内即可将信息中心嵌入第三方网站。 Metadata API：查看 API 维度和指标列表以及属性。官方:JavaPythonPHPJavascriptLinkedIn SDK:登录LinkedIn在LinkedIn进行内容分享在用户档案上添加（学位、证书等）信息管理公司页官方:iOSAndroidJavascriptREST APIYouTube API：Youtube Play API：使用内嵌播放器在你的应用直接播放视频，定制回放体验。实际上YouTube提供的是IFRAME、Android API、iOS API、PLAYER PARAMETERS。Youtube Data API：搜索YouTube内容、上传视频、创建和管理播放列表等功能。Youtube Analytics and Reporting API：获取YouTube视频和频道的统计、流行指标等信息。Youtube Analytics API：支持生成定制YouTube分析报告的实时有针对性的查询。API提供过滤和排序参数，因此调用程序无需支持这些功能。每个API请求指定数据范围，也能获取每周和每月的数据集，调用程序无需存储获得的数据集，也无需跨数据范围汇总统计信息。Youtube Reporting API：为频道或内容所有人获取包含YouTube分析数据的一批报告。用于能够导入大数据集并进行过滤、排序、数据挖据的应用。每个报告包含预定义字段集合。开发者使用该API预定报表任务，每个任务标识YouTube所要生成的报告。YouTube生成可以异步下载的日报告。每个报告包含唯一的一天数据。YouTube Live Streaming API：预定YouTube现场直播，管理直播视频流。官方:Java JavaScript .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93api_sdk/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/twitter%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8Caccesstoken%E4%B8%8D%E8%BF%87%E6%9C%9F/ itemprop=url>Twitter的访问令牌（AccessToken）不过期</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-23">2015-09-23</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>3 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Twitter OAuth FAQ中提到了目前Twitter访问令牌不会过期，省事了。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/google_analytics%E4%B9%8Bsegment%E5%88%86%E5%9D%97%E5%88%86%E5%89%B2%E7%BB%86%E5%88%86/ itemprop=url>Google Analytics之segment（分块、分割、细分）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-22">2015-09-22</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>73 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Segment是指你的GoogleAnalytics（分析）数据子集。例如，在你的整个用户群中，你可使用一个segment指定来自特定国家或城市的用户，使用另一个segment指定购买特定产品系列或访问网站上特定部分的用户。 Segment可让你隔离出这些数据子集并进行分析，从而检查并响应业务中的各个子趋势。例如，如果你发现特定地理区域的用户所购买的特定产品系列的数量低于正常水平，就可以查看是不是因为竞争对手在以更低的价格销售同类型的产品。如果是这样，你可以通过向那些用户提供忠诚度折扣来弱化竞争对手在价格方面的优势。 你还可以使用segment作为再营销受众群体的基础。例如，您可针对男装页面的访问者创建一个用户细分，然后利用重点宣传您添加到这些页面上的新产品的再营销广告系列来专门定位这些用户（再营销受众群体）。
+Segment类型 Segment代表会话子集或用户子集：
+会话子集：例如，源自广告系列 A 的所有会话；发生购买行为的所有会话 用户子集：例如，之前有过购买行为的用户；向其购物车添加了商品，但未完成购买的用户 先了解一下 Google Analytics（分析）用户模型有助于了解segment的工作原理。 GoogleAnalytics（分析）用户模型由三大要素构成：
+用户 会话 - 用户到达您的网站资源并与之互动。所有这些用户互动都会被划组到所谓的会话中。 点击（Hit）-在会话中，用户会与您的网站资源互动。每次互动都被称为一次点击。这些点击包括网页浏览、事件、交易等等。 一个用户可以有多个会话，每个会话可以有多次点击。下图直观显示了这一关系： Google Analytics（分析）用户模型
+使用Segment Segment是非破坏性的过滤器，不会更改您的基础数据。应用segment之后，它会在您浏览报告的过程中始终保持有效状态，直到您将其移除。您一次最多可以应用四个细分，并可在报告中将各个细分的结果放在一起比较。 除分析数据之外，Segment还可以用于构建再营销受众群体。 GoogleAnalytics（分析）包含预定义segment（系统segment），您可以按原样使用这些segment，也可以通过复制并修改这些segment来创建新的自定义segment。您也可以从头开始构建自己的segment。另外，您可以从 Google Analytics（分析）解决方案库导入segment，这是一个免费的市场，GoogleAnalytics（用户）可在其中分享各种segment以及开发的其他解决方案。
+Segment的定义和范围 在 Google Analytics（分析）报告中，您可以通过创建基于维度和指标的过滤器来定义segment：
+用户类型完全匹配“回访用户” 国家/地区完全匹配“美国” 电子商务转化率>“0.2%” 除了您在过滤器中使用的维度和指标之外，您还可以为过滤器设置数据范围。您可以使用三种范围：
+点击：单次操作中的行为，例如查看网页或播放视频。 会话：单次会话中的行为；例如在会话过程中用户完成的目标或产生的收入。 用户：在所用日期范围（最多 90天）内所有会话中的行为；例如，在日期范围内的所有会话中用户完成的所有目标或产生的所有收入。 你可以使用segment生成工具定义组成segment的过滤器。
+Segment限制 Segment需要遵守以下限制：
+Segment总数上限 每个帐户 1000个segment 每个数据视图中，每位用户 100个segment 每个数据视图，所有用户共享100个segment 这些限制适用于系统segment以及您创建或导入的所有segment。达到这些数量上限后，你就无法创建或导入更多segment。 应用于报告的segment 你一次最多可以在报告中应用4个segment。
+日期范围 使用基于用户的segment时，您在报告中应用的日期范围不能超过90天。如果您已将日期范围设置为90天以上，那么当您创建基于用户的segment时，GoogleAnalytics（分析）会从开始日期算起，将该日期范围重置为90天。 基于“第一次会话的日期”的segment的最大范围是31天。
+多渠道路径 请不要在多渠道路径报告中使用segment，你可以使用转化segment。
+Segment与filter的区别 在Googleanalytics中，Segment与filter都侧重于对数据的切片。在很多情况下，应用这两者返回的结果是相同的，但其本质是不同的。那么，何时应该使用segment，何时应该使用filter呢？ 如果你想选择整个访问则使用segment，如果想查找所有访问中的特定事件、pageviews等则使用filter。 Segment：对于segment，每个访问都检查是否符合segment条件。对于满足条件的会话，所有行都会被获得。对于不满足条件的会话，不会获得任何行。 Filter：对于filter，所有访问的所有行都会检查是否满足条件，仅满足过滤器条件的行会被获得。 个人感受：Google analytics中的filter就像SQL中的where语句，而segment就像SQL中groupby相应的having语句。
+参考 About Segments
+The key difference between segments and filters</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/google_anaytics%E5%92%8Cyoutube_analytics%E7%9A%84%E7%BB%B4%E5%BA%A6%E5%92%8C%E6%8C%87%E6%A0%87/ itemprop=url>Google Anaytics和Youtube Analytics的维度和指标</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-20">2015-09-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>20 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Google Anaytics的维度和指标 Google Anaytics 维度和指标浏览器
+Youtube Analytics的维度和指标 Youtube Anaytics 维度 Youtube Anaytics指标
+参考 Google Anaytics Core Reporting API - 常用查询</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/google_analytics_api_error_403_user_does_not_have_any_google_analytics_account/ itemprop=url>Google Analytics API Error 403: "User does not have any Google Analytics Account"</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-19">2015-09-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>30 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>试用Google Analytics API，使用service account的认证方式，结果它报错:“User doesnot have any Google Analytics Account”。
+解决方法：
+在Google开发者控制台中确认Analytics API已经使能 Service account的邮箱域为@developer.gserviceaccount.com 拥有适当的AccountID和ProfileID，并将serviceaccount（至少以读取和分析权限）添加到Google Analytics profile 参考 Google&rsquo;s instructions for adding an email address to an Analytics profile</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E9%81%AD%E9%81%87gsonfactory_cannot_be_resolved/ itemprop=url>遭遇“GsonFactory cannot be resolved”</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-18">2015-09-18</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>45 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>遭遇GsonFactory无法解析的错误：
+...\HelloAnalytics.java:7: error: package com.google.api.client.json.gson does not exist import com.google.api.client.json.gson.GsonFactory; ^ ...\HelloAnalytics.java:28: error: cannot find symbol private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance(); ^ symbol: variable GsonFactory location: class HelloAnalytics 2 errors :compileJava FAILED 解决方案为在_gradle.build_中添加：
+compile 'com.google.api-client:google-api-client-gson:1.20.0' exclude module: 'httpclient' 参考 GsonFactory cannot be found</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/google_anaytics%E8%B5%84%E6%96%99/ itemprop=url>Google Anaytics资料</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-17">2015-09-17</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>35 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Google官方资料 Google Analytics（分析）帮助中心 (英文版) Google Analytics团队的博客 Avinash的Google+ Google Analytics Fundamental：有组织性的一个教程 外部资料 An introduction to Google Analytic (slideshare)：相当于一个全面的、提纲式的Google Analytics学习笔记 Google Analytics CheatSheet：制作的一个更加简练的备忘录 蓝鲸网站分析笔记：关注GoogleAnalytics应用 流量的秘密——Google Analytics网站分析与优化技巧》 Advanced Web Metrics with Google Analytics》 Google analytics-understanding Vistor Behavior》 《网站分析实战》</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/kitematic%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/ itemprop=url>kitematic代理设置</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-16">2015-09-16</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/docker itemprop=url rel=index><span itemprop=name>Docker</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>30 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在DockerToolbox目录下创建一个批处理脚本文件kitematic_proxy.cmd，插入下面代码，将"YOUR_PROXY"替换为所用的代理（http://host:port）。
+set proxy=YOUR_PROXY SET HTTP_PROXY=%proxy% SET HTTPS_PROXY=%proxy% for /f %%i in ('docker-machine.exe ip default') do set DOCKER_HOST=%%i SET NO_PROXY=%DOCKER_HOST% set DOCKER_HOST=tcp://%DOCKER_HOST%:2376 cd Kitematic Kitematic.exe 参考 kitematic Proxy/VPN error reports #1031</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/ itemprop=url>利用curl完成Google API、Facebook、DropBox、OneDrive等社交媒体的OAuth认证</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2015-09-14">2015-09-14</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/databuilder itemprop=url rel=index><span itemprop=name>DataBuilder</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>94 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Twitter 没法用curl完成Twitter认证，可以尝试witter/twurl。
+Facebook 通过curl命令获取访问密钥：
+curl "https://graph.facebook.com/oauth/access_token?client_id={YOUR_APP_ID}&client_secret={YOUR_APP_SECRET}&grant_type=client_credentials" Google API 这里Google应用的客户端ID格式大概为XXX-YYY.apps.googleusercontent.com。
+Google Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly%20profile&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'code={GOTTEN_CODE}&client_id={YOUR_APP_ID}&client_secret={YOUR_APP_SECRET}&redirect_uri=urn:ietf:wg:oauth:2.0:oob&grant_type=authorization_code' "https://www.googleapis.com/oauth2/v4/token" Youtube Analytics 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/yt-analytics.readonly%20profile&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'code={GOTTEN_CODE}&client_id={YOUR_APP_ID}&client_secret={YOUR_APP_SECRET}&redirect_uri=urn:ietf:wg:oauth:2.0:oob&grant_type=authorization_code' "https://www.googleapis.com/oauth2/v4/token" Google drive & sheets 首先通过浏览器访问下列链接获取code：
+https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/spreadsheets%20https://www.googleapis.com/auth/drive%20profile&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id={YOUR_APP_ID} 通过curl命令获取访问密钥：
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'code={GOTTEN_CODE}&client_id={YOUR_APP_ID}&client_secret={YOUR_APP_SECRET}&redirect_uri=urn:ietf:wg:oauth:2.0:oob&grant_type=authorization_code' "https://www.googleapis.com/oauth2/v4/token" DropBox 首先通过浏览器访问下列链接获取code：
+https://api.dropbox.com/1/oauth2/authorize?client_id={YOUR_APP_ID}&response_type=code&state=kx123 通过curl命令获取访问密钥：
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'code={GOTTEN_CODE}&client_id={YOUR_APP_ID}&client_secret={YOUR_APP_SECRET}&grant_type=authorization_code' "https://api.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/%E5%88%A9%E7%94%A8curl%E5%AE%8C%E6%88%90google_apifacebookdropboxonedrive%E7%AD%89%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E7%9A%84oauth%E8%AE%A4%E8%AF%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/21/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/18/>18</a>
 <a class=page-number href=/page/19/>19</a>
 <a class=page-number href=/page/20/>20</a>
@@ -153,9 +165,9 @@ LinkedIn User Agreement: https://www.linkedin.com/legal/user-agreement Privacy P
 <a class=page-number href=/page/26/>26</a>
 <a class="extend next" rel=next href=/page/23/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>663</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1472</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>

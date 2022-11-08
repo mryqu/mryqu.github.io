@@ -4,128 +4,7 @@
 <span class=btn-bar></span>
 <span class=btn-bar></span>
 <span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class=menu-item><a href=/categories/ rel=section><i class="menu-item-icon fa fa-fw fa-categories"></i><br>分类</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class=popup><span class="search-icon fa fa-search"></span>
-<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ itemprop=url>[Linux] 判断可执行文件或动态库是否包含符号表</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>111 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在Linux下生成一个可执行文件或动态库，可以使用gcc/g++的"-g"选项使文件包含调试符号表。 要在Linux下判断一个第三方的可执行文件或动态库是否包含调试符号表，可以通过file命令实现：
-srv01> file libcurl.so.6 libcurl.so.6: ELF 64-bit LSB shared object, x86-64, version 1 (FreeBSD), dynamically linked, not stripped srv01> file /usr/bin/X11/curl /usr/bin/X11/curl: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 8.0 (800107), stripped 显示not stripped，表明文件带调试符号表；而显示stripped，表明文件已去除符号表。
-如果文件包含调试符号表，可以通过objdump -t命令及选项打印文件的符号表：
-srv01> objdump -t libcurl.so.6 libcurl.so.6: file format elf64-x86-64 SYMBOL TABLE: 0000000000000120 l d .hash 0000000000000000 00000000000012b0 l d .dynsym 0000000000000000 0000000000004b08 l d .dynstr 0000000000000000 0000000000006f36 l d .</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/linux_%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%AC%A6%E5%8F%B7%E8%A1%A8/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ itemprop=url>[C] GCC对UTF8 BOM的支持</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>112 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>最近玩些特俗字符，结果对yqutest.cpp源码文件编译时先碰到error:converting to execution character set: Illegal bytesequence错误。GCC的源码字符集与执行字符集默认是UTF-8编码，为了避免源码文件乱码，最好也是采用UTF-8编码来存储源码文件。将源码编码转成UTF-8，问题得以解决。 但是否需要UTF-8 BOM(byte-order mark)呢？ 我一时兴起添加了BOM，十六进制为EF BB BF，即对应八进制的357 273 277，编译结果如下：
-mryqu> g++ yqutest.cpp -o yqutst123 yqutest.cpp:1: error: stray '\357' in program yqutest.cpp:1: error: stray '\273' in program yqutest.cpp:1: error: stray '\277' in program yqutest.cpp:1: error: stray '#' in program yqutest.cpp:1: error: expected constructor, destructor, or type conversion before '&lt;' token mryqu> g++ -v Using built-in specs. Target: amd64-undermydesk-freebsd Configured with: FreeBSD/amd64 system compiler Thread model: posix gcc version 4.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_gcc%E5%AF%B9utf8_bom%E7%9A%84%E6%94%AF%E6%8C%81/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/linux%E4%B8%8B%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B616%E8%BF%9B%E5%88%B6%E5%86%85%E5%AE%B9%E7%9A%84%E5%91%BD%E4%BB%A4xxd/ itemprop=url>*nux下导出文件16进制内容的命令xxd</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>16 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>xxd命令可以导出文件的16进制内容，也能将16进制内容转换成2进制，还可以将内容导出成C语言变量，很不错的一个工具！ 参考 xxd(1) - Linux man page 5 Unix Commands I Wish I’d Discovered Years Earlier</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c++_%E4%BB%8E%E9%9D%99%E6%80%81%E5%BA%93%E8%8E%B7%E5%8F%96gcc%E7%89%88%E6%9C%AC%E5%92%8C%E7%BC%96%E8%AF%91%E5%B9%B3%E5%8F%B0/ itemprop=url>[C++] 从静态库获取GCC版本和编译平台</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-24">2013-10-24</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>68 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>获取GCC版本：strings -a {library} | grep &ldquo;GCC: (&rdquo;
-mryqu> strings -a libcurl.a | grep "GCC: (" GCC: (GNU) 4.4.5 20110214 (Red Hat 4.4.5-6) 获取编译平台信息：ar -x {library}file *.o
-mryqu> ar -x libcurl.a mryqu>file libcurl_la-url.o libcurl_la-url.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 参考 How to retrieve the GCC version used to compile a given ELF executable? How to see the compilation platform of a static library file</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E7%94%A8find%E5%92%8Cgrep%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E5%85%B3%E9%94%AE%E5%AD%97/ itemprop=url>用find和grep搜索特定目录下特定文件中的特定关键字</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-23">2013-10-23</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>10 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>下例为递归搜索当前目录下所有以yqu为后缀的文件中的关键字123：
-find . -name "*.yqu" | xargs grep -H "123"</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cut%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>cut命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-22">2013-10-22</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>77 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>cut命令比较简单，但是也没测试过所有的选项，这里试一下没有细扣过的选项。
-命令名 cut -- 对文件每一行的选定部分进行裁剪 概要 cut -b list [-n] [file ...] cut -c list [file ...] cut -f list [-d delim] [-s] [file ...] 描述 cut工具会从每个文件每一行裁剪出选定部分并写入标准输出。如果没有指定file参数，或file参数为单个破折号('-')，cut将从标准输入进行读取。list指定可以是列位置或特定字符分隔的字段序号，起始值为1。 list选项参数为逗号或空白字符分隔的数字或数字范围集合。数字范围可由数字+破折号（'-'）+第二个数字组成内包含范围。 数字和数字范围可以重复、重叠，但字段或列如果多次被选中，则仅显示一次。输入中没有选定的字段或列，不会报错。 N- 从第N个开始到所在行结束的所有字节、字符或列 N-M 从第N个开始到第M个之间(包括第M个)的所有字节、字符或列 -M 从第1个开始到第M个之间(包括第M个)的所有字节、字符或列 命令选项如下： -b list list指定字节位置。 -c list list指定字符位置。 -d delim 使用delim而不是制表符作为字段分隔符。 -f list list指定由字段分隔符(见-d选项)对输入分割后的字段。 输出字段由单个字段分隔符分开。 -n 不拆分多字节字符。 仅在多字节字符全部选中的情况下，字符才会被输出。 -s 抑制没有字段分隔符的行。如果没指定该选项的话，没有分隔符的行会原封不动地输出。 环境 环境变量LANG、LC_ALL和LC_CTYPE将影响cut的执行结果。 退出码 cut工具执行成功时返回0，执行出错时返回值大于0。 示例 从系统passwd文件抽取用户登录名和Shell(5)，显示成''name:shell''对: cut -d : -f 1,7 /etc/passwd 显示当前登录用户的名称和登录时间: who | cut -c 1-16,26-38 个人体会 cut命令在unix/mac和linux/MinGW上实现并不一样。 cut命令在linux/MinGW上的实现忽略-n选项，此外通过GNU CoreUtils中的cut源码可知-b和-c选项实现是一样的，operating_mode变量都是枚举byte_mode，走的是cut_bytes函数。而unix/mac上的实现通过-n选项可以同时是否输出多字节字符的部分字节码。 cut命令在linux/MinGW上的实现还有&ndash;output-delimiter=STRING选项控制输出字符分隔符。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/grep%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/ itemprop=url>grep命令笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-22">2013-10-22</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>149 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用grep时一直没有使用什么命令选项，这里过一遍grep帮助，试一遍不明白的选项。
-grep简介 grep是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
-grep命令帮助 示例: grep -i 'hello world' menu.h main.c 正则选择和解释: -E, --extended-regexp PATTERN为扩展正则表达式（ERE） -F, --fixed-strings PATTERN是一套新行分割字符串 -G, --basic-regexp PATTERN为基本正则表达式（BRE） -P, --perl-regexp PATTERN为Perl正则表达式 -e, --regexp=PATTERN 使用PATTERN作为正则表达式 -f, --file=FILE 从文件中获得PATTERN -i, --ignore-case 忽略大小写 -w, --word-regexp 强制PATTERN仅匹配整个单词 -x, --line-regexp 强制PATTERN仅匹配整行 -z, --null-data 数据行以0字节而不是新行截至（打印整个文件了） 杂项: -s, --no-messages 抑制错误消息 -v, --invert-match 选择非匹配行 -V, --version 显示版本信息并退出 --help 显示该帮助并退出 -J, --bz2decompress 在进行搜索前解压缩bzip压缩输入 -Z, --decompress 在进行搜索前解压缩输入(HAVE_LIBZ=1) --mmap 如可能使用内存映射输入 输出控制: -m, --max-count=NUM 在NUM个匹配后停止工作 -b, --byte-offset 在输出行显示字节偏移 -n, --line-number 显示行号 --line-buffered 对每行都清除缓存强制输出 -H, --with-filename 对每个匹配结果显示文件名 -h, --no-filename 抑制输出中前缀的文件名 --label=LABEL 将LABEL作为标准输入的文件名显示（输入为管道有用） -o, --only-matching 仅显示行匹配PATTERN部分 -q, --quiet, --silent 抑制所有正常输出。通常用于脚本条件语句中，判断匹配结果是1还是0 --binary-files=TYPE 将二进制文件假定为类型，分别为'binary'、'text'或 'without-match'。默认为'binary'，对二进制文件进行搜索 而不显示；'text'，一概视为文本文件，搜索并显示； 'without-match'，对二进制文件直接忽略，不搜索不显示。 -a, --text 等同于--binary-files=text -I 等同于--binary-files=without-match -d, --directories=ACTION 如何处理目录的操作项，分别为'read'、'recurse'或'skip'。 -D, --devices=ACTION 如何处理设备、FIFO和socket的操作项，分别为'read'或'skip'。 -R, -r, --recursive 等同于--directories=recurse --include=PATTERN 匹配PATTERN的文件将被检查 --exclude=PATTERN 匹配PATTERN的文件将被忽略 --exclude-from=FILE 匹配模式文件中PATTERN的文件将被忽略 -L, --files-without-match 仅显示不包含匹配的文件名 -l, --files-with-matches 仅显示包含匹配的文件名 -c, --count 仅显示每个文件匹配行数 --null 在文件名后显示0字节（跟不带这个选项就少一个冒号？） 上下文控制: -B, --before-context=NUM 输出匹配结果及其前NUM行 -A, --after-context=NUM 输出匹配结果及其后NUM行 -C, --context=NUM 输出匹配结果及其前后各NUM行 -NUM 等同--context=NUM --color[=WHEN], --colour[=WHEN] 使用标记突显匹配字符串，WHEN可为'always'、'never'或'auto' 默认项为'never'，'always'总是使用标记，而'auto'仅输出 在没有被管道到其他命令或重定向到文件时才使用标记。 -U, --binary 在行结尾EOL不除去回车换行CR字符(MSDOS) -u, --unix-byte-offsets 如果没有回车换行则报告字节偏移(MSDOS)</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/xterm_display%E5%8F%98%E9%87%8F/ itemprop=url>Xterm DISPLAY变量</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-21">2013-10-21</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>4 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>DISPLAY变量的格式为[host]:&lt;display>[.screen] host 指网络主机名，空缺则指本机。 每个主机可以有多个显示，每个显示可以有多个屏幕。因此，DISPLAY=:0通常指本机内的所有GPU，DISPLAY=:0.0指本机内的第一个配置屏幕/GPU，DISPLAY=:0.1指本机内的第二个配置屏幕/GPU。</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/xming%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/ itemprop=url>Xming使用笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
-<span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-21">2013-10-21</time></span>
-<span class=post-category>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
-<span class=post-meta-item-text>分类：</span>
-<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
-&nbsp;</span></span>
-<span>&nbsp; | &nbsp;
-<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
-<span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-visitors-count>15 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>XWindow系统里有一个统一的Server来负责各个程序与显示器、键盘和鼠标等输入输出设备的交互，每个有GUI的应用程序都通过网络协议与Server进行交互。所以对于任何一个应用程序，本地运行和远程运行的差别仅仅是XServer的地址不同，别的没有差别。所以在Windows运行一个XServer，就可以很方便的远程运行有GUI的Linux应用了。 Xming是一个在Microsoft Windows操作系统上运行XWindow系统的服务器。它非常简单易用，搭配强大。一般搭配putty的下列配置，就可以在Windows平台上远程运行有GUI的Linux应用了：
-Connection-SSH-X11-Enable X11 forwarding Xming操作笔记如下：
-选择单词：双击鼠标左键 选择一行：三击鼠标左键 选择特定文本：鼠标左键点击文本起点，然后按住鼠标右键选择。 复制文本：Alt + Shift + C</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/ itemprop=url>[Hadoop] hadoop job -list已废弃</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<input type=text id=local-search-input><div id=local-search-result></div><span class=popup-btn-close>close</span></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/ itemprop=url>[Hadoop] hadoop job -list已废弃</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
 <span class=post-meta-item-text>时间：</span>
 <time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
 <span class=post-category>&nbsp; | &nbsp;
@@ -138,7 +17,173 @@ Connection-SSH-X11-Enable X11 forwarding Xming操作笔记如下：
 <span class=post-meta-item-text>阅读：</span>
 <span class=leancloud-visitors-count>176 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>执行hadoop job -list，显示该命令已废弃，不过还能执行成功。
 ~$ hadoop job -list DEPRECATED: Use of this script to execute mapred command is deprecated. Instead use the mapred command for it. 看一下Hadoop 2.2.0的代码hadoop-common-project/hadoop-common/src/main/bin/hadoop：
-#hdfs commands namenode|secondarynamenode|datanode|dfs|dfsadmin|fsck|balancer|fetchdt|oiv|dfsgroups|portmap|nfs3) echo "DEPRECATED: Use of this script to execute hdfs command is deprecated." 1>&2 echo "Instead use the hdfs command for it." 1>&2 echo "" 1>&2 #try to locate hdfs and if present, delegate to it. shift if [ -f "${HADOOP_HDFS_HOME}"/bin/hdfs ]; then exec "${HADOOP_HDFS_HOME}"/bin/hdfs ${COMMAND/dfsgroups/groups} "$@" elif [ -f "${HADOOP_PREFIX}"/bin/hdfs ]; then exec "${HADOOP_PREFIX}"/bin/hdfs ${COMMAND/dfsgroups/groups} "$@" else echo "HADOOP_HDFS_HOME not found!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/55/><i class="fa fa-angle-left"></i></a>
+#hdfs commands namenode|secondarynamenode|datanode|dfs|dfsadmin|fsck|balancer|fetchdt|oiv|dfsgroups|portmap|nfs3) echo "DEPRECATED: Use of this script to execute hdfs command is deprecated." 1>&2 echo "Instead use the hdfs command for it." 1>&2 echo "" 1>&2 #try to locate hdfs and if present, delegate to it. shift if [ -f "${HADOOP_HDFS_HOME}"/bin/hdfs ]; then exec "${HADOOP_HDFS_HOME}"/bin/hdfs ${COMMAND/dfsgroups/groups} "$@" elif [ -f "${HADOOP_PREFIX}"/bin/hdfs ]; then exec "${HADOOP_PREFIX}"/bin/hdfs ${COMMAND/dfsgroups/groups} "$@" else echo "HADOOP_HDFS_HOME not found!</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/hadoop_hadoop_job_-list%E5%B7%B2%E5%BA%9F%E5%BC%83/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_exec_format_error/ itemprop=url>[C] Exec format error</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>137 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>很久没用g++了，结果编个小程序还出错。
+mryqu:~/ctest$ g++ -g -c wvc.cpp -o wvc mryqu:~/ctest$ chmod a+x wvc mryqu:~/ctest$ ./wvc -bash: ./wvc: cannot execute binary file: Exec format error mryqu:~/ctest$ file wvc wvc: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped 查了查gcc的帮助，才发现用了-c选项后其实是只编译不链接的：
+-c Compile or assemble the source files, but do not link. The linking stage simply is not done. The ultimate output is in the form of an object file for each source file.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_exec_format_error/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E6%89%B9%E5%A4%84%E7%90%86%E6%90%9C%E7%B4%A2jar%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/ itemprop=url>批处理：搜索Jar包中的类文件</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/java itemprop=url rel=index><span itemprop=name>Java</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>41 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>网上转载的很多，原文出处不详。
+批处理文件利用7z和findstr两个命令搜索当前目录下所有Jar包，分析是否有所要查找的类文件：
+@echo off SETLOCAL set WHICH_CLASS=%1 echo WHICH_CLASS=%WHICH_CLASS% for /F %%i in ('dir /A:-D /S /B *.jar') do 7z l %%i | findstr %WHICH_CLASS% && echo %WHICH_CLASS% found in: "%%i" echo "Finished class finding..." echo "======================================" ENDLOCAL 命令运行格式：
+findclass com\\yqu\\kxmt\\TestFindClass.class</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ itemprop=url>[C] #和##宏操作符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>116 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>在看# and ## in macros之前觉得对#和##宏操作符挺明白的，看了之后才感觉需要重新学习一下。
+#define f(a,b) a##b #define g(a) #a #define h(a) g(a) int main() { printf("%s\n",h(f(1,2))); printf("%s\n",g(f(1,2))); return 0; } 如果你能确保自己能写出正确答案的话，那么你可以略过这篇帖子。 C/C++语言中对宏的处理属于编译器预处理的范畴，属于编译期概念而非运行期概念。其中#操作符用于对指定的宏参数进行字符串化，而##操作符用来将两个符号连接为一个符号。
+struct command { char *name; void (*function) (void); }; ``` #define COMMAND(NAME) \ { #NAME, NAME ## _command } struct command commands[] = { COMMAND (quit), COMMAND (help), … };
+&lt;/td>&lt;td>等同&lt;/td>&lt;td> struct command commands[] = { { &ldquo;quit&rdquo;, quit_command }, { &ldquo;help&rdquo;, help_command }, … };</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/c_%E5%AE%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/%E5%9C%A8vi%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%A4%9A%E5%AD%97%E8%8A%82unicode%E5%AD%97%E7%AC%A6/ itemprop=url>在Vi中搜索多字节unicode字符</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-20">2013-10-20</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/linux itemprop=url rel=index><span itemprop=name>Linux</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>23 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用Vi编辑unicode字符文本文件时，可以通过下列方式搜索和替换字符：
+\%d 匹配特定十进制字符 (例如 \%d 123) \%x 匹配特定十六进制字符 (例如 \%x2a) \%o 匹配特定八进制字符 (例如 \%o040) \%u 匹配特定多字节字符 (例如 \%u20ac) \%U 匹配特定大的多字节字符(例如 \%U12345678) 为了在文本中查看任何字符的unicode或十六机制格式内容，将光标置于该字符上之后输入ga 命令。这会以十进制、十六机制和八进制显示显示字符值：</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/chrome_notes/ itemprop=url>Chrome使用笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>83 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>清除Chrome中特定网站的所有历史记录 （2013-10-19） 想要Chrome中特定网站的所有历史记录，可是搜出特定网站的所有历史记录后必须对每一项进行选择，然后才能删除。终于在网上搜出一个妙招来：
+进入Chrome历史记录页面； 搜索想要删除的URL； 为了删除所搜结果的所有记录，将第一个待删项的checkbox勾选上，接着滚动页面到最后一个待删项，按住SHIFT键将最后一个待删项的checkbox勾选上，这样所有待删项都会被勾选上； 点击"Remove selected items"按钮即可。 Chrome浏览器离线安装包下载地址 （2013-12-12） http://www.google.com/chrome/eula.html?standalone=1&hl=zh-CN
+一键保存当前打开的所有标签页 （2014-01-22） 经常是用Chrome打开一堆网页，但是由于某种原因必须重启机器，不想将这些页面存入书签，但是又想保存下来开机后继续浏览。
+在网上搜了一下，下列Chrome插件可以满足这个需求：
+OneTab Session Buddy PanicButton Stash Read Later VIEW LATER Save For Later 其中OneTab 和Session Buddy 都是五星插件，并且用户众多，最终我选择了 OneTab 。
+在chrome控制台中加载Javascript文件 （2014-02-02） Include javascript file in chrome console 里面介绍了几种在Chrome控制台加载Javascript文件的方法，对我来说使用JQuery是最方便的做法。
+$.getScript('script.js'); 手工修改Chrome配置文件 （2014-03-02） 当初装Chrome，g.cn上死活下载不了，随便装了一个澳洲版的。结果访问taobao、weibo被认成了澳洲用户，都被推到了海外入口。
+一开始折腾Chrome的配置菜单，没找到。后来直接修改C:\Users\AppData\Local\Google\Chrome\UserData\Default\Preferences搞定了。
+原始值：
+"last_known_google_url": "https://www.google.com.au/", "last_prompted_google_url": "https://www.google.com.au/", 修改后：
+"last_known_google_url": "https://www.google.com.hk/", "last_prompted_google_url": "https://www.google.com.hk/", Chrome Extension记录 （2019-01-23） 重装机器后发现Chrome扩展工具需要重装，现搜了事。为了便于以后重装，特此记录。
+LinkedIn Extension
+OneTab
+网页截图 - Screenshot Extension
+Postman</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/chrome_notes/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/cscope%E7%AC%94%E8%AE%B0/ itemprop=url>Cscope笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>82 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Cscope简介 Cscope是一个类似Ctags的工具，但功能比ctags强大很多。Cscope是一款自带一个基于文本的用户界面的源代码浏览工具，尽管它最初是为C代码的搜索（包括lex、yacc文件）设计的，但是也可以用于对C++和Java代码的搜索。用Cscope你可以轻易地搜索到你的标识符是在哪里被定义和使用的，它可以轻而易举地解决以下问题：
+这个变量在哪里被使用？ 这个预处理符号的值是什么？ 这个函数都在哪些源代码文件中出现过？ 都有哪些函数调用了这个函数？ &ldquo;out of space"的消息是从哪里来的？ 这个源文件在在目录结构中的位置？ 都有哪些源文件包含了这个头文件？ Cscope是由Santa Cruz Operation, Inc发布的，它遵循BSD开源协议。
+安装 Cscope项目仅提供源代码，不提供二进制文件。cscope-win32项目提供了使用MinGW、MSYS和Cygwin编译Windows平台Cscope的方法，此外也提供编译好好的csope.exe文件。下载cscope-15.8a-win64rev1-static.zip，将其中的cscope.exe解压缩到系统环境变量path包含的路径即可。 使用 创建符号数据库 Cscope在第一次被使用在指定的源文件时会建立一个符号的数据库。接下来调用时，Cscope仅仅重建那些被改动或者和新文件相关的数据库。那些没有被改动的文件相关的数据库会被直接复制使用。这使得重建数据库要比第一次运行快许多。 Cscope命令的参数如下：
+-R: 在生成索引文件时，搜索子目录树中的代码 -b: 只生成索引文件，不进入cscope的界面 -q:生成cscope.in.out和cscope.po.out文件，加快cscope的索引速度 -k: 在生成索引文件时，不搜索/usr/include目录 -i:如果保存文件列表的文件名不是cscope.files时，需要加此选项告诉cscope到哪儿去找源文件列表。可以使用”-“，表示由标准输入获得文件列表。 -Idir:在**-I**选项指出的目录中查找头文件 -u: 扫描所有文件，重新生成交叉索引文件 -C: 在搜索时忽略大小写 -Ppath:在以相对路径表示的文件前加上的path，这样，你不用切换到你数据库文件所在的目录也可以使用它了。 我针对curl项目执行cscope -Rkq ，这样会启动Cscope的文本用户界面，之后我搜索set_binmode函数： 搜索符号 在Cscope的文本界面里可以在命令模式执行:cs find或:cs f命令搜索符号，其参数为：
+s: 查找C语言符号，即查找函数名、宏、枚举值等出现的地方 g: 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能 d: 查找本函数调用的函数 c: 查找调用本函数的函数 t: 查找指定的字符串 e: 查找egrep模式，相当于egrep功能，但查找速度快多了 f: 查找并打开文件，类似vim的find功能 i: 查找包含本文件的文件 下面示例为用
+:cs f c set_binmode 命令搜索set_binmode函数的调用者：
+E567: no cscope connections错误处理 有个帖子vim cannot connect to cscope database讲过解决方案，但是在我的Windows平台cscope文本界面不起作用。通过:cs add {prj path}/cscope.</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/cscope%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/exuberant_ctags%E7%AC%94%E8%AE%B0/ itemprop=url>Exuberant Ctags笔记</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/tool itemprop=url rel=index><span itemprop=name>Tool</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/c++ itemprop=url rel=index><span itemprop=name>C++</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>172 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>Ctags简介 Ctags（Generate tag files for sourcecode）产生标记(/索引)文件以帮助在源文件中定位对象。Ctags最初支持C语言，现在已经支持C/C++/Java/JS/Python等41种语言。Vim/Emacs/SublimeText/UltraEdit等编辑器或工具都支持Ctags生成的标记文件。 对于C/C++语言来说，其生成的标记文件tags中包括这些对象的列表：
+用#define定义的宏 枚举型变量的值 函数的定义、原型和声明 名字空间（namespace） 类型定义（typedefs） 变量（包括定义和声明） 类（class）、结构（struct）、枚举类型（enum）和联合（union） 类、结构和联合中成员变量或函数 安装 下载ctags58.zip，将其中的ctags.exe解压缩到系统环境变量path包含的路径即可。 使用选项 如果没有指定−−language−force选项，每个源文件的语言基于文件名和语言的映射进行自动选择。该映射可用−−list−maps选项显示，它可能会被−−langmap选项改变。对于操作系统所支持的文件，如果文件名无法映射到某种语言且该文件可被执行，则会对文件第一行检查是为"#!&ldquo;公认的语言脚本。默认情况下，所有其他文件名都会被忽略。由于仅文件名可匹配某种语言的文件会被扫描，这使得在单个目录对所有文件(例如"ctags*")或对目录树的所有文件(例如"ctags −R&rdquo;)执行ctags成为可能。.h扩展名即用于C++也用于C，所以Ctags将.h映射为C++，这样做不会有不良后果。
+-R：等同于&ndash;recurse，递归子目录遍历 -L：从文件读取Ctags待处理文件列表并对其执行ctags find . -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.bld" -o -name "*.blt" > prj.files ctags -L prj.files --list−maps：显示文件名和语言的映射 --list−languanges：显示所有支持的语言 --langmap：设置文件名和语言的映射 如果程序中有的.c文件其实是C++程序，这该怎么办？答案是使用ctags &ndash;langmap=c++:+.c。 −−language−force：强制使用特定语言，而不是通过文件名和语言的映射进行自动选择 像C++标准库stl中文件名没有后缀，怎么办？ 使用ctags−−language−force=C++这样就把所有文件当成C++来处理了。 −−fields：指定标记文件中条目的可用扩展字段（没有指明的默认关闭） a
+类成员的访问属性
+f
+文件限制范围 [enabled]
+i
+继承信息
+k
+单字符形式的标记类型 [enabled]
+K
+全名称形式的标记类型
+l
+包含该标记的源文件语言
+m
+实现信息
+n
+标记定义行号</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/exuberant_ctags%E7%AC%94%E8%AE%B0/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/rest%E7%9A%84richardson%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/ itemprop=url>REST的Richardson成熟度模型</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>54 字 ~1分钟</span></span></div></header><div class=post-body itemprop=articleBody>一个web服务有多么的"restful"，最有名的就是《RESTful Web Services》的合著者Leonard Richardson提出的REST 成熟度模型，简称Richardson成熟度模型。
+第0级：使用HTTP作为传输方式；一个URI，一个HTTP方法。SOAP、XML-RPM都属于这一级别，仅是来回传送"Plain OldXML"(POX)。即使没有显式调用RPC接口（SOAP、XML-RPM），通常会调用服务器端的一个处理过程。一个接口会有一个端点，文档的内容会被解析用还判断所要调用的处理过程及其参数。这种做法相当于把HTTP 这个应用层协议降级为传输层协议用。HTTP 头和有效载荷是完全隔离的，HTTP头只用于保证传输，不涉及业务逻辑；有效载荷包含全部业务逻辑，因此 API 可以无视 HTTP 头中的任何信息。 第1级：引入了资源的概念，每个资源有对应的标识符和表达；多个URI，一个HTTP方法。这些资源仍是被"GETful"接口操作而不是HTTP动词，但服务基本上提供和操作资源。例如： GET http://example.com/app/createUser GET http://example.com/app/getUser?id=123 GEThttp://example.com/app/changeUser?id=123&field=value GET http://example.com/app/deleteUser?id=123 第2级：根据语义使用HTTP动词，适当处理HTTP响应状态码；多个URI，多个HTTP方法。 GET用于查询资源； HEAD用于查询资源是否存在； POST创建新资源； PUT更新已存在的资源； PATCH部分更新已存在的资源； DELETE删除已存在的资源。在这一级别，资源名称为基URI的一部分，而不是查询参数。 第3级：使用超媒体作为应用状态引擎（HATEOAS）；多个URI，多个HTTP方法。在资源的表达中包含了链接信息。客户端可以根据链接来发现可以执行的动作。链接推荐使用ATOM (RFC4287)中的显式语义。 当然围绕这一模型，争论很多，Martin Fowler、Rest之父Roy Fielding、《RESTful WebServices Cookbook》作者Subbu Allamaraju都有不同的见解。
+参考 Leonard Richardson：REST 成熟度模型 Martin Fowler：Richardson Maturity Model Roy Fielding：REST APIs must be hypertext-driven Subbu Allamaraju：Measuring REST 如何度量应用的RESTful成熟度？</div><footer class=post-footer><div class=post-eof></div></footer></article><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://mryqu.github.io/post/restful_web_services_cookbook-note/ itemprop=url>RESTful Web Services Cookbook笔记（一）</a></h1><div class=post-meta><span class=post-time><span class=post-meta-item-icon><i class="fa fa-calendar-o"></i></span>
+<span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2013-10-19">2013-10-19</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-folder-o"></i></span>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/service+javaee itemprop=url rel=index><span itemprop=name>Service+JavaEE</span></a>
+&nbsp;</span></span>
+<span>&nbsp; | &nbsp;
+<span class=post-meta-item-icon><i class="fa fa-eye"></i></span>
+<span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-visitors-count>796 字 ~4分钟</span></span></div></header><div class=post-body itemprop=articleBody>使用统一接口 HTTP是一种应用层协议，它定义了客户端与服务器之间的转移操作的表述形式。在此协议中，诸如GET，POST和DELETE之类的方法是对资源的操作。有了它，无须创造createOrder,getOrder,updateOrder等应用程序特定的操作了。 作为应用协议，HTTP的设计目标是在客户端和服务器之间保持对库、服务器、代理、缓存和其他工具的可见性。可见性是HTTP的一个核心特征。 一旦识别并设计资源，就可以使用GET方法获取资源的表述，使用PUT方法更新资源，使用DELETE方法删除资源，以及使用POST方法执行各种不安全和非幂等的操作。可以添加适当的HTTP标头来描述请求和相应。 以下特性完全取决于保持请求和相应的可见性：
+缓存：缓存响应内容，并在资源修改时使缓存自动失效。 乐观并发控制：检测并发写入，并在操作过期的表述时防止资源发生变更。 内容协商：在给定资源的多个可用表述中，选择合适的表述。 安全性和幂等性：确保客户端可以重复或重试特定的HTTP请求。 HTTP通过以下途径来实现可见性：
+HTTP的交互是无状态的，任何HTTP中介都可以推断出给定请求和响应的意义，而无须关联过去和将来的请求和响应。 HTTP使用一个统一接口，包括有OPTIONS，GET，HEAD，POST，DELETE和TRACE方法。接口中的每一个方法操作一个且仅一个资源。每个方法的语法和含义不会因应用程序和资源的不同而发生改变。 HTTP使用一种与MIME类似的信封格式进行表述编码。这种格式明确区分标头和内容。标头是可见的，除了创建、处理消息的部分，软件的其他部分都可以不用关心消息的内容。 保持可见性的另一方面是使用适当的状态码和状态消息，以便代理、缓冲和客户端可以决定请求的结果。 在某些情况下，可能需要权衡其他特性，如网络效率、客户端的便利性以及分离关注点，为此放弃可见性。当进行这种权衡时，应仔细分析对缓存、幂等性、安全性等特性的影响。 当有多个共享数据的资源，或一个操作修改多个资源时，需要权衡是否降低可见性（例如是否禁止缓存）以便获得更好的信息抽象、更松散的耦合程度、更好地网络效率、更好地资源粒度，或纯粹为了方便客户端使用。 可以通过带有应用程序状态的URI链接来保持应用程序状态而无需依赖服务器中内存中的会话。 安全性和幂等性是服务器要实现的HTTP方法的特征。当客户端发送GET、HEAD、OPTIONS、PUT或DELETE请求时，如果没有使用并发条件限制时，确保服务器提供相同响应。
+|方法|是否安全?|是否幂等? |&mdash;&ndash; |GET|是|是 |HEAD|是|是 |OPTIONS|是|是 |PUT|否|是 |DELETE|否|是 |POST|否|否
+客户端通过下列方法实现幂等的/安全的HTTP请求：
+将GET、OPTIONS和HEAD视为只读操作，可按需随时可发送请求。 在网络或软件异常的情况下，通过If-Unmodified-Since/If-Match条件标头重发GET、PUT和DELETE请求。 不要重发POST请求，除非客户端（通过服务器文档）知道对特定资源的POST实现是幂等的。 Web基础设施严重依赖于GET方法的幂等性和安全性。客户端期望能够重复发起GET请求，而不必担心造成副作用。缓存依赖于不需访问源服务器就能提供已缓存表述的能力。 不要把GET方法用于不安全和非幂等操作。因为这样做可能造成永久性的、意想不到的、不符合需要的资源改变。 可以使用POST方法或PUT方法创建新资源。只有在客户端可以决定资源的URI时才使用PUT方法创建新资源；否则使用POST，由服务器决定新创建资源的URI（客户端请求可以使用Slug头建议新资源的URI）。 在以下场合中使用POST方法：
+创建新的资源，把资源作为一个工厂 通过一个控制器资源来修改一个或多个资源 执行需要大数据输入的查询 在其他HTTP方法看上去不合适时，执行不安全或非幂等的操作。（缓存不会缓存这一方法的响应） 使用POST方式实现异步任务：服务器在接受到POST请求时，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，如服务器还在执行中，返回响应码200（OK）及包含当前状态的任务资源表述；如服务器成功完成，返回响应码303（SeeOther）以及包含新资源URL的Location头；如服务器任务失败，返回响应码200（OK）及任务失败的表述。 使用DELETE方法实现异步请求：服务器在收到DELETE请求，返回状态码202（Accepted），并包含一个让客户端可以跟踪异步任务状态的资源表述和客户端稍后检查状态的建议时间（ping-after）。 客户端使用GET请求查询异步任务状态，服务器返回响应码200（OK）及包含当前状态的任务资源表述。 避免使用非标准的自定义HTTP方法。当前比较有名的自定义方法包括WebDAV定义的方法、PATCH和MERGE。 HTTP服务器可能会使用自定义HTTP标头，比较有名的自定义HTTP包括X-Powered-By、X-Cache、X-Pingback、X-Forwarded-For及X-HTTP-Method-Override。实现客户端和服务器时，要让他们在没有发现需要的自定义标头时也不会失败。避免使用自定义HTTP标头改变HTTP方法的行为。
+识别资源 从领域名词中识别资源。 直接将领域实体映射为资源可能导致资源效率低下且难以使用，可以通过网络效率、表述的多少以及客户端的应用程度来帮助确定资源的粒度。 粗粒度设计便于富客户端应用程序，更精细的资源颗粒可以更好地忙族缓存的要求。因此，应从客户端和网络的角度确定资源的粒度。下列原书可能会进一步影响资源粒度：
+可缓存性 修改频率 可变性 仔细设计资源粒度，以确保使用更多缓存，减少修改频率，或将不可变数据从使用缓存较少、修改频率更高或可变数据分离出来，这样可以改善客户端和服务器端的效率。 基于应用程序特有的条件来识别相似的资源（例如共享同一数据库schema的资源，有相同特性或属性的资源），可以将这些有共性的资源组织成为集合。 基于客户端的使用模式、性能和延时要求，确定一些新的聚合其他资源的复合资源，来减少客户端与服务器的交互。 符合资源降低了统一接口的可见性，应为它们的表述中包含了和其他资源相重叠的资源。因此，在提供复合资源前,需要考虑一下几点：
+如果在应用程序的请求很少，那么它可能不是一个好的选择。依赖缓存代理，从缓存中获取这些资源，也许能让客户端收益匪浅。 另一个因素是网络开销&ndash;客户端与服务器之间的网络开销，服务区和后端服务或他所依赖的数据存储之间的网络开销。如果后者开销很大，那获取大量数据并在服务器上将他们组合成复合资源可能会增加客户端的延时，降低服务器的吞吐量。 想要改善延时，可以在客户端和服务器之间增加一个缓存层，并避免复合资源，进行一些负载测试来验证复合资源是否能起到改善作用。 最后，为每个客户端创建特定目标的复合资源并非是注重实效的做法。选择对Web服务最重要的客户端，设计复合资源来满足它们的需要。 像计算两地距离、行车路线、信用卡验证之类的计算或处理函数可被当作资源处理，并使用带有查询参数的HTTP GET获取函数输出表述。 当需要原子性修改多个资源时，可以为每个不同的操作指派一个控制器。客户端通过HTTP POST方法提交请求触发操作。如果操作结果是创建一个新资源，返回响应码201（Created）并在Location头里包含新资源的URL。如果操作结果是对一个或多个已有资源的修改，返回响应码303（See Other）并在Location头里包含客户端可用户获取修改表述的URL。如果服务器无法提供所有修改资源的单个URI，返回状态码200（OK）并在消息体内包含客户选可以用于了解操作结果的表述。 在RESTful Web服务中，控制器有助于对服务器和客户端之间进行关注分离，增进网络效率，让服务器端原子性地实现复杂操作。
+设计表述 在HTTP设计中，发送发可以用一些名为实体头的标头来描述表述正文（也成为实体正文或消息正文）。有了这些标头，接收方可能在无须查看正文的情况下决定如何处理正文，还可以将解析正文所需要提前了解及猜测的内容尖刀最小程度。 使用以下标头来注解包含消息正文的表述：
+标头用途解析处理Content-Type用于描述表述类型，即通常所说的media-type或MIME类型，包含charset参数或其他针对该媒体类型而定义的参数。</div><div class="post-more-link text-center"><a class=btn href=https://mryqu.github.io/post/restful_web_services_cookbook-note/ rel=contents>阅读全文 &#187;</a></div><footer class=post-footer><div class=post-eof></div></footer></article></section><nav class=pagination><a class="extend prev" rel=prev href=/page/55/><i class="fa fa-angle-left"></i></a>
 <a class=page-number href=/page/52/>52</a>
 <a class=page-number href=/page/53/>53</a>
 <a class=page-number href=/page/54/>54</a>
@@ -150,9 +195,9 @@ Connection-SSH-X11-Enable X11 forwarding Xming操作笔记如下：
 <a class=page-number href=/page/60/>60</a>
 <a class="extend next" rel=next href=/page/57/><i class="fa fa-angle-right"></i></a></nav></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
 <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>672</span>
+<span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><section class="site-overview sidebar-panel sidebar-panel-active"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=/img/author.jpg alt><p class=site-author-name itemprop=name></p><p class="site-description motion-element" itemprop=description>Programmer & Architect</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>663</span>
 <span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>29</span>
-<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1480</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>1472</span>
 <span class=site-state-item-name>标签</span></a></div></nav><div class="feed-link motion-element"><a href=/index.xml rel=alternate type=application/rss+xml target=_blank><i class="fa fa-rss"></i>
 RSS 订阅</a></div><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/mryqu target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>
 GitHub</a></span>
