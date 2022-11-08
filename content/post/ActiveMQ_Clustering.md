@@ -3,7 +3,6 @@ title: 'ActiveMQ集群'
 date: 2013-07-24 21:24:19
 categories: 
 - Service+JavaEE
-- MQ
 tags: 
 - ActiveMQ
 - 集群

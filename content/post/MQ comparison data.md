@@ -3,7 +3,6 @@ title: '消息队列技术选型资料'
 date: 2014-08-02 21:27:49
 categories: 
 - Service+JavaEE
-- MQ
 tags: 
 - 消息队列
 - mq
