@@ -3,7 +3,6 @@ title: '数据源/Hibernate配置明文密码加密思考'
 date: 2014-01-01 17:48:44
 categories: 
 - Service+JavaEE
-- Hibernate
 tags: 
 - hibernate
 - spring

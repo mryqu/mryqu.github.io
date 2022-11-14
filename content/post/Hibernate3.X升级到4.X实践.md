@@ -3,7 +3,6 @@ title: 'Hibernate3.X升级到4.X实践'
 date: 2013-06-07 22:49:33
 categories: 
 - Service+JavaEE
-- Hibernate
 tags: 
 - hibernate
 - hibernate3

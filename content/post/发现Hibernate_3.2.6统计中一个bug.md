@@ -3,7 +3,6 @@ title: '发现Hibernate 3.2.6统计中一个bug'
 date: 2013-06-18 17:13:28
 categories: 
 - Service+JavaEE
-- Hibernate
 tags: 
 - hibernate
 - Statistics

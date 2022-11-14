@@ -3,7 +3,6 @@ title: 'Hibernate3 HQL: ClassCastException解决办法'
 date: 2013-06-11 18:06:03
 categories: 
 - Service+JavaEE
-- Hibernate
 tags: 
 - hibernate
 - hql
