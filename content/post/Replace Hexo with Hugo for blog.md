@@ -89,9 +89,9 @@ C:\temp>dir blog
 
 ## 选择主题
 
-在[https://themes.gohugo.io/](https://themes.gohugo.io/)上浏览各种Hugo的主题后，结果还是喜欢[hexo-theme-next](https://github.com/theme-next/hexo-theme-next)那样的主题。  
-继续搜索，找到了两款hugo-theme-next，分别是[xtfly/hugo-theme-next](https://github.com/xtfly/hugo-theme-next)和[leopku/hugo-theme-next](https://github.com/leopku/hugo-theme-next)。  
-前一款跟[hexo-theme-next](https://github.com/theme-next/hexo-theme-next)更像，GitHub Star也更多。试用了一下，前款可以使用，但是也有不足。  
+在[https://themes.gohugo.io/](https://themes.gohugo.io/) 上浏览各种Hugo的主题后，结果还是喜欢[hexo-theme-next](https://github.com/theme-next/hexo-theme-next) 那样的主题。  
+继续搜索，找到了两款hugo-theme-next，分别是[xtfly/hugo-theme-next](https://github.com/xtfly/hugo-theme-next) 和[leopku/hugo-theme-next](https://github.com/leopku/hugo-theme-next) 。  
+前一款跟[hexo-theme-next](https://github.com/theme-next/hexo-theme-next) 更像，GitHub Star也更多。试用了一下，前款可以使用，但是也有不足。  
 就在GitHub上fork出自己的[mryqu/hugo-theme-next](https://github.com/mryqu/hugo-theme-next) ，进行再次开发。  
 
 ### .Next and .Prev are deprecated
